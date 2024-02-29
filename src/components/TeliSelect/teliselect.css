@@ -1,0 +1,3 @@
+.MuiList-root .MuiMenuItem-root.Mui-selected {
+  @apply bg-teli-black-500 hover:bg-teli-whitesmoke-400/40;
+}

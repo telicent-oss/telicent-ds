@@ -1,0 +1,98 @@
+.teli-button {
+  @apply cursor-pointer border-none flex gap-x-2
+  hover:bg-whiteSmoke-50/10
+  disabled:cursor-not-allowed 
+  focus-visible:ring-2 focus-visible:ring-app-color;
+}
+
+.teli-button--small {
+  @apply text-sm py-1 px-3 rounded-md;
+}
+
+.teli-button--medium {
+  @apply text-base px-4 py-1.5 rounded-lg;
+}
+
+.teli-button--large {
+  @apply text-lg px-5 py-2 rounded-xl;
+}
+
+.teli-button__primary {
+  @apply bg-teli-whitesmoke-200 text-teli-black hover:bg-teli-whitesmoke 
+  disabled:bg-teli-whitesmoke-950 disabled:text-teli-whitesmoke-700 disabled:hover:bg-teli-whitesmoke-950;
+}
+
+.teli-button__secondary {
+  @apply bg-teli-black/50 border-1.5 border-teli-whitesmoke border-solid hover:bg-whiteSmoke/10 
+  disabled:opacity-50 disabled:hover:bg-teli-black/50;
+}
+
+.teli-button__tertiary {
+  @apply bg-teli-black-600 hover:bg-teli-black-500/75
+  disabled:opacity-70 disabled:hover:bg-teli-black-600;
+}
+
+.teli-button__primary--danger {
+  @apply bg-teli-red-700 text-teli-whitesmoke hover:bg-teli-red-600/90 
+  disabled:bg-teli-red-900/80 disabled:hover:bg-teli-red-900/80 disabled:text-teli-whitesmoke-700;
+}
+
+.teli-button__secondary--danger {
+  @apply bg-teli-red-900/50 border-teli-red-400 hover:bg-teli-red-700/40 text-teli-red-100
+  disabled:hover:bg-teli-red-900/50;
+}
+
+.teli-button__link {
+  @apply min-w-min inline-block;
+}
+
+.teli-button__link > .teli-button {
+  @apply w-full text-app-color disabled:opacity-60 hover:bg-transparent;
+}
+.teli-button__link.teli-button__link-disabled > .teli-button {
+  @apply opacity-60 cursor-not-allowed;
+}
+.teli-button__link:not(.teli-button__link-disabled)
+  > .teli-button:not(:disabled):hover
+  + .teli-button__link-line {
+  @apply opacity-100 w-full;
+}
+
+.teli-button__link-line {
+  @apply border border-app-color rounded-full opacity-0 w-0;
+}
+
+.teli-button__link--left {
+  @apply pl-2 pr-4 justify-start;
+}
+.teli-button__link--right {
+  @apply pl-4 pr-2 justify-end;
+}
+.teli-button__link--line-right {
+  @apply ml-auto;
+}
+.teli-button__link--line-center {
+  @apply mx-auto;
+}
+
+.teli-button__link-line {
+  transition-duration: 400ms;
+  transition-property: width, opacity;
+  transition-timing-function: cubic-bezier(0.39, 0.58, 0.57, 1);
+}
+
+.MuiButtonBase-root {
+  letter-spacing: inherit;
+}
+
+.MuiButtonBase-root.Mui-disabled {
+  @apply pointer-events-auto;
+}
+
+.MuiTooltip-tooltip {
+  @apply bg-teli-black-950;
+}
+
+.MuiTooltip-arrow {
+  @apply text-teli-black-950;
+}

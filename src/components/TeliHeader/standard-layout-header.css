@@ -1,0 +1,10 @@
+.teli-standard-layout-header {
+  & nav {
+    height: 50px;
+    @apply flex justify-center items-center;
+  }
+
+  & .end-adornments {
+    @apply absolute right-2 flex items-center gap-x-2 justify-end;
+  }
+}
