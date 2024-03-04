@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
-import OntologyService from "@telicent-io/ontologyservice";
+import OntologyService from "@telicent-oss/ontologyservice";
 import {
   flattenStyles,
   getTypeInitials,
