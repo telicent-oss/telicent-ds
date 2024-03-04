@@ -2,9 +2,6 @@
   Telicent Design System (DS)
 </h1>
 
-<!-- commenting this out as it's not currently working
- [![Chromatic](https://github.com/Telicent-io/telicent-ds/actions/workflows/release-package.yml/badge.svg)](https://github.com/Telicent-io/telicent-ds/actions/workflows/release-package.yml)[![Node.js Package](https://github.com/Telicent-io/telicent-ds/actions/workflows/publish-package.yml/badge.svg)](https://github.com/Telicent-io/telicent-ds/actions/workflows/publish-package.yml) -->
-
 <p align="center">A component library containing common components with Telicent's &copy; unique brand styling. The components that are contained within this design system will be used across multiple projects. New components will meet the criteria for addition if they end up being used in at least 2 separate projects.</p>
 
 #### Key Features
@@ -21,13 +18,13 @@ You can use the Telicent DS package to easily keep your project up-to-date with 
    If using yarn
 
    ```
-   yarn add @telicent-io/ds
+   yarn add @telicent-oss/ds
    ```
 
    If using npm
 
    ```
-   npm add @telicent-io/ds
+   npm add @telicent-oss/ds
    ```
 
 2. Import css styles
@@ -37,10 +34,10 @@ You can use the Telicent DS package to easily keep your project up-to-date with 
    import.
 
    ```
-   import "@telicent-io/ds/dist/style.css";
+   import "@telicent-oss/ds/dist/style.css";
 
    // Adds fontawesome icon pack
-   import "@telicent-io/ds/dist/fontawesome.css";
+   import "@telicent-oss/ds/dist/fontawesome.css";
    ```
 
 3. Disable tailwind preflight (only if using tailwind in your application)
@@ -64,7 +61,7 @@ You can use the Telicent DS package to easily keep your project up-to-date with 
 To test the components before pushing to a npm registry please perform the following steps:
 
 ```
-git clone https://github.com/Telicent-io/telicent-ds.git
+git clone https://github.com/telicent-oss/telicent-ds.git
 cd telicent-ds
 yarn install
 yarn link #this will make it so you have a endpoint to link projects to
@@ -74,7 +71,7 @@ cd <project-root>/node_modules/react-dom # needs to be done or you app will thro
 
 # Navigate to project you want to test the components in
 cd /path/to/project
-yarn link telicent/ds
+yarn link "@telicent-oss/ds"
 yarn link react
 yarn link react-dom
 ```
@@ -90,8 +87,8 @@ yarn storybook
 
 ### Build library viewer
 
-To build the library viewer so that it can be hosted on something like Nginx just type `yarn build-storybook`.
-By default the output will be created in the storybook-static folder.
+To build for hosting: `yarn build-storybook`.
+By default the output will be created in the `storybook-static` folder.
 
 ### Build components
 
@@ -102,29 +99,17 @@ To build the components ready for uploading to a package manager type `yarn buil
 To publish this library to git packages:
 
 - Bump package version in package.json
-- push feature branch to git (this will kick off the chromatic action)
-  - if there are changes in chromatic this will need to be reviewed
+- push feature branch to git
 - raise a pull request
   - requires at least one reviewer to accept to merge
 - merge pr in to main
 - on the main branch raise a release
-  - this will kick off chromatic and npm-publish actions
 
 If all that passed, congrats you have successfully deployed your npm package!
 
 ### How to use published library in your apps
 
-[Create a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) that has read permissions to Packages
-
-Modify your ~/.npmrc file with the following:
-
-```bash
-prefix=/Users/dave/.npm
-@telicent-io:registry=https://npm.pkg.github.com/
-//npm.pkg.github.com/:_authToken={GITHUB_PERSONAL_ACCESS_TOKEN}
-```
-
-To add to your app in the project root type `yarn add @telicent-io/ds`
+`yarn add @telicent-oss/ds`
 
 ### How to publish a release candidate
 
@@ -135,4 +120,4 @@ In this section you will learn the steps required to publish a release candidate
 - Create a tag `git tag <tag_name> <branch_name>`
 - Push the tag `git push origin <tag_name>`
 
-The workflow will now run and publish the package to [Telicent's private npm repo](https://github.com/Telicent-io/telicent-ds/pkgs/npm/ds)
+The workflow will now run and publish the package to npmjs.org

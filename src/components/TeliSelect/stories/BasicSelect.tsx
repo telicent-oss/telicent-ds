@@ -28,7 +28,7 @@ const BasicSelect: TeliSelectStory = {
       },
       source: {
         code: `
-import { TeliSelect, SelectChangeEvent } from  "@telicent-io/ds";
+import { TeliSelect, SelectChangeEvent } from  "@telicent-oss/ds";
 
 const [age, setAge] = useState("");
 
