@@ -4237,17 +4237,17 @@
   dependencies:
     "@tanstack/query-core" "5.24.1"
 
-"@telicent-io/ontologyservice@^0.0.14-rc36":
+"@telicent-oss/ontologyservice@^0.0.14-rc36":
   version "0.0.14-rc49"
-  resolved "https://npm.pkg.github.com/download/@telicent-io/ontologyservice/0.0.14-rc49/2bbcaec531ec195113437e62ff440fe7a35392af#2bbcaec531ec195113437e62ff440fe7a35392af"
+  resolved "https://npm.pkg.github.com/download/@telicent-oss/ontologyservice/0.0.14-rc49/2bbcaec531ec195113437e62ff440fe7a35392af#2bbcaec531ec195113437e62ff440fe7a35392af"
   integrity sha512-57Y8Ct9Sk3dWljja7OuokpHDErjSW+i+jkltf+x9z36e6Y25xBx8Cp9YjGA89+6IcwHK8BoFueQM+gHPG2gxsQ==
   dependencies:
-    "@telicent-io/rdfservice" "*"
+    "@telicent-oss/rdfservice" "*"
     zod "^3.22.4"
 
-"@telicent-io/rdfservice@*":
+"@telicent-oss/rdfservice@*":
   version "0.0.13"
-  resolved "https://npm.pkg.github.com/download/@telicent-io/rdfservice/0.0.13/c0411cbf1f02b69cd238acfeddf45ffe3fc920d9#c0411cbf1f02b69cd238acfeddf45ffe3fc920d9"
+  resolved "https://npm.pkg.github.com/download/@telicent-oss/rdfservice/0.0.13/c0411cbf1f02b69cd238acfeddf45ffe3fc920d9#c0411cbf1f02b69cd238acfeddf45ffe3fc920d9"
   integrity sha512-LgOxb2jH1bJeuMMSjplG++FJc2fHEe51pUlKG64TEoTXAHrY7iJgvL/DP221E9sA+Lrj2AAg09JwdbzBfjKgLg==
 
 "@testing-library/dom@^8.11.1":

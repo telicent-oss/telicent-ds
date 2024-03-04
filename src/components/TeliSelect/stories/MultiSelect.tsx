@@ -39,7 +39,7 @@ callback. It's always an array.`,
       },
       source: {
         code: `
-import { TeliSelect, SelectChangeEvent } from  "@telicent-io/ds";
+import { TeliSelect, SelectChangeEvent } from  "@telicent-oss/ds";
 
 const [movies, setMovies] = useState([]);
 
