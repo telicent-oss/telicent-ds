@@ -4237,18 +4237,22 @@
   dependencies:
     "@tanstack/query-core" "5.24.1"
 
-"@telicent-io/ontologyservice@^0.0.14-rc36":
-  version "0.0.14-rc49"
-  resolved "https://npm.pkg.github.com/download/@telicent-io/ontologyservice/0.0.14-rc49/2bbcaec531ec195113437e62ff440fe7a35392af#2bbcaec531ec195113437e62ff440fe7a35392af"
-  integrity sha512-57Y8Ct9Sk3dWljja7OuokpHDErjSW+i+jkltf+x9z36e6Y25xBx8Cp9YjGA89+6IcwHK8BoFueQM+gHPG2gxsQ==
+"@telicent-oss/ontologyservice@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/ontologyservice/-/ontologyservice-0.0.1.tgz#93e918ee8186b37a2cec480435639c5a09c08d87"
+  integrity sha512-/yltsE2p/POt+/OWat0l75J2AfMJ9DieP5ilsD23hAubSQjj5awggWa8hNqe6yoDwvksITSRZAl/Toqu5vjfvw==
   dependencies:
-    "@telicent-io/rdfservice" "*"
+    "@telicent-oss/rdfservice" "*"
     zod "^3.22.4"
 
-"@telicent-io/rdfservice@*":
-  version "0.0.13"
-  resolved "https://npm.pkg.github.com/download/@telicent-io/rdfservice/0.0.13/c0411cbf1f02b69cd238acfeddf45ffe3fc920d9#c0411cbf1f02b69cd238acfeddf45ffe3fc920d9"
-  integrity sha512-LgOxb2jH1bJeuMMSjplG++FJc2fHEe51pUlKG64TEoTXAHrY7iJgvL/DP221E9sA+Lrj2AAg09JwdbzBfjKgLg==
+"@telicent-oss/rdfservice@*":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/rdfservice/-/rdfservice-0.0.1.tgz#a47ed6a3a434afff4d1191ec3623ad30e6f406a6"
+  integrity sha512-vycoYUGuqFKFD+3Lvjj1kSTJvrpZPG+8mLG8X1EdekwAgUBjmKkfMIp4/Fha6KHRvtcXxi41xm+37zLckIW3sw==
+  dependencies:
+    global "^4.4.0"
+    pnpm "^8.15.1"
+    zod "^3.22.4"
 
 "@testing-library/dom@^8.11.1":
   version "8.20.1"
@@ -13159,6 +13163,11 @@ pkg-up@^3.1.0:
   integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
   dependencies:
     find-up "^3.0.0"
+
+pnpm@^8.15.1:
+  version "8.15.4"
+  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-8.15.4.tgz#c85a4305534f76d461407b59277b954bac97b5c4"
+  integrity sha512-C9Opvp6w6aaSZ23uwAowO6IYuiedmSQUdWFrOY267t0RFG+SwoQ0WPVXsdEn4J1MFx4QW9zWthACs5aFqAFrng==
 
 polished@^4.2.2:
   version "4.3.1"

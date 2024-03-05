@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import OntologyService from "@telicent-io/ontologyservice";
+import OntologyService from "@telicent-oss/ontologyservice";
 
 import TeliButton from "../TeliButton/TeliButton";
 import {

@@ -14,7 +14,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/export.ts"),
-      name: "@telicent-io/ds",
+      name: "@telicent-oss/ods",
       fileName: "ds",
     },
     rollupOptions: {

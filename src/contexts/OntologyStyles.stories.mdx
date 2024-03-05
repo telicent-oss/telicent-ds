@@ -7,7 +7,7 @@ import { Meta, Source } from "@storybook/blocks";
 We want Design System components to fetch backend styles the same way as the
 hosting app. This is achieved by exposing the `ontologyService` prop to the
 `DSProviders` component. This allows styles from the ontology to be fetched.
-Refer to the [js-ontology-lib](https://github.com/Telicent-io/js-ontology-lib)
+Refer to the [js-ontology-lib](https://github.com/telicent-oss/js-ontology-lib)
 for instructions on how to install the package.
 
 ### Usage
@@ -21,7 +21,7 @@ for instructions on how to install the package.
 <Source
   dark
   code={`
-import { DSProviders } from "@telicent-io/ds";
+import { DSProviders } from "@telicent-oss/ds";
 
 const ontologyService = new OntologyService("http://localhost:3030/", "ontology");
 
@@ -44,7 +44,7 @@ to find a particular icon style.
   dark
   code={`
 
-import { useOntologyStyles } from "@telicent-io/ds";
+import { useOntologyStyles } from "@telicent-oss/ds";
 
 const {
 styles,
