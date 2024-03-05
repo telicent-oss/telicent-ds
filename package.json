@@ -17,7 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.15.10",
     "@tanstack/react-query": "^5.18.0",
-    "@telicent-oss/ontologyservice": "^0.0.14-rc36",
+    "@telicent-oss/ontologyservice": "^0.0.1",
     "classnames": "^2.3.1",
     "d3": "^7.8.2",
     "lodash": "^4.17.21",
@@ -48,7 +48,7 @@
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.18.0",
-    "@telicent-oss/ontologyservice": "^0.0.14-rc36",
+    "@telicent-oss/ontologyservice": "^0.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
