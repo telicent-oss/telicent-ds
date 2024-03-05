@@ -38,6 +38,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+          scope: 'telicent-oss'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
       - name: Get node version
