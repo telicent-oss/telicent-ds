@@ -1,12 +1,12 @@
 {
-  "name": "@telicent-io/ds",
+  "name": "@telicent-oss/ds",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "3.10.2",
+  "version": "0.0.1",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -17,7 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.15.10",
     "@tanstack/react-query": "^5.18.0",
-    "@telicent-io/ontologyservice": "^0.0.14-rc36",
+    "@telicent-oss/ontologyservice": "^0.0.1",
     "classnames": "^2.3.1",
     "d3": "^7.8.2",
     "lodash": "^4.17.21",
@@ -48,7 +48,7 @@
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.18.0",
-    "@telicent-io/ontologyservice": "^0.0.14-rc36",
+    "@telicent-oss/ontologyservice": "^0.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -158,7 +158,7 @@
       "^d3$": "<rootDir>/node_modules/d3/dist/d3.min.js"
     },
     "transformIgnorePatterns": [
-      "node_modules\\/(?!(@telicent-io/ontologyservice))"
+      "node_modules\\/(?!(@telicent-oss/ontologyservice))"
     ]
   },
   "config": {
