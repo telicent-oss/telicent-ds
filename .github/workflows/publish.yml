@@ -25,17 +25,16 @@ jobs:
     permissions:
       id-token: write
       contents: read
-      packages: write
     needs: get_version
     env:
       APP_NAME: ds
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: configure-node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           scope: 'telicent-oss'
@@ -61,7 +60,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - run: yarn build
-      - run: yarn publish
+        run: npm install --frozen-lockfile
+      - run: npm build
+      - run: npm publish --access public --provenance
 
