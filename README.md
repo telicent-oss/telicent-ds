@@ -108,28 +108,4 @@ To publish this library to git packages:
   - this will kick off chromatic and npm-publish actions
 
 If all that passed, congrats you have successfully deployed your npm package!
-
-### How to use published library in your apps
-
-[Create a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) that has read permissions to Packages
-
-Modify your ~/.npmrc file with the following:
-
-```bash
-prefix=/Users/dave/.npm
-@telicent-oss:registry=https://npm.pkg.github.com/
-//npm.pkg.github.com/:_authToken={GITHUB_PERSONAL_ACCESS_TOKEN}
-```
-
 To add to your app in the project root type `yarn add @telicent-oss/ds`
-
-### How to publish a release candidate
-
-In this section you will learn the steps required to publish a release candidate to test bleeding edge capabilities in your app.
-
-- Set the version number in the package.json manually i.e. `1.1.2-rc1`
-- Commit your changes to the branch you are currently working on.
-- Create a tag `git tag <tag_name> <branch_name>`
-- Push the tag `git push origin <tag_name>`
-
-The workflow will now run and publish the package to [Telicent's private npm repo](https://github.com/Telicent-oss/telicent-ds/pkgs/npm/ds)
