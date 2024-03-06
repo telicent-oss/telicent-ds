@@ -56,6 +56,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node_modules-
 
+      - name: Configure npmrc
+        run: npm config set "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - run: yarn build
