@@ -24,7 +24,7 @@ You can use the Telicent DS package to easily keep your project up-to-date with 
    If using npm
 
    ```
-   npm add @telicent-oss/ds
+   npm install @telicent-oss/ds
    ```
 
 2. Import css styles
