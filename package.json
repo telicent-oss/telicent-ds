@@ -1,5 +1,6 @@
 {
   "name": "@telicent-oss/ds",
+  "description": "A component library for creating Telicent apps.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
