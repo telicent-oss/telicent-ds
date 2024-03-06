@@ -29,6 +29,9 @@
     "typescript": "*",
     "zod": "^3.21.4"
   },
+  "resolutions": {
+    "jackspeak": "2.1.1"
+  },
   "scripts": {
     "lint": "eslint --resolve-plugins-relative-to src",
     "clean": "rimraf dist storybook-static",
