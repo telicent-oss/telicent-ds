@@ -61,7 +61,7 @@ You can use the Telicent DS package to easily keep your project up-to-date with 
 To test the components before pushing to a npm registry please perform the following steps:
 
 ```
-git clone https://github.com/Telicent-oss/telicent-ds.git
+git clone https://github.com/telicent-oss/telicent-ds.git
 cd telicent-ds
 yarn install
 yarn link #this will make it so you have a endpoint to link projects to
@@ -71,7 +71,7 @@ cd <project-root>/node_modules/react-dom # needs to be done or you app will thro
 
 # Navigate to project you want to test the components in
 cd /path/to/project
-yarn link telicent/ds
+yarn link "@telicent-oss/ds"
 yarn link react
 yarn link react-dom
 ```
@@ -87,8 +87,8 @@ yarn storybook
 
 ### Build library viewer
 
-To build the library viewer so that it can be hosted on something like Nginx just type `yarn build-storybook`.
-By default the output will be created in the storybook-static folder.
+To build for hosting: `yarn build-storybook`.
+By default the output will be created in the `storybook-static` folder.
 
 ### Build components
 
@@ -99,13 +99,25 @@ To build the components ready for uploading to a package manager type `yarn buil
 To publish this library to git packages:
 
 - Bump package version in package.json
-- push feature branch to git (this will kick off the chromatic action)
-  - if there are changes in chromatic this will need to be reviewed
+- push feature branch to git
 - raise a pull request
   - requires at least one reviewer to accept to merge
 - merge pr in to main
 - on the main branch raise a release
-  - this will kick off chromatic and npm-publish actions
 
 If all that passed, congrats you have successfully deployed your npm package!
-To add to your app in the project root type `yarn add @telicent-oss/ds`
+
+### How to use published library in your apps
+
+`yarn add @telicent-oss/ds`
+
+### How to publish a release candidate
+
+In this section you will learn the steps required to publish a release candidate to test bleeding edge capabilities in your app.
+
+- Set the version number in the package.json manually i.e. `1.1.2-rc1`
+- Commit your changes to the branch you are currently working on.
+- Create a tag `git tag <tag_name> <branch_name>`
+- Push the tag `git push origin <tag_name>`
+
+The workflow will now run and publish the package to npmjs.org
