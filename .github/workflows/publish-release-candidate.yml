@@ -17,15 +17,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get tag name
         id: tag-name
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
       - name: configure-node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+          scope: 'telicent-oss'
         env: ${{ secrets.NPM_REGISTRY_TOKEN }}
       - name: Get node version
         id: node
@@ -46,4 +48,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - run: yarn build
-      - run: yarn publish --tag ${{ steps.tag-name.outputs.tag }}
+      - run: npm publish --tag ${{ steps.tag-name.outputs.tag }} --access public --provenance
