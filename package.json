@@ -1,5 +1,6 @@
 {
   "name": "@telicent-oss/ds",
+  "description": "A component library for creating Telicent apps.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -27,6 +28,9 @@
     "react-map-gl": "7.1.0",
     "typescript": "*",
     "zod": "^3.21.4"
+  },
+  "resolutions": {
+    "jackspeak": "2.1.1"
   },
   "scripts": {
     "lint": "eslint --resolve-plugins-relative-to src",
