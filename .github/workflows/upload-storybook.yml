@@ -19,8 +19,10 @@ jobs:
           node-version: 20
       - run: yarn install
       - run: yarn build-storybook
-      - run: ls ./storybook-static -al
+      - run: |
+          mkdir -p storybook
+          cp -R storybook-static/ storybook/
       - uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./storybook-static
+          publish_dir: ./storybook
