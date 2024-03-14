@@ -1,6 +1,8 @@
 # Telicent Design System (DS)
 
-A component library to help developers create frontend applications for Telicent platform apps. Visit the [Storybook](https://telicent-oss.github.io/ds/) to learn more.
+A component library to help developers create frontend applications for [Telicent.io](https://telicent.io/) platform apps.
+
+Visit the [Storybook](https://telicent-oss.github.io/ds/) to learn more.
 
 ## Install
 
@@ -31,5 +33,5 @@ import { TeliStandardLayout } from '@telicent-oss/ds';
 ```sh
 git clone https://github.com/Telicent-oss/telicent-ds.git
 cd telicent-ds
-yarn storybook
+yarn && yarn storybook
 ```
