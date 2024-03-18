@@ -2,7 +2,11 @@
 
 A component library to help developers create frontend applications for [Telicent.io](https://telicent.io/) platform apps.
 
-Visit the [Storybook](https://telicent-oss.github.io/ds/) to learn more.
+This repo contains:
+1. ReactJS Components that adhere to the <sup>1</sup> _Design System rules_
+2. A generated [Storybook](https://telicent-oss.github.io/ds/), describing the components
+
+<sup>1</sup> The _Design System rules_ are contained in a Figma file (private for now)
 
 ## Install
 
