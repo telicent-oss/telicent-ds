@@ -8,98 +8,46 @@ export interface HierarchyBase {
   startLeft?: number;
   hOrderPosition?: number;
   descendantCount?: number;
+  expandLabel?: string;
+  labelWidth?: number;
+  highlight?:boolean;
   _children?: d3.HierarchyNode<HierarchyBase>[];
   children?: d3.HierarchyNode<HierarchyBase>[] | HierarchyBase[];
 }
 
-export const resetDragData = (
-  svg:  d3.Selection<null, unknown, null, undefined> | undefined,
-  d: d3.HierarchyNode<HierarchyBase>,
-  rowHeight: number,
-  instanceId: string,
-  clickEvent?: (nodeId: string) => void) => {
-  // define startingXPosition - where mouse is in relation to the icon
-  const iconPosition = (d.data.startLeft || 0)  - 2.5 + (d.depth === 1 ? rowHeight - 3 : rowHeight - 6);
-  // reset auto width and set starting positions
-  d3.select(`#dragDiv${instanceId}`)
-    .style("cursor", clickEvent ? "pointer" : "grab")
-    .style("visibility", "visible")
-    .style("left", `${iconPosition}px`)
-    .style("top", `${(d.data.yPos || 0) + 2}px`)
-    .on("click", () => {
-      if(clickEvent){
-        clickEvent(d.data.id || "");
-      }
-    })
 
-  d3.select(`#dragIcon${instanceId}`)
-    .attr("text-anchor", "middle")
-    .attr("x", 10)
-    .attr("class", `${!d.data.ontology ? "" : d.data.ontology.faIcon}`)
-    .attr("y",  12)
-    .style("fill", !d.data.ontology ? "" :d.data.ontology.color)
-    .text( d.data.ontology ? d.data.ontology.faUnicode : "");
 
-  d3.select(`#dragIconLabel${instanceId}`)
-    .attr("x",  22.5)
-    .attr("y",  12)
-    .text(d.data.name)
-
-  const dragElement = document?.getElementById(`dragDiv${instanceId}`)?.getBoundingClientRect();
-  d3.select(`#dragSvg${instanceId}`).style("height", "16px");
-
-  if(dragElement && svg){
-    d3.select(`#dragSvg${instanceId}`)
-      .attr("width", dragElement.right + 5);
-  }
-  return  JSON.stringify({
-    nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
-    label: d.data.name,
-    namespace: "",
-    id: d.data.id,
-    ontology: d.data.ontology
-  });
-
+const measureWidth = (measureText: string , measureFontSize: number) => {
+  const tempSvg = d3.select("body").append("svg");
+  const tempText = tempSvg.append("text")
+      .attr("font-size", measureFontSize)
+      .text(measureText);
+  const tryTextWidth = tempText.node()?.getComputedTextLength();
+  const textWidth: number = tryTextWidth ?? 0;
+  tempSvg.remove();
+  return textWidth
 };
-
-export const setDragElementStyles = (instanceId: string) => {
-  d3.select(`#dragDiv${instanceId}`)
-    .style("padding","0px")
-    .style("background-color", "transparent")
-    .style("position", "absolute")
-    .style("height", "auto")
-    .style("z-index", 150)
-    .style("width", "auto")
-    .style("line-height", "12px");
-
-  d3.select(`#dragSvg${instanceId}`)
-    .style("height", "0px")
-    .style("background-color", "none");
-
-  d3.select(`#dragIcon${instanceId}`)
-    .attr("pointer-events", "none")
-    .attr("font-size", 10);
-
-  d3.select(`#dragIconLabel${instanceId}`)
-    .attr("pointer-events", "none")
-    .attr("font-size", 12)
-    .attr("fill","white");
-}
-export const prepareTreeData = (chartData:  d3.HierarchyNode<HierarchyBase>, margin: {[key: string]: number}, depthTab:  number, rowHeight: number) => {
+export const prepareTreeData = (chartData:  d3.HierarchyNode<HierarchyBase>, margin: {[key: string]: number}, depthTab:  number, rowHeight: number, descendantCount: boolean) => {
 
   let treeData = chartData.descendants().filter((f) => f.depth > 0);
   treeData = treeData.sort((a, b) => d3.ascending(a.data.hOrderPosition, b.data.hOrderPosition))
 
   treeData.forEach((d, i: number) => {
     d.data.startLeft = margin.left + ((d.depth - 1) * depthTab);
-    d.data.yPos = margin.top + (i * rowHeight)
+    d.data.yPos = margin.top + (i * rowHeight);
+    d.data.expandLabel = d.data.name + (descendantCount && (d.data.descendantCount || 0) > 0  ? ` (${d.data.descendantCount})`: "");
+    d.data.labelWidth = 35 + measureWidth(d.data.expandLabel, 12);
   })
   return treeData
 }
-export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey: string, filterIds: string[]) => {
+
+
+export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey: string, filterIds: string[], expandAll: boolean) => {
 
   let hierarchyData = d3.hierarchy(data);
-
+  if(expandAll){
+    startingDepth = d3.max(hierarchyData, (d) => d.depth) || startingDepth;
+  }
   if(baseKey !== ""){
     // baseKey starts the hierarchy at a different base if it exists
     const baseKeyNode = hierarchyData.descendants().find((f) => f.data.id === baseKey);
@@ -148,6 +96,7 @@ export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey:
       }
     }
   })
+
 
   return hierarchyData;
 }
