@@ -141,7 +141,15 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
                     .attr("font-weight", (d: any) => d.data.id && filterIds.includes(d.data.id) ? 500 : 400)
 
             })
-            .on("dragstart", (event: React.DragEvent<HTMLElement>) => {
+            .on("dragstart", (event: React.DragEvent<HTMLElement>, d) => {
+                const dragString =  JSON.stringify({
+                    nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
+                    label: d.data.name,
+                    namespace: "",
+                    id: d.data.id,
+                    ontology: d.data.ontology
+                })
+                dragEvent(event, dragString);
                 svg.select(".dragDiv")
                    .style("cursor", "grabbing");
 
@@ -161,7 +169,7 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
                 })
                 svg.select(".dragDiv")
                     .style("cursor", "grab");
-                dragEvent(event, dragString);
+                // dragEvent(event, dragString);
             })
 
         treeGroup.select(".dragSvg")

@@ -8,6 +8,7 @@ describe("OntologyHierarchy", () => {
     setup(<OntologyHierarchyDisplay instanceId="cMTestInstance" />);
     const instanceId = "cMTestInstance";
     expect(screen.getByTestId(`svg_${instanceId}`)).toBeDefined();
+    expect(screen.getByTestId(instanceId)).toBeDefined();
   });
 
   test("renders tree group", () => {
