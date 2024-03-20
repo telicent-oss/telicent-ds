@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.0.2-rc2...v0.0.2-rc3) (2024-03-20)
+
+
+### Miscellaneous Chores
+
+* prerelease ([f943fb9](https://github.com/telicent-oss/telicent-ds/commit/f943fb9467deb662fd03e4bba48f16c312f1da3d))
+
 ## [0.0.2-rc2](https://github.com/telicent-oss/telicent-ds/compare/v0.0.2-rc1...v0.0.2-rc2) (2024-03-20)
 
 
