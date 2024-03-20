@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 set -e
-# Create prelease trigger commit
 
+# Check if arguments are provided
+if [ $# -eq 0 ]; then
+    echo "No arguments supplied"
+    exit 1
+fi
+LABEL=$@ # e.g. rc, dev, alpha
+# Use Node.js to extract the semantic version (ignoring any pre-release labels)
+NUMBER=$(node -p "require('./package.json').version.split('-')[0]")
+SEM_VER="$NUMBER-$LABEL"
+# Create prerelease trigger commit
 git commit \
     --allow-empty \
-    -message "chore: prerelease Release-As: 0.0.2-$@" &&
+    -m "chore: prerelease Release-As: $SEM_VER" &&
     git log -1
