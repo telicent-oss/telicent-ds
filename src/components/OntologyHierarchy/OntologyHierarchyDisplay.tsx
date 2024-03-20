@@ -14,9 +14,6 @@ const OntologyHierarchyDisplay = (inputs: { instanceId: string }) => {
         setData(nodeId);
     };
 
-    const handleClick = (event: React.DragEvent, nodeId: string) => {
-        setData(nodeId);
-    };
   return (
     <div className="cMenuDiv relative flex grow flex-col bg-black-100">
       <OntologyHierarchy
