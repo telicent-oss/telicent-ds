@@ -21,6 +21,7 @@ jobs:
           package-name: "@telicent-oss/ds"
           prerelease: false
 
+      # Trigger: git commit --allow-empty -m "chore: prerelease Release-As: 0.0.2-rc2"
       - name: Create prerelease PR
         uses: google-github-actions/release-please-action@v3
         if: ${{ startsWith(github.event.head_commit.message, 'chore:') && contains(github.event.head_commit.message, 'prerelease') }}

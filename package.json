@@ -47,6 +47,7 @@
     "test:ci": "yarn test --ci --json --outputFile=\"results.json\" --watchAll=false",
     "chromatic": "chromatic --exit-zero-on-changes",
     "css": "npx tailwindcss -i ./src/index.css -o ./src/main.css",
+    "ci:prerelease": "./scripts/ci/prerelease $@",
     "prestart": "yarn run css",
     "prebuild": "yarn clean"
   },
