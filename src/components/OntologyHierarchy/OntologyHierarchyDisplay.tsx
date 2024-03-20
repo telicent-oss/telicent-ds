@@ -19,10 +19,14 @@ const OntologyHierarchyDisplay = (inputs: { instanceId: string }) => {
       <OntologyHierarchy
         instanceId={instanceId}
         data={hierarchy}
+        descendantCount={false}
         dragEvent={handleDrag}
         isDraggable={true}
-        filterIds={["http://ies.data.gov.uk/ontology/ies4#IdentityDocument","http://ies.data.gov.uk/ontology/ies4#TherapyRoom","http://ies.data.gov.uk/ontology/ies4#PhotovoltaicPowerGenerationComplex"]}
+        filterIds={[
+            "http://ies.data.gov.uk/ontology/ies4#RealEstate",
+        ]}
         expandAll={true}
+        expandElement={false}
       />
     </div>
   );
