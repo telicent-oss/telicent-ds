@@ -169,7 +169,7 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
                 })
                 svg.select(".dragDiv")
                     .style("cursor", "grab");
-                // dragEvent(event, dragString);
+                 dragEvent(event, dragString);
             })
 
         treeGroup.select(".dragSvg")
