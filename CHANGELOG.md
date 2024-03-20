@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.0.2-rc2](https://github.com/telicent-oss/telicent-ds/compare/v0.0.2-rc1...v0.0.2-rc2) (2024-03-20)
+
+
+### Bug Fixes
+
+* **publish-release-candidate.yml:** npm token ([#35](https://github.com/telicent-oss/telicent-ds/issues/35)) ([e9f09a5](https://github.com/telicent-oss/telicent-ds/commit/e9f09a532caf99d3deedd2de0ba78343d0e15c9b))
+* **publish-release-candidate.yml:** npm token ([#35](https://github.com/telicent-oss/telicent-ds/issues/35)) ([51ed1a4](https://github.com/telicent-oss/telicent-ds/commit/51ed1a44e7ebf0048ba42d1afe7ec5b4630d4e3d))
+
+
+### Miscellaneous Chores
+
+* prepublish ([e9f09a5](https://github.com/telicent-oss/telicent-ds/commit/e9f09a532caf99d3deedd2de0ba78343d0e15c9b))
+
 ## [0.0.2-rc1](https://github.com/telicent-oss/telicent-ds/compare/v0.0.1...v0.0.2-rc1) (2024-03-20)
 
 
