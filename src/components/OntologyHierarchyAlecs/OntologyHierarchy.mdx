@@ -1,0 +1,33 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as OntologyHierarchy from './OntologyHierarchy.stories';
+
+<Meta of={OntologyHierarchy} />
+
+# OntologyHierarchy
+
+OntologyHierarchy is a simple hierarchy menu which features in the ontology app.
+
+**Basic Story**: there are 2 required props:
+
+- **instanceId**: must be unique within the parent app
+- **data**: complete hierarchical dataset
+
+**Expand Element**: To expand the Element branch (if it exists in the dataset), set this to true
+
+**Draggable**: To enable dragging, set isDraggable to true and pass in a dragEvent
+
+**Clickable**: To enable clicking (which passes out the uri), set isClickable to true and pass in a clickEvent
+
+**No Descendant Count**: The descendant count is automatically shown in brackets.  Disable it by setting this property to false.
+
+**Base Key**: To start from a base further down in the hierarchy, pass in a BaseKey
+
+*NB: if you pass in a BaseKey that does not have a matching id in the data the component will render the complete dataset*
+
+**Filter Ids and Clickable**: To filter data to only show the hierarchy of defined ids, pass in filterIds.
+If you set isClickable to true and pass in a clickEvent, then hierarchy uri's which are in filterIds will be clickable (and pass out the uri).
+
+*NB: if filterIds is empty or undefined, the component will render the complete dataset\
+NB: if you pass in an id which is not in the dataset, it will not be rendered.*
+
