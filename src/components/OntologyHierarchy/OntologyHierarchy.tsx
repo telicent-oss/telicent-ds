@@ -133,12 +133,12 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
                 if(isDraggable || isClickable){
                     d3.select(event.currentTarget)
                         .select(".expandLabel")
-                        .attr("font-weight", 600);
+                        .attr("font-weight", 500);
                 }
             })
             .on("mouseout", (event: React.MouseEvent<HTMLElement>, d) => {
                 svg.selectAll(".expandLabel")
-                    .attr("font-weight", (d: any) => d.data.id && filterIds.includes(d.data.id) ? 500 : 400)
+                    .attr("font-weight", 400);
 
             })
             .on("dragstart", (event: React.DragEvent<HTMLElement>, d) => {
@@ -245,10 +245,10 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
 
       treeGroup.select(".expandLabel")
           .attr("pointer-events", "none")
-          .attr("font-weight", (d) => d.data.id && filterIds.includes(d.data.id) ? 500 : 400)
+          .attr("font-weight", 400)
           .attr("x", (d) => 22)
           .attr("y", (d) => 4 + rowHeight/2)
-          .attr("fill", "white")
+          .attr("fill", (d) => d.data.id && d.data.ontology && filterIds.includes(d.data.id) ? d.data.ontology.color : "white")
           .attr("font-size", 12)
           .text((d) => d.data.expandLabel || "")
 
