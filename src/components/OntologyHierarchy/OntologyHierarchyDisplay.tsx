@@ -24,6 +24,8 @@ const OntologyHierarchyDisplay = (inputs: { instanceId: string }) => {
         isDraggable={true}
         filterIds={[
             "http://ies.data.gov.uk/ontology/ies4#RealEstate",
+            "http://ies.data.gov.uk/ontology/ies4#PersonState",
+            "http://ies.data.gov.uk/ontology/ies4#ParticularPeriod",
         ]}
         expandAll={true}
         expandElement={false}
