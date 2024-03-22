@@ -6,3 +6,8 @@ import { configure } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 configure({ testIdAttribute: "id" });
+
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+(global.SVGElement.prototype).getComputedTextLength = () => 100;
