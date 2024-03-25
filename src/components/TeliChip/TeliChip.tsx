@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { Chip, ChipProps } from "@mui/material";
-import { TeliCloseIcon } from "../TeliIcons";
+import { TeliDeleteIcon } from "../TeliIcons";
 
 import "./telichip.css";
 
@@ -33,7 +33,7 @@ const TeliChip: React.FC<TeliChipProps> = ({
         },
         chipClassName
       )}
-      deleteIcon={<TeliCloseIcon />}
+      deleteIcon={<TeliDeleteIcon aria-label={`Delete ${label}`} />}
       {...chipProps}
     />
   );
