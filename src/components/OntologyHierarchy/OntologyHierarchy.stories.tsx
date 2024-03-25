@@ -45,7 +45,7 @@ export const Draggable: Story = {
     instanceId: "example",
     data: hierarchy,
     isDraggable: true,
-    dragEvent: (event: React.DragEvent<HTMLElement>, nodeType: string) => {console.log(event, nodeType)}
+    dragEvent: (event: React.DragEvent<HTMLElement>, nodeType: string) => {console.log(`dragging${nodeType}`)}
   },
 };
 
@@ -80,7 +80,7 @@ export const FilterIdsAndClickableAndExpandAll: Story = {
     instanceId: "example",
     data: hierarchy,
     isClickable: true,
-    clickEvent: (nodeId: string) => {},
+    clickEvent: (nodeId: string) => {console.log(`clicking${nodeId}`)},
     expandAll: true,
     filterIds: [
       "fakeFilterId",

@@ -118,8 +118,8 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
             .attr("height", rowHeight);
 
         treeGroup.select(".dragDiv")
-            .attr("draggable", true)
-            .style("cursor", "grab")
+            .attr("draggable", isDraggable)
+            .style("cursor", isDraggable ? "grab" : "default")
             .on("mouseover", (event: React.MouseEvent<HTMLElement>) => {
                 if(isDraggable || isClickable){
                     d3.select(event.currentTarget)
@@ -132,35 +132,42 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
                     .attr("font-weight", 400);
 
             })
+            .on("click", (event, d) => {
+                clickEvent(d.data.id || "");
+            })
             .on("dragstart", (event: React.DragEvent<HTMLElement>, d) => {
-                const dragString =  JSON.stringify({
-                    nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
-                    label: d.data.name,
-                    namespace: "",
-                    id: d.data.id,
-                    ontology: d.data.ontology
-                })
-                dragEvent(event, dragString);
-                svg.selectAll(".dragDiv")
-                   .style("cursor", "grabbing");
-
+                if(isDraggable){
+                    const dragString =  JSON.stringify({
+                        nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
+                        label: d.data.name,
+                        namespace: "",
+                        id: d.data.id,
+                        ontology: d.data.ontology
+                    })
+                    dragEvent(event, dragString);
+                    svg.selectAll(".dragDiv")
+                        .style("cursor", "grabbing");
+                }
             })
             .on("drag", () => {
-                svg.selectAll(".dragDiv")
-                    .style("cursor", "grabbing");
-
+                if(isDraggable){
+                    svg.selectAll(".dragDiv")
+                        .style("cursor", "grabbing");
+                }
             })
             .on("dragend", (event: React.DragEvent<HTMLElement>, d) => {
-                const dragString =  JSON.stringify({
-                    nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
-                    label: d.data.name,
-                    namespace: "",
-                    id: d.data.id,
-                    ontology: d.data.ontology
-                })
-                svg.selectAll(".dragDiv")
-                    .style("cursor", "grab");
-                 dragEvent(event, dragString);
+                if(isDraggable){
+                    const dragString =  JSON.stringify({
+                        nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
+                        label: d.data.name,
+                        namespace: "",
+                        id: d.data.id,
+                        ontology: d.data.ontology
+                    })
+                    svg.selectAll(".dragDiv")
+                        .style("cursor", "grab");
+                    dragEvent(event, dragString);
+                }
             })
 
         treeGroup.select(".dragSvg")
@@ -180,7 +187,6 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
         .attr("stroke-width", 1)
         .style("cursor", "pointer")
         .on("click", (event, d) => {
-          d3.select(`#dragSvg${instanceId}`).style("height", "0px");
           if(!d.children  && d.data._children){
             d.children = d.data._children;
             d.data._children = undefined;
