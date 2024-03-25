@@ -27,10 +27,19 @@ describe("OntologyHierarchy", () => {
         .toHaveClass("expandCircleIcon fa-solid");
 
       expect(screen.getByTestId(testId).childNodes[4])
-        .toHaveClass("expandLabel");
+        .toHaveClass("dragObject");
 
-      expect(screen.getByTestId(testId).childNodes[5])
-        .toHaveClass("expandLabelIcon");
+      expect(screen.getByTestId(testId).childNodes[4].childNodes[0])
+          .toHaveClass("dragDiv");
+
+      expect(screen.getByTestId(testId).childNodes[4].childNodes[0].childNodes[0])
+          .toHaveClass("dragSvg");
+
+      expect(screen.getByTestId(testId).childNodes[4].childNodes[0].childNodes[0].childNodes[0])
+          .toHaveClass("expandLabel");
+
+      expect(screen.getByTestId(testId).childNodes[4].childNodes[0].childNodes[0].childNodes[1])
+          .toHaveClass("expandLabelIcon");
     }
   });
 

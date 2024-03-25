@@ -42,29 +42,32 @@ export const prepareTreeData = (chartData:  d3.HierarchyNode<HierarchyBase>, mar
 }
 
 
-export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey: string, filterIds: string[], expandAll: boolean) => {
+export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey: string, filterIds: string[], expandAll: boolean, expandElement: boolean) => {
 
+  // convert to full hierarchy
   let hierarchyData = d3.hierarchy(data);
+
   if(expandAll){
+    // if expandAll - find max depth in full hierarchy
     startingDepth = d3.max(hierarchyData, (d) => d.depth) || startingDepth;
+  }
+  if(baseKey !== "" && filterIds.length > 0){
+    console.error("baseKey and filterIds cannot be used together - baseKey takes priority, filterIds will be ignored");
   }
   if(baseKey !== ""){
     // baseKey starts the hierarchy at a different base if it exists
+    // each d3.HierarchyNode is a hierarchy in itself, so you just have to replace it
     const baseKeyNode = hierarchyData.descendants().find((f) => f.data.id === baseKey);
-    if(!baseKeyNode){
-      // console.error(`no matching id for baseKey: ${baseKey}`)
-    } else {
+    if(baseKeyNode){
       hierarchyData = baseKeyNode;
     }
   } else if (filterIds.length > 0){
-    // filterIds filters the data to only include to only show roots of ids provided
+    // filterIds filters the data to only include ids (if they exist) and their ancestors
     const filteredData: string[] = [];
-    // can only do one or the other, baseKey defaults to priority
+    // collect filter nodes + ancestors
     filterIds.forEach((d) => {
       const filterIdNode = hierarchyData.descendants().find((f) => f.data.id === d);
-      if(!filterIdNode){
-        // console.error(`no matching id for filterId: ${d}`)
-      } else {
+      if(filterIdNode){
         // add ancestors (which includes this node) to filteredData if not there already
         filterIdNode.ancestors().forEach((a) => {
           if(!filteredData.some((s) => s === a.data.id)){
@@ -73,6 +76,7 @@ export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey:
         })
       }
     })
+    // filter all children to only include filterIds
      hierarchyData.descendants().forEach((d) => {
       if(d.children){
         d.children = d.children.filter((f) => filteredData.includes(f.data.id || ""));
@@ -83,11 +87,14 @@ export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey:
       }
       })
   }
+  // loop through and let hOrderPosition and descendant count
+  // these will not change when the user interacts with the component
   hierarchyData.eachBefore((d,i) => {
     // eslint-disable-next-line no-param-reassign
     d.data.hOrderPosition = i;
     d.data.descendantCount =  d.descendants().length - 1;
   })
+  // set data so children over the startingDepth are 'collapsed' (_children)
   hierarchyData.descendants().forEach((d) => {
     if(d.children){
       if(d.depth > startingDepth){
@@ -95,7 +102,18 @@ export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey:
         d.children = undefined;
       }
     }
-  })
+  });
+  if(expandElement && expandAll){
+    console.error("expandAll and expandElement cannot be used together - expandAll takes priority, expandElement will be ignored")
+  }
+  if(expandElement  && !expandAll){
+    // custom expand for OntologyApp - assumes that Element is at depth 0 and therefore expandable
+    const elementNode = hierarchyData.descendants()
+        .find((f) => f.data.id === "http://ies.data.gov.uk/ontology/ies4#Element");
+    if(elementNode){
+      elementNode.children = elementNode.data._children;
+    }
+  }
 
 
   return hierarchyData;
