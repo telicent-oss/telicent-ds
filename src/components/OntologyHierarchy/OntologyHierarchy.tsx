@@ -250,7 +250,7 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
         .attr("x",  11)
         .attr("y", (d) =>  (d.data.ontology &&  d.data.ontology.faUnicode.length === 3 ? 3 : 4) +  rowHeight/2)
         .style("fill", (d) => !d.data.ontology ? "" : d.data.ontology.color)
-        .attr("font-size", (d) => d.data.ontology &&  d.data.ontology.faUnicode.length === 3 ? 8 : 10)
+        .attr("font-size", (d) => d.data.ontology?.faUnicode.length === 3 ? 8 : 10)
         .text((d) => !d.data.ontology ? "" : d.data.ontology.faUnicode);
 
       const chartWidth = document.getElementById(`chartGroup${instanceId}`)?.getBoundingClientRect().width;

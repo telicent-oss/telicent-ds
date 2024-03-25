@@ -9,7 +9,11 @@
 .MuiChip-root .MuiChip-icon,
 .MuiChip-root .MuiChip-deleteIcon {
   @apply m-0;
-  font-size: inherit;
+  font-size: 10px;
+}
+
+.MuiChip-deletable {
+  @apply cursor-default;
 }
 
 .teli-chip--primary.MuiChip-filled {

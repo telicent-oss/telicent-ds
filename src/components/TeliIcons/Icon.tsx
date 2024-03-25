@@ -20,6 +20,7 @@ const Icon: React.FC<IconProps> = ({ faIcon, id, size, ...otherIconProps }) => {
       id={id}
       icon={faIcon}
       size={size}
+      {...otherIconProps}
     />
   );
 };
