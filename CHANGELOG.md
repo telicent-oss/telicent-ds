@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.0.2-rc3...v0.0.3-rc3) (2024-03-26)
+
+
+### Bug Fixes
+
+* add extra drag ([90a469a](https://github.com/telicent-oss/telicent-ds/commit/90a469a34c8d0aabb0d80c9affa133796461adb9))
+* adding testing and fixing storybook ([bd8028c](https://github.com/telicent-oss/telicent-ds/commit/bd8028c22b28422ccf424c90f807c613c36e3876))
+* changed icon back to delete icon ([3dc8c15](https://github.com/telicent-oss/telicent-ds/commit/3dc8c158f5ae16c6de52960fb7ebfcc127bf22e3))
+* filter colour changes ([c1e0d57](https://github.com/telicent-oss/telicent-ds/commit/c1e0d57b62dd7037c261af75b4f3629a9061901b))
+* **Icon.tsx:** Allow otherProps to be added to component ([17674f3](https://github.com/telicent-oss/telicent-ds/commit/17674f32edb73a74b47fdb6bd06b07086aa263fd))
+* resolved conflicts and retested ([96312c6](https://github.com/telicent-oss/telicent-ds/commit/96312c67bdce156e1615b3ae07e93f25f5b5ccc4))
+
 ## [0.0.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.0.2-rc2...v0.0.2-rc3) (2024-03-20)
 
 
