@@ -21,13 +21,13 @@ const OntologyHierarchyDisplay = (inputs: { instanceId: string }) => {
         data={hierarchy}
         descendantCount={false}
         dragEvent={handleDrag}
-        isDraggable
+        isDraggable={true}
         filterIds={[
             "http://ies.data.gov.uk/ontology/ies4#RealEstate",
             "http://ies.data.gov.uk/ontology/ies4#PersonState",
             "http://ies.data.gov.uk/ontology/ies4#ParticularPeriod",
         ]}
-        expandAll
+        expandAll={true}
         expandElement={false}
       />
     </div>

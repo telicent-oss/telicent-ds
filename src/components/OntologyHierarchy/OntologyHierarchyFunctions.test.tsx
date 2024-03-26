@@ -17,7 +17,7 @@ describe("addHierarchy + baseKey function", () => {
   test("returns valid data with correct root with valid baseKey", () => {
     const baseKey = "myBaseKeyId";
     const sampleHierarchyData: HierarchyBase = {name: "starting name", id:"myid", ontology: sampleOntology, children:[{name: 'myName', id: 'myBaseKeyId',ontology: sampleOntology}]}
-    const result = addHierarchy(sampleHierarchyData, 0,baseKey,[], false);
+    const result = addHierarchy(sampleHierarchyData, 0,baseKey,[], false, false);
     expect(result.descendants().length).toBe(1);
     expect(result.descendants()[0].data.id).toBe("myBaseKeyId");
   })
@@ -25,7 +25,7 @@ describe("addHierarchy + baseKey function", () => {
     const logSpy = jest.spyOn(global.console, 'error');
     const sampleHierarchyData: HierarchyBase = {name: "starting name", id:"myid", ontology: sampleOntology, children:[{name: 'myName', id: 'myBaseKeyId',ontology: sampleOntology}]}
     const baseKey = "doesNotExist";
-    const result = addHierarchy(sampleHierarchyData, 0,baseKey,[],false);
+    const result = addHierarchy(sampleHierarchyData, 0,baseKey,[],false, false);
     expect(result.descendants().length).toBe(2);
     expect(result.descendants()[0].data.id).toBe("myid");
   })
@@ -35,7 +35,7 @@ describe("addHierarchy + filterids function", () => {
   test("returns correct data if list contains one valid id, depth 1", () => {
     const filterIds = ["myBaseKeyId"];
     const sampleHierarchyData: HierarchyBase = {name: "starting name", id:"myid", ontology: sampleOntology, children:[{name: 'myName', id: 'myBaseKeyId',ontology: sampleOntology}]}
-    const result = addHierarchy(sampleHierarchyData, 0,"",filterIds,false);
+    const result = addHierarchy(sampleHierarchyData, 0,"",filterIds,false, false);
     expect(result.descendants().length).toBe(2);
     expect(result.descendants()[0].data.id).toBe("myid");
     expect(result.descendants()[1].data.id).toBe("myBaseKeyId");
@@ -45,7 +45,7 @@ describe("addHierarchy + filterids function", () => {
     const logSpy = jest.spyOn(global.console, 'error');
     const filterIds = ["myBaseKeyId", "doesNotExist"];
     const sampleHierarchyData: HierarchyBase = {name: "starting name", id:"myid", ontology: sampleOntology, children:[{name: 'myName', id: 'myBaseKeyId',ontology: sampleOntology}]}
-    const result = addHierarchy(sampleHierarchyData, 0,"",filterIds,false);
+    const result = addHierarchy(sampleHierarchyData, 0,"",filterIds,false, false);
     expect(result.descendants().length).toBe(2);
     expect(result.descendants()[0].data.id).toBe("myid");
     expect(result.descendants()[1].data.id).toBe("myBaseKeyId");
@@ -58,7 +58,7 @@ describe("addHierarchy + filterids function", () => {
       children:[
         {name: 'myName', id: 'myBaseKeyId',ontology: sampleOntology,
           children:[{name: 'myNameChild', id: 'myBaseKeyIdChild',ontology: sampleOntology}]}]}
-    const result = addHierarchy(sampleHierarchyData, 0,"",filterIds,false);
+    const result = addHierarchy(sampleHierarchyData, 0,"",filterIds,false, false);
     expect(result.descendants().length).toBe(2);
     expect(result.descendants()[0].data.id).toBe("myid");
     expect(result.descendants()[1].data.id).toBe("myBaseKeyId");
@@ -89,7 +89,7 @@ describe("addHierarchy + filterids function", () => {
       sampleHierarchyData.children.push(extraChild);
       sampleHierarchyData.children.push(extraChild2);
     }
-    const result = addHierarchy(sampleHierarchyData, 0,"",filterIds,false);
+    const result = addHierarchy(sampleHierarchyData, 0,"",filterIds,false, false);
     expect(result.descendants().length).toBe(4);
     // basic root
     expect(result.descendants()[0].data.id).toBe("myid");
@@ -144,7 +144,7 @@ describe("addHierarchy + filterids function", () => {
 describe("addHierarchy + prepareTreeData function", () => {
   test("returns correct values when 1 child", () => {
     const sampleHierarchyData: HierarchyBase = {name: "starting name", id:"myid", ontology: sampleOntology, children:[{name: 'myName', id: 'myName',ontology: sampleOntology}]}
-    const result = addHierarchy(sampleHierarchyData, 0,"",[],false);
+    const result = addHierarchy(sampleHierarchyData, 0,"",[],false, false);
     expect(result.data._children).toStrictEqual(undefined);
     expect(result.depth).toStrictEqual(0);
     expect(result.data.hOrderPosition).toStrictEqual(0);
@@ -164,7 +164,7 @@ describe("addHierarchy + prepareTreeData function", () => {
     });
   test("returns correct values when 2 children", () => {
     const sampleHierarchyData: HierarchyBase = {name: "starting name", id: "startingNameId", ontology: sampleOntology, children:[{name: 'myName', id: 'myName',ontology: sampleOntology},{name: "another one", id: "another one id", ontology: sampleOntology, children: [{name: "child 1", id:"child1Id", ontology: sampleOntology}]}]}
-    const result = addHierarchy(sampleHierarchyData, 0,"",[],false);
+    const result = addHierarchy(sampleHierarchyData, 0,"",[],false, false);
     expect(result.data._children).toStrictEqual(undefined);
     expect(result.depth).toStrictEqual(0);
     expect(result.data.hOrderPosition).toStrictEqual(0);
@@ -188,4 +188,140 @@ describe("addHierarchy + prepareTreeData function", () => {
     expect(prepareTreeResult[1].data.startLeft).toStrictEqual(5);
     expect(prepareTreeResult[1].data.yPos).toStrictEqual(15);
   });
+})
+
+describe("addHierarchy + prepareTreeData function", () => {
+  test("returns correct values when 1 child", () => {
+    const sampleHierarchyData: HierarchyBase = {name: "starting name", id:"myid", ontology: sampleOntology, children:[{name: 'myName', id: 'myName',ontology: sampleOntology}]}
+    const result = addHierarchy(sampleHierarchyData, 0,"",[],false, false)
+    expect(result.data._children).toStrictEqual(undefined);
+    expect(result.depth).toStrictEqual(0);
+    expect(result.data.hOrderPosition).toStrictEqual(0);
+    expect(result.height).toStrictEqual(1);
+    expect(result.parent).toStrictEqual(null);
+    if(result.children){
+      expect(result.children.length).toStrictEqual(1);
+      expect(result.children[0].data).toStrictEqual({"descendantCount": 0, "hOrderPosition": 1, "id": "myName", "name": "myName", "ontology": {"alt": "", "backgroundColor": "black", "classUri": "", "color": "white", "faIcon": "", "faUnicode": "N", "icon": "", "iconFallbackText": "", "shape": "roundrectangle"}});
+      expect(result.children[0].depth).toStrictEqual(1);
+      expect(result.children[0].data.hOrderPosition).toStrictEqual(1);
+      expect(result.children[0].height).toStrictEqual(0);
+    }
+    const prepareTreeResult = prepareTreeData(result,{left: 5, top: 5}, 10, 10,false);
+    expect(prepareTreeResult.length).toStrictEqual(1);
+    expect(prepareTreeResult[0].data.startLeft).toStrictEqual(5);
+    expect(prepareTreeResult[0].data.yPos).toStrictEqual(5);
+  });
+  test("returns correct values when 2 children", () => {
+    const sampleHierarchyData: HierarchyBase = {name: "starting name", id: "startingNameId", ontology: sampleOntology, children:[{name: 'myName', id: 'myName',ontology: sampleOntology},{name: "another one", id: "another one id", ontology: sampleOntology, children: [{name: "child 1", id:"child1Id", ontology: sampleOntology}]}]}
+    const result = addHierarchy(sampleHierarchyData, 0,"",[],false, false);
+    expect(result.data._children).toStrictEqual(undefined);
+    expect(result.depth).toStrictEqual(0);
+    expect(result.data.hOrderPosition).toStrictEqual(0);
+    expect(result.height).toStrictEqual(2);
+    expect(result.parent).toStrictEqual(null);
+    if(result.children){
+      expect(result.children.length).toStrictEqual(2);
+      expect(result.children[0].data).toStrictEqual({"descendantCount": 0, "hOrderPosition": 1, "id": "myName", "name": "myName", "ontology": {"alt": "", "backgroundColor": "black", "classUri": "", "color": "white", "faIcon": "", "faUnicode": "N", "icon": "", "iconFallbackText": "", "shape": "roundrectangle"}});
+      expect(result.children[0].depth).toStrictEqual(1);
+      expect(result.children[0].data.hOrderPosition).toStrictEqual(1);
+      expect(result.children[1].height).toStrictEqual(1);
+      expect(result.children[1].depth).toStrictEqual(1);
+      expect(result.children[1].data.hOrderPosition).toStrictEqual(2);
+      expect(result.children[1].data.name).toStrictEqual("another one");
+      expect(result.children[1].height).toStrictEqual(1);
+    }
+    const prepareTreeResult = prepareTreeData(result,{left: 5, top: 5}, 10, 10, false);
+    expect(prepareTreeResult.length).toStrictEqual(2);
+    expect(prepareTreeResult[0].data.startLeft).toStrictEqual(5);
+    expect(prepareTreeResult[0].data.yPos).toStrictEqual(5);
+    expect(prepareTreeResult[1].data.startLeft).toStrictEqual(5);
+    expect(prepareTreeResult[1].data.yPos).toStrictEqual(15);
+  });
+});
+
+describe("addHierarchy + expandAll function", () => {
+  test("returns expected number of children if expandAll is false", () => {
+    const sampleHierarchyData: HierarchyBase = {
+      name: "starting name",
+      id: "myid",
+      ontology: sampleOntology,
+      children: [{name: 'myName', id: 'myName', ontology: sampleOntology,
+        children: [{name: 'myChildDepth2', id: 'myChildDepth2', ontology: sampleOntology,
+          children: [{name: 'myChildDepth3', id: 'myChildDepth2', ontology: sampleOntology,
+            children: [{name: 'myChildDepth4', id: 'myChildDepth4', ontology: sampleOntology,
+              children: [{name: 'myChildDepth5', id: 'myChildDepth5', ontology: sampleOntology,
+                children: [{name: 'myChildDepth6', id: 'myChildDepth6', ontology: sampleOntology,
+                }]}]}]}]}]}]
+    }
+    const result = addHierarchy(sampleHierarchyData, 0, "", [], false, false);
+    expect(result.descendants().length).toBe(2)
+  })
+  test("returns expected number of children if expandAll is true", () => {
+    const sampleHierarchyData: HierarchyBase = {
+      name: "starting name",
+      id: "myid",
+      ontology: sampleOntology,
+      children: [{name: 'myName', id: 'myName', ontology: sampleOntology,
+        children: [{name: 'myChildDepth2', id: 'myChildDepth2', ontology: sampleOntology,
+          children: [{name: 'myChildDepth3', id: 'myChildDepth2', ontology: sampleOntology,
+            children: [{name: 'myChildDepth4', id: 'myChildDepth4', ontology: sampleOntology,
+              children: [{name: 'myChildDepth5', id: 'myChildDepth5', ontology: sampleOntology,
+                children: [{name: 'myChildDepth6', id: 'myChildDepth6', ontology: sampleOntology,
+            }]}]}]}]}]}]
+    }
+    const result = addHierarchy(sampleHierarchyData, 0, "", [], true, false);
+    expect(result.descendants().length).toBe(7)
+  })
+})
+
+describe("addHierarchy + expandElement function", () => {
+  test("returns expected number of children if expandElement is false", () => {
+    const sampleHierarchyData: HierarchyBase = {
+      name: "starting name",
+      id: "myid",
+      ontology: sampleOntology,
+      children: [{name: 'myName', id: '"http://ies.data.gov.uk/ontology/ies4#Element"', ontology: sampleOntology,
+        children: [
+            {name: 'ElementChild1', id: 'ElementChild1', ontology: sampleOntology},
+          {name: 'ElementChild2', id: 'ElementChild2', ontology: sampleOntology},
+          {name: 'ElementChild2', id: 'ElementChild3', ontology: sampleOntology},
+          {name: 'ElementChild2', id: 'ElementChild4', ontology: sampleOntology},
+        ]}]
+    }
+    const result = addHierarchy(sampleHierarchyData, 0, "", [], false, false);
+    expect(result.descendants().length).toBe(2)
+  })
+  test("returns expected number of children if expandElement is true", () => {
+    const sampleHierarchyData: HierarchyBase = {
+      name: "starting name",
+      id: "myid",
+      ontology: sampleOntology,
+      children: [{name: 'myName', id: 'http://ies.data.gov.uk/ontology/ies4#Element', ontology: sampleOntology,
+        children: [
+          {name: 'ElementChild1', id: 'ElementChild1', ontology: sampleOntology},
+          {name: 'ElementChild2', id: 'ElementChild2', ontology: sampleOntology},
+          {name: 'ElementChild2', id: 'ElementChild3', ontology: sampleOntology},
+          {name: 'ElementChild2', id: 'ElementChild4', ontology: sampleOntology},
+        ]}]
+    }
+    const result = addHierarchy(sampleHierarchyData, 0, "", [], false, true);
+    expect(result.descendants().length).toBe(6)
+  })
+  test("returns expected number of children if expandElement is true BUT element is greater than depth 1", () => {
+    const sampleHierarchyData: HierarchyBase = {
+      name: "starting name",
+      id: "myid",
+      ontology: sampleOntology,
+      children: [{name: 'NotElement', id: 'NotElement', ontology: sampleOntology,
+        children: [
+          {name: 'ElementShouldNotExpand', id: 'http://ies.data.gov.uk/ontology/ies4#Element', ontology: sampleOntology},
+          {name: 'NotElementChild1', id: 'NotElementChild1', ontology: sampleOntology},
+          {name: 'NotElementChild2', id: 'NotElementChild2', ontology: sampleOntology},
+          {name: 'NotElementChild2', id: 'NotElementChild3', ontology: sampleOntology},
+          {name: 'NotElementChild2', id: 'NotElementChild4', ontology: sampleOntology},
+        ]}]
+    }
+    const result = addHierarchy(sampleHierarchyData, 0, "", [], false, true);
+    expect(result.descendants().length).toBe(2)
+  })
 })

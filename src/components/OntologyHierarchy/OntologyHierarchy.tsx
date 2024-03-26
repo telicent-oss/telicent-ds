@@ -12,37 +12,36 @@ export interface OntologyInputHierarchy {
 export interface OntologyHierarchyProps {
   instanceId: string;
   data: OntologyInputHierarchy;
-  expandElement?: boolean;
-  collapseUri?: string;
-  isDraggable?: boolean;
-  isClickable?: boolean;
-  dragEvent?: (event: React.DragEvent<HTMLElement>, nodeType: string) => void;
-  clickEvent?: (nodeId: string) => void;
-  filterIds?: string[];
-  baseKey?: string;
   descendantCount?: boolean;
+  isDraggable?: boolean;
+  dragEvent?: (event: React.DragEvent<HTMLElement>, nodeType: string) => void;
+  isClickable?: boolean;
+  clickEvent?: (nodeId: string) => void;
+  baseKey?: string;
+  filterIds?: string[];
   expandAll?: boolean;
+  expandElement?: boolean;
 }
 const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
                                                            instanceId,
                                                            data,
-                                                           isDraggable = false,
-                                                           isClickable = false,
-                                                           dragEvent = () => "" ,
-                                                           clickEvent = () => "",
-                                                           filterIds = [],
-                                                           baseKey = "",
                                                            descendantCount = true,
-                                                           expandElement = false,
-                                                           expandAll = false}) => {
+                                                           isDraggable = false,
+                                                           dragEvent = () => "" ,
+                                                           isClickable = false,
+                                                           clickEvent = () => "",
+                                                           baseKey = "",
+                                                           filterIds = [],
+                                                           expandAll = false,
+                                                           expandElement = false,}) => {
 
   const ref = useRef(null);
 
   //  properties which could be customisable.
   const rowHeight = 20;
   // fix to stop re-rendering while component refactor in progress
-  const currentFilterIds: React.MutableRefObject<string[] | undefined> = useRef(undefined);
   const currentBaseKey: React.MutableRefObject<string | undefined> = useRef(undefined);
+  const currentFilterIds: React.MutableRefObject<string[] | undefined> = useRef(undefined);
   const currentDescendantCount: React.MutableRefObject<boolean | undefined> = useRef(undefined);
   const currentExpandElement: React.MutableRefObject<boolean | undefined> = useRef(undefined);
   const currentExpandAll: React.MutableRefObject<boolean | undefined> = useRef(undefined);
@@ -50,8 +49,8 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
   useEffect(() => {
 
       if(
-          JSON.stringify(filterIds) === JSON.stringify(currentFilterIds.current) &&
           baseKey === currentBaseKey.current &&
+          JSON.stringify(filterIds) === JSON.stringify(currentFilterIds.current) &&
           descendantCount === currentDescendantCount.current &&
           expandElement === currentExpandElement.current &&
           expandAll === currentExpandAll.current
@@ -83,15 +82,7 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
     const startingDepth = 0;
     const circleRadius = rowHeight * 0.25;
     const depthTab = 10;
-    const chartData = addHierarchy(clonedData,startingDepth, baseKey, filterIds,expandAll);
-
-    if(expandElement){
-      const elementNode = chartData.descendants()
-        .find((f) => f.data.id === "http://ies.data.gov.uk/ontology/ies4#Element");
-      if(elementNode){
-        elementNode.children = elementNode.data._children;
-      }
-    }
+    const chartData = addHierarchy(clonedData,startingDepth, baseKey, filterIds,expandAll,expandElement);
 
     const drawChart = (hierarchyData: d3.HierarchyNode<HierarchyBase>) => {
 
@@ -127,8 +118,8 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
             .attr("height", rowHeight);
 
         treeGroup.select(".dragDiv")
-            .attr("draggable", true)
-            .style("cursor", "grab")
+            .attr("draggable", isDraggable)
+            .style("cursor", isDraggable ? "grab" : "default")
             .on("mouseover", (event: React.MouseEvent<HTMLElement>) => {
                 if(isDraggable || isClickable){
                     d3.select(event.currentTarget)
@@ -136,40 +127,47 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
                         .attr("font-weight", 500);
                 }
             })
-            .on("mouseout", (event: React.MouseEvent<HTMLElement>, d) => {
+            .on("mouseout", () => {
                 svg.selectAll(".expandLabel")
                     .attr("font-weight", 400);
 
             })
-            .on("dragstart", (event: React.DragEvent<HTMLElement>, d) => {
-                const dragString =  JSON.stringify({
-                    nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
-                    label: d.data.name,
-                    namespace: "",
-                    id: d.data.id,
-                    ontology: d.data.ontology
-                })
-                dragEvent(event, dragString);
-                svg.select(".dragDiv")
-                   .style("cursor", "grabbing");
-
+            .on("click", (event, d) => {
+                clickEvent(d.data.id || "");
             })
-            .on("drag", (event: React.DragEvent<HTMLElement>) => {
-                svg.select(".dragDiv")
-                    .style("cursor", "grabbing");
-
+            .on("dragstart", (event: React.DragEvent<HTMLElement>, d) => {
+                if(isDraggable){
+                    const dragString =  JSON.stringify({
+                        nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
+                        label: d.data.name,
+                        namespace: "",
+                        id: d.data.id,
+                        ontology: d.data.ontology
+                    })
+                    dragEvent(event, dragString);
+                    svg.selectAll(".dragDiv")
+                        .style("cursor", "grabbing");
+                }
+            })
+            .on("drag", () => {
+                if(isDraggable){
+                    svg.selectAll(".dragDiv")
+                        .style("cursor", "grabbing");
+                }
             })
             .on("dragend", (event: React.DragEvent<HTMLElement>, d) => {
-                const dragString =  JSON.stringify({
-                    nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
-                    label: d.data.name,
-                    namespace: "",
-                    id: d.data.id,
-                    ontology: d.data.ontology
-                })
-                svg.select(".dragDiv")
-                    .style("cursor", "grab");
-                 dragEvent(event, dragString);
+                if(isDraggable){
+                    const dragString =  JSON.stringify({
+                        nodeShape: !d.data.ontology ? "" : d.data.ontology.shape,
+                        label: d.data.name,
+                        namespace: "",
+                        id: d.data.id,
+                        ontology: d.data.ontology
+                    })
+                    svg.selectAll(".dragDiv")
+                        .style("cursor", "grab");
+                    dragEvent(event, dragString);
+                }
             })
 
         treeGroup.select(".dragSvg")
@@ -178,7 +176,7 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
             .style("background-color", "transparent");
 
       treeGroup
-        .attr("data-testid", (d, i: number) => `${treeGroupTestId}${i}`);
+        .attr("id", (d, i: number) => `${treeGroupTestId}${i}`);
 
       treeGroup.select(".expandCircle")
         .attr("cx", (d) => (d.data.startLeft || 0) + circleRadius)
@@ -189,7 +187,6 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
         .attr("stroke-width", 1)
         .style("cursor", "pointer")
         .on("click", (event, d) => {
-          d3.select(`#dragSvg${instanceId}`).style("height", "0px");
           if(!d.children  && d.data._children){
             d.children = d.data._children;
             d.data._children = undefined;
@@ -246,8 +243,8 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
       treeGroup.select(".expandLabel")
           .attr("pointer-events", "none")
           .attr("font-weight", 400)
-          .attr("x", (d) => 22)
-          .attr("y", (d) => 4 + rowHeight/2)
+          .attr("x",  22)
+          .attr("y",  4 + rowHeight/2)
           .attr("fill", (d) => d.data.id && d.data.ontology && filterIds.includes(d.data.id) ? d.data.ontology.color : "white")
           .attr("font-size", 12)
           .text((d) => d.data.expandLabel || "")
@@ -256,8 +253,8 @@ const OntologyHierarchy: React.FC<OntologyHierarchyProps> = ({
           .attr("pointer-events", "none")
         .attr("text-anchor", "middle")
         .attr("class", (d) => `expandLabelIcon ${!d.data.ontology ? "" : d.data.ontology.faIcon}`)
-        .attr("x", (d) => 11)
-        .attr("y", (d) =>  (d.data.ontology?.faUnicode.length === 3 ? 3 : 4) +  rowHeight/2)
+        .attr("x",  11)
+        .attr("y", (d) =>  (d.data.ontology &&  d.data.ontology.faUnicode.length === 3 ? 3 : 4) +  rowHeight/2)
         .style("fill", (d) => !d.data.ontology ? "" : d.data.ontology.color)
         .attr("font-size", (d) => d.data.ontology?.faUnicode.length === 3 ? 8 : 10)
         .text((d) => !d.data.ontology ? "" : d.data.ontology.faUnicode);
