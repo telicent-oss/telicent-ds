@@ -144,7 +144,8 @@
   "exports": {
     ".": {
       "import": "./dist/ds.js",
-      "require": "./dist/ds.umd.cjs"
+      "require": "./dist/ds.umd.cjs",
+      "types": "./dist/export.d.ts"
     },
     "./dist/style.css": {
       "import": "./dist/style.css",
