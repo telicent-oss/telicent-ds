@@ -130,7 +130,8 @@
     "tailwindcss": "^3.4.1",
     "typescript-plugin-css-modules": "^5.0.1",
     "vite": "^5.0.2",
-    "vite-plugin-dts": "^3.6.3"
+    "vite-plugin-dts": "^3.6.3",
+    "vite-plugin-watch-and-run": "1.7.0"
   },
   "publishConfig": {
     "registry": "https://www.npmjs.com/"
@@ -170,5 +171,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "engine": {
+    "node": "18"
   }
 }
