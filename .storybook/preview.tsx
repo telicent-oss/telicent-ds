@@ -16,8 +16,7 @@ const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
     matchers: {
-      // commenting this out for now as I think its a bug in storybook 7 - Alecs
-      // color: /(background|color)$/i,
+      color: /(background|color)$/i, // Doesn't work. I think its a bug in storybook 7 - Alecs
       date: /Date$/,
     },
   },
