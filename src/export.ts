@@ -16,6 +16,7 @@ export { default as Text, H1, H2, H3, H4, H5, H6 } from './v2/components/Text/Te
 export * from './v2/components/TreeView/TreeView';
 export * from './v2/components/Button/Button';
 export * from './v2/components/Skeleton/Skeleton';
+export * from './v2/components/LinearProgress/LinearProgress';
 
 // Layout
 export { default as Grid } from './v2/layout/Grid/Grid';
