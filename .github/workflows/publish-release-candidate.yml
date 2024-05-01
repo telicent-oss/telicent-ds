@@ -3,7 +3,9 @@ name: Publish release candidate
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
+      # To bump, and push tagged commit:
+      #   yarn version --prerelease && git push --follow-tags
+      - "v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+"
   workflow_dispatch:
 
 jobs:
