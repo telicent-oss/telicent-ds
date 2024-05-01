@@ -23,6 +23,18 @@ jobs:
       - name: Get tag name
         id: tag-name
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+      - name: Get version without prefix
+        id: extract-version
+        run: |
+          # Extract version without prefix
+          version=$(echo "${{ steps.tag-name.outputs.tag }}" | sed 's/^v//' )
+          echo "version=$version" >> $GITHUB_ENV # Set the output variable using environment file
+      - name: Get dist tag without version suffix
+        id: extract-dist-tag
+        run: |
+          # Extract the dist tag without version suffix e.g. 0.0.0-alpha.1 = alpha, 0.0.0-beta = beta
+          dist_tag=$(echo "${{ steps.tag-name.outputs.tag }}" | sed 's/\.[0-9]\+$//' | cut -d'-' -f2)
+          echo "dist-tag=$dist_tag" >> $GITHUB_ENV # Set the output variable using environment file
 
       - name: configure-node
         uses: actions/setup-node@v4
@@ -50,10 +62,4 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - run: yarn build
-      - name: Get dist tag without version suffix
-        id: extract-dist-tag
-        run: |
-          # Extract the dist tag without version suffix e.g. 0.0.0-alpha.1 = alpha, 0.0.0-beta = beta
-          dist_tag=$(echo "${{ steps.tag-name.outputs.tag }}" | sed 's/\.[0-9]\+$//' | cut -d'-' -f2)
-          echo "::set-output name=dist-tag::$dist_tag" # Set the output variable
       - run: npm publish --tag ${{ steps.extract-dist-tag.outputs.dist-tag }} --access public --provenance
