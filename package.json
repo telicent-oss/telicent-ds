@@ -33,7 +33,7 @@
     "zod": "^3.21.4"
   },
   "resolutions": {
-    "jackspeak": "2.1.1"
+    "jackspeak": "2.3.5"
   },
   "scripts": {
     "lint": "eslint --resolve-plugins-relative-to src",
