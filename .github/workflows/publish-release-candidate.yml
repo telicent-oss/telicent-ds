@@ -35,31 +35,30 @@ jobs:
           # Extract the dist tag without version suffix e.g. 0.0.0-alpha.1 = alpha, 0.0.0-beta = beta
           dist_tag=$(echo "${{ steps.tag-name.outputs.tag }}" | sed 's/\.[0-9]\+$//' | cut -d'-' -f2)
           echo "dist_tag=$dist_tag" >> $GITHUB_ENV # Set the output variable using environment file
-      # - name: configure-node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 20
-      #     registry-url: 'https://registry.npmjs.org'
-      #     scope: 'telicent-oss'
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
-      # - name: Get node version
-      #   id: node
-      #   run: |
-      #     echo "version=$(node -v)" >> $GITHUB_OUTPUT
+      - name: configure-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+          scope: 'telicent-oss'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
+      - name: Get node version
+        id: node
+        run: |
+          echo "version=$(node -v)" >> $GITHUB_OUTPUT
 
-      # - name: Get node_modules cache
-      #   uses: actions/cache@v3.0.2
-      #   id: node_modules
-      #   with:
-      #     path: |
-      #       **/node_modules
-      #     key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node_modules-
+      - name: Get node_modules cache
+        uses: actions/cache@v3.0.2
+        id: node_modules
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
 
-      # - run: yarn install --frozen-lockfile
-      # - run: yarn build
-      - run: echo "${dist_tag}"
-      - run: echo "${{ steps.extract-dist-tag.outputs.dist_tag }}"
-      # - run: npm publish --tag ${{ steps.extract-dist-tag.outputs.dist_tag }} --access public --provenance
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: npm publish --tag ${dist_tag} --access public --provenance
