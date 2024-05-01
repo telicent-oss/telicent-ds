@@ -10,6 +10,7 @@ export default {
 
 // Different args to cycle through
 const cycledArgs:Array<Partial<PaperProps>> = [
+  { elevation:0 },
   { elevation:1 },
   { elevation:4 },
   { elevation:8 },
