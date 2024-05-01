@@ -57,8 +57,7 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
           restore-keys: |
             ${{ runner.os }}-node_modules-
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: npm publish --tag ${dist_tag} --access public --provenance
+      - run: echo ${{ env.dist_tag }}
+      - run: npm publish --tag ${{ env.dist_tag }} --access public --provenance
