@@ -60,6 +60,6 @@ jobs:
 
       # - run: yarn install --frozen-lockfile
       # - run: yarn build
-      - run: echo "${extract-dist-tag}"
+      - run: echo "${dist_tag}"
       - run: echo "${{ steps.extract-dist-tag.outputs.dist_tag }}"
       # - run: npm publish --tag ${{ steps.extract-dist-tag.outputs.dist_tag }} --access public --provenance
