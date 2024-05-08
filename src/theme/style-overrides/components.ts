@@ -3,9 +3,9 @@ import { ThemeOptions } from "@mui/material";
 const COMPONENTS_STYLE_OVERRIDES: ThemeOptions["components"] = {
   MuiButton: {
     styleOverrides: {
-      root: {
-        paddingInline: "16px",
-      },
+      root: ({ theme }) => ({
+        paddingInline: theme.spacing(2),
+      }),
       outlinedPrimary: ({ theme }) => ({
         border: `1px solid ${theme.palette.primary.main}`,
       }),
