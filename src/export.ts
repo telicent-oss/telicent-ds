@@ -17,6 +17,7 @@ export * from './v2/components/TreeView/TreeView';
 export * from './v2/components/Button/Button';
 export * from './v2/components/Skeleton/Skeleton';
 export * from './v2/components/LinearProgress/LinearProgress';
+export * from './v2/components/Chip/Chip';
 
 // Layout
 export { default as Grid } from './v2/layout/Grid/Grid';
