@@ -1,17 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import react from "@vitejs/plugin-react";
-import path from "path";
-import copy from "rollup-plugin-copy";
-import dts from "vite-plugin-dts";
-import { watchAndRun } from 'vite-plugin-watch-and-run'
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import dts from "vite-plugin-dts";
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    port: 3003,
-  },
-  assetsInclude: [path.resolve(__dirname, "src/assets/fonts")],
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/export.ts"),
@@ -19,39 +12,16 @@ export default defineConfig({
       fileName: "ds",
     },
     rollupOptions: {
+      // Externalized deps which should not be included in lib
       external: ["react", "react-dom"],
       output: {
+        // Global variables to use in the UMD build for externalized deps
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
         },
       },
-      plugins: [
-        copy({
-          targets: [
-            {
-              src: "src/assets/fonts",
-              dest: "dist/assets",
-            },
-            { src: "src/fontawesome.css", dest: "dist" },
-          ],
-          hook: "writeBundle",
-          copyOnce: true,
-        }),
-      ],
     },
   },
-  plugins: [
-    dts({ insertTypesEntry: true }), react(),
-
-    watchAndRun([
-      {
-        name: 'rebuild',
-        watchKind: ['add', 'change', 'unlink'],
-        watch: path.resolve('src/**/*.(ts|tsx)'),
-        run: 'npm run build',
-        delay: 100,
-      }
-    ])
-  ],
+  plugins: [react(), dts({ insertTypesEntry: true })],
 });
