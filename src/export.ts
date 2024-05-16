@@ -1,10 +1,9 @@
-import "./main.css";
+import Divider from "@mui/material/Divider";
 
-export { default as TeliStandardLayout } from "./layouts/TeliStandardLayout/TeliStandardLayout";
-export { default as TeliBasicLayout } from "./layouts/TeliBasicLayout/TeliBasicLayout";
-export { default as DSProviders } from "./providers/LayoutProviders/DSProviders";
-export { useOntologyStyles } from "./contexts/OntologyStyles";
-export type { IconStyle } from "./contexts/OntologyStyles";
-export * from "./components";
-export { default as useDebounce } from "./hooks/useDebounce";
+export { Divider };
+export { default as UIThemeProvider } from "./theme/UIThemeProvider";
 
+export * from "./components/data-display";
+export * from "./components/inputs";
+export * from "./components/layout";
+export * from "./components/surfaces";

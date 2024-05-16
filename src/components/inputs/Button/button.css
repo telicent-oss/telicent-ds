@@ -1,0 +1,15 @@
+.MuiButton-root {
+  box-shadow: none;
+
+  &:hover {
+    box-shadow: none;
+  }
+
+  &.Mui-focusVisible {
+    box-shadow: none;
+  }
+}
+
+.Panel .MuiButton-root {
+  box-shadow: inherit;
+}
