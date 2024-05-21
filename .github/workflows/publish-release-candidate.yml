@@ -3,7 +3,9 @@ name: Publish release candidate
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
+      # To bump, and push tagged commit:
+      #   yarn version --prerelease # git push <your remote> --tag
+      - "v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+"
   workflow_dispatch:
 
 jobs:
@@ -21,7 +23,18 @@ jobs:
       - name: Get tag name
         id: tag-name
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-
+      - name: Get version without prefix
+        id: extract-version
+        run: |
+          # Extract version without prefix
+          version=$(echo "${{ steps.tag-name.outputs.tag }}" | sed 's/^v//' )
+          echo "version=$version" >> $GITHUB_ENV # Set the output variable using environment file
+      - name: Get dist tag without version suffix
+        id: extract-dist-tag
+        run: |
+          # Extract the dist tag without version suffix e.g. 0.0.0-alpha.1 = alpha, 0.0.0-beta = beta
+          dist_tag=$(echo "${{ steps.tag-name.outputs.tag }}" | sed 's/\.[0-9]\+$//' | cut -d'-' -f2)
+          echo "dist_tag=$dist_tag" >> $GITHUB_ENV # Set the output variable using environment file
       - name: configure-node
         uses: actions/setup-node@v4
         with:
@@ -44,8 +57,7 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
           restore-keys: |
             ${{ runner.os }}-node_modules-
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: npm publish --tag ${{ steps.tag-name.outputs.tag }} --access public --provenance
+      - run: echo ${{ env.dist_tag }}
+      - run: npm publish --tag ${{ env.dist_tag }} --access public --provenance
