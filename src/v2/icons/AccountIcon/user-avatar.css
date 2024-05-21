@@ -1,0 +1,7 @@
+#user-avatar.MuiAvatar-root {
+  @apply bg-app-color-800;
+}
+
+#user-avatar {
+  @apply text-whiteSmoke-50;
+}
