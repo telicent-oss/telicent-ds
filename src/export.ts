@@ -8,3 +8,10 @@ export type { IconStyle } from "./contexts/OntologyStyles";
 export * from "./components";
 export { default as useDebounce } from "./hooks/useDebounce";
 
+// V1
+export * from "./v1/components/data-display";
+export * from "./v1/components/feedback";
+export * from "./v1/components/inputs";
+export * from "./v1/components/layout";
+export * from "./v1/components/surfaces";
+export { default as UIThemeProvider } from "./v1/theme/UIThemeProvider";

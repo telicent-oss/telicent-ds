@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.3 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -209,6 +209,8 @@ textarea {
   /* 1 */
   line-height: inherit;
   /* 1 */
+  letter-spacing: inherit;
+  /* 1 */
   color: inherit;
   /* 1 */
   margin: 0;
@@ -232,9 +234,9 @@ select {
 */
 
 button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+input:where([type='button']),
+input:where([type='reset']),
+input:where([type='submit']) {
   -webkit-appearance: button;
   /* 1 */
   background-color: transparent;
@@ -583,6 +585,10 @@ html {
   --tw-backdrop-opacity:  ;
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
 }
 
 ::backdrop {
@@ -633,6 +639,10 @@ html {
   --tw-backdrop-opacity:  ;
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
 }
 
 /*
@@ -12795,7 +12805,7 @@ code {
   color: rgb(29 29 29 / 0.7);
 }
 
-:is(.dark .MuiTypography-root.MuiFormControlLabel-label.Mui-disabled) {
+.MuiTypography-root.MuiFormControlLabel-label.Mui-disabled:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(144 144 144 / var(--tw-text-opacity));
 }
@@ -12808,7 +12818,7 @@ code {
   font-family: Figtree, Avenir, Corbel, source-sans-pro, sans-serif;
 }
 
-:is(.dark .theme__text) {
+.theme__text:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(245 245 245 / var(--tw-text-opacity));
 }
@@ -12817,7 +12827,7 @@ code {
   letter-spacing: 0.05em;
 }
 
-:is(.dark .theme__bg) {
+.theme__bg:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(29 29 29 / var(--tw-bg-opacity));
 }
@@ -12841,7 +12851,7 @@ code {
   opacity: 1;
 }
 
-:is(.dark .dark\:text-whiteSmoke) {
+.dark\:text-whiteSmoke:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(245 245 245 / var(--tw-text-opacity));
 }
