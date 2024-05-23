@@ -1,7 +1,7 @@
 import React from "react";
 import MUIContainer from "@mui/material/Container";
 
-type ContainerProps = {
+type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   /** If true, the left and right padding is removed. */
   disablePadding: boolean;
   /** Set the maxWidth to match the minWidth of the current breakpoint. Useful

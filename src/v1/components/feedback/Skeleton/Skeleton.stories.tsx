@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Skeleton } from "./Skeleton";
-import { ExampleContent } from "../../layout/examples";
 
 const meta = {
   component: Skeleton,
