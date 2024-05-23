@@ -8,7 +8,6 @@ export type ButtonProps = Omit<
   | "color"
   | "classes"
   | "component"
-  | "disableElevation"
   | "disableFocusRipple"
   | "disableRipple"
   | "href"
