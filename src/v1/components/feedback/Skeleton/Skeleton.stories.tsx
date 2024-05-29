@@ -15,7 +15,7 @@ export const Basic: SkeletonStory = {
   parameters: {
     docs: {
       description: {
-        story: `A component use to visually stub out text/images which are "pending".`,
+        story: `A component used to visually stub out text/images which are "pending".`,
       },
     },
   },
