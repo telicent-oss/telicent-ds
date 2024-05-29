@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.0.3-rc3...v0.1.0-rc3) (2024-05-29)
+
+
+### Features
+
+* Added version 1 components ([f8a0d1a](https://github.com/telicent-oss/telicent-ds/commit/f8a0d1a5c5ef3a0e08aa4ffae99b7e8e80a6b4ec))
+
 ## [0.0.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.0.2-rc3...v0.0.3-rc3) (2024-03-27)
 
 
