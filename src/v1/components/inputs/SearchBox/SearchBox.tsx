@@ -38,7 +38,7 @@ export type SearchBoxProps<Value = string> = Partial<{
    */
   name: InputBaseProps["name"];
   /**
-   * "he short hint displayed in the input before the user enters a value.
+   * The short hint displayed in the input before the user enters a value.
    */
   placeholder: InputBaseProps["placeholder"];
   /**
