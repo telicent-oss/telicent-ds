@@ -36,7 +36,7 @@ type TreeViewProps<Item extends object = TreeViewBaseItem> = { items: Item[] } &
   getItemLabel: (item: Item) => string;
   /**
    * This prop is used to help implement the accessibility logic. If you don't
-   * provide this prop. It falls back to a randomly generated id.
+   * provide this prop, it falls back to a randomly generated id.
    */
   id: string;
   /**
