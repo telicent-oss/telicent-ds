@@ -28,7 +28,7 @@ export type SearchBoxProps<Value = string> = Partial<{
    */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
-   * Callback fired when the search button is clicked"
+   * Callback fired when the search button is clicked.
    * @param event
    * @returns
    */
