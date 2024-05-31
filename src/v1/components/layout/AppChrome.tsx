@@ -6,12 +6,12 @@ import AppBar, { AppBarProps } from "../surfaces/AppBar/AppBar";
 
 type AppChromeProps = AppBarProps & PropsWithChildren;
 
-const AppChrome: React.FC<AppChromeProps> = ({ appName, userProfile, children }) => {
+const AppChrome: React.FC<AppChromeProps> = ({ appName, beta, userProfile, children }) => {
   const theme = useTheme();
 
   return (
     <>
-      <AppBar appName={appName} userProfile={userProfile} />
+      <AppBar appName={appName} beta={beta} userProfile={userProfile} />
       <MUIContainer
         maxWidth={false}
         disableGutters

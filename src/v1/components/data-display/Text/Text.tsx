@@ -37,7 +37,7 @@ export type TextProps = BaseProps &
   }>;
 
 const Text: React.FC<TextProps> = ({ variant = "body1", ...textProps }) => (
-  <Typography variant="body1" {...textProps} />
+  <Typography variant={variant} {...textProps} />
 );
 
 const H1: React.FC<HeadingProps> = ({ variant = "h1", ...headingProps }) => (

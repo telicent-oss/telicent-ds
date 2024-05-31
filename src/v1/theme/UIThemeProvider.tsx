@@ -7,12 +7,8 @@ type UIThemeProviderProps = React.PropsWithChildren & {
   theme: UITheme;
 };
 
-const UIThemeProvider: React.FC<UIThemeProviderProps> = ({ theme, children }) => {
-  return (
-    <StyledEngineProvider injectFirst>
-      <MUIThemeProvider theme={createTheme(theme)}>{children}</MUIThemeProvider>
-    </StyledEngineProvider>
-  );
-};
+const UIThemeProvider: React.FC<UIThemeProviderProps> = ({ theme, children }) => (
+  <MUIThemeProvider theme={createTheme(theme)}>{children}</MUIThemeProvider>
+);
 
 export default UIThemeProvider;
