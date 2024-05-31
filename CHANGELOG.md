@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.0-rc3...v0.1.1-rc3) (2024-05-31)
+
+
+### Bug Fixes
+
+* Minor tweaks to Text, SearchBox, AppChrome and UIThemeProvider components ([fb8a954](https://github.com/telicent-oss/telicent-ds/commit/fb8a9549fba2148f57324e4c08a2d746db9096a0))
+
 ## [0.1.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.0.3-rc3...v0.1.0-rc3) (2024-05-29)
 
 
