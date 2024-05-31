@@ -32,7 +32,7 @@ export type SearchBoxProps<Value = string> = Partial<{
    * @param event
    * @returns
    */
-  onSearch: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onSearch: (event: React.MouseEvent<HTMLFormElement>) => void;
   /**
    * Name attribute of the input element.
    */
@@ -57,7 +57,15 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onChange,
   onSearch,
 }) => (
-  <Box id="search-box" height={44} width={600} display="flex" alignItems="center">
+  <Box
+    id="search-box"
+    height={44}
+    width={600}
+    display="flex"
+    alignItems="center"
+    component="form"
+    onSubmit={onSearch}
+  >
     <InputBase
       id="search-box-input"
       type="search"
@@ -83,6 +91,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     <PrimaryButton
       id="search-box-button"
       aria-label="search"
+      type="submit"
       sx={{
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,
@@ -90,7 +99,6 @@ const SearchBox: React.FC<SearchBoxProps> = ({
         borderBottomRightRadius: 4,
         height: "100%",
       }}
-      onClick={onSearch}
       disableElevation
     >
       <SearchIcon size="xl" />
