@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.1-rc3...v0.1.2-rc3) (2024-06-03)
+
+
+### Bug Fixes
+
+* **Button:** updates to button styles ([520ac95](https://github.com/telicent-oss/telicent-ds/commit/520ac9595353e389afb8693c7379d550425faaa0))
+
 ## [0.1.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.0-rc3...v0.1.1-rc3) (2024-05-31)
 
 
