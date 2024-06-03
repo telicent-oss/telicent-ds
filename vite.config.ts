@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import copy from "rollup-plugin-copy";
 import dts from "vite-plugin-dts";
-import { watchAndRun } from 'vite-plugin-watch-and-run'
+import { watchAndRun } from "vite-plugin-watch-and-run";
 import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
@@ -42,16 +42,17 @@ export default defineConfig({
     },
   },
   plugins: [
-    dts({ insertTypesEntry: true }), react(),
+    dts({ insertTypesEntry: true }),
+    react(),
 
-    watchAndRun([
-      {
-        name: 'rebuild',
-        watchKind: ['add', 'change', 'unlink'],
-        watch: path.resolve('src/**/*.(ts|tsx)'),
-        run: 'npm run build',
-        delay: 100,
-      }
-    ])
+    //   watchAndRun([
+    //     {
+    //       name: 'rebuild',
+    //       watchKind: ['add', 'change', 'unlink'],
+    //       watch: path.resolve('src/**/*.(ts|tsx)'),
+    //       run: 'npm run build',
+    //       delay: 100,
+    //     }
+    //   ])
   ],
 });

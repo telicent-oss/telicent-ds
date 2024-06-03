@@ -10,6 +10,12 @@ const createLightPalette = (themeColor: UITheme): ThemeOptions["palette"] => ({
     dark: THEME_COLORS[themeColor][600],
     contrastText: common.white,
   },
+  secondary: {
+    main: "#F9F9F9",
+  },
+  warning: undefined,
+  info: undefined,
+  success: undefined,
   background: {
     default: "#F8F9F9",
   },
