@@ -1,11 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 import OntologyService from "@telicent-oss/ontologyservice";
-import {
-  flattenStyles,
-  getTypeInitials,
-  getURIFragment,
-} from "./context-utils";
+import { flattenStyles, getTypeInitials, getOntologyClass } from "./context-utils";
 
 type OntologyStyle = {
   defaultIcons: {
@@ -55,14 +51,9 @@ type OntologyStylesProviderProps = {
   children: React.ReactNode;
 }>;
 
-const OntologyStylesContext = createContext<OntologyStylesContextProps | null>(
-  null
-);
+const OntologyStylesContext = createContext<OntologyStylesContextProps | null>(null);
 
-const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({
-  service,
-  children,
-}) => {
+const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({ service, children }) => {
   const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
 
   const query = useQuery({
@@ -84,7 +75,7 @@ const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({
 
     if (foundIcon) return foundIcon;
 
-    const alt = getURIFragment(classUri);
+    const alt = getOntologyClass(classUri);
     const iconFallbackText = getTypeInitials(classUri);
 
     return {
@@ -107,9 +98,7 @@ const useOntologyStyles = () => {
   const ontology = useContext(OntologyStylesContext);
 
   if (!ontology) {
-    throw new Error(
-      "useOntologyService has to be used within <OntologyStylesProvider />"
-    );
+    throw new Error("useOntologyService has to be used within <OntologyStylesProvider />");
   }
 
   return ontology;
