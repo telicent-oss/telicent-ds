@@ -1,14 +1,26 @@
 import { startCase } from "lodash";
 import { IconStyle, StyleResponse } from "./OntologyStyles";
 
-const hasFragment = (uri: string) =>
-  uri && uri.startsWith("http") && uri.includes("#");
+const PREFIX_LOOKUP: Record<string, string> = {
+  "http://telicent.io/ontology/": "telicent:",
+};
 
-export const getURIFragment = (uri: string) => {
+const hasFragment = (uri: string) => uri && uri.startsWith("http") && uri.includes("#");
+
+export const getOntologyClass = (uri: string) => {
   if (hasFragment(uri)) {
     const uriParts = uri.split("#");
     return uriParts.length > 1 ? uriParts[1] : uri;
   }
+
+  const foundNamespace = Object.keys(PREFIX_LOOKUP).find((namespace) => {
+    return uri.startsWith(namespace);
+  });
+
+  if (foundNamespace) {
+    return uri.replace(foundNamespace, "");
+  }
+
   return uri;
 };
 
@@ -19,9 +31,7 @@ const getInitials = (value: string) => {
     if (initials) return initials.join("").slice(0, 3);
   }
 
-  console.warn(
-    `Telicent DS (getInitials): Unable to get initials from "${value}"`
-  );
+  console.warn(`Telicent DS (getInitials): Unable to get initials from "${value}"`);
   return "";
 };
 
@@ -40,7 +50,7 @@ export const flattenStyles = (data: StyleResponse): IconStyle[] => {
     backgroundColor: style.defaultStyles.dark.backgroundColor,
     color: style.defaultStyles.dark.color,
     iconFallbackText: getTypeInitials(classUri),
-    alt: getURIFragment(classUri),
+    alt: getOntologyClass(classUri),
     shape: style.defaultStyles.shape,
     faUnicode: style.defaultIcons.faUnicode,
     faIcon: style.defaultIcons.faIcon,
