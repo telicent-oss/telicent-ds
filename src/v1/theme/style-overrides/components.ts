@@ -1,6 +1,7 @@
 import { ThemeOptions } from "@mui/material";
-import * as componentOverrides from "./component-overrides";
 import { UITheme } from "../colors/theme-colors";
+import * as componentOverrides from "./component-overrides";
+import { TYPOGRAPHY_FONT_FACES } from "./typography";
 
 const generateComponentOverrides = (uiTheme: UITheme) =>
   ({
@@ -13,6 +14,9 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
           height: 70,
         },
       },
+    },
+    MuiCssBaseline: {
+      ...TYPOGRAPHY_FONT_FACES.MuiCssBaseline,
     },
   } satisfies ThemeOptions["components"]);
 
