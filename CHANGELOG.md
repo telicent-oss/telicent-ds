@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.2-rc3...v0.1.3-rc3) (2024-06-25)
+
+
+### Bug Fixes
+
+* findIcon can now handle uris which start with 'http://telicent.io/ontology/' ([ad37c5c](https://github.com/telicent-oss/telicent-ds/commit/ad37c5c5ad8a3bf8641845dcb4b8acdedcf8843a))
+* **typography:** Added fonts to ui theme provider ([6fe1327](https://github.com/telicent-oss/telicent-ds/commit/6fe1327cd2e07588d68304abc49ef63ee9378e2a))
+
 ## [0.1.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.1-rc3...v0.1.2-rc3) (2024-06-03)
 
 
