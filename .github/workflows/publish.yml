@@ -10,9 +10,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish_package:
-    uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
+  build_and_publish:
+    runs-on: ubuntu-latest
+
     steps:
-      - run: npm publish --access public --provenance
+      - name: Build package
+        uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
+
+      - name: Publish package
+        run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}

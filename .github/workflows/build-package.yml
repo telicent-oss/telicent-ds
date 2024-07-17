@@ -1,9 +1,6 @@
 name: Build package
 
-on:
-  schedule:
-    - cron: 0 9 * * 1
-  workflow_dispatch:
+on: workflow_call
 
 jobs:
   get_version:
@@ -17,7 +14,7 @@ jobs:
     outputs:
       version: ${{ steps.semver.outputs.current-version }}
 
-  build_and_publish:
+  build:
     permissions:
       id-token: write
       contents: read

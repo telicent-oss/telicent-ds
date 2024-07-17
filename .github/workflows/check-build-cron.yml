@@ -1,0 +1,14 @@
+name: Check build (CRON)
+
+on:
+  schedule:
+    - cron: 0 9 * * 1
+  workflow_dispatch:
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build package
+        uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
