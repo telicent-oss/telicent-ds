@@ -65,7 +65,7 @@ jobs:
         run: yarn build
 
       - name: Upload build artifacts
-        if: inputs.dry-run == 'false'
+        if: inputs.dry-run == false
         uses: actions/upload-artifact@v3
         with:
           name: design-system-build-artifacts
