@@ -1,10 +1,11 @@
 name: Build package
 
-on: workflow_call
-  inputs:
-    node-auth-token:
-      required: true
-      type: string
+on:
+  workflow_call:
+    inputs:
+      node-auth-token:
+        required: true
+        type: string
 
 jobs:
   get_version:
