@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
+      - uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
