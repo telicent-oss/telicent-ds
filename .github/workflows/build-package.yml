@@ -71,5 +71,5 @@ jobs:
           name: design-system-build-artifacts
           path: dist/**
 
-      - name: Verify artifacts
-        run: ls -la ${{ github.workspace }}/dist
+      # - name: Verify artifacts
+      #   run: ls -la ${{ github.workspace }}/dist

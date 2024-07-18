@@ -23,5 +23,5 @@ jobs:
         with:
           name: design-system-build-artifacts
       - name: Verify artifacts
-        run: ls -la ${{ github.workspace }}/dist
+        run: ls -la ${{ github.workspace }}
       - run: npm publish --access public --provenance
