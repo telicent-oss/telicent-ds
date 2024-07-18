@@ -22,6 +22,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: design-system-build-artifacts
+          path: ${{ github.workspace }}/dist
       - name: Verify artifacts
-        run: ls -la ${{ github.workspace }}
+        run: ls -la ${{ github.workspace }} && ls -la ${{ github.workspace }}/dist
       - run: npm publish --access public --provenance
