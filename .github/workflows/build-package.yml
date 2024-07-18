@@ -22,9 +22,6 @@ jobs:
       version: ${{ steps.semver.outputs.current-version }}
 
   build:
-    permissions:
-      id-token: write
-      contents: read
     needs: get_version
     env:
       APP_NAME: ds
@@ -36,12 +33,6 @@ jobs:
 
       - name: configure-node
         uses: actions/setup-node@v4
-        # with:
-        #   node-version: 20
-        #   registry-url: "https://registry.npmjs.org"
-        #   scope: "telicent-oss"
-        # env:
-        #   NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
 
       - name: Get node version
         id: node
