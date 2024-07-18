@@ -1,0 +1,12 @@
+name: Check build (CRON)
+
+on:
+  schedule:
+    # 9am every monday
+    - cron: 0 9 * * 1
+  workflow_dispatch:
+
+jobs:
+  check_build:
+    uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
+    secrets: inherit

@@ -10,9 +10,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish_package:
+  build_package:
     uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
+    secrets: inherit
+
+  publish_package:
+    runs-on: ubuntu-latest
+    needs: build_package
     steps:
       - run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
