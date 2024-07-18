@@ -2,6 +2,7 @@ name: Check build (CRON)
 
 on:
   schedule:
+    # 9am every monday
     - cron: 0 9 * * 1
   workflow_dispatch:
 
