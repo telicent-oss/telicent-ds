@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.3-rc3...v0.1.4-rc3) (2024-07-18)
+
+
+### Bug Fixes
+
+* **vuln:** [TELFE-336] nth-check ([7d82f86](https://github.com/telicent-oss/telicent-ds/commit/7d82f86532e8b5566f13283fe8c27fcb89511918))
+
 ## [0.1.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.2-rc3...v0.1.3-rc3) (2024-06-25)
 
 
