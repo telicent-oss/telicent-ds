@@ -68,5 +68,5 @@ jobs:
         if: inputs.dry-run == false
         uses: actions/upload-artifact@v3
         with:
-          name: design-system-artifacts
+          name: design-system-build-artifacts
           path: ${{ github.workspace }}/**
