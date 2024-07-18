@@ -9,4 +9,7 @@ on:
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
-    uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
+    steps:
+      - uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
+        with:
+          node-auth-token: ${{ secrets.NPM_REGISTRY_TOKEN }}

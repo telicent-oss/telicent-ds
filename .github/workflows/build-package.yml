@@ -1,6 +1,10 @@
 name: Build package
 
 on: workflow_call
+  inputs:
+    node-auth-token:
+      required: true
+      type: string
 
 jobs:
   get_version:
@@ -34,7 +38,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           scope: "telicent-oss"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ inputs.node-auth-token }}
 
       - name: Get node version
         id: node
