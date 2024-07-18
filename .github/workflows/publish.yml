@@ -12,10 +12,9 @@ on:
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
+    uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
 
     steps:
-      - uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
-
       - name: Publish package
         run: npm publish --access public --provenance
         env:
