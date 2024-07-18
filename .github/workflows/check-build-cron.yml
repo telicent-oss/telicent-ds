@@ -10,3 +10,5 @@ jobs:
   check_build:
     uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
     secrets: inherit
+    with:
+      dry-run: true

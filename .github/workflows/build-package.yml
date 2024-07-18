@@ -1,6 +1,13 @@
 name: Build package
 
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      dry-run:
+        description: "Dry run mode"
+        required: false
+        default: "false"
+        type: boolean
 
 jobs:
   get_version:
@@ -56,3 +63,10 @@ jobs:
 
       - name: Build package
         run: yarn build
+
+      - name: Upload build artifacts
+        if: inputs.dry-run == 'false'
+        uses: actions/upload-artifact@v3
+        with:
+          name: design-system-build-artifacts
+          path: ${{ github.workspace }}/dist/**
