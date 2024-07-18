@@ -12,8 +12,7 @@ on:
 jobs:
   build_package:
     uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
-    with:
-      node-auth-token: ${{ secrets.NPM_REGISTRY_TOKEN }}
+    secrets: inherit
 
   publish_package:
     runs-on: ubuntu-latest

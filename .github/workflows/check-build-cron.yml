@@ -9,5 +9,4 @@ on:
 jobs:
   check_build:
     uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
-    with:
-      node-auth-token: ${{ secrets.NPM_REGISTRY_TOKEN }}
+    secrets: inherit
