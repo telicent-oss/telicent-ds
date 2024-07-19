@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.4-rc3...v0.1.5-rc3) (2024-07-19)
+
+
+### Bug Fixes
+
+* **build-package:** added node version to configure node step ([30196b0](https://github.com/telicent-oss/telicent-ds/commit/30196b01d5efeb13482d288780070bb4cadcdd15))
+
 ## [0.1.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.3-rc3...v0.1.4-rc3) (2024-07-18)
 
 
