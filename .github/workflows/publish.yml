@@ -12,7 +12,6 @@ on:
 jobs:
   build_package:
     uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
-    secrets: inherit
 
   publish_package:
     permissions:
@@ -26,14 +25,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: configure-node
+      - name: Setup Node.js with NPM registry
         uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
           scope: "telicent-oss"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
 
       - name: Download build artifacts
         uses: actions/download-artifact@v3
@@ -41,7 +38,6 @@ jobs:
           name: design-system-build-artifacts
           path: ${{ github.workspace }}/dist
 
-      - name: Verify artifacts
-        run: ls -la ${{ github.workspace }} && ls -la ${{ github.workspace }}/dist
-
       - run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
