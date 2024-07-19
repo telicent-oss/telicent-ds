@@ -31,6 +31,8 @@ jobs:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
           scope: "telicent-oss"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
 
       - name: Download build artifacts
         uses: actions/download-artifact@v3
@@ -39,5 +41,3 @@ jobs:
           path: ${{ github.workspace }}/dist
 
       - run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
