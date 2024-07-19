@@ -64,6 +64,7 @@ export type SearchAutocompleteProps<Option = DefaultOption> = {
    * The width of the component
    */
   width: number;
+  name: string;
   getOptionLabel: MUIAutocompleteProps<Option>["getOptionLabel"];
   getOptionKey: MUIAutocompleteProps<Option>["getOptionKey"];
   isOptionEqualToValue: MUIAutocompleteProps<Option>["isOptionEqualToValue"];
@@ -92,6 +93,7 @@ const SearchAutocomplete = <Option,>({
   options = [],
   placeholder = "Search ...",
   width,
+  name,
 }: SearchAutocompleteProps<Option>) => {
   return (
     <FormControl error={error} sx={{ width }} fullWidth={fullWidth}>
@@ -118,6 +120,7 @@ const SearchAutocomplete = <Option,>({
         renderInput={(params) => (
           <TextField
             {...params}
+            name={`${name}--TextField`}
             autoFocus={autoFocus}
             variant="outlined"
             label={label}
