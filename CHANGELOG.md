@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.5-rc3...v0.1.6-rc3) (2024-08-05)
+
+
+### Bug Fixes
+
+* bump dependency versions ([7b1fd2c](https://github.com/telicent-oss/telicent-ds/commit/7b1fd2c53f286e8c5b3d0cb70c7f6f4563d09957))
+
 ## [0.1.5-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.4-rc3...v0.1.5-rc3) (2024-07-19)
 
 
