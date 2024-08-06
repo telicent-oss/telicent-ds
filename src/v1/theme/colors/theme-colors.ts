@@ -1,8 +1,9 @@
 import { common } from "@mui/material/colors";
-import { alpha, getContrastRatio } from "@mui/material/styles";
+import { alpha } from "@mui/material/styles";
 import DATA_NAVY from "./data-navy";
+import DOCUMENT_PINK from "./document-pink";
 
-export type UITheme = "light" | "DataNavy";
+export type UITheme = "light" | "DataNavy" | "DocumentPink";
 
 const lightMain = common.white;
 
@@ -18,7 +19,14 @@ const THEME_COLORS = {
     main: lightMain,
     light: alpha(lightMain, 0.5),
     dark: alpha(lightMain, 0.9),
-    contrastText: "#111",
+    contrastText: common.black,
+  },
+  DocumentPink: {
+    ...DOCUMENT_PINK,
+    main: DOCUMENT_PINK[500],
+    light: DOCUMENT_PINK[400],
+    dark: DOCUMENT_PINK[600],
+    contrastText: common.black,
   },
 };
 
