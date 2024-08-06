@@ -1,6 +1,7 @@
 export * from "./Icons";
 export * from "./FontAwesomeIcons";
 export * from "./Text/Text";
+export * from "./List/List";
 
 export { default as Chip } from "./Chip/Chip";
 export type { ChipProps } from "./Chip/Chip";

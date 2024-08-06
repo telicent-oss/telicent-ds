@@ -25,17 +25,19 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
   };
 
   return (
-    <MUIStack
-      direction="row"
-      spacing={1}
-      alignItems="center"
-      sx={{ position: "absolute", top: "50%", right: 16, transform: "translate(0, -50%);" }}
-    >
+    <MUIStack direction="row" spacing={1} alignItems="center">
       <H2 variant="h6">{fullName}</H2>
-      <MUIAvatar variant="circular-outlined" sx={{ width: 32, height: 32 }}>
-        <UserIcon color="primary" />
+      <MUIAvatar
+        variant="circular-outlined"
+        sx={{ width: 32, height: 32, borderColor: "inherit" }}
+      >
+        <UserIcon color="inherit" />
       </MUIAvatar>
-      <MUIIconButton aria-label="user-profile" color="primary" onClick={handleClick}>
+      <MUIIconButton
+        aria-label="user-profile"
+        color="inherit"
+        onClick={handleClick}
+      >
         <DownArrowIcon rotation={open ? 180 : undefined} size="sm" />
       </MUIIconButton>
       <MUIMenu
