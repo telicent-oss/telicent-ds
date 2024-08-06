@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.1.5-rc3",
+  "version": "0.1.6-rc3",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -21,7 +21,7 @@
     "@mui/x-tree-view": "7.3.1",
     "@react-spring/web": "9.7.3",
     "@tanstack/react-query": "^5.18.0",
-    "@telicent-oss/ontologyservice": "0.0.7",
+    "@telicent-oss/ontologyservice": "^0.30.0-dev3",
     "classnames": "^2.3.1",
     "d3": "^7.8.2",
     "lodash": "^4.17.21",
