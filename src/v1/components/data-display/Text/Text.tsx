@@ -14,6 +14,7 @@ export type BaseProps = Partial<{
     order to overflow).
    */
   noWrap: boolean;
+  sx: TypographyProps["sx"];
 }>;
 
 export type HeadingProps = BaseProps &
@@ -33,11 +34,17 @@ export type TextProps = BaseProps &
     /**
      * The type of text style to use.
      */
-    variant: "subtitle1" | "subtitle2" | "body1" | "body2" | "overline" | "caption";
+    variant:
+      | "subtitle1"
+      | "subtitle2"
+      | "body1"
+      | "body2"
+      | "overline"
+      | "caption";
   }>;
 
 const Text: React.FC<TextProps> = ({ variant = "body1", ...textProps }) => (
-  <Typography variant={variant} {...textProps} />
+  <Typography component="p" variant={variant} {...textProps} />
 );
 
 const H1: React.FC<HeadingProps> = ({ variant = "h1", ...headingProps }) => (

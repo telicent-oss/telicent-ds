@@ -16,10 +16,13 @@ export type ButtonProps = Omit<
   | "variant"
 > &
   Partial<{
-    variant: "primary" | "secondary" | "tertiary" | "link";
+    variant: "primary" | "secondary" | "tertiary" | "link" | "text";
   }>;
 
-const Button: React.FC<ButtonProps> = ({ variant = "primary", ...buttonProps }) => {
+const Button: React.FC<ButtonProps> = ({
+  variant = "primary",
+  ...buttonProps
+}) => {
   if (variant === "primary") return <PrimaryButton {...buttonProps} />;
   if (variant === "secondary") return <SecondaryButton {...buttonProps} />;
 

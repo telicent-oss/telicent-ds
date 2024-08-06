@@ -29,11 +29,20 @@ const AppBar: React.FC<AppBarProps> = ({
         direction="row"
         spacing={2}
         alignItems="center"
-        sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%);" }}
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%);",
+        }}
       >
         <TelicentMark fontSize="large" />
         <img src={TelicentBrand} alt="Telicent" height={28} />
-        <MUITypography variant="h1" color="primary" sx={{ fontFamily: "Figtree", fontSize: 40 }}>
+        <MUITypography
+          variant="h1"
+          color="primary"
+          sx={{ fontFamily: "Figtree", fontSize: 40 }}
+        >
           {appName}
         </MUITypography>
         {beta && (
@@ -52,7 +61,18 @@ const AppBar: React.FC<AppBarProps> = ({
           </MUIBox>
         )}
       </MUIStack>
-      {userProfile}
+      {userProfile && (
+        <MUIStack
+          sx={{
+            position: "absolute",
+            top: "50%",
+            right: 16,
+            transform: "translate(0, -50%)",
+          }}
+        >
+          {userProfile}
+        </MUIStack>
+      )}
     </MUIAppBar>
   );
 };

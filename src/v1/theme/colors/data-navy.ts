@@ -8,7 +8,3 @@ const DATA_NAVY = {
 };
 
 export default DATA_NAVY;
-
-/*
- * #DEE2FC used for card borders
- */
