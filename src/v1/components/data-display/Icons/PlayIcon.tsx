@@ -3,7 +3,7 @@ import MUISvgIcon, {
   SvgIconProps as MUISvgIconProps,
 } from "@mui/material/SvgIcon";
 
-const GridIcon: React.FC<MUISvgIconProps> = (iconProps) => (
+const PlayIcon: React.FC<MUISvgIconProps> = (iconProps) => (
   <MUISvgIcon {...iconProps}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 10" fill="none">
       <path
@@ -14,4 +14,4 @@ const GridIcon: React.FC<MUISvgIconProps> = (iconProps) => (
   </MUISvgIcon>
 );
 
-export default GridIcon;
+export default PlayIcon;
