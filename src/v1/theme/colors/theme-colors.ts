@@ -1,9 +1,11 @@
 import { common } from "@mui/material/colors";
 import { alpha } from "@mui/material/styles";
+import zod from "zod";
 import DATA_NAVY from "./data-navy";
 import DOCUMENT_PINK from "./document-pink";
 
-export type UITheme = "light" | "DataNavy" | "DocumentPink";
+export const UIThemeSchema = zod.enum(["light", "DataNavy", "DocumentPink"]);
+export type UITheme = zod.infer<typeof UIThemeSchema>;
 
 const lightMain = common.white;
 
