@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.6-rc3...v0.2.0-rc3) (2024-08-13)
+
+
+### Features
+
+* added doucment pink theme for saved searches feature ([49715ea](https://github.com/telicent-oss/telicent-ds/commit/49715eaaa28ca7735c27e6ce71de9060252ec08d))
+* made updates to components used in user portal app ([d802dff](https://github.com/telicent-oss/telicent-ds/commit/d802dff9c8daaf354e4cfe3f9b8d888c95f48c09))
+* updates to theme to accomodate user portal app ([27bf0b2](https://github.com/telicent-oss/telicent-ds/commit/27bf0b237d9505c1ede871736089362b5aa48280))
+
+
+### Bug Fixes
+
+* exporting uitheme type ([5c428e9](https://github.com/telicent-oss/telicent-ds/commit/5c428e9b0fdac30ed1bf2d710511c4edad33b7fe))
+
 ## [0.1.6-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.5-rc3...v0.1.6-rc3) (2024-08-05)
 
 
