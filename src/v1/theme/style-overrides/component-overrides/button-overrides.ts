@@ -16,7 +16,10 @@ const generateButtonOverrides = (uiTheme: UITheme) =>
           border: `1px solid ${theme.palette.primary.main}`,
           backgroundColor: theme.palette.secondary.main,
           ":hover": {
-            backgroundColor: `${THEME_COLORS[uiTheme][100]}`,
+            backgroundColor:
+              uiTheme === "light" || uiTheme === "dark"
+                ? "inherit"
+                : `${THEME_COLORS[uiTheme][100]}`,
           },
         }),
         startIcon: {

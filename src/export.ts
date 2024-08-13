@@ -14,4 +14,4 @@ export * from "./v1/components/feedback";
 export * from "./v1/components/inputs";
 export * from "./v1/components/layout";
 export * from "./v1/components/surfaces";
-export { default as UIThemeProvider } from "./v1/theme/UIThemeProvider";
+export * from "./v1/theme";

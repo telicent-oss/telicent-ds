@@ -1,14 +1,13 @@
 import { ThemeOptions } from "@mui/material";
-import { common } from "@mui/material/colors";
 import THEME_COLORS, { UITheme } from "./colors/theme-colors";
 
 const createLightPalette = (themeColor: UITheme): ThemeOptions["palette"] => ({
   mode: "light",
   primary: {
-    main: THEME_COLORS[themeColor][500],
-    light: THEME_COLORS[themeColor][400],
-    dark: THEME_COLORS[themeColor][600],
-    contrastText: common.white,
+    main: THEME_COLORS[themeColor].main,
+    light: THEME_COLORS[themeColor].light,
+    dark: THEME_COLORS[themeColor].dark,
+    contrastText: THEME_COLORS[themeColor].contrastText,
   },
   secondary: {
     main: "#F9F9F9",
