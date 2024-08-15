@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext } from "react";
 import OntologyService from "@telicent-oss/ontologyservice";
-import { flattenStyles, getTypeInitials, getOntologyClass } from "./context-utils";
+import {
+  flattenStyles,
+  getTypeInitials,
+  getOntologyClass,
+} from "./context-utils";
 
 type OntologyStyle = {
   defaultIcons: {
@@ -41,6 +45,7 @@ export type IconStyle = {
 }>;
 
 type OntologyStylesContextProps = {
+  loadingStyles: boolean;
   styles: IconStyle[];
   findIcon: (classUri: string) => IconStyle;
 };
@@ -51,9 +56,14 @@ type OntologyStylesProviderProps = {
   children: React.ReactNode;
 }>;
 
-const OntologyStylesContext = createContext<OntologyStylesContextProps | null>(null);
+const OntologyStylesContext = createContext<OntologyStylesContextProps | null>(
+  null
+);
 
-const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({ service, children }) => {
+const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({
+  service,
+  children,
+}) => {
   const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
 
   const query = useQuery({
@@ -68,7 +78,7 @@ const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({ service
     select: flattenStyles,
   });
 
-  const styles = query.data ?? [];
+  const { isLoading: loadingStyles, data: styles = [] } = query;
 
   const findIcon = (classUri: string) => {
     const foundIcon = styles.find((style) => style.classUri === classUri);
@@ -88,7 +98,7 @@ const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({ service
   };
 
   return (
-    <OntologyStylesContext.Provider value={{ styles, findIcon }}>
+    <OntologyStylesContext.Provider value={{ loadingStyles, styles, findIcon }}>
       {children}
     </OntologyStylesContext.Provider>
   );
@@ -98,7 +108,9 @@ const useOntologyStyles = () => {
   const ontology = useContext(OntologyStylesContext);
 
   if (!ontology) {
-    throw new Error("useOntologyService has to be used within <OntologyStylesProvider />");
+    throw new Error(
+      "useOntologyService has to be used within <OntologyStylesProvider />"
+    );
   }
 
   return ontology;
