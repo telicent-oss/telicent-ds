@@ -45,7 +45,7 @@ export type IconStyle = {
 }>;
 
 type OntologyStylesContextProps = {
-  loadingStyles: boolean;
+  isLoadingStyles: boolean;
   styles: IconStyle[];
   findIcon: (classUri: string) => IconStyle;
 };
@@ -78,7 +78,7 @@ const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({
     select: flattenStyles,
   });
 
-  const { isLoading: loadingStyles, data: styles = [] } = query;
+  const { isLoading: isLoadingStyles, data: styles = [] } = query;
 
   const findIcon = (classUri: string) => {
     const foundIcon = styles.find((style) => style.classUri === classUri);
@@ -98,7 +98,7 @@ const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({
   };
 
   return (
-    <OntologyStylesContext.Provider value={{ loadingStyles, styles, findIcon }}>
+    <OntologyStylesContext.Provider value={{ isLoadingStyles, styles, findIcon }}>
       {children}
     </OntologyStylesContext.Provider>
   );
