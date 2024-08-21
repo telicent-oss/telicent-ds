@@ -1,5 +1,7 @@
+export { default as CloseIcon } from "./CloseIcon";
 export { default as DataServiceIcon } from "./DataServiceIcon";
 export { default as DataSetIcon } from "./DataSetIcon";
+export { default as FloppyDiskIcon } from "./FloppyDiskIcon";
 export { default as GridIcon } from "./GridIcon";
 export { default as PlayIcon } from "./PlayIcon";
 export { default as TelicentMark } from "./TelicentMark";
