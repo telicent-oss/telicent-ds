@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.2.0-rc3...v0.3.0-rc3) (2024-08-22)
+
+
+### Features
+
+* added bin icon ([bac5318](https://github.com/telicent-oss/telicent-ds/commit/bac53181bc1068aff4a7bf0de58bc909eae3dba4))
+* added components which are needed for saved searches feature ([480bcc0](https://github.com/telicent-oss/telicent-ds/commit/480bcc08dac645029349072a6da4ced8294ec6ef))
+* added graph orange palette ([3b99981](https://github.com/telicent-oss/telicent-ds/commit/3b99981796ae8fe4e854ef0ee4cc7edb9c708eea))
+
 ## [0.2.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.1.6-rc3...v0.2.0-rc3) (2024-08-13)
 
 
