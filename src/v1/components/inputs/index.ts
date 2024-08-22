@@ -5,3 +5,5 @@ export { default as IconButton } from "./Button/IconButton";
 
 export { default as SearchBox } from "./SearchBox/SearchBox";
 export type { SearchBoxProps } from "./SearchBox/SearchBox";
+
+export { default as TextField } from "./TextField";

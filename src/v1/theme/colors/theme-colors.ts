@@ -3,8 +3,14 @@ import { alpha } from "@mui/material/styles";
 import zod from "zod";
 import DATA_NAVY from "./data-navy";
 import DOCUMENT_PINK from "./document-pink";
+import GRAPH_ORANGE from "./graph-orange";
 
-export const UIThemeSchema = zod.enum(["light", "DataNavy", "DocumentPink"]);
+export const UIThemeSchema = zod.enum([
+  "light",
+  "DataNavy",
+  "DocumentPink",
+  "GraphOrange",
+]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 
 const lightMain = common.white;
@@ -28,6 +34,13 @@ const THEME_COLORS = {
     main: DOCUMENT_PINK[500],
     light: DOCUMENT_PINK[400],
     dark: DOCUMENT_PINK[600],
+    contrastText: common.black,
+  },
+  GraphOrange: {
+    ...GRAPH_ORANGE,
+    main: GRAPH_ORANGE[500],
+    light: GRAPH_ORANGE[400],
+    dark: GRAPH_ORANGE[600],
     contrastText: common.black,
   },
 };

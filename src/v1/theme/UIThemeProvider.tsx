@@ -6,13 +6,15 @@ import createTheme from "./theme";
 
 type UIThemeProviderProps = React.PropsWithChildren & {
   theme: UITheme;
+  dark?: boolean;
 };
 
 const UIThemeProvider: React.FC<UIThemeProviderProps> = ({
+  dark = false,
   theme,
   children,
 }) => (
-  <MUIThemeProvider theme={createTheme(theme)}>
+  <MUIThemeProvider theme={createTheme(theme, dark)}>
     <MUICssBaseline />
     {children}
   </MUIThemeProvider>

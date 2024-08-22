@@ -17,10 +17,12 @@ export type ButtonProps = Omit<
 > &
   Partial<{
     variant: "primary" | "secondary" | "tertiary" | "link" | "text";
+    color: "primary" | "inherit";
   }>;
 
 const Button: React.FC<ButtonProps> = ({
   variant = "primary",
+  color = "primary",
   ...buttonProps
 }) => {
   if (variant === "primary") return <PrimaryButton {...buttonProps} />;
@@ -33,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
   if (variant === "link") return <LinkButton {...buttonProps} />;
 
   return (
-    <MUIButton variant="text" color="primary" {...buttonProps}>
+    <MUIButton variant="text" color={color} {...buttonProps}>
       {buttonProps.children}
     </MUIButton>
   );
