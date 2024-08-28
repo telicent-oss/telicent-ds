@@ -3,8 +3,8 @@ import MUIAvatar from "@mui/material/Avatar";
 import MUIGrid from "@mui/material/Grid";
 import MUIBox from "@mui/material/Box";
 
-import Text, { H2 } from "../Text/Text";
-import UserIcon from "../Icons/UserIcon";
+import Text, { H2 } from "../../Text/Text";
+import UserIcon from "../../Icons/UserIcon";
 
 export type UserStatusProps = PropsWithChildren & {
   fullName: string;
