@@ -32,3 +32,5 @@ upload.env
 main.tsx
 App.tsx
 .idea
+
+*storybook.log
