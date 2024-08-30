@@ -1,0 +1,1 @@
+import{j as i}from"./jsx-runtime-CexXSJP5.js";import{C as r}from"./Chip-DIAWJyfw.js";const a=({variant:e="filled",...o})=>i.jsx(r,{variant:e,color:"primary",...o});a.__docgenInfo={description:"",methods:[],displayName:"Chip",props:{variant:{defaultValue:{value:'"filled"',computed:!1},required:!1}}};export{a as C};

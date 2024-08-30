@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../../../node_modules/react';
 import { TreeViewBaseItem } from '@mui/x-tree-view';
 
 type TreeViewProps<Item extends object = TreeViewBaseItem> = {

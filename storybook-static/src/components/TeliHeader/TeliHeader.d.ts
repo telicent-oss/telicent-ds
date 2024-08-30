@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 
 type NavProps = JSX.IntrinsicElements["nav"];
 export interface TeliHeaderProps extends React.HTMLAttributes<HTMLHeadElement> {

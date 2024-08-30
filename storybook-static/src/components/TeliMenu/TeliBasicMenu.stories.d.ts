@@ -2,7 +2,7 @@ import { StoryObj } from '@storybook/react';
 import { BasicMenu, ControlledBasicMenu, CustomMenuItems, PositionedMenu, WithIcon } from './stories';
 
 declare const meta: {
-    component: import('react').FC<import('./TeliBasicMenu').TeliBasicMenuProps>;
+    component: import('../../../node_modules/react').FC<import('./TeliBasicMenu').TeliBasicMenuProps>;
     title: string;
     parameters: {
         docs: {

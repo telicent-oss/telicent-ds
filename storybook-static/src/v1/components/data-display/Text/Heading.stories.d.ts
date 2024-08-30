@@ -3,7 +3,7 @@ import { H1 } from './Text';
 
 declare const meta: {
     title: string;
-    component: import('react').FC<import('./Text').HeadingProps>;
+    component: import('../../../../../node_modules/react').FC<import('./Text').HeadingProps>;
     parameters: {
         docs: {
             description: {

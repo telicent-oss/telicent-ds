@@ -3,7 +3,7 @@ import { default as Text } from './Text';
 
 declare const meta: {
     title: string;
-    component: import('react').FC<import('./Text').TextProps>;
+    component: import('../../../../../node_modules/react').FC<import('./Text').TextProps>;
     tags: string[];
     args: {
         align: "inherit";

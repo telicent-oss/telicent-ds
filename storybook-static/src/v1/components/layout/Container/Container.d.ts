@@ -1,4 +1,4 @@
-import { default as React, PropsWithChildren } from 'react';
+import { default as React, PropsWithChildren } from '../../../../../node_modules/react';
 
 type ContainerProps = React.HTMLAttributes<HTMLDivElement> & PropsWithChildren & Partial<{
     /** If true, the left and right padding is removed. */

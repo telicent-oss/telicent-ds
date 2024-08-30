@@ -3,7 +3,7 @@ import { TreeViewBaseItem } from './TreeView';
 
 declare const meta: {
     title: string;
-    component: import('react').FC<import('./TreeView').TreeViewProps<TreeViewBaseItem>>;
+    component: import('../../../../../node_modules/react').FC<import('./TreeView').TreeViewProps<TreeViewBaseItem>>;
     parameters: {
         docs: {
             description: {

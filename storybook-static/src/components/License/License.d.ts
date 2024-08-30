@@ -1,4 +1,4 @@
-import { default as React, ReactNode } from 'react';
+import { default as React, ReactNode } from '../../../node_modules/react';
 
 interface LicenseProps {
     /**

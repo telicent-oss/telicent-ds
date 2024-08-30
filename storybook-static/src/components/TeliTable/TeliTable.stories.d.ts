@@ -2,7 +2,7 @@ import { StoryObj } from '@storybook/react';
 import { TableExample } from './stories';
 
 declare const meta: {
-    component: import('react').FC<import('./TeliTable').TeliTableProps>;
+    component: import('../../../node_modules/react').FC<import('./TeliTable').TeliTableProps>;
     parameters: {
         docs: {
             description: {

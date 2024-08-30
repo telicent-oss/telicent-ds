@@ -1,7 +1,7 @@
 import { StoryObj } from '@storybook/react';
 
 declare const meta: {
-    component: import('react').FC<Partial<import('./TeliUserAvatar').TeliUserAvatarProps>>;
+    component: import('../../../node_modules/react').FC<Partial<import('./TeliUserAvatar').TeliUserAvatarProps>>;
     parameters: {
         docs: {
             description: {

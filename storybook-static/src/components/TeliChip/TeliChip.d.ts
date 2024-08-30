@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 import { ChipProps } from '@mui/material';
 
 type MUIChipProps = Omit<ChipProps, "variant" | "color" | "avatar" | "classes">;

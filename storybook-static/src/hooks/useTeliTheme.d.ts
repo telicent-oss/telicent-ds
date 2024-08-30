@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../node_modules/react';
 import { PaletteMode as Theme } from '@mui/material';
 
 declare const useTeliTheme: () => {

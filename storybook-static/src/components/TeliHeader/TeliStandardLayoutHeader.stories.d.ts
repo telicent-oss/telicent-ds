@@ -1,7 +1,7 @@
 import { StoryObj } from '@storybook/react';
 
 declare const meta: {
-    component: import('react').FC<import('./TeliStandardLayoutHeader').TeliStandardLayoutHeaderProps>;
+    component: import('../../../node_modules/react').FC<import('./TeliStandardLayoutHeader').TeliStandardLayoutHeaderProps>;
 };
 export default meta;
 type TeliStandardLayoutHeaderStory = StoryObj<typeof meta>;

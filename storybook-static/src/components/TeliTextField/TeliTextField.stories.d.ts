@@ -2,7 +2,7 @@ import { StoryObj } from '@storybook/react';
 import { AdornmentExamples, Controlled, FormProps, MultilineExamples, ValidationExamples } from './stories';
 
 declare const meta: {
-    component: import('react').FC<import('./TeliTextFieldProps').default>;
+    component: import('../../../node_modules/react').FC<import('./TeliTextFieldProps').default>;
 };
 export default meta;
 export type TeliTextFieldStory = StoryObj<typeof meta>;

@@ -1,7 +1,7 @@
 import { StoryObj } from '@storybook/react';
 
 declare const meta: {
-    component: import('react').FC<import('./TeliTableHead').TeliTableHeadProps>;
+    component: import('../../../node_modules/react').FC<import('./TeliTableHead').TeliTableHeadProps>;
     parameters: {
         docs: {
             description: {

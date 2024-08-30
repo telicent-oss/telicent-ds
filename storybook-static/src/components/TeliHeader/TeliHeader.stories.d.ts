@@ -1,7 +1,7 @@
 import { StoryObj } from '@storybook/react';
 
 declare const meta: {
-    component: import('react').FC<import('./TeliHeader').TeliHeaderProps>;
+    component: import('../../../node_modules/react').FC<import('./TeliHeader').TeliHeaderProps>;
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -8,163 +8,95 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             };
         };
     };
-    MuiAlert?: {
-        defaultProps?: Partial<import('@mui/material').AlertProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AlertClasses, "MuiAlert", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').AlertProps> | ((props: Partial<import('@mui/material').AlertProps> & {
-                ownerState: Partial<import('@mui/material').AlertProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiAlertTitle?: {
-        defaultProps?: Partial<import('@mui/material').AlertTitleProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiAlertTitle", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').AlertTitleProps> | ((props: Partial<import('@mui/material').AlertTitleProps> & {
-                ownerState: Partial<import('@mui/material').AlertTitleProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiAutocomplete?: {
-        defaultProps?: Partial<import('@mui/material').AutocompleteProps<any, any, any, any, "div">> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AutocompleteClasses, "MuiAutocomplete", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').AutocompleteProps<any, any, any, any, "div">> | ((props: Partial<import('@mui/material').AutocompleteProps<any, any, any, any, "div">> & {
-                ownerState: Partial<import('@mui/material').AutocompleteProps<any, any, any, any, "div">>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiAvatar?: {
-        defaultProps?: Partial<import('@mui/material').AvatarProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AvatarClasses, "MuiAvatar", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').AvatarProps> | ((props: Partial<import('@mui/material').AvatarProps> & {
-                ownerState: Partial<import('@mui/material').AvatarProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiAvatarGroup?: {
-        defaultProps?: Partial<import('@mui/material').AvatarGroupProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AvatarGroupClasses, "MuiAvatarGroup", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').AvatarGroupProps> | ((props: Partial<import('@mui/material').AvatarGroupProps> & {
-                ownerState: Partial<import('@mui/material').AvatarGroupProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiBackdrop?: {
-        defaultProps?: Partial<import('@mui/material').BackdropProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').BackdropClasses, "MuiBackdrop", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').BackdropProps> | ((props: Partial<import('@mui/material').BackdropProps> & {
-                ownerState: Partial<import('@mui/material').BackdropProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiBadge?: {
-        defaultProps?: Partial<import('@mui/material').BadgeProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').BadgeClasses, "MuiBadge", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').BadgeProps> | ((props: Partial<import('@mui/material').BadgeProps> & {
-                ownerState: Partial<import('@mui/material').BadgeProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiBottomNavigation?: {
-        defaultProps?: Partial<import('@mui/material').BottomNavigationProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiBottomNavigation", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').BottomNavigationProps> | ((props: Partial<import('@mui/material').BottomNavigationProps> & {
-                ownerState: Partial<import('@mui/material').BottomNavigationProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiBottomNavigationAction?: {
-        defaultProps?: Partial<import('@mui/material').BottomNavigationActionProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').BottomNavigationActionClasses, "MuiBottomNavigationAction", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').BottomNavigationActionProps> | ((props: Partial<import('@mui/material').BottomNavigationActionProps> & {
-                ownerState: Partial<import('@mui/material').BottomNavigationActionProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiBreadcrumbs?: {
-        defaultProps?: Partial<import('@mui/material').BreadcrumbsProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').BreadcrumbsClasses, "MuiBreadcrumbs", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').BreadcrumbsProps> | ((props: Partial<import('@mui/material').BreadcrumbsProps> & {
-                ownerState: Partial<import('@mui/material').BreadcrumbsProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiButton: {
-        defaultProps?: Partial<import('@mui/material').ButtonProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ButtonClasses, "MuiButton", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').ButtonProps> | ((props: Partial<import('@mui/material').ButtonProps> & {
-                ownerState: Partial<import('@mui/material').ButtonProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | {
+    MuiCssBaseline: {
+        styleOverrides: string;
+    };
+    MuiCard: {
+        variants: {
+            props: {
+                variant: "outlined";
+            };
+            style: {
+                borderWidth: number;
+                borderStyle: "solid";
+                borderColor: string;
+            };
+        }[];
         styleOverrides: {
-            root: ({ theme }: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('react').DetailedHTMLProps<import('react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
-                ref?: ((instance: HTMLButtonElement | null) => void) | import('react').RefObject<HTMLButtonElement> | null | undefined;
-            }, "children" | "className" | "style" | "tabIndex" | "color" | "size" | "href" | "classes" | "sx" | "action" | "variant" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "disableFocusRipple"> & {
-                component?: import('react').ElementType<any, keyof import("react").JSX.IntrinsicElements> | undefined;
+            root: ({ theme }: import('@mui/material').CardOwnProps & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & {
+                ref?: ((instance: HTMLDivElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLDivElement> | null | undefined;
+            }, "children" | "className" | "style" | "square" | "elevation" | "classes" | "sx" | "variant" | "raised"> & {
+                component?: import('../../../../node_modules/react').ElementType;
             } & Record<string, unknown> & {
-                ownerState: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('react').DetailedHTMLProps<import('react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
-                    ref?: ((instance: HTMLButtonElement | null) => void) | import('react').RefObject<HTMLButtonElement> | null | undefined;
+                ownerState: import('@mui/material').CardOwnProps & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & {
+                    ref?: ((instance: HTMLDivElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLDivElement> | null | undefined;
+                }, "children" | "className" | "style" | "square" | "elevation" | "classes" | "sx" | "variant" | "raised"> & {
+                    component?: import('../../../../node_modules/react').ElementType;
+                } & Record<string, unknown>;
+            } & {
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }) => {
+                borderRadius: string;
+            };
+        };
+    };
+    MuiCardContent: {
+        styleOverrides: {
+            root: ({ theme }: import('@mui/material').CardContentOwnProps & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & {
+                ref?: ((instance: HTMLDivElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLDivElement> | null | undefined;
+            }, "children" | "className" | "style" | "classes" | "sx"> & {
+                component?: import('../../../../node_modules/react').ElementType;
+            } & Record<string, unknown> & {
+                ownerState: import('@mui/material').CardContentOwnProps & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref"> & {
+                    ref?: ((instance: HTMLDivElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLDivElement> | null | undefined;
+                }, "children" | "className" | "style" | "classes" | "sx"> & {
+                    component?: import('../../../../node_modules/react').ElementType;
+                } & Record<string, unknown>;
+            } & {
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }) => {
+                padding: string;
+                ":last-child": {
+                    padding: string;
+                };
+            };
+        };
+    };
+    MuiCardActions: {
+        styleOverrides: {
+            root: {
+                padding: number;
+                flexDirection: "row-reverse";
+                width: string;
+            };
+        };
+    };
+    MuiButton: {
+        styleOverrides: {
+            root: ({ theme }: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
+                ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
+            }, "children" | "className" | "style" | "tabIndex" | "color" | "size" | "href" | "classes" | "sx" | "action" | "variant" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "disableFocusRipple"> & {
+                component?: import('../../../../node_modules/react').ElementType;
+            } & Record<string, unknown> & {
+                ownerState: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
+                    ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
                 }, "children" | "className" | "style" | "tabIndex" | "color" | "size" | "href" | "classes" | "sx" | "action" | "variant" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "disableFocusRipple"> & {
-                    component?: import('react').ElementType<any, keyof import("react").JSX.IntrinsicElements> | undefined;
+                    component?: import('../../../../node_modules/react').ElementType;
                 } & Record<string, unknown>;
             } & {
                 theme: Omit<import('@mui/material').Theme, "components">;
             }) => {
                 paddingInline: string;
             };
-            outlinedInherit: ({ theme }: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('react').DetailedHTMLProps<import('react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
-                ref?: ((instance: HTMLButtonElement | null) => void) | import('react').RefObject<HTMLButtonElement> | null | undefined;
+            outlinedInherit: ({ theme }: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
+                ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
             }, "children" | "className" | "style" | "tabIndex" | "color" | "size" | "href" | "classes" | "sx" | "action" | "variant" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "disableFocusRipple"> & {
-                component?: import('react').ElementType<any, keyof import("react").JSX.IntrinsicElements> | undefined;
+                component?: import('../../../../node_modules/react').ElementType;
             } & Record<string, unknown> & {
-                ownerState: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('react').DetailedHTMLProps<import('react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
-                    ref?: ((instance: HTMLButtonElement | null) => void) | import('react').RefObject<HTMLButtonElement> | null | undefined;
+                ownerState: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
+                    ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
                 }, "children" | "className" | "style" | "tabIndex" | "color" | "size" | "href" | "classes" | "sx" | "action" | "variant" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "disableFocusRipple"> & {
-                    component?: import('react').ElementType<any, keyof import("react").JSX.IntrinsicElements> | undefined;
+                    component?: import('../../../../node_modules/react').ElementType;
                 } & Record<string, unknown>;
             } & {
                 theme: Omit<import('@mui/material').Theme, "components">;
@@ -172,15 +104,15 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                 border: string;
                 boxShadow: string;
             };
-            outlinedPrimary: ({ theme }: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('react').DetailedHTMLProps<import('react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
-                ref?: ((instance: HTMLButtonElement | null) => void) | import('react').RefObject<HTMLButtonElement> | null | undefined;
+            outlinedPrimary: ({ theme }: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
+                ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
             }, "children" | "className" | "style" | "tabIndex" | "color" | "size" | "href" | "classes" | "sx" | "action" | "variant" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "disableFocusRipple"> & {
-                component?: import('react').ElementType<any, keyof import("react").JSX.IntrinsicElements> | undefined;
+                component?: import('../../../../node_modules/react').ElementType;
             } & Record<string, unknown> & {
-                ownerState: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('react').DetailedHTMLProps<import('react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
-                    ref?: ((instance: HTMLButtonElement | null) => void) | import('react').RefObject<HTMLButtonElement> | null | undefined;
+                ownerState: import('@mui/material').ButtonOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & {
+                    ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
                 }, "children" | "className" | "style" | "tabIndex" | "color" | "size" | "href" | "classes" | "sx" | "action" | "variant" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "disableFocusRipple"> & {
-                    component?: import('react').ElementType<any, keyof import("react").JSX.IntrinsicElements> | undefined;
+                    component?: import('../../../../node_modules/react').ElementType;
                 } & Record<string, unknown>;
             } & {
                 theme: Omit<import('@mui/material').Theme, "components">;
@@ -203,8 +135,135 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             };
         };
     };
+    MuiIconButton: {
+        styleOverrides: {
+            root: {
+                borderRadius: number;
+            };
+        };
+    };
+    MuiAlert?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAlert"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AlertClasses, "MuiAlert", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').AlertProps> | ((props: Partial<import('@mui/material').AlertProps> & {
+                ownerState: Partial<import('@mui/material').AlertProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiAlertTitle?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAlertTitle"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiAlertTitle", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').AlertTitleProps> | ((props: Partial<import('@mui/material').AlertTitleProps> & {
+                ownerState: Partial<import('@mui/material').AlertTitleProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiAutocomplete?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAutocomplete"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AutocompleteClasses, "MuiAutocomplete", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').AutocompleteProps<any, any, any, any, "div">> | ((props: Partial<import('@mui/material').AutocompleteProps<any, any, any, any, "div">> & {
+                ownerState: Partial<import('@mui/material').AutocompleteProps<any, any, any, any, "div">>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiAvatar?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAvatar"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AvatarClasses, "MuiAvatar", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').AvatarProps> | ((props: Partial<import('@mui/material').AvatarProps> & {
+                ownerState: Partial<import('@mui/material').AvatarProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiAvatarGroup?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAvatarGroup"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AvatarGroupClasses, "MuiAvatarGroup", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').AvatarGroupProps> | ((props: Partial<import('@mui/material').AvatarGroupProps> & {
+                ownerState: Partial<import('@mui/material').AvatarGroupProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiBackdrop?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiBackdrop"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').BackdropClasses, "MuiBackdrop", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').BackdropProps> | ((props: Partial<import('@mui/material').BackdropProps> & {
+                ownerState: Partial<import('@mui/material').BackdropProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiBadge?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiBadge"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').BadgeClasses, "MuiBadge", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').BadgeProps> | ((props: Partial<import('@mui/material').BadgeProps> & {
+                ownerState: Partial<import('@mui/material').BadgeProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiBottomNavigation?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiBottomNavigation"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiBottomNavigation", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').BottomNavigationProps> | ((props: Partial<import('@mui/material').BottomNavigationProps> & {
+                ownerState: Partial<import('@mui/material').BottomNavigationProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiBottomNavigationAction?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiBottomNavigationAction"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').BottomNavigationActionClasses, "MuiBottomNavigationAction", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').BottomNavigationActionProps> | ((props: Partial<import('@mui/material').BottomNavigationActionProps> & {
+                ownerState: Partial<import('@mui/material').BottomNavigationActionProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiBreadcrumbs?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiBreadcrumbs"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').BreadcrumbsClasses, "MuiBreadcrumbs", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').BreadcrumbsProps> | ((props: Partial<import('@mui/material').BreadcrumbsProps> & {
+                ownerState: Partial<import('@mui/material').BreadcrumbsProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
     MuiButtonBase?: {
-        defaultProps?: Partial<import('@mui/material').ButtonBaseProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiButtonBase"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ButtonBaseClasses, "MuiButtonBase", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ButtonBaseProps> | ((props: Partial<import('@mui/material').ButtonBaseProps> & {
@@ -216,7 +275,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiButtonGroup?: {
-        defaultProps?: Partial<import('@mui/material').ButtonGroupProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiButtonGroup"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ButtonGroupClasses, "MuiButtonGroup", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ButtonGroupProps> | ((props: Partial<import('@mui/material').ButtonGroupProps> & {
@@ -227,20 +286,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             }>;
         }[] | undefined;
     } | undefined;
-    MuiCard?: {
-        defaultProps?: Partial<import('@mui/material').CardProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiCard", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').CardProps> | ((props: Partial<import('@mui/material').CardProps> & {
-                ownerState: Partial<import('@mui/material').CardProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
     MuiCardActionArea?: {
-        defaultProps?: Partial<import('@mui/material').CardActionAreaProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiCardActionArea"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').CardActionAreaClasses, "MuiCardActionArea", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').CardActionAreaProps> | ((props: Partial<import('@mui/material').CardActionAreaProps> & {
@@ -251,32 +298,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             }>;
         }[] | undefined;
     } | undefined;
-    MuiCardActions?: {
-        defaultProps?: Partial<import('@mui/material').CardActionsProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').CardActionsClasses, "MuiCardActions", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').CardActionsProps> | ((props: Partial<import('@mui/material').CardActionsProps> & {
-                ownerState: Partial<import('@mui/material').CardActionsProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiCardContent?: {
-        defaultProps?: Partial<import('@mui/material').CardContentProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiCardContent", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').CardContentProps> | ((props: Partial<import('@mui/material').CardContentProps> & {
-                ownerState: Partial<import('@mui/material').CardContentProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
     MuiCardHeader?: {
-        defaultProps?: Partial<import('@mui/material').CardHeaderProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiCardHeader"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').CardHeaderClasses, "MuiCardHeader", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').CardHeaderProps> | ((props: Partial<import('@mui/material').CardHeaderProps> & {
@@ -288,7 +311,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiCardMedia?: {
-        defaultProps?: Partial<import('@mui/material').CardMediaProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiCardMedia"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').CardMediaClasses, "MuiCardMedia", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').CardMediaProps> | ((props: Partial<import('@mui/material').CardMediaProps> & {
@@ -300,7 +323,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiCheckbox?: {
-        defaultProps?: Partial<import('@mui/material').CheckboxProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiCheckbox"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').CheckboxClasses, "MuiCheckbox", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').CheckboxProps> | ((props: Partial<import('@mui/material').CheckboxProps> & {
@@ -312,7 +335,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiChip?: {
-        defaultProps?: Partial<import('@mui/material').ChipProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiChip"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ChipClasses, "MuiChip", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ChipProps> | ((props: Partial<import('@mui/material').ChipProps> & {
@@ -324,7 +347,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiCircularProgress?: {
-        defaultProps?: Partial<import('@mui/material').CircularProgressProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiCircularProgress"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').CircularProgressClasses, "MuiCircularProgress", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').CircularProgressProps> | ((props: Partial<import('@mui/material').CircularProgressProps> & {
@@ -336,7 +359,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiCollapse?: {
-        defaultProps?: Partial<import('@mui/material').CollapseProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiCollapse"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').CollapseClasses, "MuiCollapse", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').CollapseProps> | ((props: Partial<import('@mui/material').CollapseProps> & {
@@ -348,7 +371,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiContainer?: {
-        defaultProps?: Partial<import('@mui/material').ContainerProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiContainer"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ContainerClasses, "MuiContainer", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ContainerProps> | ((props: Partial<import('@mui/material').ContainerProps> & {
@@ -359,20 +382,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             }>;
         }[] | undefined;
     } | undefined;
-    MuiCssBaseline?: {
-        defaultProps?: Partial<import('@mui/material').CssBaselineProps> | undefined;
-        styleOverrides?: string | import('@mui/styled-engine').CSSObject | ((theme: Omit<import('@mui/material').Theme, "components">) => import('@mui/styled-engine').CSSInterpolation) | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').CssBaselineProps> | ((props: Partial<import('@mui/material').CssBaselineProps> & {
-                ownerState: Partial<import('@mui/material').CssBaselineProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
     MuiDialog?: {
-        defaultProps?: Partial<import('@mui/material').DialogProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiDialog"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').DialogClasses, "MuiDialog", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').DialogProps> | ((props: Partial<import('@mui/material').DialogProps> & {
@@ -384,7 +395,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiDialogActions?: {
-        defaultProps?: Partial<import('@mui/material').DialogActionsProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiDialogActions"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').DialogActionsClasses, "MuiDialogActions", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').DialogActionsProps> | ((props: Partial<import('@mui/material').DialogActionsProps> & {
@@ -396,7 +407,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiDialogContent?: {
-        defaultProps?: Partial<import('@mui/material').DialogContentProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiDialogContent"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').DialogContentClasses, "MuiDialogContent", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').DialogContentProps> | ((props: Partial<import('@mui/material').DialogContentProps> & {
@@ -408,7 +419,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiDialogContentText?: {
-        defaultProps?: Partial<import('@mui/material').DialogContentTextProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiDialogContentText"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiDialogContentText", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').DialogContentTextProps> | ((props: Partial<import('@mui/material').DialogContentTextProps> & {
@@ -420,7 +431,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiDialogTitle?: {
-        defaultProps?: Partial<import('@mui/material').DialogTitleProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiDialogTitle"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiDialogTitle", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').DialogTitleProps> | ((props: Partial<import('@mui/material').DialogTitleProps> & {
@@ -432,7 +443,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiDivider?: {
-        defaultProps?: Partial<import('@mui/material').DividerProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiDivider"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').DividerClasses, "MuiDivider", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').DividerProps> | ((props: Partial<import('@mui/material').DividerProps> & {
@@ -444,7 +455,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiDrawer?: {
-        defaultProps?: Partial<import('@mui/material').DrawerProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiDrawer"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').DrawerClasses, "MuiDrawer", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').DrawerProps> | ((props: Partial<import('@mui/material').DrawerProps> & {
@@ -456,7 +467,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiAccordion?: {
-        defaultProps?: Partial<import('@mui/material').AccordionProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAccordion"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AccordionClasses, "MuiAccordion", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').AccordionProps> | ((props: Partial<import('@mui/material').AccordionProps> & {
@@ -468,7 +479,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiAccordionActions?: {
-        defaultProps?: Partial<import('@mui/material').AccordionActionsProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAccordionActions"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AccordionActionsClasses, "MuiAccordionActions", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').AccordionActionsProps> | ((props: Partial<import('@mui/material').AccordionActionsProps> & {
@@ -480,7 +491,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiAccordionDetails?: {
-        defaultProps?: Partial<import('@mui/material').AccordionDetailsProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAccordionDetails"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiAccordionDetails", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').AccordionDetailsProps> | ((props: Partial<import('@mui/material').AccordionDetailsProps> & {
@@ -492,7 +503,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiAccordionSummary?: {
-        defaultProps?: Partial<import('@mui/material').AccordionSummaryProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiAccordionSummary"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').AccordionSummaryClasses, "MuiAccordionSummary", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').AccordionSummaryProps> | ((props: Partial<import('@mui/material').AccordionSummaryProps> & {
@@ -504,7 +515,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiFab?: {
-        defaultProps?: Partial<import('@mui/material').FabProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiFab"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').FabClasses, "MuiFab", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').FabProps> | ((props: Partial<import('@mui/material').FabProps> & {
@@ -516,7 +527,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiFilledInput?: {
-        defaultProps?: Partial<import('@mui/material').FilledInputProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiFilledInput"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').FilledInputClasses, "MuiFilledInput", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').FilledInputProps> | ((props: Partial<import('@mui/material').FilledInputProps> & {
@@ -528,7 +539,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiFormControl?: {
-        defaultProps?: Partial<import('@mui/material').FormControlProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiFormControl"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').FormControlClasses, "MuiFormControl", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').FormControlProps> | ((props: Partial<import('@mui/material').FormControlProps> & {
@@ -540,7 +551,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiFormControlLabel?: {
-        defaultProps?: Partial<import('@mui/material').FormControlLabelProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiFormControlLabel"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').FormControlLabelClasses, "MuiFormControlLabel", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').FormControlLabelProps> | ((props: Partial<import('@mui/material').FormControlLabelProps> & {
@@ -552,7 +563,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiFormGroup?: {
-        defaultProps?: Partial<import('@mui/material').FormGroupProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiFormGroup"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').FormGroupClasses, "MuiFormGroup", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').FormGroupProps> | ((props: Partial<import('@mui/material').FormGroupProps> & {
@@ -564,7 +575,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiFormHelperText?: {
-        defaultProps?: Partial<import('@mui/material').FormHelperTextProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiFormHelperText"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').FormHelperTextClasses, "MuiFormHelperText", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').FormHelperTextProps> | ((props: Partial<import('@mui/material').FormHelperTextProps> & {
@@ -576,7 +587,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiFormLabel?: {
-        defaultProps?: Partial<import('@mui/material').FormLabelProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiFormLabel"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').FormLabelClasses, "MuiFormLabel", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').FormLabelProps> | ((props: Partial<import('@mui/material').FormLabelProps> & {
@@ -588,7 +599,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiGrid?: {
-        defaultProps?: Partial<import('@mui/material').GridProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiGrid"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').GridClasses, "MuiGrid", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').GridProps> | ((props: Partial<import('@mui/material').GridProps> & {
@@ -600,7 +611,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiGrid2?: {
-        defaultProps?: Partial<import('@mui/material').Grid2Props> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiGrid2"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiGrid2", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').Grid2Props> | ((props: Partial<import('@mui/material').Grid2Props> & {
@@ -612,7 +623,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiImageList?: {
-        defaultProps?: Partial<import('@mui/material').ImageListProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiImageList"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ImageListClasses, "MuiImageList", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ImageListProps> | ((props: Partial<import('@mui/material').ImageListProps> & {
@@ -624,7 +635,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiImageListItem?: {
-        defaultProps?: Partial<import('@mui/material').ImageListItemProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiImageListItem"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ImageListItemClasses, "MuiImageListItem", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ImageListItemProps> | ((props: Partial<import('@mui/material').ImageListItemProps> & {
@@ -636,7 +647,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiImageListItemBar?: {
-        defaultProps?: Partial<import('@mui/material').ImageListItemBarProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiImageListItemBar"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ImageListItemBarClasses, "MuiImageListItemBar", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ImageListItemBarProps> | ((props: Partial<import('@mui/material').ImageListItemBarProps> & {
@@ -648,7 +659,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiIcon?: {
-        defaultProps?: Partial<import('@mui/material').IconProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiIcon"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').IconClasses, "MuiIcon", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').IconProps> | ((props: Partial<import('@mui/material').IconProps> & {
@@ -659,26 +670,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             }>;
         }[] | undefined;
     } | undefined;
-    MuiIconButton: {
-        defaultProps?: Partial<import('@mui/material').IconButtonProps> | undefined;
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').IconButtonClasses, "MuiIconButton", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').IconButtonProps> | ((props: Partial<import('@mui/material').IconButtonProps> & {
-                ownerState: Partial<import('@mui/material').IconButtonProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | {
-        styleOverrides: {
-            root: {
-                borderRadius: number;
-            };
-        };
-    };
     MuiInput?: {
-        defaultProps?: Partial<import('@mui/material').InputProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiInput"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').InputClasses, "MuiInput", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').InputProps> | ((props: Partial<import('@mui/material').InputProps> & {
@@ -690,7 +683,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiInputAdornment?: {
-        defaultProps?: Partial<import('@mui/material').InputAdornmentProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiInputAdornment"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').InputAdornmentClasses, "MuiInputAdornment", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').InputAdornmentProps> | ((props: Partial<import('@mui/material').InputAdornmentProps> & {
@@ -702,7 +695,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiInputBase?: {
-        defaultProps?: Partial<import('@mui/material').InputBaseProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiInputBase"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').InputBaseClasses, "MuiInputBase", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').InputBaseProps> | ((props: Partial<import('@mui/material').InputBaseProps> & {
@@ -714,7 +707,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiInputLabel?: {
-        defaultProps?: Partial<import('@mui/material').InputLabelProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiInputLabel"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').InputLabelClasses, "MuiInputLabel", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').InputLabelProps> | ((props: Partial<import('@mui/material').InputLabelProps> & {
@@ -726,7 +719,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiLinearProgress?: {
-        defaultProps?: Partial<import('@mui/material').LinearProgressProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiLinearProgress"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').LinearProgressClasses, "MuiLinearProgress", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').LinearProgressProps> | ((props: Partial<import('@mui/material').LinearProgressProps> & {
@@ -738,7 +731,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiLink?: {
-        defaultProps?: Partial<import('@mui/material').LinkProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiLink"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').LinkClasses, "MuiLink", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').LinkProps> | ((props: Partial<import('@mui/material').LinkProps> & {
@@ -750,7 +743,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiList?: {
-        defaultProps?: Partial<import('@mui/material').ListProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiList"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListClasses, "MuiList", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ListProps> | ((props: Partial<import('@mui/material').ListProps> & {
@@ -762,7 +755,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiListItem?: {
-        defaultProps?: Partial<import('@mui/material').ListItemProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiListItem"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListItemClasses, "MuiListItem", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ListItemProps> | ((props: Partial<import('@mui/material').ListItemProps> & {
@@ -774,7 +767,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiListItemButton?: {
-        defaultProps?: Partial<import('@mui/material').ListItemButtonProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiListItemButton"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListItemButtonClasses, "MuiListItemButton", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ListItemButtonProps> | ((props: Partial<import('@mui/material').ListItemButtonProps> & {
@@ -786,7 +779,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiListItemAvatar?: {
-        defaultProps?: Partial<import('@mui/material').ListItemAvatarProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiListItemAvatar"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListItemAvatarClasses, "MuiListItemAvatar", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ListItemAvatarProps> | ((props: Partial<import('@mui/material').ListItemAvatarProps> & {
@@ -798,7 +791,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiListItemIcon?: {
-        defaultProps?: Partial<import('@mui/material').ListItemIconProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiListItemIcon"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListItemIconClasses, "MuiListItemIcon", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ListItemIconProps> | ((props: Partial<import('@mui/material').ListItemIconProps> & {
@@ -810,7 +803,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiListItemSecondaryAction?: {
-        defaultProps?: Partial<import('@mui/material').ListItemSecondaryActionProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiListItemSecondaryAction"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListItemSecondaryActionClasses, "MuiListItemSecondaryAction", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ListItemSecondaryActionProps> | ((props: Partial<import('@mui/material').ListItemSecondaryActionProps> & {
@@ -822,7 +815,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiListItemText?: {
-        defaultProps?: Partial<import('@mui/material').ListItemTextProps<"span", "p">> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiListItemText"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListItemTextClasses, "MuiListItemText", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ListItemTextProps<"span", "p">> | ((props: Partial<import('@mui/material').ListItemTextProps<"span", "p">> & {
@@ -834,7 +827,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiListSubheader?: {
-        defaultProps?: Partial<import('@mui/material').ListSubheaderProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiListSubheader"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListSubheaderClasses, "MuiListSubheader", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ListSubheaderProps> | ((props: Partial<import('@mui/material').ListSubheaderProps> & {
@@ -846,7 +839,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiMenu?: {
-        defaultProps?: Partial<import('@mui/material').MenuProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiMenu"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').MenuClasses, "MuiMenu", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').MenuProps> | ((props: Partial<import('@mui/material').MenuProps> & {
@@ -858,7 +851,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiMenuItem?: {
-        defaultProps?: Partial<import('@mui/material').MenuItemProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiMenuItem"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').MenuItemClasses, "MuiMenuItem", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').MenuItemProps> | ((props: Partial<import('@mui/material').MenuItemProps> & {
@@ -870,7 +863,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiMenuList?: {
-        defaultProps?: Partial<import('@mui/material').MenuListProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiMenuList"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ListClasses, "MuiMenuList", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').MenuListProps> | ((props: Partial<import('@mui/material').MenuListProps> & {
@@ -882,7 +875,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiMobileStepper?: {
-        defaultProps?: Partial<import('@mui/material').MobileStepperProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiMobileStepper"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').MobileStepperClasses, "MuiMobileStepper", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').MobileStepperProps> | ((props: Partial<import('@mui/material').MobileStepperProps> & {
@@ -894,7 +887,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiModal?: {
-        defaultProps?: Partial<import('@mui/material').ModalProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiModal"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ModalClasses, "MuiModal", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ModalProps> | ((props: Partial<import('@mui/material').ModalProps> & {
@@ -906,7 +899,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiNativeSelect?: {
-        defaultProps?: Partial<import('@mui/material').NativeSelectProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiNativeSelect"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').NativeSelectClasses, "MuiNativeSelect", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').NativeSelectProps> | ((props: Partial<import('@mui/material').NativeSelectProps> & {
@@ -918,7 +911,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiOutlinedInput?: {
-        defaultProps?: Partial<import('@mui/material').OutlinedInputProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiOutlinedInput"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').OutlinedInputClasses, "MuiOutlinedInput", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').OutlinedInputProps> | ((props: Partial<import('@mui/material').OutlinedInputProps> & {
@@ -930,7 +923,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiPagination?: {
-        defaultProps?: Partial<import('@mui/material').PaginationProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiPagination"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').PaginationClasses, "MuiPagination", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').PaginationProps> | ((props: Partial<import('@mui/material').PaginationProps> & {
@@ -942,7 +935,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiPaginationItem?: {
-        defaultProps?: Partial<import('@mui/material').PaginationItemProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiPaginationItem"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').PaginationItemClasses, "MuiPaginationItem", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').PaginationItemProps> | ((props: Partial<import('@mui/material').PaginationItemProps> & {
@@ -954,7 +947,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiPaper?: {
-        defaultProps?: Partial<import('@mui/material').PaperProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiPaper"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').PaperClasses, "MuiPaper", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').PaperProps> | ((props: Partial<import('@mui/material').PaperProps> & {
@@ -966,11 +959,11 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiPopper?: {
-        defaultProps?: Partial<import('@mui/material').PopperProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiPopper"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiPopper", Omit<import('@mui/material').Theme, "components">>> | undefined;
     } | undefined;
     MuiPopover?: {
-        defaultProps?: Partial<import('@mui/material').PopoverProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiPopover"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').PopoverClasses, "MuiPopover", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').PopoverProps> | ((props: Partial<import('@mui/material').PopoverProps> & {
@@ -982,7 +975,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiRadio?: {
-        defaultProps?: Partial<import('@mui/material').RadioProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiRadio"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').RadioClasses, "MuiRadio", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').RadioProps> | ((props: Partial<import('@mui/material').RadioProps> & {
@@ -994,7 +987,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiRadioGroup?: {
-        defaultProps?: Partial<import('@mui/material').RadioGroupProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiRadioGroup"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').FormGroupClasses, "MuiRadioGroup", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').RadioGroupProps> | ((props: Partial<import('@mui/material').RadioGroupProps> & {
@@ -1006,7 +999,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiRating?: {
-        defaultProps?: Partial<import('@mui/material').RatingProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiRating"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').RatingClasses, "MuiRating", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').RatingProps> | ((props: Partial<import('@mui/material').RatingProps> & {
@@ -1018,7 +1011,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiScopedCssBaseline?: {
-        defaultProps?: Partial<import('@mui/material').ScopedCssBaselineProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiScopedCssBaseline"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiScopedCssBaseline", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ScopedCssBaselineProps> | ((props: Partial<import('@mui/material').ScopedCssBaselineProps> & {
@@ -1030,7 +1023,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSelect?: {
-        defaultProps?: Partial<import('@mui/material').SelectProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSelect"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SelectClasses, "MuiSelect", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SelectProps> | ((props: Partial<import('@mui/material').SelectProps> & {
@@ -1042,7 +1035,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSkeleton?: {
-        defaultProps?: Partial<import('@mui/material').SkeletonProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSkeleton"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SkeletonClasses, "MuiSkeleton", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SkeletonProps> | ((props: Partial<import('@mui/material').SkeletonProps> & {
@@ -1054,7 +1047,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSlider?: {
-        defaultProps?: Partial<import('@mui/material').SliderProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSlider"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SliderClasses, "MuiSlider", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SliderProps> | ((props: Partial<import('@mui/material').SliderProps> & {
@@ -1066,7 +1059,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSnackbar?: {
-        defaultProps?: Partial<import('@mui/material').SnackbarProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSnackbar"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SnackbarClasses, "MuiSnackbar", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SnackbarProps> | ((props: Partial<import('@mui/material').SnackbarProps> & {
@@ -1078,7 +1071,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSnackbarContent?: {
-        defaultProps?: Partial<import('@mui/material').SnackbarContentProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSnackbarContent"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SnackbarContentClasses, "MuiSnackbarContent", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SnackbarContentProps> | ((props: Partial<import('@mui/material').SnackbarContentProps> & {
@@ -1090,7 +1083,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSpeedDial?: {
-        defaultProps?: Partial<import('@mui/material').SpeedDialProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSpeedDial"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SpeedDialClasses, "MuiSpeedDial", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SpeedDialProps> | ((props: Partial<import('@mui/material').SpeedDialProps> & {
@@ -1102,7 +1095,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSpeedDialAction?: {
-        defaultProps?: Partial<import('@mui/material').SpeedDialActionProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSpeedDialAction"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SpeedDialActionClasses, "MuiSpeedDialAction", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SpeedDialActionProps> | ((props: Partial<import('@mui/material').SpeedDialActionProps> & {
@@ -1114,7 +1107,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSpeedDialIcon?: {
-        defaultProps?: Partial<import('@mui/material').SpeedDialIconProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSpeedDialIcon"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SpeedDialIconClasses, "MuiSpeedDialIcon", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SpeedDialIconProps> | ((props: Partial<import('@mui/material').SpeedDialIconProps> & {
@@ -1126,7 +1119,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiStack?: {
-        defaultProps?: Partial<import('@mui/material').StackProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiStack"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiStack", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').StackProps> | ((props: Partial<import('@mui/material').StackProps> & {
@@ -1138,7 +1131,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiStep?: {
-        defaultProps?: Partial<import('@mui/material').StepProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiStep"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').StepClasses, "MuiStep", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').StepProps> | ((props: Partial<import('@mui/material').StepProps> & {
@@ -1150,7 +1143,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiStepButton?: {
-        defaultProps?: Partial<import('@mui/material').StepButtonProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiStepButton"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').StepButtonClasses, "MuiStepButton", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').StepButtonProps> | ((props: Partial<import('@mui/material').StepButtonProps> & {
@@ -1162,7 +1155,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiStepConnector?: {
-        defaultProps?: Partial<import('@mui/material').StepConnectorProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiStepConnector"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').StepConnectorClasses, "MuiStepConnector", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').StepConnectorProps> | ((props: Partial<import('@mui/material').StepConnectorProps> & {
@@ -1174,7 +1167,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiStepContent?: {
-        defaultProps?: Partial<import('@mui/material').StepContentProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiStepContent"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').StepContentClasses, "MuiStepContent", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').StepContentProps> | ((props: Partial<import('@mui/material').StepContentProps> & {
@@ -1186,7 +1179,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiStepIcon?: {
-        defaultProps?: Partial<import('@mui/material').StepIconProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiStepIcon"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').StepIconClasses, "MuiStepIcon", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').StepIconProps> | ((props: Partial<import('@mui/material').StepIconProps> & {
@@ -1198,7 +1191,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiStepLabel?: {
-        defaultProps?: Partial<import('@mui/material').StepLabelProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiStepLabel"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').StepLabelClasses, "MuiStepLabel", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').StepLabelProps> | ((props: Partial<import('@mui/material').StepLabelProps> & {
@@ -1210,7 +1203,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiStepper?: {
-        defaultProps?: Partial<import('@mui/material').StepperProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiStepper"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').StepperClasses, "MuiStepper", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').StepperProps> | ((props: Partial<import('@mui/material').StepperProps> & {
@@ -1222,7 +1215,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSvgIcon?: {
-        defaultProps?: Partial<import('@mui/material').SvgIconProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSvgIcon"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SvgIconClasses, "MuiSvgIcon", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SvgIconProps> | ((props: Partial<import('@mui/material').SvgIconProps> & {
@@ -1234,10 +1227,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiSwipeableDrawer?: {
-        defaultProps?: Partial<import('@mui/material').SwipeableDrawerProps> | undefined;
-    } | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSwipeableDrawer"];
+    };
     MuiSwitch?: {
-        defaultProps?: Partial<import('@mui/material').SwitchProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiSwitch"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').SwitchClasses, "MuiSwitch", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').SwitchProps> | ((props: Partial<import('@mui/material').SwitchProps> & {
@@ -1249,7 +1242,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTab?: {
-        defaultProps?: Partial<import('@mui/material').TabProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTab"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TabClasses, "MuiTab", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TabProps> | ((props: Partial<import('@mui/material').TabProps> & {
@@ -1261,7 +1254,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTable?: {
-        defaultProps?: Partial<import('@mui/material').TableProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTable"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TableClasses, "MuiTable", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TableProps> | ((props: Partial<import('@mui/material').TableProps> & {
@@ -1273,7 +1266,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTableBody?: {
-        defaultProps?: Partial<import('@mui/material').TableBodyProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTableBody"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiTableBody", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TableBodyProps> | ((props: Partial<import('@mui/material').TableBodyProps> & {
@@ -1285,7 +1278,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTableCell?: {
-        defaultProps?: Partial<import('@mui/material').TableCellProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTableCell"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TableCellClasses, "MuiTableCell", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TableCellProps> | ((props: Partial<import('@mui/material').TableCellProps> & {
@@ -1297,7 +1290,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTableContainer?: {
-        defaultProps?: Partial<import('@mui/material').TableContainerProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTableContainer"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiTableContainer", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TableContainerProps> | ((props: Partial<import('@mui/material').TableContainerProps> & {
@@ -1309,7 +1302,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTableFooter?: {
-        defaultProps?: Partial<import('@mui/material').TableFooterProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTableFooter"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiTableFooter", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TableFooterProps> | ((props: Partial<import('@mui/material').TableFooterProps> & {
@@ -1321,7 +1314,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTableHead?: {
-        defaultProps?: Partial<import('@mui/material').TableHeadProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTableHead"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiTableHead", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TableHeadProps> | ((props: Partial<import('@mui/material').TableHeadProps> & {
@@ -1345,7 +1338,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTableRow?: {
-        defaultProps?: Partial<import('@mui/material').TableRowProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTableRow"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TableRowClasses, "MuiTableRow", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TableRowProps> | ((props: Partial<import('@mui/material').TableRowProps> & {
@@ -1357,7 +1350,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTableSortLabel?: {
-        defaultProps?: Partial<import('@mui/material').TableSortLabelProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTableSortLabel"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TableSortLabelClasses, "MuiTableSortLabel", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TableSortLabelProps> | ((props: Partial<import('@mui/material').TableSortLabelProps> & {
@@ -1369,7 +1362,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTabs?: {
-        defaultProps?: Partial<import('@mui/material').TabsProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTabs"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TabsClasses, "MuiTabs", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TabsProps> | ((props: Partial<import('@mui/material').TabsProps> & {
@@ -1381,7 +1374,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTextField?: {
-        defaultProps?: Partial<import('@mui/material').TextFieldProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTextField"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<"root", "MuiTextField", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TextFieldProps> | ((props: Partial<import('@mui/material').TextFieldProps> & {
@@ -1393,7 +1386,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiToggleButton?: {
-        defaultProps?: Partial<import('@mui/material').ToggleButtonProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiToggleButton"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ToggleButtonClasses, "MuiToggleButton", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ToggleButtonProps> | ((props: Partial<import('@mui/material').ToggleButtonProps> & {
@@ -1405,7 +1398,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiToggleButtonGroup?: {
-        defaultProps?: Partial<import('@mui/material').ToggleButtonGroupProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiToggleButtonGroup"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ToggleButtonGroupClasses, "MuiToggleButtonGroup", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ToggleButtonGroupProps> | ((props: Partial<import('@mui/material').ToggleButtonGroupProps> & {
@@ -1417,7 +1410,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiToolbar?: {
-        defaultProps?: Partial<import('@mui/material').ToolbarProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiToolbar"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').ToolbarClasses, "MuiToolbar", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').ToolbarProps> | ((props: Partial<import('@mui/material').ToolbarProps> & {
@@ -1429,7 +1422,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTooltip?: {
-        defaultProps?: Partial<import('@mui/material').TooltipProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTooltip"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TooltipClasses, "MuiTooltip", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TooltipProps> | ((props: Partial<import('@mui/material').TooltipProps> & {
@@ -1441,7 +1434,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTouchRipple?: {
-        defaultProps?: Partial<import('@mui/material/ButtonBase/TouchRipple').TouchRippleProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTouchRipple"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TouchRippleClasses, "MuiTouchRipple", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material/ButtonBase/TouchRipple').TouchRippleProps> | ((props: Partial<import('@mui/material/ButtonBase/TouchRipple').TouchRippleProps> & {
@@ -1453,7 +1446,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiTypography?: {
-        defaultProps?: Partial<import('@mui/material').TypographyProps> | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiTypography"];
         styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').TypographyClasses, "MuiTypography", Omit<import('@mui/material').Theme, "components">>> | undefined;
         variants?: {
             props: Partial<import('@mui/material').TypographyProps> | ((props: Partial<import('@mui/material').TypographyProps> & {
@@ -1465,7 +1458,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         }[] | undefined;
     } | undefined;
     MuiUseMediaQuery?: {
-        defaultProps?: Partial<import('@mui/material').UseMediaQueryOptions> | undefined;
-    } | undefined;
+        defaultProps?: import('@mui/material').ComponentsProps["MuiUseMediaQuery"];
+    };
 };
 export default generateComponentOverrides;

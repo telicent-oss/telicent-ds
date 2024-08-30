@@ -2,12 +2,12 @@ import { StoryObj } from '@storybook/react';
 import { default as Container } from './Container';
 
 declare const meta: {
-    component: import('react').FC<import('react').HTMLAttributes<HTMLDivElement> & {
-        children?: import('react').ReactNode;
+    component: import('../../../../../node_modules/react').FC<import('../../../../../node_modules/react').HTMLAttributes<HTMLDivElement> & {
+        children?: import('../../../../../node_modules/react').ReactNode | undefined;
     } & Partial<{
         disablePadding: boolean;
         fixed: boolean;
-        maxWidth: false | "xs" | "sm" | "lg" | "xl" | "md";
+        maxWidth: "xs" | "sm" | "md" | "lg" | "xl" | false;
     }>>;
 };
 export default meta;

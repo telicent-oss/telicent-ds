@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../../../node_modules/react';
 import { AppBarProps as MUIAppBarProps } from '@mui/material/AppBar';
 
 export type AppBarProps = Partial<{

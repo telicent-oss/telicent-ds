@@ -1,4 +1,4 @@
-import { default as React, FC, HTMLAttributes } from 'react';
+import { default as React, FC, HTMLAttributes } from '../../../node_modules/react';
 
 export interface TeliSwitchProps {
     /**

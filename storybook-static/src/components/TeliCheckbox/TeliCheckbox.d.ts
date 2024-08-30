@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from '../../../node_modules/react';
 import { CheckboxProps } from '@mui/material';
 
 export interface TeliCheckboxProps extends CheckboxProps {

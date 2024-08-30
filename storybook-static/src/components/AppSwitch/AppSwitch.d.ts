@@ -1,4 +1,4 @@
-import { default as React, FC } from 'react';
+import { default as React, FC } from '../../../node_modules/react';
 
 export interface IApps {
     name: string;

@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 import { AutocompleteProps } from '@mui/material';
 
 export interface TeliAutocompleteProps<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false> extends Omit<AutocompleteProps<Value, Multiple, DisableClearable, FreeSolo>, "renderInput" | "ChipProps" | "clearIcon" | "classes" | "clearText" | "closeText" | "componentsProps" | "ListboxProps" | "ListboxComponent" | "openText" | "PaperComponent" | "PopperComponent" | "popupIcon" | "size" | "slotProps" | "sx"> {

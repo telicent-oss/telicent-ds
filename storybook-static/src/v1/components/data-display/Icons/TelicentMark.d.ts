@@ -1,9 +1,8 @@
-import { default as React } from 'react';
-import { SvgIconProps } from '@mui/material';
+import { default as React } from '../../../../../node_modules/react';
+import { SvgIconProps as MUISvgIconProps } from '@mui/material/SvgIcon';
 
-type TelicentMarkProps = Omit<SvgIconProps, "color"> & Partial<{
-    backgroundColor: SvgIconProps["color"];
-    color: "black" | "white";
-}>;
+interface TelicentMarkProps extends MUISvgIconProps {
+    transparentBg?: boolean;
+}
 declare const TelicentMark: React.FC<TelicentMarkProps>;
 export default TelicentMark;

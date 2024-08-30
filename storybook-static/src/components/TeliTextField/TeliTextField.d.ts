@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from '../../../node_modules/react';
 import { default as TeliTextFieldProps } from './TeliTextFieldProps';
 
 /**

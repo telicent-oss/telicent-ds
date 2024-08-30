@@ -1,4 +1,4 @@
-import { default as React, FC } from 'react';
+import { default as React, FC } from '../../../node_modules/react';
 import { ListItemButtonProps, ListItemProps, ListProps } from '@mui/material';
 
 export type TeliListProps = React.HTMLAttributes<HTMLUListElement> & Partial<{

@@ -1,4 +1,4 @@
-import { default as OntologyService } from '@telicent-oss/ontologyservice';
+import { OntologyService } from '@telicent-oss/ontologyservice';
 
 type DSProvidersProps = Partial<{
     children: React.ReactNode;

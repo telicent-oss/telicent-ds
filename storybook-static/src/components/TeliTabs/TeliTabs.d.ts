@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 import { TabsProps } from '@mui/material';
 
 export interface TeliTabsProps extends Omit<TabsProps, "value"> {

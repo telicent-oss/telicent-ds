@@ -1,4 +1,4 @@
-import { default as OntologyService } from '@telicent-oss/ontologyservice';
+import { OntologyService } from '@telicent-oss/ontologyservice';
 
 type OntologyStyle = {
     defaultIcons: {
@@ -35,6 +35,7 @@ export type IconStyle = {
     shape: string;
 }>;
 type OntologyStylesContextProps = {
+    isLoadingStyles: boolean;
     styles: IconStyle[];
     findIcon: (classUri: string) => IconStyle;
 };

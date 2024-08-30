@@ -1,4 +1,4 @@
-import { default as React, PropsWithChildren } from 'react';
+import { default as React, PropsWithChildren } from '../../../../../node_modules/react';
 
 export type UserProfileProps = PropsWithChildren & {
     fullName: string;

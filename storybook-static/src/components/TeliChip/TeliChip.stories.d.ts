@@ -2,7 +2,7 @@ import { StoryObj } from '@storybook/react';
 import { BasicChips, ChipsExample, ClickableChips, ClickableLinkChips, ColorChips, DeleteableChips, IconChips, SizeChips } from './stories';
 
 declare const meta: {
-    component: import('react').FC<import('./TeliChip').TeliChipProps>;
+    component: import('../../../node_modules/react').FC<import('./TeliChip').TeliChipProps>;
     parameters: {
         docs: {
             description: {

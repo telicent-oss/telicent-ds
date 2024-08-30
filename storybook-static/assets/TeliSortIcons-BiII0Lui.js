@@ -1,0 +1,1 @@
+import{j as r}from"./jsx-runtime-CexXSJP5.js";import{g as n,h as t}from"./index-EaYoR7Ht.js";import{I as s}from"./Icon-Btk4_Z4H.js";const a=o=>r.jsx(s,{faIcon:n,...o}),e=o=>r.jsx(s,{faIcon:t,...o});a.__docgenInfo={description:"",methods:[],displayName:"TeliSortAZIcon"};e.__docgenInfo={description:"",methods:[],displayName:"TeliSortZAIcon"};export{a as T,e as a};

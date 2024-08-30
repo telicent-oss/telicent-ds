@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 import { InputProps } from '@mui/material';
 
 type TeliInputProps = Omit<InputProps, "classes" | "color" | "components" | "componentsProps" | "disableUnderline" | "inputComponent" | "inputProps" | "slotProps" | "slots" | "sx"> & Partial<{

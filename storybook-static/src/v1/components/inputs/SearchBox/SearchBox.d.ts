@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../../../node_modules/react';
 import { InputBaseProps } from '@mui/material/InputBase';
 
 export type SearchBoxProps<Value = string> = Partial<{

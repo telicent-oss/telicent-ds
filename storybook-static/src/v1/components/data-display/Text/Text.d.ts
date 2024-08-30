@@ -1,20 +1,7 @@
-import { default as React, ReactNode } from 'react';
+import { default as React } from '../../../../../node_modules/react';
 import { TypographyProps } from '@mui/material/Typography';
 
-export type BaseProps = Partial<{
-    /** Set the text-align on the component. */
-    align: TypographyProps["align"];
-    /** The content of the component. */
-    children: ReactNode;
-    /** Text color */
-    color: "primary";
-    /** If true, the text will not wrap, but instead will truncate
-      with a text overflow ellipsis.Note that text overflow can only happen with
-      block or inline-block level elements (the element needs to have a width in
-      order to overflow).
-     */
-    noWrap: boolean;
-}>;
+export type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;
 export type HeadingProps = BaseProps & Partial<{
     /**
      * The type of text style to use.

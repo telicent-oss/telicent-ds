@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 import { TableProps as MUITableProps } from '@mui/material';
 
 type TableProps = Omit<MUITableProps, "sx" | "classes" | "size">;

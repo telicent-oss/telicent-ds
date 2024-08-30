@@ -1,4 +1,4 @@
-import { default as React, HTMLAttributes } from 'react';
+import { default as React, HTMLAttributes } from '../../../node_modules/react';
 
 export interface TeliToolbarProps extends HTMLAttributes<HTMLUListElement> {
     /**

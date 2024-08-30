@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 import { ButtonBaseProps } from '@mui/material';
 
 type MUIButtonBaseProps = Omit<ButtonBaseProps, "centerRipple" | "classes" | "action" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "sx">;

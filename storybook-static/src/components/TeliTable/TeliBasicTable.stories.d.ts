@@ -2,7 +2,7 @@ import { StoryObj } from '@storybook/react';
 import { BasicTable, CaptionedTable, CustomColumns, DenseTable, StickyHeader } from './stories';
 
 declare const meta: {
-    component: import('react').FC<import('./TeliBasicTable').TeliBasicTableProps>;
+    component: import('../../../node_modules/react').FC<import('./TeliBasicTable').TeliBasicTableProps>;
     parameters: {
         docs: {
             source: {

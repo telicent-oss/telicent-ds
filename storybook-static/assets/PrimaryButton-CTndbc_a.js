@@ -1,0 +1,1 @@
+import{j as o}from"./jsx-runtime-CexXSJP5.js";import{B as t}from"./Button-D8_qyAsZ.js";const i=r=>o.jsx(t,{variant:"contained",color:"primary",...r,children:r.children});i.__docgenInfo={description:"",methods:[],displayName:"PrimaryButton"};export{i as P};

@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 import { TableCellProps as MUITableCellProps } from '@mui/material';
 
 type TableCellProps = Omit<MUITableCellProps, "sx" | "classes">;

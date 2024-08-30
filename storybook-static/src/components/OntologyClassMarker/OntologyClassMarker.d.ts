@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import { default as React } from '../../../node_modules/react';
 import { MarkerEvent, MarkerInstance } from 'react-map-gl/dist/esm/types';
 
 type Feature = GeoJSON.Feature<GeoJSON.Point, OntologyClassMarkerProperties>;
