@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import Map from "react-map-gl/maplibre";
-import OntologyService from "@telicent-oss/ontologyservice";
+import { OntologyService } from "@telicent-oss/ontologyservice";
 
 import OntologyClassMarker, {
   OntologyClassMarkerProperties,
