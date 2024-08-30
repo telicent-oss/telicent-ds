@@ -50,7 +50,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
         slotProps={{
           paper: {
             sx: {
-              padding: 3,
+              padding: 2.5,
               border: `1px solid #8D99E270`,
               width: 300,
               filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15))",

@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.3 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -12209,7 +12209,6 @@ html {
 }
 
 .sticky {
-  position: -webkit-sticky;
   position: sticky;
 }
 
@@ -12427,10 +12426,6 @@ html {
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-x-1 {
-  column-gap: 0.25rem;
 }
 
 .gap-x-1\.5 {
