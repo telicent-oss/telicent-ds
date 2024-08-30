@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import OntologyService from "@telicent-oss/ontologyservice";
+import { OntologyService } from "@telicent-oss/ontologyservice";
 
 import TeliTypeIcon from "./TeliTypeIcon";
 import { OntologyStylesProvider } from "../../contexts/OntologyStyles";

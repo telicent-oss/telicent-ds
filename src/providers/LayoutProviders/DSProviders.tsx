@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import OntologyService from "@telicent-oss/ontologyservice";
+import { OntologyService } from "@telicent-oss/ontologyservice";
 
 import { OntologyStylesProvider } from "../../contexts/OntologyStyles";
 
