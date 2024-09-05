@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.3.0-rc3...v0.4.0-rc3) (2024-08-30)
+
+
+### Features
+
+* added user profile content component ([5a5c472](https://github.com/telicent-oss/telicent-ds/commit/5a5c47218910f43fc62d062ef3e7a26ff77ef4aa))
+
+
+### Bug Fixes
+
+* **build-storybook:** imports ([3f0b3c1](https://github.com/telicent-oss/telicent-ds/commit/3f0b3c1ba4f9343635a8b008d66802e01a06a96a))
+
 ## [0.3.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.2.0-rc3...v0.3.0-rc3) (2024-08-22)
 
 
