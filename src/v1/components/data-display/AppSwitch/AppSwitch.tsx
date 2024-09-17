@@ -81,6 +81,7 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
                   flexDirection: "column",
                   alignItems: "center",
                   rowGap: 4,
+                  width: "100%"
                 }}
               >
                 <img
