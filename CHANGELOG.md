@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.4.0-rc3...v0.5.0-rc3) (2024-09-17)
+
+
+### Features
+
+* app switch component ([637b2ed](https://github.com/telicent-oss/telicent-ds/commit/637b2ed2f724b28b4e2f90911b4b4c468ff86a5a))
+
+
+### Bug Fixes
+
+* **v1 Text:** added coverage ([#89](https://github.com/telicent-oss/telicent-ds/issues/89)) ([bd07a4a](https://github.com/telicent-oss/telicent-ds/commit/bd07a4ad8e71165c2a057f3397d85d26215fac8d))
+
 ## [0.4.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.3.0-rc3...v0.4.0-rc3) (2024-08-30)
 
 
