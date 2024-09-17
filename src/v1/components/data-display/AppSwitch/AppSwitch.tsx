@@ -15,9 +15,9 @@ const AppSchema = zod.object({
   icon: zod.string(),
 });
 
-export type AppsType = zod.infer<typeof AppSchema>[];
+export type AppSwitchLibraryType = zod.infer<typeof AppSchema>[];
 
-const AppSwitch: React.FC<{ apps: AppsType }> = ({ apps }) => {
+const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);

@@ -3,6 +3,8 @@ export * from "./FontAwesomeIcons";
 export * from "./Text/Text";
 export * from "./List/List";
 
+export type { AppSwitchLibraryType } from "./AppSwitch/AppSwitch";
+
 export { default as Chip } from "./Chip/Chip";
 export type { ChipProps } from "./Chip/Chip";
 

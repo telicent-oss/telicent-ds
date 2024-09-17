@@ -8,12 +8,14 @@ import zod from "zod";
 
 import TelicentBrand from "./telicent-brand.svg";
 import TelicentMark from "../../data-display/Icons/TelicentMark";
-import AppSwitch, { AppsType } from "../../data-display/AppSwitch/AppSwitch";
+import AppSwitch, {
+  AppSwitchLibraryType,
+} from "../../data-display/AppSwitch/AppSwitch";
 
 export type AppBarProps = Partial<{
   appName: string;
   beta: boolean;
-  apps: AppsType;
+  apps: AppSwitchLibraryType;
   userProfile: React.ReactNode;
   position: MUIAppBarProps["position"];
 }>;
