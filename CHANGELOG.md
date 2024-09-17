@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.5.0-rc3...v0.5.1-rc3) (2024-09-17)
+
+
+### Bug Fixes
+
+* **appswitch:** add width to link ([c6df14c](https://github.com/telicent-oss/telicent-ds/commit/c6df14cf66dc5f380650f3e55aad2614a451ff2d))
+* export appswitch and appbar types ([5552c19](https://github.com/telicent-oss/telicent-ds/commit/5552c1919fb5424555301f045cb1692b38c40e4f))
+
 ## [0.5.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.4.0-rc3...v0.5.0-rc3) (2024-09-17)
 
 
