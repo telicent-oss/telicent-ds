@@ -1,4 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
+
+/// <reference types="@emotion/react/types/css-prop" />
+
 import react from "@vitejs/plugin-react";
 import path from "path";
 import copy from "rollup-plugin-copy";
@@ -43,7 +46,12 @@ export default defineConfig({
   },
   plugins: [
     dts({ insertTypesEntry: true }),
-    react(),
+    react({
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: ["@emotion/babel-plugin"],
+      },
+    }),
 
     //   watchAndRun([
     //     {
