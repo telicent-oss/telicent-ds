@@ -105,7 +105,7 @@ describe("Modal Component", () => {
 
   test('calls onClose with "closeButtonClick" when Close button is clicked', () => {
     render(<Modal {...props} />);
-    fireEvent.click(screen.getByRole("button", { name: /Close/i }));
+    fireEvent.click(screen.getByRole("button", { name: 'Close' }));
     expect(onCloseMock).toHaveBeenCalledWith(
       expect.anything(),
       "closeButtonClick"
