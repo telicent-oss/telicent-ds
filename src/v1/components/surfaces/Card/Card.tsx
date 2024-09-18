@@ -16,4 +16,5 @@ const CardHeader: React.FC<MUICardHeaderProps> = (cardHeaderProps) => (
 );
 
 export default Card;
+export { Card };
 export { CardHeader };

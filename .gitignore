@@ -34,3 +34,4 @@ App.tsx
 .idea
 
 *storybook.log
+*.gitignored*
