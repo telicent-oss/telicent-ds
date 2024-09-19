@@ -25,7 +25,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "useUnknownInCatchVariables": true
+    "useUnknownInCatchVariables": true,
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["src"],
   "exclude": ["node_modules"]

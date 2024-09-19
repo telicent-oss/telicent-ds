@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.6.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.5.1-rc3...v0.6.0-rc3) (2024-09-19)
+
+
+### Features
+
+* **v1 Modal:** added ([#106](https://github.com/telicent-oss/telicent-ds/issues/106)) ([4777719](https://github.com/telicent-oss/telicent-ds/commit/477771943bcaab1d6f248961adf944f1b3861cec))
+
+## [0.5.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.5.0-rc3...v0.5.1-rc3) (2024-09-17)
+
+
+### Bug Fixes
+
+* **appswitch:** add width to link ([c6df14c](https://github.com/telicent-oss/telicent-ds/commit/c6df14cf66dc5f380650f3e55aad2614a451ff2d))
+* export appswitch and appbar types ([5552c19](https://github.com/telicent-oss/telicent-ds/commit/5552c1919fb5424555301f045cb1692b38c40e4f))
+
+## [0.5.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.4.0-rc3...v0.5.0-rc3) (2024-09-17)
+
+
+### Features
+
+* app switch component ([637b2ed](https://github.com/telicent-oss/telicent-ds/commit/637b2ed2f724b28b4e2f90911b4b4c468ff86a5a))
+
+
+### Bug Fixes
+
+* **v1 Text:** added coverage ([#89](https://github.com/telicent-oss/telicent-ds/issues/89)) ([bd07a4a](https://github.com/telicent-oss/telicent-ds/commit/bd07a4ad8e71165c2a057f3397d85d26215fac8d))
+
 ## [0.4.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.3.0-rc3...v0.4.0-rc3) (2024-08-30)
 
 

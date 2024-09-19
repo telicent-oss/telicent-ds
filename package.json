@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.4.0-rc3",
+  "version": "0.6.0",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -31,7 +31,8 @@
   },
   "resolutions": {
     "jackspeak": "2.1.1",
-    "nth-check": "^2.1.1"
+    "nth-check": "^2.1.1",
+    "prettier": "^2.8.8"
   },
   "resolutionsReasons": {
     "nth-check": "vulnerability: Tested `react-scripts start/test/build`"
@@ -77,6 +78,7 @@
     "@chromatic-com/storybook": "^1.7.0",
     "@commitlint/cli": "17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@emotion/babel-plugin": "^11.12.0",
     "@storybook/addon-a11y": "^8.2.9",
     "@storybook/addon-actions": "^8.2.9",
     "@storybook/addon-docs": "^8.2.9",
