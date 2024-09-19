@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.5.1-rc3...v0.6.0-rc3) (2024-09-19)
+
+
+### Features
+
+* **v1 Modal:** added ([#106](https://github.com/telicent-oss/telicent-ds/issues/106)) ([4777719](https://github.com/telicent-oss/telicent-ds/commit/477771943bcaab1d6f248961adf944f1b3861cec))
+
 ## [0.5.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.5.0-rc3...v0.5.1-rc3) (2024-09-17)
 
 
