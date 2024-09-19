@@ -52,7 +52,7 @@ describe("Modal Component", () => {
                 class="MuiBox-root css-1bvc4cc"
               >
                 <button
-                  class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-lzr00z-MuiButtonBase-root-MuiButton-root"
+                  class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit css-19i1uaa-MuiButtonBase-root-MuiButton-root"
                   tabindex="0"
                   type="button"
                 >
@@ -105,7 +105,7 @@ describe("Modal Component", () => {
 
   test('calls onClose with "closeButtonClick" when Close button is clicked', () => {
     render(<Modal {...props} />);
-    fireEvent.click(screen.getByRole("button", { name: 'Close' }));
+    fireEvent.click(screen.getByRole("button", { name: "Close" }));
     expect(onCloseMock).toHaveBeenCalledWith(
       expect.anything(),
       "closeButtonClick"
