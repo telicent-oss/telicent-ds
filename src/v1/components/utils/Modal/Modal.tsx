@@ -66,10 +66,9 @@ export const Modal: React.FC<ModalProps> = ({ children, ...props }) => {
         >
           <Button
             onClick={(event) => props.onClose?.(event, "closeButtonClick")}
+            color='inherit'
             sx={{
               fontSize: 18,
-              // TODO ask how to color
-              // HOW use theme.palette.primary.main
             }}
           >
             Close&nbsp;

@@ -44,6 +44,19 @@ const meta: Meta<typeof Modal> = {
   title: "Utils/Modal",
   component: Modal,
   tags: ["autodocs"],
+  argTypes: {
+    onClose: {
+      description: "Callback fired when the modal is closed.",
+      type: 'function',
+    },
+    children: {
+      control: false,
+      description: "Content inside the component",
+      table: {
+        type: { summary: "ReactNode" },
+      },
+    },
+  }
 } satisfies Meta<typeof Modal>;
 export default meta;
 
