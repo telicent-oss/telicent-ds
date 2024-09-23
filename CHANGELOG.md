@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.0-rc3...v0.6.1-rc3) (2024-09-23)
+
+
+### Bug Fixes
+
+* Tweak modal and version ([#108](https://github.com/telicent-oss/telicent-ds/issues/108)) ([7fa5d05](https://github.com/telicent-oss/telicent-ds/commit/7fa5d053372f4b34ec7c7a0a948c05275c7ce63c))
+
 ## [0.6.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.5.1-rc3...v0.6.0-rc3) (2024-09-19)
 
 
