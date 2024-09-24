@@ -8,14 +8,14 @@ import IconButton from "../../inputs/Button/IconButton";
 import GridIcon from "../Icons/GridIcon";
 import FlexBox from "../../layout/FlexBox";
 
-const AppSchema = zod.object({
+export const AppSwitchLibrarySchema = zod.object({
   id: zod.string(),
   name: zod.string(),
   url: zod.string(),
   icon: zod.string(),
 });
 
-export type AppSwitchLibraryType = zod.infer<typeof AppSchema>[];
+export type AppSwitchLibraryType = zod.infer<typeof AppSwitchLibrarySchema>[];
 
 const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -52,7 +52,7 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
         }}
       >
         {apps.map((app, index) => {
-          const validateAppsSchema = AppSchema.safeParse(app);
+          const validateAppsSchema = AppSwitchLibrarySchema.safeParse(app);
 
           if (!validateAppsSchema.success) {
             const formattedErrors = validateAppsSchema.error.issues.map(
