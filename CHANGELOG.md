@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.1-rc3...v0.6.2-rc3) (2024-09-24)
+
+
+### Bug Fixes
+
+* export app switch library schema ([71e9d43](https://github.com/telicent-oss/telicent-ds/commit/71e9d43352f5e10ee49f76a3c2bc35a8eb1e96f5))
+
 ## [0.6.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.0-rc3...v0.6.1-rc3) (2024-09-23)
 
 
