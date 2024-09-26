@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.2-rc3...v0.6.3-rc3) (2024-09-26)
+
+
+### Bug Fixes
+
+* update ontology service dependency ([6cecb51](https://github.com/telicent-oss/telicent-ds/commit/6cecb515e9451acde76c6131727ec68522c64b26))
+* update ontology service dependency ([2af0c5a](https://github.com/telicent-oss/telicent-ds/commit/2af0c5a5c3a3b85fec50e0cfdadcd981a1bb4ecc))
+
 ## [0.6.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.1-rc3...v0.6.2-rc3) (2024-09-24)
 
 
