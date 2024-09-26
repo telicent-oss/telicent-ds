@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.3-rc3...v0.6.4-rc3) (2024-09-26)
+
+
+### Bug Fixes
+
+* pass empty array ([8966e2e](https://github.com/telicent-oss/telicent-ds/commit/8966e2ef8b1c75578701e72d957a9e146e4020ae))
+
 ## [0.6.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.2-rc3...v0.6.3-rc3) (2024-09-26)
 
 
