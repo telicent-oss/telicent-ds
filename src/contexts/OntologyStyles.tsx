@@ -68,7 +68,7 @@ const OntologyStylesProvider: React.FC<OntologyStylesProviderProps> = ({
 
   const query = useQuery({
     queryKey: ["ontology-styles"],
-    queryFn: () => service.getStyles(),
+    queryFn: () => service.getStyles([]),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
