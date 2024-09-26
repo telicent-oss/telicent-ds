@@ -3575,10 +3575,10 @@
   dependencies:
     "@tanstack/query-core" "5.51.21"
 
-"@telicent-oss/ontologyservice@^0.30.0-dev3":
-  version "0.30.0-dev3"
-  resolved "https://registry.yarnpkg.com/@telicent-oss/ontologyservice/-/ontologyservice-0.30.0-dev3.tgz#8a4a51310e444c04a18554d17f29df163451d3a3"
-  integrity sha512-5bt8T5na0D/rWSFOO1+SWHzGBRYVzS7CbDuGzlukm+l3VgvLBc8lk8JfYHYWLZ7618aJxndCo4y7NpV7inxb/Q==
+"@telicent-oss/ontologyservice@^0.31.1-rc1":
+  version "0.31.1-rc1"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/ontologyservice/-/ontologyservice-0.31.1-rc1.tgz#69e112d62f2146f0d38239555f8ee4ae1de3769b"
+  integrity sha512-Fa1c0W++QHAsytDSh2mv0wY9OLk+2K0UMYZ4YE243w8M1j2LgQMzDqwnvat3sFEJXsJmDPn2Hom1hc6zk6GGTw==
   dependencies:
     "@telicent-oss/rdfservice" "0.30.0-dev3"
 
