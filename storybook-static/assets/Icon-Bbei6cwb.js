@@ -1,0 +1,1 @@
+import{j as n}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{F as s}from"./index-EaYoR7Ht.js";const i=({faIcon:e,id:a,size:r,...o})=>n(s,{"aria-label":o["aria-label"],id:a,icon:e,size:r,...o});i.__docgenInfo={description:"",methods:[],displayName:"Icon",props:{faIcon:{required:!0,tsType:{name:"IconProp"},description:""}},composes:["Partial"]};export{i as I};

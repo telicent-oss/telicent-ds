@@ -1,1 +1,0 @@
-import{j as t}from"./jsx-runtime-CexXSJP5.js";import{f as e}from"./index-EaYoR7Ht.js";import{I as a}from"./Icon-Btk4_Z4H.js";const s=o=>t.jsx(a,{faIcon:e,...o});s.__docgenInfo={description:"",methods:[],displayName:"ClockRotateLeft"};export{s as C};

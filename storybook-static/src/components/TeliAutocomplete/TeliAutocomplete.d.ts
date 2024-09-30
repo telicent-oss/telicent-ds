@@ -20,5 +20,5 @@ export interface TeliAutocompleteProps<Value, Multiple extends boolean = false, 
     /** Width of the component. */
     width?: number;
 }
-declare function TeliAutocomplete<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false>({ error, fullWidth, helperText, label, loading, maxHeight, mode, placeholder, startAdornment, width, getChipIcon, getOptionLabel, ...other }: TeliAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo>): import("react/jsx-runtime").JSX.Element;
+declare function TeliAutocomplete<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false>({ error, fullWidth, helperText, label, loading, maxHeight, mode, placeholder, startAdornment, width, getChipIcon, getOptionLabel, ...other }: TeliAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo>): import("@emotion/react/jsx-runtime").JSX.Element;
 export default TeliAutocomplete;

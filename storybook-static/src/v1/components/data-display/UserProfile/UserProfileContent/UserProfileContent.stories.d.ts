@@ -8,7 +8,7 @@ declare const meta: {
     tags: string[];
     decorators: (Story: import('@storybook/csf').PartialStoryFn<import('@storybook/react').ReactRenderer, {
         children?: React.ReactNode | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element;
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element;
     argTypes: {
         children: {
             control: false;

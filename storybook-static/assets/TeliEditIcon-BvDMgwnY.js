@@ -1,1 +1,0 @@
-import{j as i}from"./jsx-runtime-CexXSJP5.js";import{d as s}from"./index-EaYoR7Ht.js";import{I as t}from"./Icon-Btk4_Z4H.js";const n=o=>i.jsx(t,{faIcon:s,...o});n.__docgenInfo={description:"",methods:[],displayName:"TeliEditIcon"};export{n as T};

@@ -326,12 +326,12 @@ declare const meta: {
         onAnimationIterationCapture?: import('../../../../../node_modules/react').AnimationEventHandler<HTMLButtonElement> | undefined;
         onTransitionEnd?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLButtonElement> | undefined;
         onTransitionEndCapture?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLButtonElement> | undefined;
-        ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
         form?: string | undefined;
-        size?: import('@mui/types').OverridableStringUnion<"small" | "medium" | "large", import('@mui/material').ButtonPropsSizeOverrides> | undefined;
+        ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
         key?: import('../../../../../node_modules/react').Key | null | undefined;
-        name?: string | undefined;
+        size?: import('@mui/types').OverridableStringUnion<"small" | "medium" | "large", import('@mui/material').ButtonPropsSizeOverrides> | undefined;
         type?: "submit" | "reset" | "button" | undefined;
+        name?: string | undefined;
         action?: import('../../../../../node_modules/react').Ref<import('@mui/material').ButtonBaseActions> | undefined;
         centerRipple?: boolean | undefined;
         disabled?: boolean | undefined;
@@ -354,7 +354,7 @@ declare const meta: {
         endIcon?: import('../../../../../node_modules/react').ReactNode;
         variant?: "link" | "text" | "primary" | "secondary" | "tertiary" | undefined;
         color?: "inherit" | "primary" | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element;
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element;
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

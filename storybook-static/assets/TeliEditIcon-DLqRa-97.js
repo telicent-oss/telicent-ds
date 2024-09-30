@@ -1,0 +1,1 @@
+import{j as i}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{d as n}from"./index-EaYoR7Ht.js";import{I as s}from"./Icon-Bbei6cwb.js";const t=o=>i(s,{faIcon:n,...o});t.__docgenInfo={description:"",methods:[],displayName:"TeliEditIcon"};export{t as T};

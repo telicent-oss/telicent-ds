@@ -55,5 +55,5 @@ export type SearchAutocompleteProps<Option = DefaultOption> = {
     onChange: MUIAutocompleteProps<Option>["onChange"];
     onInputChange: MUIAutocompleteProps<Option>["onInputChange"];
 }>;
-declare const SearchAutocomplete: <Option>({ autoFocus, autoHighlight, error, fullWidth, getOptionKey, getOptionLabel, helperText, id, inputValue, isOptionEqualToValue, label, listboxMaxHeight, loading, loadingText, onChange, onInputChange, openOnFocus, options, placeholder, width, }: SearchAutocompleteProps<Option>) => import("react/jsx-runtime").JSX.Element;
+declare const SearchAutocomplete: <Option>({ autoFocus, autoHighlight, error, fullWidth, getOptionKey, getOptionLabel, helperText, id, inputValue, isOptionEqualToValue, label, listboxMaxHeight, loading, loadingText, onChange, onInputChange, openOnFocus, options, placeholder, width, }: SearchAutocompleteProps<Option>) => import("@emotion/react/jsx-runtime").JSX.Element;
 export default SearchAutocomplete;

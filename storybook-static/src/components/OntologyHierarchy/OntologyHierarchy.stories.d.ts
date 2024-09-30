@@ -37,7 +37,7 @@ declare const meta: {
         filterIds?: string[] | undefined;
         expandAll?: boolean | undefined;
         expandElement?: boolean | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element)[];
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element)[];
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

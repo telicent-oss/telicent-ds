@@ -24,8 +24,8 @@ declare const meta: {
         } | null, reason: import('@mui/material').AutocompleteChangeReason, details?: import('@mui/material').AutocompleteChangeDetails<{
             label: string;
         }> | undefined) => void) | undefined;
-        width?: number | undefined;
         label?: string | undefined;
+        width?: number | undefined;
         loading?: boolean | undefined;
         placeholder?: string | undefined;
         options: readonly {
@@ -52,7 +52,7 @@ declare const meta: {
         open: import('@mui/material').DialogProps["open"];
         children: import('../../../node_modules/react').ReactNode;
         onClose?: import('@mui/material').DialogProps["onClose"];
-    }>) => import("react/jsx-runtime").JSX.Element)[];
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element)[];
 };
 export default meta;
 export type SearchAutocompleteDialogStory = StoryObj<typeof meta>;

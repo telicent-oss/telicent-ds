@@ -8,4 +8,5 @@ type CardProps = Omit<MUICardProps, "classes" | "raised" | "sx"> & Partial<{
 declare const Card: React.FC<CardProps>;
 declare const CardHeader: React.FC<MUICardHeaderProps>;
 export default Card;
+export { Card };
 export { CardHeader };

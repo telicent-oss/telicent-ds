@@ -1,1 +1,0 @@
-import{j as s}from"./jsx-runtime-CexXSJP5.js";import{b as e}from"./index-EaYoR7Ht.js";import{I as m}from"./Icon-Btk4_Z4H.js";const r=o=>s.jsx(m,{faIcon:e,...o});r.__docgenInfo={description:"",methods:[],displayName:"TeliCloseIcon"};export{r as T};

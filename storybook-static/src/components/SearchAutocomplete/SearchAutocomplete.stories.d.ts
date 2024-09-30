@@ -1,7 +1,7 @@
 import { StoryObj } from '@storybook/react';
 
 declare const meta: {
-    component: <Option>({ autoFocus, autoHighlight, error, fullWidth, getOptionKey, getOptionLabel, helperText, id, inputValue, isOptionEqualToValue, label, listboxMaxHeight, loading, loadingText, onChange, onInputChange, openOnFocus, options, placeholder, width, }: import('./SearchAutocomplete').SearchAutocompleteProps<Option>) => import("react/jsx-runtime").JSX.Element;
+    component: <Option>({ autoFocus, autoHighlight, error, fullWidth, getOptionKey, getOptionLabel, helperText, id, inputValue, isOptionEqualToValue, label, listboxMaxHeight, loading, loadingText, onChange, onInputChange, openOnFocus, options, placeholder, width, }: import('./SearchAutocomplete').SearchAutocompleteProps<Option>) => import("@emotion/react/jsx-runtime").JSX.Element;
     parameters: {
         docs: {
             description: {
@@ -30,7 +30,7 @@ declare const meta: {
         isOptionEqualToValue?: ((option: unknown, value: unknown) => boolean) | undefined;
         onChange?: ((event: import('../../../node_modules/react').SyntheticEvent, value: unknown, reason: import('@mui/material').AutocompleteChangeReason, details?: import('@mui/material').AutocompleteChangeDetails<unknown> | undefined) => void) | undefined;
         onInputChange?: ((event: import('../../../node_modules/react').SyntheticEvent, value: string, reason: import('@mui/material').AutocompleteInputChangeReason) => void) | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element)[];
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element)[];
 };
 export default meta;
 export type SearchAutocompleteStory = StoryObj<typeof meta>;

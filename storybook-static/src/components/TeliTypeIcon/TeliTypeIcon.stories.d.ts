@@ -19,7 +19,7 @@ declare const meta: {
         disabled?: boolean | undefined;
         size?: import('./type-icon-utils').TeliTypeIconSizeProp | undefined;
         type?: string | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element)[];
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element)[];
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

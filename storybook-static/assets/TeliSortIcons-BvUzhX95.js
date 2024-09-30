@@ -1,0 +1,1 @@
+import{j as r}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{g as n,h as s}from"./index-EaYoR7Ht.js";import{I as a}from"./Icon-Bbei6cwb.js";const t=o=>r(a,{faIcon:n,...o}),c=o=>r(a,{faIcon:s,...o});t.__docgenInfo={description:"",methods:[],displayName:"TeliSortAZIcon"};c.__docgenInfo={description:"",methods:[],displayName:"TeliSortZAIcon"};export{t as T,c as a};

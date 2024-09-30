@@ -1,1 +1,0 @@
-import{j as e}from"./jsx-runtime-CexXSJP5.js";import{c as s}from"./index-EaYoR7Ht.js";import{I as t}from"./Icon-Btk4_Z4H.js";const r=o=>e.jsx(t,{faIcon:s,...o});r.__docgenInfo={description:"",methods:[],displayName:"TeliDeleteIcon"};export{r as T};

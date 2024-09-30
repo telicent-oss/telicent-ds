@@ -2,6 +2,8 @@ export * from './Icons';
 export * from './FontAwesomeIcons';
 export * from './Text/Text';
 export * from './List/List';
+export { AppSwitchLibrarySchema } from './AppSwitch/AppSwitch';
+export type { AppSwitchLibraryType } from './AppSwitch/AppSwitch';
 export { default as Chip } from './Chip/Chip';
 export type { ChipProps } from './Chip/Chip';
 export { default as Divider } from './Divider/Divider';

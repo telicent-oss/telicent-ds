@@ -1,1 +1,0 @@
-import{j as s}from"./jsx-runtime-CexXSJP5.js";import{F as n}from"./index-EaYoR7Ht.js";const i=({faIcon:e,id:r,size:a,...o})=>s.jsx(n,{"aria-label":o["aria-label"],id:r,icon:e,size:a,...o});i.__docgenInfo={description:"",methods:[],displayName:"Icon",props:{faIcon:{required:!0,tsType:{name:"IconProp"},description:""}},composes:["Partial"]};export{i as I};

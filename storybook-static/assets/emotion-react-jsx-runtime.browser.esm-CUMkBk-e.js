@@ -1,0 +1,1 @@
+import{h as t,j as r,E as i,c as j}from"./emotion-element-5486c51c.browser.esm-RhhZu_Xj.js";import"./index-BP8_t0zE.js";var m=r.Fragment;function o(a,s,n){return t.call(s,"css")?r.jsx(i,j(a,s),n):r.jsx(a,s,n)}function u(a,s,n){return t.call(s,"css")?r.jsxs(i,j(a,s),n):r.jsxs(a,s,n)}export{m as F,u as a,o as j};

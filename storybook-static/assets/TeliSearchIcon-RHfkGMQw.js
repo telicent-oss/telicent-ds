@@ -1,0 +1,1 @@
+import{j as a}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{e as s}from"./index-EaYoR7Ht.js";import{I as e}from"./Icon-Bbei6cwb.js";const i=o=>a(e,{faIcon:s,...o});i.__docgenInfo={description:"",methods:[],displayName:"TeliSearchIcon"};export{i as T};

@@ -282,7 +282,7 @@ declare const meta: {
         onAnimationIterationCapture?: import('../../../node_modules/react').AnimationEventHandler<HTMLUListElement> | undefined;
         onTransitionEnd?: import('../../../node_modules/react').TransitionEventHandler<HTMLUListElement> | undefined;
         onTransitionEndCapture?: import('../../../node_modules/react').TransitionEventHandler<HTMLUListElement> | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element)[];
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element)[];
 };
 export default meta;
 export type ToolbarStory = StoryObj<typeof meta>;

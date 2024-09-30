@@ -1,1 +1,0 @@
-import{j as s}from"./jsx-runtime-CexXSJP5.js";import{a}from"./index-EaYoR7Ht.js";import{I as i}from"./Icon-Btk4_Z4H.js";const m=o=>s.jsx(i,{faIcon:a,...o});m.__docgenInfo={description:"",methods:[],displayName:"TeliAddIcon"};export{m as T};

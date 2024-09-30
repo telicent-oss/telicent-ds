@@ -36,7 +36,7 @@ declare const meta: {
         selectId?: string | undefined;
         width?: number | undefined;
         value?: any;
-    }>) => import("react/jsx-runtime").JSX.Element)[];
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element)[];
 };
 export default meta;
 export type TeliSelectStory = StoryObj<typeof meta>;

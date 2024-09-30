@@ -282,13 +282,13 @@ declare const meta: {
         onAnimationIterationCapture?: import('../../../node_modules/react').AnimationEventHandler<HTMLDivElement> | undefined;
         onTransitionEnd?: import('../../../node_modules/react').TransitionEventHandler<HTMLDivElement> | undefined;
         onTransitionEndCapture?: import('../../../node_modules/react').TransitionEventHandler<HTMLDivElement> | undefined;
+        label?: string | import('../../../node_modules/react').ReactNode;
         ref?: import('../../../node_modules/react').Ref<unknown> | undefined;
         width?: number | undefined;
         mode?: "search" | undefined;
         open?: boolean | undefined;
         disablePortal?: boolean | undefined;
         onClose?: ((event: import('../../../node_modules/react').SyntheticEvent, reason: import('@mui/material').AutocompleteCloseReason) => void) | undefined;
-        label?: string | import('../../../node_modules/react').ReactNode;
         disabled?: boolean | undefined;
         maxHeight?: number | undefined;
         value?: unknown;
@@ -340,7 +340,7 @@ declare const meta: {
         selectOnFocus?: boolean | undefined;
         helperText?: string | undefined;
         getChipIcon?: ((option: unknown) => any) | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element)[];
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element)[];
 };
 export default meta;
 export type TeliTypeaheadStory = StoryObj<typeof TeliTypeahead>;

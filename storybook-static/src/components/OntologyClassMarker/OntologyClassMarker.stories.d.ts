@@ -10,7 +10,7 @@ declare const meta: {
     decorators: ((Story: import('@storybook/csf').PartialStoryFn<import('@storybook/react').ReactRenderer, {
         features?: import('geojson').Feature<import('geojson').Point, OntologyClassMarkerProperties<unknown>>[] | undefined;
         onClick?: ((event: import('react-map-gl/dist/esm/types').MarkerEvent<import('react-map-gl/maplibre').MarkerInstance, MouseEvent>, feature: import('geojson').Feature<import('geojson').Point, OntologyClassMarkerProperties<unknown>>) => void) | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element)[];
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element)[];
 };
 export default meta;
 type Story = StoryObj<typeof OntologyClassMarker>;

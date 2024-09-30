@@ -310,14 +310,14 @@ declare const meta: {
         onAnimationIterationCapture?: import('../../../../../node_modules/react').AnimationEventHandler<HTMLDivElement> | undefined;
         onTransitionEnd?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLDivElement> | undefined;
         onTransitionEndCapture?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLDivElement> | undefined;
-        ref?: ((instance: HTMLDivElement | null) => void | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../../node_modules/react').RefObject<HTMLDivElement> | null | undefined;
-        size?: import('@mui/types').OverridableStringUnion<"small" | "medium", import('@mui/material').ChipPropsSizeOverrides> | undefined;
-        key?: import('../../../../../node_modules/react').Key | null | undefined;
         label?: import('../../../../../node_modules/react').ReactNode;
+        ref?: ((instance: HTMLDivElement | null) => void | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../../node_modules/react').RefObject<HTMLDivElement> | null | undefined;
+        key?: import('../../../../../node_modules/react').Key | null | undefined;
+        size?: import('@mui/types').OverridableStringUnion<"small" | "medium", import('@mui/material').ChipPropsSizeOverrides> | undefined;
         variant?: import('@mui/types').OverridableStringUnion<"filled" | "outlined", import('@mui/material').ChipPropsVariantOverrides> | undefined;
         disabled?: boolean | undefined;
         onDelete?: import('../../../../../node_modules/react').EventHandler<any> | undefined;
-    }>) => import("react/jsx-runtime").JSX.Element;
+    }>) => import("@emotion/react/jsx-runtime").JSX.Element;
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
