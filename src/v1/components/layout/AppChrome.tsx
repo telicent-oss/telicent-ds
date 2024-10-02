@@ -1,13 +1,13 @@
 import React, { PropsWithChildren } from "react";
 import MUIContainer from "@mui/material/Container";
-import useTheme from "@mui/material/styles/useTheme";
 
 import AppBar, { AppBarProps } from "../surfaces/AppBar/AppBar";
+import useExtendedTheme from "../../../hooks/useExtendedTheme";
 
 type AppChromeProps = AppBarProps & PropsWithChildren;
 
 const AppChrome: React.FC<AppChromeProps> = ({ children, ...appBarProps }) => {
-  const theme = useTheme();
+  const theme = useExtendedTheme();
 
   return (
     <>
@@ -16,7 +16,7 @@ const AppChrome: React.FC<AppChromeProps> = ({ children, ...appBarProps }) => {
         maxWidth={false}
         disableGutters
         sx={{
-          height: "calc(100vh - 70px)",
+          height: `calc(100vh - ${theme.components?.MuiAppBar?.styleOverrides?.root?.height}px)`,
           overflow: "auto",
           backgroundColor: theme.palette.background.default,
         }}

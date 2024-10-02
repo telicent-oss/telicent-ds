@@ -1,16 +1,15 @@
 import React from "react";
 import MUIAppBar, { AppBarProps as MUIAppBarProps } from "@mui/material/AppBar";
+import MUIBox from "@mui/material/Box";
 import MUIStack from "@mui/material/Stack";
 import MUITypography from "@mui/material/Typography";
-import MUIBox from "@mui/material/Box";
-import useTheme from "@mui/material/styles/useTheme";
-import zod from "zod";
 
 import TelicentBrand from "./telicent-brand.svg";
 import TelicentMark from "../../data-display/Icons/TelicentMark";
 import AppSwitch, {
   AppSwitchLibraryType,
 } from "../../data-display/AppSwitch/AppSwitch";
+import useExtendedTheme from "../../../../hooks/useExtendedTheme";
 
 export type AppBarProps = Partial<{
   appName: string;
@@ -27,10 +26,10 @@ const AppBar: React.FC<AppBarProps> = ({
   apps = [],
   userProfile,
 }) => {
-  const theme = useTheme();
+  const theme = useExtendedTheme();
 
   return (
-    <MUIAppBar color="inherit" position={position} sx={{ height: 70 }}>
+    <MUIAppBar color="inherit" position={position}>
       {apps?.length >= 1 && (
         <MUIBox
           id="app-switch-container"

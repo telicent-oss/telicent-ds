@@ -1,11 +1,14 @@
-import { ThemeOptions, createTheme as createMUITheme } from "@mui/material";
+import { createTheme as createMUITheme } from "@mui/material/styles";
+
 import { UITheme } from "./colors/theme-colors";
+import generateComponentOverrides from "./style-overrides/components";
 import TYPOGRAPHY_STYLE_OVERRIDES from "./style-overrides/typography";
 import createLightPalette from "./light-palette";
-import generateComponentOverrides from "./style-overrides/components";
 import createDarkPalette from "./dark-palette";
 
-const createTheme = (themeColor: UITheme, dark: boolean): ThemeOptions =>
+export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
+
+const createTheme = (themeColor: UITheme, dark: boolean) =>
   createMUITheme({
     components: generateComponentOverrides(themeColor),
     palette: dark
