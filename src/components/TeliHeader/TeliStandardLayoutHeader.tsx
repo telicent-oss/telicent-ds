@@ -32,9 +32,12 @@ const TeliStandardLayoutHeader: React.FC<TeliStandardLayoutHeaderProps> = ({
   userProfile = null,
 }) => (
   <TeliHeader className="teli-standard-layout-header">
+    <div className="start-adornments">
+      {userProfile && <AppSwitch apps={apps} isLeftAligned />}
+    </div>
     <TeliBrand appName={appName} beta={beta} />
     <div className="end-adornments">
-      <AppSwitch apps={apps} />
+      {!userProfile && <AppSwitch apps={apps} />}
       {userProfile}
     </div>
   </TeliHeader>

@@ -15,6 +15,7 @@ export interface AppSwitchProps
    * @default []
    */
   apps?: IApps[];
+  isLeftAligned?: boolean;
   className?: string;
 }
 
@@ -23,7 +24,7 @@ interface AppIconProps extends IApps {
   colour: string;
 }
 
-const AppSwitch: FC<AppSwitchProps> = ({ apps, ...otherProps }) => {
+const AppSwitch: FC<AppSwitchProps> = ({ apps, isLeftAligned, ...otherProps }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -68,7 +69,7 @@ const AppSwitch: FC<AppSwitchProps> = ({ apps, ...otherProps }) => {
         onClose={handleClose}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-        style={{ transform: "translateX(10px)" }}
+        style={{ transform: isLeftAligned ? "translateX(-2px)" : "translateX(10px)" }}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -86,7 +87,7 @@ const AppSwitch: FC<AppSwitchProps> = ({ apps, ...otherProps }) => {
               display: "block",
               position: "absolute",
               top: 0,
-              right: 14,
+              right: isLeftAligned ? 73 : 14,
               width: 10,
               height: 10,
               bgcolor: "#272727",
