@@ -11,62 +11,15 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "Buttons allow users to take actions, and make choices, with a single tap.",
+        component:
+          "Buttons allow users to take actions, and make choices, with a single tap.",
       },
     },
   },
   tags: ["autodocs"],
   args: { children: "Button", onClick: fn() },
-  argTypes: {
-    disabled: {
-      description: "If true, the component is disabled.",
-      type: "boolean",
-      table: {
-        defaultValue: {
-          summary: "false",
-        },
-      },
-    },
-    fullWidth: {
-      description: "If true, the button will take up the full width of its container.",
-      type: "boolean",
-      table: {
-        defaultValue: {
-          summary: "false",
-        },
-      },
-    },
-    size: {
-      description: "The size of the component.",
-      table: {
-        defaultValue: {
-          summary: "medium",
-        },
-      },
-      control: "select",
-      options: ["small", "medium", "large"],
-    },
-    variant: {
-      description: "The type of button variant to use",
-      table: {
-        defaultValue: {
-          summary: "primary",
-        },
-      },
-      control: "select",
-      options: ["primary", "secondary", "tertiary"],
-    },
-    endIcon: {
-      description: "Element placed after the children.",
-    },
-    startIcon: {
-      description: "Element placed before the children.",
-    },
-  },
   decorators: (Story) => (
-    <Box display="flex" gap={2}>
-      {Story()}
-    </Box>
+    <Box sx={{ "button": { marginInline: 2 } }}>{Story()}</Box>
   ),
 } satisfies Meta<typeof Button>;
 

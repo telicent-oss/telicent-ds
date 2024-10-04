@@ -6,6 +6,7 @@ import { Text } from "../../Text/Text";
 import Button from "../../../inputs/Button/Button";
 
 const meta = {
+  title: "Data display/User profile/User profile content",
   component: UserProfileContent,
   tags: ["autodocs"],
   decorators: (Story) => (
