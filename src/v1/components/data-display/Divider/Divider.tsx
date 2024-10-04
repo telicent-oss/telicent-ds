@@ -1,6 +1,4 @@
-import MUIDivider, {
-  DividerProps as MUIDividerProps,
-} from "@mui/material/Divider";
+import MUIDivider from "@mui/material/Divider";
 
 export interface DividerProps {
   /**
