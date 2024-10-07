@@ -18,8 +18,7 @@ export { default as UserProfile } from "./UserProfile/UserProfile";
 export type { UserProfileProps } from "./UserProfile/UserProfile";
 
 export { default as UserProfileContent } from "./UserProfile/UserProfileContent/UserProfileContent";
-export { default as UserProfileItem } from "./UserProfile/UserProfileContent/UserProfileItem";
-export { formatTitle } from "./UserProfile/user-profile-utils";
+export { default as TitleAndContent } from "./Text/TitleAndContent";
 
 export { default as UserStatus } from "./UserProfile/UserProfileContent/UserStatus";
 export type { UserStatusProps } from "./UserProfile/UserProfileContent/UserStatus";

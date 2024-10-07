@@ -1,0 +1,3 @@
+.username {
+  @apply hidden md:block;
+}

@@ -7,6 +7,7 @@ import MUIMenu from "@mui/material/Menu";
 import { H2 } from "../Text/Text";
 import UserIcon from "../Icons/UserIcon";
 import DownArrowIcon from "../FontAwesomeIcons/DownArrowIcon";
+import "./user-profile.css";
 
 export type UserProfileProps = PropsWithChildren & {
   fullName: string;
@@ -26,7 +27,19 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
 
   return (
     <MUIStack direction="row" spacing={1} alignItems="center">
-      <H2 variant="h6">{fullName}</H2>
+      <H2
+        variant="h6"
+        className="username"
+        sx={{
+          maxWidth: 175,
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
+        }}
+        title={fullName}
+      >
+        {fullName}
+      </H2>
       <MUIAvatar
         variant="circular-outlined"
         sx={{ width: 32, height: 32, borderColor: "inherit" }}
