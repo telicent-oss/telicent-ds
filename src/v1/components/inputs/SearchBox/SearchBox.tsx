@@ -5,47 +5,47 @@ import InputBase, { InputBaseProps } from "@mui/material/InputBase";
 import PrimaryButton from "../Button/PrimaryButton";
 import { SearchIcon } from "../../data-display";
 
-export type SearchBoxProps<Value = string> = Partial<{
+export interface SearchBoxProps<Value = string> {
   /**
    * If true, the input element is focused during the first mount.
    */
-  autoFocus: boolean;
+  autoFocus?: boolean;
   /**
    * 	Pass a ref to the input element.
    */
-  inputRef: React.ForwardedRef<HTMLInputElement> | React.RefObject<HTMLInputElement>;
+  inputRef?: React.ForwardedRef<HTMLInputElement> | React.RefObject<HTMLInputElement>;
   /**
    * Callback fired when the input looses focus (i.e. blurred).
    * Notice that the first argument (event) might be undefined.
    * @param event
    * @returns void
    */
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /**
    * Callback fired when the value is changed.
    * @param event The event source of the callback. You can pull out the new value by accessing event.target.value (string).
    * @returns void
    */
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
    * Callback fired when the search button is clicked.
    * @param event
    * @returns
    */
-  onSearch: (event: React.MouseEvent<HTMLFormElement>) => void;
+  onSearch?: (event: React.MouseEvent<HTMLFormElement>) => void;
   /**
    * Name attribute of the input element.
    */
-  name: InputBaseProps["name"];
+  name?: InputBaseProps["name"];
   /**
    * The short hint displayed in the input before the user enters a value.
    */
-  placeholder: InputBaseProps["placeholder"];
+  placeholder?: InputBaseProps["placeholder"];
   /**
    * The value of the input element, required for a controlled component.
    */
-  value: Value;
-}>;
+  value?: Value;
+};
 
 const SearchBox: React.FC<SearchBoxProps> = ({
   autoFocus = false,

@@ -6,6 +6,7 @@ import * as UserProfileContentStories from "./UserProfileContent/UserProfileCont
 import UserProfileContent from "./UserProfileContent/UserProfileContent";
 
 const meta = {
+  title: "Data display/User profile",
   component: UserProfile,
   tags: ["autodocs"],
   // subcomponents: { UserProfileContent }, // doesn't work yet -> https://github.com/storybookjs/storybook/issues/27535
