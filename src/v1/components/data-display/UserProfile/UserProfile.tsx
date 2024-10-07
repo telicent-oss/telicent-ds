@@ -31,7 +31,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
         variant="h6"
         className="username"
         sx={{
-          maxWidth: 175,
           overflow: "hidden",
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
