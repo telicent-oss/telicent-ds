@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import MUICircularProgress from "@mui/material/CircularProgress";
+import MUICircularProgress, {
+  CircularProgressProps as MUICircularProgressProps,
+} from "@mui/material/CircularProgress";
 import OutlinedInput from "@mui/material/OutlinedInput";
 
 import { DownArrowIcon, SearchIcon } from "../../data-display";
@@ -10,6 +12,12 @@ export interface MiniSearchBoxRefProps
   extends React.RefObject<HTMLButtonElement> {
   togglePopOver?: () => void;
 }
+
+export interface ProgressProps
+  extends Omit<
+    MUICircularProgressProps,
+    "classes" | "color" | "size" | "sx" | "thickness"
+  > {}
 
 export interface SearchInputBaseProps
   extends Omit<
@@ -102,6 +110,11 @@ export interface SearchInputBaseProps
    */
   placeholder?: string;
   /**
+   * Props which will be applied to the circular progress indicator when loading
+   * is set to true
+   */
+  progressProps?: ProgressProps;
+  /**
    * Number of rows to display when multiline option is set to true.
    */
   rows?: string | number;
@@ -142,6 +155,7 @@ const MiniSearchBox = (props: MiniSearchBoxProps) => {
     onTogglePopOver,
     onFocus,
     onBlur,
+    progressProps,
     ...inputProps
   } = props;
 
@@ -166,61 +180,6 @@ const MiniSearchBox = (props: MiniSearchBoxProps) => {
       onBlur(event);
     }
   };
-  // const internalTogglePopOverButtonRef = useRef<HTMLButtonElement>(null);
-
-  // useImperativeHandle(props.togglePopOverButtonRef, () => ({
-  //   togglePopOver: () => {
-  //     const syntheticMouseEvent = new MouseEvent("click", {
-  //       bubbles: true,
-  //       cancelable: true,
-  //       view: window,
-  //     });
-
-  //     internalToggleButtonRef.current?.dispatchEvent(syntheticMouseEvent);
-  //   },
-  // }));
-
-  // return (
-  //   <FlexBox
-  //     direction="row"
-  //     sx={{
-  //       width: 390,
-  //       borderStyle: "solid",
-  //       borderWidth: 1,
-  //       borderColor: "#989898",
-  //       borderRadius: 1,
-  //       paddingInline: 1.5,
-  //       justifyContent: "center",
-  //     }}
-  //   >
-  //     <MUIInputBase
-  //       type="search"
-  //       sx={{ width: "100%" }}
-  //       slotProps={{
-  //         input: {
-  //           sx: { padding: 0, paddingRight: 1, height: "20px" },
-  //         },
-  //       }}
-  //       // {...inputProps}
-  //     />
-  // <FlexBox direction="row" spacing={0.5}>
-  //   <IconButton size="small" onClick={onSearch} color="primary">
-  //     {loading ? (
-  //       <MUICircularProgress />
-  //     ) : (
-  //       <SearchIcon fontSize="inherit" />
-  //     )}
-  //   </IconButton>
-  //   <IconButton
-  //     // ref={internalToggleButtonRef}
-  //     size="small"
-  //     onClick={onTogglePopOver}
-  //   >
-  //     <DownArrowIcon fontSize="inherit" />
-  //   </IconButton>
-  // </FlexBox>
-  //   </FlexBox>
-  // );
 
   return (
     <OutlinedInput
@@ -230,7 +189,11 @@ const MiniSearchBox = (props: MiniSearchBoxProps) => {
         <>
           <FlexBox direction="row" spacing={0.5}>
             {loading ? (
-              <MUICircularProgress color={isFocused ? "primary" : "inherit"} size="20px" />
+              <MUICircularProgress
+                color={isFocused ? "primary" : "inherit"}
+                size="20px"
+                {...progressProps}
+              />
             ) : (
               <IconButton
                 size="small"
@@ -243,7 +206,11 @@ const MiniSearchBox = (props: MiniSearchBoxProps) => {
             )}
 
             {showDownArrowButton && (
-              <IconButton size="small" aria-label="toggle pop over" onClick={onTogglePopOver}>
+              <IconButton
+                size="small"
+                aria-label="toggle pop over"
+                onClick={onTogglePopOver}
+              >
                 <DownArrowIcon fontSize="inherit" />
               </IconButton>
             )}

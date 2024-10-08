@@ -59,10 +59,4 @@ export const Demo: Story = {
       </div>
     );
   },
-  // play: async ({ canvasElement }) => {
-  //   const canvas = within(canvasElement);
-
-  //   await userEvent.type(canvas.getByRole("searchbox"), "River Nile");
-  //   await userEvent.click(canvas.getByRole("button", { name: "search" }));
-  // },
 };
