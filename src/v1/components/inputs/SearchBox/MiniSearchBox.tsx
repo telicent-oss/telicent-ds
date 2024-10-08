@@ -8,11 +8,6 @@ import { DownArrowIcon, SearchIcon } from "../../data-display";
 import { FlexBox } from "../../layout";
 import IconButton from "../Button/IconButton";
 
-export interface MiniSearchBoxRefProps
-  extends React.RefObject<HTMLButtonElement> {
-  togglePopOver?: () => void;
-}
-
 export interface ProgressProps
   extends Omit<
     MUICircularProgressProps,
