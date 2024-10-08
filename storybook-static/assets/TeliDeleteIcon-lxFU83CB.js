@@ -1,1 +1,0 @@
-import{j as e}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{c as s}from"./index-EaYoR7Ht.js";import{I as a}from"./Icon-Bbei6cwb.js";const r=o=>e(a,{faIcon:s,...o});r.__docgenInfo={description:"",methods:[],displayName:"TeliDeleteIcon"};export{r as T};

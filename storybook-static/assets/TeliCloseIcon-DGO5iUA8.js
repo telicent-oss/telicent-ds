@@ -1,1 +1,0 @@
-import{j as s}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{b as a}from"./index-EaYoR7Ht.js";import{I as e}from"./Icon-Bbei6cwb.js";const m=o=>s(e,{faIcon:a,...o});m.__docgenInfo={description:"",methods:[],displayName:"TeliCloseIcon"};export{m as T};

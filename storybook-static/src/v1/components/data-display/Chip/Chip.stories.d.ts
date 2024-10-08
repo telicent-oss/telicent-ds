@@ -52,12 +52,14 @@ declare const meta: {
         suppressContentEditableWarning?: boolean | undefined;
         suppressHydrationWarning?: boolean | undefined;
         accessKey?: string | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: (boolean | "true" | "false") | "inherit" | "plaintext-only" | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: (boolean | "true" | "false") | undefined;
+        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
@@ -81,7 +83,6 @@ declare const meta: {
         rev?: string | undefined;
         typeof?: string | undefined;
         vocab?: string | undefined;
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         itemProp?: string | undefined;

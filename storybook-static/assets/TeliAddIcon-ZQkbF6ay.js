@@ -1,1 +1,0 @@
-import{j as s}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{a}from"./index-EaYoR7Ht.js";import{I as d}from"./Icon-Bbei6cwb.js";const i=o=>s(d,{faIcon:a,...o});i.__docgenInfo={description:"",methods:[],displayName:"TeliAddIcon"};export{i as T};

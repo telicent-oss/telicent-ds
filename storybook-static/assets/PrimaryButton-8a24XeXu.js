@@ -1,1 +1,0 @@
-import{j as o}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{B as i}from"./Button-C7AWJUTz.js";const t=r=>o(i,{variant:"contained",color:"primary",...r,children:r.children});t.__docgenInfo={description:"",methods:[],displayName:"PrimaryButton"};export{t as P};

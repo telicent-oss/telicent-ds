@@ -1,1 +1,0 @@
-import{j as t}from"./emotion-react-jsx-runtime.browser.esm-CUMkBk-e.js";import{f as a}from"./index-EaYoR7Ht.js";import{I as e}from"./Icon-Bbei6cwb.js";const f=o=>t(e,{faIcon:a,...o});f.__docgenInfo={description:"",methods:[],displayName:"ClockRotateLeft"};export{f as C};

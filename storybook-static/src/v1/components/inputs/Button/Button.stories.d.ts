@@ -13,67 +13,30 @@ declare const meta: {
     tags: string[];
     args: {
         children: string;
-        onClick: import('@vitest/spy').Mock<[event: import('../../../../../node_modules/react').MouseEvent<HTMLButtonElement, MouseEvent>], void>;
-    };
-    argTypes: {
-        disabled: {
-            description: string;
-            type: "boolean";
-            table: {
-                defaultValue: {
-                    summary: string;
-                };
-            };
-        };
-        fullWidth: {
-            description: string;
-            type: "boolean";
-            table: {
-                defaultValue: {
-                    summary: string;
-                };
-            };
-        };
-        size: {
-            description: string;
-            table: {
-                defaultValue: {
-                    summary: string;
-                };
-            };
-            control: "select";
-            options: string[];
-        };
-        variant: {
-            description: string;
-            table: {
-                defaultValue: {
-                    summary: string;
-                };
-            };
-            control: "select";
-            options: string[];
-        };
-        endIcon: {
-            description: string;
-        };
-        startIcon: {
-            description: string;
-        };
+        onClick: import('@vitest/spy').Mock<(...args: any[]) => any>;
     };
     decorators: (Story: import('@storybook/csf').PartialStoryFn<import('@storybook/react').ReactRenderer, {
-        children?: import('../../../../../node_modules/react').ReactNode;
+        color?: ("primary" | "inherit") | undefined;
+        disabled?: boolean | undefined;
+        disableElevation?: boolean | undefined;
+        endIcon?: import('../../../../../node_modules/react').ReactNode;
+        fullWidth?: boolean | undefined;
+        size?: import('@mui/material').ButtonProps["size"];
+        startIcon?: import('../../../../../node_modules/react').ReactNode;
+        variant?: ("primary" | "secondary" | "tertiary" | "link" | "text") | undefined;
         defaultChecked?: boolean | undefined;
         defaultValue?: string | number | readonly string[] | undefined;
         suppressContentEditableWarning?: boolean | undefined;
         suppressHydrationWarning?: boolean | undefined;
         accessKey?: string | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: (boolean | "true" | "false") | "inherit" | "plaintext-only" | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: (boolean | "true" | "false") | undefined;
+        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
@@ -81,7 +44,7 @@ declare const meta: {
         slot?: string | undefined;
         spellCheck?: (boolean | "true" | "false") | undefined;
         style?: import('../../../../../node_modules/react').CSSProperties | undefined;
-        tabIndex?: NonNullable<import('../../../../../node_modules/react').HTMLAttributes<any>["tabIndex"]> | undefined;
+        tabIndex?: number | undefined;
         title?: string | undefined;
         translate?: "yes" | "no" | undefined;
         radioGroup?: string | undefined;
@@ -97,7 +60,6 @@ declare const meta: {
         rev?: string | undefined;
         typeof?: string | undefined;
         vocab?: string | undefined;
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         itemProp?: string | undefined;
@@ -163,6 +125,7 @@ declare const meta: {
         "aria-valuemin"?: number | undefined;
         "aria-valuenow"?: number | undefined;
         "aria-valuetext"?: string | undefined;
+        children?: import('../../../../../node_modules/react').ReactNode | undefined;
         dangerouslySetInnerHTML?: {
             __html: string | TrustedHTML;
         } | undefined;
@@ -326,34 +289,6 @@ declare const meta: {
         onAnimationIterationCapture?: import('../../../../../node_modules/react').AnimationEventHandler<HTMLButtonElement> | undefined;
         onTransitionEnd?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLButtonElement> | undefined;
         onTransitionEndCapture?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLButtonElement> | undefined;
-        form?: string | undefined;
-        ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
-        key?: import('../../../../../node_modules/react').Key | null | undefined;
-        size?: import('@mui/types').OverridableStringUnion<"small" | "medium" | "large", import('@mui/material').ButtonPropsSizeOverrides> | undefined;
-        type?: "submit" | "reset" | "button" | undefined;
-        name?: string | undefined;
-        action?: import('../../../../../node_modules/react').Ref<import('@mui/material').ButtonBaseActions> | undefined;
-        centerRipple?: boolean | undefined;
-        disabled?: boolean | undefined;
-        disableTouchRipple?: boolean | undefined;
-        focusRipple?: boolean | undefined;
-        focusVisibleClassName?: string | undefined;
-        LinkComponent?: import('../../../../../node_modules/react').ElementType | undefined;
-        onFocusVisible?: import('../../../../../node_modules/react').FocusEventHandler<any> | undefined;
-        TouchRippleProps?: Partial<import('@mui/material/ButtonBase/TouchRipple').TouchRippleProps> | undefined;
-        touchRippleRef?: import('../../../../../node_modules/react').Ref<import('@mui/material/ButtonBase/TouchRipple').TouchRippleActions> | undefined;
-        value?: string | readonly string[] | number | undefined;
-        formAction?: string | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS] | undefined;
-        formEncType?: string | undefined;
-        formMethod?: string | undefined;
-        formNoValidate?: boolean | undefined;
-        formTarget?: string | undefined;
-        disableElevation?: boolean | undefined;
-        fullWidth?: boolean | undefined;
-        startIcon?: import('../../../../../node_modules/react').ReactNode;
-        endIcon?: import('../../../../../node_modules/react').ReactNode;
-        variant?: "link" | "text" | "primary" | "secondary" | "tertiary" | undefined;
-        color?: "inherit" | "primary" | undefined;
     }>) => import("@emotion/react/jsx-runtime").JSX.Element;
 };
 export default meta;

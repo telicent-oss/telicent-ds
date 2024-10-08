@@ -1,6 +1,7 @@
 import { StoryObj } from '@storybook/react';
 
 declare const meta: {
+    title: string;
     component: import('@mui/material/OverridableComponent').OverridableComponent<import('@mui/material').SkeletonTypeMap<{}, "span">>;
 };
 export default meta;

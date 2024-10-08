@@ -1,1 +1,0 @@
-import"./index-BP8_t0zE.js";import{j as o,C as i,a as n}from"./emotion-element-5486c51c.browser.esm-RhhZu_Xj.js";let e;typeof document=="object"&&(e=n({key:"css",prepend:!0}));function p(r){const{injectFirst:c,children:t}=r;return c&&e?o.jsx(i,{value:e,children:t}):t}export{p as S};

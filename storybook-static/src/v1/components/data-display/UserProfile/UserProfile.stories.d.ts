@@ -1,6 +1,7 @@
 import { StoryObj } from '@storybook/react';
 
 declare const meta: {
+    title: string;
     component: import('../../../../../node_modules/react').FC<import('./UserProfile').UserProfileProps>;
     tags: string[];
     argTypes: {
