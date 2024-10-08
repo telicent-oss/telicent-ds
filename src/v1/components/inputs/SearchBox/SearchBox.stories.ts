@@ -3,7 +3,7 @@ import { fn, userEvent, within } from "@storybook/test";
 import Searchbox from "./SearchBox";
 
 const meta = {
-  title: "Inputs/Searchbox",
+  title: "Inputs/Search/SearchBox",
   component: Searchbox,
   tags: ["autodocs"],
   args: { onSearch: fn() },

@@ -1,12 +1,26 @@
 import React from "react";
-import styled from "@emotion/styled";
+import { useTheme } from "@mui/material";
 
-const Toolbar = styled.div`
-  background-color: #2e2e2e;
-  height: 40px;
-  margin-top: 2px;
-  padding-block: 4px;
-  padding-inline: 10px;
-`;
+export interface ToolbarProps
+  extends React.ComponentProps<"div">,
+    React.PropsWithChildren {}
+
+const Toolbar: React.FC<ToolbarProps> = (props) => {
+  const theme = useTheme();
+  return (
+    <div
+      className="DS-Toolbar"
+      css={{
+        backgroundColor: theme.palette.mode === "dark" ? "#2e2e2e" : "#eeeeee",
+        height: 50,
+        paddingInline: 10,
+        paddingBlock: 4,
+        marginTop: 2,
+        color: "white",
+      }}
+      {...props}
+    />
+  );
+};
 
 export default Toolbar;
