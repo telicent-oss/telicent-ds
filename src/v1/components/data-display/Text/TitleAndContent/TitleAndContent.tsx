@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
-import FlexBox from "../../layout/FlexBox";
-import { Text } from "./Text";
+import FlexBox from "../../../layout/FlexBox";
+import { Text } from "../Text";
 
 export interface TitleAndContentProps {
   title?: string;
