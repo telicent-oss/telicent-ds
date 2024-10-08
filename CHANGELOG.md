@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.7.0-rc3...v0.7.1-rc3) (2024-10-08)
+
+
+### Bug Fixes
+
+* export minisearchbox component ([f94f49d](https://github.com/telicent-oss/telicent-ds/commit/f94f49d150308485173fe9c3e2b750f5631981c8))
+
 ## [0.7.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.4-rc3...v0.7.0-rc3) (2024-10-08)
 
 
