@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.4-rc3...v0.7.0-rc3) (2024-10-08)
+
+
+### Features
+
+* added minisearchbox and popover components ([beae295](https://github.com/telicent-oss/telicent-ds/commit/beae295f106d7cc42fd67686aad6d2b62aaf3358))
+
 ## [0.6.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.6.3-rc3...v0.6.4-rc3) (2024-09-26)
 
 
