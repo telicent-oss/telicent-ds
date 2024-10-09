@@ -1,0 +1,7 @@
+.MuiBackdrop-root {
+  @apply bg-black-100/80;
+}
+
+.MuiDialog-paper {
+  @apply bg-none bg-black-300 text-whiteSmoke rounded-xl shadow-md shadow-black-50/50;
+}

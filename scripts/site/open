@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
+# Open site (in browser)
+open "https://dtjg32xw6j8tx.cloudfront.net/"
+echo "REMEMBER: Ask team for password (Cookie token)"

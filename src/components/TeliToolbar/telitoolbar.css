@@ -1,0 +1,40 @@
+.toolbar {
+  @apply absolute flex items-center gap-2 px-2 py-1 rounded;
+}
+
+.toolbar .teli-basic-menu .MuiPaper-root ul li {
+  @apply text-base px-2 py-1;
+}
+.toolbar .teli-basic-menu .MuiFormControlLabel-label {
+  @apply w-full text-left;
+}
+
+.toolbar--tertiary {
+  @apply dark:bg-teli-black-600 dark:bg-opacity-80;
+}
+
+.toolbar--vertical {
+  @apply flex-col py-2 px-1;
+}
+
+.toolbar button {
+  @apply px-3;
+}
+
+.toolbar .teli-basic-menu label {
+  @apply w-full;
+}
+
+/** Position classes */
+.toolbar--top-start {
+  @apply top-0 left-0;
+}
+.toolbar--top-end {
+  @apply top-0 right-0;
+}
+.toolbar--bottom-start {
+  @apply bottom-0 left-0;
+}
+.toolbar--bottom-end {
+  @apply bottom-0 right-0;
+}

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -e
+# Build, upload and bust cache
+#
+# Previous steps:
+#   1. aws s3 mb s3://telicent-fe-storybook --region us-west-1
+#   2. aws s3 website s3://telicent-fe-storybook --index-document index.html
+#   3. Then Dev-ops setup CloudFront for FE
+
+if [ ! -f "./scripts/site/upload.env" ]; then
+    echo "Error: ./scripts/site/upload.env does not exist - see ./scripts/site/upload.env.template for more info" >&2;
+    exit 1;
+fi
+
+echo "Building..."
+yarn build-storybook
+
+echo "Uploading..."
+aws s3 sync ./storybook-static s3://telicent-fe-storybook
+
+echo "Invalidating cache..."
+set -a  # Automatically export all variables
+source ./scripts/site/upload.env
+set +a  # Stop automatically exporting
+aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
+echo "  note: Invalidating CloudFront usually takes up to ~15 minutes, only then can you see the new version"

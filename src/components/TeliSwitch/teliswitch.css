@@ -1,0 +1,73 @@
+.MuiSwitch-root {
+  @apply p-0;
+  margin-inline: 0.1px;
+}
+.MuiSwitch-root.MuiSwitch-sizeSmall {
+  @apply w-8 h-4;
+}
+
+.MuiSwitch-root.MuiSwitch-sizeMedium {
+  @apply w-12 h-6;
+}
+
+.MuiSwitch-sizeSmall .MuiSwitch-switchBase,
+.MuiSwitch-switchBase,
+.MuiSwitch-sizeSmall .MuiSwitch-switchBase.Mui-checked,
+.MuiSwitch-switchBase.Mui-checked {
+  @apply hover:bg-transparent p-0 m-0.5;
+  transition-duration: 300ms;
+}
+
+.MuiSwitch-sizeSmall .MuiSwitch-thumb {
+  @apply box-border w-3 h-3;
+  transition-property: background-color;
+  transition-duration: 500ms;
+}
+.MuiSwitch-sizeMedium .MuiSwitch-thumb {
+  @apply box-border w-5 h-5;
+  transition-property: background-color;
+  transition-duration: 500ms;
+}
+
+.MuiSwitch-track {
+  @apply dark:bg-black-700 bg-whiteSmoke-100 opacity-100 rounded-3xl;
+  transition-property: background-color;
+  transition-duration: 500ms;
+}
+
+.MuiSwitch-sizeSmall .MuiSwitch-switchBase.Mui-checked {
+  @apply translate-x-4;
+}
+
+.MuiSwitch-switchBase.Mui-checked .MuiSwitch-thumb {
+  @apply dark:text-app-color-500 text-app-color-200;
+}
+.MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+  @apply dark:bg-app-color-800 bg-app-color-800 opacity-100 border-0;
+}
+
+.MuiSwitch-switchBase.Mui-focusVisible .MuiSwitch-thumb {
+  @apply text-app-color-900 dark:border-teli-whitesmoke-400 border-whiteSmoke;
+  border-width: 4px;
+  border-style: solid;
+}
+.MuiSwitch-sizeMedium .MuiSwitch-switchBase.Mui-focusVisible .MuiSwitch-thumb {
+  border-width: 6px;
+}
+
+.MuiSwitch-switchBase.Mui-focusVisible.Mui-checked .MuiSwitch-thumb {
+  @apply dark:text-app-color-900 dark:border-app-color-500 border-app-color-200 text-app-color-800;
+}
+
+.MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  @apply dark:text-app-color-800;
+}
+.MuiSwitch-switchBase.Mui-checked.Mui-disabled + .MuiSwitch-track {
+  @apply dark:bg-app-color-900;
+}
+.MuiSwitch-switchBase.Mui-disabled .MuiSwitch-thumb {
+  @apply dark:text-teli-whitesmoke-800;
+}
+.MuiSwitch-switchBase.Mui-disabled + .MuiSwitch-track {
+  @apply dark:text-teli-black-600;
+}
