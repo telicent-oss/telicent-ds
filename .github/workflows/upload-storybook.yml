@@ -1,5 +1,4 @@
 name: upload-storybook.yml
-name: Deploy Storybook
 
 on:
   workflow_dispatch:
