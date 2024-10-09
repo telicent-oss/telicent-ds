@@ -1,28 +1,38 @@
-name: Update storybook
+name: upload-storybook.yml
+
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
-    paths:
-      - .
+      - '**'
 
 jobs:
-  main:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - run: yarn install
-      - run: yarn build-storybook
-      - run: |
-          mkdir -p storybook
-          cp -R storybook-static/ storybook/
-      - uses: peaceiris/actions-gh-pages@v3
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build Storybook
+        run: yarn build-storybook
+
+      - name: Deploy Storybook
+        uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./storybook
+          publish_dir: storybook-static
+          destination_dir: ${{ github.ref == 'refs/heads/main' && '.' || github.ref_name }}
+          # TODO remove files 
+          # WHY have 1G space for ~400 instances of site branches (~2.5MB)
+          # WHEN TELFE-699
+          keep_files: true

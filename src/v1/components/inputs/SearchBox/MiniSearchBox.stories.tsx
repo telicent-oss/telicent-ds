@@ -4,6 +4,8 @@ import { fn, userEvent, within } from "@storybook/test";
 
 import MiniSearchBox from "./MiniSearchBox";
 import PopOver from "../../surfaces/PopOver/Popover";
+import IconButton from "../Button/IconButton";
+import DownArrowIcon from "../../data-display/FontAwesomeIcons/DownArrowIcon";
 
 const meta = {
   title: "Inputs/Search/MiniSearchBox",
@@ -33,7 +35,6 @@ export const Demo: Story = {
 export const WithDownArrow: Story = {
   args: {
     placeholder: "Search",
-    showDownArrowButton: true,
   },
   render: (args) => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -50,7 +51,19 @@ export const WithDownArrow: Story = {
 
     return (
       <div>
-        <MiniSearchBox {...args} onTogglePopOver={openPopUp} />
+        <MiniSearchBox
+          {...args}
+          onTogglePopOver={openPopUp}
+          endIcon={
+            <IconButton
+              size="small"
+              aria-label="toggle pop over"
+              onClick={openPopUp}
+            >
+              <DownArrowIcon rotation={showPopOver ? 180 : undefined} fontSize="inherit" />
+            </IconButton>
+          }
+        />
         <PopOver
           id="search-popover"
           open={showPopOver}

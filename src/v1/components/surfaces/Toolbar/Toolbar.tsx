@@ -9,10 +9,9 @@ const Toolbar: React.FC<ToolbarProps> = (props) => {
   const theme = useTheme();
   return (
     <div
-      className="DS-Toolbar"
       css={{
         backgroundColor: theme.palette.mode === "dark" ? "#2e2e2e" : "#eeeeee",
-        height: 50,
+        height: 48,
         paddingInline: 10,
         paddingBlock: 4,
         marginTop: 2,
