@@ -1,7 +1,0 @@
-#user-profile-button.teli-button {
-  @apply p-1;
-}
-
-#user-profile-button.teli-button:hover {
-  @apply rounded-full;
-}

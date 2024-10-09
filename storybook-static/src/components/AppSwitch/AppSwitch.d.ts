@@ -10,6 +10,7 @@ export interface AppSwitchProps extends React.HTMLAttributes<HTMLButtonElement> 
      * @default []
      */
     apps?: IApps[];
+    isLeftAligned?: boolean;
     className?: string;
 }
 declare const AppSwitch: FC<AppSwitchProps>;

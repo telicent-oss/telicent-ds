@@ -99,9 +99,9 @@ export interface MiniSearchBoxProps extends SearchInputBaseProps {
      */
     loading?: boolean;
     /**
-     * Element placed after the search icon
+     * If true, a arrow down button will be visible
      */
-    endIcon?: React.ReactNode;
+    showDownArrowButton?: boolean;
     /**
      * Callback fired when the search button is clicked
      *

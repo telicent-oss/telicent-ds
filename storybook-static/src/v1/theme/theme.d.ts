@@ -1,5 +1,6 @@
-import { ThemeOptions } from '@mui/material';
 import { UITheme } from './colors/theme-colors';
+import { default as generateComponentOverrides } from './style-overrides/components';
 
-declare const createTheme: (themeColor: UITheme, dark: boolean) => ThemeOptions;
+export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
+declare const createTheme: (themeColor: UITheme, dark: boolean) => import('@mui/material/styles').Theme;
 export default createTheme;

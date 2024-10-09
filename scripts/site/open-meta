@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-# Open meta data (in browser)
-open https://dtjg32xw6j8tx.cloudfront.net/project.json
