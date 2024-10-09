@@ -8,7 +8,10 @@ export interface TitleAndContentProps {
   content?: string;
 }
 
-const TitleAndContent: FC<TitleAndContentProps> = ({ title, content }) => (
+const TitleAndContent: FC<TitleAndContentProps> = ({
+  title = "",
+  content = "",
+}) => (
   <FlexBox>
     <Text>
       <b>{title}</b>
