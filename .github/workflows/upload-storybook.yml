@@ -1,14 +1,14 @@
-name: Update storybook
+name: upload-storybook.yml
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - '**'
     paths:
       - .
 
 jobs:
-  main:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -20,9 +20,18 @@ jobs:
       - run: yarn install
       - run: yarn build-storybook
       - run: |
-          mkdir -p storybook
-          cp -R storybook-static/ storybook/
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            TARGET_DIR="storybook"
+          else
+            TARGET_DIR="storybook/${GITHUB_REF_NAME}"
+          fi
+          mkdir -p $TARGET_DIR
+          cp -R storybook-static/* $TARGET_DIR/
       - uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./storybook
+          publish_dir: ./
+          # TODO remove files 
+          # WHY have 1G space for ~400 instances of site branches (~2.5MB)
+          # WHEN TELFE-699
+          keep_files: true
