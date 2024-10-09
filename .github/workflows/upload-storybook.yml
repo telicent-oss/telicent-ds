@@ -19,18 +19,21 @@ jobs:
           node-version: 20
       - run: yarn install
       - run: yarn build-storybook
-      - run: |
-          if [ "${GITHUB_REF_NAME}" = "main" ]; then
-            TARGET_DIR="storybook"
+      - name: Setup target directory
+        id: setdir
+        run: |
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            echo "::set-output name=target_dir::storybook"
           else
-            TARGET_DIR="storybook/${GITHUB_REF_NAME}"
+            echo "::set-output name=target_dir::storybook/${{ github.ref_name }}"
           fi
-          mkdir -p $TARGET_DIR
-          cp -R storybook-static/* $TARGET_DIR/
+      - run: |
+          mkdir -p ${{ steps.setdir.outputs.target_dir }}
+          cp -R storybook-static/* ${{ steps.setdir.outputs.target_dir }}/
       - uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./
+          publish_dir: ${{ steps.setdir.outputs.target_dir }}
           # TODO remove files 
           # WHY have 1G space for ~400 instances of site branches (~2.5MB)
           # WHEN TELFE-699
