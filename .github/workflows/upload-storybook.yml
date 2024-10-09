@@ -5,7 +5,7 @@ on:
     branches:
       - '**'
     paths:
-      - .
+      - '**/*'
 
 jobs:
   deploy:
@@ -19,22 +19,23 @@ jobs:
           node-version: 20
       - run: yarn install
       - run: yarn build-storybook
-      - name: Setup target directory
-        id: setdir
+      - name: Setup Deployment Path
+        id: setup-deployment
         run: |
           if [[ "${{ github.ref_name }}" == "main" ]]; then
-            echo "::set-output name=target_dir::storybook"
+            echo "DEPLOY_PATH=storybook-static" >> $GITHUB_ENV
           else
-            echo "::set-output name=target_dir::storybook/${{ github.ref_name }}"
+            echo "DEPLOY_PATH=${{ github.ref_name }}/storybook-static" >> $GITHUB_ENV
+            mkdir -p ${{ github.ref_name }}
+            mv storybook-static ${{ github.ref_name }}/
           fi
-      - run: |
-          mkdir -p ${{ steps.setdir.outputs.target_dir }}
-          cp -R storybook-static/* ${{ steps.setdir.outputs.target_dir }}/
       - uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ${{ steps.setdir.outputs.target_dir }}
+          publish_dir: ${{ github.workspace }}/${{ env.DEPLOY_PATH }}
           # TODO remove files 
           # WHY have 1G space for ~400 instances of site branches (~2.5MB)
           # WHEN TELFE-699
           keep_files: true
+        env:
+          DEPLOY_DIR: ${{ steps.prepare_deployment_directory.outputs.deploy_dir }}
