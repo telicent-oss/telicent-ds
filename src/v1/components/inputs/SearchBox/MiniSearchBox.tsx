@@ -125,9 +125,9 @@ export interface MiniSearchBoxProps extends SearchInputBaseProps {
    */
   loading?: boolean;
   /**
-   * If true, a arrow down button will be visible
+   * Element placed after the search icon
    */
-  showDownArrowButton?: boolean;
+  endIcon?: React.ReactNode;
   /**
    * Callback fired when the search button is clicked
    *
@@ -145,7 +145,7 @@ export interface MiniSearchBoxProps extends SearchInputBaseProps {
 const MiniSearchBox = (props: MiniSearchBoxProps) => {
   const {
     loading = false,
-    showDownArrowButton = false,
+    endIcon,
     onSearch,
     onTogglePopOver,
     onFocus,
@@ -199,16 +199,7 @@ const MiniSearchBox = (props: MiniSearchBoxProps) => {
                 <SearchIcon fontSize="inherit" />
               </IconButton>
             )}
-
-            {showDownArrowButton && (
-              <IconButton
-                size="small"
-                aria-label="toggle pop over"
-                onClick={onTogglePopOver}
-              >
-                <DownArrowIcon fontSize="inherit" />
-              </IconButton>
-            )}
+            {endIcon}
           </FlexBox>
         </>
       }

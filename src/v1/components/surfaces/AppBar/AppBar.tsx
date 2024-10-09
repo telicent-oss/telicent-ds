@@ -3,8 +3,7 @@ import MUIAppBar, { AppBarProps as MUIAppBarProps } from "@mui/material/AppBar";
 import MUIBox from "@mui/material/Box";
 import MUIStack from "@mui/material/Stack";
 import MUITypography from "@mui/material/Typography";
-
-import TelicentBrand from "./telicent-brand.svg";
+import TelicentBrand from "./TelicentBrand";
 import TelicentMark from "../../data-display/Icons/TelicentMark";
 import AppSwitch, {
   AppSwitchLibraryType,
@@ -55,7 +54,7 @@ const AppBar: React.FC<AppBarProps> = ({
         }}
       >
         <TelicentMark fontSize="large" />
-        <img src={TelicentBrand} alt="Telicent" height={28} />
+        <TelicentBrand />
         <MUITypography
           variant="h1"
           color="primary"
