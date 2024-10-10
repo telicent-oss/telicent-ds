@@ -3,7 +3,6 @@ import MUIStack from "@mui/material/Stack";
 import MUIIconButton from "@mui/material/IconButton";
 import MUIAvatar from "@mui/material/Avatar";
 import MUIMenu from "@mui/material/Menu";
-import { css } from "@emotion/react";
 
 import { H2 } from "../Text/Text";
 import UserIcon from "../Icons/UserIcon";
@@ -25,23 +24,16 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
     setAnchorEl(null);
   };
 
-  const usernameStyle = css`
-    display: none;
-    @media (min-width: 768px) {
-      display: block;
-      max-width: 11rem;
-    }
-    @media (min-width: 1024px) {
-      max-width: 18rem;
-    }
-  `;
-
   return (
     <MUIStack direction="row" spacing={1} alignItems="center">
       <H2
         variant="h6"
-        css={usernameStyle}
         sx={{
+          display: { xs: "none", sm: "block" },
+          maxWidth: {
+            sm: "11rem",
+            md: "18rem",
+          },
           overflow: "hidden",
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
