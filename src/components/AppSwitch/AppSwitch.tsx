@@ -15,6 +15,12 @@ export interface AppSwitchProps
    * @default []
    */
   apps?: IApps[];
+  // TODO: Remove isLeftAligned
+  // WHY: Temporary solution - retained right align if there is no user profile
+  //      to avoid unwanted effects on other apps.
+  // WHEN user profile has been added to all apps using TeliHeader
+  // OR   TELFE-706 - TeliHeader will become obsolete once v1 components are
+  //      implemented in Graph.
   isLeftAligned?: boolean;
   className?: string;
 }

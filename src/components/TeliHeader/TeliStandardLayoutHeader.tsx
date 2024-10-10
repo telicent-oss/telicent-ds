@@ -33,6 +33,14 @@ const TeliStandardLayoutHeader: React.FC<TeliStandardLayoutHeaderProps> = ({
 }) => (
   <TeliHeader className="teli-standard-layout-header">
     <div className="start-adornments">
+      {/* 
+        TODO: Remove isLeftAligned
+        WHY: Temporary solution - retained right align if there is no user
+             profile to avoid unwanted effects on other apps.
+        WHEN user profile has been added to all apps using TeliHeader
+        OR   TELFE-706 - TeliHeader will become obsolete once v1 components are
+             implemented in Graph.
+      */}
       {userProfile && <AppSwitch apps={apps} isLeftAligned />}
     </div>
     <TeliBrand appName={appName} beta={beta} />
