@@ -1,16 +1,15 @@
-name: upload-storybook.yml
+name: Storybook Deployment
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - '**'
+  pull_request:
+    types: [closed]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -26,13 +25,44 @@ jobs:
       - name: Build Storybook
         run: yarn build-storybook
 
-      - name: Deploy Storybook
+      - name: Upload Storybook artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-static
+          path: storybook-static
+
+  deploy-feature:
+    needs: build
+    if: github.ref != 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Storybook artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: storybook-static
+          path: storybook-static
+
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: storybook-static
-          destination_dir: ${{ github.ref == 'refs/heads/main' && '.' || github.ref_name }}
-          # TODO remove files 
-          # WHY have 1G space for ~400 instances of site branches (~2.5MB)
-          # WHEN TELFE-699
-          keep_files: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static
+          destination_dir: ${{ github.ref_name }}
+
+  deploy-main:
+    needs: build
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Storybook artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: storybook-static
+          path: storybook-static
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static
+          destination_dir: ./
