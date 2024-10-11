@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.7.1-rc3...v0.7.2-rc3) (2024-10-11)
+
+
+### Bug Fixes
+
+* [TELFE-221] View user profile ([#128](https://github.com/telicent-oss/telicent-ds/issues/128)) ([ed80bf1](https://github.com/telicent-oss/telicent-ds/commit/ed80bf189a72c3ba2f75f8b232e46331cb2ab6ca))
+
 ## [0.7.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.7.0-rc3...v0.7.1-rc3) (2024-10-08)
 
 
