@@ -31,8 +31,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
         sx={{
           display: { xs: "none", sm: "block" },
           maxWidth: {
-            sm: "11rem",
-            md: "18rem",
+            sm: "7.5rem",
+            md: "16rem",
           },
           overflow: "hidden",
           whiteSpace: "nowrap",

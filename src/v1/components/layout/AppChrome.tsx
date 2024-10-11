@@ -16,7 +16,7 @@ const AppChrome: React.FC<AppChromeProps> = ({ children, ...appBarProps }) => {
         maxWidth={false}
         disableGutters
         sx={{
-          height: `calc(100vh - ${theme.components?.MuiAppBar?.styleOverrides?.root?.height}px)`,
+          height: `calc(100vh - ${theme.components.MuiAppBar.styleOverrides.root.height}px)`,
           overflow: "auto",
           backgroundColor: theme.palette.background.default,
         }}
