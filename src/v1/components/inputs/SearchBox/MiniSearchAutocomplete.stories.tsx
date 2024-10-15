@@ -21,15 +21,6 @@ import { FlexBox } from "../../layout";
 import { useState } from "react";
 import PopOver from "../../surfaces/PopOver/Popover";
 
-// Top 5 Nigerian songs on Apple Music
-const top5Songs = [
-  { label: "Organize" },
-  { label: "Joha" },
-  { label: "Terminator" },
-  { label: "Dull" },
-  { label: "Nzaza" },
-];
-
 type SearchResultOption = { label: string; type: string; iconClass: string };
 type LabelString = { label: string };
 
