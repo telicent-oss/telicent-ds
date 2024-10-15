@@ -26,7 +26,22 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
 
   return (
     <MUIStack direction="row" spacing={1} alignItems="center">
-      <H2 variant="h6">{fullName}</H2>
+      <H2
+        variant="h6"
+        sx={{
+          display: { xs: "none", sm: "block" },
+          maxWidth: {
+            sm: "7.5rem",
+            md: "16rem",
+          },
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
+        }}
+        title={fullName}
+      >
+        {fullName}
+      </H2>
       <MUIAvatar
         variant="circular-outlined"
         sx={{ width: 32, height: 32, borderColor: "inherit" }}

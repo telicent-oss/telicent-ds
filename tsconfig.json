@@ -8,7 +8,7 @@
         }
       }
     ],
-    "types": ["vite/client"],
+    "types": ["vite/client", "./src/v1/theme/theme-type.d.ts"],
     "target": "ES2015",
     "lib": ["dom", "dom.iterable", "esnext"],
     "declaration": true,

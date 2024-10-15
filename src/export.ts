@@ -7,6 +7,7 @@ export { useOntologyStyles } from "./contexts/OntologyStyles";
 export type { IconStyle } from "./contexts/OntologyStyles";
 export * from "./components";
 export { default as useDebounce } from "./hooks/useDebounce";
+export { default as useExtendedTheme } from "./hooks/useExtendedTheme";
 
 // V1
 export * from "./v1/components/data-display";

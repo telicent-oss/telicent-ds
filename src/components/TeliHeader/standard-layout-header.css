@@ -4,6 +4,10 @@
     @apply flex justify-center items-center;
   }
 
+  & .start-adornments {
+    @apply absolute left-2 flex items-center gap-x-2 justify-start;
+  }
+
   & .end-adornments {
     @apply absolute right-2 flex items-center gap-x-2 justify-end;
   }
