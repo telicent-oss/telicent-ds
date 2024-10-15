@@ -31,7 +31,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
         sx={{
           display: { xs: "none", sm: "block" },
           maxWidth: {
-            sm: "7.5rem",
+            sm: "7rem",
             md: "16rem",
           },
           overflow: "hidden",
@@ -39,12 +39,14 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
           textOverflow: "ellipsis",
         }}
         title={fullName}
+        onClick={handleClick}
       >
         {fullName}
       </H2>
       <MUIAvatar
         variant="circular-outlined"
         sx={{ width: 32, height: 32, borderColor: "inherit" }}
+        onClick={handleClick}
       >
         <UserIcon color="inherit" />
       </MUIAvatar>
