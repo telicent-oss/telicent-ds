@@ -1,34 +1,32 @@
 import React, { forwardRef } from "react";
-// import { useAutocomplete } from "@mui/base/AutocompleteUnstyled";
 import { styled } from "@mui/system";
 import useAutocomplete, {
   UseAutocompleteProps,
 } from "@mui/material/useAutocomplete/useAutocomplete";
 import OutlinedInput from "@mui/material/OutlinedInput/OutlinedInput";
-import MUICircularProgress, {
-  CircularProgressProps as MUICircularProgressProps,
-} from "@mui/material/CircularProgress";
-import { PopoverPaper } from "@mui/material/Popover/Popover";
+import MUICircularProgress from "@mui/material/CircularProgress";
+import MUIPopper from "@mui/material/Popper/Popper";
+import MUIPaper from "@mui/material/Paper/Paper";
+import MUIList from "@mui/material/List/List";
+import MUIListItem from "@mui/material/ListItem/ListItem";
+import MUIListItemText from "@mui/material/ListItemText/ListItemText";
+import MUIListItemButton from "@mui/material/ListItemButton/ListItemButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import useTheme from "@mui/material/styles/useTheme";
 import useForkRef from "@mui/material/utils/useForkRef";
-import Popper from "@mui/material/Popper/Popper";
-import Paper from "@mui/material/Paper/Paper";
-import List from "@mui/material/List/List";
-import ListItem from "@mui/material/ListItem/ListItem";
-import ListItemText from "@mui/material/ListItemText/ListItemText";
-import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 
 import FlexBox from "../../layout/FlexBox";
 import IconButton from "../Button/IconButton";
 import SearchIcon from "../../data-display/FontAwesomeIcons/SearchIcon";
-import { Divider, Text } from "../../data-display";
+import { ProgressProps } from "./MiniSearchBox";
 
 const StyledPopper = styled("div")({
   position: "relative",
   width: 360,
 });
 
-type AutocompleteOption = { label: string };
+type AutocompleteOption = { label: string; isRecentSearch: boolean };
 
 export interface MiniSearchAutocompleteProps<
   Value extends AutocompleteOption = AutocompleteOption,
@@ -40,14 +38,49 @@ export interface MiniSearchAutocompleteProps<
    * Element placed after the search icon
    */
   endIcon?: React.ReactNode;
+  /**
+   * If `true`, the `input` will indicate an error.
+   */
+  error?: boolean;
+  /**
+   * The id of the `input` element.
+   */
+  id?: string;
+  /**
+   * If true, a loading indicator will be visible.
+   */
+  loading?: boolean;
+  /**
+   * Name attribute of the input element.
+   */
+  name?: string;
+  /**
+   * 	The short hint displayed in the input before the user enters a value.
+   */
   placeholder?: string;
-  suggestionsTitle?: string;
+  /**
+   * Props which will be applied to the circular progress indicator when loading
+   * is set to true
+   */
+  progressProps?: ProgressProps;
+  /**
+   * Render the option
+   * @param props The props to apply on the li element.
+   * @param option The option to render.
+   * @returns
+   */
   renderOption?: (
     props: React.HTMLAttributes<HTMLLIElement> & {
       key: any;
     },
     option: Value
-  ) => JSX.Element;
+  ) => React.ReactNode;
+  /**
+   * Callback fired when the search button is clicked
+   *
+   * `(event: React.MouseEvent<HTMLButtonElement>) => void;`
+   */
+  onSearch?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const MiniSearchAutocomplete = forwardRef(function Autocomplete<
@@ -66,9 +99,14 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
 ) {
   const {
     endIcon,
+    error,
+    id,
+    loading,
+    name,
     placeholder,
+    progressProps,
     renderOption,
-    suggestionsTitle,
+    onSearch,
     freeSolo = true as FreeSolo,
     ...autocompleteProps
   } = props;
@@ -97,12 +135,19 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
         size="small"
         type="search"
         sx={{ width: 360 }}
+        id={id}
+        name={name}
+        error={error}
         endAdornment={
           <>
             <FlexBox direction="row" spacing={0.5}>
-              <IconButton size="small">
-                <SearchIcon fontSize="inherit" />
-              </IconButton>
+              {loading ? (
+                <MUICircularProgress size="20px" {...progressProps} />
+              ) : (
+                <IconButton size="small" onClick={onSearch} aria-label="search">
+                  <SearchIcon fontSize="inherit" />
+                </IconButton>
+              )}
               {endIcon}
             </FlexBox>
           </>
@@ -110,13 +155,13 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
         placeholder={placeholder || "Search"}
       />
       {anchorEl && (
-        <Popper
+        <MUIPopper
           open={popupOpen}
           anchorEl={anchorEl}
           slots={{ root: StyledPopper }}
         >
           {groupedOptions.length > 0 ? (
-            <Paper
+            <MUIPaper
               elevation={3}
               sx={{
                 backgroundColor:
@@ -128,13 +173,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
               }}
             >
               <FlexBox rowGap={1}>
-                {suggestionsTitle && (
-                  <>
-                    <Text variant="subtitle1">{suggestionsTitle}</Text>
-                    <Divider />
-                  </>
-                )}
-                <List
+                <MUIList
                   sx={{ maxHeight: 400, overflow: "auto" }}
                   {...getListboxProps()}
                 >
@@ -149,18 +188,27 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
 
                     const { key, ...props } = optionProps;
                     return (
-                      <ListItem key={key} disablePadding {...props}>
-                        <ListItemButton>
-                          <ListItemText primary={option.label} />
-                        </ListItemButton>
-                      </ListItem>
+                      <MUIListItem key={key} disablePadding {...props}>
+                        <MUIListItemButton>
+                          <FlexBox
+                            direction="row"
+                            columnGap={1}
+                            alignItems="center"
+                          >
+                            {option.isRecentSearch ? (
+                              <FontAwesomeIcon icon={faClockRotateLeft} />
+                            ) : null}
+                            <MUIListItemText primary={option.label} />
+                          </FlexBox>
+                        </MUIListItemButton>
+                      </MUIListItem>
                     );
                   })}
-                </List>
+                </MUIList>
               </FlexBox>
-            </Paper>
+            </MUIPaper>
           ) : null}
-        </Popper>
+        </MUIPopper>
       )}
     </div>
   );

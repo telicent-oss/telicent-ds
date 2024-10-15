@@ -147,6 +147,7 @@ export interface MiniSearchBoxProps extends SearchInputBaseProps {
   onTogglePopOver?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+// NOTE: Not being exported, use MiniSearchAutocomplete instead
 const MiniSearchBox = (props: MiniSearchBoxProps) => {
   const {
     loading = false,

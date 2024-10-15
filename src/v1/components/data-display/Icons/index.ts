@@ -1,6 +1,5 @@
 export { default as BinIcon } from "./BinIcon";
 export { default as CloseIcon } from "./CloseIcon";
-export { default as ClockRotateLeftIcon } from "./ClockRotateLeftIcon";
 export { default as DataServiceIcon } from "./DataServiceIcon";
 export { default as DataSetIcon } from "./DataSetIcon";
 export { default as FloppyDiskIcon } from "./FloppyDiskIcon";

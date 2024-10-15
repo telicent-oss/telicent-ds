@@ -1,89 +1,120 @@
-// import { useState } from "react";
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-// import { fn, userEvent, within } from "@storybook/test";
 
-import MiniSearchAutocomplete from "./MiniSearchAutocomplete";
+import MiniSearchAutocomplete, {
+  MiniSearchAutocompleteProps,
+} from "./MiniSearchAutocomplete";
 import {
-  ClockRotateLeftIcon,
   Divider,
   DownArrowIcon,
   ListItem,
   ListItemButton,
   ListItemIcon,
-  PlayIcon,
   PlusCircleIcon,
   Text,
 } from "../../data-display";
 import IconButton from "../Button/IconButton";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
-import Box from "@mui/material/Box/Box";
 import { FlexBox } from "../../layout";
-import { useState } from "react";
 import PopOver from "../../surfaces/PopOver/Popover";
 
-type SearchResultOption = { label: string; type: string; iconClass: string };
-type LabelString = { label: string };
+type LabelString = { id: string; label: string; isRecentSearch: boolean };
+
+// This component is created to specify MiniSearchAutocompleteProps generic parameters
+const StoryExample = (
+  props: MiniSearchAutocompleteProps<LabelString, false, false, true>
+) => <MiniSearchAutocomplete<LabelString, false, false, true> {...props} />;
 
 const meta = {
   title: "Inputs/Search/MiniSearchAutocomplete",
-  component: MiniSearchAutocomplete<LabelString | SearchResultOption, false, false, true>,
+  component: StoryExample,
   tags: ["autodocs"],
-  // args: {
-  //   onSearch: fn(),
-  //   onTogglePopOver: fn(),
-  // },
-} satisfies Meta<typeof MiniSearchAutocomplete>;
+} satisfies Meta<typeof StoryExample>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/**
+ * Recent searches will be displayed when `isRecentSearch` has been set to true in `options`
+ */
 export const RecentSearches: Story = {
   args: {
     options: [
-      { label: "Anakin Solo" },
-      { label: "Boba Fett" },
-      { label: "C-3PO" },
-      { label: "Ben Skywalker" },
-      { label: "Durge" },
-      { label: "Cad Bane" },
-      { label: "Darth Vader" },
-      { label: "Chewbacca" },
-      { label: "Han Solo" },
-      { label: "Princess Leia" },
-      { label: "Yoda" },
-      { label: "Quinlan Vos" },
+      {
+        id: "telicent-storybook/anakin-solo",
+        label: "Anakin Solo",
+        isRecentSearch: true,
+      },
+      {
+        id: "telicent-storybook/boba-fett",
+        label: "Boba Fett",
+        isRecentSearch: true,
+      },
+      { id: "telicent-storybook/c-3po", label: "C-3PO", isRecentSearch: true },
+      {
+        id: "telicent-storybook/ben-skywalker",
+        label: "Ben Skywalker",
+        isRecentSearch: true,
+      },
+      { id: "telicent-storybook/durge", label: "Durge", isRecentSearch: true },
+      {
+        id: "telicent-storybook/cad-bane",
+        label: "Cad Bane",
+        isRecentSearch: true,
+      },
+      {
+        id: "telicent-storybook/darth-vader",
+        label: "Darth Vader",
+        isRecentSearch: true,
+      },
+      {
+        id: "telicent-storybook/chewbacca",
+        label: "Chewbacca",
+        isRecentSearch: true,
+      },
+      {
+        id: "telicent-storybook/han-solo",
+        label: "Han Solo",
+        isRecentSearch: true,
+      },
+      {
+        id: "telicent-storybook/princess-leia",
+        label: "Princess Leia",
+        isRecentSearch: true,
+      },
+      { id: "telicent-storybook/yoda", label: "Yoda", isRecentSearch: true },
+      {
+        id: "telicent-storybook/quinlan-vos",
+        label: "Quinlan Vos",
+        isRecentSearch: true,
+      },
     ],
     placeholder: "Search",
-    suggestionsTitle: "Recent Searches",
-    renderOption: (props, option) => {
-      const searchResultOption = option as SearchResultOption;
-      const { key, ...optionProps } = props;
-      return (
-        <ListItem key={key} {...optionProps} disablePadding>
-          <ListItemButton>
-            <FlexBox direction="row" columnGap={1} alignItems="center">
-              <i className="fa-solid fa-clock-rotate-left"></i>
-              <ListItemText
-                primary={searchResultOption.label}
-                secondary={searchResultOption.type}
-              />
-            </FlexBox>
-          </ListItemButton>
-        </ListItem>
-      );
-    },
   },
-  // play: async ({ canvasElement }) => {
-  //   const canvas = within(canvasElement);
-
-  //   await userEvent.type(canvas.getByRole("searchbox"), "River Nile");
-  //   await userEvent.click(canvas.getByRole("button", { name: "search" }));
-  // },
+  render: (args) => <StoryExample {...args} />,
 };
 
+/**
+ * This example shows how suggestions from typeahead and the user's recent
+ * searches should be displayed. Recent searches should take priority over
+ * typeahead suggestions. Type solo to the result.
+ */
 export const SearchResults: Story = {
   args: {
     ...RecentSearches.args,
+    options: [
+      ...RecentSearches.args.options,
+      {
+        id: "telicent-storybook/jacen-solo",
+        label: "Jacen Solo",
+        isRecentSearch: false,
+      },
+      {
+        id: "telicent-storybook/jaina-solo",
+        label: "Jaina Solo",
+        isRecentSearch: false,
+      },
+    ],
     endIcon: (
       <IconButton size="small" aria-label="toggle pop over">
         <DownArrowIcon fontSize="inherit" />
@@ -94,10 +125,30 @@ export const SearchResults: Story = {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [showPopOver, setShowPopOver] = useState(false);
     const results = [
-      { label: "Anakin Solo", type: "Person", iconClass: "fa-solid fa-person" },
-      { label: "Han Solo", type: "Person", iconClass: "fa-solid fa-person" },
-      { label: "Jacen Solo", type: "Person", iconClass: "fa-solid fa-person" },
-      { label: "Jaina Solo", type: "Person", iconClass: "fa-solid fa-person" },
+      {
+        id: "telicent-storybook/anakin-solo",
+        label: "Anakin Solo",
+        type: "Person",
+        iconClass: "fa-solid fa-person",
+      },
+      {
+        id: "telicent-storybook/han-solo",
+        label: "Han Solo",
+        type: "Person",
+        iconClass: "fa-solid fa-person",
+      },
+      {
+        id: "telicent-storybook/jacen-solo",
+        label: "Jacen Solo",
+        type: "Person",
+        iconClass: "fa-solid fa-person",
+      },
+      {
+        id: "telicent-storybook/jaina-solo",
+        label: "Jaina Solo",
+        type: "Person",
+        iconClass: "fa-solid fa-person",
+      },
     ];
 
     const openPopUp = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -111,7 +162,7 @@ export const SearchResults: Story = {
 
     return (
       <div>
-        <MiniSearchAutocomplete
+        <StoryExample
           {...args}
           endIcon={
             <IconButton
@@ -142,7 +193,7 @@ export const SearchResults: Story = {
             <Text variant="subtitle1">Search results</Text>
             <Divider />
             {results.map((result) => (
-              <ListItem key={result.label} disablePadding>
+              <ListItem key={result.id} disablePadding>
                 <ListItemButton role="undefined" disableRipple>
                   <ListItemIcon>
                     <div
@@ -179,52 +230,3 @@ export const SearchResults: Story = {
     );
   },
 };
-
-// export const SearchResults: Story = {
-//   args: {
-//     options: [
-//       { label: "Anakin Solo", type: "Person", iconClass: "fa-solid fa-person" },
-//       { label: "Han Solo", type: "Person", iconClass: "fa-solid fa-person" },
-//       { label: "Jacen Solo", type: "Person", iconClass: "fa-solid fa-person" },
-//       { label: "Jaina Solo", type: "Person", iconClass: "fa-solid fa-person" },
-//     ],
-//     renderOption: (props, option) => {
-//       const searchResultOption = option as SearchResultOption;
-//       const { key, ...optionProps } = props;
-//       return (
-//         <ListItem key={key} {...optionProps} disablePadding>
-//           <ListItemButton role="undefined" disableRipple>
-//             <ListItemIcon>
-//               <div
-//                 css={{
-//                   backgroundColor: "black",
-//                   color: "yellow",
-//                   borderColor: "yellow",
-//                   borderRadius: 9999,
-//                   width: 34,
-//                   height: 34,
-//                   borderWidth: 2,
-//                   borderStyle: "solid",
-//                   display: "flex",
-//                   justifyContent: "center",
-//                   alignItems: "center",
-//                 }}
-//               >
-//                 <i className={searchResultOption.iconClass} />
-//               </div>
-//             </ListItemIcon>
-//             <ListItemText
-//               primary={searchResultOption.label}
-//               secondary={searchResultOption.type}
-//             />
-//             <IconButton edge="end" aria-label="delete" size="small">
-//               <PlusCircleIcon fontSize="inherit" />
-//             </IconButton>
-//           </ListItemButton>
-//         </ListItem>
-//       );
-//     },
-//     placeholder: "Search",
-//     suggestionsTitle: "Search results (5)",
-//   },
-// };
