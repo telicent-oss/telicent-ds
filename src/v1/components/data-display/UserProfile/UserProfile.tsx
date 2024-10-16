@@ -32,9 +32,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
     <>
       <MUIStack
         onClick={handleClick}
+        width="max-content"
         direction="row"
-        spacing={1}
         alignItems="center"
+        spacing={1}
         sx={{ cursor: "pointer" }}
       >
         <H2
