@@ -41,6 +41,11 @@ export interface SearchInputBaseProps
    */
   fullWidth?: boolean;
   /**
+   * Can be used to give context. If ' ' is provided, the component reserves one
+   * line height for displaying a future message.
+   */
+  helperText?: string;
+  /**
    * The id of the `input` element.
    */
   id?: string;
@@ -142,6 +147,7 @@ export interface MiniSearchBoxProps extends SearchInputBaseProps {
   onTogglePopOver?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+// NOTE: Not being exported, use MiniSearchAutocomplete instead
 const MiniSearchBox = (props: MiniSearchBoxProps) => {
   const {
     loading = false,

@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.8.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.7.2-rc3...v0.8.0-rc3) (2024-10-16)
+
+
+### Features
+
+* added minus circle icon component ([e9a1283](https://github.com/telicent-oss/telicent-ds/commit/e9a128321e53d04a1074ee2359abaff691b117c3))
+* created IESType component ([6a09374](https://github.com/telicent-oss/telicent-ds/commit/6a093746a804bd7b1a70aa27d23fd4404ca31e1b))
+* creating mini search autocomplete ([0058d1f](https://github.com/telicent-oss/telicent-ds/commit/0058d1f05aa60c64e5db0ebad943c7e0e77d192f))
+
 ## [0.7.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.7.1-rc3...v0.7.2-rc3) (2024-10-11)
 
 
