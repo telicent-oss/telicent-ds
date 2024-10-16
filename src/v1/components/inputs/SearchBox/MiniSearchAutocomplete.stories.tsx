@@ -17,6 +17,7 @@ import IconButton from "../Button/IconButton";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import { FlexBox } from "../../layout";
 import PopOver from "../../surfaces/PopOver/Popover";
+import IESType from "../../data-display/IESType/IESType";
 
 type LabelString = { id: string; label: string; isRecentSearch: boolean };
 
@@ -196,23 +197,12 @@ export const SearchResults: Story = {
               <ListItem key={result.id} disablePadding>
                 <ListItemButton role="undefined" disableRipple>
                   <ListItemIcon>
-                    <div
-                      css={{
-                        backgroundColor: "black",
-                        color: "yellow",
-                        borderColor: "yellow",
-                        borderRadius: 9999,
-                        width: 34,
-                        height: 34,
-                        borderWidth: 2,
-                        borderStyle: "solid",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <i className={result.iconClass} />
-                    </div>
+                    <IESType
+                      backgroundColor="black"
+                      borderColor="yellow"
+                      color="yellow"
+                      iconClass={result.iconClass}
+                    />
                   </ListItemIcon>
                   <ListItemText
                     primary={result.label}
