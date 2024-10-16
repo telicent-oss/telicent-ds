@@ -18,6 +18,11 @@ export interface SearchInputBaseProps extends Omit<React.HTMLAttributes<HTMLDivE
      */
     fullWidth?: boolean;
     /**
+     * Can be used to give context. If ' ' is provided, the component reserves one
+     * line height for displaying a future message.
+     */
+    helperText?: string;
+    /**
      * The id of the `input` element.
      */
     id?: string;
