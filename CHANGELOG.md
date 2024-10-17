@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.8.0-rc3...v0.8.1-rc3) (2024-10-17)
+
+
+### Bug Fixes
+
+* trigger build ([#135](https://github.com/telicent-oss/telicent-ds/issues/135)) ([5edd396](https://github.com/telicent-oss/telicent-ds/commit/5edd396c9327c061216d75fbec8dc1c01feb7e47))
+
 ## [0.8.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.7.2-rc3...v0.8.0-rc3) (2024-10-16)
 
 
