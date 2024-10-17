@@ -11,7 +11,7 @@ type TeliThemeProviderProps = {
 };
 
 /**
- * The ThemeProvider component is responsible for providing the theme to all it's children.
+ * The ThemeProvider component is responsible for providing the theme to all its children.
  * This component should be imported in index.jsx|tsx, if the standard layout component is not being used.
  */
 const TeliThemeProvider: React.FC<TeliThemeProviderProps> = ({ children }) => {

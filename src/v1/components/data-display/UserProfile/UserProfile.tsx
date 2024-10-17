@@ -16,7 +16,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLDivElement>
+  ) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -25,36 +29,41 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
   };
 
   return (
-    <MUIStack direction="row" spacing={1} alignItems="center">
-      <H2
-        variant="h6"
-        sx={{
-          display: { xs: "none", sm: "block" },
-          maxWidth: {
-            sm: "7.5rem",
-            md: "16rem",
-          },
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          textOverflow: "ellipsis",
-        }}
-        title={fullName}
-      >
-        {fullName}
-      </H2>
-      <MUIAvatar
-        variant="circular-outlined"
-        sx={{ width: 32, height: 32, borderColor: "inherit" }}
-      >
-        <UserIcon color="inherit" />
-      </MUIAvatar>
-      <MUIIconButton
-        aria-label="user-profile"
-        color="inherit"
+    <>
+      <MUIStack
         onClick={handleClick}
+        width="max-content"
+        direction="row"
+        alignItems="center"
+        spacing={1}
+        sx={{ cursor: "pointer" }}
       >
-        <DownArrowIcon rotation={open ? 180 : undefined} size="sm" />
-      </MUIIconButton>
+        <H2
+          variant="h6"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            maxWidth: {
+              sm: "7rem",
+              md: "16rem",
+            },
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+          title={fullName}
+        >
+          {fullName}
+        </H2>
+        <MUIAvatar
+          variant="circular-outlined"
+          sx={{ width: 32, height: 32, borderColor: "inherit" }}
+        >
+          <UserIcon color="inherit" />
+        </MUIAvatar>
+        <MUIIconButton aria-label="user-profile" color="inherit">
+          <DownArrowIcon rotation={open ? 180 : undefined} size="sm" />
+        </MUIIconButton>
+      </MUIStack>
       <MUIMenu
         anchorEl={anchorEl}
         id="user-profile-menu"
@@ -77,7 +86,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
       >
         {children}
       </MUIMenu>
-    </MUIStack>
+    </>
   );
 };
 
