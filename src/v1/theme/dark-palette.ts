@@ -1,5 +1,6 @@
 import { ThemeOptions } from "@mui/material";
 import THEME_COLORS, { UITheme } from "./colors/theme-colors";
+import { grey } from "@mui/material/colors";
 
 const createDarkPalette = (themeColor: UITheme): ThemeOptions["palette"] => ({
   mode: "dark",
@@ -18,6 +19,10 @@ const createDarkPalette = (themeColor: UITheme): ThemeOptions["palette"] => ({
   background: {
     default: "#1D1D1D",
   },
+  grey: {
+    ...grey,
+    900: "#2E2E2E"
+  }
 });
 
 export default createDarkPalette;
