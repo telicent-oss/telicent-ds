@@ -3,3 +3,9 @@ export const fetchOptions = {
     "Content-Type": "application/json",
   },
 };
+
+export const fetchOptionsFormUrlencoded = {
+  headers: {
+    "Content-Type": "x-www-form-urlencoded",
+  },
+};

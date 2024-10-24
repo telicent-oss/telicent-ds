@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchOptions } from "./query-utils";
+import { fetchOptionsFormUrlencoded } from "./query-utils";
 
 const fetchSearchResults = async (
   url: string,
@@ -9,7 +9,11 @@ const fetchSearchResults = async (
   const queryParams = new URLSearchParams({
     [queryParamKey]: query,
   }).toString();
-  const response = await fetch(`${url}/typeahead?${queryParams}`, fetchOptions);
+  const response = await fetch(`${url}/typeahead`, {
+    method: "POST",
+    ...fetchOptionsFormUrlencoded,
+    body: queryParams.toString(),
+  });
 
   if (!response.ok) {
     throw new Error(
