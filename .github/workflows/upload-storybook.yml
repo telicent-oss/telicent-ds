@@ -57,17 +57,18 @@ jobs:
       - name: Create Deployment Status
         uses: actions/github-script@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const url = process.env.STORYBOOK_URL;
-            const { context } = github;
-            await github.repos.createCommitStatus({
-              ...context.repo,
-              sha: context.sha,
+            await github.rest.repos.createCommitStatus({
+              owner: github.context.repo.owner,
+              repo: github.context.repo.repo,
+              sha: github.context.sha,
               state: 'success',
               target_url: url,
               description: 'Storybook is ready!',
               context: 'Deployment/Storybook'
+            });
 
   deploy-main:
     needs: build
