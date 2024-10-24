@@ -49,20 +49,17 @@ jobs:
           publish_dir: ./storybook-static
           destination_dir: ${{ github.ref_name }}
 
-      - name: Set Storybook URL
-        id: vars
-        run: |
-          echo "STORYBOOK_URL=https://${{ github.repository.owner }}.github.io/${{ github.event.repository.name }}/${{ github.ref_name }}/" >> $GITHUB_ENV
-  
       - name: Create Deployment Status
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const url = process.env.STORYBOOK_URL;
+            const orgName = context.repo.owner;
+            const repoName = context.repo.repo;
+            const url = `https://${orgName}.github.io/${repoName}/upload/sb-to-status`;
             await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: orgName,
+              repo: repoName,
               sha: context.sha,
               state: 'success',
               target_url: url,
