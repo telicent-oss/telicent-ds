@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.9.0-rc3...v0.9.1-rc3) (2024-10-24)
+
+
+### Bug Fixes
+
+* **upload-storybook.yml:** add sb url to gh status ([#142](https://github.com/telicent-oss/telicent-ds/issues/142)) ([d75a4a8](https://github.com/telicent-oss/telicent-ds/commit/d75a4a8b92d305a869f2edeb5406cd3dab3e1973))
+
 ## [0.9.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.8.1-rc3...v0.9.0-rc3) (2024-10-24)
 
 
