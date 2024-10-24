@@ -61,9 +61,9 @@ jobs:
           script: |
             const url = process.env.STORYBOOK_URL;
             await github.rest.repos.createCommitStatus({
-              owner: github.context.repo.owner,
-              repo: github.context.repo.repo,
-              sha: github.context.sha,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
               state: 'success',
               target_url: url,
               description: 'Storybook is ready!',
