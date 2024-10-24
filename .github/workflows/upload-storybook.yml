@@ -49,6 +49,26 @@ jobs:
           publish_dir: ./storybook-static
           destination_dir: ${{ github.ref_name }}
 
+      - name: Set Storybook URL
+        id: vars
+        run: |
+          echo "STORYBOOK_URL=https://${{ github.repository.owner }}.github.io/${{ github.event.repository.name }}/${{ github.ref_name }}/" >> $GITHUB_ENV
+  
+      - name: Create Deployment Status
+        uses: actions/github-script@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const url = process.env.STORYBOOK_URL;
+            const { context } = github;
+            await github.repos.createCommitStatus({
+              ...context.repo,
+              sha: context.sha,
+              state: 'success',
+              target_url: url,
+              description: 'Storybook is ready!',
+              context: 'Deployment/Storybook'
+
   deploy-main:
     needs: build
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
@@ -66,3 +86,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
           destination_dir: ./
+ 
