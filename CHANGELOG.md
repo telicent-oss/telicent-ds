@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.8.1-rc3...v0.9.0-rc3) (2024-10-24)
+
+
+### Features
+
+* created draggable floating panel ([c2503a0](https://github.com/telicent-oss/telicent-ds/commit/c2503a089fe36b4ddd493aeaee2a4988f08cafac))
+
 ## [0.8.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.8.0-rc3...v0.8.1-rc3) (2024-10-17)
 
 
