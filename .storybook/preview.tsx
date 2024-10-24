@@ -22,7 +22,10 @@ const preview: Preview = {
       description: "Global mode for components",
       toolbar: {
         title: "Mode",
-        items: [{ value: "light", title: "Light" }, { value: "dark", title: "Dark" }],
+        items: [
+          { value: "light", title: "Light" },
+          { value: "dark", title: "Dark" },
+        ],
         dynamicTitle: true,
       },
     },
@@ -45,6 +48,19 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+    backgrounds: {
+      default: "light",
+      values: [
+        {
+          name: "light",
+          value: "#F5F5F5",
+        },
+        {
+          name: "dark",
+          value: "#1D1D1D",
+        },
+      ],
     },
   },
 };
