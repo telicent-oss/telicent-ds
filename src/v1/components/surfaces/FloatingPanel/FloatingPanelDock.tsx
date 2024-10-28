@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, PropsWithChildren } from "react";
-import MUIBox from "@mui/material/Box/Box";
+import MUIBox from "@mui/material/Box";
 
 interface FloatingPanelDockProps
   extends PropsWithChildren<HTMLAttributes<HTMLUListElement>> {}
@@ -12,7 +12,6 @@ const FloatingPanelDock: React.FC<FloatingPanelDockProps> = (props) => {
     <MUIBox
       component="ul"
       columnGap={2}
-      padding={1}
       sx={{
         display: "flex",
         flexDirection: "row",

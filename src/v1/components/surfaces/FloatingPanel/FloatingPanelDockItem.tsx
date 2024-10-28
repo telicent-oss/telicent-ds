@@ -1,29 +1,31 @@
-import React, { HTMLAttributes } from "react";
-import useTheme from "@mui/material/styles/useTheme";
-import MUIListItem from "@mui/material/ListItem/ListItem";
-import MUIListItemButton from "@mui/material/ListItemButton/ListItemButton";
-import MUIListItemText from "@mui/material/ListItemText/ListItemText";
+import React, { HTMLAttributes, useContext } from "react";
+import { useTheme } from "@mui/material/styles";
+import MUIListItem from "@mui/material/ListItem";
+import MUIListItemButton from "@mui/material/ListItemButton";
+import MUIListItemText from "@mui/material/ListItemText";
 
 import IconButton from "../../inputs/Button/IconButton";
 import { CloseIcon, DownArrowIcon } from "../../data-display";
+import useFloatingPanelContext from "./useFloatingPanelContext";
 
 interface FloatingPanelItemProps extends HTMLAttributes<HTMLLIElement> {
   label: string;
-  icon: React.ReactNode;
+  targetId: string;
+  icon?: React.ReactNode;
   count?: number;
-  onRemove?: React.MouseEventHandler;
-  onMaximise?: React.MouseEventHandler;
+  visible?: boolean;
 }
 
 const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
   count,
   label,
   icon,
-  onRemove,
-  onMaximise,
+  targetId,
+  visible = true,
   ...props
 }) => {
   const theme = useTheme();
+  const context = useFloatingPanelContext()
 
   const backgroundColor =
     theme.palette.mode === "dark"
@@ -38,7 +40,7 @@ const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
           aria-label="close"
           size="small"
           sx={{ fontSize: 14 }}
-          onClick={onRemove}
+          onClick={() => context.toggleVisibility(targetId)}
         >
           <CloseIcon fontSize="inherit" />
         </IconButton>
@@ -48,19 +50,17 @@ const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
         backgroundColor,
         borderTopLeftRadius: 4,
         borderTopRightRadius: 4,
-        width: "fit-content"
+        width: "fit-content",
+        visibility: visible ? "visible" : "hidden",
       }}
       {...props}
     >
       <MUIListItemButton
         dense
         sx={{ color: theme.palette.primary.main }}
-        onClick={onMaximise}
+        onClick={() => context.toggleMinimized(targetId)}
       >
-        <DownArrowIcon
-          rotation={180}
-          css={{ marginRight: 6 }}
-        />
+        <DownArrowIcon rotation={180} css={{ marginRight: 6 }} />
         {icon}
         <MUIListItemText
           sx={{

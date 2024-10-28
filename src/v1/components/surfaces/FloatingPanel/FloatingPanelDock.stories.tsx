@@ -2,40 +2,35 @@ import type { Meta, StoryObj } from "@storybook/react";
 import MUIBox from "@mui/material/Box/Box";
 
 import { ClockIcon, MapIcon } from "../../data-display";
-import FloatingPanelDock from "./FloatingPanelDock";
-import FloatingPanelItem from "./FloatingPanelItem";
+import { FloatingPanel } from "./index";
 
-const meta: Meta<typeof FloatingPanelDock> = {
-  title: "Surfaces/FloatingPanel/FloatingPanelDock",
-  component: FloatingPanelDock,
+const meta: Meta<typeof FloatingPanel.Dock> = {
+  title: "Surfaces/FloatingPanel/FloatingPanel.Dock",
+  component: FloatingPanel.Dock,
   tags: ["autodocs"],
   decorators: (Story) => (
-    <MUIBox height={200}>
-      {Story()}
-    </MUIBox>
+    <FloatingPanel.Provider>
+      <MUIBox height={200}>{Story()}</MUIBox>
+    </FloatingPanel.Provider>
   ),
 };
 export default meta;
 
-type Story = StoryObj<typeof FloatingPanelDock>;
+type Story = StoryObj<typeof FloatingPanel.Dock>;
 
 export const Demo: Story = {
   args: {
     children: (
       <>
-        <FloatingPanelItem
+        <FloatingPanel.DockItem
           icon={<ClockIcon fontSize="inherit" />}
           label="Timeline"
           count={10}
-          onMaximise={() => alert("Clicked timeline docked item")}
-          onRemove={() => alert("Clicked close timeline docked item")}
         />
-        <FloatingPanelItem
+        <FloatingPanel.DockItem
           icon={<MapIcon fontSize="inherit" />}
           label="Map"
           count={6}
-          onMaximise={() => alert("Clicked map docked item")}
-          onRemove={() => alert("Clicked close map docked item")}
         />
       </>
     ),
