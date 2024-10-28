@@ -2,7 +2,7 @@ import React from "react";
 import MUISvgIcon, {
   SvgIconProps as MUISvgIconProps,
 } from "@mui/material/SvgIcon";
-import useTheme from "@mui/material/styles/useTheme";
+import { useTheme } from "@mui/material/styles";
 import { FlexBox } from "../../layout";
 
 interface TelicentMarkProps extends MUISvgIconProps {
