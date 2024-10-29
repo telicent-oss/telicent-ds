@@ -1,31 +1,37 @@
-import React, { HTMLAttributes } from "react";
-import MUIBox from "@mui/material/Box/Box";
-import MUIStack from "@mui/material/Stack/Stack";
+import React, { HTMLAttributes, useContext } from "react";
+import MUIBox from "@mui/material/Box";
+import MUIStack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import { Rnd } from "react-rnd";
 
 import { DownArrowIcon, DragHandleIcon, Text } from "../../data-display";
 import { IconButton } from "../../inputs";
+import useFloatingPanelContext from "./useFloatingPanelContext";
 
 interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
+  targetId: string;
+  title: string;
   bounds?: "parent" | "window" | "body" | string | Element;
   count?: number;
   children?: React.ReactNode;
   icon?: React.ReactNode;
-  onMinimise?: React.MouseEventHandler;
-  title: string;
+  visible?: boolean;
+  defaultPosition?: { x: number, y: number };
 }
 
 const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
   bounds,
   count,
   icon,
-  onMinimise,
+  visible = true,
+  defaultPosition = { x: 50, y: 150 },
+  targetId,
   title,
   children,
   ...props
 }) => {
   const theme = useTheme();
+  const context = useFloatingPanelContext();
 
   const backgroundColor =
     theme.palette.mode === "dark"
@@ -37,8 +43,19 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
       bounds={bounds}
       enableResizing={false}
       dragHandleClassName="drag-handle"
+      default={{ x: defaultPosition.x, y: defaultPosition.y, width: 'auto', height: 'auto' }}
+      css={{
+        visibility: visible ? "visible" : "hidden",
+      }}
     >
-      <MUIBox sx={{ width: "fit-content", height: "fit-content" }} {...props}>
+      <MUIBox
+        sx={{
+          width: "fit-content",
+          height: "fit-content",
+          visibility: visible ? "visible" : "hidden",
+        }}
+        {...props}
+      >
         <MUIStack
           direction="row"
           spacing={1}
@@ -68,7 +85,7 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
               </span>
             )}
           </Text>
-          <IconButton size="small" onClick={onMinimise} color="primary">
+          <IconButton size="small" onClick={() => context?.toggleMinimized(targetId)} color="primary">
             <DownArrowIcon />
           </IconButton>
         </MUIStack>

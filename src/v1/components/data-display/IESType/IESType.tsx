@@ -1,5 +1,5 @@
 import React from "react";
-import MUIBox from "@mui/material/Box/Box";
+import MUIBox from "@mui/material/Box";
 
 export interface IESTypeProps extends React.HTMLAttributes<HTMLElement> {
   backgroundColor: string;

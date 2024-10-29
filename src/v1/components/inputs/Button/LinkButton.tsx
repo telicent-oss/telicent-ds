@@ -1,7 +1,7 @@
 import React from "react";
 import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
 import MUIBox from "@mui/material/Box";
-import useTheme from "@mui/material/styles/useTheme";
+import { useTheme } from "@mui/material/styles";
 
 type LinkButtonProps = Omit<MUIButtonProps, "variant" | "color">;
 
@@ -19,7 +19,10 @@ const LinkButton: React.FC<LinkButtonProps> = (buttonProps) => {
           minWidth: "fit-content",
           padding: 0,
           ":hover": { backgroundColor: "transparent" },
-          ":not(.Mui-disabled):hover + .ButtonLinkLine": { opacity: 1, width: "100%" },
+          ":not(.Mui-disabled):hover + .ButtonLinkLine": {
+            opacity: 1,
+            width: "100%",
+          },
         }}
       >
         {buttonProps.children}

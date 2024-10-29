@@ -2,19 +2,19 @@ import React, { forwardRef } from "react";
 import { styled } from "@mui/system";
 import useAutocomplete, {
   UseAutocompleteProps,
-} from "@mui/material/useAutocomplete/useAutocomplete";
-import OutlinedInput from "@mui/material/OutlinedInput/OutlinedInput";
+} from "@mui/material/useAutocomplete";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import MUICircularProgress from "@mui/material/CircularProgress";
-import MUIPopper from "@mui/material/Popper/Popper";
-import MUIPaper from "@mui/material/Paper/Paper";
-import MUIList from "@mui/material/List/List";
-import MUIListItem from "@mui/material/ListItem/ListItem";
-import MUIListItemText from "@mui/material/ListItemText/ListItemText";
-import MUIListItemButton from "@mui/material/ListItemButton/ListItemButton";
+import MUIPopper from "@mui/material/Popper";
+import MUIPaper from "@mui/material/Paper";
+import MUIList from "@mui/material/List";
+import MUIListItem from "@mui/material/ListItem";
+import MUIListItemText from "@mui/material/ListItemText";
+import MUIListItemButton from "@mui/material/ListItemButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
-import useTheme from "@mui/material/styles/useTheme";
-import useForkRef from "@mui/material/utils/useForkRef";
+import { useTheme } from "@mui/material/styles";
+import { useForkRef } from "@mui/material/utils";
 
 import FlexBox from "../../layout/FlexBox";
 import IconButton from "../Button/IconButton";

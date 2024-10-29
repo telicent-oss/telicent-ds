@@ -1,18 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import MUIBox from "@mui/material/Box/Box";
-import { fn } from "@storybook/test";
 
 import { FlexBox } from "../../layout";
 import { MapIcon } from "../../data-display";
-import DraggableFloatingPanel from "./DraggableFloatingPanel";
+import { FloatingPanel } from "./index";
 
-const meta: Meta<typeof DraggableFloatingPanel> = {
-  title: "Surfaces/FloatingPanel/DraggableFloatingPanel",
-  component: DraggableFloatingPanel,
+const meta: Meta<typeof FloatingPanel.DraggablePanel> = {
+  title: "Surfaces/FloatingPanel/FloatingPanel.DraggablePanel",
+  component: FloatingPanel.DraggablePanel,
   tags: ["autodocs"],
-  args: {
-    onMinimise: fn()
-  },
   decorators: (Story) => (
     <MUIBox height={500}>
       {Story()}
@@ -21,7 +17,7 @@ const meta: Meta<typeof DraggableFloatingPanel> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof DraggableFloatingPanel>;
+type Story = StoryObj<typeof FloatingPanel.DraggablePanel>;
 
 export const Demo: Story = {
   args: {
