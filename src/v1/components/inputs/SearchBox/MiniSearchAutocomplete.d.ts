@@ -1,5 +1,5 @@
 import { default as React } from '../../../../../node_modules/react';
-import { UseAutocompleteProps } from '@mui/material/useAutocomplete/useAutocomplete';
+import { UseAutocompleteProps } from '@mui/material/useAutocomplete';
 import { ProgressProps } from './MiniSearchBox';
 
 type AutocompleteOption = {

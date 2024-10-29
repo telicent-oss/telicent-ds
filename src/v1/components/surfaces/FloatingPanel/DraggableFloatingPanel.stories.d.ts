@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { default as DraggableFloatingPanel } from './DraggableFloatingPanel';
+import { FloatingPanel } from './index';
 
-declare const meta: Meta<typeof DraggableFloatingPanel>;
+declare const meta: Meta<typeof FloatingPanel.DraggablePanel>;
 export default meta;
-type Story = StoryObj<typeof DraggableFloatingPanel>;
+type Story = StoryObj<typeof FloatingPanel.DraggablePanel>;
 export declare const Demo: Story;
