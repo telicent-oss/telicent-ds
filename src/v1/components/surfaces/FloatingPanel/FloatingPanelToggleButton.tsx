@@ -26,7 +26,6 @@ const FloatingPanelToggleButton: React.FC<FloatingPanelToggleButtonProps> = ({
 }) => {
   const context = useFloatingPanelContext();
 
-  console.log({ context });
   
   return (
     <MUITooltip
