@@ -54,7 +54,7 @@ interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
 
 const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
   bounds,
-  count,
+  count = 0,
   icon,
   visible = true,
   defaultPosition = { x: 50, y: 150 },
@@ -118,7 +118,7 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
           {icon}
           <Text sx={{ paddingRight: 4 }}>
             {title}
-            {count && count > 0 ? (
+            {count > 0 ? (
               <span css={{ marginLeft: 4, color: theme.palette.primary.main }}>
                 ({count})
               </span>
