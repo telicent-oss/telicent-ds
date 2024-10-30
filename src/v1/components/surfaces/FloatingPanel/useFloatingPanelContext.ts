@@ -16,4 +16,4 @@ const useFloatingPanelContext = () => {
   return context;
 }
 
-export default useFloatingPanelContext;
+export { useFloatingPanelContext };

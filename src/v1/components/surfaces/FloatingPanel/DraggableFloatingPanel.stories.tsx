@@ -10,9 +10,9 @@ const meta: Meta<typeof FloatingPanel.DraggablePanel> = {
   component: FloatingPanel.DraggablePanel,
   tags: ["autodocs"],
   decorators: (Story) => (
-    <MUIBox height={500}>
-      {Story()}
-    </MUIBox>
+    <FloatingPanel.Provider>
+      <MUIBox height={500}>{Story()}</MUIBox>
+    </FloatingPanel.Provider>
   ),
 };
 export default meta;
@@ -34,7 +34,12 @@ export const Demo: Story = {
           loading="lazy"
           css={{ objectFit: "cover" }}
         />
-        <FlexBox direction="row" spacing={1} paddingInline={1} paddingBottom={1}>
+        <FlexBox
+          direction="row"
+          spacing={1}
+          paddingInline={1}
+          paddingBottom={1}
+        >
           <div
             css={{
               borderRadius: 4,

@@ -6,17 +6,50 @@ import { Rnd } from "react-rnd";
 
 import { DownArrowIcon, DragHandleIcon, Text } from "../../data-display";
 import { IconButton } from "../../inputs";
-import useFloatingPanelContext from "./useFloatingPanelContext";
+import { useFloatingPanelContext } from "./useFloatingPanelContext";
 
 interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * The id target reference for the toggle button.
+   */
   targetId: string;
+  /**
+   * 	Panel title.
+   */
   title: string;
+  /**
+   * Specifies movement boundaries. Accepted values:
+   *
+   * parent restricts movement
+   * within the node's offsetParent (nearest node with position relative or
+   * absolute), window, body, Selector like .fooClassName or Element.
+   */
   bounds?: "parent" | "window" | "body" | string | Element;
+  /**
+   * Total number of items
+   */
   count?: number;
+  /**
+   * Component content
+   */
   children?: React.ReactNode;
+  /**
+   * Specifies a selector to be used as the handle that initiates drag. Example:
+   * drag-handle.
+   */
+  dragHandleClassName?: string;
+  /**
+   * The icon to be displayed before the title
+   */
   icon?: React.ReactNode;
+  /**
+   * If false, the component will be hidden
+   */
   visible?: boolean;
-  defaultPosition?: { x: number, y: number };
+  /**
+   * The x and y property is used to set the default position of the component.
+   */
+  defaultPosition?: { x: number; y: number };
 }
 
 const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
@@ -25,6 +58,7 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
   icon,
   visible = true,
   defaultPosition = { x: 50, y: 150 },
+  dragHandleClassName = "drag-handle",
   targetId,
   title,
   children,
@@ -42,8 +76,13 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
     <Rnd
       bounds={bounds}
       enableResizing={false}
-      dragHandleClassName="drag-handle"
-      default={{ x: defaultPosition.x, y: defaultPosition.y, width: 'auto', height: 'auto' }}
+      dragHandleClassName={dragHandleClassName}
+      default={{
+        x: defaultPosition.x,
+        y: defaultPosition.y,
+        width: "auto",
+        height: "auto",
+      }}
       css={{
         visibility: visible ? "visible" : "hidden",
       }}
@@ -69,7 +108,7 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
           }}
         >
           <DragHandleIcon
-            className="drag-handle"
+            className={dragHandleClassName}
             sx={{
               fontSize: 14,
               color: theme.palette.grey[400],
@@ -79,13 +118,18 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
           {icon}
           <Text sx={{ paddingRight: 4 }}>
             {title}
-            {count && (
+            {count && count > 0 ? (
               <span css={{ marginLeft: 4, color: theme.palette.primary.main }}>
                 ({count})
               </span>
-            )}
+            ) : null}
           </Text>
-          <IconButton size="small" onClick={() => context?.toggleMinimized(targetId)} color="primary">
+          <IconButton
+            size="small"
+            onClick={() => context?.toggleMinimised(targetId)}
+            color="primary"
+            aria-label="minimise"
+          >
             <DownArrowIcon />
           </IconButton>
         </MUIStack>
@@ -97,6 +141,7 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
             borderBottomLeftRadius: 4,
             borderBottomRightRadius: 4,
             borderTopRightRadius: 4,
+            padding: 0.4,
           }}
         >
           {children}

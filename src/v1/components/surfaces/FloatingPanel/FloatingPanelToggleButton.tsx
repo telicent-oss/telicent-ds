@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import MUIToggleButton, {
   ToggleButtonProps as MUIToggleButtonProps,
 } from "@mui/material/ToggleButton";
 import { styled } from "@mui/material/styles";
 import MUITooltip from "@mui/material/Tooltip";
 
-import useFloatingPanelContext from "./useFloatingPanelContext";
+import { useFloatingPanelContext } from "./useFloatingPanelContext";
 
 const StyledToggleButton = styled(MUIToggleButton)(() => ({
   border: 0,
@@ -16,20 +16,25 @@ interface FloatingPanelToggleButtonProps
     MUIToggleButtonProps,
     "sx" | "classes" | "color" | "onClick" | "selected"
   > {
+  /**
+   * The unique identifier
+   */
   id: string;
-  label: string;
+  /**
+   * Tooltip title
+   */
+  tooltip?: string;
 }
 
 const FloatingPanelToggleButton: React.FC<FloatingPanelToggleButtonProps> = ({
-  label,
+  tooltip,
   ...props
 }) => {
   const context = useFloatingPanelContext();
 
-  
   return (
     <MUITooltip
-      title={label}
+      title={tooltip}
       placement="bottom"
       slotProps={{
         popper: {
