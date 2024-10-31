@@ -6,18 +6,33 @@ import MUIListItemText from "@mui/material/ListItemText";
 
 import IconButton from "../../inputs/Button/IconButton";
 import { CloseIcon, DownArrowIcon } from "../../data-display";
-import useFloatingPanelContext from "./useFloatingPanelContext";
+import { useFloatingPanelContext } from "./useFloatingPanelContext";
 
 interface FloatingPanelItemProps extends HTMLAttributes<HTMLLIElement> {
+  /**
+   * The item label
+   */
   label: string;
+  /**
+   * The id target reference for the toggle button.
+   */
   targetId: string;
+  /**
+   * The icon to be displayed before the title
+   */
   icon?: React.ReactNode;
+  /**
+   * Total number of items
+   */
   count?: number;
+  /**
+   * If false, the component will be hidden
+   */
   visible?: boolean;
 }
 
 const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
-  count,
+  count = 0,
   label,
   icon,
   targetId,
@@ -25,7 +40,7 @@ const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
   ...props
 }) => {
   const theme = useTheme();
-  const context = useFloatingPanelContext()
+  const context = useFloatingPanelContext();
 
   const backgroundColor =
     theme.palette.mode === "dark"
@@ -58,7 +73,7 @@ const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
       <MUIListItemButton
         dense
         sx={{ color: theme.palette.primary.main }}
-        onClick={() => context.toggleMinimized(targetId)}
+        onClick={() => context.toggleMinimised(targetId)}
       >
         <DownArrowIcon rotation={180} css={{ marginRight: 6 }} />
         {icon}
@@ -73,7 +88,7 @@ const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
           }}
         >
           {label}
-          {count ? (
+          {count > 0 ? (
             <span css={{ color: theme.palette.primary.main }}> ({count})</span>
           ) : null}
         </MUIListItemText>
