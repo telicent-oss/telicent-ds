@@ -10,7 +10,7 @@ type ToggleFn = (id: string) => void;
 type GetFn = (id: string, state: "visible" | "minimised") => boolean;
 interface FloatingPanelContextType {
     toggleVisibility: ToggleFn;
-    toggleMinimized: ToggleFn;
+    toggleMinimised: ToggleFn;
     get: GetFn;
     panels: PanelsType;
 }
