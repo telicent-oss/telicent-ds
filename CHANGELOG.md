@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.9.1-rc3...v0.9.2-rc3) (2024-10-31)
+
+
+### Bug Fixes
+
+* updated props and added tests ([c66c4a1](https://github.com/telicent-oss/telicent-ds/commit/c66c4a1499ad9b82714f064d085edab42e4b9cd7))
+
 ## [0.9.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.9.0-rc3...v0.9.1-rc3) (2024-10-29)
 
 
