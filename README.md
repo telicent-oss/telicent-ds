@@ -4,7 +4,7 @@ A component library to help developers create frontend applications for [Telicen
 
 This repo contains:
 1. ReactJS Components that adhere to the  _Design System rules_<sup>1</sup>
-2. A generated [Storybook](https://telicent-oss.github.io/ds/), describing the components
+2. A generated [Storybook](https://telicent-oss.github.io/telicent-ds), describing the components
 
 <sup>1</sup> The _Design System rules_ are contained in a Figma file (private for now)
 
