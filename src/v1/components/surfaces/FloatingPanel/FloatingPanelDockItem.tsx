@@ -25,10 +25,6 @@ interface FloatingPanelItemProps extends HTMLAttributes<HTMLLIElement> {
    * Total number of items
    */
   count?: number;
-  /**
-   * If false, the component will be hidden
-   */
-  visible?: boolean;
 }
 
 const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
@@ -36,11 +32,14 @@ const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
   label,
   icon,
   targetId,
-  visible = true,
   ...props
 }) => {
   const theme = useTheme();
   const context = useFloatingPanelContext();
+  const visible =
+    (context.panels[targetId]?.minimised &&
+      context.panels[targetId]?.visible) ||
+    false;
 
   const backgroundColor =
     theme.palette.mode === "dark"
