@@ -2,16 +2,26 @@ import type { Meta, StoryObj } from "@storybook/react";
 import MUIBox from "@mui/material/Box/Box";
 
 import { ClockIcon, MapIcon } from "../../data-display";
-import { FloatingPanel } from "./index";
+import { FloatingPanel, FloatingPanelContext } from "./index";
 
 const meta: Meta<typeof FloatingPanel.Dock> = {
   title: "Surfaces/FloatingPanel/FloatingPanel.Dock",
   component: FloatingPanel.Dock,
   tags: ["autodocs"],
   decorators: (Story) => (
-    <FloatingPanel.Provider>
+    <FloatingPanelContext.Provider
+      value={{
+        panels: {
+          timeline: { visible: true, minimised: true },
+          map: { visible: true, minimised: true },
+        },
+        toggleVisibility: () => {},
+        toggleMinimised: () => {},
+        get: () => false,
+      }}
+    >
       <MUIBox height={200}>{Story()}</MUIBox>
-    </FloatingPanel.Provider>
+    </FloatingPanelContext.Provider>
   ),
 };
 export default meta;
@@ -26,11 +36,13 @@ export const Demo: Story = {
           icon={<ClockIcon fontSize="inherit" />}
           label="Timeline"
           count={10}
+          targetId="timeline"
         />
         <FloatingPanel.DockItem
           icon={<MapIcon fontSize="inherit" />}
           label="Map"
           count={6}
+          targetId="map"
         />
       </>
     ),

@@ -43,10 +43,6 @@ interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
    */
   icon?: React.ReactNode;
   /**
-   * If false, the component will be hidden
-   */
-  visible?: boolean;
-  /**
    * The x and y property is used to set the default position of the component.
    */
   defaultPosition?: { x: number; y: number };
@@ -56,7 +52,6 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
   bounds,
   count = 0,
   icon,
-  visible = true,
   defaultPosition = { x: 50, y: 150 },
   dragHandleClassName = "drag-handle",
   targetId,
@@ -71,6 +66,11 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
     theme.palette.mode === "dark"
       ? theme.palette.grey[900]
       : theme.palette.grey[300];
+
+  const visible =
+    (!context.panels[targetId]?.minimised &&
+      context.panels[targetId]?.visible) ||
+    false;
 
   return (
     <Rnd

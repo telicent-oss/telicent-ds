@@ -3,16 +3,23 @@ import MUIBox from "@mui/material/Box/Box";
 
 import { FlexBox } from "../../layout";
 import { MapIcon } from "../../data-display";
-import { FloatingPanel } from "./index";
+import { FloatingPanel, FloatingPanelContext } from "./index";
 
 const meta: Meta<typeof FloatingPanel.DraggablePanel> = {
   title: "Surfaces/FloatingPanel/FloatingPanel.DraggablePanel",
   component: FloatingPanel.DraggablePanel,
   tags: ["autodocs"],
   decorators: (Story) => (
-    <FloatingPanel.Provider>
+    <FloatingPanelContext.Provider
+      value={{
+        panels: { map: { visible: true, minimised: false } },
+        toggleVisibility: () => {},
+        toggleMinimised: () => {},
+        get: () => false,
+      }}
+    >
       <MUIBox height={500}>{Story()}</MUIBox>
-    </FloatingPanel.Provider>
+    </FloatingPanelContext.Provider>
   ),
 };
 export default meta;
@@ -25,6 +32,7 @@ export const Demo: Story = {
     count: 3,
     icon: <MapIcon color="primary" fontSize="inherit" />,
     title: "Nodes with geo data",
+    targetId: "map",
     children: (
       <>
         <img
