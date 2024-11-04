@@ -26,7 +26,7 @@ describe("Floating panel dock item component", () => {
         toggleMinimised: toggleMinimisedMock,
         toggleVisibility: jest.fn(),
         get: jest.fn(),
-        panels: {},
+        panels: { map: { visible: true, minimised: true }},
       });
 
     const { user } = renderComponent();
@@ -47,7 +47,7 @@ describe("Floating panel dock item component", () => {
         toggleVisibility: toggleVisibilityMock,
         toggleMinimised: jest.fn(),
         get: jest.fn(),
-        panels: {},
+        panels: { map: { visible: true, minimised: true }},
       });
 
     const { user } = renderComponent();
@@ -59,6 +59,14 @@ describe("Floating panel dock item component", () => {
   });
 
   test("renders total count when number is greater than 0", () => {
+    jest
+      .spyOn(floatingPanelContext, "useFloatingPanelContext")
+      .mockReturnValue({
+        toggleVisibility: jest.fn(),
+        toggleMinimised: jest.fn(),
+        get: jest.fn(),
+        panels: { map: { visible: true, minimised: true }},
+      });
     renderComponent(2);
 
     const listitem = screen.getByRole("listitem");

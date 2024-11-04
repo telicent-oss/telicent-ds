@@ -19,6 +19,10 @@ const renderComponent = (count?: number) => {
 };
 
 describe("Draggable floating panel component", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  })
+
   test("The toggleMinimised function is called with the value of the targetId prop", async () => {
     const toggleMinimisedMock = jest.fn();
     jest
@@ -27,7 +31,7 @@ describe("Draggable floating panel component", () => {
         toggleMinimised: toggleMinimisedMock,
         toggleVisibility: jest.fn(),
         get: jest.fn(),
-        panels: {},
+        panels: { map: { visible: true, minimised: false }},
       });
 
     const { user } = renderComponent();
@@ -37,6 +41,14 @@ describe("Draggable floating panel component", () => {
   });
 
   test("renders total count when number is greater than 0", () => {
+    jest
+      .spyOn(floatingPanelContext, "useFloatingPanelContext")
+      .mockReturnValue({
+        toggleMinimised: jest.fn(),
+        toggleVisibility: jest.fn(),
+        get: jest.fn(),
+        panels: { map: { visible: true, minimised: false }},
+      });
     renderComponent(2);
 
     expect(screen.getByText("Geo locations")).toBeVisible();
