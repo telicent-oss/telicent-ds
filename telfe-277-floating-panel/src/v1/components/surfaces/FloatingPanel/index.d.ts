@@ -5,7 +5,6 @@ export declare const FloatingPanel: {
     Provider: import('../../../../../node_modules/react').FC<import('./FloatingPanelProvider').FloatingPanelProviderProps>;
     ToggleButton: import('../../../../../node_modules/react').FC<import('./FloatingPanelToggleButton').FloatingPanelToggleButtonProps>;
 };
-export { default as useFloatingPanels } from './useFloatingPanels';
 export * from './DraggableFloatingPanel';
 export * from './FloatingPanelDock';
 export * from './FloatingPanelDockItem';
