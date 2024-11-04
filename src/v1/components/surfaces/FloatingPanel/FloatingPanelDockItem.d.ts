@@ -17,10 +17,6 @@ interface FloatingPanelItemProps extends HTMLAttributes<HTMLLIElement> {
      * Total number of items
      */
     count?: number;
-    /**
-     * If false, the component will be hidden
-     */
-    visible?: boolean;
 }
 declare const FloatingPanelItem: React.FC<FloatingPanelItemProps>;
 export default FloatingPanelItem;

@@ -35,10 +35,6 @@ interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
      */
     icon?: React.ReactNode;
     /**
-     * If false, the component will be hidden
-     */
-    visible?: boolean;
-    /**
      * The x and y property is used to set the default position of the component.
      */
     defaultPosition?: {
