@@ -12,8 +12,6 @@ export const FloatingPanel = {
   ToggleButton: FloatingPanelToggleButton,
 };
 
-export { default as useFloatingPanels } from "./useFloatingPanels";
-
 export * from "./DraggableFloatingPanel";
 export * from "./FloatingPanelDock";
 export * from "./FloatingPanelDockItem";
