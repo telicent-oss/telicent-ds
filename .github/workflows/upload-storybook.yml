@@ -64,7 +64,7 @@ jobs:
               sha: context.sha,
               state: 'success',
               target_url: url,
-              description: 'View UI components - Click "Details" 👉',
+              description: 'View UI components - Click "Details" :point_right:',
               context: ':eye: Open Storybook'
             });
 
