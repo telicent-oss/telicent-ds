@@ -65,7 +65,7 @@ jobs:
               state: 'success',
               target_url: url,
               description: 'View UI components - Click "Details" 👉',
-              context: '👁️ Open Storybook'
+              context: ':eye: Open Storybook'
             });
 
   deploy-main:
