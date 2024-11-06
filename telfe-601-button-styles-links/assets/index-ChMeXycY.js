@@ -1,0 +1,1 @@
+import{j as u,_ as n}from"./extends-l96ZYLL7.js";import{_ as l}from"./DefaultPropsProvider-_Lew82y0.js";import{r as o}from"./index-BBkUAzwr.js";const a=["value"],r=o.createContext();function p(t){let{value:e}=t,s=l(t,a);return u.jsx(r.Provider,n({value:e??!0},s))}const m=()=>{const t=o.useContext(r);return t??!1};export{p as R,m as u};
