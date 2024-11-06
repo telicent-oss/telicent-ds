@@ -1,1 +1,0 @@
-import{j as s,_ as i}from"./extends-l96ZYLL7.js";import{r as o}from"./index-BBkUAzwr.js";import{S as t}from"./SvgIcon-nOE-MXQL.js";function u(e,m){function r(n,a){return s.jsx(t,i({"data-testid":`${m}Icon`,ref:a},n,{children:e}))}return r.muiName=t.muiName,o.memo(o.forwardRef(r))}export{u as c};

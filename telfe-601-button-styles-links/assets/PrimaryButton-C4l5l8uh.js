@@ -1,1 +1,0 @@
-import{j as o}from"./DefaultPropsProvider-_Lew82y0.js";import{B as i}from"./Button-CERsBFR3.js";const t=r=>o(i,{variant:"contained",color:"primary",...r,children:r.children});t.__docgenInfo={description:"",methods:[],displayName:"PrimaryButton"};export{t as P};
