@@ -17,6 +17,7 @@ declare const meta: {
     };
     decorators: (Story: import('@storybook/csf').PartialStoryFn<import('@storybook/react').ReactRenderer, {
         color?: ("primary" | "inherit") | undefined;
+        component?: import('@mui/material').ButtonProps["component"];
         disabled?: boolean | undefined;
         disableElevation?: boolean | undefined;
         endIcon?: import('../../../../../node_modules/react').ReactNode;
@@ -24,6 +25,7 @@ declare const meta: {
         size?: import('@mui/material').ButtonProps["size"];
         startIcon?: import('../../../../../node_modules/react').ReactNode;
         variant?: ("primary" | "secondary" | "tertiary" | "link" | "text") | undefined;
+        children?: import('../../../../../node_modules/react').ReactNode;
         defaultChecked?: boolean | undefined;
         defaultValue?: string | number | readonly string[] | undefined;
         suppressContentEditableWarning?: boolean | undefined;
@@ -44,7 +46,7 @@ declare const meta: {
         slot?: string | undefined;
         spellCheck?: (boolean | "true" | "false") | undefined;
         style?: import('../../../../../node_modules/react').CSSProperties | undefined;
-        tabIndex?: number | undefined;
+        tabIndex?: NonNullable<import('../../../../../node_modules/react').HTMLAttributes<any>["tabIndex"]> | undefined;
         title?: string | undefined;
         translate?: "yes" | "no" | undefined;
         radioGroup?: string | undefined;
@@ -125,7 +127,6 @@ declare const meta: {
         "aria-valuemin"?: number | undefined;
         "aria-valuenow"?: number | undefined;
         "aria-valuetext"?: string | undefined;
-        children?: import('../../../../../node_modules/react').ReactNode | undefined;
         dangerouslySetInnerHTML?: {
             __html: string | TrustedHTML;
         } | undefined;
@@ -289,6 +290,28 @@ declare const meta: {
         onAnimationIterationCapture?: import('../../../../../node_modules/react').AnimationEventHandler<HTMLButtonElement> | undefined;
         onTransitionEnd?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLButtonElement> | undefined;
         onTransitionEndCapture?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLButtonElement> | undefined;
+        form?: string | undefined;
+        ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
+        key?: import('../../../../../node_modules/react').Key | null | undefined;
+        type?: "submit" | "reset" | "button" | undefined;
+        name?: string | undefined;
+        action?: import('../../../../../node_modules/react').Ref<import('@mui/material').ButtonBaseActions> | undefined;
+        centerRipple?: boolean | undefined;
+        disableRipple?: boolean | undefined;
+        disableTouchRipple?: boolean | undefined;
+        focusRipple?: boolean | undefined;
+        focusVisibleClassName?: string | undefined;
+        LinkComponent?: import('../../../../../node_modules/react').ElementType | undefined;
+        onFocusVisible?: import('../../../../../node_modules/react').FocusEventHandler<any> | undefined;
+        TouchRippleProps?: Partial<import('@mui/material/ButtonBase/TouchRipple').TouchRippleProps> | undefined;
+        touchRippleRef?: import('../../../../../node_modules/react').Ref<import('@mui/material/ButtonBase/TouchRipple').TouchRippleActions> | undefined;
+        value?: string | readonly string[] | number | undefined;
+        formAction?: string | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS] | undefined;
+        formEncType?: string | undefined;
+        formMethod?: string | undefined;
+        formNoValidate?: boolean | undefined;
+        formTarget?: string | undefined;
+        disableFocusRipple?: boolean | undefined;
     }>) => import("@emotion/react/jsx-runtime").JSX.Element;
 };
 export default meta;
@@ -299,3 +322,16 @@ export declare const Tertiary: Story;
 export declare const Sizing: Story;
 export declare const WithIconsAndLabel: Story;
 export declare const FullWidth: Story;
+/**
+ * Sometimes links should look like a button, but behave like links. Do this by
+ * using `<a>` tag or react-router-dom's `Link` component.
+ *
+ * To help assistive technologies,
+ *  - avoid nesting interactive element e.g. `<button><a /></button>` or
+ *    `<a><button /></a>`
+ *  - set Button attributes like so:
+ *  - `role` attribute to `undefined`
+ *  - `component` (root element) to `div`
+ *
+ */
+export declare const LinkButtons: Story;
