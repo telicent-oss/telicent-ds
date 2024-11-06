@@ -64,8 +64,8 @@ jobs:
               sha: context.sha,
               state: 'success',
               target_url: url,
-              description: 'Open Storybook deployment',
-              context: 'Deployment/Storybook'
+              description: 'View UI components - Click "Details" 👉',
+              context: '👁️ Open Storybook'
             });
 
   deploy-main:
