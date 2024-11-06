@@ -4,12 +4,32 @@ import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import LinkButton from "./LinkButton";
 
-export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends Omit<
+    MUIButtonProps,
+    | "color"
+    | "component"
+    | "disabled"
+    | "disableElevation"
+    | "endIcon"
+    | "fullWidth"
+    | "href"
+    | "size"
+    | "startIcon"
+    | "variant"
+    | "sx"
+    | "classes"
+  > {
   /**
    * The color of the component.
    * @default 'primary'
    */
   color?: "primary" | "inherit";
+  /**
+   * The component used for the root node. Either a string to use a HTML element
+   * or a component.
+   */
+  component?: MUIButtonProps["component"];
   /**
    * If `true`, the component is disabled.
    * @default false
@@ -34,7 +54,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
    * `small` is equivalent to the dense button styling.
    * @default 'medium'
    */
-  size?: MUIButtonProps['size'];
+  size?: MUIButtonProps["size"];
   /**
    * Element placed before the children.
    */

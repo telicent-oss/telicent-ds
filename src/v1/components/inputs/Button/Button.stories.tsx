@@ -19,7 +19,9 @@ const meta = {
   tags: ["autodocs"],
   args: { children: "Button", onClick: fn() },
   decorators: (Story) => (
-    <Box sx={{ "button": { marginInline: 2 } }}>{Story()}</Box>
+    <Box sx={{ button: { marginInline: 2 }, a: { marginInline: 2 } }}>
+      {Story()}
+    </Box>
   ),
 } satisfies Meta<typeof Button>;
 
@@ -83,4 +85,41 @@ export const FullWidth: Story = {
   args: {
     fullWidth: true,
   },
+};
+
+const Link: React.FC<{ to: string; children: React.ReactNode }> = (props) => (
+  <a {...props} />
+);
+
+/**
+ * In some designs, a link may need to look like a button while still
+ * functioning as a standard link. Below are two examples where an anchor
+ * (`<a>`) tag or a `Link` component from `react-router-dom` can be used to
+ * achieve this effect. Note that in this example, the `Link` component mimics
+ * the behavior of `react-router-dom`.
+ * 
+ * The key adjustment here is to make the
+ * button component not render as a button component. To achieve this the `role`
+ * has been set to `undefined` and the root element is set to be a `div`. This
+ * ensures that the "button-styled link" behaves correctly without causing
+ * accessibility issues or styling conflicts.
+ *
+ * It’s important to note, it's recommended to avoid nesting interactive
+ * elements to prevent potential accessibility issues and unexpected behavior.
+ */
+export const LinkButtons: Story = {
+  render: (args) => (
+    <>
+      <Link to="/inputs-button--primary">
+        <Button component="div" role={undefined}>
+          {args.children}
+        </Button>
+      </Link>
+      <a href="https://telicent.io/" target="_self">
+        <Button component="div" role={undefined}>
+          {args.children}
+        </Button>
+      </a>
+    </>
+  ),
 };
