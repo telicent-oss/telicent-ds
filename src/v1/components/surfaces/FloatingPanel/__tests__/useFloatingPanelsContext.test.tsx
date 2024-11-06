@@ -1,5 +1,4 @@
-import { act } from "react";
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { useFloatingPanelContext } from "../useFloatingPanelContext";
 import { FloatingPanelProvider } from "../FloatingPanelProvider";
 
