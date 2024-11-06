@@ -323,19 +323,15 @@ export declare const Sizing: Story;
 export declare const WithIconsAndLabel: Story;
 export declare const FullWidth: Story;
 /**
- * In some designs, a link may need to look like a button while still
- * functioning as a standard link. Below are two examples where an anchor
- * (`<a>`) tag or a `Link` component from `react-router-dom` can be used to
- * achieve this effect. Note that in this example, the `Link` component mimics
- * the behavior of `react-router-dom`.
+ * Sometimes links should look like a button, but behave like links. Do this by
+ * using `<a>` tag or react-router-dom's `Link` component.
  *
- * The key adjustment here is to make the
- * button component not render as a button component. To achieve this the `role`
- * has been set to `undefined` and the root element is set to be a `div`. This
- * ensures that the "button-styled link" behaves correctly without causing
- * accessibility issues or styling conflicts.
+ * To help assistive technologies,
+ *  - avoid nesting interactive element e.g. `<button><a /></button>` or
+ *    `<a><button /></a>`
+ *  - set Button attributes like so:
+ *  - `role` attribute to `undefined`
+ *  - `component` (root element) to `div`
  *
- * It’s important to note, it's recommended to avoid nesting interactive
- * elements to prevent potential accessibility issues and unexpected behavior.
  */
 export declare const LinkButtons: Story;
