@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.10.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.9.2-rc3...v0.10.0-rc3) (2024-11-06)
+
+
+### Features
+
+* **button:** extended button props ([8ba3d04](https://github.com/telicent-oss/telicent-ds/commit/8ba3d045dbb812798d7192eb679af839cd2075a3))
+
+
+### Bug Fixes
+
+* (floating-panel): added usefloatingpanels hook ([88378fe](https://github.com/telicent-oss/telicent-ds/commit/88378fe402449a7fd9ce029bbd0e0a61f65e0716))
+* **floating-panel:** handling visibility internally ([bc25d8f](https://github.com/telicent-oss/telicent-ds/commit/bc25d8fa8f6aa51c592fef3b38a76cb113df9cd8))
+* **floating-panel:** removed useFloatingPanels hook ([f2fe8c4](https://github.com/telicent-oss/telicent-ds/commit/f2fe8c4622bf9c44a524dd47a78c68ad7a98a43d))
+* **security-fixes:** updgraded packages whos deps were causing security issues ([ff80beb](https://github.com/telicent-oss/telicent-ds/commit/ff80beb1cd37b2c62b445c6cb2e94e9952891593))
+
 ## [0.9.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.9.1-rc3...v0.9.2-rc3) (2024-10-31)
 
 
