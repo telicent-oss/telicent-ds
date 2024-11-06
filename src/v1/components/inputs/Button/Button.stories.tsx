@@ -19,7 +19,9 @@ const meta = {
   tags: ["autodocs"],
   args: { children: "Button", onClick: fn() },
   decorators: (Story) => (
-    <Box sx={{ "button": { marginInline: 2 } }}>{Story()}</Box>
+    <Box sx={{ button: { marginInline: 2 }, a: { marginInline: 2 } }}>
+      {Story()}
+    </Box>
   ),
 } satisfies Meta<typeof Button>;
 
@@ -83,4 +85,38 @@ export const FullWidth: Story = {
   args: {
     fullWidth: true,
   },
+};
+
+// Mimics: import { Link } from 'react-dom-router';
+const Link: React.FC<{ to: string; children: React.ReactNode }> = (props) => (
+  <a {...props} />
+);
+
+/**
+ * Sometimes links should look like a button, but behave like links. Do this by
+ * using `<a>` tag or react-router-dom's `Link` component.
+ *
+ * To help assistive technologies,
+ *  - avoid nesting interactive element e.g. `<button><a /></button>` or
+ *    `<a><button /></a>`
+ *  - set Button attributes like so:
+ *  - `role` attribute to `undefined`
+ *  - `component` (root element) to `div`
+ *
+ */
+export const LinkButtons: Story = {
+  render: (args) => (
+    <>
+      <Link to="/inputs-button--primary">
+        <Button component="div" role={undefined}>
+          {args.children}
+        </Button>
+      </Link>
+      <a href="https://telicent.io/" target="_self">
+        <Button component="div" role={undefined}>
+          {args.children}
+        </Button>
+      </a>
+    </>
+  ),
 };
