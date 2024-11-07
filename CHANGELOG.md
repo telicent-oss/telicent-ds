@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.0-rc3...v0.10.1-rc3) (2024-11-07)
+
+
+### Bug Fixes
+
+* add color prop to font awesome icons ([32a7f98](https://github.com/telicent-oss/telicent-ds/commit/32a7f98cf146409dcbeaea2faa9ca9fc1e6f9821))
+* **upload-storybook.yml:** Details link ([#154](https://github.com/telicent-oss/telicent-ds/issues/154)) ([bc346a7](https://github.com/telicent-oss/telicent-ds/commit/bc346a73a752fae4ea88d157a77d5d4ddef2313f))
+
 ## [0.10.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.9.2-rc3...v0.10.0-rc3) (2024-11-06)
 
 
