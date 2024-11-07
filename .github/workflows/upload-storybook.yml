@@ -54,17 +54,18 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const branchName = context.ref.replace('refs/heads/', '');
             const orgName = context.repo.owner;
             const repoName = context.repo.repo;
-            const url = `https://${orgName}.github.io/${repoName}/upload/sb-to-status`;
+            const url = `https://${orgName}.github.io/${repoName}/${branchName}`;
             await github.rest.repos.createCommitStatus({
               owner: orgName,
               repo: repoName,
               sha: context.sha,
               state: 'success',
               target_url: url,
-              description: 'Storybook is ready!',
-              context: 'Deployment/Storybook'
+              description: 'View UI components - Click "Details" ->',
+              context: 'OPEN Storybook'
             });
 
   deploy-main:
