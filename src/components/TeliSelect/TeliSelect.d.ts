@@ -1,5 +1,5 @@
 import { default as React } from '../../../node_modules/react';
-import { SelectChangeEvent } from '@mui/material';
+import { SelectChangeEvent, SelectProps } from '@mui/material';
 
 type TeliSelectOption = {
     id?: any;
@@ -96,6 +96,7 @@ export interface TeliSelectProps {
       };
      */
     options?: TeliSelectOption[];
+    renderValue?: SelectProps["renderValue"];
     /**
      * If true, the selected option(s) cannot be changed
      */
