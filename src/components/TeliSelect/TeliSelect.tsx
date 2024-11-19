@@ -157,6 +157,7 @@ const TeliSelect: React.FC<TeliSelectProps> = ({
   open,
   readOnly = false,
   required = false,
+  renderValue,
   width,
   onChange,
   onClose,
@@ -215,6 +216,7 @@ const TeliSelect: React.FC<TeliSelectProps> = ({
           className: "teli-basic-menu",
           sx: { marginTop: "6px" },
         }}
+        renderValue={renderValue}
       >
         {options.map((option) => (
           <MenuItem
