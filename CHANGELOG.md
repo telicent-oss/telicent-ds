@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.1-rc3...v0.10.2-rc3) (2024-11-19)
+
+
+### Bug Fixes
+
+* added renderValue prop ([5945fba](https://github.com/telicent-oss/telicent-ds/commit/5945fbacd06dd99977046e4b5e51ab8654781b9e))
+
 ## [0.10.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.0-rc3...v0.10.1-rc3) (2024-11-07)
 
 
