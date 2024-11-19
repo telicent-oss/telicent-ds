@@ -7,6 +7,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  SelectProps,
 } from "@mui/material";
 
 import TeliChip from "../TeliChip/TeliChip";
@@ -110,6 +111,7 @@ export interface TeliSelectProps {
     };
    */
   options?: TeliSelectOption[];
+  renderValue?: SelectProps["renderValue"];
   /**
    * If true, the selected option(s) cannot be changed
    */
