@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.3-rc3...v0.10.4-rc3) (2024-11-20)
+
+
+### Bug Fixes
+
+* security fixes ([a71400f](https://github.com/telicent-oss/telicent-ds/commit/a71400f34db45ff904cf7efd503f614069382670))
+
 ## [0.10.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.2-rc3...v0.10.3-rc3) (2024-11-19)
 
 
