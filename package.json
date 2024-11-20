@@ -32,7 +32,8 @@
   },
   "resolutions": {
     "nth-check": "^2.1.1",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "cross-spawn": "^7.0.6"
   },
   "resolutionsReasons": {
     "nth-check": "vulnerability: Tested `react-scripts start/test/build`"
@@ -103,10 +104,9 @@
     "babel-loader": "^9.1.2",
     "chromatic": "^6.15.0",
     "commitizen": "4.2.5",
-    "cross-env": "^7.0.3",
     "cssnano": "^5.0.14",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.0.1",
+    "eslint": "^9.15.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.8.0",
