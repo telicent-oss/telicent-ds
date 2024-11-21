@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.4-rc3...v0.11.0-rc3) (2024-11-21)
+
+
+### Features
+
+* added listitemtext component ([8886bce](https://github.com/telicent-oss/telicent-ds/commit/8886bce8072e604c0ed17e8320b921558d3a1229))
+
 ## [0.10.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.3-rc3...v0.10.4-rc3) (2024-11-20)
 
 
