@@ -1,0 +1,1 @@
+import{j as o}from"./DefaultPropsProvider-FmOZEx_L.js";import{B as i}from"./Button-D1ibog5D.js";const t=r=>o(i,{variant:"contained",color:"primary",...r,children:r.children});t.__docgenInfo={description:"",methods:[],displayName:"PrimaryButton"};export{t as P};
