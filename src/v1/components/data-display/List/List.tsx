@@ -9,6 +9,9 @@ import MUIListItemButton, {
 import MUIListItemIcon, {
   ListItemIconProps as MUIListItemIconProps,
 } from "@mui/material/ListItemIcon";
+import MUIListItemText, {
+  ListItemTextProps as MUIListItemTextProps,
+} from "@mui/material/ListItemText";
 
 export const List: React.FC<MUIListProps> = (listProps) => (
   <MUIList {...listProps} />
@@ -25,3 +28,12 @@ export const ListItemButton: React.FC<MUIListItemButtonProps> = (
 export const ListItemIcon: React.FC<MUIListItemIconProps> = (
   listItemIconProps
 ) => <MUIListItemIcon {...listItemIconProps} />;
+
+interface ListItemTextProps
+  extends Omit<
+    MUIListItemTextProps,
+    "primaryTypographyProps" | "secondaryTypographyProps" | "sx"
+  > {}
+export const ListItemText: React.FC<ListItemTextProps> = (props) => (
+  <MUIListItemText {...props} />
+);
