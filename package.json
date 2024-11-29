@@ -59,8 +59,9 @@
     "bump:pre": "yarn bump:prerelease"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "*",
+    "react-dom": "*",
+    "@telicent-oss/ontology-find-icon-helper": "*"
   },
   "browserslist": {
     "production": [
