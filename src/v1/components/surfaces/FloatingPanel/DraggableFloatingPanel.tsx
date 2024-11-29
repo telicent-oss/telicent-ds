@@ -2,13 +2,13 @@ import React, { HTMLAttributes } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Rnd } from "react-rnd";
 
-import Panel from "../FixedPanel"
+import Panel from "../FixedPanel/FixedPanel"
 import { useFloatingPanelContext } from "./useFloatingPanelContext";
 import { DragHandleIcon } from "../../data-display";
 
 interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * The id target reference for the toggle button.
+   * For linking to associated ToggleButtonState
    */
   targetId: string;
   /**
@@ -39,7 +39,7 @@ interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The icon to be displayed before the title
    */
-  icon?: React.ReactNode;
+  iconBeforeTitle?: React.ReactNode;
   /**
    * The x and y property is used to set the default position of the component.
    */
@@ -58,8 +58,7 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
   const theme = useTheme()
 
   const visible = (!context.panels[targetId]?.minimised &&
-    context.panels[targetId]?.visible) ||
-    false;
+    context.panels[targetId]?.visible);
 
   const dragHandle = <DragHandleIcon
     className={dragHandleClassName}

@@ -9,7 +9,7 @@ import { useFloatingPanelContext } from "../FloatingPanel/useFloatingPanelContex
 
 interface PanelProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * The id target reference for the toggle button.
+   * For linking to associated ToggleButtonState
    */
   targetId: string;
   /**
@@ -36,7 +36,7 @@ interface PanelProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The icon to be displayed before the title
    */
-  icon?: React.ReactNode;
+  iconBeforeTitle?: React.ReactNode;
   /**
    * The x and y property is used to set the default position of the component.
    */
@@ -49,7 +49,7 @@ interface PanelProps extends HTMLAttributes<HTMLDivElement> {
 
 const Panel: React.FC<PanelProps> = ({
   count = 0,
-  icon,
+  iconBeforeTitle,
   targetId,
   title,
   visible = false,
@@ -86,7 +86,7 @@ const Panel: React.FC<PanelProps> = ({
         }}
       >
         {dragHandle}
-        {icon}
+        {iconBeforeTitle}
         <Text sx={{ paddingRight: 4 }}>
           {title}
           {count > 0
