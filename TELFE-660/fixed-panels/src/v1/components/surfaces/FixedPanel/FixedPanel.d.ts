@@ -2,7 +2,7 @@ import { default as React, HTMLAttributes } from '../../../../../node_modules/re
 
 interface PanelProps extends HTMLAttributes<HTMLDivElement> {
     /**
-     * The id target reference for the toggle button.
+     * For linking to associated ToggleButtonState
      */
     targetId: string;
     /**
@@ -29,7 +29,7 @@ interface PanelProps extends HTMLAttributes<HTMLDivElement> {
     /**
      * The icon to be displayed before the title
      */
-    icon?: React.ReactNode;
+    iconBeforeTitle?: React.ReactNode;
     /**
      * The x and y property is used to set the default position of the component.
      */

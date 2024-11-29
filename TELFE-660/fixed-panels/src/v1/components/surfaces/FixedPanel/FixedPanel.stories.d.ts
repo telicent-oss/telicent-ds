@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { default as Panel } from './index';
+import { default as Panel } from './FixedPanel';
 
 declare const meta: Meta<typeof Panel>;
 export default meta;
