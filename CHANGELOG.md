@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.0-rc3...v0.12.1-rc3) (2024-12-02)
+
+
+### Bug Fixes
+
+* export fixed panel from surfaces ([f502870](https://github.com/telicent-oss/telicent-ds/commit/f50287047c722be164a8161e3e549f3cfc24b6ce))
+
 ## [0.12.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.11.0-rc3...v0.12.0-rc3) (2024-12-02)
 
 
