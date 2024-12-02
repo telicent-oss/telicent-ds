@@ -119,7 +119,7 @@ const Panel: React.FC<PanelProps> = ({
           padding: 0.4,
         }}
       >
-        {children}
+        {!context?.get(targetId, 'minimised') && children}
       </MUIBox>
     </MUIBox>
   );
