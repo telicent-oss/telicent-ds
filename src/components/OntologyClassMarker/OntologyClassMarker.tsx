@@ -2,6 +2,7 @@ import React from "react";
 import { Marker } from "react-map-gl/maplibre";
 import { MarkerEvent, MarkerInstance } from "react-map-gl/dist/esm/types";
 import TeliTypeIcon from "../TeliTypeIcon/TeliTypeIcon";
+import { FlattenedStyleType, FlattenedStyleTypeForFindIcon } from "@telicent-oss/ontologyservice";
 
 type Feature = GeoJSON.Feature<GeoJSON.Point, OntologyClassMarkerProperties>;
 
@@ -10,6 +11,8 @@ export type OntologyClassMarkerProperties<FeatureProperties = unknown> =
     uri: string;
     classUri: string;
     id: string;
+    icon: FlattenedStyleTypeForFindIcon | FlattenedStyleType;
+    
   } & Partial<{
       selected: boolean;
     }>;
@@ -43,7 +46,7 @@ const OntologyClassMarker: React.FC<OntologyClassMarkerProps> = ({
       }}
     >
       <TeliTypeIcon
-        type={feature.properties.classUri}
+        icon={feature.properties.icon}
         size="xs"
         borderColor={feature.properties.selected ? "#f5f5f5" : "inherit"}
       />

@@ -1,7 +1,8 @@
 import * as d3 from "d3";
 import React, { useEffect, useRef } from "react";
-import { IconStyle } from "../../contexts/OntologyStyles";
 import { HierarchyBase,  addHierarchy, prepareTreeData} from "./OntologyHierarchyFunctions";
+import { IconStyle } from "./types";
+
 
 export interface OntologyInputHierarchy {
   name: string;

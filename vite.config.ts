@@ -16,13 +16,14 @@ export default defineConfig({
   },
   assetsInclude: [path.resolve(__dirname, "src/assets/fonts")],
   build: {
+    minify: false,
     lib: {
       entry: path.resolve(__dirname, "src/export.ts"),
       name: "@telicent-oss/ds",
       fileName: "ds",
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react", "react-dom", "@telicent-oss/ontology-find-icon-helper"],
       output: {
         globals: {
           react: "React",

@@ -25,15 +25,13 @@ const useTypeaheadQuery = (
   query: string,
   onTransform?: <Data>(data: Data) => any
 ) => {
-  const searchQuery = useQuery(
-    ["typeahead"],
-    () => fetchSearchResults(url, queryParamKey, query),
-    {
-      enabled: Boolean(query),
-      select: onTransform,
-      retry: 1,
-    }
-  );
+  const searchQuery = useQuery({
+    queryKey: ["typeahead"],
+    queryFn: () => fetchSearchResults(url, queryParamKey, query),
+    enabled: Boolean(query),
+    select: onTransform,
+    retry: 1,
+  });
   return searchQuery;
 };
 

@@ -6,9 +6,14 @@ import {
   getSizeProps,
   TeliTypeIconSizeProp,
 } from "./type-icon-utils";
-import { useOntologyStyles } from "../../contexts/OntologyStyles";
+import {
+  FlattenedStyleType,
+  FlattenedStyleTypeForFindIcon,
+} from "@telicent-oss/ontologyservice";
 
-export type TeliTypeIconProps = Partial<{
+export type TeliTypeIconProps = {
+  icon: FlattenedStyleTypeForFindIcon | FlattenedStyleType;
+} & Partial<{
   /**
    * Can be used to override the border color defined in the ontology
    */
@@ -21,10 +26,6 @@ export type TeliTypeIconProps = Partial<{
    * Used to control the size of the component
    */
   size: TeliTypeIconSizeProp;
-  /**
-   * Ontology type (class) uri or short uri
-   */
-  type: string;
 }>;
 
 /**
@@ -33,34 +34,31 @@ export type TeliTypeIconProps = Partial<{
  * fallback as demonstrated in the stories.
  */
 const TeliTypeIcon: React.FC<TeliTypeIconProps> = ({
-  type = "",
+  icon,
   borderColor,
   disabled = false,
   size = "base",
 }) => {
-  const { findIcon } = useOntologyStyles();
-
-  const iconProps = findIcon(type);
-  const hasIcon = Boolean(iconProps?.faIcon);
+  const hasIcon = "faIcon" in icon && Boolean(icon.faIcon);
 
   return (
     <Avatar
-      alt={iconProps.alt}
-      aria-label={iconProps.alt}
+      alt={icon.alt}
+      aria-label={icon.alt}
       sx={{
         borderWidth: 2,
-        bordericonProps: "solid",
-        borderColor: borderColor ?? iconProps.color,
-        color: iconProps.color,
-        backgroundColor: iconProps.backgroundColor,
+        bordericon: "solid",
+        borderColor: borderColor ?? icon.color,
+        color: icon.color,
+        backgroundColor: icon.backgroundColor,
         ...getDisabledStyles(disabled),
         ...getSizeProps(size),
       }}
     >
       {hasIcon ? (
-        <i className={iconProps.faIcon} title={`${iconProps.alt}-icon`} />
+        <i className={icon.faIcon} title={`${icon.alt}-icon`} />
       ) : (
-        <p>{iconProps.iconFallbackText}</p>
+        <p>{icon.iconFallbackText}</p>
       )}
     </Avatar>
   );

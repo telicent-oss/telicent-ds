@@ -3538,17 +3538,20 @@
   dependencies:
     "@tanstack/query-core" "5.59.0"
 
-"@telicent-oss/ontologyservice@^0.31.1-rc1":
-  version "0.31.1-rc1"
-  resolved "https://registry.yarnpkg.com/@telicent-oss/ontologyservice/-/ontologyservice-0.31.1-rc1.tgz#69e112d62f2146f0d38239555f8ee4ae1de3769b"
-  integrity sha512-Fa1c0W++QHAsytDSh2mv0wY9OLk+2K0UMYZ4YE243w8M1j2LgQMzDqwnvat3sFEJXsJmDPn2Hom1hc6zk6GGTw==
+"@telicent-oss/ontologyservice@^0.31.4-sitest":
+  version "0.31.4-sitest"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/ontologyservice/-/ontologyservice-0.31.4-sitest.tgz#ddd845331cb3c0f60cfc9b3ad21478c27d48ebaa"
+  integrity sha512-Pkq6s3A3D7odpZXGh4Q7xqHqzOeKqJk+zRq2sSk4f5QlHNu7nN0C/7cYbJTIxKn5stzapZCg5rRCFjFn5BhRjA==
   dependencies:
-    "@telicent-oss/rdfservice" "0.30.0-dev3"
+    "@telicent-oss/rdfservice" "0.0.7-sitest"
+    "@types/lodash" "^4.17.13"
+    lodash "^4.17.21"
+    zod "^3.23.8"
 
-"@telicent-oss/rdfservice@0.30.0-dev3":
-  version "0.30.0-dev3"
-  resolved "https://registry.yarnpkg.com/@telicent-oss/rdfservice/-/rdfservice-0.30.0-dev3.tgz#5b3aca5855f85ada3259d1f8cefa021bff1d2c99"
-  integrity sha512-Mz3v5U5ak2QmNXBofMTPQL+1kmPHZgLnnPV+L0Ynn6KZmJ9slMLcGSi/ojqE+FwnoOELzhPSSchBMS0HW67z+A==
+"@telicent-oss/rdfservice@0.0.7-sitest":
+  version "0.0.7-sitest"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/rdfservice/-/rdfservice-0.0.7-sitest.tgz#9e0affb74b7a8da77caf02c4e83d5e1fa247e4af"
+  integrity sha512-lfQbFtsfDUlTPsKpH6knoKMEu2kyl8botulyV2ArEFOjumqqyXZmDOU6Qc+sakUjbwqAFzlYb9kMMK2SfEuw6Q==
   dependencies:
     global "^4.4.0"
     zod "^3.22.4"
@@ -4101,6 +4104,11 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
+
+"@types/lodash@^4.17.13":
+  version "4.17.13"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.13.tgz#786e2d67cfd95e32862143abe7463a7f90c300eb"
+  integrity sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==
 
 "@types/mapbox-gl@>=1.0.0":
   version "3.4.0"
@@ -16005,7 +16013,7 @@ z-schema@~5.0.2:
   optionalDependencies:
     commander "^10.0.0"
 
-zod@^3.21.4, zod@^3.22.4:
+zod@^3.21.4, zod@^3.22.4, zod@^3.23.8:
   version "3.23.8"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
   integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==
