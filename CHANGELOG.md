@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.12.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.11.0-rc3...v0.12.0-rc3) (2024-12-02)
+
+
+### Features
+
+* add fixed panel ([842e5fa](https://github.com/telicent-oss/telicent-ds/commit/842e5fafefe8e9ddfc3871a7be440cab906a26ac))
+
+
+### Bug Fixes
+
+* add pr changes ([19e7610](https://github.com/telicent-oss/telicent-ds/commit/19e761069bbf59c0aadecd6d5a9ca70a226070fe))
+* add pr changes ([4bb2e80](https://github.com/telicent-oss/telicent-ds/commit/4bb2e807a7b599e1271790d5507ca4204eb6a97a))
+
 ## [0.11.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.4-rc3...v0.11.0-rc3) (2024-11-21)
 
 
