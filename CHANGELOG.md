@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.12.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.1-rc3...v0.12.2-rc3) (2024-12-03)
+
+
+### Bug Fixes
+
+* try exporting as default rather than wildcard ([db6238c](https://github.com/telicent-oss/telicent-ds/commit/db6238cd738b24b667b9e3c6608efa1d17a27626))
+* try exporting as default rather than wildcard ([58f90c7](https://github.com/telicent-oss/telicent-ds/commit/58f90c73d0748a687f3378ca6c057ed469941c78))
+
 ## [0.12.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.0-rc3...v0.12.1-rc3) (2024-12-02)
 
 
