@@ -7,7 +7,7 @@ import FixedPanel from "../FixedPanel";
 
 const renderComponent = (count?: number) => {
   return renderWithUser(
-    <FixedPanel title="Geo locations" targetId="map" count={count} visible={true} />,
+    <FixedPanel title="Geo locations" targetId="map" count={count} />,
     {
       wrapper: (props) => <FloatingPanelProvider {...props} />,
     }
@@ -49,4 +49,53 @@ describe("Fixed panel component", () => {
     expect(screen.getByText("Geo locations")).toBeVisible();
     expect(screen.getByText("(2)")).toBeVisible();
   });
+
+  test("the panel should not be visible if visible is false", () => {
+    const toggleMinimisedMock = jest.fn();
+    jest
+      .spyOn(floatingPanelContext, "useFloatingPanelContext")
+      .mockReturnValue({
+        toggleMinimised: toggleMinimisedMock,
+        toggleVisibility: jest.fn(),
+        get: jest.fn(),
+        panels: { map: { visible: false, minimised: false } },
+      });
+
+    renderComponent()
+
+    screen.debug()
+    expect(screen.getByText("Geo locations")).not.toBeVisible()
+  });
+
+  test("the panel should not be visible if minimised is true", () => {
+    const toggleMinimisedMock = jest.fn();
+    jest
+      .spyOn(floatingPanelContext, "useFloatingPanelContext")
+      .mockReturnValue({
+        toggleMinimised: toggleMinimisedMock,
+        toggleVisibility: jest.fn(),
+        get: jest.fn(),
+        panels: { map: { visible: true, minimised: true } },
+      });
+
+    renderComponent()
+
+    expect(screen.getByText("Geo locations")).not.toBeVisible()
+  });
+  test("the panel should be visible if visible is true and minimised is false", () => {
+    const toggleMinimisedMock = jest.fn();
+    jest
+      .spyOn(floatingPanelContext, "useFloatingPanelContext")
+      .mockReturnValue({
+        toggleMinimised: toggleMinimisedMock,
+        toggleVisibility: jest.fn(),
+        get: jest.fn(),
+        panels: { map: { visible: true, minimised: false } },
+      });
+
+    renderComponent()
+
+    expect(screen.getByText("Geo locations")).toBeVisible()
+  });
+
 });
