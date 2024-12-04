@@ -29,5 +29,8 @@
     "jsxImportSource": "@emotion/react"
   },
   "include": ["src"],
-  "exclude": ["**/stories/*","node_modules"]
+  "exclude": [
+    "**/stories/*", // See TELFE-849
+    "node_modules"
+  ]
 }
