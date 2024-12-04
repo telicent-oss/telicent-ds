@@ -30,7 +30,7 @@ export const Demo: Story = {
   args: {
     bounds: "parent",
     count: 3,
-    icon: <MapIcon color="primary" fontSize="inherit" />,
+    iconBeforeTitle: <MapIcon color="primary" fontSize="inherit" />,
     title: "Nodes with geo data",
     targetId: "map",
     children: (

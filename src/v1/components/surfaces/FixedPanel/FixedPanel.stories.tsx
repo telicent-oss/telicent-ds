@@ -33,7 +33,6 @@ export const Demo: Story = {
     iconBeforeTitle: <MapIcon color="primary" fontSize="inherit" />,
     title: "Nodes with geo data",
     targetId: "map",
-    visible: true,
     children: (
       <>
         <img
