@@ -62,8 +62,6 @@ describe("Fixed panel component", () => {
       });
 
     renderComponent()
-
-    screen.debug()
     expect(screen.getByText("Geo locations")).not.toBeVisible()
   });
 
