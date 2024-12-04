@@ -1,6 +1,6 @@
 import { RenderOptions } from '@testing-library/react';
 
-export declare const setup: (jsx: JSX.Element, options: RenderOptions) => {
+export declare const setup: (jsx: JSX.Element, options?: RenderOptions) => {
     container: HTMLElement;
     baseElement: HTMLElement;
     debug: (baseElement?: import('../node_modules/react-dom/client').Container | (Element | Document) | Array<import('../node_modules/react-dom/client').Container | (Element | Document)> | undefined, maxLength?: number | undefined, options?: import('pretty-format').OptionsReceived | undefined) => void;

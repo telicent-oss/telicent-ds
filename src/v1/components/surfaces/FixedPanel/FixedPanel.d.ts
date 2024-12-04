@@ -37,10 +37,6 @@ interface PanelProps extends HTMLAttributes<HTMLDivElement> {
         x: number;
         y: number;
     };
-    /**
-    * Is the panel visible
-    */
-    visible?: boolean;
 }
 declare const Panel: React.FC<PanelProps>;
 export default Panel;

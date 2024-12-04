@@ -1,6 +1,6 @@
 import { default as zod } from 'zod';
 
-export declare const UIThemeSchema: zod.ZodEnum<["light", "DataNavy", "DocumentPink", "GraphOrange"]>;
+export declare const UIThemeSchema: zod.ZodEnum<["light", "dark", "DataNavy", "DocumentPink", "GraphOrange"]>;
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 declare const THEME_COLORS: {
     DataNavy: {
@@ -16,6 +16,12 @@ declare const THEME_COLORS: {
         600: string;
     };
     light: {
+        main: "#fff";
+        light: string;
+        dark: string;
+        contrastText: "#000";
+    };
+    dark: {
         main: "#fff";
         light: string;
         dark: string;
