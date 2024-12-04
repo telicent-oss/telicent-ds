@@ -41,10 +41,6 @@ interface PanelProps extends HTMLAttributes<HTMLDivElement> {
    * The x and y property is used to set the default position of the component.
    */
   defaultPosition?: { x: number; y: number };
-  /**
-  * Is the panel visible
-  */
-  visible?: boolean;
 }
 
 const Panel: React.FC<PanelProps> = ({
@@ -52,13 +48,15 @@ const Panel: React.FC<PanelProps> = ({
   iconBeforeTitle,
   targetId,
   title,
-  visible = false,
   children,
   dragHandle = null,
   ...props
 }) => {
   const theme = useTheme();
   const context = useFloatingPanelContext();
+
+  const visible = (!context.panels[targetId]?.minimised &&
+    context.panels[targetId]?.visible);
 
   const backgroundColor = theme.palette.mode === "dark"
     ? theme.palette.grey[900]
