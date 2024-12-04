@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.12.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.2-rc3...v0.12.3-rc3) (2024-12-04)
+
+
+### Bug Fixes
+
+* add deschdule issue ([4f2c540](https://github.com/telicent-oss/telicent-ds/commit/4f2c540a7d75c9e06fc58f9b05816f7dbb56259c))
+* **ApiTypeAheadResponseSchema:** convert exception to console output ([4db1b5d](https://github.com/telicent-oss/telicent-ds/commit/4db1b5d2999827bc4de28574a6993e89f5967ec1))
+* **FixedPanels:** black box visibility logic ([e315745](https://github.com/telicent-oss/telicent-ds/commit/e31574529a092f2c7d4e45e9859ac6cffae45379))
+* lodash types ([589b6b5](https://github.com/telicent-oss/telicent-ds/commit/589b6b5bb0cd68dc0aefc0f98a080eeb5d47aeac))
+* remove debug ([c8cb3c7](https://github.com/telicent-oss/telicent-ds/commit/c8cb3c7769ae26b0c46bf00ca86aac41e6edf2bb))
+* TS errors ([0d307f3](https://github.com/telicent-oss/telicent-ds/commit/0d307f3ba9ad4b9d615340cbbc7d398e66dbdcb7))
+* typo ([40dec08](https://github.com/telicent-oss/telicent-ds/commit/40dec0829dd1ea3c34926d1bff8e6cc9d1c5c03b))
+
 ## [0.12.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.1-rc3...v0.12.2-rc3) (2024-12-03)
 
 
