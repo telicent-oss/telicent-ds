@@ -85,7 +85,7 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
         visibility: visible ? "visible" : "hidden",
       }}
     >
-      <Panel targetId={targetId} visible={visible} dragHandle={dragHandle} {...props}>
+      <Panel targetId={targetId} dragHandle={dragHandle} {...props}>
         {children}
       </Panel>
     </Rnd>

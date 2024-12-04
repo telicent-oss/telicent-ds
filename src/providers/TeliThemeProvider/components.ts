@@ -2,9 +2,10 @@ import { Components } from "@mui/material";
 import resolveConfig from "tailwindcss/resolveConfig";
 import { Config } from "tailwindcss/types/config";
 import tailwindConfig from "../../../tailwind.config";
+import { DefaultColors } from "tailwindcss/types/generated/colors";
 
 const fullConfig = resolveConfig(tailwindConfig as Config);
-const colors = fullConfig.theme?.colors as { [key: string]: string };
+const colors = fullConfig.theme?.colors as DefaultColors & {["app-color"]: string};
 
 const getThemeComponents = () => {
   const components: Components = {

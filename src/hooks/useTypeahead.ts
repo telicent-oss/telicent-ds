@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchOptions } from "./query-utils";
+import { ApiTypeAheadResponseSchema } from "../schema/ApiTypeAheadResponseSchema";
 
 const fetchSearchResults = async (
   url: string,
@@ -16,7 +17,7 @@ const fetchSearchResults = async (
       `An error occured while retrieving search results for query ${query}`
     );
   }
-  return response.json();
+  return ApiTypeAheadResponseSchema.parse(response.json());
 };
 
 const useTypeaheadQuery = (
@@ -25,15 +26,13 @@ const useTypeaheadQuery = (
   query: string,
   onTransform?: <Data>(data: Data) => any
 ) => {
-  const searchQuery = useQuery(
-    ["typeahead"],
-    () => fetchSearchResults(url, queryParamKey, query),
-    {
-      enabled: Boolean(query),
-      select: onTransform,
-      retry: 1,
-    }
-  );
+  const searchQuery = useQuery({
+    queryKey: ["typeahead"],
+    queryFn: () => fetchSearchResults(url, queryParamKey, query),  
+    enabled: Boolean(query),
+    select: onTransform,
+    retry: 1,
+  });
   return searchQuery;
 };
 
