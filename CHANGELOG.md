@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.3-rc3...v0.12.4-rc3) (2024-12-06)
+
+
+### Bug Fixes
+
+* pass name through autocomplete ([14855fd](https://github.com/telicent-oss/telicent-ds/commit/14855fde298530806335514442e52bd549829af3))
+
 ## [0.12.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.2-rc3...v0.12.3-rc3) (2024-12-04)
 
 
