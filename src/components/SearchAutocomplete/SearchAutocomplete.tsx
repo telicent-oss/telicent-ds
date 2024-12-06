@@ -56,6 +56,7 @@ export type SearchAutocompleteProps<Option = DefaultOption> = {
   loading: MUIAutocompleteProps<Option>["loading"];
   loadingText: MUIAutocompleteProps<Option>["loadingText"];
   openOnFocus: MUIAutocompleteProps<Option>["openOnFocus"];
+ name: string;
   /**
    * 	The short hint displayed in the input before the user enters a value.
    */
@@ -86,6 +87,7 @@ const SearchAutocomplete = <Option,>({
   listboxMaxHeight,
   loading,
   loadingText,
+  name,
   onChange,
   onInputChange,
   openOnFocus = false,
@@ -122,6 +124,7 @@ const SearchAutocomplete = <Option,>({
             variant="outlined"
             label={label}
             placeholder={placeholder}
+            name={name}
             InputProps={{
               ...params.InputProps,
               startAdornment: <TeliSearchIcon size="sm" className="pl-2" />,
