@@ -33,7 +33,9 @@
   "resolutions": {
     "nth-check": "^2.1.1",
     "prettier": "^2.8.8",
-    "cross-spawn": "^7.0.6"
+    "cross-spawn": "^7.0.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "resolutionsReasons": {
     "nth-check": "vulnerability: Tested `react-scripts start/test/build`"
@@ -59,8 +61,8 @@
     "bump:pre": "yarn bump:prerelease"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "browserslist": {
     "production": [
