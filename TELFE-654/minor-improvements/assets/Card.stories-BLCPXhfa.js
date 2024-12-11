@@ -1,0 +1,15 @@
+import{b as e,u as g,_ as f,j as a,a as j}from"./DefaultPropsProvider-d5Yg5iWD.js";import{C as M}from"./Card-36MGA68-.js";import{r as h}from"./index-BBkUAzwr.js";import{g as y,s as x,c as b,a as A}from"./styled-Cd9OY9py.js";import{g as S}from"./generateUtilityClasses-BeBiso4Q.js";import{j as v}from"./jsx-runtime-DRTy3Uxn.js";import{b as N,T as w}from"./Text-Cbj1DL2Z.js";import{B as U}from"./Button-8mhcKYmr.js";import"./Paper-DALXAofg.js";import"./PrimaryButton-DSKPXw_K.js";import"./Button-CXDsjVp7.js";import"./ButtonBase-CMKap0Uh.js";import"./TransitionGroupContext-C9C3ikuq.js";import"./useTheme-BGtMGxNE.js";import"./useTheme-DmEqPdBI.js";import"./Box-CiTSDCSY.js";function B(t){return y("MuiCardActions",t)}S("MuiCardActions",["root","spacing"]);const O=["disableSpacing","className"],T=t=>{const{classes:o,disableSpacing:s}=t;return A({root:["root",!s&&"spacing"]},B,o)},$=x("div",{name:"MuiCardActions",slot:"Root",overridesResolver:(t,o)=>{const{ownerState:s}=t;return[o.root,!s.disableSpacing&&o.spacing]}})(({ownerState:t})=>e({display:"flex",alignItems:"center",padding:8},!t.disableSpacing&&{"& > :not(style) ~ :not(style)":{marginLeft:8}})),E=h.forwardRef(function(o,s){const r=g({props:o,name:"MuiCardActions"}),{disableSpacing:d=!1,className:i}=r,l=f(r,O),n=e({},r,{disableSpacing:d}),p=T(n);return v.jsx($,e({className:b(p.root,i),ownerState:n,ref:s},l))});function H(t){return y("MuiCardContent",t)}S("MuiCardContent",["root"]);const I=["className","component"],k=t=>{const{classes:o}=t;return A({root:["root"]},H,o)},L=x("div",{name:"MuiCardContent",slot:"Root",overridesResolver:(t,o)=>o.root})(()=>({padding:16,"&:last-child":{paddingBottom:24}})),P=h.forwardRef(function(o,s){const r=g({props:o,name:"MuiCardContent"}),{className:d,component:i="div"}=r,l=f(r,I),n=e({},r,{component:i}),p=k(n);return v.jsx(L,e({as:i,className:b(p.root,d),ownerState:n,ref:s},l))}),_=({children:t})=>a(P,{children:t});_.__docgenInfo={description:"",methods:[],displayName:"CardContent"};const R=({children:t})=>a(E,{children:t});R.__docgenInfo={description:"",methods:[],displayName:"CardActions"};const rt={title:"Surfaces/Card",component:M,tags:["autodocs"]},c={args:{variant:"outlined",children:j(_,{children:[a(N,{children:"Capybara"}),a(w,{paragraph:!0,children:"Capybara are the biggest rodents in the world. Our capy family can be seen strutting their stuff in our South American paddock!"}),a(R,{children:a(U,{variant:"secondary",children:"Share"})})]})}};var m,u,C;c.parameters={...c.parameters,docs:{...(m=c.parameters)==null?void 0:m.docs,source:{originalSource:`{
+  args: {
+    variant: "outlined",
+    children: <CardContent>
+        <H1>Capybara</H1>
+        <Text paragraph>
+          Capybara are the biggest rodents in the world. Our capy family can be seen strutting their
+          stuff in our South American paddock!
+        </Text>
+        <CardActions>
+          <Button variant="secondary">Share</Button>
+        </CardActions>
+      </CardContent>
+  }
+}`,...(C=(u=c.parameters)==null?void 0:u.docs)==null?void 0:C.source}}};const at=["OutlinedCard"];export{c as OutlinedCard,at as __namedExportsOrder,rt as default};
