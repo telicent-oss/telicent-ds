@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchOptions } from "./query-utils";
+import { ApiTypeAheadResponseSchema } from "../schema/ApiTypeAheadResponseSchema";
+import { z, ZodError } from "zod";
 
 const fetchSearchResults = async (
   url: string,
@@ -16,7 +18,17 @@ const fetchSearchResults = async (
       `An error occured while retrieving search results for query ${query}`
     );
   }
-  return response.json();
+  const json = response.json();
+  try {
+    return ApiTypeAheadResponseSchema.parse(json);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.warn(error);
+    } else {
+      console.error(error);
+    }
+    return json as unknown as z.infer<typeof ApiTypeAheadResponseSchema>; // Graceful degradation
+  }
 };
 
 const useTypeaheadQuery = (

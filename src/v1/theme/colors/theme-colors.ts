@@ -7,6 +7,7 @@ import GRAPH_ORANGE from "./graph-orange";
 
 export const UIThemeSchema = zod.enum([
   "light",
+  "dark",
   "DataNavy",
   "DocumentPink",
   "GraphOrange",
@@ -25,6 +26,12 @@ const THEME_COLORS = {
   },
   light: {
     main: lightMain,
+    light: alpha(lightMain, 0.5),
+    dark: alpha(lightMain, 0.9),
+    contrastText: common.black,
+  },
+  dark: {
+    main: lightMain, // TODO fix dark theme
     light: alpha(lightMain, 0.5),
     dark: alpha(lightMain, 0.9),
     contrastText: common.black,

@@ -1,5 +1,46 @@
 # Changelog
 
+## [0.12.3-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.2-rc3...v0.12.3-rc3) (2024-12-04)
+
+
+### Bug Fixes
+
+* add deschdule issue ([4f2c540](https://github.com/telicent-oss/telicent-ds/commit/4f2c540a7d75c9e06fc58f9b05816f7dbb56259c))
+* **ApiTypeAheadResponseSchema:** convert exception to console output ([4db1b5d](https://github.com/telicent-oss/telicent-ds/commit/4db1b5d2999827bc4de28574a6993e89f5967ec1))
+* **FixedPanels:** black box visibility logic ([e315745](https://github.com/telicent-oss/telicent-ds/commit/e31574529a092f2c7d4e45e9859ac6cffae45379))
+* lodash types ([589b6b5](https://github.com/telicent-oss/telicent-ds/commit/589b6b5bb0cd68dc0aefc0f98a080eeb5d47aeac))
+* remove debug ([c8cb3c7](https://github.com/telicent-oss/telicent-ds/commit/c8cb3c7769ae26b0c46bf00ca86aac41e6edf2bb))
+* TS errors ([0d307f3](https://github.com/telicent-oss/telicent-ds/commit/0d307f3ba9ad4b9d615340cbbc7d398e66dbdcb7))
+* typo ([40dec08](https://github.com/telicent-oss/telicent-ds/commit/40dec0829dd1ea3c34926d1bff8e6cc9d1c5c03b))
+
+## [0.12.2-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.1-rc3...v0.12.2-rc3) (2024-12-03)
+
+
+### Bug Fixes
+
+* try exporting as default rather than wildcard ([db6238c](https://github.com/telicent-oss/telicent-ds/commit/db6238cd738b24b667b9e3c6608efa1d17a27626))
+* try exporting as default rather than wildcard ([58f90c7](https://github.com/telicent-oss/telicent-ds/commit/58f90c73d0748a687f3378ca6c057ed469941c78))
+
+## [0.12.1-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.0-rc3...v0.12.1-rc3) (2024-12-02)
+
+
+### Bug Fixes
+
+* export fixed panel from surfaces ([f502870](https://github.com/telicent-oss/telicent-ds/commit/f50287047c722be164a8161e3e549f3cfc24b6ce))
+
+## [0.12.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.11.0-rc3...v0.12.0-rc3) (2024-12-02)
+
+
+### Features
+
+* add fixed panel ([842e5fa](https://github.com/telicent-oss/telicent-ds/commit/842e5fafefe8e9ddfc3871a7be440cab906a26ac))
+
+
+### Bug Fixes
+
+* add pr changes ([19e7610](https://github.com/telicent-oss/telicent-ds/commit/19e761069bbf59c0aadecd6d5a9ca70a226070fe))
+* add pr changes ([4bb2e80](https://github.com/telicent-oss/telicent-ds/commit/4bb2e807a7b599e1271790d5507ca4204eb6a97a))
+
 ## [0.11.0-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.10.4-rc3...v0.11.0-rc3) (2024-11-21)
 
 

@@ -1,16 +1,14 @@
-import React, { HTMLAttributes, useContext } from "react";
-import MUIBox from "@mui/material/Box";
-import MUIStack from "@mui/material/Stack";
+import React, { HTMLAttributes } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Rnd } from "react-rnd";
 
-import { DownArrowIcon, DragHandleIcon, Text } from "../../data-display";
-import { IconButton } from "../../inputs";
+import Panel from "../FixedPanel/FixedPanel"
 import { useFloatingPanelContext } from "./useFloatingPanelContext";
+import { DragHandleIcon } from "../../data-display";
 
 interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * The id target reference for the toggle button.
+   * For linking to associated ToggleButtonState
    */
   targetId: string;
   /**
@@ -41,7 +39,7 @@ interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The icon to be displayed before the title
    */
-  icon?: React.ReactNode;
+  iconBeforeTitle?: React.ReactNode;
   /**
    * The x and y property is used to set the default position of the component.
    */
@@ -50,27 +48,27 @@ interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
 
 const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
   bounds,
-  count = 0,
-  icon,
   defaultPosition = { x: 50, y: 150 },
   dragHandleClassName = "drag-handle",
   targetId,
-  title,
   children,
   ...props
 }) => {
-  const theme = useTheme();
   const context = useFloatingPanelContext();
+  const theme = useTheme()
 
-  const backgroundColor =
-    theme.palette.mode === "dark"
-      ? theme.palette.grey[900]
-      : theme.palette.grey[300];
+  const visible = (!context.panels[targetId]?.minimised &&
+    context.panels[targetId]?.visible);
 
-  const visible =
-    (!context.panels[targetId]?.minimised &&
-      context.panels[targetId]?.visible) ||
-    false;
+  const dragHandle = <DragHandleIcon
+    className={dragHandleClassName}
+    sx={{
+      fontSize: 14,
+      color: theme.palette.grey[400],
+      cursor: "move",
+    }}
+  />
+
 
   return (
     <Rnd
@@ -87,66 +85,9 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
         visibility: visible ? "visible" : "hidden",
       }}
     >
-      <MUIBox
-        sx={{
-          width: "fit-content",
-          height: "fit-content",
-          visibility: visible ? "visible" : "hidden",
-        }}
-        {...props}
-      >
-        <MUIStack
-          direction="row"
-          spacing={1}
-          alignItems="center"
-          padding={1}
-          sx={{
-            backgroundColor,
-            width: "fit-content",
-            borderTopLeftRadius: 4,
-            borderTopRightRadius: 4,
-          }}
-        >
-          <DragHandleIcon
-            className={dragHandleClassName}
-            sx={{
-              fontSize: 14,
-              color: theme.palette.grey[400],
-              cursor: "move",
-            }}
-          />
-          {icon}
-          <Text sx={{ paddingRight: 4 }}>
-            {title}
-            {count > 0 ? (
-              <span css={{ marginLeft: 4, color: theme.palette.primary.main }}>
-                ({count})
-              </span>
-            ) : null}
-          </Text>
-          <IconButton
-            size="small"
-            onClick={() => context?.toggleMinimised(targetId)}
-            color="primary"
-            aria-label="minimise"
-          >
-            <DownArrowIcon />
-          </IconButton>
-        </MUIStack>
-        <MUIBox
-          sx={{
-            backgroundColor,
-            width: "fit-content",
-            height: "fit-content",
-            borderBottomLeftRadius: 4,
-            borderBottomRightRadius: 4,
-            borderTopRightRadius: 4,
-            padding: 0.4,
-          }}
-        >
-          {children}
-        </MUIBox>
-      </MUIBox>
+      <Panel targetId={targetId} dragHandle={dragHandle} {...props}>
+        {children}
+      </Panel>
     </Rnd>
   );
 };

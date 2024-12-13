@@ -58,7 +58,7 @@ function TeliTypeahead<
   return (
     <TeliAutocomplete
       error={isError}
-      options={options ?? []}
+      options={options ?? [] as Value[]}
       noOptionsText={searchTerm === "" ? "Start typing ..." : noOptionsText}
       loading={isInitialLoading}
       inputValue={searchTerm}
