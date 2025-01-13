@@ -23,7 +23,7 @@ export default defineConfig({
       fileName: "ds",
     },
     rollupOptions: {
-      external: ["react", "react-dom", "@telicent-oss/ontology-find-icon-helper"],
+      external: ["react", "react-dom", "@telicent-oss/ontology-icon-lib"],
       output: {
         globals: {
           react: "React",

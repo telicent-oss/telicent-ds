@@ -91,29 +91,32 @@ export const FullWidth: Story = {
 const Link: React.FC<{ to: string; children: React.ReactNode }> = (props) => (
   <a {...props} />
 );
-
+Link.displayName = "Link"
 /**
- * Sometimes links should look like a button, but behave like links. Do this by
- * using `<a>` tag or react-router-dom's `Link` component.
+ * **Want links that look like a Design system button?**.
+ * 
+ * Make the Button presentation only by setting `component="div"`
+ * Then wrap in a `<a>` tag or react-router-dom's `Link` component.
  *
  * To help assistive technologies,
  *  - avoid nesting interactive element e.g. `<button><a /></button>` or
  *    `<a><button /></a>`
  *  - set Button attributes like so:
- *  - `role` attribute to `undefined`
- *  - `component` (root element) to `div`
+ *    - `role` attribute to `undefined`
+ *    - `component` (root element) to `div`
  *
  */
+const UNDEFINED = undefined;
 export const LinkButtons: Story = {
   render: (args) => (
     <>
       <Link to="/inputs-button--primary">
-        <Button component="div" role={undefined}>
+        <Button component="div" role={UNDEFINED}>
           {args.children}
         </Button>
       </Link>
       <a href="https://telicent.io/" target="_self">
-        <Button component="div" role={undefined}>
+        <Button component="div" role={UNDEFINED}>
           {args.children}
         </Button>
       </a>
