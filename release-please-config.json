@@ -1,0 +1,14 @@
+{
+  "bootstrap-sha": "290cf465aa285e408e5c0fa8053ae9ecabe03d2d",
+  "packages": {
+    ".": {
+    "labels": [
+      "autorelease: pending"
+    ],
+    "changelog-path": "CHANGELOG.md",
+    "bumpPatchForMinorPreMajor": true,
+    "release-type": "node"
+    }
+  },
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
+}
