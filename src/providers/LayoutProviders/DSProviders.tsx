@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { OntologyService } from "@telicent-oss/ontologyservice";
 
-import { OntologyStylesProvider } from "../../contexts/OntologyStyles";
 
 type DSProvidersProps = Partial<{
   children: React.ReactNode;
@@ -27,9 +26,7 @@ const DSProviders: React.FC<DSProvidersProps> = ({
   if (ontologyService) {
     return (
       <QueryClientProvider client={queryClient}>
-        <OntologyStylesProvider service={ontologyService}>
           {children}
-        </OntologyStylesProvider>
       </QueryClientProvider>
     );
   }

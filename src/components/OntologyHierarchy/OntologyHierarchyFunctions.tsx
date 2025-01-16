@@ -1,9 +1,10 @@
 import * as d3 from "d3";
-import { IconStyle } from "../../contexts/OntologyStyles";
+import { FlattenedStyleType } from "@telicent-oss/ontologyservice";
+
 export interface HierarchyBase {
   name: string;
   id?: string;
-  ontology?: Required<IconStyle>;
+  ontology?: FlattenedStyleType;
   yPos?: number;
   startLeft?: number;
   hOrderPosition?: number;
@@ -119,7 +120,7 @@ export const addHierarchy = (data: HierarchyBase,startingDepth: number, baseKey:
   return hierarchyData;
 }
 
-export const checkOntology = (iconType: string,  findIcon: (classUri: string) => IconStyle) => {
+export const checkOntology = (iconType: string,  findIcon: (classUri: string) => FlattenedStyleType) => {
   const flatOntology = findIcon(iconType);
 
   if(!flatOntology.faUnicode){
@@ -127,5 +128,5 @@ export const checkOntology = (iconType: string,  findIcon: (classUri: string) =>
     flatOntology.faUnicode = flatOntology.iconFallbackText;
     flatOntology.shape = "roundrectangle";
   }
-  return flatOntology as Required<IconStyle>;
+  return flatOntology as FlattenedStyleType;
 }
