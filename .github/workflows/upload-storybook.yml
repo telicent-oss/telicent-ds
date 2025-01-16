@@ -1,4 +1,4 @@
-name: Storybook Deployment
+name: upload-storybook.yml
 
 on:
   push:
