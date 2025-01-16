@@ -1,8 +1,0 @@
-{
-  "branches": [
-    {
-      "pattern": "main",
-      "prerelease": false
-    }
-  ]
-}
