@@ -58,7 +58,7 @@
     "prebuild": "yarn clean",
     "bump:prerelease": "yarn version --prerelease && git push && git push --tags",
     "bump:pre": "yarn bump:prerelease",
-    "link-to-local-packages":"./scripts/link-to-local-packages.sh"
+    "link-to-local-packages": "./scripts/link-to-local-packages.sh"
   },
   "peerDependencies": {
     "react": "*",
