@@ -1,14 +1,14 @@
 {
-  "bootstrap-sha": "290cf465aa285e408e5c0fa8053ae9ecabe03d2d",
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "node",
+  "release-as": "0.13.0",
   "packages": {
     ".": {
-    "labels": [
-      "autorelease: pending"
-    ],
-    "changelog-path": "CHANGELOG.md",
-    "bumpPatchForMinorPreMajor": true,
-    "release-type": "node"
+      "labels": [
+        "autorelease: pending"
+      ],
+      "changelog-path": "CHANGELOG.md",
+      "bumpPatchForMinorPreMajor": true
     }
-  },
-  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
+  }
 }
