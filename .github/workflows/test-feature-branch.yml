@@ -1,8 +1,10 @@
-name: Test feature branch
+name: test-feature-branch.yml
 on:
   push:
     branches-ignore:
       - "main"
+
+  workflow_dispatch:
 
 jobs:
   quality:

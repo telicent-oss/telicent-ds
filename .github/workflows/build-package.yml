@@ -1,4 +1,4 @@
-name: Build package
+name: build-package.yml
 
 on:
   workflow_call:
