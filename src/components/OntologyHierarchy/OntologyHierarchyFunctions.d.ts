@@ -1,9 +1,9 @@
-import { IconStyle } from '../../contexts/OntologyStyles';
+import { FlattenedStyleType } from '@telicent-oss/ontologyservice';
 import * as d3 from "d3";
 export interface HierarchyBase {
     name: string;
     id?: string;
-    ontology?: Required<IconStyle>;
+    ontology?: FlattenedStyleType;
     yPos?: number;
     startLeft?: number;
     hOrderPosition?: number;
@@ -18,4 +18,4 @@ export declare const prepareTreeData: (chartData: d3.HierarchyNode<HierarchyBase
     [key: string]: number;
 }, depthTab: number, rowHeight: number, descendantCount: boolean) => d3.HierarchyNode<HierarchyBase>[];
 export declare const addHierarchy: (data: HierarchyBase, startingDepth: number, baseKey: string, filterIds: string[], expandAll: boolean, expandElement: boolean) => d3.HierarchyNode<HierarchyBase>;
-export declare const checkOntology: (iconType: string, findIcon: (classUri: string) => IconStyle) => Required<IconStyle>;
+export declare const checkOntology: (iconType: string, findIcon: (classUri: string) => FlattenedStyleType) => FlattenedStyleType;

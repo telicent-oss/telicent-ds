@@ -322,16 +322,4 @@ export declare const Tertiary: Story;
 export declare const Sizing: Story;
 export declare const WithIconsAndLabel: Story;
 export declare const FullWidth: Story;
-/**
- * Sometimes links should look like a button, but behave like links. Do this by
- * using `<a>` tag or react-router-dom's `Link` component.
- *
- * To help assistive technologies,
- *  - avoid nesting interactive element e.g. `<button><a /></button>` or
- *    `<a><button /></a>`
- *  - set Button attributes like so:
- *  - `role` attribute to `undefined`
- *  - `component` (root element) to `div`
- *
- */
 export declare const LinkButtons: Story;

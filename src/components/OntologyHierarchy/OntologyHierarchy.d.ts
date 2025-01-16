@@ -1,5 +1,5 @@
 import { default as React } from '../../../node_modules/react';
-import { IconStyle } from '../../contexts/OntologyStyles';
+import { IconStyle } from './types';
 
 export interface OntologyInputHierarchy {
     name: string;

@@ -1,7 +1,10 @@
 import { default as React } from '../../../node_modules/react';
 import { TeliTypeIconSizeProp } from './type-icon-utils';
+import { FlattenedStyleType, FlattenedStyleTypeForFindIcon } from '@telicent-oss/ontologyservice';
 
-export type TeliTypeIconProps = Partial<{
+export type TeliTypeIconProps = {
+    icon: FlattenedStyleTypeForFindIcon | FlattenedStyleType;
+} & Partial<{
     /**
      * Can be used to override the border color defined in the ontology
      */
@@ -14,10 +17,6 @@ export type TeliTypeIconProps = Partial<{
      * Used to control the size of the component
      */
     size: TeliTypeIconSizeProp;
-    /**
-     * Ontology type (class) uri or short uri
-     */
-    type: string;
 }>;
 /**
  * This component can be used to display type/class iconography defined in the
