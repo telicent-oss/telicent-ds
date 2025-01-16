@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.13.0](https://github.com/telicent-oss/telicent-ds/compare/v0.12.4-rc3...v0.13.0) (2025-01-16)
+
+
+### Features
+
+* .release-please-config.json ([#181](https://github.com/telicent-oss/telicent-ds/issues/181)) ([986c858](https://github.com/telicent-oss/telicent-ds/commit/986c858e3f98d7dede28e902cf65352c7a618c60))
+
+
+### Bug Fixes
+
+* actions/download-artifact@v4 ([#180](https://github.com/telicent-oss/telicent-ds/issues/180)) ([67379dd](https://github.com/telicent-oss/telicent-ds/commit/67379dd3c71adc4d9d8cfb02c8879e480301ae87))
+* **package.json:** [TELFE-563] test rdf-libraries ([#166](https://github.com/telicent-oss/telicent-ds/issues/166)) ([6641e6f](https://github.com/telicent-oss/telicent-ds/commit/6641e6fad600741932268195bbdfdff2707c3dbf))
+* **test-feature-branch.yml:** +workflow_dispatch ([#178](https://github.com/telicent-oss/telicent-ds/issues/178)) ([ef7f083](https://github.com/telicent-oss/telicent-ds/commit/ef7f0837f11a1caafde86db3b7d68d7dfe3c72ee))
+
+
+### Miscellaneous Chores
+
+* release 0.13.0 ([#185](https://github.com/telicent-oss/telicent-ds/issues/185)) ([4c4f309](https://github.com/telicent-oss/telicent-ds/commit/4c4f3092873f58f4b823467e692da6ebbc9047ac))
+
 ## [0.12.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.3-rc3...v0.12.4-rc3) (2024-12-06)
 
 
