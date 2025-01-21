@@ -1,4 +1,4 @@
-name: Build package
+name: build-package.yml
 
 on:
   workflow_call:
@@ -59,7 +59,7 @@ jobs:
 
       - name: Upload build artifacts
         if: inputs.dry-run == false
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: design-system-build-artifacts
           path: ${{ github.workspace }}/dist/**

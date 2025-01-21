@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.12.3-rc3",
+  "version": "0.13.0",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -21,7 +21,8 @@
     "@mui/x-tree-view": "7.3.1",
     "@react-spring/web": "9.7.3",
     "@tanstack/react-query": "^5.18.0",
-    "@telicent-oss/ontologyservice": "^0.31.1-rc1",
+    "@telicent-oss/ontologyservice": "0.31.3-TELFE654.0",
+    "@telicent-oss/ontology-icon-lib": "^0.1.0",
     "classnames": "^2.3.1",
     "d3": "^7.8.2",
     "lodash": "^4.17.21",
@@ -58,11 +59,13 @@
     "prestart": "yarn run css",
     "prebuild": "yarn clean",
     "bump:prerelease": "yarn version --prerelease && git push && git push --tags",
-    "bump:pre": "yarn bump:prerelease"
+    "bump:pre": "yarn bump:prerelease",
+    "link-to-local-packages": "./scripts/link-to-local-packages.sh"
   },
   "peerDependencies": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "*",
+    "react-dom": "*",
+    "@telicent-oss/ontology-icon-lib": "*"
   },
   "browserslist": {
     "production": [
