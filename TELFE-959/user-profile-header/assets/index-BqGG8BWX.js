@@ -1,0 +1,1 @@
+import{_ as u,b as n}from"./DefaultPropsProvider-DW_T1ksU.js";import{r as o}from"./index-Du_IP5cC.js";import{j as l}from"./jsx-runtime-Dwss98Nb.js";const a=["value"],r=o.createContext();function p(t){let{value:e}=t,s=u(t,a);return l.jsx(r.Provider,n({value:e??!0},s))}const m=()=>{const t=o.useContext(r);return t??!1};export{p as R,m as u};
