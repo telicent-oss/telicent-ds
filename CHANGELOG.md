@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.14.0](https://github.com/telicent-oss/telicent-ds/compare/v0.13.0...v0.14.0) (2025-02-05)
+
+
+### Features
+
+* **FlexGrid:** stories ([#186](https://github.com/telicent-oss/telicent-ds/issues/186)) ([7bba9ab](https://github.com/telicent-oss/telicent-ds/commit/7bba9ab31cecf306d1685e7f698a065b9970b206))
+
+
+### Bug Fixes
+
+* remove unused header on the user profile content to match current design ([e2d8b47](https://github.com/telicent-oss/telicent-ds/commit/e2d8b4713f5a58a4c2e41d5042a9c311875bc93e))
+
 ## [0.13.0](https://github.com/telicent-oss/telicent-ds/compare/v0.12.4-rc3...v0.13.0) (2025-01-16)
 
 
