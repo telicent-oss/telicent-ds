@@ -27,7 +27,6 @@ export const AfterItem: Story = {
   },
 };
 
-
 export const WithBothSlots: Story = {
   args: {
     children: "Text with both slots",
@@ -42,7 +41,7 @@ export const AsLink: Story = {
     afterItem: <i className="fa-solid fa-arrow-up-right-from-square" />,
     component: "a",
     href: "https://example.com",
-    // For creating link styles, setting variants might be better 
+    // For creating link styles, setting variants might be better
     // e.g. variant: 'link',
     sx: {
       color: "#F56AAA",
@@ -107,9 +106,9 @@ export const Wrappedchildren: Story = {
         beforeItem={<i className="fa-solid fa-info-circle" />}
         afterItem={<i className="fa-solid fa-arrow-right" />}
         variant="body1"
-        containerSX={{ 
+        containerSX={{
           gap: 1,
-         }}
+        }}
       />
     </Box>
   ),
@@ -122,20 +121,32 @@ export const WrappedTextAlignStart: Story = {
         beforeItem={<i className="fa-solid fa-info-circle" />}
         afterItem={<i className="fa-solid fa-arrow-right" />}
         variant="body1"
-        containerSX={{ 
+        containerSX={{
           gap: 1,
-          textAlign: 'center',
+          textAlign: "center",
           alignItems: "flex-start",
-         }}
+        }}
       />
     </Box>
   ),
 };
 
+// Force throw - regardless of NODE_ENV
+const propCheckError = (problem: string) => {
+  throw new Error(problem);
+};
 export const ErrorWhenNobeforeItemAndNoEndSet: Story = {
-  render: () => <SocketedText children="only text" />,
+  render: () => (
+    <SocketedText children="only text" propCheckError={propCheckError} />
+  ),
 };
 
 export const ErrorWhenAnchorButNoHrefSet: Story = {
-  render: () => <SocketedText component="a" children="no href" />,
+  render: () => (
+    <SocketedText
+      component="a"
+      children="no href"
+      propCheckError={propCheckError}
+    />
+  ),
 };
