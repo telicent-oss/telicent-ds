@@ -29,13 +29,6 @@ jobs:
           scope: "telicent-oss"
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - name: Upload build artifacts
-        if: inputs.dry-run == false
-        uses: actions/upload-artifact@v4
-        with:
-          name: design-system-build-artifacts
-          path: ${{ github.workspace }}/dist/**
-
       - run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
