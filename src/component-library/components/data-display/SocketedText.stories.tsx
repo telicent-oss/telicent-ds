@@ -44,7 +44,7 @@ export const AsLink: Story = {
     // For creating link styles, setting variants might be better
     // e.g. variant: 'link',
     sx: {
-      color: "#F56AAA",
+      color: "primary.main",
       textDecoration: "none",
       "&:hover": { textDecoration: "underline" },
     },
