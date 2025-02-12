@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.0](https://github.com/telicent-oss/telicent-ds/compare/v0.14.0...v0.15.0) (2025-02-12)
+
+
+### Features
+
+* **component-library:** [TELFE-958] SocketedText ([#190](https://github.com/telicent-oss/telicent-ds/issues/190)) ([24b67c4](https://github.com/telicent-oss/telicent-ds/commit/24b67c454a564f88600421090ee0ebbaab1979b8))
+
 ## [0.14.0](https://github.com/telicent-oss/telicent-ds/compare/v0.13.0...v0.14.0) (2025-02-05)
 
 
