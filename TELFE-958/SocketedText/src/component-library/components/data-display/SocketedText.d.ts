@@ -11,6 +11,7 @@ export interface SocketedTextProps extends Omit<TypographyProps, "component"> {
     component?: React.ElementType;
     propCheckError?: (problem: string) => void;
 }
+export declare const propCheckErrorDefault: (problem: string) => void;
 /**
  * The intended use of SocketedText to render text with a trailing, or leading icon.
 
