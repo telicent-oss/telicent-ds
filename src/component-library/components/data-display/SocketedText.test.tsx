@@ -1,6 +1,10 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import { SocketedText, SocketedTextProps } from "./SocketedText";
+import {
+  propCheckErrorDefault,
+  SocketedText,
+  SocketedTextProps,
+} from "./SocketedText";
 
 describe("SocketedText", () => {
   let defaultProps: SocketedTextProps;
@@ -86,13 +90,14 @@ describe("SocketedText", () => {
     expect(() =>
       render(<SocketedText {...defaultProps} component="a" />)
     ).toThrowErrorMatchingInlineSnapshot(
-      `"SocketedText: When using component=\\"a\\", the \\"href\\" prop is required."`
+      `"SocketedText: When using component="a", the "href" prop is required."`
     );
-    expect(consoleErrorSpy.mock.calls.map((args) => args[0].split("\n")[0]))
-      .toMatchInlineSnapshot(`
-      Array [
-        "Error: Uncaught [Error: SocketedText: When using component=\\"a\\", the \\"href\\" prop is required.]",
-        "Error: Uncaught [Error: SocketedText: When using component=\\"a\\", the \\"href\\" prop is required.]",
+    expect(
+      consoleErrorSpy.mock.calls.map((args) => `${args[0]}`.split("\n")[0])
+    ).toMatchInlineSnapshot(`
+      [
+        "Error: Uncaught [Error: SocketedText: When using component="a", the "href" prop is required.]",
+        "Error: Uncaught [Error: SocketedText: When using component="a", the "href" prop is required.]",
         "The above error occurred in the <SocketedText> component:",
       ]
     `);
@@ -110,13 +115,35 @@ describe("SocketedText", () => {
     ).toThrowErrorMatchingInlineSnapshot(
       `"SocketedText: Sockets unused; use normal Text/Typography component instead"`
     );
-    expect(consoleErrorSpy.mock.calls.map((args) => args[0].split("\n")[0]))
-      .toMatchInlineSnapshot(`
-      Array [
+    expect(
+      consoleErrorSpy.mock.calls.map((args) => `${args[0]}`.split("\n")[0])
+    ).toMatchInlineSnapshot(`
+      [
         "Error: Uncaught [Error: SocketedText: Sockets unused; use normal Text/Typography component instead]",
         "Error: Uncaught [Error: SocketedText: Sockets unused; use normal Text/Typography component instead]",
         "The above error occurred in the <SocketedText> component:",
       ]
     `);
   });
+});
+
+test("propCheckErrorDefault", async () => {
+  const consoleSpyOn = {
+    error: jest.spyOn(console, "error").mockImplementation(() => {}),
+    warn: jest.spyOn(console, "warn").mockImplementation(() => {}),
+  };
+
+  jest.replaceProperty(process.env, "NODE_ENV", "production");
+  propCheckErrorDefault("problem");
+  expect(JSON.stringify(consoleSpyOn.warn.mock.calls)).toMatchInlineSnapshot(
+    `"[["problem"]]"`
+  );
+  consoleSpyOn.warn.mockClear();
+
+  jest.replaceProperty(process.env, "NODE_ENV", "dev");
+  await expect(() =>
+    propCheckErrorDefault("problem")
+  ).toThrowErrorMatchingInlineSnapshot(`"problem"`);
+  expect(consoleSpyOn.warn).not.toHaveBeenCalled();
+  jest.restoreAllMocks();
 });

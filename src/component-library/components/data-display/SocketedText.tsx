@@ -9,10 +9,10 @@ export interface SocketedTextProps extends Omit<TypographyProps, "component"> {
   href?: string;
   containerSX?: SxProps;
   component?: React.ElementType;
-  propCheckError?: (problem:string) => void;
+  propCheckError?: (problem: string) => void;
 }
 
-const propCheckErrorDefault = (problem: string) => {
+export const propCheckErrorDefault = (problem: string) => {
   if (process.env.NODE_ENV === "production") {
     console.warn(problem);
   } else {
@@ -55,7 +55,9 @@ export const SocketedText: React.FC<SocketedTextProps> = ({
     );
   }
   if (beforeItem === undefined && afterItem === undefined) {
-    propCheckError("SocketedText: Sockets unused; use normal Text/Typography component instead");
+    propCheckError(
+      "SocketedText: Sockets unused; use normal Text/Typography component instead"
+    );
   }
 
   return (

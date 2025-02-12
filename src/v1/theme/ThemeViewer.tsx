@@ -1,7 +1,7 @@
 import React from "react";
 
-function isColour(color:any) {
-  return typeof color === 'string' && CSS.supports('color', color); // newish api
+function isColour(color: any) {
+  return typeof color === "string" && CSS.supports("color", color); // newish api
 }
 
 export interface ThemeViewerProps {
