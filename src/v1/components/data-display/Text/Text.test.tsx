@@ -48,7 +48,7 @@ describe("Heading Components", () => {
       return asFragment();
     });
     expect(result).toMatchInlineSnapshot(`
-      Array [
+      [
         <DocumentFragment>
           <h1
             class="MuiTypography-root MuiTypography-h1 css-o2w69a-MuiTypography-root"

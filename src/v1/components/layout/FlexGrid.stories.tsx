@@ -8,6 +8,7 @@ import { FlexGrid, FlexGridItem } from './FlexGrid';
 export default {
   title: 'Layout/FlexGrid',
   component: FlexGrid,
+  tags: ["autodocs"],
   subcomponents: { FlexGridItem },
   parameters: {
     layout: 'fullscreen',

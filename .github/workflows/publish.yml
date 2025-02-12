@@ -10,16 +10,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_package:
-    uses: telicent-oss/telicent-ds/.github/workflows/build-package.yml@main
-
   publish_package:
     permissions:
       id-token: write
       contents: read
 
     runs-on: ubuntu-latest
-    needs: build_package
 
     steps:
       - name: Checkout repository
@@ -31,13 +27,8 @@ jobs:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
           scope: "telicent-oss"
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: design-system-build-artifacts
-          path: ${{ github.workspace }}/dist
-
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
       - run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
