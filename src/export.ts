@@ -17,4 +17,4 @@ export * from "./v1/theme";
 export { Modal, type ModalProps } from "./v1/components/utils/index";
 
 // Component library
-export * from "./component-library/components/data-display/SocketedText";
+
