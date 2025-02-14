@@ -29,21 +29,62 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: {
-    variant: "primary",
-  },
+  render: (args) => (
+    <>
+      <Button variant="primary" >{args.children}</Button>
+      <Button variant="primary" disabled>{args.children}</Button>
+    </>
+  ),
 };
+
 
 export const Secondary: Story = {
-  args: {
-    variant: "secondary",
-  },
+  render: (args) => (
+    <>
+      <Button variant="secondary" >{args.children}</Button>
+      <Button variant="secondary" disabled>{args.children}</Button>
+    </>
+  ),
 };
 
+export const DisableElevation: Story = {
+  /**
+   * TODO make secondary's colours for disableElevation:true match when disableElevation:false
+   * WHEN know how to edit theme
+   */
+  render: (args) => (
+    <>
+      <Button variant="primary" disableElevation>{args.children}</Button>
+      <Button variant="secondary" disableElevation>{args.children}</Button>
+    </>
+  ),
+  };
+
+  
 export const Tertiary: Story = {
-  args: {
-    variant: "tertiary",
-  },
+  render: (args) => (
+    <>
+      <Button variant="tertiary" >{args.children}</Button>
+      <Button variant="tertiary" disabled>{args.children}</Button>
+    </>
+  ),
+};
+
+export const Link: Story = {
+  render: (args) => (
+    <>
+      <Button variant="link" >{args.children}</Button>
+      <Button variant="link" disabled>{args.children}</Button>
+    </>
+  ),
+};
+export const Text: Story = {
+  render: (args) => (
+    <>
+      <Button variant="text" >{args.children}</Button>
+      <Button variant="text" disabled>{args.children}</Button>
+    </>
+  ),
 };
 
 export const Sizing: Story = {
@@ -85,13 +126,20 @@ export const FullWidth: Story = {
   args: {
     fullWidth: true,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: `Normally buttons will fill the container - including full width containers. All of these stories are surrounded by a <Box />, which constrains width. You can use \`fullWidth\` to push the box out.`,
+      },
+    },
+  },
 };
 
 // Mimics: import { Link } from 'react-dom-router';
-const Link: React.FC<{ to: string; children: React.ReactNode }> = (props) => (
+const Anchor: React.FC<{ to: string; children: React.ReactNode }> = (props) => (
   <a {...props} />
 );
-Link.displayName = "Link"
+Anchor.displayName = "Link"
 /**
  * **Want links that look like a Design system button?**.
  * 
@@ -110,11 +158,11 @@ const UNDEFINED = undefined;
 export const LinkButtons: Story = {
   render: (args) => (
     <>
-      <Link to="/inputs-button--primary">
+      <Anchor to="/inputs-button--primary">
         <Button component="div" role={UNDEFINED}>
           {args.children}
         </Button>
-      </Link>
+      </Anchor>
       <a href="https://telicent.io/" target="_self">
         <Button component="div" role={UNDEFINED}>
           {args.children}
