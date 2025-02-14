@@ -12,4 +12,3 @@ export * from './v1/components/layout';
 export * from './v1/components/surfaces';
 export * from './v1/theme';
 export { Modal, type ModalProps } from './v1/components/utils/index';
-export * from './component-library/components/data-display/SocketedText';

@@ -1,1 +1,0 @@
-import{j as r,e as s}from"./DefaultPropsProvider-mMqPhAz4.js";import{u as a}from"./useTheme-Dl-fNHlA.js";const t=e=>{const o=a();return r("div",{css:s({backgroundColor:o.palette.mode==="dark"?"#2e2e2e":"#eeeeee",height:48,paddingInline:10,paddingBlock:4,marginTop:2,color:"white"},"",""),...e})};t.__docgenInfo={description:"",methods:[],displayName:"Toolbar"};export{t as T};
