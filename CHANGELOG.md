@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.1](https://github.com/telicent-oss/telicent-ds/compare/v0.15.0...v0.15.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* rm SocketedText add ButtonStories ([#192](https://github.com/telicent-oss/telicent-ds/issues/192)) ([66fa1cc](https://github.com/telicent-oss/telicent-ds/commit/66fa1ccffcc0f3ab7e7b00480b10ddc80ac8030d))
+
 ## [0.15.0](https://github.com/telicent-oss/telicent-ds/compare/v0.14.0...v0.15.0) (2025-02-12)
 
 
