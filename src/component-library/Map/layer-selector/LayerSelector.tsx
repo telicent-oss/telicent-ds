@@ -2,7 +2,7 @@
 // TODO import from shared repo
 // WHEN TELFE-876
 import React, { useState } from "react";
-import { List, ListItem, ListItemButton, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import {

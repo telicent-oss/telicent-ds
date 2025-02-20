@@ -1,29 +1,26 @@
-import { maxBy, minBy } from "lodash";
+import { max, min } from "lodash";
 import { LngLatBoundsLike, LngLatLike } from "react-map-gl/maplibre";
-import { LocationFeature } from "../../contexts/Location";
 
 type MinMax = "min" | "max";
 type LatLng = "latitude" | "longitude";
 
 const getMinOrMax = (
-  markers: LocationFeature[],
+  markers: number[][],
   minOrMax: MinMax,
   latOrLng: LatLng
 ) => {
-  const getLatLng = (location: LocationFeature) =>
-    location.properties[latOrLng];
-
-  let feature = minBy(markers, getLatLng);
+  const coordinates = markers.map((marker: number[]) =>
+    latOrLng === "longitude" ? marker[0] : marker[1]
+  );
 
   if (minOrMax === "max") {
-    feature = maxBy(markers, getLatLng);
+    return max(coordinates);
   }
-
-  return feature?.properties[latOrLng];
+  return min(coordinates);
 };
 
 export const getBounds = (
-  markers: LocationFeature[]
+  markers: number[][]
 ): LngLatBoundsLike | undefined => {
   const maxLat = getMinOrMax(markers, "max", "latitude");
   const minLat = getMinOrMax(markers, "min", "latitude");

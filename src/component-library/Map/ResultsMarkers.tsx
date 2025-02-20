@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import {
-  LngLatBoundsLike,
   Marker,
   Source,
   useMap,
 } from "react-map-gl/maplibre";
 import classNames from "classnames";
-import { getBounds } from "./utils";
 import { getLabelCharacters } from "./helper";
 import { splitURIForNamespaceAndTerm } from "./strings";
 import { FlattenedStyleType } from "@telicent-oss/ontologyservice";
 import { ClassIcon } from "./FeatureMap";
+import geohash from "./geohash";
 
 export const GEOJSON = "geojson";
 export const FEATURE_COLLECTION = "FeatureCollection";
@@ -37,85 +36,80 @@ type ResultsMarkersProps = {
   onClick: (uri: string) => void;
   selected: any;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
-  geoPoints: LocationFeature[];
+  markers: ResultMarker[];
 
 };
 
 const ResultsMarkers: React.FC<ResultsMarkersProps> = ({
-  geoPoints,
+  markers = [],
   selected,
   findByClassUri,
   onClick
 }) => {
-  const { TelicentMap: map } = useMap();
-
-  useEffect(() => {
-    if (!geoPoints || !map) return;
-    const bounds = getBounds(geoPoints);
-
-    console.log({ geoPoints })
-    // Wait until next cycle to perform animation
-    setTimeout(() => {
-      map.fitBounds(bounds, { padding: 24, duration: 1000, maxZoom: 9 });
-    }, 100)
-  }, [map, geoPoints])
 
   return (
     <Source
       id="document-locations"
       type={GEOJSON}
-      data={{ type: FEATURE_COLLECTION, features: geoPoints }}
+      data={{ type: FEATURE_COLLECTION, features: markers }}
       generateId
     >
-      {geoPoints.map((location: LocationFeature) => (
-        <DocumentMarker key={location.properties.uri} feature={location} onClick={onClick} findByClassUri={findByClassUri} selected={selected} />
+      {markers.map((marker: ResultMarker) => (
+        <DocumentMarker key={marker.uri} marker={marker} onClick={onClick} findByClassUri={findByClassUri} selected={selected} />
       ))}
     </Source>
   );
 };
 
+
+export type ResultMarker = {
+  geohash: string;
+  type: string;
+  uri: string;
+  name: string;
+};
+
 type DocumentMarkerProps = {
-  feature: LocationFeature;
+  marker: ResultMarker;
   selected: any;
   onClick: (uri: string) => void;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
 };
 
-const DocumentMarker: React.FC<DocumentMarkerProps> = ({ feature, findByClassUri, selected, onClick }) => {
+const DocumentMarker: React.FC<DocumentMarkerProps> = ({ marker, findByClassUri, selected, onClick }) => {
   const { TelicentMap: map } = useMap();
 
-  const { properties, geometry } = feature;
-  const type = properties.types[0];
+  const { latitude, longitude } = geohash.decode(marker.geohash.split("http://geohash.org/")[1]);
 
   // TODO Don't cast as FlattenedStyleType
   // WHY its not accurate (but doesn't currently impact this code)
   // HOW Fix upstream types
   // WHEN have time; Perhaps after TELFE-652, TELFE-653, TELFE-654
-  const iconProps = findByClassUri(type) as FlattenedStyleType;
+  const iconProps = findByClassUri(marker.type) as FlattenedStyleType;
   const faIcon = iconProps.faIcon;
   const color = iconProps.color;
-  const [namespace, term] = splitURIForNamespaceAndTerm(type);
+  const [namespace, term] = splitURIForNamespaceAndTerm(marker.type);
   const label = term !== "" ? term : namespace;
   const labelCharacters = getLabelCharacters(label);
-  const isSelected = selected.includes(properties.uri);
-
+  const isSelected = selected.includes(marker.uri);
 
   useEffect(() => {
     if (isSelected && map) {
-      map.panTo(geometry.coordinates, { duration: 1000 });
+      map.panTo([longitude, latitude], { duration: 1000 });
     }
   }, [selected]);
 
   const handleOnClick = () => {
-    onClick(feature.properties.uri)
+    console.log(marker.uri)
+    onClick(marker.uri)
   };
 
   return (
-    <span data-name={properties.name}>
+    <span data-name={marker.name}>
       <Marker
-        key={properties.uri}
-        longitude={geometry.coordinates[0]}
-        latitude={geometry.coordinates[1]}
+        key={marker.uri}
+        longitude={longitude}
+        latitude={latitude}
         onClick={handleOnClick}
         pitchAlignment="map"
         anchor="center"
@@ -125,12 +119,10 @@ const DocumentMarker: React.FC<DocumentMarkerProps> = ({ feature, findByClassUri
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          // borderColor: isSelected ? "rgb(220, 98, 251)" : color,
-          borderColor: "rgb(220, 98, 251)",
+          borderColor: isSelected ? "rgb(220, 98, 251)" : color,
           borderRadius: "9999px",
           cursor: "pointer",
-          borderWidth: "1px",
-          // borderWidth: isSelected ? "2px" : "1px",
+          borderWidth: isSelected ? "2px" : "1px",
           width: "28px",
           height: "28px",
         }}

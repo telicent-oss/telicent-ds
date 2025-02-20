@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import Map, {
   Layer,
-  LngLatBoundsLike,
   MapProvider,
   Source,
-  useMap,
 } from "react-map-gl/maplibre";
 import { ErrorBoundary } from "react-error-boundary";
 
-import ResultsMarkers, { LocationFeature } from "./ResultsMarkers";
-import { getBounds } from "./utils";
+import ResultsMarkers, { ResultMarker } from "./ResultsMarkers";
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
 import { useStyleSelector, MapBoxSourceSchema } from "./layer-selector/useLayerSelector";
 import { LayerSelector } from "./layer-selector/LayerSelector";
 import { FlexGrid, FlexGridItem, UIThemeProvider } from "../../export";
+import PolygonMarkers, { FeatureCollection } from "./Polygons";
+import maplibregl from "maplibre-gl";
+import { calculateBounds } from "./helper";
+import { MapRef } from "react-map-gl";
+import { duration } from "@mui/material";
 
 export const GEOJSON = "geojson";
 export const FEATURE_COLLECTION = "FeatureCollection";
@@ -44,52 +46,67 @@ interface TelicentMapProps {
     vectorStyles?: StyleOption | StyleOption[], // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
     tileSets?: StyleOption[]
   },
-  geoPoints: LocationFeature[];
-  geoPolygons: number[];
-  selected: any; // TODO: not sure where this is used in search? Have evidence it is a string[] array. Do not know if there are exceptions
+  markers?: ResultMarker[];
+  geoPolygons?: FeatureCollection;
+  selected: string;
   onClickMarker: (uri: string) => void;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
+  theme?: "DocumentPink" | "dark" | "light" | "DataNavy" | "GraphOrange";
   defaultStyle?: string;
   panToSelected?: boolean;
+  showAttribution?: boolean;
 }
 
 const FeatureMap: React.FC<TelicentMapProps> = ({
   mapStyleOptions,
-  geoPoints,
+  markers = [],
   selected,
-  geoPolygons,
+  theme = "DocumentPink",
+  geoPolygons = { type: 'FeatureCollection', features: [] },
   defaultStyle,
   onClickMarker,
   findByClassUri,
-  panToSelected = true
+  panToSelected = true,
+  showAttribution = true
 }) => {
-  const mapContainerRef = React.useRef(null);
+  const mapContainerRef = React.useRef<MapRef | null>(null);
   const [cursor, setCursor] = useState("auto");
 
+  console.log({ geoPolygons, markers })
   const styleSelector = useStyleSelector(mapStyleOptions);
   const resetCursor = () => {
     setCursor("auto");
   };
 
-  console.log({ selected })
+  useEffect(() => {
+    if (!mapContainerRef.current || (geoPolygons.features.length < 1 && markers.length < 1)) return;
+
+    const map = mapContainerRef.current;
+    const bounds = calculateBounds(markers, geoPolygons);
+
+    // Wait for next cycle to zoom otherwise map won't be initialized
+    setTimeout(() => {
+      map.fitBounds(bounds, { padding: 20, maxZoom: 8 });
+    }, 200)
+  }, [geoPolygons, markers])
+
   return (
-    <UIThemeProvider dark theme="DocumentPink">
+    <UIThemeProvider dark theme={theme}>
       <ErrorBoundary
         fallback={<p>Something went wrong: Failed to load map component</p>}
       >
-        <div className=" w-full h-[260px]" ref={mapContainerRef}>
+        <div className=" w-full h-full" >
           <FlexGrid m={0} direction="column" style={W_H_100}>
             <FlexGridItem flexGrow={1}>
               <MapProvider>
                 <Map
+                  ref={mapContainerRef}
                   cursor={cursor}
-                  initialViewState={{
-                    bounds: getBounds(geoPoints)
-                  }}
                   id="TelicentMap"
                   interactiveLayerIds={["document-locations-layer"]}
+                  scrollZoom
                   mapStyle={defaultStyle}
-                  attributionControl={true}
+                  attributionControl={showAttribution}
                   onDragStart={() => setCursor("move")}
                   onDragEnd={resetCursor}
                   onMouseEnter={() => setCursor("pointer")}
@@ -116,7 +133,8 @@ const FeatureMap: React.FC<TelicentMapProps> = ({
                         />
                       </Source>
                     ))}
-                  <ResultsMarkers onClick={onClickMarker} geoPoints={geoPoints} findByClassUri={findByClassUri} selected={selected} />
+                  <ResultsMarkers onClick={onClickMarker} markers={markers} findByClassUri={findByClassUri} selected={selected} />
+                  <PolygonMarkers geometryCollection={geoPolygons} />
                 </Map>
               </MapProvider>
             </FlexGridItem>
