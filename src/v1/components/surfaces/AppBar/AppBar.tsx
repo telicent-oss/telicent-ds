@@ -67,8 +67,7 @@ const AppBar: React.FC<AppBarProps> = ({
             fontSize={12}
             paddingInline={0.5}
             sx={{
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
+              color: theme.palette.secondary.contrastText,
             }}
           >
             {version}
