@@ -1,5 +1,57 @@
 # Changelog
 
+## [0.16.0](https://github.com/telicent-oss/telicent-ds/compare/v0.15.1...v0.16.0) (2025-02-24)
+
+
+### Features
+
+* bump version ([#195](https://github.com/telicent-oss/telicent-ds/issues/195)) ([b4e683d](https://github.com/telicent-oss/telicent-ds/commit/b4e683d7c5937c2eac546901d9c9f4b65878c9a4))
+
+## [0.15.1](https://github.com/telicent-oss/telicent-ds/compare/v0.15.0...v0.15.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* rm SocketedText add ButtonStories ([#192](https://github.com/telicent-oss/telicent-ds/issues/192)) ([66fa1cc](https://github.com/telicent-oss/telicent-ds/commit/66fa1ccffcc0f3ab7e7b00480b10ddc80ac8030d))
+
+## [0.15.0](https://github.com/telicent-oss/telicent-ds/compare/v0.14.0...v0.15.0) (2025-02-12)
+
+
+### Features
+
+* **component-library:** [TELFE-958] SocketedText ([#190](https://github.com/telicent-oss/telicent-ds/issues/190)) ([24b67c4](https://github.com/telicent-oss/telicent-ds/commit/24b67c454a564f88600421090ee0ebbaab1979b8))
+
+## [0.14.0](https://github.com/telicent-oss/telicent-ds/compare/v0.13.0...v0.14.0) (2025-02-05)
+
+
+### Features
+
+* **FlexGrid:** stories ([#186](https://github.com/telicent-oss/telicent-ds/issues/186)) ([7bba9ab](https://github.com/telicent-oss/telicent-ds/commit/7bba9ab31cecf306d1685e7f698a065b9970b206))
+
+
+### Bug Fixes
+
+* remove unused header on the user profile content to match current design ([e2d8b47](https://github.com/telicent-oss/telicent-ds/commit/e2d8b4713f5a58a4c2e41d5042a9c311875bc93e))
+
+## [0.13.0](https://github.com/telicent-oss/telicent-ds/compare/v0.12.4-rc3...v0.13.0) (2025-01-16)
+
+
+### Features
+
+* .release-please-config.json ([#181](https://github.com/telicent-oss/telicent-ds/issues/181)) ([986c858](https://github.com/telicent-oss/telicent-ds/commit/986c858e3f98d7dede28e902cf65352c7a618c60))
+
+
+### Bug Fixes
+
+* actions/download-artifact@v4 ([#180](https://github.com/telicent-oss/telicent-ds/issues/180)) ([67379dd](https://github.com/telicent-oss/telicent-ds/commit/67379dd3c71adc4d9d8cfb02c8879e480301ae87))
+* **package.json:** [TELFE-563] test rdf-libraries ([#166](https://github.com/telicent-oss/telicent-ds/issues/166)) ([6641e6f](https://github.com/telicent-oss/telicent-ds/commit/6641e6fad600741932268195bbdfdff2707c3dbf))
+* **test-feature-branch.yml:** +workflow_dispatch ([#178](https://github.com/telicent-oss/telicent-ds/issues/178)) ([ef7f083](https://github.com/telicent-oss/telicent-ds/commit/ef7f0837f11a1caafde86db3b7d68d7dfe3c72ee))
+
+
+### Miscellaneous Chores
+
+* release 0.13.0 ([#185](https://github.com/telicent-oss/telicent-ds/issues/185)) ([4c4f309](https://github.com/telicent-oss/telicent-ds/commit/4c4f3092873f58f4b823467e692da6ebbc9047ac))
+
 ## [0.12.4-rc3](https://github.com/telicent-oss/telicent-ds/compare/v0.12.3-rc3...v0.12.4-rc3) (2024-12-06)
 
 

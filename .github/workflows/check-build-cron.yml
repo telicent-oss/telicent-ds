@@ -1,4 +1,4 @@
-name: Check build (CRON)
+name: check-build-cron.yml
 
 on:
   schedule:

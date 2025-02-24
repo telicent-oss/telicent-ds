@@ -1,4 +1,4 @@
-name: Build package
+name: build-package.yml
 
 on:
   workflow_call:
@@ -42,7 +42,7 @@ jobs:
           echo "version=$(node -v)" >> $GITHUB_OUTPUT
 
       - name: Get node_modules cache
-        uses: actions/cache@v3.0.2
+        uses: actions/cache@v4.2.0
         id: node_modules
         with:
           path: |
@@ -59,7 +59,7 @@ jobs:
 
       - name: Upload build artifacts
         if: inputs.dry-run == false
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: design-system-build-artifacts
           path: ${{ github.workspace }}/dist/**
