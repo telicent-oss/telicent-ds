@@ -24,6 +24,14 @@ export const GEOJSON = "geojson";
 export const FEATURE_COLLECTION = "FeatureCollection";
 const W_H_100 = { height: "100%", width: "100%" };
 
+const initialView = {
+  latitude: 53.42148743839479,
+  longitude: -3.863068679356047,
+  zoom: 3,
+  // set max zoom so when you click on a single point the bounds don't zoom in too far.
+  maxZoom: 16,
+};
+
 type StyleOption = {
   label: string,
   uri: string,
@@ -46,6 +54,7 @@ interface TelicentMapProps {
     vectorStyles?: StyleOption | StyleOption[], // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
     tileSets?: StyleOption[]
   },
+  initialViewState?: typeof initialView;
   markers?: ResultMarker[];
   geoPolygons?: FeatureCollection;
   selected: string;
@@ -63,6 +72,7 @@ const FeatureMap: React.FC<TelicentMapProps> = ({
   selected,
   theme = "DocumentPink",
   geoPolygons = { type: 'FeatureCollection', features: [] },
+  initialViewState = initialView,
   defaultStyle,
   onClickMarker,
   findByClassUri,
@@ -101,6 +111,7 @@ const FeatureMap: React.FC<TelicentMapProps> = ({
               <MapProvider>
                 <Map
                   ref={mapContainerRef}
+                  initialViewState={initialViewState}
                   cursor={cursor}
                   id="TelicentMap"
                   interactiveLayerIds={["document-locations-layer"]}
