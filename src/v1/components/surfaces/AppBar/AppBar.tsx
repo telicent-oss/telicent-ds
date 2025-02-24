@@ -13,7 +13,7 @@ export type AppBarProps = Partial<{
   appName: string;
   beta: boolean;
   apps: AppSwitchLibraryType;
-  action: React.ReactNode;
+  endChild: React.ReactNode;
   position: MUIAppBarProps["position"];
   version: string;
 }>;
@@ -23,7 +23,7 @@ const AppBar: React.FC<AppBarProps> = ({
   beta = false,
   position = "relative",
   apps = [],
-  action,
+  endChild,
   version,
 }) => {
   const theme = useExtendedTheme();
@@ -74,7 +74,7 @@ const AppBar: React.FC<AppBarProps> = ({
           </MUIBox>
         )}
       </MUIStack>
-      {action && (
+      {endChild && (
         <MUIStack
           sx={{
             position: "absolute",
@@ -83,7 +83,7 @@ const AppBar: React.FC<AppBarProps> = ({
             transform: "translate(0, -50%)",
           }}
         >
-          {action}
+          {endChild}
         </MUIStack>
       )}
     </MUIAppBar>

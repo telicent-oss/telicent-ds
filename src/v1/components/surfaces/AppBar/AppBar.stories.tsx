@@ -28,7 +28,7 @@ export const WithAppName: Story = {
 export const WithUserProfile: Story = {
   args: {
     ...WithAppName.args,
-    action: (
+    endChild: (
       <UserProfile fullName="Han Solo">
         <UserStatus fullName="Han Solo">
           <Text variant="subtitle1">Roles</Text>
@@ -56,7 +56,7 @@ export const WithVersionNumber: Story = {
 export const WithSignOutButton: Story = {
   args: {
     ...WithAppName.args,
-    action: (
+    endChild: (
       <Button variant="primary" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
         Sign Out
       </Button>
