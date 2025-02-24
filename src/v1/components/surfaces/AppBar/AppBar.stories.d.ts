@@ -7,3 +7,5 @@ type Story = StoryObj<typeof AppBar>;
 export declare const Example: Story;
 export declare const WithAppName: Story;
 export declare const WithUserProfile: Story;
+export declare const WithVersionNumber: Story;
+export declare const WithSignOutButton: Story;

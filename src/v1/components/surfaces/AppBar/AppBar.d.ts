@@ -6,8 +6,9 @@ export type AppBarProps = Partial<{
     appName: string;
     beta: boolean;
     apps: AppSwitchLibraryType;
-    userProfile: React.ReactNode;
+    endChild: React.ReactNode;
     position: MUIAppBarProps["position"];
+    version: string;
 }>;
 declare const AppBar: React.FC<AppBarProps>;
 export default AppBar;
