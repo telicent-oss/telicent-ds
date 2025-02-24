@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Marker,
   Source,
@@ -33,11 +33,10 @@ export type LocationFeature = {
 
 
 type ResultsMarkersProps = {
-  onClick: (uri: string) => void;
+  onClick?: (marker: ResultMarker) => void;
   selected: any;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
   markers: ResultMarker[];
-
 };
 
 const ResultsMarkers: React.FC<ResultsMarkersProps> = ({
@@ -72,12 +71,11 @@ export type ResultMarker = {
 type DocumentMarkerProps = {
   marker: ResultMarker;
   selected: any;
-  onClick: (uri: string) => void;
+  onClick?: (marker: ResultMarker) => void;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
 };
 
 const DocumentMarker: React.FC<DocumentMarkerProps> = ({ marker, findByClassUri, selected, onClick }) => {
-  const { TelicentMap: map } = useMap();
 
   const { latitude, longitude } = geohash.decode(marker.geohash.split("http://geohash.org/")[1]);
 
@@ -93,15 +91,9 @@ const DocumentMarker: React.FC<DocumentMarkerProps> = ({ marker, findByClassUri,
   const labelCharacters = getLabelCharacters(label);
   const isSelected = selected.includes(marker.uri);
 
-  useEffect(() => {
-    if (isSelected && map) {
-      map.panTo([longitude, latitude], { duration: 1000 });
-    }
-  }, [selected]);
-
   const handleOnClick = () => {
-    console.log(marker.uri)
-    onClick(marker.uri)
+    if (!onClick) return
+    onClick(marker)
   };
 
   return (

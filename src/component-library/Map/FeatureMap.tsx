@@ -14,11 +14,10 @@ import "./map.css";
 import { useStyleSelector, MapBoxSourceSchema } from "./layer-selector/useLayerSelector";
 import { LayerSelector } from "./layer-selector/LayerSelector";
 import { FlexGrid, FlexGridItem, UIThemeProvider } from "../../export";
-import PolygonMarkers, { FeatureCollection } from "./Polygons";
-import maplibregl from "maplibre-gl";
+import PolygonMarkers, { FeatureCollection, Feature } from "./Polygons";
 import { calculateBounds } from "./helper";
 import { MapRef } from "react-map-gl";
-import { duration } from "@mui/material";
+import { LngLatBounds } from "maplibre-gl";
 
 export const GEOJSON = "geojson";
 export const FEATURE_COLLECTION = "FeatureCollection";
@@ -57,12 +56,12 @@ interface TelicentMapProps {
   initialViewState?: typeof initialView;
   markers?: ResultMarker[];
   geoPolygons?: FeatureCollection;
-  selected: string;
-  onClickMarker: (uri: string) => void;
+  selected: string[];
+  onClickMarker: (marker: ResultMarker) => void;
+  onClickPolygon: (polygon: ResultMarker) => void;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
   theme?: "DocumentPink" | "dark" | "light" | "DataNavy" | "GraphOrange";
   defaultStyle?: string;
-  panToSelected?: boolean;
   showAttribution?: boolean;
 }
 
@@ -75,14 +74,13 @@ const FeatureMap: React.FC<TelicentMapProps> = ({
   initialViewState = initialView,
   defaultStyle,
   onClickMarker,
+  onClickPolygon,
   findByClassUri,
-  panToSelected = true,
   showAttribution = true
 }) => {
   const mapContainerRef = React.useRef<MapRef | null>(null);
   const [cursor, setCursor] = useState("auto");
 
-  console.log({ geoPolygons, markers })
   const styleSelector = useStyleSelector(mapStyleOptions);
   const resetCursor = () => {
     setCursor("auto");
@@ -90,15 +88,35 @@ const FeatureMap: React.FC<TelicentMapProps> = ({
 
   useEffect(() => {
     if (!mapContainerRef.current || (geoPolygons.features.length < 1 && markers.length < 1)) return;
-
     const map = mapContainerRef.current;
-    const bounds = calculateBounds(markers, geoPolygons);
+
+    let bounds: LngLatBounds;
+    if (selected.length < 1) {
+      bounds = calculateBounds(markers, geoPolygons.features);
+    } else {
+      const selectedMarkers = markers
+        .reduce((acc, marker) => {
+          if (selected.find(s => marker.uri === s)) {
+            acc.push(marker)
+          }
+          return acc
+        }, [] as ResultMarker[])
+
+      const selectedPolygons = geoPolygons.features.reduce((acc, polygon) => {
+        if (selected.find(s => polygon.properties.iso3166_a3.endsWith(s.split("#")[1]))) {
+          acc.push(polygon)
+        }
+        return acc
+      }, [] as Feature[])
+
+      bounds = calculateBounds(selectedMarkers, selectedPolygons)
+    }
 
     // Wait for next cycle to zoom otherwise map won't be initialized
     setTimeout(() => {
       map.fitBounds(bounds, { padding: 20, maxZoom: 8 });
     }, 200)
-  }, [geoPolygons, markers])
+  }, [geoPolygons, markers, selected])
 
   return (
     <UIThemeProvider dark theme={theme}>
@@ -145,7 +163,7 @@ const FeatureMap: React.FC<TelicentMapProps> = ({
                       </Source>
                     ))}
                   <ResultsMarkers onClick={onClickMarker} markers={markers} findByClassUri={findByClassUri} selected={selected} />
-                  <PolygonMarkers geometryCollection={geoPolygons} />
+                  <PolygonMarkers geometryCollection={geoPolygons} onClick={onClickPolygon} />
                 </Map>
               </MapProvider>
             </FlexGridItem>

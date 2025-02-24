@@ -8,9 +8,15 @@ interface Geometry {
   coordinates: number[][][]; // for MultiPolygon, it's an array of arrays of arrays of coordinates
 }
 
-interface Feature {
+interface Properties {
+  iso3166_a3: string;
+  country: string;
+}
+
+export interface Feature {
   type: 'Feature';
   geometry: Geometry;
+  properties: Properties;
 }
 
 export interface FeatureCollection {

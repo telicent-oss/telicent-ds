@@ -2,7 +2,6 @@ import maplibregl from "maplibre-gl";
 import { ResultMarker } from "./ResultsMarkers";
 import { splitURIForNamespaceAndTerm } from "./strings";
 import geohash from "./geohash";
-import { getBounds } from "./utils";
 
 export const getIconLabel = (uri: string) => {
   const [namespace, term] = splitURIForNamespaceAndTerm(uri);
@@ -37,28 +36,27 @@ interface PolygonMarkersProps {
 }
 
 export const calculateBounds = (
-  markers: ResultMarker[],
-  geometryCollection: FeatureCollection
+  markers: ResultMarker[] = [],
+  polygons: Feature[] = []
 ) => {
+  console.log("calculating bounds", { markers, polygons });
   const bounds = new maplibregl.LngLatBounds();
 
-  geometryCollection.features.reduce(
-    (bounds: maplibregl.LngLatBounds, feature: Feature) => {
-      const getCoordinates = (coords: number[][]) => coords.flat(); // Flatten nested arrays
+  polygons.reduce((bounds: maplibregl.LngLatBounds, feature: Feature) => {
+    const getCoordinates = (coords: number[][]) => coords.flat(); // Flatten nested arrays
 
-      const coordinates =
-        feature.geometry.type === "Polygon"
-          ? getCoordinates(feature.geometry.coordinates[0]) // Get the first polygon
-          : feature.geometry.coordinates.flatMap(getCoordinates); // Flatten all coordinates for MultiPolygon
+    const coordinates =
+      feature.geometry.type === "Polygon"
+        ? getCoordinates(feature.geometry.coordinates[0]) // Get the first polygon
+        : feature.geometry.coordinates.flatMap(getCoordinates); // Flatten all coordinates for MultiPolygon
 
-      coordinates.forEach((coord) =>
-        bounds.extend(new maplibregl.LngLat(coord[0], coord[1]))
-      );
+    // TODO: this doesn't make sense. coordinates is a flattented array
+    coordinates.forEach((coord) =>
+      bounds.extend(new maplibregl.LngLat(coord[0], coord[1]))
+    );
 
-      return bounds;
-    },
-    bounds
-  );
+    return bounds;
+  }, bounds);
 
   markers.forEach((marker) => {
     const { longitude, latitude } = geohash.decode(
