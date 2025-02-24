@@ -6,7 +6,7 @@ export type AppBarProps = Partial<{
     appName: string;
     beta: boolean;
     apps: AppSwitchLibraryType;
-    action: React.ReactNode;
+    endChild: React.ReactNode;
     position: MUIAppBarProps["position"];
     version: string;
 }>;
