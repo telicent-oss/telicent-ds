@@ -1,21 +1,21 @@
 import React from "react";
+import { common } from "@mui/material/colors";
 import MUIAppBar, { AppBarProps as MUIAppBarProps } from "@mui/material/AppBar";
 import MUIBox from "@mui/material/Box";
 import MUIStack from "@mui/material/Stack";
 import MUITypography from "@mui/material/Typography";
 import TelicentBrand from "./TelicentBrand";
 import TelicentMark from "../../data-display/Icons/TelicentMark";
-import AppSwitch, {
-  AppSwitchLibraryType,
-} from "../../data-display/AppSwitch/AppSwitch";
+import AppSwitch, { AppSwitchLibraryType } from "../../data-display/AppSwitch/AppSwitch";
 import useExtendedTheme from "../../../../hooks/useExtendedTheme";
 
 export type AppBarProps = Partial<{
   appName: string;
   beta: boolean;
   apps: AppSwitchLibraryType;
-  userProfile: React.ReactNode;
+  endChild: React.ReactNode;
   position: MUIAppBarProps["position"];
+  version: string;
 }>;
 
 const AppBar: React.FC<AppBarProps> = ({
@@ -23,7 +23,8 @@ const AppBar: React.FC<AppBarProps> = ({
   beta = false,
   position = "relative",
   apps = [],
-  userProfile,
+  endChild,
+  version,
 }) => {
   const theme = useExtendedTheme();
 
@@ -55,30 +56,25 @@ const AppBar: React.FC<AppBarProps> = ({
       >
         <TelicentMark fontSize="large" />
         <TelicentBrand />
-        <MUITypography
-          variant="h1"
-          color="primary"
-          sx={{ fontFamily: "Figtree", fontSize: 40 }}
-        >
+        <MUITypography variant="h1" color="primary" sx={{ fontFamily: "Figtree", fontSize: 40 }}>
           {appName}
         </MUITypography>
-        {beta && (
+        {version && (
           <MUIBox
             position="absolute"
-            right={-28}
-            bottom={2}
-            fontSize={8}
+            right={-33}
+            bottom={5}
+            fontSize={12}
             paddingInline={0.5}
             sx={{
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
+              color: theme.palette.secondary.contrastText,
             }}
           >
-            BETA
+            {version}
           </MUIBox>
         )}
       </MUIStack>
-      {userProfile && (
+      {endChild && (
         <MUIStack
           sx={{
             position: "absolute",
@@ -87,7 +83,7 @@ const AppBar: React.FC<AppBarProps> = ({
             transform: "translate(0, -50%)",
           }}
         >
-          {userProfile}
+          {endChild}
         </MUIStack>
       )}
     </MUIAppBar>

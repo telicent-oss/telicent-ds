@@ -3,6 +3,7 @@ import { userEvent, within } from "@storybook/test";
 
 import AppBar from "./AppBar";
 import { Text, UserProfile, UserStatus } from "../../data-display";
+import { Button } from "../../inputs";
 
 const meta: Meta<typeof AppBar> = {
   title: "Surfaces/AppBar",
@@ -27,7 +28,7 @@ export const WithAppName: Story = {
 export const WithUserProfile: Story = {
   args: {
     ...WithAppName.args,
-    userProfile: (
+    endChild: (
       <UserProfile fullName="Han Solo">
         <UserStatus fullName="Han Solo">
           <Text variant="subtitle1">Roles</Text>
@@ -44,3 +45,27 @@ export const WithUserProfile: Story = {
     await userEvent.click(canvas.getByRole("button", { name: "user-profile" }));
   },
 };
+
+export const WithVersionNumber: Story = {
+  args: {
+    appName: "Search",
+    version: "1.2.0",
+  },
+};
+
+export const WithSignOutButton: Story = {
+  args: {
+    ...WithAppName.args,
+    endChild: (
+      <Button variant="primary" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
+        Sign Out
+      </Button>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.click(canvas.getByRole("button", { name: "user-profile" }));
+  },
+};
+
