@@ -3,20 +3,8 @@ import { UITheme } from '../colors/theme-colors';
 declare const generateComponentOverrides: (uiTheme: UITheme) => {
     MuiAppBar: {
         styleOverrides: {
-            root: ({ theme }: import('@mui/material').AppBarOwnProps & Omit<import('@mui/material').PaperOwnProps, "color" | "classes" | "position"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').HTMLAttributes<HTMLElement>, HTMLElement>, "ref"> & {
-                ref?: ((instance: HTMLElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLElement> | null | undefined;
-            }, "children" | "className" | "style" | "color" | "square" | "elevation" | "classes" | "sx" | "variant" | "position" | "enableColorOnDark"> & {
-                component?: import('../../../../node_modules/react').ElementType;
-            } & Record<string, unknown> & {
-                ownerState: import('@mui/material').AppBarOwnProps & Omit<import('@mui/material').PaperOwnProps, "color" | "classes" | "position"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').HTMLAttributes<HTMLElement>, HTMLElement>, "ref"> & {
-                    ref?: ((instance: HTMLElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLElement> | null | undefined;
-                }, "children" | "className" | "style" | "color" | "square" | "elevation" | "classes" | "sx" | "variant" | "position" | "enableColorOnDark"> & {
-                    component?: import('../../../../node_modules/react').ElementType;
-                } & Record<string, unknown>;
-            } & {
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }) => {
-                backgroundColor: string;
+            root: {
+                height: number;
             };
         };
     };
