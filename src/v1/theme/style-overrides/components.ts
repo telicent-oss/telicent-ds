@@ -11,7 +11,6 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     MuiAppBar: {
       styleOverrides: {
         root: ({ theme }) => ({
-          height: 64,
           backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "#ffffff",
         }),
       },
