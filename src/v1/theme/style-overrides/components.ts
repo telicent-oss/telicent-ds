@@ -10,9 +10,10 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     ...componentOverrides.generateCardOverrides(uiTheme),
     MuiAppBar: {
       styleOverrides: {
-        root: {
-          height: 70,
-        },
+        root: ({ theme }) => ({
+          height: 64,
+          backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "#ffffff",
+        }),
       },
     },
     MuiCssBaseline: {

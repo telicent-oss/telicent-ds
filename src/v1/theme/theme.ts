@@ -11,9 +11,7 @@ export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
 const createTheme = (themeColor: UITheme, dark: boolean) =>
   createMUITheme({
     components: generateComponentOverrides(themeColor),
-    palette: dark
-      ? createDarkPalette(themeColor)
-      : createLightPalette(themeColor),
+    palette: dark ? createDarkPalette(themeColor) : createLightPalette(themeColor),
     typography: TYPOGRAPHY_STYLE_OVERRIDES,
   });
 
