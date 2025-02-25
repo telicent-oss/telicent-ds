@@ -10,6 +10,11 @@ const meta: Meta<typeof AppBar> = {
   component: AppBar,
   tags: ["autodocs"],
   parameters: {
+    docs: {
+      description: {
+        component: "The AppBar component provides a top navigation bar that supports branding, actions, and more.",
+      },
+    },
     layout: "fullscreen",
   },
 };
@@ -48,7 +53,7 @@ export const WithUserProfile: Story = {
 
 export const WithVersionNumber: Story = {
   args: {
-    appName: "Search",
+    appName: "Design System",
     version: "1.2.0",
   },
 };
