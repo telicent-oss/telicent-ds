@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.16.1](https://github.com/telicent-oss/telicent-ds/compare/v0.16.0...v0.16.1) (2025-02-25)
+
+
+### Bug Fixes
+
+* app switch on app bar ([#199](https://github.com/telicent-oss/telicent-ds/issues/199)) ([23e8523](https://github.com/telicent-oss/telicent-ds/commit/23e85233b8de4df6c998fd1aab724dabb3bc9e7c))
+* AppBar - background colour in dark mode ([f0b9aa6](https://github.com/telicent-oss/telicent-ds/commit/f0b9aa6c1de6ca8c9d3dcaf984db9d8cfea9b0b8))
+* AppBar - background colour in dark mode  ([f0b9aa6](https://github.com/telicent-oss/telicent-ds/commit/f0b9aa6c1de6ca8c9d3dcaf984db9d8cfea9b0b8))
+
 ## [0.16.0](https://github.com/telicent-oss/telicent-ds/compare/v0.15.1...v0.16.0) (2025-02-24)
 
 
