@@ -67,10 +67,5 @@ export const WithSignOutButton: Story = {
       </Button>
     ),
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await userEvent.click(canvas.getByRole("button", { name: "user-profile" }));
-  },
 };
 
