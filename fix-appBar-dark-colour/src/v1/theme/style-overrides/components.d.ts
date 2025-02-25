@@ -16,7 +16,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             } & {
                 theme: Omit<import('@mui/material').Theme, "components">;
             }) => {
-                height: number;
                 backgroundColor: string;
             };
         };
