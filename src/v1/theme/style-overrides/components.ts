@@ -11,7 +11,7 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     MuiAppBar: {
       styleOverrides: {
         root: {
-          height: 70,
+          height: 64,
         },
       },
     },
