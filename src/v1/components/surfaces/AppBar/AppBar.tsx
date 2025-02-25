@@ -29,7 +29,16 @@ const AppBar: React.FC<AppBarProps> = ({
   const theme = useExtendedTheme();
 
   return (
-    <MUIAppBar color="inherit" position={position} enableColorOnDark sx={{ borderRadius: 0, height: 64 }} elevation={0}>
+    <MUIAppBar
+      color="inherit"
+      position={position}
+      enableColorOnDark
+      sx={{
+        borderRadius: 0,
+        backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "#ffffff",
+      }}
+      elevation={0}
+    >
       {apps?.length >= 1 && (
         <MUIBox
           id="app-switch-container"
