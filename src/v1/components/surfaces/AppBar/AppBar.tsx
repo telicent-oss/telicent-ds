@@ -71,12 +71,14 @@ const AppBar: React.FC<AppBarProps> = ({
         {version && (
           <MUIBox
             position="absolute"
-            right={-33}
             bottom={5}
             fontSize={12}
+            left="calc(100% - 12px)"
             paddingInline={0.5}
             sx={{
               color: theme.palette.secondary.contrastText,
+              whiteSpace: "nowrap",
+              marginLeft: "-4px",
             }}
           >
             {version}
