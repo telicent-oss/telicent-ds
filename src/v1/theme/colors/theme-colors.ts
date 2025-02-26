@@ -26,7 +26,7 @@ const THEME_COLORS = {
     contrastText: common.black,
   },
   dark: {
-    main: lightMain,
+    main: lightMain, // TODO fix dark theme
     light: alpha(lightMain, 0.5),
     dark: alpha(lightMain, 0.9),
     contrastText: common.white,
