@@ -1,5 +1,5 @@
 import React from "react";
-import { screen, waitFor } from "@testing-library/dom";
+import { screen, waitFor, render } from "@testing-library/react";
 import Map from "react-map-gl/maplibre";
 
 import { } from "../../../test-utils"
@@ -13,7 +13,7 @@ describe("Result Markers component", () => {
     let qs: typeof container.querySelector;
     beforeEach(async () => {
       // beforeAll has side effects that cause N+1 test cases to fail
-      const { container } = render(<Map><ResultsMarkers setViewportToBounds={jest.fn()} /></Map>)
+      const { container } = render(<Map id="TelicentMap"><ResultsMarkers setViewportToBounds={jest.fn()} /></Map>)
       qs = container.querySelector.bind(container);
       await waitFor(
         () => expect(screen.queryByTestId("document-locations")).toBeTruthy() // wait for use(promise)

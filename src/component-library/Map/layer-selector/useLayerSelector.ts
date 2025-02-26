@@ -3,6 +3,7 @@
 // WHEN TELFE-876
 import { useCallback, useState } from "react";
 import { z } from "zod";
+import { LayerOption } from "./LayerSelector";
 
 export const MapBoxSourceSchema = z.object({
   label: z.string(),
@@ -16,7 +17,10 @@ export const useStyleSelector = (initialMapConfig) => {
     typeof MapBoxSourceSchema
   > | null>(null);
   const [mapConfig] = useState({ tileSets: [], ...initialMapConfig });
-  const onChange = useCallback((value) => setSelected(value), [setSelected]);
+  const onChange = useCallback(
+    (value: LayerOption) => setSelected(value),
+    [setSelected]
+  );
   return {
     selected,
     mapConfig,

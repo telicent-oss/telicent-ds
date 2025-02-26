@@ -1,4 +1,5 @@
 import maplibregl from "maplibre-gl";
+import { Geometry } from "geojson";
 import { ResultMarker } from "./ResultsMarkers";
 import { splitURIForNamespaceAndTerm } from "./strings";
 import geohash from "./geohash";
@@ -15,12 +16,6 @@ export const getIconLabel = (uri: string) => {
 export const getLabelCharacters = (label: string): string =>
   label.substring(0, 3);
 
-// Define the type for GeoJSON features
-interface Geometry {
-  type: "Polygon" | "MultiPolygon";
-  coordinates: number[][][]; // for MultiPolygon, it's an array of arrays of arrays of coordinates
-}
-
 interface Feature {
   type: "Feature";
   geometry: Geometry;
@@ -31,27 +26,37 @@ export interface FeatureCollection {
   features: Feature[];
 }
 
-interface PolygonMarkersProps {
-  geometryCollection: FeatureCollection;
-}
+const checkIsValidPosition = (arr: any[]): boolean =>
+  Array.isArray(arr) &&
+  arr.length === 2 &&
+  !Array.isArray(arr[0]) &&
+  !Array.isArray(arr[1]);
+
+const recursiveFlatten = (array: any[]) =>
+  checkIsValidPosition(array)
+    ? [array]
+    : array.reduce((acc, val) => acc.concat(recursiveFlatten(val)), []);
+
+const getCoordinates = (geometry: Geometry) => {
+  if (geometry.type !== "Polygon" && geometry.type !== "MultiPolygon") {
+    throw new Error("Unsupported geometry type");
+  }
+
+  const coordinates = recursiveFlatten(geometry.coordinates);
+  return coordinates;
+};
 
 export const calculateBounds = (
   markers: ResultMarker[] = [],
   polygons: Feature[] = []
 ) => {
-  console.log("calculating bounds", { markers, polygons });
   const bounds = new maplibregl.LngLatBounds();
 
   polygons.reduce((bounds: maplibregl.LngLatBounds, feature: Feature) => {
-    const getCoordinates = (coords: number[][]) => coords.flat(); // Flatten nested arrays
-
-    const coordinates =
-      feature.geometry.type === "Polygon"
-        ? getCoordinates(feature.geometry.coordinates[0]) // Get the first polygon
-        : feature.geometry.coordinates.flatMap(getCoordinates); // Flatten all coordinates for MultiPolygon
+    const coordinates = getCoordinates(feature.geometry);
 
     // TODO: this doesn't make sense. coordinates is a flattented array
-    coordinates.forEach((coord) =>
+    coordinates.forEach((coord: number[]) =>
       bounds.extend(new maplibregl.LngLat(coord[0], coord[1]))
     );
 

@@ -14,9 +14,17 @@ import {
   useExtendedTheme,
 } from "../../../export";
 
-// import LayersIcon from '@mui/icons-material/Layers';
 
-const Image = ({ borderColor, src, alt, title }) => (
+// import LayersIcon from '@mui/icons-material/Layers';
+interface ImageProps {
+  borderColor: string;
+  src: string;
+  alt: string;
+  title: string;
+}
+
+
+const Image: React.FC<ImageProps> = ({ borderColor, src, alt, title }) => (
   <Box
     sx={{
       border: `2px solid ${borderColor}`,
@@ -38,15 +46,28 @@ const Image = ({ borderColor, src, alt, title }) => (
   </Box>
 );
 
-export const LayerSelector = ({ data, onChange }) => {
+export interface LayerOption {
+  uri: string;
+  image: string;
+  label: string;
+}
+
+interface LayerSelectorProps {
+  data: LayerOption[];
+  onChange: (layer: LayerOption) => void;
+}
+
+export const LayerSelector: React.FC<LayerSelectorProps> = ({ data, onChange }) => {
   const extendedTheme = useExtendedTheme();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+
   React.useEffect(() => {
     onChange(data[selectedIndex]);
   }, []);
 
-  const handleClick = (event) => {
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (anchorEl) {
       cycleSelection();
     } else {
@@ -64,7 +85,7 @@ export const LayerSelector = ({ data, onChange }) => {
     onChange(data[nextIndex]);
   };
 
-  const handleListItemClick = (index) => {
+  const handleListItemClick = (index: number) => {
     setSelectedIndex(index);
     onChange(data[index]);
     handleClose();

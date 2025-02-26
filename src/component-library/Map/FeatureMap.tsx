@@ -48,7 +48,7 @@ export type ClassIcon = {
   shape?: string | undefined;
 }
 
-interface TelicentMapProps {
+export interface FeatureMapProps {
   mapStyleOptions?: {
     vectorStyles?: StyleOption | StyleOption[], // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
     tileSets?: StyleOption[]
@@ -57,15 +57,15 @@ interface TelicentMapProps {
   markers?: ResultMarker[];
   geoPolygons?: FeatureCollection;
   selected: string[];
-  onClickMarker: (marker: ResultMarker) => void;
-  onClickPolygon: (polygon: ResultMarker) => void;
+  onClickMarker?: (marker: ResultMarker) => void;
+  onClickPolygon?: (polygon: ResultMarker) => void;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
   theme?: "DocumentPink" | "dark" | "light" | "DataNavy" | "GraphOrange";
   defaultStyle?: string;
   showAttribution?: boolean;
 }
 
-const FeatureMap: React.FC<TelicentMapProps> = ({
+const FeatureMap: React.FC<FeatureMapProps> = ({
   mapStyleOptions,
   markers = [],
   selected,
@@ -123,7 +123,7 @@ const FeatureMap: React.FC<TelicentMapProps> = ({
       <ErrorBoundary
         fallback={<p>Something went wrong: Failed to load map component</p>}
       >
-        <div className=" w-full h-full" >
+        <div className="contents">
           <FlexGrid m={0} direction="column" style={W_H_100}>
             <FlexGridItem flexGrow={1}>
               <MapProvider>
