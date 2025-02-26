@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.2](https://github.com/telicent-oss/telicent-ds/compare/v0.16.1...v0.16.2) (2025-02-26)
+
+
+### Bug Fixes
+
+* version number rendering on top of brand if too long ([#201](https://github.com/telicent-oss/telicent-ds/issues/201)) ([44709f0](https://github.com/telicent-oss/telicent-ds/commit/44709f04c2182e4c04195e3e4880b4de6190b209))
+
 ## [0.16.1](https://github.com/telicent-oss/telicent-ds/compare/v0.16.0...v0.16.1) (2025-02-25)
 
 
