@@ -2,7 +2,6 @@ import React from "react";
 import {
   Marker,
   Source,
-  useMap,
 } from "react-map-gl/maplibre";
 import classNames from "classnames";
 import { getLabelCharacters } from "./helper";
@@ -44,21 +43,18 @@ const ResultsMarkers: React.FC<ResultsMarkersProps> = ({
   selected,
   findByClassUri,
   onClick
-}) => {
-
-  return (
-    <Source
-      id="document-locations"
-      type={GEOJSON}
-      data={{ type: FEATURE_COLLECTION, features: markers }}
-      generateId
-    >
-      {markers.map((marker: ResultMarker) => (
-        <DocumentMarker key={marker.uri} marker={marker} onClick={onClick} findByClassUri={findByClassUri} selected={selected} />
-      ))}
-    </Source>
-  );
-};
+}) => (
+  <Source
+    id="document-locations"
+    type={GEOJSON}
+    data={{ type: FEATURE_COLLECTION, features: markers }}
+    generateId
+  >
+    {markers.map((marker: ResultMarker) => (
+      <DocumentMarker key={marker.uri} marker={marker} onClick={onClick} findByClassUri={findByClassUri} selected={selected} />
+    ))}
+  </Source>
+);
 
 
 export type ResultMarker = {
@@ -76,7 +72,6 @@ type DocumentMarkerProps = {
 };
 
 const DocumentMarker: React.FC<DocumentMarkerProps> = ({ marker, findByClassUri, selected, onClick }) => {
-
   const { latitude, longitude } = geohash.decode(marker.geohash.split("http://geohash.org/")[1]);
 
   // TODO Don't cast as FlattenedStyleType
