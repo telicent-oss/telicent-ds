@@ -196,8 +196,6 @@
       "!src/**/*/*.d.ts"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!mapbox-gl)/",
-      "node_modules\\/(?!(@telicent-oss/ontologyservice))"
       "node_modules/(?!(mapbox-gl|@telicent-oss/ontologyservice|@mui)/)"
     ]
   },
