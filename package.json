@@ -210,7 +210,7 @@
   },
   "ci": {
     "shared-workflows/.github/workflows/javascript-test-feature-branch.yml": {
-      "WARNING: TSC CHECK NO ERROR": true
+      "WARNING: TSC CHECK NO ERROR": false
     }
   }
 }
