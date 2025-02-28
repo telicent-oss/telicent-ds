@@ -1,5 +1,5 @@
 import { default as React } from '../../../node_modules/react';
-import { ClassIcon } from './FeatureMap';
+import { ClassIcon } from './utils/schema';
 
 export declare const GEOJSON = "geojson";
 export declare const FEATURE_COLLECTION = "FeatureCollection";

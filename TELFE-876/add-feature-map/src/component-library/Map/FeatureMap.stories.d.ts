@@ -46,22 +46,10 @@ declare const meta: {
         };
     };
     decorators: (Story: import('@storybook/csf').PartialStoryFn<import('@storybook/react/*').ReactRenderer, {
-        mapStyleOptions?: {
-            vectorStyles?: {
-                label: string;
-                uri: string;
-                image: string;
-            } | {
-                label: string;
-                uri: string;
-                image: string;
-            }[];
-            tileSets?: {
-                label: string;
-                uri: string;
-                image: string;
-            }[];
-        } | undefined;
+        mapStyleOptions: {
+            vectorStyles?: import('./utils/schema').StyleOption | import('./utils/schema').StyleOption[];
+            tileSets?: import('./utils/schema').StyleOption[];
+        };
         initialViewState?: {
             latitude: number;
             longitude: number;
@@ -72,7 +60,7 @@ declare const meta: {
         geoPolygons?: import('geojson').FeatureCollection | undefined;
         selected: string[];
         onClickMarker?: ((marker: ResultMarker) => void) | undefined;
-        findByClassUri: (maybeClassUri: string) => import('./FeatureMap').ClassIcon;
+        findByClassUri: (maybeClassUri: string) => import('./utils/schema').ClassIcon;
         theme?: ("DocumentPink" | "dark" | "light" | "DataNavy" | "GraphOrange") | undefined;
         defaultStyle?: string | undefined;
         attributionControl?: boolean | undefined;

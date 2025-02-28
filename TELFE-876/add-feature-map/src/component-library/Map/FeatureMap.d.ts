@@ -1,5 +1,6 @@
 import { default as React } from '../../../node_modules/react';
 import { FeatureCollection } from 'geojson';
+import { StyleOption, ClassIcon } from './utils/schema';
 import { ResultMarker } from './ResultsMarkers';
 
 export declare const GEOJSON = "geojson";
@@ -10,23 +11,8 @@ declare const initialView: {
     zoom: number;
     maxZoom: number;
 };
-type StyleOption = {
-    label: string;
-    uri: string;
-    image: string;
-};
-export type ClassIcon = {
-    backgroundColor: string;
-    color: string;
-    classUri: string;
-    iconFallbackText: string;
-    alt: string;
-    faIcon?: string | undefined;
-    faUnicode?: string | undefined;
-    shape?: string | undefined;
-};
 export interface FeatureMapProps {
-    mapStyleOptions?: {
+    mapStyleOptions: {
         vectorStyles?: StyleOption | StyleOption[];
         tileSets?: StyleOption[];
     };
