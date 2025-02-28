@@ -8,7 +8,7 @@ import { AUSTRIA, MOLDOVA } from './sampleData';
 import { ARGA_ATTACK, BOULAY_ATTACK } from './sampleData/markers';
 
 const meta = {
-  title: 'Data display/FeatureMap',
+  title: 'Component Library/FeatureMap',
   component: FeatureMap,
   tags: ["map", "markers", "polygons", "autodocs"],
   parameters: {
@@ -18,6 +18,9 @@ const meta = {
 This map component automatically calculates optimal viewport bounds to ensure all specified markers and polygons are visible.
 
 It dynamically adjusts panning and zoom levels to focus on selected features, providing an intuitive and comprehensive view of the mapped data.
+https://github.com/Telicent-io/k8s-manifests/blob/main/telicent/profiles/reference-eks/external-secrets-sync/graph-ui-secret-config-js/secret-config.js.md
+
+> Note: Maps don't behave in the storybook quite as they would in an app. This is due to the variables being passed in not being controlled state.
 `
       }
     },
