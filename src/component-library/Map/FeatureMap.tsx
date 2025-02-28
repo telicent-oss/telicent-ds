@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FeatureCollection, Feature } from "geojson";
 import { z } from "zod";
 import Map, {
   Layer,
@@ -14,8 +15,8 @@ import "./map.css";
 import { useStyleSelector, MapBoxSourceSchema } from "./layer-selector/useLayerSelector";
 import { LayerSelector } from "./layer-selector/LayerSelector";
 import { FlexGrid, FlexGridItem, UIThemeProvider } from "../../export";
-import PolygonMarkers, { FeatureCollection, Feature } from "./Polygons";
-import { calculateBounds } from "./helper";
+import PolygonMarkers from "./Polygons";
+import { calculateBounds } from "./utils/helper";
 import { MapRef } from "react-map-gl";
 import { LngLatBounds } from "maplibre-gl";
 
@@ -58,11 +59,10 @@ export interface FeatureMapProps {
   geoPolygons?: FeatureCollection;
   selected: string[];
   onClickMarker?: (marker: ResultMarker) => void;
-  onClickPolygon?: (polygon: ResultMarker) => void;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
   theme?: "DocumentPink" | "dark" | "light" | "DataNavy" | "GraphOrange";
   defaultStyle?: string;
-  showAttribution?: boolean;
+  attributionControl?: boolean;
 }
 
 const FeatureMap: React.FC<FeatureMapProps> = ({
@@ -74,9 +74,8 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
   initialViewState = initialView,
   defaultStyle,
   onClickMarker,
-  onClickPolygon,
   findByClassUri,
-  showAttribution = true
+  attributionControl = true
 }) => {
   const mapContainerRef = React.useRef<MapRef | null>(null);
   const [cursor, setCursor] = useState("auto");
@@ -103,7 +102,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
         }, [] as ResultMarker[])
 
       const selectedPolygons = geoPolygons.features.reduce((acc, polygon) => {
-        if (selected.find(s => polygon.properties.iso3166_a3.endsWith(s.split("#")[1]))) {
+        if (selected.find(s => polygon.properties?.iso3166_a3.endsWith(s.split("#")[1]))) {
           acc.push(polygon)
         }
         return acc
@@ -118,6 +117,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
     }, 200)
   }, [geoPolygons, markers, selected])
 
+  console.log({ styleSelector })
   return (
     <UIThemeProvider dark theme={theme}>
       <ErrorBoundary
@@ -135,7 +135,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
                   interactiveLayerIds={["document-locations-layer"]}
                   scrollZoom
                   mapStyle={defaultStyle}
-                  attributionControl={showAttribution}
+                  attributionControl={attributionControl}
                   onDragStart={() => setCursor("move")}
                   onDragEnd={resetCursor}
                   onMouseEnter={() => setCursor("pointer")}
@@ -163,7 +163,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
                       </Source>
                     ))}
                   <ResultsMarkers onClick={onClickMarker} markers={markers} findByClassUri={findByClassUri} selected={selected} />
-                  <PolygonMarkers geometryCollection={geoPolygons} onClick={onClickPolygon} />
+                  <PolygonMarkers geometryCollection={geoPolygons} />
                 </Map>
               </MapProvider>
             </FlexGridItem>

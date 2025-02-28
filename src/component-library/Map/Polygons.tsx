@@ -1,40 +1,18 @@
 import { Source, Layer } from "react-map-gl"
+import { FeatureCollection, Feature } from "geojson";
 import POLYGON_LAYERS from "./polygonStyles"
 import React from "react";
-
-// Define the type for GeoJSON features
-interface Geometry {
-  type: 'Polygon' | 'MultiPolygon';
-  coordinates: number[][][]; // for MultiPolygon, it's an array of arrays of arrays of coordinates
-}
-
-interface Properties {
-  iso3166_a3: string;
-  country: string;
-}
-
-export interface Feature {
-  type: 'Feature';
-  geometry: Geometry;
-  properties: Properties;
-}
-
-export interface FeatureCollection {
-  type: 'FeatureCollection';
-  features: Feature[];
-}
 
 interface PolygonMarkersProps {
   geometryCollection: FeatureCollection
 }
 
 const PolygonMarkers: React.FC<PolygonMarkersProps> = ({ geometryCollection }) => {
-
   return (
     <Source
       id="polygons"
       type="geojson"
-      data={{ type: 'FeatureCollection', features: geometryCollection.features }}
+      data={geometryCollection}
     >
       {POLYGON_LAYERS.map((layer) => (
         <Layer key={layer.id} {...layer} />

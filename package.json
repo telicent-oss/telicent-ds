@@ -184,17 +184,21 @@
       "^.+\\.css$": "jest-transform-stub"
     },
     "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+      "\\.(woff2)$": "<rootDir>/__mocks__/fileMock.ts",
       "mapbox-gl": "maplibre-gl",
       "^d3$": "<rootDir>/node_modules/d3/dist/d3.min.js"
     },
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.stories.{js,jsx,ts,tsx}",
+      "!src/**/*.storyconfig.{js,jsx,ts,tsx}",
       "!src/**/*/*.d.ts"
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!mapbox-gl)/",
       "node_modules\\/(?!(@telicent-oss/ontologyservice))"
+      "node_modules/(?!(mapbox-gl|@telicent-oss/ontologyservice|@mui)/)"
     ]
   },
   "config": {

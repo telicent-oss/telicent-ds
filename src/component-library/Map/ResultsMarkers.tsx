@@ -4,11 +4,11 @@ import {
   Source,
 } from "react-map-gl/maplibre";
 import classNames from "classnames";
-import { getLabelCharacters } from "./helper";
-import { splitURIForNamespaceAndTerm } from "./strings";
+import { getLabelCharacters } from "./utils/helper";
+import { splitURIForNamespaceAndTerm } from "./utils/strings";
 import { FlattenedStyleType } from "@telicent-oss/ontologyservice";
 import { ClassIcon } from "./FeatureMap";
-import geohash from "./geohash";
+import geohash from "./utils/geohash";
 
 export const GEOJSON = "geojson";
 export const FEATURE_COLLECTION = "FeatureCollection";

@@ -1,11 +1,3 @@
-export const removeHTMLTags = (string: string) =>
-  (string || "").replace(/<[^>]*>/g, "");
-
-export const splitLabelString = (string = "") => {
-  const str = string.replace(/([a-zA-Z])(?=[A-Z])/g, "$1 ").toLowerCase();
-  return `${str[0].toUpperCase()}${str.slice(1)}`;
-};
-
 export const splitURIForNamespaceAndTerm = (string: string) => {
   try {
     const url = new URL(string);

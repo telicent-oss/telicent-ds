@@ -3,7 +3,6 @@ import FeatureMap from './FeatureMap';
 import { Meta, StoryObj } from '@storybook/react/*';
 import { Box } from '@mui/material';
 import { ResultMarker } from './ResultsMarkers';
-import { findByClassUri } from '@telicent-oss/ontology-icon-lib';
 import { layerStyles } from './FeatureMap.storyconfig';
 import { AUSTRIA, MOLDOVA } from './sampleData';
 import { ARGA_ATTACK, BOULAY_ATTACK } from './sampleData/markers';
@@ -24,13 +23,12 @@ It dynamically adjusts panning and zoom levels to focus on selected features, pr
     },
     theme: "DocumentPink",
     selected: [],
-    showAttribution: true,
+    attributionControl: true,
     defaultStyle: "",
     geoPolygons: [],
     markers: [] as ResultMarker[],
     initialViewState: {},
     onClickMarker: () => { },
-    onClickPolygon: () => { },
     findByClassUri: () => { }
   },
   argTypes: {
@@ -52,7 +50,7 @@ It dynamically adjusts panning and zoom levels to focus on selected features, pr
       options: [],
       description: "Select by populating a list of uri's. The markers and polygons will then be checked against the markers and geoPolygons"
     },
-    showAttribution: {
+    attributionControl: {
       control: "radio",
       "options": [true, false],
       description: "Show map attribution as per legal requirements. The ability to hide attribution was added because if you hide the map, it is still visible."
@@ -63,9 +61,6 @@ This is designed to be used with ontology-service`
     },
     onClickMarker: {
       description: "Callback function to add custom behaviour. Triggered when a user selects a marker that is displayed on the map."
-    },
-    onClickPolygon: {
-      description: "Callback function to add custom behaviour. Triggered when a user selects a polygon that is displayed on the map."
     }
   },
   decorators: (Story) => (
@@ -87,7 +82,7 @@ export const MapWithMarkers: Story = {
   args: {
     theme: "DocumentPink",
     mapStyleOptions: layerStyles,
-    showAttribution: false,
+    attributionControl: true,
     selected: [],
     markers: [
       ARGA_ATTACK,
@@ -109,7 +104,7 @@ export const MapWithPolygons: Story = {
     theme: "DocumentPink",
     mapStyleOptions: layerStyles,
     geoPolygons: { type: 'FeatureCollection', features: [AUSTRIA] },
-    showAttribution: false,
+    attributionControl: true,
     selected: [],
     defaultStyle: "https://demotiles.maplibre.org/style.json",
     findByClassUri: (maybeClassUri: string) => ({
@@ -127,7 +122,7 @@ export const MapWithMarkersAndPolygons: Story = {
   args: {
     theme: "DocumentPink",
     mapStyleOptions: layerStyles,
-    showAttribution: false,
+    attributionControl: true,
     markers: [
       ARGA_ATTACK,
       BOULAY_ATTACK
@@ -149,7 +144,7 @@ export const MapWithSelectedMarker: Story = {
   args: {
     theme: "DocumentPink",
     mapStyleOptions: layerStyles,
-    showAttribution: false,
+    attributionControl: true,
     markers: [
       ARGA_ATTACK,
       BOULAY_ATTACK
@@ -171,7 +166,7 @@ export const MapWithSelectedMarker: Story = {
 export const MapWithoutLayers: Story = {
   args: {
     theme: "DocumentPink",
-    showAttribution: false,
+    attributionControl: true,
     selected: [],
     defaultStyle: "https://demotiles.maplibre.org/style.json",
     findByClassUri: (maybeClassUri: string) => ({

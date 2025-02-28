@@ -5,6 +5,7 @@
 import { configure } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MarkerProps } from "react-map-gl/maplibre";
+import React, { forwardRef } from "react";
 
 configure({ testIdAttribute: "id" });
 
@@ -19,10 +20,12 @@ type MockMarkerProps = {
   children: React.ReactNode;
 };
 
-
+jest.mock('maplibre-gl/dist/maplibre-gl.css', () => { });
+// const MockMap = forwardRef(({ children }: { children: React.ReactNode }, ref) => <button ref={ref} id="telicentMap">{children}</button>);
 jest.mock("react-map-gl/maplibre", () => ({
+  ...jest.requireActual("react-map-gl/maplibre"),
   __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => <div id="telicentMap">{children}</div>,
+  // default: MockMap,
   useMap: jest.fn(),
   Source: ({ children, id, data, ...otherProps }: { children: React.ReactNode, id: string, data: unknown }) => (
     <div
@@ -43,5 +46,6 @@ jest.mock("react-map-gl/maplibre", () => ({
       {children}
     </div>
   ),
-  MapProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  // MapProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+
 }));

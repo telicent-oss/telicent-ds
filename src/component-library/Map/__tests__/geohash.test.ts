@@ -1,4 +1,4 @@
-import geohash from "../geohash";
+import geohash from "../utils/geohash";
 
 describe("test the decode function", () => {
   test("test", () => {

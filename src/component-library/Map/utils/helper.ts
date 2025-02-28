@@ -1,8 +1,8 @@
 import maplibregl from "maplibre-gl";
 import { Geometry } from "geojson";
 import { ResultMarker } from "../ResultsMarkers";
-import { splitURIForNamespaceAndTerm } from "./utils/stringss";
-import geohash from "./utils/geohashh";
+import { splitURIForNamespaceAndTerm } from "./strings";
+import geohash from "./geohash";
 
 export const getIconLabel = (uri: string) => {
   const [namespace, term] = splitURIForNamespaceAndTerm(uri);

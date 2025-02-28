@@ -1,10 +1,9 @@
 import React from "react";
 import { screen, waitFor, render } from "@testing-library/react";
-import Map from "react-map-gl/maplibre";
 
 import ResultsMarkers from "../ResultsMarkers";
 import { ARGA_ATTACK, BOULAY_ATTACK, MADE_UP_MARKER } from "../sampleData/markers";
-import { ClassIcon } from "../FeatureMap";
+import FeatureMap, { ClassIcon } from "../FeatureMap";
 
 const CSS = {
   MATCH_ICON_STYLE:
@@ -38,7 +37,7 @@ describe("Result Markers component", () => {
     let container: HTMLElement;
     let qs: typeof container.querySelector;
     beforeEach(async () => {
-      ({ container } = render(<Map id="TelicentMap"><ResultsMarkers onClick={() => jest.fn()} selected={[]} findByClassUri={findByClassUriMock} markers={[ARGA_ATTACK, MADE_UP_MARKER]} /></Map>))
+      ({ container } = render(<ResultsMarkers onClick={() => jest.fn()} selected={[]} findByClassUri={findByClassUriMock} markers={[ARGA_ATTACK, MADE_UP_MARKER]} />))
       qs = container.querySelector.bind(container);
       await waitFor(
         () => expect(screen.queryByTestId("document-locations")).toBeTruthy() // wait for use(promise)
@@ -58,7 +57,6 @@ describe("Result Markers component", () => {
     });
 
     test("renders marker without icons when ontology styles are not matched", () => {
-      screen.debug()
       expect(screen.queryByText("Mad")).toBeVisible();
       expect(qs('[data-name="Non event. Not important"] [data-icon]')).not.toBeTruthy();
       expect(
