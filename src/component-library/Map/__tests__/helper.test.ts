@@ -78,7 +78,7 @@ describe("Helper functions", () => {
     });
     it("should error if an invalid polygon is passed in", () => {
       const badGeom = Object.assign({}, AUSTRIA.geometry);
-      badGeom.type = "NOT_POLYGON";
+      badGeom.type = "Point";
       expect(() => getCoordinates(badGeom)).toThrow(
         "Unsupported geometry type"
       );

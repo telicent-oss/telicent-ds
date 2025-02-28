@@ -1,5 +1,5 @@
 import maplibregl from "maplibre-gl";
-import { Geometry } from "geojson";
+import { Geometry, FeatureCollection, Feature } from "geojson";
 import { ResultMarker } from "../ResultsMarkers";
 import { splitURIForNamespaceAndTerm } from "./strings";
 import geohash from "./geohash";
@@ -15,16 +15,6 @@ export const getIconLabel = (uri: string) => {
 
 export const getLabelCharacters = (label: string): string =>
   label.substring(0, 3);
-
-interface Feature {
-  type: "Feature";
-  geometry: Geometry;
-}
-
-export interface FeatureCollection {
-  type: "FeatureCollection";
-  features: Feature[];
-}
 
 export const checkIsValidPosition = (arr: any[]): boolean =>
   Array.isArray(arr) &&

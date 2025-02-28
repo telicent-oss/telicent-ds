@@ -1,4 +1,5 @@
-export const AUSTRIA = {
+import { Feature } from "geojson";
+export const AUSTRIA: Feature = {
   type: "Feature",
   properties: {
     country: "Austria",
