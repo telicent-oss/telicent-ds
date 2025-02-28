@@ -67,6 +67,7 @@
     "link-to-local-packages": "./scripts/link-to-local-packages.sh"
   },
   "peerDependencies": {
+    "@telicent-oss/ontology-icon-lib": "*",
     "react": "*",
     "react-dom": "*"
   },
