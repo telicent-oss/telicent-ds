@@ -59,7 +59,7 @@ describe('useInternalState', () => {
     expect(result.current.anchorEl).toBeNull();
   });
 
-  test('open (by click dropdown), then cycle selection (by re-clicking dropdown)', async () => {
+  test('open (by click dropdown), then cycle selection (by re-clicking dropdown)', () => {
     act(() => {
       result.current.onClickDropdown(fakeEvent); // open
     });

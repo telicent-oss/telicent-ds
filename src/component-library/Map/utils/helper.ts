@@ -29,11 +29,10 @@ export const recursiveFlatten = (array: any[]) =>
 
 export const getCoordinates = (geometry: Geometry) => {
   if (geometry.type !== "Polygon" && geometry.type !== "MultiPolygon") {
-    throw new Error("Unsupported geometry type");
+    throw new Error(`Unsupported geometry type: Expected "Polygon" or "MultiPolygon", instead got "${geometry.type}"`);
   }
 
-  const coordinates = recursiveFlatten(geometry.coordinates);
-  return coordinates;
+  return recursiveFlatten(geometry.coordinates);
 };
 
 export const calculateBounds = (
@@ -45,7 +44,6 @@ export const calculateBounds = (
   polygons.reduce((bounds: maplibregl.LngLatBounds, feature: Feature) => {
     const coordinates = getCoordinates(feature.geometry);
 
-    // TODO: this doesn't make sense. coordinates is a flattented array
     coordinates.forEach((coord: number[]) =>
       bounds.extend(new maplibregl.LngLat(coord[0], coord[1]))
     );

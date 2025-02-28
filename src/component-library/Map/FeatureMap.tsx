@@ -101,7 +101,6 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
     }, 200)
   }, [geoPolygons, markers, selected])
 
-  console.log({ styleSelector })
   return (
     <UIThemeProvider dark theme={theme}>
       <ErrorBoundary

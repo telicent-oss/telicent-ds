@@ -27,7 +27,6 @@ const findByClassUriMock = (maybeUri: string): ClassIcon => {
 describe("FeatureMap", () => {
   it("should render", () => {
     render(<FeatureMap theme="DocumentPink" markers={[BOULAY_ATTACK, ARGA_ATTACK]} geoPolygons={{ type: "FeatureCollection", features: [AUSTRIA, MOLDOVA] }} findByClassUri={findByClassUriMock} selected={[]} mapStyleOptions={{}} />)
-    screen.debug()
-    // expect(screen).toMatchSnapshot()
+    expect(screen).toMatchSnapshot()
   })
 })
