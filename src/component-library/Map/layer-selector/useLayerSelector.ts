@@ -4,6 +4,7 @@
 import { useCallback, useState } from "react";
 import { z } from "zod";
 import { LayerOption } from "./LayerSelector";
+import { StyleOption } from "../utils/schema";
 
 export const MapBoxSourceSchema = z.object({
   label: z.string(),
@@ -12,7 +13,10 @@ export const MapBoxSourceSchema = z.object({
 });
 
 // todo access mapStyles form here
-export const useStyleSelector = (initialMapConfig) => {
+export const useStyleSelector = (initialMapConfig: {
+  vectorStyles?: StyleOption | StyleOption[]; // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
+  tileSets?: StyleOption[];
+}) => {
   const [selected, setSelected] = useState<z.infer<
     typeof MapBoxSourceSchema
   > | null>(null);

@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { getLabelCharacters } from "./utils/helper";
 import { splitURIForNamespaceAndTerm } from "./utils/strings";
 import { FlattenedStyleType } from "@telicent-oss/ontologyservice";
-import { ClassIcon } from "./FeatureMap";
+import { ClassIcon } from "./utils/schema";
 import geohash from "./utils/geohash";
 
 export const GEOJSON = "geojson";

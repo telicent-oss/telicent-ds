@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
-import FeatureMap, { ClassIcon } from "../FeatureMap"
-// import Map from "react-map-gl/maplibre";
+import FeatureMap from "../FeatureMap"
+import { ClassIcon } from "../utils/schema"
 import { ARGA_ATTACK, BOULAY_ATTACK, MADE_UP_MARKER } from "../sampleData/markers"
 import { AUSTRIA, MOLDOVA } from "../sampleData"
 

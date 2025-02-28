@@ -2,8 +2,8 @@ import React from "react";
 import { screen, waitFor, render } from "@testing-library/react";
 
 import ResultsMarkers from "../ResultsMarkers";
-import { ARGA_ATTACK, BOULAY_ATTACK, MADE_UP_MARKER } from "../sampleData/markers";
-import FeatureMap, { ClassIcon } from "../FeatureMap";
+import { ARGA_ATTACK, MADE_UP_MARKER } from "../sampleData/markers";
+import { ClassIcon } from "../utils/schema"
 
 const CSS = {
   MATCH_ICON_STYLE:

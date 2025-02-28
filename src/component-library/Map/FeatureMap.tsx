@@ -7,6 +7,7 @@ import Map, {
   Source,
 } from "react-map-gl/maplibre";
 import { ErrorBoundary } from "react-error-boundary";
+import { StyleOption, ClassIcon } from "./utils/schema";
 
 import ResultsMarkers, { ResultMarker } from "./ResultsMarkers";
 
@@ -32,25 +33,8 @@ const initialView = {
   maxZoom: 16,
 };
 
-type StyleOption = {
-  label: string,
-  uri: string,
-  image: string
-}
-
-export type ClassIcon = {
-  backgroundColor: string;
-  color: string;
-  classUri: string;
-  iconFallbackText: string;
-  alt: string;
-  faIcon?: string | undefined;
-  faUnicode?: string | undefined;
-  shape?: string | undefined;
-}
-
 export interface FeatureMapProps {
-  mapStyleOptions?: {
+  mapStyleOptions: {
     vectorStyles?: StyleOption | StyleOption[], // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
     tileSets?: StyleOption[]
   },
