@@ -34,7 +34,7 @@ const initialView = {
 };
 
 export interface FeatureMapProps {
-  mapStyleOptions: {
+  mapStyleOptions?: {
     vectorStyles?: StyleOption | StyleOption[], // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
     tileSets?: StyleOption[]
   },
@@ -96,9 +96,9 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
     }
 
     // Wait for next cycle to zoom otherwise map won't be initialized
-    setTimeout(() => {
+    map.on('render', () => {
       map.fitBounds(bounds, { padding: 20, maxZoom: 8 });
-    }, 200)
+    })
   }, [geoPolygons, markers, selected])
 
   return (
