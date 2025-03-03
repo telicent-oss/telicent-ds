@@ -52,5 +52,5 @@ export interface MiniSearchAutocompleteProps<Value extends AutocompleteOption = 
      */
     onSearch?: React.MouseEventHandler<HTMLButtonElement>;
 }
-declare const MiniSearchAutocomplete: <Value extends AutocompleteOption = AutocompleteOption, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false>(props: MiniSearchAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo> & React.RefAttributes<HTMLDivElement>) => React.ReactElement | null;
+declare const MiniSearchAutocomplete: React.ForwardRefExoticComponent<MiniSearchAutocompleteProps<AutocompleteOption, boolean, boolean, boolean> & React.RefAttributes<HTMLDivElement>>;
 export default MiniSearchAutocomplete;
