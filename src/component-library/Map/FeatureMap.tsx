@@ -97,7 +97,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
 
     // Wait for next cycle to zoom otherwise map won't be initialized
     map.on('render', () => {
-      map.fitBounds(bounds, { padding: 20, maxZoom: 8 });
+      map.fitBounds(bounds, { padding: 20, maxZoom: 8, maxDuration: 1000 });
     })
   }, [geoPolygons, markers, selected])
 
