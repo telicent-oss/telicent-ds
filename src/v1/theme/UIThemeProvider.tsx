@@ -1,5 +1,5 @@
 import React from "react";
-import MUIThemeProvider from "@mui/material/styles/ThemeProvider";
+import { ThemeProvider as MUIThemeProvider } from "@mui/material";
 import MUICssBaseline from "@mui/material/CssBaseline";
 import { UITheme } from "./colors/theme-colors";
 import createTheme from "./theme";
