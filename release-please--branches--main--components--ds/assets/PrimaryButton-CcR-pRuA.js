@@ -1,0 +1,1 @@
+import{j as o}from"./DefaultPropsProvider-DFY4ak0N.js";import{B as i}from"./Button-bPCeHTF6.js";const t=r=>o(i,{variant:"contained",color:"primary",...r,children:r.children});t.__docgenInfo={description:"",methods:[],displayName:"PrimaryButton"};export{t as P};
