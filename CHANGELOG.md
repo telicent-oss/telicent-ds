@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.17.0](https://github.com/telicent-oss/telicent-ds/compare/v0.16.2...v0.17.0) (2025-03-03)
+
+
+### Features
+
+* (feature-map): integrate maplibre map instance ([24d47f3](https://github.com/telicent-oss/telicent-ds/commit/24d47f3ca210d63fe5aaf561e38f3dee991f5e11))
+
+
+### Bug Fixes
+
+* add polygon and geopoint logic and layers ([2bd2400](https://github.com/telicent-oss/telicent-ds/commit/2bd240041f2357f7c03b95042be0337271ba548a))
+* remove obj proxy ([3c42d4e](https://github.com/telicent-oss/telicent-ds/commit/3c42d4efd48b25c8ed0c2323244bdca6ceaae51b))
+* remove second instance of mock ([18c3bba](https://github.com/telicent-oss/telicent-ds/commit/18c3bbae56887feae54fd5fb2ab62860a9817e02))
+* resolve unnecessary mocks ([17f9712](https://github.com/telicent-oss/telicent-ds/commit/17f971220125db8266754376177bb5bbd52cccff))
+
 ## [0.16.2](https://github.com/telicent-oss/telicent-ds/compare/v0.16.1...v0.16.2) (2025-02-26)
 
 
