@@ -16,7 +16,7 @@ export const getIconLabel = (uri: string) => {
 export const getLabelCharacters = (label: string): string =>
   label.substring(0, 3);
 
-export const checkIsValidPosition = (arr: any[]): boolean =>
+export const checkIsValidPosition = (arr: unknown[]): boolean =>
   Array.isArray(arr) &&
   arr.length === 2 &&
   !Array.isArray(arr[0]) &&
