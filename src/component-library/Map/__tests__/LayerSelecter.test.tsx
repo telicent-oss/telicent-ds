@@ -84,19 +84,6 @@ describe('useInternalState', () => {
 });
 
 describe('LayerSelector', () => {
-  beforeAll(() => {
-    const MockComponent = ({ children, ...props }: { children: React.ReactNode }) => <div data-props={props}>{children}</div>;
-    jest.mock('@telicent-oss/ds', () => ({
-      __esModule: true,
-      Box: MockComponent,
-      FlexGrid: MockComponent,
-      FlexGridItem: MockComponent,
-      PopOver: MockComponent,
-      Button: MockComponent,
-      Text: MockComponent,
-      useExtendedTheme: () => ({ palette: { primary: { main: 'main' } } }),
-    }));
-  });
   const mockData = [
     { image: 'url1', label: 'Label1' },
     { image: 'url2', label: 'Label2' },
