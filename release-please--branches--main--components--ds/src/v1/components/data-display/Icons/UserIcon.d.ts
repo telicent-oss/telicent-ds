@@ -1,5 +1,0 @@
-import { default as React } from '../../../../../node_modules/react';
-import { SvgIconProps } from '@mui/material';
-
-declare const UserIcon: React.FC<SvgIconProps>;
-export default UserIcon;
