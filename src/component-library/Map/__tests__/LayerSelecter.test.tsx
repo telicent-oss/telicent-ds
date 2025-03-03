@@ -120,19 +120,6 @@ describe('Presentational', () => {
     { image: 'url2', label: 'Label2' },
   ];
 
-  beforeAll(() => {
-    const MockComponent = ({ children, ...props }: { children: React.ReactNode }) => <div data-props={props}>{children}</div>;
-    jest.mock('@telicent-oss/ds', () => ({
-      __esModule: true,
-      Box: MockComponent,
-      FlexGrid: MockComponent,
-      FlexGridItem: MockComponent,
-      PopOver: MockComponent,
-      Button: MockComponent,
-      Text: MockComponent,
-      useExtendedTheme: () => ({ palette: { primary: { main: 'main' } } }),
-    }));
-  });
   test('renders correctly with given props', () => {
     const mockElement = document.createElement('div');
     render(
