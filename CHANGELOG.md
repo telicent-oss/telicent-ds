@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.17.1](https://github.com/telicent-oss/telicent-ds/compare/v0.17.0...v0.17.1) (2025-03-03)
+
+
+### Bug Fixes
+
+* set max transition duration ([852fc80](https://github.com/telicent-oss/telicent-ds/commit/852fc8047bccae0ba658d6beb3e815ebc00c8d87))
+* set max transition duration ([852fc80](https://github.com/telicent-oss/telicent-ds/commit/852fc8047bccae0ba658d6beb3e815ebc00c8d87))
+* set max transition duration ([54afb9c](https://github.com/telicent-oss/telicent-ds/commit/54afb9c19c1c07dd72b225fa3ab0548b7b82b9ba))
+
 ## [0.17.0](https://github.com/telicent-oss/telicent-ds/compare/v0.16.2...v0.17.0) (2025-03-03)
 
 
