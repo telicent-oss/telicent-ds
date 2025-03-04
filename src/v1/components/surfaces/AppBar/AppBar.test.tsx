@@ -53,4 +53,15 @@ describe("AppBar Component", () => {
 
        expect(screen.getByText("1.2.3")).toBeInTheDocument();
     })
+
+    test("on click function", async () => {
+      const handleClick = jest.fn();
+      const { user } = setup(<AppBar appName="Test App" onClick={handleClick} />);
+
+      const appBar = screen.getByText("Test App");
+
+      await user.click(appBar);
+
+      expect(handleClick).toHaveBeenCalledTimes(1);
+    });
   });

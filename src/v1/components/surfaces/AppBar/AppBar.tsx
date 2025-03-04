@@ -15,7 +15,8 @@ export type AppBarProps = Partial<{
   startChild: React.ReactNode;
   endChild: React.ReactNode;
   position: MUIAppBarProps["position"];
-  version: string;
+  version?: string;
+  onClick?: (event?: Event | React.SyntheticEvent) => void;
 }>;
 
 const AppBar: React.FC<AppBarProps> = ({
@@ -25,6 +26,7 @@ const AppBar: React.FC<AppBarProps> = ({
   startChild,
   endChild,
   version,
+  onClick,
 }) => {
   const theme = useExtendedTheme();
 
@@ -61,7 +63,9 @@ const AppBar: React.FC<AppBarProps> = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%);",
+          cursor: onClick ? "pointer" : "default",
         }}
+        onClick={onClick}
       >
         <TelicentMark fontSize="large" />
         <TelicentBrand />
