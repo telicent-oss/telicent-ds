@@ -7,7 +7,8 @@ export type AppBarProps = Partial<{
     startChild: React.ReactNode;
     endChild: React.ReactNode;
     position: MUIAppBarProps["position"];
-    version: string;
+    version?: string;
+    onClick?: (event?: Event | React.SyntheticEvent) => void;
 }>;
 declare const AppBar: React.FC<AppBarProps>;
 export default AppBar;
