@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.0](https://github.com/telicent-oss/telicent-ds/compare/v0.17.1...v0.18.0) (2025-03-04)
+
+
+### Features
+
+* add on click function to AppBar ([#208](https://github.com/telicent-oss/telicent-ds/issues/208)) ([dafa241](https://github.com/telicent-oss/telicent-ds/commit/dafa24123de34b8075ef0979d284d9cc7a0166c3))
+
 ## [0.17.1](https://github.com/telicent-oss/telicent-ds/compare/v0.17.0...v0.17.1) (2025-03-03)
 
 
