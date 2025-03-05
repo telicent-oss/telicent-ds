@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.18.1](https://github.com/telicent-oss/telicent-ds/compare/v0.18.0...v0.18.1) (2025-03-05)
+
+
+### Bug Fixes
+
+* bounds trigger to stop juddering ([5f0fac4](https://github.com/telicent-oss/telicent-ds/commit/5f0fac40e9fd920c22f0907b529f3066942c5fa2))
+* bounds trigger to stop juddering ([c320be2](https://github.com/telicent-oss/telicent-ds/commit/c320be28c1d9b0b823f609002bfba4f6935af4a8))
+* bounds-animation ([5f0fac4](https://github.com/telicent-oss/telicent-ds/commit/5f0fac40e9fd920c22f0907b529f3066942c5fa2))
+
 ## [0.18.0](https://github.com/telicent-oss/telicent-ds/compare/v0.17.1...v0.18.0) (2025-03-04)
 
 
