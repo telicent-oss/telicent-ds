@@ -56,7 +56,7 @@ const AppBar: React.FC<AppBarProps> = ({
       )}
       <MUIStack
         direction="row"
-        spacing={2}
+        spacing={1}
         alignItems="center"
         sx={{
           position: "absolute",
@@ -69,8 +69,8 @@ const AppBar: React.FC<AppBarProps> = ({
       >
         <TelicentMark fontSize="large" />
         <TelicentBrand />
-        <MUITypography variant="h1" color="primary" sx={{ fontFamily: "Figtree", fontSize: 40 }}>
-          {appName}
+        <MUITypography variant="h1" color="primary" sx={{ fontFamily: "Figtree", fontSize: 40, fontWeight: 400 }}>
+          {appName?.toUpperCase()}
         </MUITypography>
         {version && (
           <MUIBox
