@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.2](https://github.com/telicent-oss/telicent-ds/compare/v0.18.1...v0.18.2) (2025-03-06)
+
+
+### Bug Fixes
+
+* updating styles to match figma ([#212](https://github.com/telicent-oss/telicent-ds/issues/212)) ([1a21bef](https://github.com/telicent-oss/telicent-ds/commit/1a21bef5ad377819ecdc965b62b9832ba783fbd5))
+
 ## [0.18.1](https://github.com/telicent-oss/telicent-ds/compare/v0.18.0...v0.18.1) (2025-03-05)
 
 
