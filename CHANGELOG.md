@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.18.3](https://github.com/telicent-oss/telicent-ds/compare/v0.18.2...v0.18.3) (2025-03-06)
+
+
+### Bug Fixes
+
+* compact-attribution-color forced to be black rather than inherit ([5cc66eb](https://github.com/telicent-oss/telicent-ds/commit/5cc66eb25026117f4e23143f92d978c2627ec40b))
+* make text black ([5cc66eb](https://github.com/telicent-oss/telicent-ds/commit/5cc66eb25026117f4e23143f92d978c2627ec40b))
+* make text black ([5e7614c](https://github.com/telicent-oss/telicent-ds/commit/5e7614cd6ac2547d73d23a1a10a8946f677794ce))
+
 ## [0.18.2](https://github.com/telicent-oss/telicent-ds/compare/v0.18.1...v0.18.2) (2025-03-06)
 
 
