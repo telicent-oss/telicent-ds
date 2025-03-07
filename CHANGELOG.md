@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.18.4](https://github.com/telicent-oss/telicent-ds/compare/v0.18.3...v0.18.4) (2025-03-07)
+
+
+### Bug Fixes
+
+* map snapping back to bounds ([6c2f6fb](https://github.com/telicent-oss/telicent-ds/commit/6c2f6fb1ed58692d36391d83e7ce82d540ba4434))
+* map snapping back to bounds ([6c2f6fb](https://github.com/telicent-oss/telicent-ds/commit/6c2f6fb1ed58692d36391d83e7ce82d540ba4434))
+* map snapping back to bounds ([2b8945f](https://github.com/telicent-oss/telicent-ds/commit/2b8945f053be93b4ba3db83894464006e6ed970f))
+
 ## [0.18.3](https://github.com/telicent-oss/telicent-ds/compare/v0.18.2...v0.18.3) (2025-03-06)
 
 
