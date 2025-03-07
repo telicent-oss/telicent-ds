@@ -25,6 +25,8 @@ export const GEOJSON = "geojson";
 export const FEATURE_COLLECTION = "FeatureCollection";
 const W_H_100 = { height: "100%", width: "100%" };
 
+const initialFeatureCollection = { type: 'FeatureCollection', features: [] }
+
 const initialView = {
   latitude: 53.42148743839479,
   longitude: -3.863068679356047,
@@ -54,7 +56,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
   markers = [],
   selected,
   theme = "DocumentPink",
-  geoPolygons = { type: 'FeatureCollection', features: [] },
+  geoPolygons = initialFeatureCollection,
   initialViewState = initialView,
   defaultStyle,
   onClickMarker,
