@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.18.5](https://github.com/telicent-oss/telicent-ds/compare/v0.18.4...v0.18.5) (2025-03-10)
+
+
+### Bug Fixes
+
+* **autocomplete:** fix duplicate key error ([f626370](https://github.com/telicent-oss/telicent-ds/commit/f6263706b818e1b924e2010692072a050db09e17))
+* **FloatingPanelDockItem:** remove close button from docked items ([de073b5](https://github.com/telicent-oss/telicent-ds/commit/de073b5c947c60f6b28ba900482c2a53c69204df))
+* telicent-oss/TELFE-848/uplift-fixes ([11bf345](https://github.com/telicent-oss/telicent-ds/commit/11bf345721f33fdc93b4bcc48a6a365884587a20))
+
 ## [0.18.4](https://github.com/telicent-oss/telicent-ds/compare/v0.18.3...v0.18.4) (2025-03-07)
 
 
