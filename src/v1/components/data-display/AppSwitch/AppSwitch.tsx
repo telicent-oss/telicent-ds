@@ -81,14 +81,10 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
                   flexDirection: "column",
                   alignItems: "center",
                   rowGap: 4,
-                  width: "100%"
+                  width: "100%",
                 }}
               >
-                <img
-                  src={app.icon}
-                  alt={`${app.name} icon`}
-                  css={{ width: 25, height: 25 }}
-                />
+                <img src={app.icon} alt={`${app.name} icon`} css={{ width: 25, height: 25 }} />
                 {app.name}
               </a>
             </MUIMenuItem>

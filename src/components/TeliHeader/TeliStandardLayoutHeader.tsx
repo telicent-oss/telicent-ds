@@ -1,7 +1,7 @@
 import React from "react";
 import TeliHeader from "./TeliHeader";
 import TeliBrand, { TeliBrandProps } from "../TeliBrand/TeliBrand";
-import AppSwitch, { AppSwitchProps } from "../AppSwitch/AppSwitch";
+import TeliAppSwitch, { AppSwitchProps } from "../TeliAppSwitch/TeliAppSwitch";
 
 import "./standard-layout-header.css";
 
@@ -41,11 +41,11 @@ const TeliStandardLayoutHeader: React.FC<TeliStandardLayoutHeaderProps> = ({
         OR   TELFE-706 - TeliHeader will become obsolete once v1 components are
              implemented in Graph.
       */}
-      {userProfile && <AppSwitch apps={apps} isLeftAligned />}
+      {userProfile && <TeliAppSwitch apps={apps} isLeftAligned />}
     </div>
     <TeliBrand appName={appName} beta={beta} />
     <div className="end-adornments">
-      {!userProfile && <AppSwitch apps={apps} />}
+      {!userProfile && <TeliAppSwitch apps={apps} />}
       {userProfile}
     </div>
   </TeliHeader>
