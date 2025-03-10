@@ -17,6 +17,7 @@ export type AppBarProps = Partial<{
   position: MUIAppBarProps["position"];
   version?: string;
   onClick?: (event?: Event | React.SyntheticEvent) => void;
+  elevation?: boolean;
 }>;
 
 const AppBar: React.FC<AppBarProps> = ({
@@ -27,6 +28,7 @@ const AppBar: React.FC<AppBarProps> = ({
   endChild,
   version,
   onClick,
+  elevation,
 }) => {
   const theme = useExtendedTheme();
 
@@ -34,12 +36,11 @@ const AppBar: React.FC<AppBarProps> = ({
     <MUIAppBar
       color="inherit"
       position={position}
-      enableColorOnDark
       sx={{
         borderRadius: 0,
         backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "#ffffff",
       }}
-      elevation={0}
+      elevation={elevation ? 4 : 0}
     >
       {startChild && (
         <MUIBox
