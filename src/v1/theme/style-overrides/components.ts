@@ -8,6 +8,13 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     ...componentOverrides.AVATAR_OVERRIDES,
     ...componentOverrides.generateButtonOverrides(uiTheme),
     ...componentOverrides.generateCardOverrides(uiTheme),
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: "none",
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {
