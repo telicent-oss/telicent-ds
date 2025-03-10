@@ -182,13 +182,14 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
                       option,
                       index,
                     });
+
                     if (renderOption) {
                       return renderOption(optionProps, option);
                     }
 
                     const { key, ...props } = optionProps;
                     return (
-                      <MUIListItem key={key} disablePadding {...props}>
+                      <MUIListItem key={`${key}-${index}`} disablePadding {...props}>
                         <MUIListItemButton>
                           <FlexBox
                             direction="row"

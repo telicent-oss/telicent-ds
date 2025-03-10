@@ -48,17 +48,6 @@ const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
 
   return (
     <MUIListItem
-      secondaryAction={
-        <IconButton
-          edge="end"
-          aria-label="close"
-          size="small"
-          sx={{ fontSize: 14 }}
-          onClick={() => context.toggleVisibility(targetId)}
-        >
-          <CloseIcon fontSize="inherit" />
-        </IconButton>
-      }
       disablePadding
       sx={{
         backgroundColor,
