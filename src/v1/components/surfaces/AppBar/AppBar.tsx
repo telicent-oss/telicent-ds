@@ -6,7 +6,6 @@ import MUIStack from "@mui/material/Stack";
 import MUITypography from "@mui/material/Typography";
 import TelicentBrand from "./TelicentBrand";
 import TelicentMark from "../../data-display/Icons/TelicentMark";
-import AppSwitch, { AppSwitchLibraryType } from "../../data-display/AppSwitch/AppSwitch";
 import useExtendedTheme from "../../../../hooks/useExtendedTheme";
 
 export type AppBarProps = Partial<{
@@ -17,7 +16,7 @@ export type AppBarProps = Partial<{
   position: MUIAppBarProps["position"];
   version?: string;
   onClick?: (event?: Event | React.SyntheticEvent) => void;
-  elevation?: boolean;
+  isElevated?: boolean;
 }>;
 
 const AppBar: React.FC<AppBarProps> = ({
@@ -28,7 +27,7 @@ const AppBar: React.FC<AppBarProps> = ({
   endChild,
   version,
   onClick,
-  elevation,
+  isElevated,
 }) => {
   const theme = useExtendedTheme();
 
@@ -40,7 +39,7 @@ const AppBar: React.FC<AppBarProps> = ({
         borderRadius: 0,
         backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "#ffffff",
       }}
-      elevation={elevation ? 4 : 0}
+      elevation={isElevated ? 4 : 0}
     >
       {startChild && (
         <MUIBox
