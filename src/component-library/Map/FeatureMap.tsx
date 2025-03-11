@@ -71,7 +71,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
     setCursor("auto");
   };
 
-  useEffect(() => {
+  const fitMarkerAndPolygonBounds = () => {
     if (!mapContainerRef.current || (geoPolygons.features.length < 1 && markers.length < 1)) return;
     const map = mapContainerRef.current;
 
@@ -98,7 +98,15 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
     }
 
     map.fitBounds(bounds, { padding: 20, maxZoom: 8, duration: 500 });
+  }
+
+  useEffect(() => {
+    fitMarkerAndPolygonBounds();
   }, [geoPolygons, markers, selected])
+
+  const onLoad = () => {
+    fitMarkerAndPolygonBounds();
+  }
 
   return (
     <UIThemeProvider dark theme={theme}>
@@ -111,6 +119,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
               <MapProvider>
                 <Map
                   ref={mapContainerRef}
+                  onLoad={onLoad}
                   initialViewState={initialViewState}
                   cursor={cursor}
                   id="TelicentMap"
