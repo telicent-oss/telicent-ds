@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.18.6](https://github.com/telicent-oss/telicent-ds/compare/v0.18.5...v0.18.6) (2025-03-11)
+
+
+### Bug Fixes
+
+* pan to features when map is loaded or markers change ([dc592da](https://github.com/telicent-oss/telicent-ds/commit/dc592da373ee9f1e89297f4a572d1c361d23b1d9))
+* Remove unwanted Paper background in dark mode & update AppBar elevation ([#218](https://github.com/telicent-oss/telicent-ds/issues/218)) ([57780ab](https://github.com/telicent-oss/telicent-ds/commit/57780abafa48a369febc59a4a1c1054035deecc7))
+* use onLoad to ensure ref is loaded ([dc592da](https://github.com/telicent-oss/telicent-ds/commit/dc592da373ee9f1e89297f4a572d1c361d23b1d9))
+* use onLoad to ensure ref is loaded ([6265b62](https://github.com/telicent-oss/telicent-ds/commit/6265b623c47a6a26ab411be0003d56f368496130))
+
 ## [0.18.5](https://github.com/telicent-oss/telicent-ds/compare/v0.18.4...v0.18.5) (2025-03-10)
 
 
