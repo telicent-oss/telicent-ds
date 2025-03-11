@@ -9,6 +9,7 @@ export type AppBarProps = Partial<{
     position: MUIAppBarProps["position"];
     version?: string;
     onClick?: (event?: Event | React.SyntheticEvent) => void;
+    isElevated?: boolean;
 }>;
 declare const AppBar: React.FC<AppBarProps>;
 export default AppBar;

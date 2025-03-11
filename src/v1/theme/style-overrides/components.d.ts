@@ -1,6 +1,13 @@
 import { UITheme } from '../colors/theme-colors';
 
 declare const generateComponentOverrides: (uiTheme: UITheme) => {
+    MuiPaper: {
+        styleOverrides: {
+            root: {
+                backgroundImage: "none";
+            };
+        };
+    };
     MuiAppBar: {
         styleOverrides: {
             root: {
@@ -940,18 +947,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<import('@mui/material').PaginationItemProps> | ((props: Partial<import('@mui/material').PaginationItemProps> & {
                 ownerState: Partial<import('@mui/material').PaginationItemProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiPaper?: {
-        defaultProps?: import('@mui/material').ComponentsProps["MuiPaper"];
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').PaperClasses, "MuiPaper", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').PaperProps> | ((props: Partial<import('@mui/material').PaperProps> & {
-                ownerState: Partial<import('@mui/material').PaperProps>;
             }) => boolean);
             style: import('@mui/styled-engine').Interpolation<{
                 theme: Omit<import('@mui/material').Theme, "components">;
