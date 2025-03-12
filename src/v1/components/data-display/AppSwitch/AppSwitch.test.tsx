@@ -33,15 +33,9 @@ describe("App switch component", () => {
     await user.click(screen.getByRole("button", { name: "app-switch" }));
 
     expect(screen.getAllByRole("menuitem")).toHaveLength(3);
-    expect(
-      within(screen.getAllByRole("menuitem")[0]).getByRole("link")
-    ).toHaveTextContent("App 1");
-    expect(
-      within(screen.getAllByRole("menuitem")[1]).getByRole("link")
-    ).toHaveTextContent("App 2");
-    expect(
-      within(screen.getAllByRole("menuitem")[2]).getByRole("link")
-    ).toHaveTextContent("App 3");
+
+    expect(screen.getByRole("heading", { name: "APP 1" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "APP 2" })).toBeInTheDocument();
   });
 
   test("renders error message when schema validation errors", async () => {

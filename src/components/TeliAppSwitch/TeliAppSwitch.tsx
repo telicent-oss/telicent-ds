@@ -30,7 +30,7 @@ interface AppIconProps extends IApps {
   colour: string;
 }
 
-const AppSwitch: FC<AppSwitchProps> = ({ apps, isLeftAligned, ...otherProps }) => {
+const TeliAppSwitch: FC<AppSwitchProps> = ({ apps, isLeftAligned, ...otherProps }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,9 +47,7 @@ const AppSwitch: FC<AppSwitchProps> = ({ apps, isLeftAligned, ...otherProps }) =
     setIsOpen(false);
   };
 
-  const filteredApps = apps.filter(
-    (app) => app.url !== undefined && app.url !== null && app.url.trim() !== ""
-  );
+  const filteredApps = apps.filter((app) => app.url !== undefined && app.url !== null && app.url.trim() !== "");
 
   return (
     <>
@@ -58,12 +56,9 @@ const AppSwitch: FC<AppSwitchProps> = ({ apps, isLeftAligned, ...otherProps }) =
         type="button"
         onClick={handleClick}
         title="apps"
-        className={classNames(
-          "flex justify-center items-center w-10 h-10 rounded-full hover:bg-black-400 ",
-          {
-            "bg-black-400 cursor-pointer": isOpen,
-          }
-        )}
+        className={classNames("flex justify-center items-center w-10 h-10 rounded-full hover:bg-black-400 ", {
+          "bg-black-400 cursor-pointer": isOpen,
+        })}
         {...otherProps}
       >
         <i className="ri-layout-grid-2-fill" />
@@ -135,4 +130,4 @@ const AppIcon: FC<AppIconProps> = ({ name, colour, icon, url }) => (
   </div>
 );
 
-export default AppSwitch;
+export default TeliAppSwitch;

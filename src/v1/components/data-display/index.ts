@@ -4,6 +4,7 @@ export * from "./Text/Text";
 export * from "./List/List";
 
 export { AppSwitchLibrarySchema } from "./AppSwitch/AppSwitch";
+export { default as AppSwitch } from "./AppSwitch/AppSwitch";
 export type { AppSwitchLibraryType } from "./AppSwitch/AppSwitch";
 
 export { default as Chip } from "./Chip/Chip";

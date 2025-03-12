@@ -1,4 +1,4 @@
-export { default as AppSwitch } from "./AppSwitch/AppSwitch";
+export { default as TeliAppSwitch } from "./TeliAppSwitch/TeliAppSwitch";
 export { default as DependenciesTable } from "./DependenciesTable/DependenciesTable";
 export { default as TeliAutocomplete } from "./TeliAutocomplete/TeliAutocomplete";
 export { default as License } from "./License/License";
@@ -16,10 +16,7 @@ export { default as TeliSwitch } from "./TeliSwitch/TeliSwitch";
 export { default as TeliTextField } from "./TeliTextField/TeliTextField";
 export { default as TeliInput } from "./TeliTextField/TeliInput";
 export { default as TeliToolbar } from "./TeliToolbar/TeliToolbar";
-export {
-  default as TeliTypeIcon,
-  type TeliTypeIconProps,
-} from "./TeliTypeIcon/TeliTypeIcon";
+export { default as TeliTypeIcon, type TeliTypeIconProps } from "./TeliTypeIcon/TeliTypeIcon";
 export { default as TeliTypeahead } from "./TeliTypeahead/TeliTypeahead";
 export { default as TeliUserProfile } from "./TeliUserProfile/TeliUserProfile";
 export { default as OntologyHierarchy } from "./OntologyHierarchy/OntologyHierarchy";
