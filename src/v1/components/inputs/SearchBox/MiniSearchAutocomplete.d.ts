@@ -51,6 +51,12 @@ export interface MiniSearchAutocompleteProps<Value extends AutocompleteOption = 
      * `(event: React.MouseEvent<HTMLButtonElement>) => void;`
      */
     onSearch?: React.MouseEventHandler<HTMLButtonElement>;
+    /**
+     * Callback fired when the a key is pressed
+     *
+     * `(event: React.KeyboardEvent<HTMLButtonElement>) => void;`
+     */
+    onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 declare const MiniSearchAutocomplete: React.ForwardRefExoticComponent<MiniSearchAutocompleteProps<AutocompleteOption, boolean, boolean, boolean> & React.RefAttributes<HTMLDivElement>>;
 export default MiniSearchAutocomplete;
