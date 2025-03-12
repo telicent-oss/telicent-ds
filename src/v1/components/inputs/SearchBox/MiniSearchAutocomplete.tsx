@@ -81,6 +81,12 @@ export interface MiniSearchAutocompleteProps<
    * `(event: React.MouseEvent<HTMLButtonElement>) => void;`
    */
   onSearch?: React.MouseEventHandler<HTMLButtonElement>;
+  /**
+   * Callback fired when the a key is pressed
+   *
+   * `(event: React.KeyboardEvent<HTMLButtonElement>) => void;`
+   */
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
 const MiniSearchAutocomplete = forwardRef(function Autocomplete<
@@ -107,6 +113,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
     progressProps,
     renderOption,
     onSearch,
+    onKeyDown,
     freeSolo = true as FreeSolo,
     ...autocompleteProps
   } = props;
@@ -136,6 +143,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
         type="search"
         sx={{ width: 360 }}
         id={id}
+        onKeyDown={onKeyDown}
         name={name}
         error={error}
         endAdornment={
