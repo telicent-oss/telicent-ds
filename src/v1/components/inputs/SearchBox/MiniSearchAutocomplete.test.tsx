@@ -143,4 +143,15 @@ describe("MiniSearchAutocomplete", () => {
     expect(onSearch).toHaveBeenCalledTimes(2);
   });
 
+  test("calls onKeyDown when key is pressed", async () => {
+    const onKeyDown = jest.fn();
+    const { user } = renderComponent({ onKeyDown });
+
+    const input = screen.getByRole("combobox");
+
+    // Step 1: Type a search query
+    await user.type(input, "A");
+
+    expect(onKeyDown).toHaveBeenCalled()
+  })
 });
