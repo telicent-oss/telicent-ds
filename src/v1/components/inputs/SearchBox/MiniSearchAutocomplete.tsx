@@ -142,7 +142,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
           <>
             <FlexBox direction="row" spacing={0.5}>
               {loading ? (
-                <MUICircularProgress size="20px" {...progressProps} />
+                <MUICircularProgress id="loading" size="20px" {...progressProps} />
               ) : (
                 <IconButton size="small" onClick={onSearch} aria-label="search">
                   <SearchIcon fontSize="inherit" />
@@ -190,7 +190,11 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
                     const { key, ...props } = optionProps;
                     return (
                       <MUIListItem key={`${key}-${index}`} disablePadding {...props}>
-                        <MUIListItemButton>
+                        <MUIListItemButton onClick={(event) => {
+                          if (onSearch) {
+                            onSearch(event)
+                          }
+                        }}>
                           <FlexBox
                             direction="row"
                             columnGap={1}
