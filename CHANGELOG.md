@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.19.0](https://github.com/telicent-oss/telicent-ds/compare/v0.18.6...v0.19.0) (2025-03-12)
+
+
+### Features
+
+* app switch update ([#223](https://github.com/telicent-oss/telicent-ds/issues/223)) ([eba0567](https://github.com/telicent-oss/telicent-ds/commit/eba0567939d3a13cb0135bca4b5a5527ffdb2ab2))
+
+
+### Bug Fixes
+
+* run on search when list item is selected ([6bda1b1](https://github.com/telicent-oss/telicent-ds/commit/6bda1b1ff8e8dde2efc887bdd77c7fad795fa72e))
+* run on search when list item is selected ([4552368](https://github.com/telicent-oss/telicent-ds/commit/455236827d2d4b052563d5fc60f1654f5fb480c7))
+
 ## [0.18.6](https://github.com/telicent-oss/telicent-ds/compare/v0.18.5...v0.18.6) (2025-03-11)
 
 
