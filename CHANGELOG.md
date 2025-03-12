@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.19.1](https://github.com/telicent-oss/telicent-ds/compare/v0.19.0...v0.19.1) (2025-03-12)
+
+
+### Bug Fixes
+
+* **MiniSearchAutocomplete:** add onKeyDown prop ([b20af55](https://github.com/telicent-oss/telicent-ds/commit/b20af55b188d97aa94fff8e74714f08895032abf))
+* **MiniSearchAutocomplete:** add onKeyDown prop ([d63ba3d](https://github.com/telicent-oss/telicent-ds/commit/d63ba3d8f9ae162697ea1a77591715f47cb0766e))
+
 ## [0.19.0](https://github.com/telicent-oss/telicent-ds/compare/v0.18.6...v0.19.0) (2025-03-12)
 
 
