@@ -7,6 +7,10 @@ import { Text } from "../Text/Text";
 import IconButton from "../../inputs/Button/IconButton";
 import GridIcon from "../Icons/GridIcon";
 import FlexBox from "../../layout/FlexBox";
+import MUITypography from "@mui/material/Typography";
+import MUIListItemIcon from "@mui/material/ListItemIcon";
+import MUIListItemText from "@mui/material/ListItemText";
+import { useExtendedTheme } from "../../../../export";
 
 export const AppSwitchLibrarySchema = zod.object({
   id: zod.string(),
@@ -19,7 +23,7 @@ export type AppSwitchLibraryType = zod.infer<typeof AppSwitchLibrarySchema>[];
 
 const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  const theme = useExtendedTheme();
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,17 +59,14 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
           const validateAppsSchema = AppSwitchLibrarySchema.safeParse(app);
 
           if (!validateAppsSchema.success) {
-            const formattedErrors = validateAppsSchema.error.issues.map(
-              (issue) => {
-                return `${issue.path.toString().replace(",", " > ")}: ${issue.message}`;
-              }
-            );
+            const formattedErrors = validateAppsSchema.error.issues.map((issue) => {
+              return `${issue.path.toString().replace(",", " > ")}: ${issue.message}`;
+            });
             const errorMsg = formattedErrors.join("\n");
             return (
               <FlexBox key={errorMsg} role="menuitem">
                 <Text>
-                  Misconfiguration error: App Switch library{" "}
-                  {app?.id ? `for id ${app.id}` : `at index ${index}`}
+                  Misconfiguration error: App Switch library {app?.id ? `for id ${app.id}` : `at index ${index}`}
                 </Text>
                 <Text>{errorMsg}</Text>
               </FlexBox>
@@ -73,20 +74,36 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
           }
 
           return (
-            <MUIMenuItem key={app.id} onClick={handleClose}>
-              <a
-                href={app.url}
-                css={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  rowGap: 4,
-                  width: "100%",
-                }}
-              >
+            <MUIMenuItem
+              key={app.id}
+              onClick={() => {
+                window.open(app.url, "_blank");
+                handleClose();
+              }}
+              color="inherit"
+              sx={{
+                marginLeft: 1,
+                marginRight: 1,
+                borderRadius: "4px",
+                border: "1px solid rgba(0, 0, 0, 0)",
+                "&:hover": {
+                  backgroundColor:
+                    theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+                  border: `1px solid ${theme.palette.primary.main}`,
+                },
+              }}
+            >
+              <MUIListItemIcon>
                 <img src={app.icon} alt={`${app.name} icon`} css={{ width: 25, height: 25 }} />
-                {app.name}
-              </a>
+              </MUIListItemIcon>
+              <MUIListItemText>
+                <MUITypography
+                  variant="h1"
+                  sx={{ fontFamily: "Figtree", fontSize: 16, fontWeight: 400, color: "primary" }}
+                >
+                  {app.name.toUpperCase()}
+                </MUITypography>
+              </MUIListItemText>
             </MUIMenuItem>
           );
         })}
