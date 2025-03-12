@@ -1,6 +1,6 @@
 import { default as React } from '../../../node_modules/react';
 import { TeliBrandProps } from '../TeliBrand/TeliBrand';
-import { AppSwitchProps } from '../AppSwitch/AppSwitch';
+import { AppSwitchProps } from '../TeliAppSwitch/TeliAppSwitch';
 
 export interface TeliStandardLayoutHeaderProps {
     /**
