@@ -54,6 +54,11 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
         MenuListProps={{
           "aria-labelledby": "app-switch-button",
         }}
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
+          },
+        }}
       >
         {apps.map((app, index) => {
           const validateAppsSchema = AppSwitchLibrarySchema.safeParse(app);
@@ -80,10 +85,10 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
                 window.open(app.url, "_blank");
                 handleClose();
               }}
-              color="inherit"
               sx={{
-                marginLeft: 1,
-                marginRight: 1,
+                display: "flex",
+                alignItems: "center",
+                marginX: 1,
                 borderRadius: "4px",
                 border: "1px solid rgba(0, 0, 0, 0)",
                 "&:hover": {
@@ -99,7 +104,15 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
               <MUIListItemText>
                 <MUITypography
                   variant="h1"
-                  sx={{ fontFamily: "Figtree", fontSize: 16, fontWeight: 400, color: "primary" }}
+                  sx={{
+                    marginTop: 0.5,
+                    fontFamily: "Figtree",
+                    fontSize: 16,
+                    fontWeight: 400,
+                    color: "primary",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
                   {app.name.toUpperCase()}
                 </MUITypography>

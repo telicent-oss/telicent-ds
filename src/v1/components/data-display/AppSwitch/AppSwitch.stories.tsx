@@ -20,6 +20,18 @@ const appList = [
     url: "https://data-catalog.io",
     icon: "./src/assets/icons/catalog.svg",
   },
+  {
+    id: "telicent-user-portal",
+    name: "portal",
+    url: "https://data-user-portal.io",
+    icon: "./src/assets/icons/user-portal-light.svg",
+  },
+  {
+    id: "telicent-user-portal",
+    name: "portal",
+    url: "https://data-user-portal.io",
+    icon: "./src/assets/icons/user-portal-dark.svg",
+  },
 ];
 
 const meta: Meta<typeof AppSwitch> = {
