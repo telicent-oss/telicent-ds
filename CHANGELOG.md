@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.19.2](https://github.com/telicent-oss/telicent-ds/compare/v0.19.1...v0.19.2) (2025-03-13)
+
+
+### Bug Fixes
+
+* update bg colour on dark mode and added user portal to stories ([#229](https://github.com/telicent-oss/telicent-ds/issues/229)) ([221a589](https://github.com/telicent-oss/telicent-ds/commit/221a5895fca70536a0a5e845290ed06c4fbe025f))
+
 ## [0.19.1](https://github.com/telicent-oss/telicent-ds/compare/v0.19.0...v0.19.1) (2025-03-12)
 
 
