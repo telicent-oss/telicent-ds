@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/telicent-oss/telicent-ds/compare/v0.19.2...v0.20.0) (2025-03-20)
+
+
+### Features
+
+* **codec:** [TELFE-1023] added ([#232](https://github.com/telicent-oss/telicent-ds/issues/232)) ([239a539](https://github.com/telicent-oss/telicent-ds/commit/239a5398e3e0bd72e7143436e178c606e3ae6169))
+
 ## [0.19.2](https://github.com/telicent-oss/telicent-ds/compare/v0.19.1...v0.19.2) (2025-03-13)
 
 
