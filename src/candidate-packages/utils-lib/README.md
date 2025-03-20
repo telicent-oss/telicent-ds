@@ -1,5 +1,5 @@
 <!---
-# PROPOSED @telicent-oss/fe-lib
+# PROPOSED @telicent-oss/utils-lib
 -->
 
 Mainly frontend helper utils
@@ -9,6 +9,6 @@ Mainly frontend helper utils
 ### Install
 
 ```bash
-yarn install @telicent-oss/ontology-icon-lib
+yarn install @telicent-oss/utils-lib
 ```
 -->
