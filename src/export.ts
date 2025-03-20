@@ -18,3 +18,18 @@ export { Modal, type ModalProps } from "./v1/components/utils/index";
 
 // Component library
 export * from "./component-library/Map";
+
+// PROPOSED @telicent-oss/utils-lib
+export {
+  // getCodec
+  getCodec,
+  type Codec,
+  base64Codec,
+  uriComponentCodec,
+  // schemaAndTypes
+  ENCODE_SEARCH_PARAMS_MODES_Schema,
+  type ENCODE_SEARCH_PARAMS_MODES_Type,
+  // toStringEncoded
+  toStringEncoded,
+  type URLSearchParamsInit,
+} from "./candidate-packages/utils-lib/src/index";
