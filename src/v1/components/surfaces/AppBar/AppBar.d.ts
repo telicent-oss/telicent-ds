@@ -10,6 +10,7 @@ export type AppBarProps = Partial<{
     version?: string;
     onClick?: (event?: Event | React.SyntheticEvent) => void;
     isElevated?: boolean;
+    disableBrand?: boolean;
 }>;
 declare const AppBar: React.FC<AppBarProps>;
 export default AppBar;

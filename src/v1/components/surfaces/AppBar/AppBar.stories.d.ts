@@ -9,3 +9,5 @@ export declare const WithAppName: Story;
 export declare const WithUserProfile: Story;
 export declare const WithVersionNumber: Story;
 export declare const WithSignOutButton: Story;
+export declare const WithAppSwitch: Story;
+export declare const WithNoBrand: Story;
