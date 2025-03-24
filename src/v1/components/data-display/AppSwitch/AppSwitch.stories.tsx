@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import AppSwitch from "./AppSwitch";
 
-const appList = [
+export const appList = [
   {
     id: "telicent-graph",
     name: "graph",

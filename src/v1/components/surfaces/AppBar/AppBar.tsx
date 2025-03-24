@@ -17,6 +17,7 @@ export type AppBarProps = Partial<{
   version?: string;
   onClick?: (event?: Event | React.SyntheticEvent) => void;
   isElevated?: boolean;
+  disableBrand?: boolean;
 }>;
 
 const AppBar: React.FC<AppBarProps> = ({
@@ -28,6 +29,7 @@ const AppBar: React.FC<AppBarProps> = ({
   version,
   onClick,
   isElevated,
+  disableBrand,
 }) => {
   const theme = useExtendedTheme();
 
@@ -67,11 +69,16 @@ const AppBar: React.FC<AppBarProps> = ({
         }}
         onClick={onClick}
       >
-        <TelicentMark fontSize="large" />
-        <TelicentBrand />
-        <MUITypography variant="h1" color="primary" sx={{ fontFamily: "Figtree", fontSize: 40, fontWeight: 400 }}>
-          {appName?.toUpperCase()}
-        </MUITypography>
+        {!disableBrand && (
+          <>
+            <TelicentMark fontSize="large" />
+            <TelicentBrand />
+            <MUITypography variant="h1" color="primary" sx={{ fontFamily: "Figtree", fontSize: 40, fontWeight: 400 }}>
+              {appName?.toUpperCase()}
+            </MUITypography>
+          </>
+        )}
+
         {version && (
           <MUIBox
             position="absolute"
