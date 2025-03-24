@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/test";
 
 import AppBar from "./AppBar";
-import { Text, UserProfile, UserStatus } from "../../data-display";
+import { AppSwitch, Text, UserProfile, UserStatus } from "../../data-display";
 import { Button } from "../../inputs";
+import { appList } from "../../data-display/AppSwitch/AppSwitch.stories";
 
 const meta: Meta<typeof AppBar> = {
   title: "Surfaces/AppBar",
@@ -65,6 +66,36 @@ export const WithSignOutButton: Story = {
       <Button variant="primary" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
         Sign Out
       </Button>
+    ),
+  },
+};
+
+export const WithAppSwitch: Story = {
+  args: {
+    ...WithAppName.args,
+    startChild: <AppSwitch apps={appList} />,
+    endChild: (
+      <Button variant="primary" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
+        Sign Out
+      </Button>
+    ),
+  },
+};
+
+export const WithNoBrand: Story = {
+  args: {
+    ...WithAppName.args,
+    disableBrand: true,
+    startChild: <AppSwitch apps={appList} />,
+    endChild: (
+      <UserProfile fullName="Han Solo">
+        <UserStatus fullName="Han Solo">
+          <Text variant="subtitle1">Roles</Text>
+          <Text>Smuggler</Text>
+          <Text>Scoundrel</Text>
+          <Text>Hero</Text>
+        </UserStatus>
+      </UserProfile>
     ),
   },
 };
