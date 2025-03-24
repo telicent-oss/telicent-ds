@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.0](https://github.com/telicent-oss/telicent-ds/compare/v0.20.0...v0.21.0) (2025-03-24)
+
+
+### Features
+
+* update app bar to make brand optional ([#234](https://github.com/telicent-oss/telicent-ds/issues/234)) ([0c94d12](https://github.com/telicent-oss/telicent-ds/commit/0c94d12b10ab9c5b29eb8b61872909900fbf752f))
+
 ## [0.20.0](https://github.com/telicent-oss/telicent-ds/compare/v0.19.2...v0.20.0) (2025-03-20)
 
 
