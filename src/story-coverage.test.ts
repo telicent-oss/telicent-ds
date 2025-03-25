@@ -9,7 +9,7 @@ import fs from "fs";
  * If you have it covered in story and this test still complains
  * - you can add: `// ignore story-coverage.test.ts` to your file.
  */
-test("Component Story Coverage", () => {
+it("looks for components that appear to be missing a story - snapshots these components for examination", () => {
   let missingStories: string[] = [];
 
   // Gather all component files matching the given patterns
@@ -35,8 +35,6 @@ test("Component Story Coverage", () => {
     }
     return true;
   });
-
-  missingStories = [];
 
   // For each component, check for a story
   componentFiles.forEach((componentFile) => {
