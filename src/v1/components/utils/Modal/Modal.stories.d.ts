@@ -5,3 +5,4 @@ declare const meta: Meta<typeof Modal>;
 export default meta;
 type Story = StoryObj<typeof Modal>;
 export declare const Example: Story;
+export declare const WithNoCloseButton: Story;
