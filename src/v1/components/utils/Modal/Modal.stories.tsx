@@ -102,7 +102,7 @@ export const Example: Story = {
   },
 };
 
-export const WithDisableClose: Story = {
+export const WithNoCloseButton: Story = {
   render: (args) => {
     const [open, setOpen] = useState(false);
 
@@ -120,7 +120,7 @@ export const WithDisableClose: Story = {
         <Button variant="contained" onClick={handleOpen}>
           Open Modal
         </Button>
-        <Modal {...{ ...args, open, onClose: handleClose, disableClose: true }}>
+        <Modal {...{ ...args, open, onClose: handleClose, hideCloseButton: true }}>
           <>
             <H4 id="modal-title">Data handling policy:</H4>
             <H6 id="modal-title">Data set 1:</H6>
