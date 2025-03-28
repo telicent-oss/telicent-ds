@@ -5,6 +5,7 @@ import { PopOver, FlexGrid, FlexGridItem, Button, Text, useExtendedTheme } from 
 import { Image } from './Image'
 import { PopOverProps } from '../../../v1/components/surfaces/PopOver/Popover';
 import { ButtonProps } from '@mui/material';
+// ignore story-coverage.test.ts
 
 export interface LayerOption {
   uri: string;

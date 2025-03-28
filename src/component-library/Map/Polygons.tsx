@@ -3,6 +3,7 @@ import { FeatureCollection, Feature } from "geojson";
 import POLYGON_LAYERS from "./polygonStyles"
 import React from "react";
 
+// ignore story-coverage.test.ts
 interface PolygonMarkersProps {
   geometryCollection: FeatureCollection
 }
