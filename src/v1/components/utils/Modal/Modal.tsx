@@ -34,9 +34,10 @@ export type ModalProps = Omit<
           | "closeButtonClick" // custom event. Maybe delete and _misuse_ "backdropClick"
       ) => void)
     | undefined;
+  disableClose?: boolean;
 };
 
-export const Modal: React.FC<ModalProps> = ({ children, ...props }) => {
+export const Modal: React.FC<ModalProps> = ({ children, disableClose, ...props }) => {
   modalPropsSchema.parse({ children, ...props }); // This has perf cost
   return (
     <MUIModal {...props}>
@@ -64,16 +65,18 @@ export const Modal: React.FC<ModalProps> = ({ children, ...props }) => {
             justifyContent: "flex-end",
           }}
         >
-          <Button
-            onClick={(event) => props.onClose?.(event, "closeButtonClick")}
-            color='inherit'
-            sx={{
-              fontSize: 18,
-            }}
-          >
-            Close&nbsp;
-            <CloseIcon sx={{ fontSize: 14 }} />
-          </Button>
+          {!disableClose && (
+            <Button
+              onClick={(event) => props.onClose?.(event, "closeButtonClick")}
+              color="inherit"
+              sx={{
+                fontSize: 18,
+              }}
+            >
+              Close&nbsp;
+              <CloseIcon sx={{ fontSize: 14 }} />
+            </Button>
+          )}
         </Box>
 
         {/* Content Section */}

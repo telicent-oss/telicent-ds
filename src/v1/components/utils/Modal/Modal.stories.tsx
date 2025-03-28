@@ -64,20 +64,15 @@ type Story = StoryObj<typeof Modal>;
 
 export const Example: Story = {
   render: (args) => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = (_event: {}, reason: string) => {
-      if (
-        reason === "closeButtonClick" ||
-        reason === "backdropClick" ||
-        reason === "escapeKeyDown"
-      ) {
+      if (reason === "closeButtonClick" || reason === "backdropClick" || reason === "escapeKeyDown") {
         setOpen(false);
       } else {
         throw new Error(`Unknown reason: ${reason}`);
       }
-
     };
 
     return (
@@ -86,6 +81,46 @@ export const Example: Story = {
           Open Modal
         </Button>
         <Modal {...{ ...args, open, onClose: handleClose }}>
+          <>
+            <H4 id="modal-title">Data handling policy:</H4>
+            <H6 id="modal-title">Data set 1:</H6>
+            <Divider />
+
+            <Box
+              sx={{
+                mt: 1,
+                overflow: "auto", // Enables scrolling when content is too long
+                flex: "1 1 auto", // Allows the content to grow and shrink appropriately
+              }}
+            >
+              <Text whiteSpace={"preserve"}>{MOCK_DATA_POLICY}</Text>
+            </Box>
+          </>
+        </Modal>
+      </>
+    );
+  },
+};
+
+export const WithDisableClose: Story = {
+  render: (args) => {
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = (_event: {}, reason: string) => {
+      if (reason === "closeButtonClick" || reason === "backdropClick" || reason === "escapeKeyDown") {
+        setOpen(false);
+      } else {
+        throw new Error(`Unknown reason: ${reason}`);
+      }
+    };
+
+    return (
+      <>
+        <Button variant="contained" onClick={handleOpen}>
+          Open Modal
+        </Button>
+        <Modal {...{ ...args, open, onClose: handleClose, disableClose: true }}>
           <>
             <H4 id="modal-title">Data handling policy:</H4>
             <H6 id="modal-title">Data set 1:</H6>
