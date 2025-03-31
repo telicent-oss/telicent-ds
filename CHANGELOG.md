@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.22.0](https://github.com/telicent-oss/telicent-ds/compare/v0.21.1...v0.22.0) (2025-03-31)
+
+
+### Features
+
+* **tefe:** [TELFE-920] add ([#241](https://github.com/telicent-oss/telicent-ds/issues/241)) ([92c3a9f](https://github.com/telicent-oss/telicent-ds/commit/92c3a9fd252c09de41f2babf5802fc9824ad8268))
+
+
+### Bug Fixes
+
+* add refs to all buttons ([#242](https://github.com/telicent-oss/telicent-ds/issues/242)) ([46fb2e5](https://github.com/telicent-oss/telicent-ds/commit/46fb2e5e61292ca79ca13623bcfdb57bd90c429b))
+* **story-coverage.test.ts:** [TELFE-1022] added ([#236](https://github.com/telicent-oss/telicent-ds/issues/236)) ([4d888bd](https://github.com/telicent-oss/telicent-ds/commit/4d888bd1b4c12a177d69908e7f8632d836db4628))
+
 ## [0.21.1](https://github.com/telicent-oss/telicent-ds/compare/v0.21.0...v0.21.1) (2025-03-28)
 
 
