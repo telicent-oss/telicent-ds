@@ -2,7 +2,7 @@ import { StoryObj } from '@storybook/react';
 
 declare const meta: {
     title: string;
-    component: import('../../../../../node_modules/react').FC<import('./Button').ButtonProps>;
+    component: import('../../../../../node_modules/react').ForwardRefExoticComponent<Omit<import('./Button').ButtonProps, "ref"> & import('../../../../../node_modules/react').RefAttributes<HTMLButtonElement>>;
     parameters: {
         docs: {
             description: {
@@ -16,15 +16,6 @@ declare const meta: {
         onClick: import('@vitest/spy').Mock<(...args: any[]) => any>;
     };
     decorators: (Story: import('@storybook/csf').PartialStoryFn<import('@storybook/react').ReactRenderer, {
-        color?: ("primary" | "inherit") | undefined;
-        component?: import('@mui/material').ButtonProps["component"];
-        disabled?: boolean | undefined;
-        disableElevation?: boolean | undefined;
-        endIcon?: import('../../../../../node_modules/react').ReactNode;
-        fullWidth?: boolean | undefined;
-        size?: import('@mui/material').ButtonProps["size"];
-        startIcon?: import('../../../../../node_modules/react').ReactNode;
-        variant?: ("primary" | "secondary" | "tertiary" | "link" | "text") | undefined;
         children?: import('../../../../../node_modules/react').ReactNode;
         defaultChecked?: boolean | undefined;
         defaultValue?: string | number | readonly string[] | undefined;
@@ -64,6 +55,7 @@ declare const meta: {
         vocab?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
+        color?: ("primary" | "inherit") | undefined;
         itemProp?: string | undefined;
         itemScope?: boolean | undefined;
         itemType?: string | undefined;
@@ -291,12 +283,15 @@ declare const meta: {
         onTransitionEnd?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLButtonElement> | undefined;
         onTransitionEndCapture?: import('../../../../../node_modules/react').TransitionEventHandler<HTMLButtonElement> | undefined;
         form?: string | undefined;
-        ref?: ((instance: HTMLButtonElement | null) => void | import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../../node_modules/react').RefObject<HTMLButtonElement> | null | undefined;
         key?: import('../../../../../node_modules/react').Key | null | undefined;
+        size?: import('@mui/material').ButtonProps["size"];
         type?: "submit" | "reset" | "button" | undefined;
         name?: string | undefined;
+        component?: import('@mui/material').ButtonProps["component"];
         action?: import('../../../../../node_modules/react').Ref<import('@mui/material').ButtonBaseActions> | undefined;
+        variant?: ("primary" | "secondary" | "tertiary" | "link" | "text") | undefined;
         centerRipple?: boolean | undefined;
+        disabled?: boolean | undefined;
         disableRipple?: boolean | undefined;
         disableTouchRipple?: boolean | undefined;
         focusRipple?: boolean | undefined;
@@ -311,7 +306,12 @@ declare const meta: {
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
         formTarget?: string | undefined;
+        disableElevation?: boolean | undefined;
+        fullWidth?: boolean | undefined;
+        startIcon?: import('../../../../../node_modules/react').ReactNode;
+        endIcon?: import('../../../../../node_modules/react').ReactNode;
         disableFocusRipple?: boolean | undefined;
+        ref?: import('../../../../../node_modules/react').LegacyRef<HTMLButtonElement> | undefined;
     }>) => import("@emotion/react/jsx-runtime").JSX.Element;
 };
 export default meta;
