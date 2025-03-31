@@ -67,7 +67,8 @@
     "bump:prerelease": "yarn version --prerelease && git push && git push --tags",
     "bump:pre": "yarn bump:prerelease",
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
-    "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall"
+    "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
+    "prepare": "husky install"
   },
   "peerDependencies": {
     "@telicent-oss/ontology-icon-lib": "*",
