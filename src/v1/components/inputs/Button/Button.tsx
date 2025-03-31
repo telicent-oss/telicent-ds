@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
@@ -66,25 +66,25 @@ export interface ButtonProps
   variant?: "primary" | "secondary" | "tertiary" | "link" | "text";
 }
 
-const Button: React.FC<ButtonProps> = ({
-  variant = "primary",
-  color = "primary",
-  ...buttonProps
-}) => {
-  if (variant === "primary") return <PrimaryButton {...buttonProps} />;
-  if (variant === "secondary") return <SecondaryButton {...buttonProps} />;
+const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const { variant = "primary",
+    color = "primary",
+    ...buttonProps
+  } = props
+  if (variant === "primary") return <PrimaryButton {...buttonProps} ref={ref} />;
+  if (variant === "secondary") return <SecondaryButton {...buttonProps} ref={ref} />;
 
   /**
    * Cannot extend variants in theme. Using sx as workaround
    * https://github.com/mui/material-ui/issues/32427
    */
-  if (variant === "link") return <LinkButton {...buttonProps} />;
+  if (variant === "link") return <LinkButton {...buttonProps} ref={ref} />;
 
   return (
-    <MUIButton variant="text" color={color} {...buttonProps}>
+    <MUIButton variant="text" color={color} {...buttonProps} ref={ref}>
       {buttonProps.children}
     </MUIButton>
   );
-};
+});
 
 export default Button;

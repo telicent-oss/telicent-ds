@@ -1,16 +1,17 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
 import MUIBox from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
 
 type LinkButtonProps = Omit<MUIButtonProps, "variant" | "color">;
 
-const LinkButton: React.FC<LinkButtonProps> = (buttonProps) => {
+const LinkButton = forwardRef<HTMLButtonElement, LinkButtonProps>((buttonProps, ref) => {
   const theme = useTheme();
 
   return (
     <MUIBox sx={{ width: "fit-content" }}>
       <MUIButton
+        ref={ref}
         variant="text"
         color="primary"
         {...buttonProps}
@@ -43,6 +44,6 @@ const LinkButton: React.FC<LinkButtonProps> = (buttonProps) => {
       />
     </MUIBox>
   );
-};
+});
 
 export default LinkButton;
