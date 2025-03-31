@@ -20,7 +20,7 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: yarn install
+        run: LOCAL_MACHINE=false yarn install
 
       - name: Build Storybook
         run: yarn build-storybook
