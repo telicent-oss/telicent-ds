@@ -61,6 +61,7 @@ it("looks for components that appear to be missing a story - snapshots these com
 
   expect(missingStories).toMatchInlineSnapshot(`
     [
+      "./src/v1/components/data-display/DropdownButton/assets/TestIcons.tsx",
       "./src/v1/components/data-display/FontAwesomeIcons/ClockIcon.tsx",
       "./src/v1/components/data-display/FontAwesomeIcons/DownArrowIcon.tsx",
       "./src/v1/components/data-display/FontAwesomeIcons/DownloadIcon.tsx",

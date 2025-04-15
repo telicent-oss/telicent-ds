@@ -16,6 +16,7 @@ const DownArrow: React.FC<DownArrowIconProps> = ({ color, ...iconProps }) => {
   return (
     <FontAwesomeIcon
       icon={faAngleDown}
+      size="sm"
       css={{
         color: color === "primary" ? theme.palette.primary.main : "inherit",
       }}
