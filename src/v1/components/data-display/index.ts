@@ -26,3 +26,5 @@ export { default as TitleAndContent } from "./Text/TitleAndContent/TitleAndConte
 
 export { default as UserStatus } from "./UserProfile/UserProfileContent/UserStatus";
 export type { UserStatusProps } from "./UserProfile/UserProfileContent/UserStatus";
+
+export { default as DropdownButton } from "./DropdownButton/DropdownButton";

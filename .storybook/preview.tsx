@@ -3,6 +3,12 @@ import type { Preview } from "@storybook/react";
 import UIThemeProvider from "../src/v1/theme/UIThemeProvider";
 import { UIThemeSchema } from "../src/v1/theme/colors/theme-colors";
 import "../src/assets/fonts/fontawesome/css/all.min.css";
+import { addons } from "@storybook/manager-api";
+import { themes } from "@storybook/theming";
+
+addons.setConfig({
+  theme: themes.dark,
+});
 
 const preview: Preview = {
   decorators: [
@@ -23,8 +29,8 @@ const preview: Preview = {
       toolbar: {
         title: "Mode",
         items: [
-          { value: "light", title: "Light" },
           { value: "dark", title: "Dark" },
+          { value: "light", title: "Light" },
         ],
         dynamicTitle: true,
       },
@@ -39,7 +45,7 @@ const preview: Preview = {
     },
   },
   initialGlobals: {
-    mode: "light",
+    mode: "dark",
     theme: "GraphOrange",
   },
   parameters: {
@@ -50,7 +56,7 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: "light",
+      default: "dark",
       values: [
         {
           name: "light",
