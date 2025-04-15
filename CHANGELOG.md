@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.0](https://github.com/telicent-oss/telicent-ds/compare/v0.22.0...v0.23.0) (2025-04-15)
+
+
+### Features
+
+* add dropdown button ([#243](https://github.com/telicent-oss/telicent-ds/issues/243)) ([8c3a4f0](https://github.com/telicent-oss/telicent-ds/commit/8c3a4f08fdb75e4224c57af6dbf8580592d1b409))
+
 ## [0.22.0](https://github.com/telicent-oss/telicent-ds/compare/v0.21.1...v0.22.0) (2025-03-31)
 
 
