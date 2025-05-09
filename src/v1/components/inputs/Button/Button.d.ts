@@ -45,7 +45,7 @@ export interface ButtonProps extends Omit<MUIButtonProps, "color" | "component" 
      * The variant to use.
      * @default 'primary'
      */
-    variant?: "primary" | "secondary" | "tertiary" | "link" | "text";
+    variant?: "primary" | "secondary" | "tertiary" | "link" | "text" | "noStyle";
 }
 declare const Button: React.ForwardRefExoticComponent<Omit<ButtonProps, "ref"> & React.RefAttributes<HTMLButtonElement>>;
 export default Button;

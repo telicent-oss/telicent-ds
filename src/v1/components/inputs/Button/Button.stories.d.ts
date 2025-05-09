@@ -289,7 +289,7 @@ declare const meta: {
         name?: string | undefined;
         component?: import('@mui/material').ButtonProps["component"];
         action?: import('../../../../../node_modules/react').Ref<import('@mui/material').ButtonBaseActions> | undefined;
-        variant?: ("primary" | "secondary" | "tertiary" | "link" | "text") | undefined;
+        variant?: ("primary" | "secondary" | "tertiary" | "link" | "text" | "noStyle") | undefined;
         centerRipple?: boolean | undefined;
         disabled?: boolean | undefined;
         disableRipple?: boolean | undefined;
