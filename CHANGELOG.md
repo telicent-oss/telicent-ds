@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.1](https://github.com/telicent-oss/telicent-ds/compare/v0.23.0...v0.23.1) (2025-05-09)
+
+
+### Bug Fixes
+
+* update button to include a non-styled version and flexbox to accept ref. ([#247](https://github.com/telicent-oss/telicent-ds/issues/247)) ([1db1e2b](https://github.com/telicent-oss/telicent-ds/commit/1db1e2bbda506a1264b92fcdb87cd48e5c2b6c5e))
+
 ## [0.23.0](https://github.com/telicent-oss/telicent-ds/compare/v0.22.0...v0.23.0) (2025-04-15)
 
 
