@@ -3,6 +3,7 @@ import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import LinkButton from "./LinkButton";
+import { ButtonBase } from "@mui/material";
 
 export interface ButtonProps
   extends Omit<
@@ -63,14 +64,11 @@ export interface ButtonProps
    * The variant to use.
    * @default 'primary'
    */
-  variant?: "primary" | "secondary" | "tertiary" | "link" | "text";
+  variant?: "primary" | "secondary" | "tertiary" | "link" | "text" | "noStyle";
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { variant = "primary",
-    color = "primary",
-    ...buttonProps
-  } = props
+  const { variant = "primary", color = "primary", ...buttonProps } = props;
   if (variant === "primary") return <PrimaryButton {...buttonProps} ref={ref} />;
   if (variant === "secondary") return <SecondaryButton {...buttonProps} ref={ref} />;
 
@@ -79,6 +77,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
    * https://github.com/mui/material-ui/issues/32427
    */
   if (variant === "link") return <LinkButton {...buttonProps} ref={ref} />;
+
+  if (variant === "noStyle") return <ButtonBase {...buttonProps} ref={ref} />;
 
   return (
     <MUIButton variant="text" color={color} {...buttonProps} ref={ref}>
