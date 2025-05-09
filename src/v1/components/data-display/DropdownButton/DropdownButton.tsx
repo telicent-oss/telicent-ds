@@ -34,53 +34,55 @@ const DropdownButtonMenuItem: React.FC<DropDownButtonMenuItemProps> = ({ onClick
 	const Icon = icon;
 	const theme = useExtendedTheme();
 
-	return <MUIMenuItem
-		onClick={onClick}
-		id={id}
-		selected={selected}
-		sx={{
-			display: "flex",
-			alignItems: "center",
-			marginX: 1,
-			borderRadius: "4px",
-			border: "1px solid rgba(0, 0, 0, 0)",
-			"&.Mui-selected.Mui-selected": {
-				backgroundColor:
-					theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-			},
-			"&.Mui-selected.Mui-selected:hover": {
-				backgroundColor:
-					theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-			},
-			"&:hover": {
-				backgroundColor:
-					theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-				border: `1px solid ${theme.palette.primary.main}`,
-			},
-		}}>
-		{
-			(Icon || faIcon) && <MUIListItemIcon>
-				{Icon && <Icon color={selected ? "primary" : "inherit"} />}
-				{faIcon && <FontAwesomeIcon icon={faIcon} fontSize="medium" color={selected ? theme.palette.primary.main : "white"} />}
-			</MUIListItemIcon>
-		}
-		<MUIListItemText>
-			<MUITypography
-				variant="h1"
-				sx={{
-					marginTop: 0.5,
-					fontFamily: "Figtree",
-					fontSize: 16,
-					fontWeight: 400,
-					color: `${selected ? theme.palette.primary.main : "primary"}`,
-					display: "flex",
-					alignItems: "center",
-				}}
-			>
-				{value}
-			</MUITypography>
-		</MUIListItemText>
-	</MUIMenuItem >
+	return (
+    <MUIMenuItem
+      onClick={() => onClick(value)}
+      id={id}
+      selected={selected}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        marginX: 1,
+        borderRadius: "4px",
+        border: "1px solid rgba(0, 0, 0, 0)",
+        "&.Mui-selected.Mui-selected": {
+          backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+        },
+        "&.Mui-selected.Mui-selected:hover": {
+          backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+        },
+        "&:hover": {
+          backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+          border: `1px solid ${theme.palette.primary.main}`,
+        },
+      }}
+    >
+      {(Icon || faIcon) && (
+        <MUIListItemIcon>
+          {Icon && <Icon color={selected ? "primary" : "inherit"} />}
+          {faIcon && (
+            <FontAwesomeIcon icon={faIcon} fontSize="medium" color={selected ? theme.palette.primary.main : "white"} />
+          )}
+        </MUIListItemIcon>
+      )}
+      <MUIListItemText>
+        <MUITypography
+          variant="h1"
+          sx={{
+            marginTop: 0.5,
+            fontFamily: "Figtree",
+            fontSize: 16,
+            fontWeight: 400,
+            color: `${selected ? theme.palette.primary.main : "primary"}`,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {value}
+        </MUITypography>
+      </MUIListItemText>
+    </MUIMenuItem>
+  );
 }
 
 const DropdownButton: React.FC<DropdownButtonProps> = ({ ariaLabel, id, menuItems }) => {
