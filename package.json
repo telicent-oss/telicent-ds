@@ -68,6 +68,7 @@
     "bump:pre": "yarn bump:prerelease",
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
     "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
+    "local-publish": "yarn build && yarn publish --dry-run --registry http://localhost:4873 --prepatch",
     "prepare": "husky install"
   },
   "peerDependencies": {
@@ -159,7 +160,7 @@
     "vite-plugin-dts": "^3.6.3",
     "vite-plugin-watch-and-run": "1.7.0"
   },
-  "publishConfig": {
+  "publishConfigxx": {
     "registry": "https://www.npmjs.com/"
   },
   "files": [
