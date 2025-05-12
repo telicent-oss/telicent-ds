@@ -160,7 +160,7 @@
     "vite-plugin-dts": "^3.6.3",
     "vite-plugin-watch-and-run": "1.7.0"
   },
-  "publishConfigxx": {
+  "publishConfig": {
     "registry": "https://www.npmjs.com/"
   },
   "files": [
