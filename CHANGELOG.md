@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.2](https://github.com/telicent-oss/telicent-ds/compare/v0.23.1...v0.23.2) (2025-05-13)
+
+
+### Bug Fixes
+
+* **utils-lib:** [TELFE-1126] add GRAPH_APP.QUERY_PARAM.NODES ([#250](https://github.com/telicent-oss/telicent-ds/issues/250)) ([175a11e](https://github.com/telicent-oss/telicent-ds/commit/175a11e0eacabef4645116e05459897256fe674d))
+
 ## [0.23.1](https://github.com/telicent-oss/telicent-ds/compare/v0.23.0...v0.23.1) (2025-05-09)
 
 
