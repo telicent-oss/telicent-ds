@@ -13,3 +13,5 @@ export {
   toStringEncoded,
   type URLSearchParamsInit,
 } from "./getCodec/toStringEncoded";
+
+export { GRAPH_APP } from "./GraphApp/constants";
