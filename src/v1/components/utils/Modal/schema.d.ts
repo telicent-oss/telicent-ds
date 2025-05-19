@@ -3,15 +3,15 @@ import { z } from 'zod';
 export declare const modalPropsSchema: z.ZodObject<Omit<{
     open: z.ZodBoolean;
     children: z.ZodObject<{
-        type: z.ZodUnion<[z.ZodString, z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodUnknown>, z.ZodSymbol]>;
+        type: z.ZodUnion<[z.ZodString, z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodUnknown>, z.ZodSymbol, z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>]>;
         props: z.ZodRecord<z.ZodString, z.ZodAny>;
         key: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodNull]>>;
     }, "strip", z.ZodTypeAny, {
-        type: string | symbol | ((...args: unknown[]) => unknown);
+        type: string | symbol | ((...args: unknown[]) => unknown) | z.objectOutputType<{}, z.ZodTypeAny, "passthrough">;
         props: Record<string, any>;
         key?: string | number | null | undefined;
     }, {
-        type: string | symbol | ((...args: unknown[]) => unknown);
+        type: string | symbol | ((...args: unknown[]) => unknown) | z.objectInputType<{}, z.ZodTypeAny, "passthrough">;
         props: Record<string, any>;
         key?: string | number | null | undefined;
     }>;
@@ -43,15 +43,15 @@ export declare const modalPropsSchema: z.ZodObject<Omit<{
 }, "BackdropComponent" | "BackdropProps" | "closeAfterTransition" | "components" | "componentsProps" | "container" | "disableAutoFocus" | "disableEnforceFocus" | "disableEscapeKeyDown" | "disableRestoreFocus" | "hideBackdrop" | "keepMounted" | "onBackdropClick" | "onTransitionEnter" | "slots" | "slotProps" | "onTransitionExit">, "passthrough", z.ZodTypeAny, z.objectOutputType<Omit<{
     open: z.ZodBoolean;
     children: z.ZodObject<{
-        type: z.ZodUnion<[z.ZodString, z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodUnknown>, z.ZodSymbol]>;
+        type: z.ZodUnion<[z.ZodString, z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodUnknown>, z.ZodSymbol, z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>]>;
         props: z.ZodRecord<z.ZodString, z.ZodAny>;
         key: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodNull]>>;
     }, "strip", z.ZodTypeAny, {
-        type: string | symbol | ((...args: unknown[]) => unknown);
+        type: string | symbol | ((...args: unknown[]) => unknown) | z.objectOutputType<{}, z.ZodTypeAny, "passthrough">;
         props: Record<string, any>;
         key?: string | number | null | undefined;
     }, {
-        type: string | symbol | ((...args: unknown[]) => unknown);
+        type: string | symbol | ((...args: unknown[]) => unknown) | z.objectInputType<{}, z.ZodTypeAny, "passthrough">;
         props: Record<string, any>;
         key?: string | number | null | undefined;
     }>;
@@ -83,15 +83,15 @@ export declare const modalPropsSchema: z.ZodObject<Omit<{
 }, "BackdropComponent" | "BackdropProps" | "closeAfterTransition" | "components" | "componentsProps" | "container" | "disableAutoFocus" | "disableEnforceFocus" | "disableEscapeKeyDown" | "disableRestoreFocus" | "hideBackdrop" | "keepMounted" | "onBackdropClick" | "onTransitionEnter" | "slots" | "slotProps" | "onTransitionExit">, z.ZodTypeAny, "passthrough">, z.objectInputType<Omit<{
     open: z.ZodBoolean;
     children: z.ZodObject<{
-        type: z.ZodUnion<[z.ZodString, z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodUnknown>, z.ZodSymbol]>;
+        type: z.ZodUnion<[z.ZodString, z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodUnknown>, z.ZodSymbol, z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>]>;
         props: z.ZodRecord<z.ZodString, z.ZodAny>;
         key: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodNull]>>;
     }, "strip", z.ZodTypeAny, {
-        type: string | symbol | ((...args: unknown[]) => unknown);
+        type: string | symbol | ((...args: unknown[]) => unknown) | z.objectOutputType<{}, z.ZodTypeAny, "passthrough">;
         props: Record<string, any>;
         key?: string | number | null | undefined;
     }, {
-        type: string | symbol | ((...args: unknown[]) => unknown);
+        type: string | symbol | ((...args: unknown[]) => unknown) | z.objectInputType<{}, z.ZodTypeAny, "passthrough">;
         props: Record<string, any>;
         key?: string | number | null | undefined;
     }>;
