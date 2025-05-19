@@ -34,6 +34,10 @@ export default defineConfig({
         copy({
           targets: [
             {
+              src: "src/candidate-packages/logout-syncer/sw/sw.js",
+              dest: "dist/logout-syncer",
+            },
+            {
               src: "src/assets/fonts",
               dest: "dist/assets",
             },

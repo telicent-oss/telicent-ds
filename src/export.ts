@@ -34,3 +34,6 @@ export {
   type URLSearchParamsInit,
   GRAPH_APP
 } from "./candidate-packages/utils-lib/src/index";
+
+// PROPOSED @telicent-oss/logout-syncer
+export { setupWipe } from "./candidate-packages/logout-syncer/setupWipe";

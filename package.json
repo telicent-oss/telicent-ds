@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.23.2",
+  "version": "0.23.31-TELFE-1126.2",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -181,6 +181,11 @@
       "style": "./dist/style.css"
     },
     "./dist/fontawesome.css": {
+      "import": "./dist/fontawesome.css",
+      "require": "./dist/fontawesome.css",
+      "style": "./dist/fontawesome.css"
+    },
+    "./dist/login-syncer/sw.js": {
       "import": "./dist/fontawesome.css",
       "require": "./dist/fontawesome.css",
       "style": "./dist/fontawesome.css"
