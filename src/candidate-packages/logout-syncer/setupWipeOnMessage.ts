@@ -16,7 +16,7 @@ function whenControlled() {
   });
 }
 
-export type WipeOn401Config = {
+export type WipeOnMessageConfig = {
   register: {
     scriptURL: string;
     scope: string;
@@ -26,7 +26,7 @@ export type WipeOn401Config = {
 
 export const setupWipeOnMessage = (
   triggerWipe: () => void,
-  config: WipeOn401Config
+  config: WipeOnMessageConfig
 ) =>
   new Promise<void>((resolve, reject) => {
     try {
