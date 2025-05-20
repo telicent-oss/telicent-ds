@@ -2,7 +2,7 @@
 # PROPOSED @telicent-oss/logout-syncer
 -->
 
-Code to auto-logout all app tabs when encounter an unauthorised response
+Code to detect evidence of unauthorised calls, assume user is logged out - and to wipe all open sessions/tabs
 
 <!---
 

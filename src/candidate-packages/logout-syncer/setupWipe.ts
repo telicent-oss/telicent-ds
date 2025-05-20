@@ -1,5 +1,5 @@
 /* eslint-disable curly */
-import { setupWipeOn401, WipeOn401Config } from './setupWipeOn401';
+import { setupWipeOnMessage, WipeOn401Config } from './setupWipeOnMessage';
 import { setupWipeOnPageVisibility, WipeOnPageVisibilityConfig } from './setupWipeOnPageVisibility';
 import { triggerWipeWithDefaultURL } from './utils/triggerWipeWithDefaultURL';
 
@@ -14,7 +14,7 @@ export const setupWipe = async (config:WipeConfig) => {
     triggerWipeWithDefaultURL(config?.autoLogoutURL);
   };
   if (config.wipeOn401 !== undefined) {
-    await setupWipeOn401(triggerWipe, config.wipeOn401);
+    await setupWipeOnMessage(triggerWipe, config.wipeOn401);
   }
   if (config.wipeOnPageVisibility !== undefined) {
     await setupWipeOnPageVisibility(triggerWipe, config.wipeOnPageVisibility);
