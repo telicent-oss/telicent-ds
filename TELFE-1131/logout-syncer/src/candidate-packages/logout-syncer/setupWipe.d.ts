@@ -1,4 +1,4 @@
-import { WipeOn401Config } from './setupWipeOn401';
+import { WipeOn401Config } from './setupWipeOnMessage';
 import { WipeOnPageVisibilityConfig } from './setupWipeOnPageVisibility';
 
 export type WipeConfig = {
