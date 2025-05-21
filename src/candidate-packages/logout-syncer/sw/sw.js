@@ -1,10 +1,19 @@
 /// <reference lib="webworker" />
-console.log('0.23.31-TELFE-1126.7');
-
+console.log('sw.js version: {{rollup:pkg.version}}');
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", event =>
   event.waitUntil(self.clients.claim())
 );
+
+self.addEventListener('message', event => {
+  if (event.data?.type === 'sign-out-request') {
+    self.clients.matchAll({ includeUncontrolled: true }).then(clients => {
+      for (const client of clients) {
+        client.postMessage({ type: 'logout' });
+      }
+    });
+  }
+});
 
 async function postMessageAll(message) {
   const allClients = await self.clients.matchAll({ includeUncontrolled: true });

@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 import { setupWipeOnMessage, WipeOnMessageConfig } from './setupWipeOnMessage';
 import { setupWipeOnPageVisibility, WipeOnPageVisibilityConfig } from './setupWipeOnPageVisibility';
 import { triggerWipeWithDefaultURL } from './utils/triggerWipeWithDefaultURL';

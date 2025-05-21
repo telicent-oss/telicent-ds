@@ -8,6 +8,7 @@ import copy from "rollup-plugin-copy";
 import dts from "vite-plugin-dts";
 import { watchAndRun } from "vite-plugin-watch-and-run";
 import { defineConfig } from "vite";
+import pkg from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -36,6 +37,13 @@ export default defineConfig({
             {
               src: "src/candidate-packages/logout-syncer/sw/sw.js",
               dest: "dist/logout-syncer",
+              transform: (contents) => {
+                const src = contents.toString();
+                return src.replace(
+                  "console.log('sw.js version: {{rollup:pkg.version}}');",
+                  `console.log('sw.js version: ${pkg.version}');`
+                );
+              },
             },
             {
               src: "src/assets/fonts",

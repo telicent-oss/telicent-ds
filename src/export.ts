@@ -37,3 +37,4 @@ export {
 
 // PROPOSED @telicent-oss/logout-syncer
 export { setupWipe } from "./candidate-packages/logout-syncer/setupWipe";
+export { requestWipe } from "./candidate-packages/logout-syncer/requestWipe";
