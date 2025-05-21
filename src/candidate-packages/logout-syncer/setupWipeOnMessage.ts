@@ -51,17 +51,14 @@ export const setupWipeOnMessage = (
             console.log(`[sw-handler] message: ${event.data?.type}`);
             if (event.data?.type === "logout-likely") {
               config.fetchStatus();
-            } else if (
-              event.data?.type === "logout" &&
-              !autoLoggedOut.sessionStorage.get()
-            ) {
-              autoLoggedOut.sessionStorage.set(Date.now());
+            } else if (event.data?.type === "logout" && !autoLoggedOut.get()) {
+              autoLoggedOut.set(Date.now());
               triggerWipe();
             } else if (
               event.data?.type === "authorised" &&
-              autoLoggedOut.sessionStorage.get()
+              autoLoggedOut.get()
             ) {
-              autoLoggedOut.sessionStorage.remove();
+              autoLoggedOut.remove();
             }
           });
         });

@@ -1,17 +1,18 @@
-import { AUTO_LOGGED_OUT } from '../constants';
+// In-mem State for this page/tab
+let value:string | undefined = undefined;
 
 function get() {
-  return window.sessionStorage.getItem(AUTO_LOGGED_OUT);
+  return value;
 }
 
 function remove() {
-  window.sessionStorage.removeItem(AUTO_LOGGED_OUT);
+  value = undefined;
 }
 
 
 function set(val: number) {
-  window.sessionStorage.setItem(AUTO_LOGGED_OUT, `${val}`);
+  value = `${val}`
 }
 
 
-export const autoLoggedOut = {sessionStorage: { get, set, remove }};
+export const autoLoggedOut = { get, set, remove };
