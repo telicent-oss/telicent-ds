@@ -25,11 +25,11 @@ export const WipeConfigSchema = z
     isCheckOnPageVisibility: z.boolean().optional(),
     isClickGating: z.boolean().optional(),
     checkUserPollTime: z.number().int().positive().optional(),
+    verbose: z.boolean().optional(),
     fetchCurrentUser: z
       .function()
       .args()
       .returns(z.promise(z.union([z.string(), z.void()]))),
-      verbose: z.boolean().optional(),
   })
   .optional();
 
@@ -70,6 +70,9 @@ let isSetup = false;
  *
  * @param {() => Promise<string>} config.fetchCurrentUser
  *   Function that returns the current user identifier (e.g. user ID or email).
+ *
+ * @param {boolean} config.verbose
+ *   Extra logging
  *
  * @returns {Promise<void>}
  *   Resolves once setup is complete and (if used) the Service Worker is controlling the page.

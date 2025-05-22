@@ -40,8 +40,8 @@ export default defineConfig({
               transform: (contents) => {
                 const src = contents.toString();
                 return src.replace(
-                  "console.info('sw.js version: {{rollup:pkg.version}}');",
-                  `console.info('sw.js version: ${pkg.version}');`
+                  "console.info(\"sw.js version: {{rollup:pkg.version}}\");",
+                  `console.info("sw.js version: ${pkg.version}");`
                 );
               },
             },
