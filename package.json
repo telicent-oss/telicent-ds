@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.23.31-TELFE-1126.15",
+  "version": "0.23.31-TELFE-1126.31",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -48,6 +48,7 @@
   "scripts": {
     "lint": "eslint --resolve-plugins-relative-to src",
     "clean": "rimraf dist storybook-static",
+    "check": "./.husky/pre-commit",
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -68,7 +69,7 @@
     "bump:pre": "yarn bump:prerelease",
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
     "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
-    "local-publish": "yarn build && npm publish  --registry http://localhost:4873 --prepatch",
+    "local-publish": "git add --all && yarn build && npm publish  --registry http://localhost:4873 --prepatch",
     "prepare": "husky install"
   },
   "peerDependencies": {

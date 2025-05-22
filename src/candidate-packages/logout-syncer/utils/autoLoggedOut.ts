@@ -9,10 +9,8 @@ function remove() {
   value = undefined;
 }
 
-
 function set(val: number) {
   value = `${val}`
 }
-
 
 export const autoLoggedOut = { get, set, remove };
