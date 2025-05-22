@@ -40,8 +40,8 @@ export declare const WipeConfigSchema: z.ZodOptional<z.ZodObject<{
     isCheckOnPageVisibility: z.ZodOptional<z.ZodBoolean>;
     isClickGating: z.ZodOptional<z.ZodBoolean>;
     checkUserPollTime: z.ZodOptional<z.ZodNumber>;
-    fetchCurrentUser: z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodPromise<z.ZodUnion<[z.ZodString, z.ZodVoid]>>>;
     verbose: z.ZodOptional<z.ZodBoolean>;
+    fetchCurrentUser: z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodPromise<z.ZodUnion<[z.ZodString, z.ZodVoid]>>>;
 }, "strip", z.ZodTypeAny, {
     fetchCurrentUser: (...args: unknown[]) => Promise<string | void>;
     autoLogoutURL?: URL | undefined;
@@ -109,6 +109,9 @@ export type WipeConfig = z.infer<typeof WipeConfigSchema>;
  *
  * @param {() => Promise<string>} config.fetchCurrentUser
  *   Function that returns the current user identifier (e.g. user ID or email).
+ *
+ * @param {boolean} config.verbose
+ *   Extra logging
  *
  * @returns {Promise<void>}
  *   Resolves once setup is complete and (if used) the Service Worker is controlling the page.
