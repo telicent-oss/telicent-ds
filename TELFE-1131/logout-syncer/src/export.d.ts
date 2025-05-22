@@ -13,6 +13,6 @@ export * from './v1/components/surfaces';
 export * from './v1/theme';
 export { Modal, type ModalProps } from './v1/components/utils/index';
 export * from './component-library/Map';
-export { getCodec, type Codec, base64Codec, uriComponentCodec, ENCODE_SEARCH_PARAMS_MODES_Schema, type ENCODE_SEARCH_PARAMS_MODES_Type, toStringEncoded, type URLSearchParamsInit, GRAPH_APP } from './candidate-packages/utils-lib/src/index';
-export { setupWipe } from './candidate-packages/logout-syncer/setupWipe';
+export { getCodec, type Codec, base64Codec, uriComponentCodec, ENCODE_SEARCH_PARAMS_MODES_Schema, type ENCODE_SEARCH_PARAMS_MODES_Type, toStringEncoded, type URLSearchParamsInit, GRAPH_APP, } from './candidate-packages/utils-lib/src/index';
+export { setupWipe, WipeConfigSchema, type WipeConfig, } from './candidate-packages/logout-syncer/setupWipe';
 export { requestWipe } from './candidate-packages/logout-syncer/requestWipe';
