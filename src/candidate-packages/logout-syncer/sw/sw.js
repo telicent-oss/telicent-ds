@@ -1,5 +1,5 @@
 /// <reference lib="webworker" />
-console.log("sw.js version: {{rollup:pkg.version}}");
+console.info("sw.js version: {{rollup:pkg.version}}");
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (event) =>
   event.waitUntil(self.clients.claim())

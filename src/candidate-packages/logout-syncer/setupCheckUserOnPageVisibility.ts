@@ -1,7 +1,9 @@
+import { logger } from "./utils/logger";
+
 export const setupCheckUserOnPageVisibility = (checkUser: (reason:string) => Promise<void>) => {
   // TODO debounce?
   const handleVisibilityChange = async () => {
-    console.log("handleVisibilityChange");
+    logger.log("handleVisibilityChange");
     if (document.visibilityState !== "visible") return;
     await checkUser('visibilitychange');
   };

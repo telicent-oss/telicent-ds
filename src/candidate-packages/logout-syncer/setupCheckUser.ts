@@ -1,3 +1,4 @@
+import { logger } from "./utils/logger";
 import { retry } from "./utils/retry";
 import { user } from "./utils/user";
 
@@ -20,19 +21,19 @@ export const setupCheckUser = async (config: {
   const currentUser = await retry(() => config.fetchCurrentUser());
 
   if (!currentUser) {
-    console.log(`No currentUser: exiting early`);
+    console.warn(`No currentUser: exiting early`);
     // config.triggerWipe(); // infinite loop on logged out pages
     return;
   } else {
-    console.log(`Storing currentUser`, currentUser);
+    logger.log(`Storing currentUser`, currentUser);
     user.set(currentUser);
   }
 
   const checkUser = async (reason: string) => {
-    console.log(`checkUser(): ${reason}...`);
+    logger.log(`checkUser(): ${reason}...`);
     const currentUser = await retry(() => config.fetchCurrentUser());
     if (currentUser !== user.get()) {
-      console.log(
+      logger.log(
         `checkUser(): ${reason}`,
         currentUser,
         ` !== existing `,
@@ -40,7 +41,7 @@ export const setupCheckUser = async (config: {
       );
       config.triggerWipe();
     } else {
-      console.log(
+      logger.log(
         `checkUser(): ${reason}`,
         currentUser,
         ` === existing `,

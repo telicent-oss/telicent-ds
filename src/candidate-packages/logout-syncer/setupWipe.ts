@@ -11,6 +11,7 @@ import { triggerWipeWithDefaultURL } from "./utils/triggerWipeWithDefaultURL";
 import { setupClickGating } from "./setupClickGating";
 import { setupCheckUserPolling } from "./setupCheckUserPolling";
 import { retry } from "./utils/retry";
+import { logger } from "./utils/logger";
 
 export const WipeConfigSchema = z
   .object({
@@ -28,6 +29,7 @@ export const WipeConfigSchema = z
       .function()
       .args()
       .returns(z.promise(z.union([z.string(), z.void()]))),
+      verbose: z.boolean().optional(),
   })
   .optional();
 
@@ -90,6 +92,7 @@ let isSetup = false;
  * ```
  */
 export const setupWipe = async (config: WipeConfig) => {
+  logger.setActive(config?.verbose);
   WipeConfigSchema.parse(config);
   if (!config) {
     console.warn("setupWipe() missing config arg, exiting early");
