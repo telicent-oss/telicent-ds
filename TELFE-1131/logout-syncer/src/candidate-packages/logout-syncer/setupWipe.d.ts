@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export declare const WipeConfigSchema: z.ZodOptional<z.ZodObject<{
+    onAuthErrorOnLoad: z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodUnknown>;
     autoLogoutURL: z.ZodOptional<z.ZodEffects<z.ZodType<URL, z.ZodTypeDef, URL>, URL, unknown>>;
     wipeOnMessage: z.ZodOptional<z.ZodObject<{
         register: z.ZodObject<{
@@ -43,6 +44,7 @@ export declare const WipeConfigSchema: z.ZodOptional<z.ZodObject<{
     verbose: z.ZodOptional<z.ZodBoolean>;
     fetchCurrentUser: z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodPromise<z.ZodUnion<[z.ZodString, z.ZodVoid]>>>;
 }, "strip", z.ZodTypeAny, {
+    onAuthErrorOnLoad: (...args: unknown[]) => unknown;
     fetchCurrentUser: (...args: unknown[]) => Promise<string | void>;
     autoLogoutURL?: URL | undefined;
     wipeOnMessage?: {
@@ -59,6 +61,7 @@ export declare const WipeConfigSchema: z.ZodOptional<z.ZodObject<{
     checkUserPollTime?: number | undefined;
     verbose?: boolean | undefined;
 }, {
+    onAuthErrorOnLoad: (...args: unknown[]) => unknown;
     fetchCurrentUser: (...args: unknown[]) => Promise<string | void>;
     autoLogoutURL?: unknown;
     wipeOnMessage?: {
@@ -86,6 +89,9 @@ export type WipeConfig = z.infer<typeof WipeConfigSchema>;
  * - (Optional) Gates background-tab clicks until check passes.
  *
  * @param {Object} config
+ * @param {URL} [config.onAuthErrorOnLoad]
+ *   Handle page loading and being unable to verify logged in user
+ *
  * @param {URL} [config.autoLogoutURL]
  *   Destination URL to redirect when a wipe is triggered.
  *   Defaults to `/?autoLoggedOut=true`.
@@ -133,4 +139,4 @@ export type WipeConfig = z.infer<typeof WipeConfigSchema>;
  * });
  * ```
  */
-export declare const setupWipe: (config: WipeConfig, onError?: (error: unknown, context?: string) => void) => Promise<true | undefined>;
+export declare const setupWipe: (config: WipeConfig) => Promise<true | undefined>;
