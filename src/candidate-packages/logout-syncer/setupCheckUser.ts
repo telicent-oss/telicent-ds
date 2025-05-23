@@ -31,7 +31,9 @@ export const setupCheckUser = async (config: {
 
   const checkUser = async (reason: string) => {
     logger.log(`checkUser(): ${reason}...`);
-    const currentUser = await retry(() => config.fetchCurrentUser());
+    const currentUser = await retry(() => config.fetchCurrentUser()).catch(() =>
+      config.triggerWipe()
+    );
     if (currentUser !== user.get()) {
       logger.log(
         `checkUser(): ${reason}`,
