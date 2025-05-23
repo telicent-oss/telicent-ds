@@ -16,6 +16,7 @@ import { renderErrorToHtml } from "../renderErrorToHtml/renderErrorToHtml";
 
 export const WipeConfigSchema = z
   .object({
+    onAuthErrorOnLoad: z.function(),
     autoLogoutURL: z
       .preprocess(
         (val) => (typeof val === "string" ? new URL(val) : val),
@@ -48,6 +49,9 @@ let isSetup = false;
  * - (Optional) Gates background-tab clicks until check passes.
  *
  * @param {Object} config
+ * @param {URL} [config.onAuthErrorOnLoad]
+ *   Handle page loading and being unable to verify logged in user
+ *
  * @param {URL} [config.autoLogoutURL]
  *   Destination URL to redirect when a wipe is triggered.
  *   Defaults to `/?autoLoggedOut=true`.
@@ -95,16 +99,16 @@ let isSetup = false;
  * });
  * ```
  */
-export const setupWipe = async (config: WipeConfig, onError = renderErrorToHtml) => {
+export const setupWipe = async (config: WipeConfig) => {
+  if (!config) {
+    console.warn("setupWipe() missing config arg, skipping behavior");
+    return;
+  }
   try {
     logger.setActive(config?.verbose);
     logger.log("setupWipe()...", config);
 
     WipeConfigSchema.parse(config);
-    if (!config) {
-      console.warn("setupWipe() missing config arg, skipping behavior");
-      return;
-    }
     if (isSetup) {
       console.warn("Double call of setupWipe(), exiting early");
       return;
@@ -145,6 +149,6 @@ export const setupWipe = async (config: WipeConfig, onError = renderErrorToHtml)
   } catch (error) {
     console.error(`setupWipe() failed`, error);
     console.info(`setupWipe() config`, config);
-    onError(`setupWipe() blocking app from loading: ${error}`);
+    config.onAuthErrorOnLoad(`setupWipe() blocking app from loading: ${error}`);
   }
 };
