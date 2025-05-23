@@ -133,4 +133,4 @@ export type WipeConfig = z.infer<typeof WipeConfigSchema>;
  * });
  * ```
  */
-export declare const setupWipe: (config: WipeConfig) => Promise<boolean | undefined>;
+export declare const setupWipe: (config: WipeConfig, onError?: (error: unknown, context?: string) => void) => Promise<true | undefined>;
