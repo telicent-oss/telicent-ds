@@ -42,3 +42,6 @@ export {
   type WipeConfig,
 } from "./candidate-packages/logout-syncer/setupWipe";
 export { requestWipe } from "./candidate-packages/logout-syncer/requestWipe";
+
+export { renderErrorToHtml } from "./candidate-packages/renderErrorToHtml/renderErrorToHtml";
+export { parseOrThrowWithInput } from "./candidate-packages/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";

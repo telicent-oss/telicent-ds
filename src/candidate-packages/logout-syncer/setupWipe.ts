@@ -12,6 +12,7 @@ import { setupClickGating } from "./setupClickGating";
 import { setupCheckUserPolling } from "./setupCheckUserPolling";
 import { retry } from "./utils/retry";
 import { logger } from "./utils/logger";
+import { renderErrorToHtml } from "../renderErrorToHtml/renderErrorToHtml";
 
 export const WipeConfigSchema = z
   .object({
@@ -94,50 +95,56 @@ let isSetup = false;
  * });
  * ```
  */
-export const setupWipe = async (config: WipeConfig) => {
-  logger.setActive(config?.verbose);
-  WipeConfigSchema.parse(config);
-  if (!config) {
-    console.warn("setupWipe() missing config arg, exiting early");
-    return;
-  }
-  if (isSetup) {
-    console.warn("Double call of setupWipe(), exiting early");
-    return;
-  }
-  const triggerWipe = () => {
-    triggerWipeWithDefaultURL(config?.autoLogoutURL);
-  };
+export const setupWipe = async (config: WipeConfig, onError = renderErrorToHtml) => {
+  try {
+    logger.setActive(config?.verbose);
+    logger.log("setupWipe()...", config);
 
-  const checkUser = await setupCheckUser({
-    triggerWipe,
-    fetchCurrentUser: () =>
-      retry(() => config.fetchCurrentUser()).catch((error) => {
-        console.error("Failed fetchCurrentUser: exiting early", error);
-        // triggerWipe(); // This would cause an infinite loop
-        return;
-      }),
-  });
-  if (checkUser === undefined) {
-    const errorMessage = "Failed to create checkUser(), exiting early";
-    console.warn(errorMessage);
-    return false;
-  }
+    WipeConfigSchema.parse(config);
+    if (!config) {
+      console.warn("setupWipe() missing config arg, skipping behavior");
+      return;
+    }
+    if (isSetup) {
+      console.warn("Double call of setupWipe(), exiting early");
+      return;
+    }
+    const triggerWipe = () => {
+      triggerWipeWithDefaultURL(config?.autoLogoutURL);
+    };
 
-  if (config.wipeOnMessage) {
-    await setupWipeOnMessage(triggerWipe, checkUser, config.wipeOnMessage);
-  }
-  if (config.isCheckOnPageVisibility) {
-    await setupCheckUserOnPageVisibility(checkUser);
-  }
+    const checkUser = await setupCheckUser({
+      triggerWipe,
+      fetchCurrentUser: () =>
+        retry(() => config.fetchCurrentUser()).catch((error) => {
+          // triggerWipe(); // This would cause an infinite loop
+          throw new Error("fetchCurrentUser() threw", error);
+        }),
+    });
+    if (checkUser === undefined) {
+      throw new Error("Failed to create checkUser function");
+    }
 
-  if (isValidIntervalDuration(config.checkUserPollTime)) {
-    setupCheckUserPolling(checkUser, config.checkUserPollTime);
-  }
-  if (config.isClickGating) {
-    setupClickGating(checkUser);
-  }
+    if (config.wipeOnMessage) {
+      await setupWipeOnMessage(triggerWipe, checkUser, config.wipeOnMessage);
+    }
+    if (config.isCheckOnPageVisibility) {
+      await setupCheckUserOnPageVisibility(checkUser);
+    }
 
-  isSetup = true;
-  return isSetup;
+    if (isValidIntervalDuration(config.checkUserPollTime)) {
+      setupCheckUserPolling(checkUser, config.checkUserPollTime);
+    }
+    if (config.isClickGating) {
+      setupClickGating(checkUser);
+    }
+
+    isSetup = true;
+    logger.log('setupWipe() completed.');
+    return isSetup;
+  } catch (error) {
+    console.error(`setupWipe() failed`, error);
+    console.info(`setupWipe() config`, config);
+    onError(`setupWipe() blocking app from loading: ${error}`);
+  }
 };
