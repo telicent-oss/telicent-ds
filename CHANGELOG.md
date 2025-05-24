@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.24.0](https://github.com/telicent-oss/telicent-ds/compare/v0.23.2...v0.24.0) (2025-05-24)
+
+
+### Features
+
+* **logout-syncer:** [TELFE-1131] add logout-syncer ([#254](https://github.com/telicent-oss/telicent-ds/issues/254)) ([4b4d5af](https://github.com/telicent-oss/telicent-ds/commit/4b4d5af5278e12f6a705a38abc05e16dcc2e56ab))
+
+
+### Bug Fixes
+
+* update react element schema ([#252](https://github.com/telicent-oss/telicent-ds/issues/252)) ([02ffd3e](https://github.com/telicent-oss/telicent-ds/commit/02ffd3e9570602ae300fb43de31f0d766f7c2e40))
+
 ## [0.23.2](https://github.com/telicent-oss/telicent-ds/compare/v0.23.1...v0.23.2) (2025-05-13)
 
 
