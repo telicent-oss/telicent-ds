@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.23.2",
+  "version": "0.23.31",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -48,6 +48,7 @@
   "scripts": {
     "lint": "eslint --resolve-plugins-relative-to src",
     "clean": "rimraf dist storybook-static",
+    "check": "./.husky/pre-commit",
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -68,7 +69,9 @@
     "bump:pre": "yarn bump:prerelease",
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
     "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
-    "local-publish": "yarn build && yarn publish --dry-run --registry http://localhost:4873 --prepatch",
+    "local-publish": "git add --all && yarn build && npm publish  --registry http://localhost:4873 --prepatch",
+    "postlocal-publish": "./scripts/update-deps.mjs ../telicent-user-portal ../catalog ../telicent-access/frontend ../..//telicent-io/telicent-graph ../../telicent-io/telicent-search",
+    "local-add": "git add --registry http://localhost:4873 ",
     "prepare": "husky install"
   },
   "peerDependencies": {
@@ -184,6 +187,11 @@
       "import": "./dist/fontawesome.css",
       "require": "./dist/fontawesome.css",
       "style": "./dist/fontawesome.css"
+    },
+    "./dist/login-syncer/sw.js": {
+      "import": "./dist/fontawesome.css",
+      "require": "./dist/fontawesome.css",
+      "style": "./dist/fontawesome.css"
     }
   },
   "jest": {
@@ -217,5 +225,6 @@
     "shared-workflows/.github/workflows/javascript-test-feature-branch.yml": {
       "WARNING: TSC CHECK NO ERROR": true
     }
-  }
+  },
+  "color": "#FF9999"
 }

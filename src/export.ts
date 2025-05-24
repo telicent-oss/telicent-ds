@@ -32,5 +32,16 @@ export {
   // toStringEncoded
   toStringEncoded,
   type URLSearchParamsInit,
-  GRAPH_APP
+  GRAPH_APP,
 } from "./candidate-packages/utils-lib/src/index";
+
+// PROPOSED @telicent-oss/logout-syncer
+export {
+  setupWipe,
+  WipeConfigSchema,
+  type WipeConfig,
+} from "./candidate-packages/logout-syncer/setupWipe";
+export { requestWipe } from "./candidate-packages/logout-syncer/requestWipe";
+
+export { renderErrorToHtml } from "./candidate-packages/renderErrorToHtml/renderErrorToHtml";
+export { parseOrThrowWithInput } from "./candidate-packages/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
