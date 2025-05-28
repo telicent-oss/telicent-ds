@@ -2,27 +2,32 @@
 export const retry = async <T>(
   fn: () => Promise<T>,
   {
-    retries = 2, // very unlikely
+    retries = 2,
     baseDelayMs = 333,
     backOffFactor = 2,
     onRetry,
   }: {
-    retries?: number;
-    baseDelayMs?: number;
-    backOffFactor?: number;
-    onRetry?: (error: unknown, attempt: number) => void;
+    retries?: number
+    baseDelayMs?: number
+    backOffFactor?: number
+    onRetry?: (error: unknown, attempt: number, retries: number) => void
   } = {}
 ): Promise<T> => {
-  let attempt = 0;
-  while (true) {
+  let lastError: unknown
+  for (let attempt = 0; attempt <= retries; attempt++) {
     try {
-      return await fn();
+      const result = fn();
+      if (result instanceof Promise) {
+        return await result;
+      }
+      return result;
     } catch (err) {
-      attempt++;
-      if (attempt > retries) throw err;
-      onRetry?.(err, attempt);
-      const delay = baseDelayMs * backOffFactor ** (attempt - 1);
-      await new Promise((r) => setTimeout(r, delay));
+      lastError = err
+      onRetry?.(err, attempt + 1, retries)
+      if (attempt === retries) break
+      const delay = baseDelayMs * backOffFactor ** attempt
+      await new Promise(resolve => setTimeout(resolve, delay))
     }
   }
-};
+  throw lastError
+}

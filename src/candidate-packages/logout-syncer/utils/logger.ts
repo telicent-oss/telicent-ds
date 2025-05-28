@@ -8,5 +8,6 @@ function setActive(val?: boolean) {
 export const logger = {
   warn: (...args:unknown[]) => active && console.warn(...args),
   log: (...args:unknown[]) => active && console.log(...args),
+  info: (...args:unknown[]) => active && console.info(...args),
   setActive,
 };

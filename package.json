@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.24.0",
+  "version": "0.24.0-TELFE-1131.16",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -69,7 +69,7 @@
     "bump:pre": "yarn bump:prerelease",
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
     "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
-    "local-publish": "git add --all && yarn build && npm publish  --registry http://localhost:4873 --prepatch",
+    "local-publish": "rm -rf ./dist && git add --all && yarn build && npm publish  --registry http://localhost:4873 --prepatch",
     "postlocal-publish": "./scripts/update-deps.mjs ../telicent-user-portal ../catalog ../telicent-access/frontend ../..//telicent-io/telicent-graph ../../telicent-io/telicent-search",
     "local-add": "git add --registry http://localhost:4873 ",
     "prepare": "husky install"

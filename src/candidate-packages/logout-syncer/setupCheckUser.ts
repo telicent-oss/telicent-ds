@@ -1,15 +1,9 @@
 import { logger } from "./utils/logger";
 import { retry } from "./utils/retry";
 import { user } from "./utils/user";
+import { withOfflineRetryAsync } from "./utils/withOfflineRetryAsync";
 
-// TODO maybe
-// const bc = new BroadcastChannel('session-sync');
-// bc.onmessage = ({ data }) => {
-//   if (data.user !== currentUser) triggerWipe();
-// };
-// function announceChange(user) {
-//   bc.postMessage({ user });
-// }ac
+
 export const setupCheckUser = async (config: {
   triggerWipe: () => void;
   fetchCurrentUser: () => Promise<string | void>;
@@ -18,11 +12,27 @@ export const setupCheckUser = async (config: {
     console.error("Expected user.get() to be unset!!");
     return;
   }
-  const currentUser = await retry(() => config.fetchCurrentUser());
+
+  const fetchCurrentUserOfflineAware = withOfflineRetryAsync<string | void>(config.fetchCurrentUser);
+
+  const fetchWithRetry = () =>
+    retry(fetchCurrentUserOfflineAware, {
+      onRetry: (err, attempt, retries) =>
+        logger.warn(`fetchCurrentUser failed, retry #${attempt} of ${retries}`, err),
+    });
+
+  
+  let currentUser:string | void;
+  try {
+    currentUser = await fetchWithRetry();
+  } catch (error) {
+    console.error('Unable to fetch initial currentUser due to error (exiting early)', error);
+    // config.triggerWipe(); // DO NOT DO THIS: infinite loop on logged out pages
+    return;
+  }
 
   if (!currentUser) {
     console.warn(`No currentUser: exiting early`);
-    // config.triggerWipe(); // infinite loop on logged out pages
     return;
   } else {
     logger.log(`Storing currentUser`, currentUser);
@@ -31,7 +41,7 @@ export const setupCheckUser = async (config: {
 
   const checkUser = async (reason: string) => {
     logger.log(`checkUser(): ${reason}...`);
-    const currentUser = await retry(() => config.fetchCurrentUser()).catch(() =>
+    const currentUser = await fetchWithRetry().catch(() =>
       config.triggerWipe()
     );
     if (currentUser !== user.get()) {

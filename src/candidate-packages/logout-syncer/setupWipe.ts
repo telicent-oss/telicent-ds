@@ -104,6 +104,9 @@ export const setupWipe = async (config: WipeConfig) => {
     console.warn("setupWipe() missing config arg, skipping behavior");
     return;
   }
+
+  // HALF-IDEA Somehow configure to only post when protected endpoints
+  // IF seems likely we'd have a solid method (e.g. introspective api endpoint) to know that
   try {
     logger.setActive(config?.verbose);
     logger.log("setupWipe()...", config);
@@ -119,11 +122,7 @@ export const setupWipe = async (config: WipeConfig) => {
 
     const checkUser = await setupCheckUser({
       triggerWipe,
-      fetchCurrentUser: () =>
-        retry(() => config.fetchCurrentUser()).catch((error) => {
-          // triggerWipe(); // This would cause an infinite loop
-          throw new Error("fetchCurrentUser() threw", error);
-        }),
+      fetchCurrentUser: config.fetchCurrentUser,
     });
     if (checkUser === undefined) {
       throw new Error("Failed to create checkUser function");
