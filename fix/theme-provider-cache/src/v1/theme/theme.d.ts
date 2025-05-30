@@ -3,4 +3,5 @@ import { default as generateComponentOverrides } from './style-overrides/compone
 
 export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
 declare const createTheme: (themeColor: UITheme, dark: boolean) => import('@mui/material/styles').Theme;
+export declare const EMPTY_THEME: UITheme;
 export default createTheme;

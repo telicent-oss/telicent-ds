@@ -25,7 +25,7 @@ declare const meta: {
     argTypes: {
         theme: {
             control: "select";
-            options: ["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"];
+            options: ["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "light"];
             description: string;
         };
         selected: {
