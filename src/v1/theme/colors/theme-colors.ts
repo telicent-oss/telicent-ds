@@ -1,34 +1,41 @@
 import { common } from "@mui/material/colors";
-import { alpha } from "@mui/material/styles";
 import zod from "zod";
 import DATA_NAVY from "./data-navy";
 import DOCUMENT_PINK from "./document-pink";
 import GRAPH_ORANGE from "./graph-orange";
 import ADMIN_BLUE from "./admin-blue";
+import { alpha } from "@mui/material/styles";
 
-export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "light"]);
+export const UIThemeSchema = zod.enum([
+  "DataNavy",
+  "DocumentPink",
+  "GraphOrange",
+  "AdminBlue",
+  "Blank",
+]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 
-const lightMain = common.white;
-
-const THEME_COLORS = {
+const THEME_COLORS: Record<
+  UITheme,
+  Partial<{
+    50: string;
+    100: string;
+    200: string;
+    400: string;
+    500: string;
+    600: string;
+  }> & {
+    main: string;
+    light: string;
+    dark: string;
+    contrastText: string;
+  }
+> = {
   DataNavy: {
     ...DATA_NAVY,
     main: DATA_NAVY[500],
     light: DATA_NAVY[400],
     dark: DATA_NAVY[600],
-    contrastText: common.white,
-  },
-  light: {
-    main: lightMain,
-    light: alpha(lightMain, 0.5),
-    dark: alpha(lightMain, 0.9),
-    contrastText: common.black,
-  },
-  dark: {
-    main: lightMain, // TODO fix dark theme
-    light: alpha(lightMain, 0.5),
-    dark: alpha(lightMain, 0.9),
     contrastText: common.white,
   },
   DocumentPink: {
@@ -52,6 +59,12 @@ const THEME_COLORS = {
     dark: ADMIN_BLUE[600],
     contrastText: common.black,
   },
+  Blank: {
+      main: common.white,
+      light: alpha(common.white, 0.5),
+      dark: alpha(common.white, 0.9),
+      contrastText: common.black,
+  }
 };
 
 export default THEME_COLORS;

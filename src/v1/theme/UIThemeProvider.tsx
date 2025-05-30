@@ -9,30 +9,13 @@ type UIThemeProviderProps = React.PropsWithChildren & {
   dark?: boolean;
 };
 
-// helper types
-type Theme = ReturnType<typeof createTheme>;
-type ThemeVariantsCache = Record<UITheme, Record<"light" | "dark", Theme>>;
-
-const themeVariantsCache: ThemeVariantsCache = Object.fromEntries(
-  UIThemeSchema.options.map((theme) => [
-    theme,
-    {
-      light: createTheme(theme, true),
-      dark: createTheme(theme, false),
-    },
-  ])
-) as ThemeVariantsCache;
-
 const UIThemeProvider: React.FC<UIThemeProviderProps> = ({
   theme,
   dark = false,
   children,
 }) => (
   <MUIThemeProvider
-    theme={
-      themeVariantsCache?.[theme]?.[dark ? "dark" : "light"] ||
-      createTheme(theme, dark)
-    }
+    theme={createTheme(theme, dark)}
   >
     <MUICssBaseline />
     {children}
