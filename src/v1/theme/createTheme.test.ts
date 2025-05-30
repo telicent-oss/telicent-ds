@@ -23,25 +23,27 @@ test("tmp theme diffs via unified patches", () => {
     })
   );
 
+  const baseName = pairs[0][0];
   const baseOptsStr = JSON.stringify(pairs[0][1], null, 2);
   const report = pairs
     .slice(1)
     .map(([name, opts], idx) => {
       const patch = createPatch(
-        `theme-${idx}`,
+        `${idx}`,
         baseOptsStr,
-        JSON.stringify(opts, null, 2)
+        JSON.stringify(opts, null, 2),
+        baseName,
+        name
       );
-      return `# ${name}\n${patch}`;
+      return patch;
     })
     .join("\n\n");
 
   expect(report).toMatchInlineSnapshot(`
-    "# DataNavy (dark)
-    Index: theme-0
+    "Index: 0
     ===================================================================
-    --- theme-0
-    +++ theme-0
+    --- 0	DataNavy (light)
+    +++ 0	DataNavy (dark)
     @@ -75,36 +75,20 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
@@ -84,11 +86,10 @@ test("tmp theme diffs via unified patches", () => {
          "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
 
 
-    # DocumentPink (light)
-    Index: theme-1
+    Index: 1
     ===================================================================
-    --- theme-1
-    +++ theme-1
+    --- 1	DataNavy (light)
+    +++ 1	DocumentPink (light)
     @@ -38,9 +38,9 @@
                },
                "style": {
@@ -119,11 +120,10 @@ test("tmp theme diffs via unified patches", () => {
          },
 
 
-    # DocumentPink (dark)
-    Index: theme-2
+    Index: 2
     ===================================================================
-    --- theme-2
-    +++ theme-2
+    --- 2	DataNavy (light)
+    +++ 2	DocumentPink (dark)
     @@ -38,9 +38,9 @@
                },
                "style": {
@@ -181,11 +181,10 @@ test("tmp theme diffs via unified patches", () => {
          "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
 
 
-    # GraphOrange (light)
-    Index: theme-3
+    Index: 3
     ===================================================================
-    --- theme-3
-    +++ theme-3
+    --- 3	DataNavy (light)
+    +++ 3	GraphOrange (light)
     @@ -38,9 +38,9 @@
                },
                "style": {
@@ -216,11 +215,10 @@ test("tmp theme diffs via unified patches", () => {
          },
 
 
-    # GraphOrange (dark)
-    Index: theme-4
+    Index: 4
     ===================================================================
-    --- theme-4
-    +++ theme-4
+    --- 4	DataNavy (light)
+    +++ 4	GraphOrange (dark)
     @@ -38,9 +38,9 @@
                },
                "style": {
@@ -278,11 +276,10 @@ test("tmp theme diffs via unified patches", () => {
          "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
 
 
-    # AdminBlue (light)
-    Index: theme-5
+    Index: 5
     ===================================================================
-    --- theme-5
-    +++ theme-5
+    --- 5	DataNavy (light)
+    +++ 5	AdminBlue (light)
     @@ -38,9 +38,9 @@
                },
                "style": {
@@ -313,11 +310,10 @@ test("tmp theme diffs via unified patches", () => {
          },
 
 
-    # AdminBlue (dark)
-    Index: theme-6
+    Index: 6
     ===================================================================
-    --- theme-6
-    +++ theme-6
+    --- 6	DataNavy (light)
+    +++ 6	AdminBlue (dark)
     @@ -38,9 +38,9 @@
                },
                "style": {
@@ -375,11 +371,10 @@ test("tmp theme diffs via unified patches", () => {
          "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
 
 
-    # Blank (light)
-    Index: theme-7
+    Index: 7
     ===================================================================
-    --- theme-7
-    +++ theme-7
+    --- 7	DataNavy (light)
+    +++ 7	Blank (light)
     @@ -38,9 +38,9 @@
                },
                "style": {
@@ -410,11 +405,10 @@ test("tmp theme diffs via unified patches", () => {
          },
 
 
-    # Blank (dark)
-    Index: theme-8
+    Index: 8
     ===================================================================
-    --- theme-8
-    +++ theme-8
+    --- 8	DataNavy (light)
+    +++ 8	Blank (dark)
     @@ -38,9 +38,9 @@
                },
                "style": {
