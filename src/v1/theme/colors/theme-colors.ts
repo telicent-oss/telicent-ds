@@ -6,7 +6,7 @@ import DOCUMENT_PINK from "./document-pink";
 import GRAPH_ORANGE from "./graph-orange";
 import ADMIN_BLUE from "./admin-blue";
 
-export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"]);
+export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "light"]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 
 const lightMain = common.white;

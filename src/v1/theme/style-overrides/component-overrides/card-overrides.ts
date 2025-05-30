@@ -11,7 +11,7 @@ const generateCardOverrides = (uiTheme: UITheme) =>
             borderWidth: 1,
             borderStyle: "solid",
             borderColor:
-              uiTheme === "Blank"
+              uiTheme === "light"
                 ? "inherit"
                 : alpha(THEME_COLORS[uiTheme][200], 0.4),
           },

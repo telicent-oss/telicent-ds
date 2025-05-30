@@ -15,4 +15,6 @@ const createTheme = (themeColor: UITheme, dark: boolean) =>
     typography: TYPOGRAPHY_STYLE_OVERRIDES,
   });
 
+export const EMPTY_THEME = 'light' as unknown as UITheme;
+
 export default createTheme;
