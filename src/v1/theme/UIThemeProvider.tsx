@@ -24,8 +24,8 @@ const themeVariantsCache: ThemeVariantsCache = Object.fromEntries(
 ) as ThemeVariantsCache;
 
 const UIThemeProvider: React.FC<UIThemeProviderProps> = ({
-  dark = false,
   theme,
+  dark = false,
   children,
 }) => (
   <MUIThemeProvider
