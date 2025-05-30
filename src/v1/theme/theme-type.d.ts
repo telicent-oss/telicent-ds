@@ -6,7 +6,7 @@ import {
   Palette,
   PaletteOptions
 } from "@mui/material/styles";
-import { ComponentOverrides } from './theme';
+import { ComponentOverrides } from './createTheme';
 
 interface ExtraTheme extends Theme {
   components: ComponentOverrides;

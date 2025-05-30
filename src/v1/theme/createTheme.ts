@@ -10,7 +10,7 @@ import createDarkPalette from "./colors/palette/createDarkPalette";
 
 export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
 
-export const createTheme = (
+export const createThemePure = (
   uiTheme: UITheme,
   palette: ThemeOptions["palette"]
 ) => {
@@ -22,31 +22,28 @@ export const createTheme = (
 };
 
 // Cache
-type ReturnedTheme = ReturnType<typeof createTheme>;
+type ReturnedTheme = ReturnType<typeof createThemePure>;
 type ThemeCache = Record<UITheme, Record<"light" | "dark", ReturnedTheme>>;
 
 const cache: ThemeCache = Object.fromEntries(
   UIThemeSchema.options.map((uiTheme) => [
     uiTheme,
     {
-      light: createTheme(uiTheme, createLightPalette(uiTheme)),
-      dark: createTheme(uiTheme, createDarkPalette(uiTheme)),
+      light: createThemePure(uiTheme, createLightPalette(uiTheme)),
+      dark: createThemePure(uiTheme, createDarkPalette(uiTheme)),
     },
   ])
 ) as ThemeCache;
 
-export const createThemeCached = (
+export const createTheme = (
   uiTheme: UITheme,
   dark: boolean,
   skipCache = false
 ) =>
   (!skipCache && cache?.[uiTheme]?.[dark ? "dark" : "light"]) ||
-  createTheme(
+  createThemePure(
     uiTheme,
     dark ? createDarkPalette(uiTheme) : createLightPalette(uiTheme)
   );
 
-
-export const EMPTY_THEME = 'Blank' as unknown as UITheme;
-
-export default createThemeCached;
+export default createTheme;

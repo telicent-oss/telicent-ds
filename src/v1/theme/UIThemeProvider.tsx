@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider as MUIThemeProvider } from "@mui/material";
 import MUICssBaseline from "@mui/material/CssBaseline";
 import { UITheme, UIThemeSchema } from "./colors/theme-colors";
-import createTheme from "./theme";
+import createTheme from "./createTheme";
 
 type UIThemeProviderProps = React.PropsWithChildren & {
   theme: UITheme;
