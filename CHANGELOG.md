@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.25.0](https://github.com/telicent-oss/telicent-ds/compare/v0.24.0...v0.25.0) (2025-06-03)
+
+
+### Features
+
+* **ErrorFallback:** [TELFE-1175] added ([#256](https://github.com/telicent-oss/telicent-ds/issues/256)) ([4748ebe](https://github.com/telicent-oss/telicent-ds/commit/4748ebe6378a3adc51d0684c62d4659660660fd7))
+
 ## [0.24.0](https://github.com/telicent-oss/telicent-ds/compare/v0.23.2...v0.24.0) (2025-05-24)
 
 
