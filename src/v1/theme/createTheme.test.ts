@@ -11,13 +11,13 @@ const asMock = (val: unknown) => val as jest.Mock;
 
 test("tmp theme diffs via unified patches", () => {
   const themeNames = UIThemeSchema.options;
-  const modes = [true, false] as const;
+  const isDarkSet = [true, false] as const;
   const pairs = themeNames.flatMap((name) =>
-    modes.map((dark) => {
+    isDarkSet.map((isDark) => {
       asMock(mockCreateMuiTheme).mockClear();
-      createTheme(name, dark, true);
+      createTheme(name, isDark, true);
       return [
-        `${name} (${dark ? "light" : "dark"})`,
+        `${name} (${isDark ? "light" : "dark"})`,
         asMock(mockCreateMuiTheme).mock.calls[0][0],
       ];
     })
