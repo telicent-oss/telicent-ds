@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.24.0-themecache.0",
+  "version": "0.25.0",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
