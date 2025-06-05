@@ -13,7 +13,7 @@ const { name: pkgName, version: pkgVersion } = JSON.parse(
 const repos = process.argv.slice(2)
 if (repos.length === 0) {
   console.error('Usage: node update-deps.js <repo-path> [<repo-path> …]')
-  process.exit(1)
+  process.exit(1) 
 }
 
 // 3. For each repo, update matching deps to the new version

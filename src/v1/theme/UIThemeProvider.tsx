@@ -1,8 +1,8 @@
 import React from "react";
 import { ThemeProvider as MUIThemeProvider } from "@mui/material";
 import MUICssBaseline from "@mui/material/CssBaseline";
-import { UITheme } from "./colors/theme-colors";
-import createTheme from "./theme";
+import { UITheme, UIThemeSchema } from "./colors/theme-colors";
+import createTheme from "./createTheme";
 
 type UIThemeProviderProps = React.PropsWithChildren & {
   theme: UITheme;
@@ -10,11 +10,13 @@ type UIThemeProviderProps = React.PropsWithChildren & {
 };
 
 const UIThemeProvider: React.FC<UIThemeProviderProps> = ({
-  dark = false,
   theme,
+  dark = false,
   children,
 }) => (
-  <MUIThemeProvider theme={createTheme(theme, dark)}>
+  <MUIThemeProvider
+    theme={createTheme(theme, dark)}
+  >
     <MUICssBaseline />
     {children}
   </MUIThemeProvider>

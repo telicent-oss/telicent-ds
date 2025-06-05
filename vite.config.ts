@@ -24,7 +24,7 @@ export default defineConfig({
       fileName: "ds",
     },
     rollupOptions: {
-      external: ["react", "react-dom", "@telicent-oss/ontology-icon-lib"],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",

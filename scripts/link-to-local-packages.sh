@@ -5,6 +5,5 @@ yarn cache clean
 yarn link \
   react \
   react-dom \
-  @telicent-oss/ontologyservice \
-  @telicent-oss/ontology-icon-lib;
+  @telicent-oss/ontologyservice;
 

@@ -15,7 +15,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
 import { useStyleSelector, MapBoxSourceSchema } from "./layer-selector/useLayerSelector";
 import { LayerSelector } from "./layer-selector/LayerSelector";
-import { FlexGrid, FlexGridItem, UIThemeProvider } from "../../export";
+import { FlexGrid, FlexGridItem, UITheme, UIThemeProvider } from "../../export";
 import PolygonMarkers from "./Polygons";
 import { calculateBounds } from "./utils/helper";
 import { MapRef } from "react-map-gl";
@@ -46,7 +46,7 @@ export interface FeatureMapProps {
   selected: string[];
   onClickMarker?: (marker: ResultMarker) => void;
   findByClassUri: (maybeClassUri: string) => ClassIcon;
-  theme?: "DocumentPink" | "dark" | "light" | "DataNavy" | "GraphOrange";
+  theme?: UITheme;
   defaultStyle?: string;
   attributionControl?: boolean;
 }

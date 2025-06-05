@@ -21,13 +21,14 @@
     "@mui/x-tree-view": "7.3.1",
     "@react-spring/web": "9.7.3",
     "@tanstack/react-query": "^5.18.0",
-    "@telicent-oss/ontology-icon-lib": "0.3.0",
+
     "@telicent-oss/ontologyservice": "0.31.3-TELFE654.0",
     "@telicent-oss/react-lib": "^0.5.0",
     "@telicent-oss/telicent-frontend-cli": "^1.2.1",
     "classnames": "^2.3.1",
     "d3": "^7.8.2",
     "lodash": "^4.17.21",
+    "lodash.merge": "^4.6.2",
     "maplibre-gl": "^3.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -75,7 +76,6 @@
     "prepare": "husky install"
   },
   "peerDependencies": {
-    "@telicent-oss/ontology-icon-lib": "*",
     "react": "*",
     "react-dom": "*"
   },
@@ -114,6 +114,7 @@
     "@types/geojson": "^7946.0.16",
     "@types/jest": "^29.5.0",
     "@types/lodash": "^4.17.13",
+    "@types/lodash.merge": "^4.6.9",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.32",
     "@types/react-dom": "^18.0.11",
@@ -126,6 +127,7 @@
     "commitizen": "4.2.5",
     "cssnano": "^5.0.14",
     "cz-conventional-changelog": "^3.3.0",
+    "diff": "^8.0.2",
     "eslint": "^9.15.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",

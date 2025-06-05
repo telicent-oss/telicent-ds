@@ -6,6 +6,7 @@ import { ResultMarker } from './ResultsMarkers';
 import { layerStyles } from './FeatureMap.storyconfig';
 import { AUSTRIA, MOLDOVA } from './sampleData';
 import { ARGA_ATTACK, BOULAY_ATTACK } from './sampleData/markers';
+import { UIThemeSchema } from '../../export';
 
 const meta = {
   title: 'Component Library/FeatureMap',
@@ -36,13 +37,7 @@ It dynamically adjusts panning and zoom levels to focus on selected features, pr
   argTypes: {
     theme: {
       control: "select",
-      options: [
-        "DocumentPink",
-        "dark",
-        "light",
-        "DataNavy",
-        "GraphOrange"
-      ],
+      options: UIThemeSchema.options,
       description: `The layer picker has a border which derives it's colour from the theme. 
 
 (This will be deprecated once the uplift work is completed)`
