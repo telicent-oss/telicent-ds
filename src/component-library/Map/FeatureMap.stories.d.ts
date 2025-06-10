@@ -25,7 +25,7 @@ declare const meta: {
     argTypes: {
         theme: {
             control: "select";
-            options: string[];
+            options: ["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"];
             description: string;
         };
         selected: {
@@ -61,7 +61,7 @@ declare const meta: {
         selected: string[];
         onClickMarker?: ((marker: ResultMarker) => void) | undefined;
         findByClassUri: (maybeClassUri: string) => import('./utils/schema').ClassIcon;
-        theme?: ("DocumentPink" | "dark" | "light" | "DataNavy" | "GraphOrange") | undefined;
+        theme?: import('../../export').UITheme | undefined;
         defaultStyle?: string | undefined;
         attributionControl?: boolean | undefined;
     }>) => import("@emotion/react/jsx-runtime").JSX.Element;

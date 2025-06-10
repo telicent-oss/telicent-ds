@@ -2,6 +2,7 @@ import { default as React } from '../../../node_modules/react';
 import { FeatureCollection } from 'geojson';
 import { StyleOption, ClassIcon } from './utils/schema';
 import { ResultMarker } from './ResultsMarkers';
+import { UITheme } from '../../export';
 
 export declare const GEOJSON = "geojson";
 export declare const FEATURE_COLLECTION = "FeatureCollection";
@@ -22,7 +23,7 @@ export interface FeatureMapProps {
     selected: string[];
     onClickMarker?: (marker: ResultMarker) => void;
     findByClassUri: (maybeClassUri: string) => ClassIcon;
-    theme?: "DocumentPink" | "dark" | "light" | "DataNavy" | "GraphOrange";
+    theme?: UITheme;
     defaultStyle?: string;
     attributionControl?: boolean;
 }
