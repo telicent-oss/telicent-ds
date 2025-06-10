@@ -17,7 +17,7 @@ const generateButtonOverrides = (uiTheme: UITheme) =>
           backgroundColor: theme.palette.secondary.main,
           ":hover": {
             backgroundColor:
-              uiTheme === "light" || uiTheme === "dark"
+              uiTheme === "Blank"
                 ? "inherit"
                 : `${THEME_COLORS[uiTheme][100]}`,
           },
