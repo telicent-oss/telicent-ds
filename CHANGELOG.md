@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.25.1](https://github.com/telicent-oss/telicent-ds/compare/v0.25.0...v0.25.1) (2025-06-10)
+
+
+### Bug Fixes
+
+* **UIThemeProvider:** cache themes ([#255](https://github.com/telicent-oss/telicent-ds/issues/255)) ([4b9a10b](https://github.com/telicent-oss/telicent-ds/commit/4b9a10baef6d1d92f2206a5520ed4f89271d4f42))
+
 ## [0.25.0](https://github.com/telicent-oss/telicent-ds/compare/v0.24.0...v0.25.0) (2025-06-03)
 
 
