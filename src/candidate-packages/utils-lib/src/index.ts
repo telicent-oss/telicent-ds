@@ -14,9 +14,9 @@ export {
   type URLSearchParamsInit,
 } from "./getCodec/toStringEncoded";
 export {
-  type LevelString,
-  type Level,
-  levelOrder,
+  type LoggerLevelString,
+  type LoggerLevel,
+  loggerLevelOrder,
   Logger
 } from "./Logger/Logger";
 

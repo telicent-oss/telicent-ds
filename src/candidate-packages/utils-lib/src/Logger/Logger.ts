@@ -1,8 +1,8 @@
-export type LevelString = "debug" | "info" | "warn" | "error";
+export type LoggerLevelString = "debug" | "info" | "warn" | "error";
 
-export type Level = LevelString | number;
+export type LoggerLevel = LoggerLevelString | number;
 
-export const levelOrder: Record<LevelString, number> = {
+export const loggerLevelOrder: Record<LoggerLevelString, number> = {
   debug: 0,
   info: 1,
   warn: 2,
@@ -52,25 +52,25 @@ export const levelOrder: Record<LevelString, number> = {
  */
 
 export class Logger {
-  private buffer: Array<{ level: LevelString; args: unknown[] }> = [];
-  private currentLevelNum = levelOrder.info;
+  private buffer: Array<{ level: LoggerLevelString; args: unknown[] }> = [];
+  private currentLevelNum = loggerLevelOrder.info;
   private ready = false;
 
-  constructor(level?: Level) {
+  constructor(level?: LoggerLevel) {
     if (level !== undefined) this.init(level);
   }
 
-  init(level: Level): void {
+  init(level: LoggerLevel): void {
     this.currentLevelNum =
       typeof level === "number"
         ? level
-        : levelOrder[level] ?? this.currentLevelNum;
+        : loggerLevelOrder[level] ?? this.currentLevelNum;
     this.ready = true;
     this.flush();
   }
 
-  private shouldLog(lvl: LevelString): boolean {
-    return levelOrder[lvl] >= this.currentLevelNum;
+  private shouldLog(lvl: LoggerLevelString): boolean {
+    return loggerLevelOrder[lvl] >= this.currentLevelNum;
   }
 
   private flush(): void {
@@ -80,7 +80,7 @@ export class Logger {
     this.buffer = [];
   }
 
-  private record(lvl: LevelString, ...args: unknown[]): void {
+  private record(lvl: LoggerLevelString, ...args: unknown[]): void {
     if (!this.ready) {
       this.buffer.push({ level: lvl, args });
     } else if (this.shouldLog(lvl)) {
