@@ -1,5 +1,6 @@
 export type LevelString = "debug" | "info" | "warn" | "error";
 export type Level = LevelString | number;
+export declare const levelOrder: Record<LevelString, number>;
 /**
  * BufferedLogger
  *
