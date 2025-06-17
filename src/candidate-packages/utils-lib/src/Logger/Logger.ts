@@ -2,7 +2,7 @@ export type LevelString = "debug" | "info" | "warn" | "error";
 
 export type Level = LevelString | number;
 
-const levelOrder: Record<LevelString, number> = {
+export const levelOrder: Record<LevelString, number> = {
   debug: 0,
   info: 1,
   warn: 2,
