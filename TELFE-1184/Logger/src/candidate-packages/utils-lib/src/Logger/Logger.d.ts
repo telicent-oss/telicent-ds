@@ -1,6 +1,6 @@
-export type LevelString = "debug" | "info" | "warn" | "error";
-export type Level = LevelString | number;
-export declare const levelOrder: Record<LevelString, number>;
+export type LoggerLevelString = "debug" | "info" | "warn" | "error";
+export type LoggerLevel = LoggerLevelString | number;
+export declare const loggerLevelOrder: Record<LoggerLevelString, number>;
 /**
  * BufferedLogger
  *
@@ -46,8 +46,8 @@ export declare class Logger {
     private buffer;
     private currentLevelNum;
     private ready;
-    constructor(level?: Level);
-    init(level: Level): void;
+    constructor(level?: LoggerLevel);
+    init(level: LoggerLevel): void;
     private shouldLog;
     private flush;
     private record;
