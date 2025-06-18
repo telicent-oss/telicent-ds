@@ -33,6 +33,11 @@ export {
   toStringEncoded,
   type URLSearchParamsInit,
   GRAPH_APP,
+  // Logger
+  type LoggerLevelString,
+  type LoggerLevel,
+  loggerLevelOrder,
+  Logger
 } from "./candidate-packages/utils-lib/src/index";
 
 // PROPOSED @telicent-oss/logout-syncer

@@ -13,5 +13,12 @@ export {
   toStringEncoded,
   type URLSearchParamsInit,
 } from "./getCodec/toStringEncoded";
+export {
+  type LoggerLevelString,
+  type LoggerLevel,
+  loggerLevelOrder,
+  Logger
+} from "./Logger/Logger";
+
 
 export { GRAPH_APP } from "./GraphApp/constants";
