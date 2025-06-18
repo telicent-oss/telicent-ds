@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.0](https://github.com/telicent-oss/telicent-ds/compare/v0.25.1...v0.26.0) (2025-06-18)
+
+
+### Features
+
+* **Logger:** [TELFE-1184] added ([#259](https://github.com/telicent-oss/telicent-ds/issues/259)) ([2072da7](https://github.com/telicent-oss/telicent-ds/commit/2072da7e44bc25a1bd25e426043d78cb47962390))
+
 ## [0.25.1](https://github.com/telicent-oss/telicent-ds/compare/v0.25.0...v0.25.1) (2025-06-10)
 
 
