@@ -24,6 +24,7 @@
     "@telicent-oss/ontologyservice": "0.31.3-TELFE654.0",
     "@telicent-oss/react-lib": "^0.5.0",
     "@telicent-oss/telicent-frontend-cli": "^1.2.1",
+    "axios": "^1.10.0",
     "classnames": "^2.3.1",
     "d3": "^7.8.2",
     "lodash": "^4.17.21",
