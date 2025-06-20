@@ -1,12 +1,12 @@
 import { AxiosInstance } from "axios";
 import { SessionHandlingConfig } from "./types";
+import { signalUnauthorized } from "./authStateManager";
 
 export function withSessionHandling(
   instance: AxiosInstance,
   {
     queryClient,
     keysToInvalidate = [],
-    broadcastChannel,
   }: SessionHandlingConfig
 ) {
   instance.interceptors.response.use(
@@ -18,7 +18,8 @@ export function withSessionHandling(
             queryClient.invalidateQueries({ queryKey: key, exact: true })
           );
         }
-        broadcastChannel?.postMessage("unauthorized");
+        console.log('withSessionHandling unauthorized');
+        signalUnauthorized();
       }
       return Promise.reject(err);
     }

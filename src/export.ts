@@ -22,6 +22,14 @@ export * from "./component-library/Map";
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/AuthModal";
 export * from "./candidate-packages/authorize-flow";
+export {
+  waitForAuth,
+  getChannel,
+  signalAuthorized,
+  signalUnauthorized,
+  subscribeToAuthState,
+  getAuthState,
+} from "./candidate-packages/authorize-flow/authStateManager";
 
 // PROPOSED @telicent-oss/utils-lib
 export {
@@ -41,7 +49,7 @@ export {
   type LoggerLevelString,
   type LoggerLevel,
   loggerLevelOrder,
-  Logger
+  Logger,
 } from "./candidate-packages/utils-lib/src/index";
 
 // PROPOSED @telicent-oss/logout-syncer
