@@ -49,3 +49,28 @@ jest.mock("react-map-gl/maplibre", () => ({
   // MapProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 
 }));
+
+globalThis.BroadcastChannel = class {
+  constructor(channelName: string) {
+    this.name = channelName;
+  }
+
+  name: string;
+  onmessage: ((ev: MessageEvent) => void) | null = null;
+
+  postMessage = (message: any) => {
+    // no-op or you can log for debug
+  };
+
+  close = () => {
+    // no-op
+  };
+
+  addEventListener = (type: string, listener: any) => {
+    if (type === 'message') this.onmessage = listener;
+  };
+
+  removeEventListener = (type: string, listener: any) => {
+    if (type === 'message') this.onmessage = null;
+  };
+} as any;
