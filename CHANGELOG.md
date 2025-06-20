@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.1](https://github.com/telicent-oss/telicent-ds/compare/v0.27.0...v0.27.1) (2025-06-20)
+
+
+### Bug Fixes
+
+* handle strict mode ([#264](https://github.com/telicent-oss/telicent-ds/issues/264)) ([7ab64e5](https://github.com/telicent-oss/telicent-ds/commit/7ab64e50500715ebc7379a4992c082e66bdbba06))
+
 ## [0.27.0](https://github.com/telicent-oss/telicent-ds/compare/v0.26.0...v0.27.0) (2025-06-20)
 
 
