@@ -1,8 +1,0 @@
-import{j as m}from"./DefaultPropsProvider-BSWuto10.js";import{U as s}from"./UserProfile-DjzvMCHd.js";import{WithActions as p}from"./UserProfileContent.stories-BI1kaaY3.js";import{U as n}from"./UserProfileContent-z8bbLtAI.js";import"./jsx-runtime-BwZVo4Wn.js";import"./index-BBkUAzwr.js";import"./Text-Lb7f3cNw.js";import"./Typography-Ccepgalm.js";import"./styled-BrIIThlA.js";import"./generateUtilityClasses-D9eTBXKL.js";import"./UserIcon-BB6Q81eU.js";import"./SvgIcon-Bf2yV0bL.js";import"./index-_4_hgnnR.js";import"./useTheme-D8w0kg7X.js";import"./useTheme-DqUUtKyf.js";import"./FlexBox-DHo5zb4e.js";import"./styled-C9Vn0W8F.js";import"./useThemeProps-B57Xyf65.js";import"./createSvgIcon-Ciwc8VzQ.js";import"./Popover-G0nBJInY.js";import"./utils-wFC7UK9Z.js";import"./TransitionGroupContext-RFIud7ZD.js";import"./index-BXZwOzqJ.js";import"./Paper-BLsXTBnp.js";import"./ButtonBase-BTGFTk3s.js";import"./index-BqeinIc9.js";import"./Button-Ry6T39J5.js";import"./Button-DVJTHr7w.js";import"./Box-DgiOPB4O.js";const v={title:"Data display/User profile",component:s,tags:["autodocs"],argTypes:{fullName:{description:"The user's full name"},children:{control:!1,description:"Content inside the component",table:{type:{summary:"ReactNode"}}}}};var o;const r={args:{fullName:"Satoru Gojo",children:m(n,{children:(o=p.args)==null?void 0:o.children})}};var t,e,i;r.parameters={...r.parameters,docs:{...(t=r.parameters)==null?void 0:t.docs,source:{originalSource:`{
-  args: {
-    fullName: "Satoru Gojo",
-    children: <UserProfileContent>
-        {UserProfileContentStories.WithActions.args?.children}
-      </UserProfileContent>
-  }
-}`,...(i=(e=r.parameters)==null?void 0:e.docs)==null?void 0:i.source}}};const w=["Basic"];export{r as Basic,w as __namedExportsOrder,v as default};

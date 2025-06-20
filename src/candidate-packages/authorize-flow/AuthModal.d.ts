@@ -1,5 +1,4 @@
 interface AuthRedirectModalProps {
-    channelName?: string;
     signOutUrl: string;
     debounceMs?: number;
 }
