@@ -2,19 +2,17 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { H3, Text } from "../../v1/components/data-display/Text/Text";
 import { FlexBox, Button, Modal } from "../../export";
 import { Box } from "@mui/material";
+import { onAuthEvent } from "./broadcastChannelService";
 
 interface AuthRedirectModalProps {
-  channelName?: string;
   signOutUrl: string;
   debounceMs?: number;
 }
 
 export const AuthModal: React.FC<AuthRedirectModalProps> = ({
-  channelName = "auth-events",
   signOutUrl,
   debounceMs = 5000,
 }) => {
-  const bc = new BroadcastChannel(channelName);
   const alreadyTriggered = useRef(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,31 +20,26 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({
     window.open(signOutUrl, "_blank");
   };
 
-  const handleAuthMessage = useCallback((message: MessageEvent) => {
-    if (
-      message.data.toLowerCase() === "unauthorized" &&
-      !alreadyTriggered.current
-    ) {
-      setIsOpen(true);
-      alreadyTriggered.current = true;
-      setTimeout(() => (alreadyTriggered.current = false), debounceMs);
-    } else if (message.data.toLowerCase() === "authorized") {
-      setIsOpen(false);
-      alreadyTriggered.current = false;
-    }
+  useEffect(() => {
+    const unsubscribe = onAuthEvent((event) => {
+      if (event === 'unauthorized' && !alreadyTriggered.current) {
+        setIsOpen(true);
+        alreadyTriggered.current = true;
+        setTimeout(() => {
+          alreadyTriggered.current = false;
+        }, debounceMs);
+      } else if (event === 'authorized') {
+        setIsOpen(false);
+        alreadyTriggered.current = false;
+      }
+    });
+
+    return unsubscribe;
   }, []);
 
-  useEffect(() => {
-    if (!channelName) return;
-    bc.addEventListener("message", handleAuthMessage);
-    return () => {
-      bc.removeEventListener("message", handleAuthMessage);
-      bc.close();
-    };
-  }, [channelName]);
 
   return (
-    <Modal hideCloseButton onClose={() => {}} sx={{ m: 2, p: 2 }} open={isOpen}>
+    <Modal hideCloseButton onClose={() => { }} sx={{ m: 2, p: 2 }} open={isOpen}>
       <FlexBox sx={{ p: 2 }}>
         <H3>
           <i className="fa-regular fa-circle-exclamation"></i> Your session is
