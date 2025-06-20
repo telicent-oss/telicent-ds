@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.0](https://github.com/telicent-oss/telicent-ds/compare/v0.26.0...v0.27.0) (2025-06-20)
+
+
+### Features
+
+* add auth modal TELFE-1096 ([#261](https://github.com/telicent-oss/telicent-ds/issues/261)) ([4a75f3a](https://github.com/telicent-oss/telicent-ds/commit/4a75f3ad20d420208b57eb3253d4cd879d1387d2))
+
 ## [0.26.0](https://github.com/telicent-oss/telicent-ds/compare/v0.25.1...v0.26.0) (2025-06-18)
 
 
