@@ -19,6 +19,10 @@ export * from "./v1/components/utils/index";
 // Component library
 export * from "./component-library/Map";
 
+// Candidate Packages
+export * from "./candidate-packages/authorize-flow/AuthModal";
+export * from "./candidate-packages/authorize-flow";
+
 // PROPOSED @telicent-oss/utils-lib
 export {
   // getCodec

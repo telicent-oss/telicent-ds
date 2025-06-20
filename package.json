@@ -76,7 +76,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "axios": "*"
   },
   "browserslist": {
     "production": [
@@ -91,6 +92,7 @@
     ]
   },
   "devDependencies": {
+    "axios": "^1.7.0",
     "@babel/core": "^7.20.12",
     "@chromatic-com/storybook": "^1.7.0",
     "@commitlint/cli": "17.1.2",
