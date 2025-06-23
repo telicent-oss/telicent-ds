@@ -9,10 +9,7 @@ interface AuthRedirectModalProps {
   debounceMs?: number;
 }
 
-export const AuthModal: React.FC<AuthRedirectModalProps> = ({
-  signOutUrl,
-  debounceMs = 5000,
-}) => {
+export const AuthModal: React.FC<AuthRedirectModalProps> = ({ signOutUrl, debounceMs = 5000 }) => {
   const alreadyTriggered = useRef(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,13 +19,13 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({
 
   useEffect(() => {
     const unsubscribe = onAuthEvent((event) => {
-      if (event === 'unauthorized' && !alreadyTriggered.current) {
+      if (event === "unauthorized" && !alreadyTriggered.current) {
         setIsOpen(true);
         alreadyTriggered.current = true;
         setTimeout(() => {
           alreadyTriggered.current = false;
         }, debounceMs);
-      } else if (event === 'authorized') {
+      } else if (event === "authorized") {
         setIsOpen(false);
         alreadyTriggered.current = false;
       }
@@ -37,22 +34,17 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({
     return unsubscribe;
   }, []);
 
-
   return (
-    <Modal hideCloseButton onClose={() => { }} sx={{ m: 2, p: 2 }} open={isOpen}>
-      <FlexBox sx={{ p: 2 }}>
+    <Modal hideCloseButton onClose={() => {}} sx={{ m: 2, p: 2 }} open={isOpen}>
+      <FlexBox sx={{ p: 2, overflowY: "auto" }}>
         <H3>
-          <i className="fa-regular fa-circle-exclamation"></i> Your session is
-          no longer active
+          <i className="fa-regular fa-circle-exclamation"></i> Your session is no longer active
         </H3>
         <Text sx={{ pt: 4 }}>
-          Your session may have expired, you may have signed out, or your
-          account isn&apos;t active.
+          Your session may have expired, you may have signed out, or your account isn&apos;t active.
         </Text>
         <Text>Please login again to continue.</Text>
-        <Text sx={{ pt: 4 }}>
-          If you continue to have issues, contact your system administrator.
-        </Text>
+        <Text sx={{ pt: 4 }}>If you continue to have issues, contact your system administrator.</Text>
         <Box ml="auto" mt={2}>
           <Button variant="primary" onClick={handleLoginClick} size="large">
             Login
