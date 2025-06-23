@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.2](https://github.com/telicent-oss/telicent-ds/compare/v0.27.1...v0.27.2) (2025-06-23)
+
+
+### Bug Fixes
+
+* create new broadcast instances ([#266](https://github.com/telicent-oss/telicent-ds/issues/266)) ([6c8f98c](https://github.com/telicent-oss/telicent-ds/commit/6c8f98c21ae62cac179778c64ea905e36fd8051e))
+
 ## [0.27.1](https://github.com/telicent-oss/telicent-ds/compare/v0.27.0...v0.27.1) (2025-06-20)
 
 
