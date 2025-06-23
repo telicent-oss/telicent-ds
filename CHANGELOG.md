@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.3](https://github.com/telicent-oss/telicent-ds/compare/v0.27.2...v0.27.3) (2025-06-23)
+
+
+### Bug Fixes
+
+* add scroll y to auth modal ([#268](https://github.com/telicent-oss/telicent-ds/issues/268)) ([ef1992c](https://github.com/telicent-oss/telicent-ds/commit/ef1992c689114f9267eee25e7f6b7f1a547d8990))
+
 ## [0.27.2](https://github.com/telicent-oss/telicent-ds/compare/v0.27.1...v0.27.2) (2025-06-23)
 
 
