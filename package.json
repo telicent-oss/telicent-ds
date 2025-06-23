@@ -70,7 +70,7 @@
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
     "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
     "local-publish": "git add --all && yarn build && npm publish  --registry http://localhost:4873 --prepatch",
-    "postlocal-publish": "./scripts/update-deps.mjs ../telicent-user-portal ../catalog ../telicent-access/frontend ../..//telicent-io/telicent-graph ../../telicent-io/telicent-search",
+    "postlocal-publish": "./scripts/update-deps.mjs ../telicent-user-portal ../catalog ../telicent-access/frontend ../../IO/telicent-graph ../../IO/telicent-search",
     "local-add": "git add --registry http://localhost:4873 ",
     "prepare": "husky install"
   },

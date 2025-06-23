@@ -24,5 +24,8 @@ export function onAuthEvent(callback: (event: AuthEvent) => void): () => void {
 }
 
 export function broadcastAuthEvent(event: AuthEvent): void {
-  bc.postMessage(event);
+  // Broadcast channels instances will not detect messages that they have posted
+  const b = new BroadcastChannel("auth-events");
+  b.postMessage(event);
+  b.close();
 }
