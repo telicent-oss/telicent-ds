@@ -1,4 +1,3 @@
-// index.ts
 import axios from "axios";
 import { ApiFactory, SessionHandlingConfig } from "./types";
 import { withSessionHandling as withSessionHandlingImplementation } from "./withSessionHandling";
@@ -6,13 +5,10 @@ import { withSessionHandling as withSessionHandlingImplementation } from "./with
 export const createApi = (baseURL?: string): ApiFactory => {
   const instance = axios.create({ baseURL });
 
-  const api: ApiFactory = {
+  return {
     instance,
-    withSessionHandling: (config: SessionHandlingConfig) => {
-      withSessionHandlingImplementation(instance, config);
-      return api;
-    },
+    withSessionHandling: (config: SessionHandlingConfig) =>
+      withSessionHandlingImplementation(instance, config),
     build: () => ({ instance }),
   };
-  return api;
 };
