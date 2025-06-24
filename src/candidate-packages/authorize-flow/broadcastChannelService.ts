@@ -1,4 +1,9 @@
-type AuthEvent = "unauthorized" | "authorized"; // add more as needed
+export enum AuthEvent {
+  AUTHENTICATED = "authenticated",
+  REAUTHENTICATED = "reauthenticated",
+  USER_CHANGED = "user-changed",
+  UNAUTHORIZED = "unauthorized",
+}
 
 const listeners = new Set<(event: AuthEvent) => void>();
 let lastMessage: AuthEvent | null = null;

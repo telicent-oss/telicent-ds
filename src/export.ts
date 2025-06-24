@@ -22,6 +22,7 @@ export * from "./component-library/Map";
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/AuthModal";
 export * from "./candidate-packages/authorize-flow/broadcastChannelService";
+export * from "./candidate-packages/authorize-flow/useAuthSync";
 export * from "./candidate-packages/authorize-flow";
 
 // PROPOSED @telicent-oss/utils-lib
