@@ -15,7 +15,7 @@ export function withSessionHandling(
       if (err.response?.status === 401) {
         if (queryClient) {
           keysToInvalidate.forEach((key) =>
-            queryClient.invalidateQueries({ queryKey: key, exact: true })
+            queryClient.invalidateQueries({ queryKey: key })
           );
         }
         broadcastChannel?.postMessage("unauthorized");

@@ -1,14 +1,18 @@
+// index.ts
 import axios from "axios";
 import { ApiFactory, SessionHandlingConfig } from "./types";
-import { withSessionHandling } from "./withSessionHandling";
+import { withSessionHandling as withSessionHandlingImplementation } from "./withSessionHandling";
 
 export const createApi = (baseURL?: string): ApiFactory => {
   const instance = axios.create({ baseURL });
 
-  return {
+  const api: ApiFactory = {
     instance,
-    withSessionHandling: (config: SessionHandlingConfig) =>
-      withSessionHandling(instance, config),
+    withSessionHandling: (config: SessionHandlingConfig) => {
+      withSessionHandlingImplementation(instance, config);
+      return api;
+    },
     build: () => ({ instance }),
   };
+  return api;
 };
