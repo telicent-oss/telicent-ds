@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.4](https://github.com/telicent-oss/telicent-ds/compare/v0.27.3...v0.27.4) (2025-06-24)
+
+
+### Bug Fixes
+
+* **peerDeps:** add react-query ([#270](https://github.com/telicent-oss/telicent-ds/issues/270)) ([1644f55](https://github.com/telicent-oss/telicent-ds/commit/1644f55cb0a771c6e67ed0c21c1a1721fe827f06))
+
 ## [0.27.3](https://github.com/telicent-oss/telicent-ds/compare/v0.27.2...v0.27.3) (2025-06-23)
 
 
