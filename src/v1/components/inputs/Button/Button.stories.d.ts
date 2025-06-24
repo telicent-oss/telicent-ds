@@ -66,6 +66,8 @@ declare const meta: {
         unselectable?: "on" | "off" | undefined;
         inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
         is?: string | undefined;
+        exportparts?: string | undefined;
+        part?: string | undefined;
         "aria-activedescendant"?: string | undefined;
         "aria-atomic"?: (boolean | "true" | "false") | undefined;
         "aria-autocomplete"?: "none" | "inline" | "list" | "both" | undefined;
@@ -140,7 +142,7 @@ declare const meta: {
         onBlurCapture?: import('../../../../../node_modules/react').FocusEventHandler<HTMLButtonElement> | undefined;
         onChange?: import('../../../../../node_modules/react').FormEventHandler<HTMLButtonElement> | undefined;
         onChangeCapture?: import('../../../../../node_modules/react').FormEventHandler<HTMLButtonElement> | undefined;
-        onBeforeInput?: import('../../../../../node_modules/react').FormEventHandler<HTMLButtonElement> | undefined;
+        onBeforeInput?: import('../../../../../node_modules/react').InputEventHandler<HTMLButtonElement> | undefined;
         onBeforeInputCapture?: import('../../../../../node_modules/react').FormEventHandler<HTMLButtonElement> | undefined;
         onInput?: import('../../../../../node_modules/react').FormEventHandler<HTMLButtonElement> | undefined;
         onInputCapture?: import('../../../../../node_modules/react').FormEventHandler<HTMLButtonElement> | undefined;
@@ -190,8 +192,6 @@ declare const meta: {
         onProgressCapture?: import('../../../../../node_modules/react').ReactEventHandler<HTMLButtonElement> | undefined;
         onRateChange?: import('../../../../../node_modules/react').ReactEventHandler<HTMLButtonElement> | undefined;
         onRateChangeCapture?: import('../../../../../node_modules/react').ReactEventHandler<HTMLButtonElement> | undefined;
-        onResize?: import('../../../../../node_modules/react').ReactEventHandler<HTMLButtonElement> | undefined;
-        onResizeCapture?: import('../../../../../node_modules/react').ReactEventHandler<HTMLButtonElement> | undefined;
         onSeeked?: import('../../../../../node_modules/react').ReactEventHandler<HTMLButtonElement> | undefined;
         onSeekedCapture?: import('../../../../../node_modules/react').ReactEventHandler<HTMLButtonElement> | undefined;
         onSeeking?: import('../../../../../node_modules/react').ReactEventHandler<HTMLButtonElement> | undefined;

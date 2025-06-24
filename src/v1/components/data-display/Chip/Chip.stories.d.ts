@@ -95,6 +95,8 @@ declare const meta: {
         unselectable?: "on" | "off" | undefined;
         inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
         is?: string | undefined;
+        exportparts?: string | undefined;
+        part?: string | undefined;
         "aria-activedescendant"?: string | undefined;
         "aria-atomic"?: (boolean | "true" | "false") | undefined;
         "aria-autocomplete"?: "none" | "inline" | "list" | "both" | undefined;
@@ -169,7 +171,7 @@ declare const meta: {
         onBlurCapture?: import('../../../../../node_modules/react').FocusEventHandler<HTMLDivElement> | undefined;
         onChange?: import('../../../../../node_modules/react').FormEventHandler<HTMLDivElement> | undefined;
         onChangeCapture?: import('../../../../../node_modules/react').FormEventHandler<HTMLDivElement> | undefined;
-        onBeforeInput?: import('../../../../../node_modules/react').FormEventHandler<HTMLDivElement> | undefined;
+        onBeforeInput?: import('../../../../../node_modules/react').InputEventHandler<HTMLDivElement> | undefined;
         onBeforeInputCapture?: import('../../../../../node_modules/react').FormEventHandler<HTMLDivElement> | undefined;
         onInput?: import('../../../../../node_modules/react').FormEventHandler<HTMLDivElement> | undefined;
         onInputCapture?: import('../../../../../node_modules/react').FormEventHandler<HTMLDivElement> | undefined;
@@ -219,8 +221,6 @@ declare const meta: {
         onProgressCapture?: import('../../../../../node_modules/react').ReactEventHandler<HTMLDivElement> | undefined;
         onRateChange?: import('../../../../../node_modules/react').ReactEventHandler<HTMLDivElement> | undefined;
         onRateChangeCapture?: import('../../../../../node_modules/react').ReactEventHandler<HTMLDivElement> | undefined;
-        onResize?: import('../../../../../node_modules/react').ReactEventHandler<HTMLDivElement> | undefined;
-        onResizeCapture?: import('../../../../../node_modules/react').ReactEventHandler<HTMLDivElement> | undefined;
         onSeeked?: import('../../../../../node_modules/react').ReactEventHandler<HTMLDivElement> | undefined;
         onSeekedCapture?: import('../../../../../node_modules/react').ReactEventHandler<HTMLDivElement> | undefined;
         onSeeking?: import('../../../../../node_modules/react').ReactEventHandler<HTMLDivElement> | undefined;
