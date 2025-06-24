@@ -1,0 +1,1 @@
+import{j as e}from"./DefaultPropsProvider-D0TKvr2r.js";import{S as r}from"./FlexBox-T1h48bRK.js";const t=({children:o})=>e(r,{rowGap:2,children:o});t.__docgenInfo={description:"",methods:[],displayName:"UserProfileContent"};export{t as U};
