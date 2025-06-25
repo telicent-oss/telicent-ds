@@ -17,7 +17,7 @@ export function withSessionHandling(
         // invalidates, does not refetch
         if (queryClient) {
           keysToInvalidate.forEach((key) =>
-            queryClient.invalidateQueries({ queryKey: key, exact: true })
+            queryClient.invalidateQueries({ queryKey: key })
           );
         }
 

@@ -14,6 +14,6 @@ export interface AuthConfig {
 
 export interface ApiFactory {
   instance: AxiosInstance;
-  withSessionHandling: (config: SessionHandlingConfig) => ApiFactory;
+  withSessionHandling: (config: SessionHandlingConfig) => { instance: AxiosInstance };
   build: () => { instance: AxiosInstance };
 }
