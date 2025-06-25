@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.5](https://github.com/telicent-oss/telicent-ds/compare/v0.27.4...v0.27.5) (2025-06-25)
+
+
+### Bug Fixes
+
+* reload page when switch user ([#273](https://github.com/telicent-oss/telicent-ds/issues/273)) ([76311e4](https://github.com/telicent-oss/telicent-ds/commit/76311e43b74745f78982aa27d651af6161812a92))
+
 ## [0.27.4](https://github.com/telicent-oss/telicent-ds/compare/v0.27.3...v0.27.4) (2025-06-24)
 
 
