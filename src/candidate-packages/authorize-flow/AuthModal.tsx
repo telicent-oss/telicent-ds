@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { H3, Text } from "../../v1/components/data-display/Text/Text";
 import { FlexBox, Button, Modal } from "../../export";
 import { Box } from "@mui/material";
-import { onAuthEvent } from "./broadcastChannelService";
+import { AuthEvent, onAuthEvent } from "./broadcastChannelService";
 
 interface AuthRedirectModalProps {
   signOutUrl: string;
@@ -19,13 +19,13 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({ signOutUrl, deboun
 
   useEffect(() => {
     const unsubscribe = onAuthEvent((event) => {
-      if (event === "unauthorized" && !alreadyTriggered.current) {
+      if (event === AuthEvent.UNAUTHORIZED && !alreadyTriggered.current) {
         setIsOpen(true);
         alreadyTriggered.current = true;
         setTimeout(() => {
           alreadyTriggered.current = false;
         }, debounceMs);
-      } else if (event === "authorized") {
+      } else if (event === AuthEvent.AUTHENTICATED || event === AuthEvent.REAUTHENTICATED) {
         setIsOpen(false);
         alreadyTriggered.current = false;
       }
@@ -35,7 +35,7 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({ signOutUrl, deboun
   }, []);
 
   return (
-    <Modal hideCloseButton onClose={() => {}} sx={{ m: 2, p: 2 }} open={isOpen}>
+    <Modal hideCloseButton onClose={() => { }} sx={{ m: 2, p: 2 }} open={isOpen}>
       <FlexBox sx={{ p: 2, overflowY: "auto" }}>
         <H3>
           <i className="fa-regular fa-circle-exclamation"></i> Your session is no longer active

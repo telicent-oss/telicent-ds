@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios";
 import { SessionHandlingConfig } from "./types";
+import { AuthEvent } from "./broadcastChannelService";
 
 export function withSessionHandling(
   instance: AxiosInstance,
@@ -13,12 +14,14 @@ export function withSessionHandling(
     (res) => res,
     (err) => {
       if (err.response?.status === 401) {
+        // invalidates, does not refetch
         if (queryClient) {
           keysToInvalidate.forEach((key) =>
             queryClient.invalidateQueries({ queryKey: key, exact: true })
           );
         }
-        broadcastChannel?.postMessage("unauthorized");
+
+        broadcastChannel?.postMessage(AuthEvent.UNAUTHORIZED);
       }
       return Promise.reject(err);
     }
