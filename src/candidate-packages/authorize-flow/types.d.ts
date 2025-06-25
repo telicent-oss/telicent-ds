@@ -1,10 +1,10 @@
 import { AxiosInstance } from 'axios';
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryKey } from '@tanstack/react-query';
 
 export interface SessionHandlingConfig {
     queryClient?: QueryClient;
     broadcastChannel?: BroadcastChannel;
-    keysToInvalidate?: string[];
+    keysToInvalidate?: QueryKey[];
 }
 export interface AuthConfig {
     getToken: () => string | null;

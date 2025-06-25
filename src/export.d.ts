@@ -15,6 +15,7 @@ export * from './v1/components/utils/index';
 export * from './component-library/Map';
 export * from './candidate-packages/authorize-flow/AuthModal';
 export * from './candidate-packages/authorize-flow/broadcastChannelService';
+export * from './candidate-packages/authorize-flow/useAuthSync';
 export * from './candidate-packages/authorize-flow';
 export { getCodec, type Codec, base64Codec, uriComponentCodec, ENCODE_SEARCH_PARAMS_MODES_Schema, type ENCODE_SEARCH_PARAMS_MODES_Type, toStringEncoded, type URLSearchParamsInit, GRAPH_APP, type LoggerLevelString, type LoggerLevel, loggerLevelOrder, Logger, } from './candidate-packages/utils-lib/src/index';
 export { setupWipe, WipeConfigSchema, type WipeConfig, } from './candidate-packages/logout-syncer/setupWipe';
