@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.7](https://github.com/telicent-oss/telicent-ds/compare/v0.27.6...v0.27.7) (2025-06-27)
+
+
+### Bug Fixes
+
+* **auth-flow:** [TELFE-1216] USER_CHANGED replace configurable ([#277](https://github.com/telicent-oss/telicent-ds/issues/277)) ([41f7048](https://github.com/telicent-oss/telicent-ds/commit/41f70480a24f1e3fb9f27f3075f13ef8328d74fb))
+
 ## [0.27.6](https://github.com/telicent-oss/telicent-ds/compare/v0.27.5...v0.27.6) (2025-06-27)
 
 
