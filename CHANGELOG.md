@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.6](https://github.com/telicent-oss/telicent-ds/compare/v0.27.5...v0.27.6) (2025-06-27)
+
+
+### Bug Fixes
+
+* add close button to auth modal ([#275](https://github.com/telicent-oss/telicent-ds/issues/275)) ([0c702e2](https://github.com/telicent-oss/telicent-ds/commit/0c702e2b138e9d08f7159d6f99bcae2cb2768dc5))
+
 ## [0.27.5](https://github.com/telicent-oss/telicent-ds/compare/v0.27.4...v0.27.5) (2025-06-25)
 
 
