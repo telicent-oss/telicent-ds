@@ -3,7 +3,7 @@ import { onAuthEvent } from "./broadcastChannelService";
 import { AuthEvent } from "./broadcastChannelService";
 import { QueryClient } from "@tanstack/react-query";
 
-export const registerAuthSync = (queryClient: QueryClient) =>
+export const registerAuthSync = (queryClient: QueryClient, baseUrl:string = '') =>
   onAuthEvent((event) => {
     switch (event) {
       case AuthEvent.AUTHENTICATED:
@@ -11,14 +11,14 @@ export const registerAuthSync = (queryClient: QueryClient) =>
         queryClient.refetchQueries({ stale: true });
         break;
       case AuthEvent.USER_CHANGED:
-        window.location.reload();
+        window.location.replace(baseUrl);
         break;
     }
   });
 
-export const useAuthSync = (queryClient: QueryClient) => {
+export const useAuthSync = (queryClient: QueryClient, baseUrl:string) => {
   useEffect(() => {
-    const unsubscribe = registerAuthSync(queryClient);
+    const unsubscribe = registerAuthSync(queryClient, baseUrl);
     return unsubscribe;
-  }, [queryClient]);
+  }, [queryClient, baseUrl]);
 };
