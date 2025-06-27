@@ -50,7 +50,7 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({ signOutUrl, deboun
         <Text>Please login again to continue.</Text>
         <Text sx={{ pt: 4 }}>If you continue to have issues, contact your system administrator.</Text>
         <FlexBox ml="auto" mt={2} gap={1} direction="row">
-          <Button variant="primary" onClick={handleCloseClick} size="large">
+          <Button variant="secondary" disableElevation onClick={handleCloseClick} size="large">
             Close
           </Button>
           <Button variant="primary" onClick={handleLoginClick} size="large">
