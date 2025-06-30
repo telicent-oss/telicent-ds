@@ -87,6 +87,14 @@ const Select: React.FC<SelectProps> = ({ label, value, id, options, width, onCha
               marginX: 1,
               borderRadius: "4px",
               border: "1px solid rgba(0, 0, 0, 0)",
+              "&.Mui-selected.Mui-selected": {
+                backgroundColor:
+                  theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+              },
+              "&.Mui-selected.Mui-selected:hover": {
+                backgroundColor:
+                  theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+              },
               "&:hover": {
                 backgroundColor:
                   theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
