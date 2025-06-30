@@ -5,4 +5,8 @@ export { default as IconButton } from "./Button/IconButton";
 
 export { default as TextField } from "./TextField";
 
-export * from "./SearchBox"
+export { default as Select } from "./Select/Select";
+export type { SelectProps } from "./Select/Select";
+export type { Options } from "./Select/Select";
+
+export * from "./SearchBox";
