@@ -41,9 +41,7 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({ signOutUrl, deboun
   return (
     <Modal hideCloseButton onClose={() => {}} sx={{ m: 2, p: 2 }} open={isOpen}>
       <FlexBox sx={{ p: 2, overflowY: "auto" }}>
-        <H3>
-          <i className="fa-regular fa-circle-exclamation"></i> Your session is no longer active
-        </H3>
+        <H3>Your session is no longer active</H3>
         <Text sx={{ pt: 4 }}>
           Your session may have expired, you may have signed out, or your account isn&apos;t active.
         </Text>
