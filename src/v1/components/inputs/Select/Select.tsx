@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select as MUISelect, SelectChangeEvent } from "@mui/material";
+import { FormControl, InputLabel, Select as MUISelect, SelectChangeEvent, MenuItem } from "@mui/material";
 import React, { useState } from "react";
 import { useExtendedTheme } from "../../../../export";
 
@@ -36,7 +36,7 @@ const Select: React.FC<SelectProps> = ({ label, value, id, options, width, onCha
       <MUISelect
         labelId={id}
         label={label}
-        id="demo-simple-select"
+        id={id}
         value={value}
         disabled={disabled}
         onChange={onChange}
@@ -78,31 +78,7 @@ const Select: React.FC<SelectProps> = ({ label, value, id, options, width, onCha
         }}
       >
         {options.map((option) => (
-          <MenuItem
-            key={option?.value}
-            value={option.value}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              marginX: 1,
-              borderRadius: "4px",
-              border: "1px solid rgba(0, 0, 0, 0)",
-              "&.Mui-selected.Mui-selected": {
-                backgroundColor:
-                  theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-              },
-              "&.Mui-selected.Mui-selected:hover": {
-                backgroundColor:
-                  theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-              },
-              "&:hover": {
-                backgroundColor:
-                  theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-                border: `1px solid ${theme.palette.primary.main}`,
-              },
-            }}
-            disableRipple
-          >
+          <MenuItem key={option?.value} value={option.value} disableRipple>
             {option.label}
           </MenuItem>
         ))}
