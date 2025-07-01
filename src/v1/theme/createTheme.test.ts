@@ -381,12 +381,12 @@ test("tmp theme diffs via unified patches", () => {
                  "borderWidth": 1,
                  "borderStyle": "solid",
     -            "borderColor": "rgba(141, 153, 226, 0.4)"
-    +            "borderColor": "inherit"
+    +            "borderColor": "rgba(0, 0, 0, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -77,12 +77,12 @@
+    @@ -77,11 +77,11 @@
        },
        "palette": {
          "mode": "dark",
@@ -394,15 +394,13 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "#5969D5",
     -      "dark": "#2636A2",
-    -      "contrastText": "#fff"
-    +      "main": "#fff",
-    +      "light": "rgba(255, 255, 255, 0.5)",
-    +      "dark": "rgba(255, 255, 255, 0.9)",
-    +      "contrastText": "#000"
+    +      "main": "#000000",
+    +      "light": "rgba(0, 0, 0, 0.5)",
+    +      "dark": "rgba(0, 0, 0, 0.7)",
+           "contrastText": "#fff"
          },
          "secondary": {
            "main": "#222222"
-         },
 
 
     Index: 8
@@ -415,7 +413,7 @@ test("tmp theme diffs via unified patches", () => {
                  "borderWidth": 1,
                  "borderStyle": "solid",
     -            "borderColor": "rgba(141, 153, 226, 0.4)"
-    +            "borderColor": "inherit"
+    +            "borderColor": "rgba(0, 0, 0, 0.4)"
                }
              }
            ],
@@ -431,11 +429,10 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "#5969D5",
     -      "dark": "#2636A2",
-    -      "contrastText": "#fff"
-    +      "main": "#fff",
-    +      "light": "rgba(255, 255, 255, 0.5)",
-    +      "dark": "rgba(255, 255, 255, 0.9)",
-    +      "contrastText": "#000"
+    +      "main": "#000000",
+    +      "light": "rgba(0, 0, 0, 0.5)",
+    +      "dark": "rgba(0, 0, 0, 0.7)",
+           "contrastText": "#fff"
          },
          "secondary": {
     -      "main": "#222222"
