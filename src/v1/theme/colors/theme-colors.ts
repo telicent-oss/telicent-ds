@@ -4,6 +4,7 @@ import DATA_NAVY from "./data-navy";
 import DOCUMENT_PINK from "./document-pink";
 import GRAPH_ORANGE from "./graph-orange";
 import ADMIN_BLUE from "./admin-blue";
+import BLANK from "./blank";
 import { alpha } from "@mui/material/styles";
 
 export const UIThemeSchema = zod.enum([
@@ -60,9 +61,10 @@ const THEME_COLORS: Record<
     contrastText: common.black,
   },
   Blank: {
-      main: common.white,
-      light: alpha(common.white, 0.5),
-      dark: alpha(common.white, 0.9),
+      ...BLANK,
+      main: BLANK[500],
+      light: BLANK[400],
+      dark: BLANK[600],
       contrastText: common.black,
   }
 };
