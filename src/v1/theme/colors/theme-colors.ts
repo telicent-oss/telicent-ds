@@ -7,13 +7,7 @@ import ADMIN_BLUE from "./admin-blue";
 import BLANK from "./blank";
 import { alpha } from "@mui/material/styles";
 
-export const UIThemeSchema = zod.enum([
-  "DataNavy",
-  "DocumentPink",
-  "GraphOrange",
-  "AdminBlue",
-  "Blank",
-]);
+export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 
 const THEME_COLORS: Record<
@@ -61,12 +55,12 @@ const THEME_COLORS: Record<
     contrastText: common.black,
   },
   Blank: {
-      ...BLANK,
-      main: BLANK[500],
-      light: BLANK[400],
-      dark: BLANK[600],
-      contrastText: common.black,
-  }
+    ...BLANK,
+    main: BLANK[500],
+    light: BLANK[400],
+    dark: BLANK[600],
+    contrastText: common.white,
+  },
 };
 
 export default THEME_COLORS;
