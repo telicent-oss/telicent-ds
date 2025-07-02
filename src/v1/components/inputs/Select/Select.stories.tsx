@@ -68,7 +68,7 @@ const RenderSelect = ({ ...args }) => {
 export const Default: Story = {
   args: {
     label: "Select an option",
-    value: "none",
+    value: "option1",
     id: "select-disabled",
     options: OPTIONS,
     width: 300,
@@ -91,7 +91,7 @@ export const Disabled: Story = {
 export const WithCustomWidth: Story = {
   args: {
     label: "Select an option",
-    value: "none",
+    value: "option2",
     id: "select-disabled",
     options: OPTIONS,
     width: 500,

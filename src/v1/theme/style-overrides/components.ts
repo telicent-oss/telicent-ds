@@ -23,20 +23,24 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
           margin: theme.spacing(0, 1),
           borderRadius: theme.shape.borderRadius,
           border: "1px solid transparent",
-
-          // selected state
           "&.Mui-selected": {
             backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-            color: theme.palette.primary.main, // ← override text color
+            color: theme.palette.primary.main,
           },
-          // ensure hover of selected also picks up the color
+          "&.Mui-selected.Mui-selected": {
+            backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+          },
+          "&.Mui-selected.Mui-selected:hover": {
+            backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+          },
           "&.Mui-selected:hover": {
             backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-            color: theme.palette.primary.main, // ← same here
+            color: theme.palette.primary.main,
             backgroundImage: "none",
           },
-
-          // normal hover
+          "& .MuiPaper-root": {
+            backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
+          },
           "&:hover": {
             backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
             border: `1px solid ${theme.palette.primary.main}`,
