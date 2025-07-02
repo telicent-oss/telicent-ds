@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.27.8](https://github.com/telicent-oss/telicent-ds/compare/v0.27.7...v0.27.8) (2025-07-01)
+
+
+### Bug Fixes
+
+* [TELFE-1223] better theme ([#280](https://github.com/telicent-oss/telicent-ds/issues/280)) ([5231d19](https://github.com/telicent-oss/telicent-ds/commit/5231d1926f0aeda56f97f1a457bd7f013199d0d8))
+
+## [0.27.7](https://github.com/telicent-oss/telicent-ds/compare/v0.27.6...v0.27.7) (2025-06-27)
+
+
+### Bug Fixes
+
+* **auth-flow:** [TELFE-1216] USER_CHANGED replace configurable ([#277](https://github.com/telicent-oss/telicent-ds/issues/277)) ([41f7048](https://github.com/telicent-oss/telicent-ds/commit/41f70480a24f1e3fb9f27f3075f13ef8328d74fb))
+
+## [0.27.6](https://github.com/telicent-oss/telicent-ds/compare/v0.27.5...v0.27.6) (2025-06-27)
+
+
+### Bug Fixes
+
+* add close button to auth modal ([#275](https://github.com/telicent-oss/telicent-ds/issues/275)) ([0c702e2](https://github.com/telicent-oss/telicent-ds/commit/0c702e2b138e9d08f7159d6f99bcae2cb2768dc5))
+
 ## [0.27.5](https://github.com/telicent-oss/telicent-ds/compare/v0.27.4...v0.27.5) (2025-06-25)
 
 
