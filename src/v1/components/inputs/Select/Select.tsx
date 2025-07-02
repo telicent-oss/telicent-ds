@@ -42,6 +42,25 @@ const Select: React.FC<SelectProps> = ({ label, value, id, options, width, onCha
           },
         }}
         sx={{
+          color: "#ffffff",
+          backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
+          ".MuiSelect-icon": {
+            color: "#6D6D6D",
+          },
+          ".MuiOutlinedInput-notchedOutline": {
+            borderColor: "#6D6D6D",
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.palette.primary.main,
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.palette.primary.main,
+            borderWidth: "2px !important",
+          },
+          "&.Mui-selected": {
+            backgroundColor: "#2A2A2A",
+            color: "#fff",
+          },
           ...sx,
         }}
       >
