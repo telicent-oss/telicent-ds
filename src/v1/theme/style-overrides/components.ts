@@ -15,7 +15,6 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
         },
       },
     },
-
     MuiMenuItem: {
       styleOverrides: {
         root: ({ theme }) => ({

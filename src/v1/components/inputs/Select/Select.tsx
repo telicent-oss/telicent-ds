@@ -13,7 +13,7 @@ const Select: React.FC<SelectProps> = ({ label, value, id, options, width, onCha
   const theme = useExtendedTheme();
 
   return (
-    <FormControl className="select-dropdown" sx={{ minWidth: 88, width }} size="small">
+    <FormControl sx={{ minWidth: 88, width }} size="small">
       <InputLabel
         id={id}
         sx={{
