@@ -16,7 +16,10 @@ test("tmp theme diffs via unified patches", () => {
     isDarkSet.map((isDark) => {
       asMock(mockCreateMuiTheme).mockClear();
       createTheme(name, isDark, true);
-      return [`${name} (${isDark ? "light" : "dark"})`, asMock(mockCreateMuiTheme).mock.calls[0][0]];
+      return [
+        `${name} (${isDark ? "light" : "dark"})`,
+        asMock(mockCreateMuiTheme).mock.calls[0][0],
+      ];
     })
   );
 
@@ -25,7 +28,13 @@ test("tmp theme diffs via unified patches", () => {
   const report = pairs
     .slice(1)
     .map(([name, opts], idx) => {
-      const patch = createPatch(`${idx}`, baseOptsStr, JSON.stringify(opts, null, 2), baseName, name);
+      const patch = createPatch(
+        `${idx}`,
+        baseOptsStr,
+        JSON.stringify(opts, null, 2),
+        baseName,
+        name
+      );
       return patch;
     })
     .join("\n\n");
@@ -377,7 +386,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -77,11 +77,11 @@
+    @@ -80,11 +80,11 @@
        },
        "palette": {
          "mode": "dark",
