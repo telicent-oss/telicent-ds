@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Select, { Options, SelectProps } from "./Select";
+import Select, { Options } from "./Select";
 import { Box, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 
@@ -49,7 +49,7 @@ type Story = StoryObj<typeof Select>;
 const RenderSelect = ({ ...args }) => {
   const [selected, setSelected] = useState<string>("");
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = (event: SelectChangeEvent<unknown>) => {
     setSelected(event.target.value as string);
   };
 

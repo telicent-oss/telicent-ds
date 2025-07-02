@@ -7,7 +7,7 @@ export interface Options {
   label: string;
 }
 
-type SelectProps = MuiSelectProps & { options: Options[]; width?: number };
+export type SelectProps = MuiSelectProps & { options: Options[]; width?: number };
 
 const Select: React.FC<SelectProps> = ({ label, value, id, options, width, onChange, disabled = false, sx }) => {
   const theme = useExtendedTheme();
