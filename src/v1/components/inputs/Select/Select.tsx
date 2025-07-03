@@ -9,23 +9,37 @@ export interface Options {
 
 export type SelectProps = MuiSelectProps & { options: Options[]; width?: number };
 
-const Select: React.FC<SelectProps> = ({ label, value, id, options, width, onChange, disabled = false, sx }) => {
+const Select: React.FC<SelectProps> = ({
+  label,
+  value,
+  id,
+  options,
+  width,
+  onChange,
+  disabled = false,
+  sx,
+  ...rest
+}) => {
   const theme = useExtendedTheme();
 
   return (
     <FormControl sx={{ minWidth: 88, width }} size="small">
-      <InputLabel
-        id={id}
-        sx={{
-          color: "#fff",
-          "&.Mui-focused": {
-            color: theme.palette.primary.main,
-          },
-        }}
-      >
-        {label}
-      </InputLabel>
+      {label && (
+        <InputLabel
+          id={id}
+          sx={{
+            color: "#fff",
+            "&.Mui-focused": {
+              color: theme.palette.primary.main,
+            },
+          }}
+        >
+          {label}
+        </InputLabel>
+      )}
+
       <MUISelect
+        {...rest}
         labelId={id}
         label={label}
         id={id}

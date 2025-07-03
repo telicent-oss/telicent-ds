@@ -17,9 +17,22 @@ const meta: Meta<typeof Select> = {
     docs: {
       description: {
         component: `
-A simple select dropdown component for selecting an option from a list.
+A lightweight, dropdown built on Mui's \`<Select>\` with our design-system theming and overrides. It supports both controlled **and** uncontrolled modes: 
 
-> Note: You can easily customize the select dropdown by using the provided props.
+- **Controlled mode:** Pass \`value\` and  \`onChange\` to fully drive the selected value from the parent state.
+- **Uncontrolled mode:** Pass \`defaultValue\` and \`onChange\` but omit \`value\` to let the component manage its own state after mount.
+
+---
+
+### When & How to use it 
+ - **Forms & Filters:** use it in any place you need the user to choose one value from a short list (status picker, category filter, settings panel).
+
+ - **No Internal State:** it has no internal state, you'll need to pass \`value\` and \`onChange\`.
+
+ - **Label is optional:** only renders the label if you pass the \`label\` prop. You can choose to omit the prop for a cleaner label-free form.
+ 
+ - **Min Width:** It has a min width by default that can be customized by using the \`width\` prop.
+
 
 \`\`\`jsx
 <Select 
@@ -95,6 +108,15 @@ export const WithCustomWidth: Story = {
     id: "select-disabled",
     options: OPTIONS,
     width: 500,
+    onChange: () => {},
+  },
+};
+
+export const WithNoLabel: Story = {
+  args: {
+    value: "option2",
+    id: "select-disabled",
+    options: OPTIONS,
     onChange: () => {},
   },
 };
