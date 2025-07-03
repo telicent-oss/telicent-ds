@@ -17,7 +17,7 @@ const meta: Meta<typeof Select> = {
     docs: {
       description: {
         component: `
-A lightweight dropdown selct component built on Mui's \`<Select>\` with our design-system theming and overrides. It supports both controlled **and** uncontrolled modes: 
+A lightweight dropdown component built on Mui's \`<Select>\` with our design-system theming and overrides. It supports both controlled **and** uncontrolled modes: 
 
 - **Controlled mode:** Pass \`value\` and  \`onChange\` to fully drive the selected value from the parent state.
 - **Uncontrolled mode:** Pass \`defaultValue\` and \`onChange\` but omit \`value\` to let the component manage its own state after mount.
