@@ -8,6 +8,51 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             };
         };
     };
+    MuiMenuItem: {
+        styleOverrides: {
+            root: ({ theme }: import('@mui/material').MenuItemOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & {
+                ref?: ((instance: HTMLLIElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLLIElement> | null | undefined;
+            }, "children" | "autoFocus" | "className" | "style" | "tabIndex" | "classes" | "sx" | "action" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "disableGutters" | "divider" | "selected"> & {
+                component?: import('../../../../node_modules/react').ElementType;
+            } & Record<string, unknown> & {
+                ownerState: import('@mui/material').MenuItemOwnProps & Omit<import('@mui/material').ButtonBaseOwnProps, "classes"> & import('@mui/material/OverridableComponent').CommonProps & Omit<Omit<import('../../../../node_modules/react').DetailedHTMLProps<import('../../../../node_modules/react').LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref"> & {
+                    ref?: ((instance: HTMLLIElement | null) => void | import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof import('../../../../node_modules/react').DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]) | import('../../../../node_modules/react').RefObject<HTMLLIElement> | null | undefined;
+                }, "children" | "autoFocus" | "className" | "style" | "tabIndex" | "classes" | "sx" | "action" | "centerRipple" | "disabled" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "disableGutters" | "divider" | "selected"> & {
+                    component?: import('../../../../node_modules/react').ElementType;
+                } & Record<string, unknown>;
+            } & {
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }) => {
+                display: "flex";
+                alignItems: "center";
+                margin: string;
+                borderRadius: number;
+                border: string;
+                "&.Mui-selected": {
+                    backgroundColor: string;
+                    color: string;
+                };
+                "&.Mui-selected.Mui-selected": {
+                    backgroundColor: string;
+                };
+                "&.Mui-selected.Mui-selected:hover": {
+                    backgroundColor: string;
+                };
+                "&.Mui-selected:hover": {
+                    backgroundColor: string;
+                    color: string;
+                    backgroundImage: string;
+                };
+                "& .MuiPaper-root": {
+                    backgroundColor: string;
+                };
+                "&:hover": {
+                    backgroundColor: string;
+                    border: string;
+                };
+            };
+        };
+    };
     MuiAppBar: {
         styleOverrides: {
             root: {
@@ -851,18 +896,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<import('@mui/material').MenuProps> | ((props: Partial<import('@mui/material').MenuProps> & {
                 ownerState: Partial<import('@mui/material').MenuProps>;
-            }) => boolean);
-            style: import('@mui/styled-engine').Interpolation<{
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiMenuItem?: {
-        defaultProps?: import('@mui/material').ComponentsProps["MuiMenuItem"];
-        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').MenuItemClasses, "MuiMenuItem", Omit<import('@mui/material').Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<import('@mui/material').MenuItemProps> | ((props: Partial<import('@mui/material').MenuItemProps> & {
-                ownerState: Partial<import('@mui/material').MenuItemProps>;
             }) => boolean);
             style: import('@mui/styled-engine').Interpolation<{
                 theme: Omit<import('@mui/material').Theme, "components">;
