@@ -49,6 +49,17 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
       },
     },
 
+    MuiCheckbox: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: "#D9D9D9",
+          "&.Mui-checked": {
+            color: theme.palette.primary.main,
+          },
+        }),
+      },
+    },
+
     MuiAppBar: {
       styleOverrides: {
         root: {
