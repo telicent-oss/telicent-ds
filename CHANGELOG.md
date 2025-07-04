@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.28.0](https://github.com/telicent-oss/telicent-ds/compare/v0.27.8...v0.28.0) (2025-07-04)
+
+
+### Features
+
+* add checkbox component ([#283](https://github.com/telicent-oss/telicent-ds/issues/283)) ([c318b1e](https://github.com/telicent-oss/telicent-ds/commit/c318b1e91e6609f1070d3b29b561d33573a9e265))
+* add select dropdown ([#279](https://github.com/telicent-oss/telicent-ds/issues/279)) ([c5308ea](https://github.com/telicent-oss/telicent-ds/commit/c5308eafca55d03c06a5512fc4c5086e4f4dc7fe))
+* added a select dropdown menu that uses mui select under the hood. ([c5308ea](https://github.com/telicent-oss/telicent-ds/commit/c5308eafca55d03c06a5512fc4c5086e4f4dc7fe))
+
 ## [0.27.8](https://github.com/telicent-oss/telicent-ds/compare/v0.27.7...v0.27.8) (2025-07-01)
 
 
