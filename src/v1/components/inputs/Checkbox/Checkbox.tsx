@@ -21,11 +21,11 @@ const Checkbox: React.FC<CustomCheckboxProps> = ({
   return label ? (
     <FormControlLabel
       required={required}
-      control={<MuiCheckbox checked={checked} id={id} name={name} {...rest} />}
+      control={<MuiCheckbox checked={checked} id={id} name={name} {...rest} color="primary" />}
       label={label}
     />
   ) : (
-    <MuiCheckbox checked={checked} id={id} name={name} {...rest} />
+    <MuiCheckbox checked={checked} id={id} name={name} {...rest} color="primary" />
   );
 };
 

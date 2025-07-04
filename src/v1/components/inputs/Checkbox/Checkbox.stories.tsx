@@ -88,6 +88,15 @@ export const WithRequired: Story = {
   },
 };
 
+export const WithNoLabel: Story = {
+  args: {
+    checked: true,
+    id: "checkbox-custom-label",
+    required: true,
+    onChange: () => {},
+  },
+};
+
 export const ExampleWithOnChange: Story = {
   render: (args) => <RenderCheckbox {...args} />,
   args: {
