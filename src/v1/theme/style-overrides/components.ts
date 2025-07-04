@@ -52,7 +52,7 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     MuiCheckbox: {
       styleOverrides: {
         root: ({ theme }) => ({
-          color: "#D9D9D9",
+          color: theme.palette.mode === "dark" ? "#D9D9D9" : "#1b1b1b", //This will make light blank theme work for the moment until we decide of a final palette.
           "&.Mui-checked": {
             color: theme.palette.primary.main,
           },
