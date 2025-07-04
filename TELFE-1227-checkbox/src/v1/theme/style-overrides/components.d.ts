@@ -53,20 +53,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             };
         };
     };
-    MuiCheckbox: {
-        styleOverrides: {
-            root: ({ theme }: import('@mui/material').CheckboxProps & Record<string, unknown> & {
-                ownerState: import('@mui/material').CheckboxProps & Record<string, unknown>;
-            } & {
-                theme: Omit<import('@mui/material').Theme, "components">;
-            }) => {
-                color: "#D9D9D9" | "#1b1b1b";
-                "&.Mui-checked": {
-                    color: string;
-                };
-            };
-        };
-    };
     MuiAppBar: {
         styleOverrides: {
             root: {
@@ -382,6 +368,18 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<import('@mui/material').CardMediaProps> | ((props: Partial<import('@mui/material').CardMediaProps> & {
                 ownerState: Partial<import('@mui/material').CardMediaProps>;
+            }) => boolean);
+            style: import('@mui/styled-engine').Interpolation<{
+                theme: Omit<import('@mui/material').Theme, "components">;
+            }>;
+        }[] | undefined;
+    } | undefined;
+    MuiCheckbox?: {
+        defaultProps?: import('@mui/material').ComponentsProps["MuiCheckbox"];
+        styleOverrides?: Partial<import('@mui/material/styles/overrides').OverridesStyleRules<keyof import('@mui/material').CheckboxClasses, "MuiCheckbox", Omit<import('@mui/material').Theme, "components">>> | undefined;
+        variants?: {
+            props: Partial<import('@mui/material').CheckboxProps> | ((props: Partial<import('@mui/material').CheckboxProps> & {
+                ownerState: Partial<import('@mui/material').CheckboxProps>;
             }) => boolean);
             style: import('@mui/styled-engine').Interpolation<{
                 theme: Omit<import('@mui/material').Theme, "components">;

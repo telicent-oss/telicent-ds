@@ -8,4 +8,5 @@ export declare const Default: Story;
 export declare const Disabled: Story;
 export declare const WithCustomLabel: Story;
 export declare const WithRequired: Story;
+export declare const WithNoLabel: Story;
 export declare const ExampleWithOnChange: Story;
