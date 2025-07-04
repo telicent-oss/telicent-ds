@@ -60,7 +60,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             } & {
                 theme: Omit<import('@mui/material').Theme, "components">;
             }) => {
-                color: "#D9D9D9";
+                color: "#D9D9D9" | "#1b1b1b";
                 "&.Mui-checked": {
                     color: string;
                 };
