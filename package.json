@@ -20,7 +20,7 @@
     "@mui/material": "^5.16.6",
     "@mui/x-tree-view": "7.3.1",
     "@react-spring/web": "9.7.3",
-    "@telicent-oss/ontologyservice": "0.31.3-TELFE654.0",
+    "@telicent-oss/ontologyservice": "1.0.0",
     "@telicent-oss/react-lib": "^0.5.0",
     "@telicent-oss/telicent-frontend-cli": "^1.2.1",
     "classnames": "^2.3.1",
