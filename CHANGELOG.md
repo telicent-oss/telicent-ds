@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.28.1](https://github.com/telicent-oss/telicent-ds/compare/v0.28.0...v0.28.1) (2025-07-07)
+
+
+### Bug Fixes
+
+* **consumers of rdfservice:** bump to v1.0.0 ([#284](https://github.com/telicent-oss/telicent-ds/issues/284)) ([920a0ed](https://github.com/telicent-oss/telicent-ds/commit/920a0ed16d3f0b04d29f23b90dfe1326e4048057))
+
 ## [0.28.0](https://github.com/telicent-oss/telicent-ds/compare/v0.27.8...v0.28.0) (2025-07-04)
 
 
