@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FeatureCollection, Feature } from "geojson";
 import { z } from "zod";
-import Map, {
-  Layer,
-  MapProvider,
-  Source,
-} from "react-map-gl/maplibre";
+import Map, { Layer, MapProvider, Source, MapRef } from "react-map-gl/maplibre";
 import { ErrorBoundary } from "react-error-boundary";
 import { StyleOption, ClassIcon } from "./utils/schema";
 
@@ -18,14 +14,16 @@ import { LayerSelector } from "./layer-selector/LayerSelector";
 import { FlexGrid, FlexGridItem, UITheme, UIThemeProvider } from "../../export";
 import PolygonMarkers from "./Polygons";
 import { calculateBounds } from "./utils/helper";
-import { MapRef } from "react-map-gl";
-import { LngLatBounds } from "maplibre-gl";
+import { LngLatBounds, type LngLatBoundsLike } from "maplibre-gl";
 
 export const GEOJSON = "geojson";
 export const FEATURE_COLLECTION = "FeatureCollection";
 const W_H_100 = { height: "100%", width: "100%" };
 
-const initialFeatureCollection = { type: 'FeatureCollection', features: [] }
+const initialFeatureCollection: FeatureCollection = {
+  type: "FeatureCollection",
+  features: [],
+};
 
 const initialView = {
   latitude: 53.42148743839479,
@@ -36,10 +34,10 @@ const initialView = {
 };
 
 export interface FeatureMapProps {
-  mapStyleOptions?: {
-    vectorStyles?: StyleOption | StyleOption[], // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
-    tileSets?: StyleOption[]
-  },
+  mapStyleOptions: {
+    vectorStyles?: StyleOption | StyleOption[]; // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
+    tileSets?: StyleOption[];
+  };
   initialViewState?: typeof initialView;
   markers?: ResultMarker[];
   geoPolygons?: FeatureCollection;
@@ -63,7 +61,7 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
   findByClassUri,
   attributionControl = true
 }) => {
-  const mapContainerRef = React.useRef<MapRef | null>(null);
+  const mapContainerRef = React.createRef<MapRef>();
   const [cursor, setCursor] = useState("auto");
 
   const styleSelector = useStyleSelector(mapStyleOptions);

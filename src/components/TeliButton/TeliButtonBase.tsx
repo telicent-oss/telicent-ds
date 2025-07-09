@@ -48,7 +48,7 @@ export interface TeliButtonBaseProps extends MUIButtonBaseProps {
   size?: "small" | "medium" | "large";
 }
 
-const TeliButtonBase: React.FC<TeliButtonBaseProps> = forwardRef(
+const TeliButtonBase = forwardRef<HTMLButtonElement, TeliButtonBaseProps>(
   (
     {
       variant,

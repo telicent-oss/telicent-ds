@@ -225,10 +225,5 @@
   "engine": {
     "node": "20.14.0"
   },
-  "ci": {
-    "shared-workflows/.github/workflows/javascript-test-feature-branch.yml": {
-      "WARNING: TSC CHECK NO ERROR": true
-    }
-  },
   "color": "#FF9999"
 }

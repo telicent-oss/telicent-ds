@@ -12,14 +12,13 @@ export type UITheme = zod.infer<typeof UIThemeSchema>;
 
 const THEME_COLORS: Record<
   UITheme,
-  Partial<{
+  {
     50: string;
     100: string;
     200: string;
     400: string;
     500: string;
     600: string;
-  }> & {
     main: string;
     light: string;
     dark: string;

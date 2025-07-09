@@ -92,7 +92,7 @@ export const RecentSearches: Story = {
     ],
     placeholder: "Search",
   },
-  render: (args) => <StoryExample {...args} />,
+  render: (args: Story['args']) => <StoryExample {...args} />,
 };
 
 /**
