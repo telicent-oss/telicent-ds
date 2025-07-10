@@ -172,7 +172,8 @@ export const MapWithoutLayers: Story = {
       classUri: maybeClassUri,
       alt: "sample alt",
       iconFallbackText: "1"
-    })
+    }),
+    mapStyleOptions: {}
   }
 }
 

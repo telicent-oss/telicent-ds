@@ -80,7 +80,7 @@ export interface MiniSearchAutocompleteProps<
    *
    * `(event: React.MouseEvent<HTMLButtonElement>) => void;`
    */
-  onSearch?: React.MouseEventHandler<HTMLButtonElement>;
+  onSearch?: React.MouseEventHandler<HTMLElement>;
   /**
    * Callback fired when the a key is pressed
    *
@@ -129,7 +129,10 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
     anchorEl,
     setAnchorEl,
     groupedOptions,
-  } = useAutocomplete({ freeSolo, ...autocompleteProps });
+  } = useAutocomplete<Value, Multiple, DisableClearable, FreeSolo>({
+    freeSolo,
+    ...autocompleteProps,
+  });
 
   const rootRef = useForkRef(ref, setAnchorEl);
 
@@ -168,7 +171,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
           anchorEl={anchorEl}
           slots={{ root: StyledPopper }}
         >
-          {groupedOptions.length > 0 ? (
+          {(groupedOptions as Value[]).length > 0 ? (
             <MUIPaper
               elevation={3}
               sx={{
@@ -227,4 +230,14 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
   );
 });
 
-export default MiniSearchAutocomplete;
+// preserve generic component signature so stories can still use `<MiniSearchAutocomplete<...>>`
+export default (MiniSearchAutocomplete as <
+  Value extends AutocompleteOption = AutocompleteOption,
+  Multiple extends boolean = false,
+  DisableClearable extends boolean = false,
+  FreeSolo extends boolean = false
+>(
+  props: MiniSearchAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo> & {
+    ref?: React.Ref<HTMLDivElement>;
+  }
+) => React.ReactElement | null);

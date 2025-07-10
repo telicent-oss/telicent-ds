@@ -27,7 +27,7 @@ export interface TeliButtonProps extends TeliButtonBaseProps {
     | "top-start"
     | "top";
 }
-const TeliButton: React.FC<TeliButtonProps> = forwardRef(
+const TeliButton = forwardRef<HTMLButtonElement, TeliButtonProps>(
   ({ tooltip, tooltipPlacement = "bottom", ...btnProps }, ref) => {
     if (tooltip) {
       return (

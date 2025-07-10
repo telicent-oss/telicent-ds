@@ -30,7 +30,13 @@ export const useStyleSelector = (initialMapConfig: {
     mapConfig,
     props: {
       onChange,
-      data: [mapConfig?.vectorStyles, ...mapConfig.tileSets].filter(Boolean),
+      data: [
+        ...(Array.isArray(mapConfig.vectorStyles)
+            ? mapConfig.vectorStyles
+            : mapConfig.vectorStyles
+            ? [mapConfig.vectorStyles]
+            : []),
+        ...mapConfig.tileSets].filter(Boolean),
     },
   };
 };

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { faMinus, faCircle } from "@fortawesome/free-regular-svg-icons";
+import { faMinusSquare, faCircle } from "@fortawesome/free-regular-svg-icons";
 import DropdownButton from "./DropdownButton";
 import { TestCatalogIcon, TestGraphIcon } from "./assets/TestIcons";
 import { setup } from "../../../../test-utils";
@@ -10,7 +10,7 @@ describe("DropdownButton", () => {
     const LAYOUT_OPTIONS = [
       {
         value: "option1",
-        faIcon: faMinus,
+        faIcon: faMinusSquare,
         label: "option1-label",
       },
       {
