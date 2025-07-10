@@ -46,10 +46,10 @@ declare const meta: {
         };
     };
     decorators: (Story: import('@storybook/csf').PartialStoryFn<import('@storybook/react/*').ReactRenderer, {
-        mapStyleOptions?: {
+        mapStyleOptions: {
             vectorStyles?: import('./utils/schema').StyleOption | import('./utils/schema').StyleOption[];
             tileSets?: import('./utils/schema').StyleOption[];
-        } | undefined;
+        };
         initialViewState?: {
             latitude: number;
             longitude: number;

@@ -13,7 +13,7 @@ declare const initialView: {
     maxZoom: number;
 };
 export interface FeatureMapProps {
-    mapStyleOptions?: {
+    mapStyleOptions: {
         vectorStyles?: StyleOption | StyleOption[];
         tileSets?: StyleOption[];
     };

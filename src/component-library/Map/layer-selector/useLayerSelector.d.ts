@@ -30,6 +30,6 @@ export declare const useStyleSelector: (initialMapConfig: {
     };
     props: {
         onChange: (value: LayerOption) => void;
-        data: (StyleOption | StyleOption[] | undefined)[];
+        data: StyleOption[];
     };
 };

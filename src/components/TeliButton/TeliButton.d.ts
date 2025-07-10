@@ -12,5 +12,5 @@ export interface TeliButtonProps extends TeliButtonBaseProps {
      */
     tooltipPlacement?: "bottom-end" | "bottom-start" | "bottom" | "left-end" | "left-start" | "left" | "right-end" | "right-start" | "right" | "top-end" | "top-start" | "top";
 }
-declare const TeliButton: React.FC<TeliButtonProps>;
+declare const TeliButton: React.ForwardRefExoticComponent<Omit<TeliButtonProps, "ref"> & React.RefAttributes<HTMLButtonElement>>;
 export default TeliButton;
