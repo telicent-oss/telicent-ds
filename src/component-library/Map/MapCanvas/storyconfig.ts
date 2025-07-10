@@ -30,3 +30,26 @@ export const layerStyles = {
     },
   ],
 };
+
+
+export const SUPER_OBVIOUS_POLYGON_LAYERS = [
+      {
+        id: "polygon",
+        type: "fill",
+        layout: {},
+        paint: {
+          "fill-color": "#FFF",
+          "fill-opacity": 0.75,
+        },
+      } as mapboxgl.FillLayer,
+
+      {
+        id: "outline",
+        type: "line",
+        layout: {},
+        paint: {
+          "line-color": "#000",
+          "line-width": 1.75,
+        },
+      } as mapboxgl.LineLayer,
+    ];

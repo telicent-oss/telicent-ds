@@ -1,7 +1,7 @@
 import { FillLayer, LineLayer, SymbolLayer } from "react-map-gl";
 
 const polygon: FillLayer = {
-  id: "ploygon",
+  id: "polygon",
   type: "fill",
   source: "polygon",
   layout: {},

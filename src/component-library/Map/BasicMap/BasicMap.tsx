@@ -1,15 +1,14 @@
-// src/components/FeatureMap/FeatureMap.tsx
+// src/components/BasicMap.tsx
 import React from "react";
 import { StyleOption } from "../utils/schema";
 import { useStyleSelector } from "../layer-selector/useLayerSelector";
-import { LayerSelector } from "../layer-selector/LayerSelector";
-import { FlexGrid, FlexGridItem, UIThemeProvider, UITheme } from "../../../export";
+import { FlexGrid, FlexGridItem, UITheme } from "../../../export";
 import { ErrorBoundary } from "react-error-boundary";
 import { useMapCanvas } from "../MapCanvas/useMapCanvas";
 import { MapCanvas, MapCanvasProps } from "../MapCanvas/MapCanvas";
 import { DEFAULT_GEO_POLYGONS, DEFAULT_VIEW } from "../constants";
 
-export interface FeatureMapProps
+export interface BasicMapProps
   extends Pick<
     MapCanvasProps,
     | "initialViewState"
@@ -29,11 +28,11 @@ export interface FeatureMapProps
   polygonLayers?: (mapboxgl.FillLayer | mapboxgl.LineLayer | mapboxgl.SymbolLayer)[];
 }
 
-const FeatureMap: React.FC<FeatureMapProps> = ({
+
+const BasicMap: React.FC<BasicMapProps> = ({
   mapStyleOptions,
   markers = [],
   selected,
-  theme = "DocumentPink",
   geoPolygons = DEFAULT_GEO_POLYGONS,
   initialViewState = DEFAULT_VIEW,
   defaultStyle,
@@ -43,13 +42,19 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
   polygonLayers,
 }) => {
   const styleSelector = useStyleSelector(mapStyleOptions);
-  const { mapRef, cursor, onDragStart, onDragEnd, onMouseEnter, onMouseLeave, onLoad } =
-    useMapCanvas({ markers, geoPolygons, selected });
+
+  const {
+    mapRef,
+    cursor,
+    onDragStart,
+    onDragEnd,
+    onMouseEnter,
+    onMouseLeave,
+    onLoad,
+  } = useMapCanvas({ markers, geoPolygons, selected });
 
   return (
-    <UIThemeProvider dark theme={theme}>
       <ErrorBoundary fallback={<p>Failed to load map</p>}>
-        <div className="contents">
           <FlexGrid m={0} direction="column" style={{ width: "100%", height: "100%" }}>
             <FlexGridItem flexGrow={1}>
               <MapCanvas
@@ -72,14 +77,9 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
                 polygonLayers={polygonLayers}
               />
             </FlexGridItem>
-            <FlexGridItem flexGrow={0} p={1}>
-              <LayerSelector {...styleSelector.props} />
-            </FlexGridItem>
           </FlexGrid>
-        </div>
       </ErrorBoundary>
-    </UIThemeProvider>
   );
 };
 
-export default FeatureMap;
+export default BasicMap;
