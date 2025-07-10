@@ -1,1 +1,1 @@
-export { default as FeatureMap } from "./FeatureMap";
+export { default as FeatureMap } from "./FeatureMap/FeatureMap";

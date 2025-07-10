@@ -2,11 +2,11 @@ import React from 'react';
 import FeatureMap from './FeatureMap';
 import { Meta, StoryObj } from '@storybook/react/*';
 import { Box } from '@mui/material';
-import { ResultMarker } from './ResultsMarkers';
+import { ResultMarker } from '../ResultsMarkers';
 import { layerStyles } from './FeatureMap.storyconfig';
-import { AUSTRIA, MOLDOVA } from './sampleData';
-import { ARGA_ATTACK, BOULAY_ATTACK } from './sampleData/markers';
-import { UIThemeSchema } from '../../export';
+import { AUSTRIA, MOLDOVA } from '../sampleData';
+import { ARGA_ATTACK, BOULAY_ATTACK } from '../sampleData/markers';
+import { UIThemeSchema } from '../../../export';
 
 const meta = {
   title: 'Component Library/FeatureMap',

@@ -3,17 +3,17 @@ import { FeatureCollection, Feature } from "geojson";
 import { z } from "zod";
 import Map, { Layer, MapProvider, Source, MapRef } from "react-map-gl/maplibre";
 import { ErrorBoundary } from "react-error-boundary";
-import { StyleOption, ClassIcon } from "./utils/schema";
+import { StyleOption, ClassIcon } from "../utils/schema";
 
-import ResultsMarkers, { ResultMarker } from "./ResultsMarkers";
+import ResultsMarkers, { ResultMarker } from "../ResultsMarkers";
 
 import "maplibre-gl/dist/maplibre-gl.css";
-import "./map.css";
-import { useStyleSelector, MapBoxSourceSchema } from "./layer-selector/useLayerSelector";
-import { LayerSelector } from "./layer-selector/LayerSelector";
-import { FlexGrid, FlexGridItem, UITheme, UIThemeProvider } from "../../export";
-import PolygonMarkers from "./Polygons";
-import { calculateBounds } from "./utils/helper";
+import "../map.css";
+import { useStyleSelector, MapBoxSourceSchema } from "../layer-selector/useLayerSelector";
+import { LayerSelector } from "../layer-selector/LayerSelector";
+import { FlexGrid, FlexGridItem, UITheme, UIThemeProvider } from "../../../export";
+import PolygonMarkers from "../Polygons";
+import { calculateBounds } from "../utils/helper";
 import { LngLatBounds, type LngLatBoundsLike } from "maplibre-gl";
 
 export const GEOJSON = "geojson";
@@ -33,6 +33,7 @@ const initialView = {
   maxZoom: 16,
 };
 
+// NEXT CHANGE: Move to new MapCanvas component
 export interface FeatureMapProps {
   mapStyleOptions: {
     vectorStyles?: StyleOption | StyleOption[]; // by the looks of it we are only allowed up to one vector style, so why are we accepting an array?
@@ -61,10 +62,12 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
   findByClassUri,
   attributionControl = true
 }) => {
+  
+  const styleSelector = useStyleSelector(mapStyleOptions);
+  /* NEXT CHANGE: create useMapCanvas from below  */
   const mapContainerRef = React.createRef<MapRef>();
   const [cursor, setCursor] = useState("auto");
 
-  const styleSelector = useStyleSelector(mapStyleOptions);
   const resetCursor = () => {
     setCursor("auto");
   };
@@ -114,6 +117,10 @@ const FeatureMap: React.FC<FeatureMapProps> = ({
         <div className="contents">
           <FlexGrid m={0} direction="column" style={W_H_100}>
             <FlexGridItem flexGrow={1}>
+              {/* NEXT CHANGE: create MapCanvas from children and use here
+              <MacCanvas {...add props} />
+            
+              */}
               <MapProvider>
                 <Map
                   ref={mapContainerRef}

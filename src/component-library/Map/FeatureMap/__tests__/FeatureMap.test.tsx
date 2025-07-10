@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import FeatureMap from "../FeatureMap"
-import { ClassIcon } from "../utils/schema"
-import { ARGA_ATTACK, BOULAY_ATTACK, MADE_UP_MARKER } from "../sampleData/markers"
-import { AUSTRIA, MOLDOVA } from "../sampleData"
+import { ClassIcon } from "../../utils/schema"
+import { ARGA_ATTACK, BOULAY_ATTACK, MADE_UP_MARKER } from "../../sampleData/markers"
+import { AUSTRIA, MOLDOVA } from "../../sampleData"
 
 const findByClassUriMock = (maybeUri: string): ClassIcon => {
   if (maybeUri === ARGA_ATTACK.type) {
