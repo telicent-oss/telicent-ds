@@ -13,9 +13,9 @@ const createLightPalette = (uiTheme:UITheme): ThemeOptions["palette"] =>({
   secondary: {
     main: "#F9F9F9",
   },
-  warning: undefined,
-  info: undefined,
-  success: undefined,
+  // warning: undefined,
+  // info: undefined,
+  // success: undefined,
   background: {
     default: "#F8F9F9",
   },

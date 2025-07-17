@@ -1,3 +1,4 @@
+export { IconButton } from "@mui/material";
 import "./main.css";
 
 export { default as TeliStandardLayout } from "./layouts/TeliStandardLayout/TeliStandardLayout";
@@ -24,6 +25,7 @@ export * from "./candidate-packages/authorize-flow/AuthModal";
 export * from "./candidate-packages/authorize-flow/broadcastChannelService";
 export * from "./candidate-packages/authorize-flow/useAuthSync";
 export * from "./candidate-packages/authorize-flow";
+export * from "./component-library/InsetInMap";
 
 // PROPOSED @telicent-oss/utils-lib
 export {
@@ -56,3 +58,5 @@ export { requestWipe } from "./candidate-packages/logout-syncer/requestWipe";
 
 export { renderErrorToHtml } from "./candidate-packages/renderErrorToHtml/renderErrorToHtml";
 export { parseOrThrowWithInput } from "./candidate-packages/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
+
+//

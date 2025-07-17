@@ -10,7 +10,6 @@ export interface ButtonProps
     MUIButtonProps,
     | "color"
     | "component"
-    | "disabled"
     | "disableElevation"
     | "endIcon"
     | "fullWidth"
@@ -18,7 +17,6 @@ export interface ButtonProps
     | "size"
     | "startIcon"
     | "variant"
-    | "sx"
     | "classes"
   > {
   /**

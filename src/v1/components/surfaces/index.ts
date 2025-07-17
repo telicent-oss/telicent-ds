@@ -7,3 +7,4 @@ export type { AppBarProps } from "./AppBar/AppBar";
 
 export { default as PopOver } from "./PopOver/Popover";
 export { default as Toolbar } from "./Toolbar/Toolbar";
+export { default as Paper } from "./Paper/Paper";
