@@ -14,6 +14,8 @@ export type UIThemeProviderProps = React.PropsWithChildren<{
   dark?: boolean
 }>
 
+const DEBUG_PALETTE_CHECK = false;
+
 const UIThemeProvider: React.FC<UIThemeProviderProps> = ({
   theme,
   dark = false,
@@ -23,16 +25,19 @@ const UIThemeProvider: React.FC<UIThemeProviderProps> = ({
   const muiTheme   = useMuiTheme()
 
   useEffect(() => {
-    console.group('⚛️ [UIThemeProvider] palette check')
-    Object.entries(muiTheme.palette).forEach(([key, val]) => {
-      const hasMain = val != null && typeof (val as any).main === 'string'
-      console.log(
-        `${key}:`,
-        hasMain ? '✅ has .main' : '❌ missing .main',
-        val
-      )
-    })
-    console.groupEnd()
+    if (DEBUG_PALETTE_CHECK) {
+
+      console.group('⚛️ [UIThemeProvider] palette check')
+      Object.entries(muiTheme.palette).forEach(([key, val]) => {
+        const hasMain = val != null && typeof (val as any).main === 'string'
+        console.log(
+          `${key}:`,
+          hasMain ? '✅ has .main' : '❌ missing .main',
+          val
+        )
+      })
+      console.groupEnd()
+    }
   }, [muiTheme])
 
   return (
