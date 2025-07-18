@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.28.2",
+  "version": "0.28.2-TELFE-1037.28",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -20,7 +20,6 @@
     "@mui/material": "^5.16.6",
     "@mui/x-tree-view": "7.3.1",
     "@react-spring/web": "9.7.3",
-    "@telicent-oss/ontologyservice": "1.0.0",
     "@telicent-oss/react-lib": "^0.5.0",
     "@telicent-oss/telicent-frontend-cli": "^1.2.1",
     "classnames": "^2.3.1",
@@ -69,13 +68,14 @@
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
     "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
     "local-publish": "git add --all && yarn build && npm publish  --registry http://localhost:4873 --prepatch",
-    "postlocal-publish": "./scripts/update-deps.mjs ../telicent-user-portal ../catalog ../telicent-access/frontend ../../IO/telicent-graph ../../IO/telicent-search",
+    "postlocal-publish": "./scripts/update-deps.mjs ../telicent-user-portal ../catalog ../telicent-access/frontend ../../IO/telicent-graph ../../IO/telicent-search ../../IO/visualisations",
     "local-add": "git add --registry http://localhost:4873 ",
     "prepare": "husky install"
   },
   "peerDependencies": {
     "react": "*",
     "react-dom": "*",
+    "@telicent-oss/ontologyservice": "^1.0.2",
     "axios": "*",
     "@tanstack/react-query": "*"
   },
@@ -92,6 +92,7 @@
     ]
   },
   "devDependencies": {
+    "@telicent-oss/ontologyservice": "^1.0.2",
     "axios": "^1.7.0",
     "@babel/core": "^7.20.12",
     "@chromatic-com/storybook": "^1.7.0",

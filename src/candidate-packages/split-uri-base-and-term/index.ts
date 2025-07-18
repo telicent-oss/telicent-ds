@@ -8,13 +8,14 @@
  *
  * If the URI is invalid, returns the original string as the base and an empty term.
  *
- * @param {string} string - The URI to split.
+ * @param {string} rawString - The URI to split.
  * @returns {[string, string]} A tuple where the first element is the base and the second is the term.
  */
-export const splitURIBaseAndTerm = (string: string) => {
+export const splitURIBaseAndTerm = (rawString: string) => {
   try {
-    const url = new URL(string);
-    let [base, term] = [string, ""];
+    const input = rawString.trim();
+    const url = new URL(input);
+    let [base, term] = [input, ""];
     if (url.hash !== "") {
       [base, term] = [`${url.origin}${url.pathname}`, url.hash.substring(1)];
     } else if (url.pathname !== "") {
@@ -24,7 +25,7 @@ export const splitURIBaseAndTerm = (string: string) => {
     return [base, term];
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(`URI '${string}' is not valid, ${e}`);
-    return [string, ""];
+    console.error(`URI '${rawString}' is not valid, ${e}`);
+    return [rawString, ""];
   }
 };
