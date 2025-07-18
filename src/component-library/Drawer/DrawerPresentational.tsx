@@ -84,7 +84,6 @@ export const DrawerPresentational = forwardRef<
         ModalProps={{ keepMounted: true, sx: { overflow: "visible" } }}
         SlideProps={{ style: { overflow: "visible" } }}
         PaperProps={{
-          ref,
           elevation: 0,
           square: true,
           sx: {
@@ -97,6 +96,7 @@ export const DrawerPresentational = forwardRef<
         {...props}
       >
         <Box
+          ref={ref}
           sx={{
             width,
             height: "100%",
