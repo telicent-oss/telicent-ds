@@ -23,22 +23,29 @@ export const PresentationalButton: React.FC<PresentationalProps> = ({
   const isOpen = Boolean(anchorEl);
   const id = isOpen ? "layer-selector-popover" : undefined;
   return (
-    <Box>
+    <Box >
       <Paper>
         <SecondaryButton
+          size="large"
           id="layer-selector"
           aria-describedby={id}
           onClick={onClickDropdown}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            p: 1,
+          }}
         >
-          <Box p={0.1}>
-            <Image
-              borderColor={extendedTheme.palette.primary.main}
-              src={data[selectedIndex].image}
-              alt={data[selectedIndex].label}
-              title={data[selectedIndex].label}
-            />
+          <Image
+            borderColor={extendedTheme.palette.primary.main}
+            src={data[selectedIndex].image}
+            alt={data[selectedIndex].label}
+            title={data[selectedIndex].label}
+          />
+          <Box component="span" sx={{ ml: 1, display: "flex" }}>
+            <FontAwesomeIcon icon={isOpen ? faAngleUp : faAngleDown} />
           </Box>
-          <FontAwesomeIcon icon={isOpen ? faAngleUp : faAngleDown} />
         </SecondaryButton>
       </Paper>
     </Box>

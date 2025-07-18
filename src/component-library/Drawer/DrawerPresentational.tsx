@@ -7,7 +7,23 @@ import { SxProps, Theme } from "@mui/material/styles";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Paper } from "../../export";
-import { Button, IconButton } from "../../v1/components/inputs";
+import { IconButton } from "../../v1/components/inputs";
+
+const STYLES = {
+  left: {
+    paper: {
+      border: "none",
+      borderRadius: "8 !important",
+      borderTopLeftRadius: "0 !important",
+      borderBottomLeftRadius: "0 !important",
+    },
+  },
+  HACK_NO_BORDER: {
+// Currently (18July2025) I don't trust theme
+    border: 'none !important',
+    borderRadius: "0 !important"
+  }
+};
 
 export interface DrawerPresentationalProps
   extends Omit<MuiMuiDrawerProps, "PaperProps"> {
@@ -44,9 +60,11 @@ export const DrawerPresentational = forwardRef<
     overflow: "visible",
     transform: open ? "translateX(0)" : `translateX(-${width}px)`,
     transition: "transform 300ms ease",
-  };
+    ...STYLES.HACK_NO_BORDER
+  }
 
-  const mergedPaperSx = [
+  const mergedPaperSx = Object.assign(
+    {},
     defaultPaperSx,
     ...(Array.isArray(paperSx) ? paperSx : [paperSx]),
     ...(externalPaperProps?.sx
@@ -54,7 +72,7 @@ export const DrawerPresentational = forwardRef<
         ? externalPaperProps.sx
         : [externalPaperProps.sx]
       : []),
-  ];
+  );
 
   return (
     <Box sx={{ position: "relative", overflow: "visible", height: "100%" }}>
@@ -69,7 +87,10 @@ export const DrawerPresentational = forwardRef<
           ref,
           elevation: 0,
           square: true,
-          sx: mergedPaperSx,
+          sx: {
+            ...mergedPaperSx,
+            ...STYLES.HACK_NO_BORDER
+          },
           ...externalPaperProps,
         }}
         style={style}
@@ -81,6 +102,7 @@ export const DrawerPresentational = forwardRef<
             height: "100%",
             overflowY: "auto",
             position: "relative",
+            
           }}
         >
           {children}
@@ -88,10 +110,11 @@ export const DrawerPresentational = forwardRef<
 
         {onToggle && open && (
           <Box
+            data-chevron-box
             sx={{
               position: "absolute",
               top: "50%",
-              right: -20,
+              right: -40,
               transform: "translateY(-50%)",
               height: "100%",
               maxHeight: 185,
@@ -103,12 +126,14 @@ export const DrawerPresentational = forwardRef<
             }}
           >
             <Paper
+              data-chevron-paper
               elevation={0}
               variant="outlined"
               square
-              sx={{ boxShadow: "none", height: "100%", width: "100%" }}
+              sx={{ boxShadow: "none !important", height: "100%", width: "100%", ...STYLES.HACK_NO_BORDER, ...STYLES.left.paper }}
             >
               <IconButton
+                data-chevron-icon-button
                 color="inherit"
                 onClick={onToggle}
                 size="large"
@@ -121,28 +146,33 @@ export const DrawerPresentational = forwardRef<
         )}
       </MuiDrawer>
 
-      {onToggle && !open && (
-        /* duplicate as moving chevron disappears */
+      {onToggle && (
         <Box
+          data-chevron-box-dup
           sx={{
             position: "absolute",
             top: "50%",
             left: 0,
-            transform: "translate(-50%, -50%)",
+            transform: "translate(0%, -50%)",
             zIndex: (theme) => theme.zIndex.drawer + 1,
             height: "100%",
             maxHeight: 185,
             width: 40,
             overflow: "visible",
+            transition: "transform 300ms ease 300ms, opacity 0ms ease",
+            opacity: open ? 0 : 1,
+            pointerEvents: open ? "none" : "auto",
           }}
         >
           <Paper
+            data-chevron-paper-dup
             elevation={0}
             square
-            sx={{ boxShadow: "none", height: "100%", width: "100%" }}
+            sx={{ boxShadow: "none !important", height: "100%", width: "100%", ...STYLES.HACK_NO_BORDER, ...STYLES.left.paper }}
           >
             <IconButton
-              color="secondary"
+              data-chevron-icon-button-dup
+              color="inherit"
               onClick={onToggle}
               size="large"
               sx={{ height: "100%", width: "100%", p: 0 }}
