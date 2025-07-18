@@ -1,6 +1,6 @@
 import { OntologyService } from "@telicent-oss/ontologyservice";
 import { splitURIBaseAndTerm } from "../split-uri-base-and-term";
-
+const addSpaces = (str: string) => str.replace(/(?!^)([A-Z])/g, " $1");
 export const PreferredLabelCache = (function () {
   let cache: Record<string, string> | null = null;
   let initPromise: Promise<void> | null = null;
@@ -57,7 +57,7 @@ export const PreferredLabelCache = (function () {
 
     const label = cache[val];
     const [, humanFriendlyType] = splitURIBaseAndTerm(val);
-    return !label || label === "" ? humanFriendlyType : label;
+    return !label || label === "" ? addSpaces(humanFriendlyType) : label;
   };
 
   return {
