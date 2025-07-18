@@ -4,6 +4,7 @@ import { ClassIcon } from "../../../utils/schema"
 import { ARGA_ATTACK, BOULAY_ATTACK, MADE_UP_MARKER } from "../../../utils/sampleData/markers"
 import { AUSTRIA, MOLDOVA } from "../../../utils/sampleData"
 import { DEFAULT_VIEW } from "../../../constants"
+import { MapCanvasProvider } from "../../../primitives/MapCanvas/MapCanvasProvider"
 
 const findByClassUriMock = (maybeUri: string): ClassIcon => {
   if (maybeUri === ARGA_ATTACK.type) {
@@ -28,7 +29,9 @@ const findByClassUriMock = (maybeUri: string): ClassIcon => {
 describe("FeatureMap", () => {
   it("should render", () => {
     const { container } = render(
-      <FeatureMap theme="DocumentPink" markers={[BOULAY_ATTACK, ARGA_ATTACK]} geoPolygons={{ type: "FeatureCollection", features: [AUSTRIA, MOLDOVA] }} findByClassUri={findByClassUriMock} selected={[]} initialViewState={DEFAULT_VIEW} attributionControl={false} />
+      <MapCanvasProvider initialMapStyleConfig={{}}>
+        <FeatureMap theme="DocumentPink" markers={[BOULAY_ATTACK, ARGA_ATTACK]} geoPolygons={{ type: "FeatureCollection", features: [AUSTRIA, MOLDOVA] }} findByClassUri={findByClassUriMock} selected={[]} initialViewState={DEFAULT_VIEW} attributionControl={false} />
+      </MapCanvasProvider>
     )
     expect(container.firstChild).toMatchSnapshot()
   })

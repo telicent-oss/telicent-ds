@@ -6,7 +6,7 @@ exports[`FeatureMap should render 1`] = `
 >
   <div
     class="MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-column css-1s3vbo0-MuiGrid2-root"
-    style="height: 100%; width: 100%;"
+    style="width: 100%; height: 100%;"
   >
     <div
       class="MuiGrid2-root MuiGrid2-direction-xs-row css-y6wdth-MuiGrid2-root"
