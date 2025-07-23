@@ -23,7 +23,9 @@ jobs:
         run: LOCAL_MACHINE=false yarn install
 
       - name: Build Storybook
-        run: yarn build-storybook
+        run: |
+          yarn build # required until https://github.com/qmhc/unplugin-dts/issues/275#issuecomment-2348444256
+          yarn build-storybook
 
       - name: Upload Storybook artifact
         uses: actions/upload-artifact@v4
