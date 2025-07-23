@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.28.1-TELFE-647.111",
+  "version": "0.28.1-TELFE-647.128",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -49,7 +49,7 @@
     "clean": "rimraf dist storybook-static",
     "check": "./.husky/pre-commit",
     "start": "vite",
-    "prebuild": "yarn clean && sleep 100 && mkdir -p dist/assets/fonts/fontawesome/webfonts",
+    "prebuild": "yarn clean",
     "build": "vite build",
     "preview": "vite preview",
     "test": "react-scripts test",
@@ -98,6 +98,7 @@
     "@commitlint/cli": "17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@emotion/babel-plugin": "^11.12.0",
+    "@emotion/jest": "^11.13.0",
     "@mui/icons-material": "^7.2.0",
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.6",
@@ -163,6 +164,7 @@
     "remark-gfm": "^3.0.1",
     "rollup": "^4.5.0",
     "rollup-plugin-copy": "^3.5.0",
+    "snapshot-diff": "0.10.0",
     "storybook": "8.4.0",
     "storybook-dark-mode": "^4.0.2",
     "tailwindcss": "^3.4.1",
@@ -197,12 +199,7 @@
       "require": "./dist/fontawesome.css",
       "style": "./dist/fontawesome.css"
     },
-    "./dist/fontawesome.css.map": "./dist/fontawesome.css.map",
-    "./dist/login-syncer/sw.js": {
-      "import": "./dist/fontawesome.css",
-      "require": "./dist/fontawesome.css",
-      "style": "./dist/fontawesome.css"
-    }
+    "./dist/fontawesome.css.map": "./dist/fontawesome.css.map"
   },
   "jest": {
     "transform": {

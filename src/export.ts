@@ -1,4 +1,6 @@
-export { IconButton } from "@mui/material";
+import { IconButton, Button  } from "@mui/material";
+export const mui = { IconButton, Button }
+
 import "./main.css";
 
 export { default as TeliStandardLayout } from "./layouts/TeliStandardLayout/TeliStandardLayout";
@@ -47,14 +49,6 @@ export {
   loggerLevelOrder,
   Logger,
 } from "./candidate-packages/utils-lib/src/index";
-
-// PROPOSED @telicent-oss/logout-syncer
-export {
-  setupWipe,
-  WipeConfigSchema,
-  type WipeConfig,
-} from "./candidate-packages/logout-syncer/setupWipe";
-export { requestWipe } from "./candidate-packages/logout-syncer/requestWipe";
 
 export { renderErrorToHtml } from "./candidate-packages/renderErrorToHtml/renderErrorToHtml";
 export { parseOrThrowWithInput } from "./candidate-packages/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";

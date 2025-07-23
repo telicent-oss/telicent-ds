@@ -1,14 +1,9 @@
 import React from "react";
 import { Box, BoxProps, Button } from "@mui/material";
+import { Position } from "../InsetInMap";
 export * from '../../Drawer/Drawer';
 
-type Position =
-  | "left"
-  | "top-left"
-  | "bottom-left"
-  | "right"
-  | "top-right"
-  | "bottom-right";
+
 
 // omit BoxProps['position'] to avoid collision
 export interface ControlAreaProps extends Omit<BoxProps, 'position'> {
@@ -21,20 +16,29 @@ export const ControlArea: React.FC<ControlAreaProps> = ({ position, children, sx
     case "left":
       Object.assign(posStyles, { left: 0, top: "50%", transform: "translateY(-50%)" });
       break;
-    case "top-left":
+    case "topLeft":
       Object.assign(posStyles, { left: 0, top: 0 });
       break;
-    case "bottom-left":
+    case "bottomLeft":
       Object.assign(posStyles, { left: 0, bottom: 0 });
       break;
     case "right":
       Object.assign(posStyles, { right: 0, top: "50%", transform: "translateY(-50%)" });
       break;
-    case "top-right":
+    case "topRight":
       Object.assign(posStyles, { right: 0, top: 0 });
       break;
-    case "bottom-right":
+    case "bottomRight":
       Object.assign(posStyles, { right: 0, bottom: 0 });
+      break;
+    case "top":
+      Object.assign(posStyles, { top: 0, left: "50%", transform: "translateX(-50%)" });
+      break;
+    case "center":
+      Object.assign(posStyles, { top: "50%", left: "50%", transform: "translate(-50%, -50%)" });
+      break;
+    case "bottom":
+      Object.assign(posStyles, { bottom: 0, left: "50%", transform: "translateX(-50%)" });
       break;
   }
   return (
@@ -43,7 +47,6 @@ export const ControlArea: React.FC<ControlAreaProps> = ({ position, children, sx
     </Box>
   );
 };
-
 
 export const Background: React.FC<BoxProps> = ({ sx = null, ...rest}) => (
   <Box

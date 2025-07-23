@@ -9,22 +9,31 @@ const { Background, Content, ControlArea } = workspace;
 // TODO don't limit to Div
 export type Scrollable = HTMLDivElement | (Window & typeof globalThis);
 
+export type Position =
+  | "topLeft"
+  | "top"
+  | "topRight"
+  | "right"
+  | "bottomRight"
+  | "bottom"
+  | "bottomLeft"
+  | "left"
+  | "center";
+
 type RootPropsType = Omit<BoxProps, 'children' | 'content'>;
 
 export const InsetInMap: React.FC<RootPropsType & {
   content: React.ReactNode;
-  controlArea: {
-    left: React.ReactNode;
-    topRight: React.ReactNode;
-    bottomRight: React.ReactNode;
-  };
-}>  = ({ content, controlArea: { left, topRight, bottomRight }, sx, ...rest}) => {
+  controlArea?: Partial<Record<Position, React.ReactNode>>;
+}> = ({ content, controlArea = {}, sx, ...rest }) => {
   return (
     <Background sx={sx} {...rest}>
       <Content>{content}</Content>
-      <ControlArea position="left">{left}</ControlArea>
-      <ControlArea position="top-right">{topRight}</ControlArea>
-      <ControlArea position="bottom-right">{bottomRight}</ControlArea>
+      {(Object.entries(controlArea) as [Position, React.ReactNode][]).map(([position, node]) => (
+        <ControlArea position={position} key={position}>
+          {node}
+        </ControlArea>
+      ))}
     </Background>
   );
 };

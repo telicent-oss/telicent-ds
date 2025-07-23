@@ -29,18 +29,12 @@ export default defineConfig({
       },
       plugins: [
         copy({
+          /**
+           * Resolve [copy] ENOENT: no such file or directory, mkdir thanks to knowledge at
+           * rollup-plugin-copy issues 61 issuecomment-2808076273
+           */
+          copySync: true, //
           targets: [
-            {
-              src: "src/candidate-packages/logout-syncer/sw/sw.js",
-              dest: "dist/logout-syncer",
-              transform: (contents) => {
-                const src = contents.toString();
-                return src.replace(
-                  'console.info("sw.js version: {{rollup:pkg.version}}");',
-                  `console.info("sw.js version: ${pkg.version}");`
-                );
-              },
-            },
             {
               src: "src/assets/fonts",
               dest: "dist/assets",

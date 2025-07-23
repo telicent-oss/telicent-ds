@@ -10,6 +10,7 @@ import { splitURIForNamespaceAndTerm } from "../../utils/strings";
 import { FlattenedStyleType } from "@telicent-oss/ontologyservice";
 import { ClassIcon } from "../../utils/schema";
 import geohash from "../../utils/geohash/geohash";
+// ignore story-coverage.test.ts
 
 export const GEOJSON = "geojson";
 export const FEATURE_COLLECTION = "FeatureCollection";

@@ -39,14 +39,129 @@ describe("DropdownButton", () => {
     );
 
     expect(container).toMatchInlineSnapshot(`
+      .emotion-0 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .emotion-1 {
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        border-radius: 0;
+        padding: 0;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: middle;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        color: inherit;
+        text-align: center;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        font-size: 1.5rem;
+        padding: 8px;
+        border-radius: 50%;
+        overflow: visible;
+        color: rgba(0, 0, 0, 0.54);
+        -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        color: #1976d2;
+        border: 0px solid;
+      }
+
+      .emotion-1::-moz-focus-inner {
+        border-style: none;
+      }
+
+      .emotion-1.Mui-disabled {
+        pointer-events: none;
+        cursor: default;
+      }
+
+      @media print {
+        .emotion-1 {
+          -webkit-print-color-adjust: exact;
+          color-adjust: exact;
+        }
+      }
+
+      .emotion-1:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
+      @media (hover: none) {
+        .emotion-1:hover {
+          background-color: transparent;
+        }
+      }
+
+      .emotion-1:hover {
+        background-color: rgba(25, 118, 210, 0.04);
+      }
+
+      @media (hover: none) {
+        .emotion-1:hover {
+          background-color: transparent;
+        }
+      }
+
+      .emotion-1.Mui-disabled {
+        background-color: transparent;
+        color: rgba(0, 0, 0, 0.26);
+      }
+
+      .emotion-1:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+      }
+
+      .emotion-2 {
+        overflow: hidden;
+        pointer-events: none;
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: inherit;
+      }
+
       <div>
         <div
-          class="MuiStack-root css-nen11g-MuiStack-root"
+          class="MuiStack-root emotion-0"
         >
           <button
             aria-haspopup="true"
             aria-label="select-menu"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium css-usktfe-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium emotion-1"
             tabindex="0"
             type="button"
           >
@@ -84,7 +199,7 @@ describe("DropdownButton", () => {
               />
             </svg>
             <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              class="MuiTouchRipple-root emotion-2"
             />
           </button>
         </div>
@@ -125,20 +240,152 @@ describe("DropdownButton", () => {
     );
 
     expect(container).toMatchInlineSnapshot(`
+      .emotion-0 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .emotion-1 {
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        border-radius: 0;
+        padding: 0;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: middle;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        color: inherit;
+        text-align: center;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        font-size: 1.5rem;
+        padding: 8px;
+        border-radius: 50%;
+        overflow: visible;
+        color: rgba(0, 0, 0, 0.54);
+        -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        color: #1976d2;
+        border: 0px solid;
+      }
+
+      .emotion-1::-moz-focus-inner {
+        border-style: none;
+      }
+
+      .emotion-1.Mui-disabled {
+        pointer-events: none;
+        cursor: default;
+      }
+
+      @media print {
+        .emotion-1 {
+          -webkit-print-color-adjust: exact;
+          color-adjust: exact;
+        }
+      }
+
+      .emotion-1:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
+      @media (hover: none) {
+        .emotion-1:hover {
+          background-color: transparent;
+        }
+      }
+
+      .emotion-1:hover {
+        background-color: rgba(25, 118, 210, 0.04);
+      }
+
+      @media (hover: none) {
+        .emotion-1:hover {
+          background-color: transparent;
+        }
+      }
+
+      .emotion-1.Mui-disabled {
+        background-color: transparent;
+        color: rgba(0, 0, 0, 0.26);
+      }
+
+      .emotion-1:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+      }
+
+      .emotion-2 {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentColor;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        font-size: 1.5rem;
+      }
+
+      .emotion-3 {
+        overflow: hidden;
+        pointer-events: none;
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: inherit;
+      }
+
       <div>
         <div
-          class="MuiStack-root css-nen11g-MuiStack-root"
+          class="MuiStack-root emotion-0"
         >
           <button
             aria-haspopup="true"
             aria-label="select-menu"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium css-usktfe-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium emotion-1"
             tabindex="0"
             type="button"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-2"
               focusable="false"
               id="CatalogIcon"
               viewBox="0 0 24 24"
@@ -167,7 +414,7 @@ describe("DropdownButton", () => {
               />
             </svg>
             <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              class="MuiTouchRipple-root emotion-3"
             />
           </button>
         </div>

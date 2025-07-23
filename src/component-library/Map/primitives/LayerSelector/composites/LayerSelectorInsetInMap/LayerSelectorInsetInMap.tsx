@@ -7,9 +7,8 @@ import {
 import { useLayerSelector } from "../../primitives/useLayerSelector";
 import { Image } from "../../primitives/Image";
 import { Box, Paper } from "@mui/material";
-import SecondaryButton from "../../../../../../v1/components/inputs/Button/SecondaryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useExtendedTheme } from "../../../../../../export";
+import { Button, useExtendedTheme } from "../../../../../../export";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 // ignore story-coverage.test.ts
 
@@ -18,14 +17,17 @@ export const PresentationalButton: React.FC<PresentationalProps> = ({
   selectedIndex,
   anchorEl,
   onClickDropdown,
+  sx,
+  color,
+  variant,
 }) => {
   const extendedTheme = useExtendedTheme();
   const isOpen = Boolean(anchorEl);
   const id = isOpen ? "layer-selector-popover" : undefined;
   return (
-    <Box >
+    <Box>
       <Paper>
-        <SecondaryButton
+        <Button
           size="large"
           id="layer-selector"
           aria-describedby={id}
@@ -34,8 +36,10 @@ export const PresentationalButton: React.FC<PresentationalProps> = ({
             display: "flex",
             alignItems: "center",
             height: "100%",
-            p: 1,
+            ...sx,
           }}
+          color={color}
+          variant={variant}
         >
           <Image
             borderColor={extendedTheme.palette.primary.main}
@@ -43,25 +47,28 @@ export const PresentationalButton: React.FC<PresentationalProps> = ({
             alt={data[selectedIndex].label}
             title={data[selectedIndex].label}
           />
+          &nbsp;
           <Box component="span" sx={{ ml: 1, display: "flex" }}>
             <FontAwesomeIcon icon={isOpen ? faAngleUp : faAngleDown} />
           </Box>
-        </SecondaryButton>
+        </Button>
       </Paper>
     </Box>
   );
 };
 
-export const LayerSelectorInsetInMap: React.FC = () => {
+export const LayerSelectorInsetInMap: React.FC<
+  Pick<PresentationalProps, "color" | "sx" | "variant">
+> = ({ variant, color, sx }) => {
   const context = useMapCanvasContext();
   const hook = useLayerSelector(context.styleSelector.props);
   if (context.styleSelector.props.data.length <= 1) {
     return null;
   }
   return (
-    <div>
-      <PresentationalButton {...hook} />
+    <>
+      <PresentationalButton {...{ variant, color, sx }} {...hook} />
       <LayerSelectorPresentationalPopOver {...hook} />
-    </div>
+    </>
   );
 };

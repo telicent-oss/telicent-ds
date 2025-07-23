@@ -7,6 +7,14 @@ import "@testing-library/jest-dom";
 import { MarkerProps } from "react-map-gl/maplibre";
 import React, { forwardRef } from "react";
 
+import { createSerializer } from '@emotion/jest'
+expect.addSnapshotSerializer(
+  createSerializer({
+    // optional: removeEmotionAttributes: true,
+    // optional: classNameReplacer: new Map([['css-', '']])
+  })
+)
+
 configure({ testIdAttribute: "id" });
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

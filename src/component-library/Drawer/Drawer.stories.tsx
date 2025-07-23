@@ -2,8 +2,8 @@ import React, { forwardRef, ReactNode } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Box, Button } from "@mui/material";
 import { Drawer, DrawerProps } from "./Drawer";
-import { DrawerPresentational } from "./DrawerPresentational";
-import { useDrawer, DrawerController } from "./useDrawer";
+import { DrawerPresentational } from "./primitives/DrawerPresentational";
+import { useDrawer, DrawerController } from "./primitives/useDrawer";
 import PrimaryButton from "../../v1/components/inputs/Button/PrimaryButton";
 
 const meta: Meta<typeof Drawer> = {
@@ -30,7 +30,6 @@ Use \`useDrawer\` hook and \`DrawerPresentational\` for imperative control.`,
 export default meta;
 
 type Story = StoryObj<typeof Drawer>;
-
 
 export const Default: Story = {
   args: {
@@ -93,7 +92,9 @@ export const ImperativeApi: Story = {
         <PrimaryButton onClick={onToggle}>Toggle Drawer</PrimaryButton>
 
         <DrawerPresentational {...drawerPropsNoToggle}>
-          <Box p={2} >Controlled content</Box>
+          <Box p={2}>
+            Chevron hidden: onClick unset, so clicking does nothing
+          </Box>
         </DrawerPresentational>
       </>
     );

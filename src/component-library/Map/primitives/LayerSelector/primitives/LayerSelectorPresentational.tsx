@@ -8,10 +8,11 @@ import {
   Button,
   Text,
   useExtendedTheme,
+  ButtonProps,
 } from "../../../../../export";
 import { Image } from "../primitives/Image";
 import { PopOverProps } from "../../../../../v1/components/surfaces/PopOver/Popover";
-import { ButtonProps } from "@mui/material";
+
 // ignore story-coverage.test.ts
 
 export interface LayerOption {
@@ -20,7 +21,8 @@ export interface LayerOption {
   label: string;
 }
 
-export interface PresentationalProps {
+export interface PresentationalProps
+  extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
   selectedIndex: number;
   data: LayerOption[];
   anchorEl: HTMLButtonElement | null;
@@ -31,16 +33,30 @@ export interface PresentationalProps {
 
 export const LayerSelectorPresentationalButton: React.FC<
   PresentationalProps
-> = ({ data, selectedIndex, anchorEl, onClickDropdown }) => {
+> = ({
+  data,
+  selectedIndex,
+  anchorEl,
+  onClickDropdown,
+  sx,
+  variant,
+  color,
+}) => {
   const extendedTheme = useExtendedTheme();
   const isOpen = Boolean(anchorEl);
   const id = isOpen ? "layer-selector-popover" : undefined;
+  if (data?.[selectedIndex]?.image === undefined) {
+    console.warn(`No image at ${selectedIndex} in ${JSON.stringify(data)}`);
+  }
   return (
     <Button
       id="layer-selector"
-      variant="tertiary"
+      size="large"
       aria-describedby={id}
       onClick={onClickDropdown}
+      sx={sx}
+      variant={variant}
+      color={color}
     >
       <Image
         borderColor={extendedTheme.palette.primary.main}
@@ -53,13 +69,9 @@ export const LayerSelectorPresentationalButton: React.FC<
   );
 };
 
-export const LayerSelectorPresentationalPopOver: React.FC<PresentationalProps> = ({
-  data,
-  selectedIndex,
-  anchorEl,
-  onCloseDropdown,
-  onListItemClick,
-}) => {
+export const LayerSelectorPresentationalPopOver: React.FC<
+  PresentationalProps
+> = ({ data, selectedIndex, anchorEl, onCloseDropdown, onListItemClick }) => {
   const extendedTheme = useExtendedTheme();
   const isOpen = Boolean(anchorEl);
   const id = isOpen ? "layer-selector-popover" : undefined;
@@ -86,7 +98,7 @@ export const LayerSelectorPresentationalPopOver: React.FC<PresentationalProps> =
               <Button
                 disabled={index === selectedIndex}
                 onClick={() => onListItemClick(index)}
-                variant="tertiary"
+                variant="text"
                 key={item.label}
                 style={{ width: "100%", justifyContent: "flex-start" }}
               >

@@ -1,4 +1,3 @@
-// src/components/LayerSelector/LayerSelector.stories.tsx
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import {
@@ -17,7 +16,7 @@ const sampleData: LayerOption[] = [
 const Presentational: React.FC<PresentationalProps> = (props) => {
   return (
     <div>
-      <LayerSelectorPresentationalButton {...props} />
+      <LayerSelectorPresentationalButton variant="secondary" {...props} />
       <LayerSelectorPresentationalPopOver {...props} />
     </div>
   );

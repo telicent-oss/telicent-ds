@@ -25,18 +25,15 @@ sync_version() {
   local target current
   target=$1
   current=$(jq -r .version package.json)
-  sleep 100
   [[ "$current" == "$target" ]] && return
 
   $DRY_RUN && echo "Would update version: $current → $target" || \
     ( jq --arg v "$target" '.version = $v' package.json > tmp && mv tmp package.json )
-  sleep 100
 
   if $GIT; then
     $DRY_RUN && echo "Would git add --all" && echo "Would git commit -m \"chore(prerelease): v${target}\" --no-verify" || \
       ( git add --all && git commit -m "chore(prerelease): v${target}" --no-verify )
   fi
-  sleep 100
 }
 
 bump_prerelease() {
@@ -47,9 +44,7 @@ bump_prerelease() {
     newver=$(npm version prerelease --no-git-tag-version)
     if $GIT; then
       git add --all
-      sleep 100
       git commit -m "chore(prerelease): ${newver}" --no-verify
-      sleep 100
     fi
   fi
 }
@@ -60,7 +55,6 @@ publish_prerelease() {
     echo "Would run: npm publish --registry http://localhost:4873 --prepatch"
   else
     yarn build
-    sleep 100
     npm publish --registry http://localhost:4873 --prepatch
   fi
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React from "react";
+import { Box } from "@mui/material";
 // ignore story-coverage.test.ts
 
 interface ImageProps {
@@ -9,13 +9,21 @@ interface ImageProps {
   title: string;
 }
 
-export const Image: React.FC<ImageProps> = ({ borderColor, src, alt, title }) => (
+export const Image: React.FC<ImageProps> = ({
+  borderColor,
+  src,
+  alt,
+  title,
+}) => (
   <Box
     sx={{
       border: `2px solid ${borderColor}`,
-      display: 'inline-block',
-      borderRadius: '3px',
-      overflow: 'hidden',
+      borderRadius: "3px",
+      overflow: "hidden",
+      // Copied from MUI SVGs
+      display: "inline-block",
+      height: "1em",
+      fontSize: "1.5rem",
     }}
     mr={1}
   >

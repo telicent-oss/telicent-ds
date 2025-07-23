@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "paths": {
+      "snapshot-diff": ["./node_modules/snapshot-diff/build/index.d.ts"]
+    },
     "plugins": [
       {
         "name": "typescript-plugin-css-modules",
@@ -28,9 +31,9 @@
     "useUnknownInCatchVariables": true,
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["src"],
   "exclude": [
     "**/stories/*", // See TELFE-849
     "node_modules"
-  ]
+  ],
+  "include": ["src"]
 }

@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
-import { DrawerPresentational, DrawerPresentationalProps } from "./DrawerPresentational";
-import { useDrawer, DrawerController } from "./useDrawer";
-export { useDrawer, type DrawerController } from "./useDrawer";
+import { DrawerPresentational, DrawerPresentationalProps } from "./primitives/DrawerPresentational";
+import { useDrawer, DrawerController } from "./primitives/useDrawer";
+export { useDrawer, type DrawerController } from "./primitives/useDrawer";
 
 export interface DrawerProps extends Omit<
 DrawerPresentationalProps, 

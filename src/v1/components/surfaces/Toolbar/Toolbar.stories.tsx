@@ -10,6 +10,7 @@ import Button from "../../inputs/Button/Button";
 import FloppyDiskIcon from "../../data-display/Icons/FloppyDiskIcon";
 import DownArrowIcon from "../../data-display/FontAwesomeIcons/DownArrowIcon";
 import TooltipToggleButton from "../../inputs/TooltipToggleButton";
+import { Divider } from "../../data-display";
 
 
 const meta: Meta<typeof Toolbar> = {
@@ -26,7 +27,7 @@ export const Example: Story = {
       <FlexBox direction="row" justifyContent="space-between" alignItems="center">
         <MiniSearchBox />
 
-        <FlexBox direction="row" alignItems="center">
+        <FlexBox direction="row" alignItems="center" gap={1}>
 
           <TooltipToggleButton
             size="small"
@@ -37,9 +38,11 @@ export const Example: Story = {
           >
             More Actions&nbsp; <DownArrowIcon />
           </TooltipToggleButton>
+          <Divider orientation="vertical" flexItem />
           <Button variant="text" endIcon={<DownArrowIcon />} onClick={() => fn()}>
             Saved (1)
           </Button>
+          <Divider orientation="vertical" flexItem />
 
           <Button
             color="inherit"

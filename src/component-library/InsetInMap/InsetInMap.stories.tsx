@@ -18,7 +18,7 @@ import { MapToggleButtonPresentational } from "../Map/primitives/controls/MapTog
 import { ButtonZoomIn } from "../Map/primitives/controls/ButtonZoomIn";
 import { ButtonZoomOut } from "../Map/primitives/controls/ButtonZoomOut";
 import { initialMapStyleConfig } from "../Map/primitives/MapCanvas/storyconfig";
-import { DrawerController } from "../Drawer/useDrawer";
+import { DrawerController } from "../Drawer/primitives/useDrawer";
 import { LayerSelectorInsetInMap } from "../Map/primitives/LayerSelector/composites/LayerSelectorInsetInMap/LayerSelectorInsetInMap";
 
 const defaultContent = ({ scrollable }: { scrollable: Scrollable }) => (
