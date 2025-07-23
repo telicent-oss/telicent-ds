@@ -4,7 +4,6 @@ import copy from "rollup-plugin-copy";
 import dts from "vite-plugin-dts";
 import { defineConfig } from "vite";
 import pkg from "./package.json";
-import { withoutVitePlugins } from '@storybook/builder-vite';
 
 
 export default defineConfig({
@@ -58,7 +57,6 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       rollupTypes: true,
-      entryRoot: path.resolve(__dirname, "src"),
     }),
     react({
       jsxImportSource: "@emotion/react",
