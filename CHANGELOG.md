@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.29.0](https://github.com/telicent-oss/telicent-ds/compare/v0.28.2...v0.29.0) (2025-07-18)
+
+
+### Features
+
+* Telfe 1037/preferred labels ([#288](https://github.com/telicent-oss/telicent-ds/issues/288)) ([475c207](https://github.com/telicent-oss/telicent-ds/commit/475c207ade17a4946ab2e8ad334f6e75671967b1))
+
+## [0.28.2](https://github.com/telicent-oss/telicent-ds/compare/v0.28.1...v0.28.2) (2025-07-10)
+
+
+### Bug Fixes
+
+* **typescript:** fix errors, re-enable checks ([#286](https://github.com/telicent-oss/telicent-ds/issues/286)) ([229e1e4](https://github.com/telicent-oss/telicent-ds/commit/229e1e45eba6cd47bb8c5f92f24fd5fb7748ed4b))
+
 ## [0.28.1](https://github.com/telicent-oss/telicent-ds/compare/v0.28.0...v0.28.1) (2025-07-07)
 
 

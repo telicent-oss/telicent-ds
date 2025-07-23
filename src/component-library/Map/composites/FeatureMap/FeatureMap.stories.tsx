@@ -182,7 +182,6 @@ export const MapWithoutLayers: Story = {
       alt: "sample alt",
       iconFallbackText: "1",
     }),
-
     markers: [],
     initialViewState: DEFAULT_VIEW,
     geoPolygons: DEFAULT_GEO_POLYGONS,

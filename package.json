@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.28.1",
+  "version": "0.29.0",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -20,7 +20,6 @@
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.6",
     "@react-spring/web": "9.7.3",
-    "@telicent-oss/ontologyservice": "1.0.0",
     "@telicent-oss/react-lib": "^0.5.0",
     "@telicent-oss/telicent-frontend-cli": "^1.2.1",
     "classnames": "^2.3.1",
@@ -72,11 +71,12 @@
     "local-publish": "./scripts/local-publish.sh",
     "lp": "yarn local-publish",
     "postlocal-publish": "./scripts/update-deps.mjs --file ./updateDeps.gitignored.json",
-    "local-add": "git add --registry http://localhost:4873 ",
+    "git-checks": " ./.husky/pre-commit && ./.husky/pre-push",
     "prepare": "husky install"
   },
   "peerDependencies": {
     "@tanstack/react-query": "*",
+    "@telicent-oss/ontologyservice": "^1.0.2",
     "axios": "*",
     "react": "*",
     "react-dom": "*"
@@ -94,6 +94,8 @@
     ]
   },
   "devDependencies": {
+    "@telicent-oss/ontologyservice": "^1.0.2",
+    "axios": "^1.7.0",
     "@babel/core": "^7.20.12",
     "@chromatic-com/storybook": "^1.7.0",
     "@commitlint/cli": "17.1.2",
@@ -130,7 +132,6 @@
     "@typescript-eslint/parser": "^5.57.0",
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.4.13",
-    "axios": "^1.7.0",
     "babel-loader": "^9.1.2",
     "chromatic": "^6.15.0",
     "commitizen": "4.2.5",

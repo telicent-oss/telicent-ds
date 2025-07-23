@@ -21,13 +21,15 @@ export * from "./v1/components/utils/index";
 
 // Component library
 export * from "./component-library/Map";
+export * from "./component-library/InsetInMap";
 
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/AuthModal";
 export * from "./candidate-packages/authorize-flow/broadcastChannelService";
 export * from "./candidate-packages/authorize-flow/useAuthSync";
 export * from "./candidate-packages/authorize-flow";
-export * from "./component-library/InsetInMap";
+export * from "./candidate-packages/preferred-label-lib";
+
 
 // PROPOSED @telicent-oss/utils-lib
 export {
