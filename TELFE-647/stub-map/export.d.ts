@@ -419,7 +419,7 @@ export declare interface DrawerController {
 
 declare interface DrawerPresentationalProps extends Omit<DrawerProps_2, "PaperProps">, default_2.HTMLAttributes<HTMLDivElement> {
     PaperProps?: DrawerProps_2["PaperProps"];
-    paperSx?: SxProps<Theme>;
+    PaperSx?: SxProps<Theme>;
     drawerWidth?: number;
     children: ReactNode;
     onToggle?: default_2.MouseEventHandler<HTMLButtonElement>;
@@ -430,6 +430,7 @@ export declare interface DrawerProps extends Omit<DrawerPresentationalProps, "op
     /** (default: true) */
     initialOpen?: boolean;
     onVisibilityChange?: (open: boolean) => void;
+    PaperSx?: SxProps_2<Theme_2>;
 }
 
 export declare const DropdownButton: default_2.FC<DropdownButtonProps>;
