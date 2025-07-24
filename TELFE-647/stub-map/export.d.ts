@@ -2246,7 +2246,11 @@ export declare const useDebounce: (value: any, delay?: number) => any;
  * @param onVisibilityChange
  * @returns
  */
-export declare function useDrawer(ref: ForwardedRef<DrawerController>, initialOpen?: boolean, onVisibilityChange?: (open: boolean) => void): {
+export declare function useDrawer(args: {
+    ref: ForwardedRef<DrawerController>;
+    initialOpen: boolean;
+    onVisibilityChange?: (open: boolean) => void;
+}): {
     open: boolean;
     openDrawer: () => void;
     closeDrawer: () => void;
