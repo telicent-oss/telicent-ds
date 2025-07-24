@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.30.0](https://github.com/telicent-oss/telicent-ds/compare/v0.29.0...v0.30.0) (2025-07-24)
+
+
+### Features
+
+* [TELFE-647] Search in map components ([#291](https://github.com/telicent-oss/telicent-ds/issues/291)) ([385eb6b](https://github.com/telicent-oss/telicent-ds/commit/385eb6bf3c155facf561807189ffe45ffa781021))
+
 ## [0.29.0](https://github.com/telicent-oss/telicent-ds/compare/v0.28.2...v0.29.0) (2025-07-18)
 
 
