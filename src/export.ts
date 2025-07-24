@@ -1,3 +1,6 @@
+import { IconButton, Button  } from "@mui/material";
+export const mui = { IconButton, Button }
+
 import "./main.css";
 
 export { default as TeliStandardLayout } from "./layouts/TeliStandardLayout/TeliStandardLayout";
@@ -18,6 +21,7 @@ export * from "./v1/components/utils/index";
 
 // Component library
 export * from "./component-library/Map";
+export * from "./component-library/InsetInMap";
 
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/AuthModal";
@@ -25,6 +29,7 @@ export * from "./candidate-packages/authorize-flow/broadcastChannelService";
 export * from "./candidate-packages/authorize-flow/useAuthSync";
 export * from "./candidate-packages/authorize-flow";
 export * from "./candidate-packages/preferred-label-lib";
+
 
 // PROPOSED @telicent-oss/utils-lib
 export {
@@ -47,13 +52,7 @@ export {
   Logger,
 } from "./candidate-packages/utils-lib/src/index";
 
-// PROPOSED @telicent-oss/logout-syncer
-export {
-  setupWipe,
-  WipeConfigSchema,
-  type WipeConfig,
-} from "./candidate-packages/logout-syncer/setupWipe";
-export { requestWipe } from "./candidate-packages/logout-syncer/requestWipe";
-
 export { renderErrorToHtml } from "./candidate-packages/renderErrorToHtml/renderErrorToHtml";
 export { parseOrThrowWithInput } from "./candidate-packages/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
+
+//

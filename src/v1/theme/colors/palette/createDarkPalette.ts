@@ -23,7 +23,6 @@ const createDarkPalette = (uiTheme:UITheme): ThemeOptions["palette"] =>
     },
     grey: {
       ...grey,
-      900: "#2E2E2E",
     },
   });
 

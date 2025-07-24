@@ -16,9 +16,9 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^7.2.0",
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.6",
-    "@mui/x-tree-view": "7.3.1",
     "@react-spring/web": "9.7.3",
     "@telicent-oss/react-lib": "^0.5.0",
     "@telicent-oss/telicent-frontend-cli": "^1.2.1",
@@ -41,13 +41,15 @@
     "nth-check": "^2.1.1",
     "prettier": "^2.8.8",
     "cross-spawn": "^7.0.6",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "stylus": "github:stylus/stylus#0.62.0"
   },
   "scripts": {
     "lint": "eslint --resolve-plugins-relative-to src",
     "clean": "rimraf dist storybook-static",
     "check": "./.husky/pre-commit",
     "start": "vite",
+    "prebuild": "yarn clean",
     "build": "vite build",
     "preview": "vite preview",
     "test": "react-scripts test",
@@ -62,22 +64,23 @@
     "chromatic": "chromatic --exit-zero-on-changes",
     "css": "npx tailwindcss -i ./src/index.css -o ./src/main.css",
     "prestart": "yarn run css",
-    "prebuild": "yarn clean",
     "bump:prerelease": "yarn version --prerelease && git push && git push --tags",
     "bump:pre": "yarn bump:prerelease",
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
     "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
-    "local-publish": "git add --all && yarn build && npm publish  --registry http://localhost:4873 --prepatch",
-    "postlocal-publish": "./scripts/update-deps.mjs ../telicent-user-portal ../catalog ../telicent-access/frontend ../../IO/telicent-graph ../../IO/telicent-search ../../IO/visualisations",
-    "local-add": "git add --registry http://localhost:4873 ",
+    "local-publish": "./scripts/local-publish.sh",
+    "lp": "yarn local-publish",
+    "postlocal-publish": "./scripts/update-deps.mjs --file ./updateDeps.gitignored.json",
+    "git-checks": " ./.husky/pre-commit && ./.husky/pre-push",
+    "git-hooks": "yarn git-checks",
     "prepare": "husky install"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-dom": "*",
+    "@tanstack/react-query": "*",
     "@telicent-oss/ontologyservice": "^1.0.2",
     "axios": "*",
-    "@tanstack/react-query": "*"
+    "react": "*",
+    "react-dom": "*"
   },
   "browserslist": {
     "production": [
@@ -99,6 +102,11 @@
     "@commitlint/cli": "17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@emotion/babel-plugin": "^11.12.0",
+    "@emotion/jest": "^11.13.0",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/lab": "5.0.0-alpha.170",
+    "@mui/material": "^5.16.6",
+    "@mui/x-tree-view": "7.3.1",
     "@storybook/addon-essentials": "8.4.0",
     "@storybook/addon-interactions": "8.4.0",
     "@storybook/addon-links": "8.4.0",
@@ -159,6 +167,7 @@
     "remark-gfm": "^3.0.1",
     "rollup": "^4.5.0",
     "rollup-plugin-copy": "^3.5.0",
+    "snapshot-diff": "0.10.0",
     "storybook": "8.4.0",
     "storybook-dark-mode": "^4.0.2",
     "tailwindcss": "^3.4.1",
@@ -193,11 +202,7 @@
       "require": "./dist/fontawesome.css",
       "style": "./dist/fontawesome.css"
     },
-    "./dist/login-syncer/sw.js": {
-      "import": "./dist/fontawesome.css",
-      "require": "./dist/fontawesome.css",
-      "style": "./dist/fontawesome.css"
-    }
+    "./dist/fontawesome.css.map": "./dist/fontawesome.css.map"
   },
   "jest": {
     "transform": {

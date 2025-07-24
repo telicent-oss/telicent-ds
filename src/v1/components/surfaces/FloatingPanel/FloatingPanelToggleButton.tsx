@@ -5,6 +5,10 @@ import MUIToggleButton, {
 import { styled } from "@mui/material/styles";
 import MUITooltip from "@mui/material/Tooltip";
 
+/**
+ * TODO reuse ToolbarToggleButton in FloatingPanelToggleButton
+ * WHEN https://telicent.atlassian.net/browse/TELFE-1249
+ */
 import { useFloatingPanelContext } from "./useFloatingPanelContext";
 
 const StyledToggleButton = styled(MUIToggleButton)(() => ({

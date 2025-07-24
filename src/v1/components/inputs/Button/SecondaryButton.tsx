@@ -1,11 +1,18 @@
 import React, { forwardRef } from "react";
 import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
 
-type SecondaryButtonProps = Omit<MUIButtonProps, "variant" | "color">;
+export type SecondaryButtonProps = Omit<MUIButtonProps, "variant" | "color">;
 
-const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProps>((buttonProps, ref) => {
+export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProps>((buttonProps, ref) => {
   if (buttonProps.disableElevation) {
     return (
+      /**
+       * TODO Change Secondary color to "secondary"
+       * HOW change "primary" to "secondary"; Check usage
+       * WHEN https://telicent.atlassian.net/browse/TELFE-1250
+       * WHO anyone
+       * 
+       */
       <MUIButton variant="outlined" color="primary" {...buttonProps} ref={ref}>
         {buttonProps.children}
       </MUIButton>

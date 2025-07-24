@@ -10,7 +10,7 @@ export { default as TeliButton } from "./TeliButton/TeliButton";
 export { default as TeliChip } from "./TeliChip/TeliChip";
 export { default as TeliCheckbox } from "./TeliCheckbox/TeliCheckbox";
 export { default as TeliHeader } from "./TeliHeader/TeliHeader";
-export { default as TeliSelect } from "./TeliSelect/TeliSelect";
+export { default as TeliSelect, type SelectChangeEvent } from "./TeliSelect/TeliSelect";
 export { default as TeliSpinner } from "./TeliSpinner/TeliSpinner";
 export { default as TeliSwitch } from "./TeliSwitch/TeliSwitch";
 export { default as TeliTextField } from "./TeliTextField/TeliTextField";

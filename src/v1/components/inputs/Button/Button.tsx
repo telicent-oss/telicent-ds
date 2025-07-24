@@ -10,7 +10,6 @@ export interface ButtonProps
     MUIButtonProps,
     | "color"
     | "component"
-    | "disabled"
     | "disableElevation"
     | "endIcon"
     | "fullWidth"
@@ -18,7 +17,6 @@ export interface ButtonProps
     | "size"
     | "startIcon"
     | "variant"
-    | "sx"
     | "classes"
   > {
   /**
@@ -69,8 +67,18 @@ export interface ButtonProps
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const { variant = "primary", color = "primary", ...buttonProps } = props;
-  if (variant === "primary") return <PrimaryButton {...buttonProps} ref={ref} />;
-  if (variant === "secondary") return <SecondaryButton {...buttonProps} ref={ref} />;
+  if (variant === "primary")
+    return <PrimaryButton {...buttonProps} ref={ref} />;
+  if (variant === "secondary")
+    return <SecondaryButton {...buttonProps} ref={ref} />;
+  /**
+   * TODO replace with <TertiaryButton />
+   * HOW https://telicent.atlassian.net/browse/TELFE-1248
+   * WHEN https://telicent.atlassian.net/browse/TELFE-1248
+   * WHO whoever is comfortable with extending MUI themes
+   */
+  if (variant === "tertiary")
+    return <SecondaryButton {...buttonProps} ref={ref} />; // Stub until implemented
 
   /**
    * Cannot extend variants in theme. Using sx as workaround

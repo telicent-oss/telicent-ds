@@ -34,4 +34,11 @@ declare module "@mui/material/styles" {
   // This controls what is allowed to be specified in `createTheme`.
   interface ThemeOptions extends ExtraTheme {}
   // Both are needed to achieve the desired behaviour.
+
+    interface Palette {
+    tertiary: Palette["primary"];
+  }
+  interface PaletteOptions {
+    tertiary?: PaletteOptions["primary"];
+  }
 }

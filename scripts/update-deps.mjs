@@ -2,6 +2,7 @@
 
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { resolve } from 'path'
+import { execSync } from 'child_process'
 
 // 1. Read local package.json
 const cwd = process.cwd()
@@ -9,15 +10,37 @@ const { name: pkgName, version: pkgVersion } = JSON.parse(
   readFileSync(resolve(cwd, 'package.json'), 'utf-8')
 )
 
-// 2. Collect target repo paths from CLI args
-const repos = process.argv.slice(2)
+// 2. Collect target repo configs from CLI args
+const args = process.argv.slice(2)
+let repos
+
+if (args[0] === '--file') {
+  const fileArg = args[1]
+  if (!fileArg) {
+    console.error('Error: --file requires a path')
+    process.exit(1)
+  }
+  const filePath = resolve(cwd, fileArg)
+  if (!existsSync(filePath)) {
+    writeFileSync(filePath, '{}\n')
+    console.log(`Created file: ${fileArg}`)
+  }
+  const fileData = JSON.parse(readFileSync(filePath, 'utf-8'))
+  repos = Object.entries(fileData).map(([path, cfg]) => ({
+    path,
+    postUpdateDependency: cfg.postUpdateDependency,
+  }))
+} else {
+  repos = args.map(path => ({ path, postUpdateDependency: undefined }))
+}
+
 if (repos.length === 0) {
-  console.error('Usage: node update-deps.js <repo-path> [<repo-path> …]')
-  process.exit(1) 
+  console.error('Usage: node update-deps.js [--file <path>] <repo-path>…')
+  process.exit(1)
 }
 
 // 3. For each repo, update matching deps to the new version
-for (const repo of repos) {
+for (const { path: repo, postUpdateDependency } of repos) {
   const pkgPath = resolve(repo, 'package.json')
   if (!existsSync(pkgPath)) {
     console.warn(`Skipping ${repo}: package.json not found`)
@@ -33,4 +56,12 @@ for (const repo of repos) {
 
   writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
   console.log(`✔ Updated ${pkgName}@${pkgVersion} in ${repo}`)
+
+  if (postUpdateDependency) {
+    try {
+      execSync(postUpdateDependency, { cwd: repo, stdio: 'inherit' })
+    } catch (err) {
+      console.error(`Error running postUpdateDependency in ${repo}:`, err)
+    }
+  }
 }
