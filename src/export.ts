@@ -1,5 +1,5 @@
-import { IconButton, Button  } from "@mui/material";
-export const mui = { IconButton, Button }
+import { IconButton, Button, Box  } from "@mui/material";
+export const mui = { IconButton, Button, Box }
 
 import "./main.css";
 
