@@ -32,20 +32,20 @@ describe("Drawer", () => {
   });
 
   test("onVisibilityChange fires on state changes", () => {
-    const onVis = jest.fn();
+    const onVisibilityChange = jest.fn();
     const ref = React.createRef<DrawerController>();
 
     render(
-      <Drawer ref={ref} initialOpen={false} onVisibilityChange={onVis}>
+      <Drawer ref={ref} initialOpen={false} onVisibilityChange={onVisibilityChange}>
         x
       </Drawer>
     );
 
-    expect(onVis).toHaveBeenCalledWith(false);
+    expect(onVisibilityChange).toHaveBeenCalledWith(false);
     act(() => ref.current!.openDrawer());
-    expect(onVis).toHaveBeenLastCalledWith(true);
+    expect(onVisibilityChange).toHaveBeenLastCalledWith(true);
     act(() => ref.current!.closeDrawer());
-    expect(onVis).toHaveBeenLastCalledWith(false);
+    expect(onVisibilityChange).toHaveBeenLastCalledWith(false);
   });
 
   test("ref API toggles and re-renders", () => {

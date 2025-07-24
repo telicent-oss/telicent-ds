@@ -3,8 +3,6 @@ import { render } from "@testing-library/react";
 import { InsetInMap } from "./InsetInMap";
 import { workspace } from "./components/components";
 
-// AI, lacks human touch
-
 const { Background, Content, ControlArea } = workspace;
 
 describe("InsetInMap", () => {
@@ -15,17 +13,17 @@ describe("InsetInMap", () => {
       <InsetInMap
         data-testid="root"
         sx={{ width: 321, height: 123 }}
-        content={<div data-testid="content">map</div>}
+        content={<div data-testid="content">~~content~~~</div>}
         controlArea={{
-          topLeft: <div data-testid="topLeft">TL</div>,
-          top: <div data-testid="top">T</div>,
-          topRight: <div data-testid="topRight">TR</div>,
-          right: <div data-testid="right">R</div>,
-          bottomRight: <div data-testid="bottomRight">BR</div>,
-          bottom: <div data-testid="bottom">B</div>,
-          bottomLeft: <div data-testid="bottomLeft">BL</div>,
-          left: <div data-testid="left">L</div>,
-          center: <div data-testid="center">C</div>,
+          topLeft: <div data-testid="topLeft">~~topLeft~~</div>,
+          top: <div data-testid="top">~~top~~</div>,
+          topRight: <div data-testid="topRight">~~topRight~~</div>,
+          right: <div data-testid="right">~~right~~</div>,
+          bottomRight: <div data-testid="bottomRight">~~bottomRight~~</div>,
+          bottom: <div data-testid="bottom">~~bottom~~</div>,
+          bottomLeft: <div data-testid="bottomLeft">~~bottomLeft~~</div>,
+          left: <div data-testid="left">~~left~~</div>,
+          center: <div data-testid="center">~~center~~</div>,
         }}
       />
     );
@@ -135,7 +133,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="content"
             >
-              map
+              ~~content~~~
             </div>
           </div>
           <div
@@ -144,7 +142,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="topLeft"
             >
-              TL
+              ~~topLeft~~
             </div>
           </div>
           <div
@@ -153,7 +151,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="top"
             >
-              T
+              ~~top~~
             </div>
           </div>
           <div
@@ -162,7 +160,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="topRight"
             >
-              TR
+              ~~topRight~~
             </div>
           </div>
           <div
@@ -171,7 +169,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="right"
             >
-              R
+              ~~right~~
             </div>
           </div>
           <div
@@ -180,7 +178,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="bottomRight"
             >
-              BR
+              ~~bottomRight~~
             </div>
           </div>
           <div
@@ -189,7 +187,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="bottom"
             >
-              B
+              ~~bottom~~
             </div>
           </div>
           <div
@@ -198,7 +196,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="bottomLeft"
             >
-              BL
+              ~~bottomLeft~~
             </div>
           </div>
           <div
@@ -207,7 +205,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="left"
             >
-              L
+              ~~left~~
             </div>
           </div>
           <div
@@ -216,7 +214,7 @@ describe("InsetInMap", () => {
             <div
               data-testid="center"
             >
-              C
+              ~~center~~
             </div>
           </div>
         </div>

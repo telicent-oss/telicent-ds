@@ -9,7 +9,7 @@ export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProp
       /**
        * TODO Change Secondary color to "secondary"
        * HOW change "primary" to "secondary"; Check usage
-       * WHEN ASAP
+       * WHEN https://telicent.atlassian.net/browse/TELFE-1250
        * WHO anyone
        * 
        */

@@ -145,6 +145,10 @@ describe("PresentationalButton snapshotdiff", () => {
   });
 });
 
+/**
+ * TODO fix test
+ * WHEN https://telicent.atlassian.net/browse/TELFE-1252
+ */
 describe.skip("LayerSelectorInsetInMap wiring", () => {
   beforeEach(() =>
     (Object.values(__handlers) as jest.Mock[]).forEach((f) => f.mockClear())

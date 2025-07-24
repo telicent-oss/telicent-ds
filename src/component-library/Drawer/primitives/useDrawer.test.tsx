@@ -2,41 +2,47 @@ import React, { forwardRef } from "react";
 import { renderHook, act } from "@testing-library/react";
 import { render } from "@testing-library/react";
 import { useDrawer, DrawerController } from "./useDrawer";
-// AI, lacks human touch
 
 describe("useDrawer state", () => {
   test("initialOpen + onVisibilityChange", () => {
-    const onVis = jest.fn();
+    const onVisibilityChange = jest.fn();
     const ref = React.createRef<DrawerController>();
+    const initialOpen = false;
 
-    const { result } = renderHook(() => useDrawer(ref, false, onVis));
+    const { result } = renderHook(() =>
+      useDrawer({ ref, initialOpen, onVisibilityChange })
+    );
 
     expect(result.current.open).toBe(false);
-    expect(onVis).toHaveBeenCalledTimes(1);
-    expect(onVis).toHaveBeenCalledWith(false);
+    expect(onVisibilityChange).toHaveBeenCalledTimes(1);
+    expect(onVisibilityChange).toHaveBeenCalledWith(false);
   });
 
   test("open/close/toggle update state and notify", () => {
-    const onVis = jest.fn();
+    const onVisibilityChange = jest.fn();
     const ref = React.createRef<DrawerController>();
-    const { result } = renderHook(() => useDrawer(ref, true, onVis));
+    const initialOpen = true;
+
+    const { result } = renderHook(() =>
+      useDrawer({ ref, initialOpen, onVisibilityChange })
+    );
 
     act(() => result.current.closeDrawer());
     expect(result.current.open).toBe(false);
-    expect(onVis).toHaveBeenLastCalledWith(false);
+    expect(onVisibilityChange).toHaveBeenLastCalledWith(false);
 
     act(() => result.current.openDrawer());
     expect(result.current.open).toBe(true);
-    expect(onVis).toHaveBeenLastCalledWith(true);
+    expect(onVisibilityChange).toHaveBeenLastCalledWith(true);
 
     act(() => result.current.toggleDrawer());
     expect(result.current.open).toBe(false);
-    expect(onVis).toHaveBeenLastCalledWith(false);
+    expect(onVisibilityChange).toHaveBeenLastCalledWith(false);
   });
 
   test("drawerProps forwards handlers", () => {
     const ref = React.createRef<DrawerController>();
-    const { result } = renderHook(() => useDrawer(ref, false));
+    const { result } = renderHook(() => useDrawer({ ref, initialOpen: false }));
 
     act(() => result.current.drawerProps.onToggle());
     expect(result.current.open).toBe(true);
@@ -48,7 +54,7 @@ describe("useDrawer state", () => {
 
 describe("useDrawer imperative ref", () => {
   const Host = forwardRef<DrawerController>((_, forwardedRef) => {
-    const d = useDrawer(forwardedRef, false);
+    const d = useDrawer({ ref: forwardedRef, initialOpen: false });
     return <div ref={d.ref} />;
   });
 

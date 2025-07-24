@@ -59,7 +59,6 @@ Renders a fake Presentational LayerSelector to help demonstrate how the default 
       },
     },
   },
-  // tags: ['autodocs'],
   argTypes: {
     data: { control: "object" },
     selectedIndex: { control: { type: "number", min: 0, max: 2 } },

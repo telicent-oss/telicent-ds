@@ -40,7 +40,11 @@ export const Default: Story = {
 export const CustomWidth: Story = {
   args: {
     drawerWidth: 200,
-    children: <Box p={2} height={400}>Narrow drawer & custom PaperSx</Box>,
+    children: (
+      <Box p={2} height={400}>
+        Narrow drawer & custom PaperSx
+      </Box>
+    ),
     PaperSx: {
       outline: `dashed 3px yellow`,
       bgcolor: `dodgerblue`,
@@ -60,10 +64,10 @@ export const PresentationalAndHook: Story = {
   render: () => {
     // uses hook internally; no ref forwarding for presentational
     const ctrlRef = React.useRef<DrawerController>(null);
-    const { open, toggleDrawer, closeDrawer, drawerProps } = useDrawer(
-      ctrlRef,
-      false
-    );
+    const { toggleDrawer, drawerProps } = useDrawer({
+      ref: ctrlRef,
+      initialOpen: false,
+    });
 
     return (
       <>
@@ -89,7 +93,7 @@ export const ImperativeApi: Story = {
   render: () => {
     // uses hook internally; no ref forwarding for presentational
     const ctrlRef = React.useRef<DrawerController>(null);
-    const drawer = useDrawer(ctrlRef, false);
+    const drawer = useDrawer({ ref: ctrlRef, initialOpen: false });
     const { onToggle, ...drawerPropsNoToggle } = drawer.drawerProps;
     return (
       <>

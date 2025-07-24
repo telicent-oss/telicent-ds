@@ -20,12 +20,12 @@ export interface DrawerController {
  * @param onVisibilityChange
  * @returns
  */
-export function useDrawer(
-  ref: ForwardedRef<DrawerController>,
-  initialOpen = true,
+export function useDrawer(args: {
+  ref: ForwardedRef<DrawerController>;
+  initialOpen: boolean;
   onVisibilityChange?: (open: boolean) => void
-) {
-  const [open, setOpen] = useState(initialOpen);
+}) {
+  const [open, setOpen] = useState(args.initialOpen);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const openDrawer = useCallback(() => setOpen(true), []);
@@ -33,11 +33,11 @@ export function useDrawer(
   const toggleDrawer = useCallback(() => setOpen((o) => !o), []);
 
   useEffect(() => {
-    onVisibilityChange?.(open);
-  }, [open, onVisibilityChange]);
+    args.onVisibilityChange?.(open);
+  }, [open, args.onVisibilityChange]);
 
   useImperativeHandle(
-    ref,
+    args.ref,
     () => ({
       openDrawer,
       closeDrawer,

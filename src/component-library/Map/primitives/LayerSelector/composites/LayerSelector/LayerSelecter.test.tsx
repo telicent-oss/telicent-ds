@@ -3,6 +3,10 @@ import * as useLayerSelectorModule from "../../primitives/useLayerSelector";
 import { MapCanvasProvider } from "../../../MapCanvas/MapCanvasProvider";
 import { LayerSelector } from "./LayerSelector";
 
+/**
+ * TODO re-enable
+ * WHEN https://telicent.atlassian.net/browse/TELFE-1252
+ */
 // const actualUseLayerSelector = jest.requireActual(
 //   "../../primitives/useLayerSelector"
 // ).useLayerSelector;
@@ -50,6 +54,10 @@ describe("LayerSelector", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
+  /**
+   * TODO fix test
+   * WHEN https://telicent.atlassian.net/browse/TELFE-1252
+   */
   test.skip("should render and handle dropdown interactions", () => {
     render(
       <MapCanvasProvider

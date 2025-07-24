@@ -17,11 +17,9 @@ const preview: Preview = {
       const selectedTheme = context.globals.theme || "GraphOrange";
       const isDark = selectedMode !== "light";
       return (
-        <div>
-          <UIThemeProvider dark={isDark} theme={selectedTheme}>
-            <Story />
-          </UIThemeProvider>
-        </div>
+        <UIThemeProvider dark={isDark} theme={selectedTheme}>
+          <Story />
+        </UIThemeProvider>
       );
     },
   ],

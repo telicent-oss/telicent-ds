@@ -1,8 +1,8 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import diff from "snapshot-diff";
+
 import Button, { ButtonProps } from "./Button";
-// AI, lacks human touch
+import { cleanSerializedDiff } from "../../../../candidate-packages/clean-diff";
 
 describe("Button", () => {
   let props: ButtonProps;
@@ -140,94 +140,244 @@ describe("Button", () => {
 
   it("primary variant diff", () => {
     const { container } = render(<Button {...props} variant="primary" />);
-    expect(diff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
-      "Snapshot Diff:
-      Compared values have no visual difference."
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
+      "- 
+      + 
+
+      @@ --- --- @@
+      - {Symbol(SameObject caches): [Object]}"
     `);
   });
 
   it("secondary variant diff", () => {
     const { container } = render(<Button {...props} variant="secondary" />);
-    expect(diff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
-      "Snapshot Diff:
-      - First value
-      + Second value
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
+      "- 
+      + 
 
-      @@ -1,7 +1,7 @@
-        <button
-      -   class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-sghohy-MuiButtonBase-root-MuiButton-root"
-      +   class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedInherit MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorInherit MuiButton-root MuiButton-outlined MuiButton-outlinedInherit MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorInherit css-sbfmij-MuiButtonBase-root-MuiButton-root"
-          tabindex="0"
-          type="button"
-        >
-          Test Button
-          <span"
+      @@ --- --- @@
+      - padding: 6px 16px;
+      + padding: 5px 15px;
+      @@ --- --- @@
+      - color: #fff;
+      - background-color: #1976d2;
+      - box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+      + border: 1px solid currentColor;
+      + color: inherit;
+      + border-color: currentColor;
+      @@ --- --- @@
+      - background-color: #1565c0;
+      - box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+      + background-color: rgba(0, 0, 0, 0.04);
+      @@ --- --- @@
+      - background-color: #1976d2;
+      - }
+      + background-color: transparent;
+      @@ --- --- @@
+      -
+      - .emotion-0:active {
+      - box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+      - }
+      -
+      - .emotion-0.Mui-focusVisible {
+      - box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+      @@ --- --- @@
+      - box-shadow: none;
+      - background-color: rgba(0, 0, 0, 0.12);
+      + border: 1px solid rgba(0, 0, 0, 0.12);
+      @@ --- --- @@
+      - {Symbol(SameObject caches): [Object]}"
     `);
   });
 
   it("tertiary variant diff", () => {
     const { container } = render(<Button {...props} variant="tertiary" />);
-    expect(diff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
-      "Snapshot Diff:
-      - First value
-      + Second value
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
+      "- 
+      + 
 
-      @@ -1,7 +1,7 @@
-        <button
-      -   class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-sghohy-MuiButtonBase-root-MuiButton-root"
-      +   class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedInherit MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorInherit MuiButton-root MuiButton-outlined MuiButton-outlinedInherit MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorInherit css-sbfmij-MuiButtonBase-root-MuiButton-root"
-          tabindex="0"
-          type="button"
-        >
-          Test Button
-          <span"
+      @@ --- --- @@
+      - padding: 6px 16px;
+      + padding: 5px 15px;
+      @@ --- --- @@
+      - color: #fff;
+      - background-color: #1976d2;
+      - box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+      + border: 1px solid currentColor;
+      + color: inherit;
+      + border-color: currentColor;
+      @@ --- --- @@
+      - background-color: #1565c0;
+      - box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+      + background-color: rgba(0, 0, 0, 0.04);
+      @@ --- --- @@
+      - background-color: #1976d2;
+      - }
+      + background-color: transparent;
+      @@ --- --- @@
+      -
+      - .emotion-0:active {
+      - box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+      - }
+      -
+      - .emotion-0.Mui-focusVisible {
+      - box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+      @@ --- --- @@
+      - box-shadow: none;
+      - background-color: rgba(0, 0, 0, 0.12);
+      + border: 1px solid rgba(0, 0, 0, 0.12);
+      @@ --- --- @@
+      - {Symbol(SameObject caches): [Object]}"
     `);
   });
 
   it("link variant diff", () => {
     const { container } = render(<Button {...props} variant="link" />);
-    expect(diff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
-      "Snapshot Diff:
-      - First value
-      + Second value
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
+      "- 
+      + 
 
-      + <div
-      +   class="MuiBox-root css-1gtanqs"
-      + >
-          <button
-      -   class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-sghohy-MuiButtonBase-root-MuiButton-root"
-      +     class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-bjrgm9-MuiButtonBase-root-MuiButton-root"
-            tabindex="0"
-            type="button"
-          >
-            Test Button
-      -   <span
-      -     class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-      +   </button>
-      +   <div
-      +     class="ButtonLinkLine MuiBox-root css-jli6w8"
-          />
-      - </button>
-      + </div>"
+      @@ --- --- @@
+      + width: -webkit-fit-content;
+      + width: -moz-fit-content;
+      + width: fit-content;
+      + }
+      +
+      + .emotion-1 {
+      @@ --- --- @@
+      - padding: 6px 16px;
+      + padding: 6px 8px;
+      @@ --- --- @@
+      - color: #fff;
+      - background-color: #1976d2;
+      - box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+      + color: #1976d2;
+      + min-width: -webkit-fit-content;
+      + min-width: -moz-fit-content;
+      + min-width: fit-content;
+      + padding: 0px;
+      @@ --- --- @@
+      - .emotion-0::-moz-focus-inner {
+      + .emotion-1::-moz-focus-inner {
+      @@ --- --- @@
+      - .emotion-0.Mui-disabled {
+      + .emotion-1.Mui-disabled {
+      @@ --- --- @@
+      - .emotion-0 {
+      + .emotion-1 {
+      @@ --- --- @@
+      - .emotion-0:hover {
+      + .emotion-1:hover {
+      @@ --- --- @@
+      - background-color: #1565c0;
+      - box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+      + background-color: rgba(25, 118, 210, 0.04);
+      @@ --- --- @@
+      - .emotion-0:hover {
+      - background-color: #1976d2;
+      + .emotion-1:hover {
+      + background-color: transparent;
+      @@ --- --- @@
+      - .emotion-0:active {
+      - box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+      + .emotion-1.Mui-disabled {
+      + color: rgba(0, 0, 0, 0.26);
+      @@ --- --- @@
+      - .emotion-0.Mui-focusVisible {
+      - box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+      + .emotion-1:hover {
+      + background-color: transparent;
+      @@ --- --- @@
+      - .emotion-0.Mui-disabled {
+      - color: rgba(0, 0, 0, 0.26);
+      - box-shadow: none;
+      - background-color: rgba(0, 0, 0, 0.12);
+      + .emotion-1:not(.Mui-disabled):hover+.ButtonLinkLine {
+      + opacity: 1;
+      + width: 100%;
+      @@ --- --- @@
+      - .emotion-1 {
+      - overflow: hidden;
+      - pointer-events: none;
+      - position: absolute;
+      - z-index: 0;
+      - top: 0;
+      - right: 0;
+      - bottom: 0;
+      - left: 0;
+      - border-radius: inherit;
+      + .emotion-2 {
+      + border-top: 1.5px solid;
+      + border-color: #1976d2;
+      + opacity: 0;
+      + width: 0;
+      + margin-left: auto;
+      + margin-right: auto;
+      + transition-duration: 400ms;
+      + transition-property: width,opacity;
+      + transition-timing-function: cubic-bezier(0.39, 0.58, 0.57, 1);
+      @@ --- --- @@
+      - {Symbol(SameObject caches): [Object]}"
     `);
   });
 
   it("noStyle variant diff", () => {
     const { container } = render(<Button {...props} variant="noStyle" />);
-    expect(diff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
-      "Snapshot Diff:
-      - First value
-      + Second value
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
+      "- 
+      + 
 
-      @@ -1,7 +1,7 @@
-        <button
-      -   class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-sghohy-MuiButtonBase-root-MuiButton-root"
-      +   class="MuiButtonBase-root css-10d1a0h-MuiButtonBase-root"
-          tabindex="0"
-          type="button"
-        >
-          Test Button
-          <span"
+      @@ --- --- @@
+      - font-family: "Roboto","Helvetica","Arial",sans-serif;
+      - font-weight: 500;
+      - font-size: 0.875rem;
+      - line-height: 1.75;
+      - letter-spacing: 0.02857em;
+      - text-transform: uppercase;
+      - min-width: 64px;
+      - padding: 6px 16px;
+      - border-radius: 4px;
+      - -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      - transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      - color: #fff;
+      - background-color: #1976d2;
+      - box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+      @@ --- --- @@
+      - }
+      -
+      - .emotion-0:hover {
+      - -webkit-text-decoration: none;
+      - text-decoration: none;
+      - background-color: #1565c0;
+      - box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+      @@ --- --- @@
+      - @media (hover: none) {
+      - .emotion-0:hover {
+      - background-color: #1976d2;
+      - }
+      - }
+      -
+      - .emotion-0:active {
+      - box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+      - }
+      -
+      - .emotion-0.Mui-focusVisible {
+      - box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+      - }
+      -
+      - .emotion-0.Mui-disabled {
+      - color: rgba(0, 0, 0, 0.26);
+      - box-shadow: none;
+      - background-color: rgba(0, 0, 0, 0.12);
+      - }
+      -
+      @@ --- --- @@
+      - {Symbol(SameObject caches): [Object]}"
     `);
   });
 
@@ -235,20 +385,40 @@ describe("Button", () => {
     const { container } = render(
       <Button {...(props as any)} variant="unknown" />
     );
-    expect(diff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
-      "Snapshot Diff:
-      - First value
-      + Second value
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
+      "- 
+      + 
 
-      @@ -1,7 +1,7 @@
-        <button
-      -   class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-sghohy-MuiButtonBase-root-MuiButton-root"
-      +   class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-          tabindex="0"
-          type="button"
-        >
-          Test Button
-          <span"
+      @@ --- --- @@
+      - padding: 6px 16px;
+      + padding: 6px 8px;
+      @@ --- --- @@
+      - color: #fff;
+      - background-color: #1976d2;
+      - box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+      + color: #1976d2;
+      @@ --- --- @@
+      - background-color: #1565c0;
+      - box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+      + background-color: rgba(25, 118, 210, 0.04);
+      @@ --- --- @@
+      - background-color: #1976d2;
+      - }
+      - }
+      -
+      - .emotion-0:active {
+      - box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+      + background-color: transparent;
+      @@ --- --- @@
+      -
+      - .emotion-0.Mui-focusVisible {
+      - box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+      @@ --- --- @@
+      - box-shadow: none;
+      - background-color: rgba(0, 0, 0, 0.12);
+      @@ --- --- @@
+      - {Symbol(SameObject caches): [Object]}"
     `);
   });
 

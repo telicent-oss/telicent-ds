@@ -72,6 +72,7 @@
     "lp": "yarn local-publish",
     "postlocal-publish": "./scripts/update-deps.mjs --file ./updateDeps.gitignored.json",
     "git-checks": " ./.husky/pre-commit && ./.husky/pre-push",
+    "git-hooks": "yarn git-checks",
     "prepare": "husky install"
   },
   "peerDependencies": {

@@ -51,6 +51,7 @@ const DrawerWithResults: React.FC = () => {
   );
 };
 
+
 const meta: Meta<typeof InsetInMap> = {
   title: "Component Library/InsetInMap",
   component: InsetInMap,
@@ -72,54 +73,79 @@ const meta: Meta<typeof InsetInMap> = {
     },
   ],
   argTypes: {},
-  args: {
-    content: <BasicMap {...allArgs} />,
-    controlArea: {
-      left: <DrawerWithResults />,
-      topRight: (
-        <Container>
-          <Stack direction="row" spacing={2} alignItems="center">
-            <LayerSelectorInsetInMap />
-            <MapToggleButtonPresentational onClick={() => alert("Toggle map off")}/>
-          </Stack>
-        </Container>
-      ),
-      bottomRight: (
-        <Box m={4}>
-          <Paper>
-            <Box
-              p={1}
-              sx={{
-                height: 44, // figma 68 - 2x12
-                display: "flex",
-                alignItems: "center",
-                borderRadius: 1,
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  [`& .${dividerClasses.root}`]: {
-                    mx: 1,
-                  },
-                }}
-              >
-                <ButtonZoomIn />
-                <Divider orientation="vertical" flexItem />
-                <ButtonZoomOut />
-              </Box>
-            </Box>
-          </Paper>
-        </Box>
-      ),
-    },
-  },
+  args: {},
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => <InsetInMap {...args} />,
+const defaultWrap = (value: string) => <p style={{ color: "red" }}>{value}</p>;
+
+const allControlAreas = {
+  topLeft: defaultWrap("topLeft"),
+  top: defaultWrap("top"),
+  topRight: defaultWrap("topRight"),
+  right: defaultWrap("right"),
+  bottomRight: defaultWrap("bottomRight"),
+  bottom: defaultWrap("bottom"),
+  bottomLeft: defaultWrap("bottomLeft"),
+  left: defaultWrap("left"),
+  center: defaultWrap("center"),
+};
+
+
+export const AllSlices: Story = {
+  render: (args) => <InsetInMap content={<p style={{opacity: 0.2, fontSize: '2em' }}>{Array(20).fill("CONTENT").join(" ")}</p>} controlArea={allControlAreas} />,
+};
+
+export const MapExample: Story = {
+  render: (args) => (
+    <InsetInMap
+      {...{
+        content: <BasicMap {...allArgs} />,
+        controlArea: {
+          left: <DrawerWithResults />,
+          topRight: (
+            <Container>
+              <Stack direction="row" spacing={2} alignItems="center">
+                <LayerSelectorInsetInMap />
+                <MapToggleButtonPresentational
+                  onClick={() => alert("Toggle map off")}
+                />
+              </Stack>
+            </Container>
+          ),
+          bottomRight: (
+            <Box m={4}>
+              <Paper>
+                <Box
+                  p={1}
+                  sx={{
+                    height: 44, // figma 68 - 2x12
+                    display: "flex",
+                    alignItems: "center",
+                    borderRadius: 1,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      [`& .${dividerClasses.root}`]: {
+                        mx: 1,
+                      },
+                    }}
+                  >
+                    <ButtonZoomIn />
+                    <Divider orientation="vertical" flexItem />
+                    <ButtonZoomOut />
+                  </Box>
+                </Box>
+              </Paper>
+            </Box>
+          ),
+        },
+      }}
+    />
+  ),
 };
