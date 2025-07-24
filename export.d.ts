@@ -3,6 +3,7 @@ import { AutocompleteProps } from '@mui/material';
 import { AvatarProps } from '@mui/material/Avatar';
 import { AxiosInstance } from 'axios';
 import { BoxProps } from '@mui/material';
+import { BoxTypeMap } from '@mui/system';
 import { ButtonBaseProps } from '@mui/material';
 import { ButtonProps as ButtonProps_2 } from '@mui/material/Button';
 import { ButtonTypeMap } from '@mui/material';
@@ -52,7 +53,8 @@ import { MenuItemProps } from '@mui/material';
 import { MenuProps } from '@mui/material';
 import { ModalProps as ModalProps_2 } from '@mui/material/Modal';
 import { OntologyService } from '@telicent-oss/ontologyservice';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { OverridableComponent } from '@mui/types';
+import { OverridableComponent as OverridableComponent_2 } from '@mui/material/OverridableComponent';
 import { PaperProps } from '@mui/material/Paper';
 import { PopoverOrigin } from '@mui/material/Popover';
 import { PopoverPosition } from '@mui/material/Popover';
@@ -305,6 +307,10 @@ declare interface ContainerProps extends default_2.HTMLAttributes<HTMLDivElement
     /** Sets the maxWidth of the container. The container will grow with the size
      * of the screen. Set to false to disable maxWidth */
     maxWidth?: "xs" | "sm" | "md" | "lg" | "xl" | false;
+}
+
+declare interface ControlAreaProps extends Omit<BoxProps, 'position'> {
+    position: Position;
 }
 
 export declare const createApi: (baseURL?: string) => ApiFactory;
@@ -608,8 +614,15 @@ export declare interface IESTypeProps extends default_2.HTMLAttributes<HTMLEleme
 
 export declare const InsetInMap: default_2.FC<RootPropsType & {
     content: default_2.ReactNode;
+    children?: default_2.ReactNode;
     controlArea?: Partial<Record<Position, default_2.ReactNode>>;
 }>;
+
+export declare const insetInMap: {
+    Background: default_2.FC<BoxProps>;
+    Content: default_2.FC<BoxProps>;
+    ControlArea: default_2.FC<ControlAreaProps>;
+};
 
 export declare interface LayerOption {
     uri: string;
@@ -876,6 +889,7 @@ export declare type ModalProps = Omit<ModalProps_2, "slots" | "slotProps" | "Bac
 export declare const mui: {
     IconButton: ExtendButtonBase<IconButtonTypeMap<    {}, "button">>;
     Button: ExtendButtonBase<ButtonTypeMap<    {}, "button">>;
+    Box: OverridableComponent<BoxTypeMap<    {}, "div", Theme_2>>;
 };
 
 declare type MUIAutocompleteProps<Option> = AutocompleteProps<Option, false, false, true>;
@@ -1223,7 +1237,7 @@ declare interface SessionHandlingConfig {
     keysToInvalidate?: QueryKey[];
 }
 
-export declare const Skeleton: OverridableComponent<SkeletonTypeMap<    {}, "span">>;
+export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
 
 declare interface StandardLayoutProps {
     /**
