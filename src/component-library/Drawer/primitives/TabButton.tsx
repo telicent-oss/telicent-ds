@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, BoxProps, IconButtonProps } from "@mui/material";
+import { Box, BoxProps, IconButtonProps, SxProps, Theme } from "@mui/material";
 import { Paper } from "../../../export";
 import { IconButton } from "../../../v1/components/inputs";
 import { STYLES } from "./constants";
@@ -10,11 +10,13 @@ export type TabButtonProps = {
   BoxSx: BoxProps["sx"]; // IDEA normalize against theme (when sx is a fn)
   onClick: IconButtonProps["onClick"];
   children: React.ReactNode;
+  PaperSx?:SxProps<Theme>;
 };
 
 export const TabButton: React.FC<TabButtonProps> = ({
   id: dataTestId,
   BoxSx,
+  PaperSx,
   onClick,
   children,
 }) => (
@@ -45,6 +47,7 @@ export const TabButton: React.FC<TabButtonProps> = ({
         width: "100%",
         ...STYLES.HACK_NO_BORDER,
         ...STYLES.left.paper,
+        ...PaperSx,
       }}
     >
       <IconButton

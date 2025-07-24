@@ -2,9 +2,9 @@ import React, { forwardRef, ReactNode } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Box, Button } from "@mui/material";
 import { Drawer, DrawerProps } from "./Drawer";
-import { DrawerPresentational } from "./primitives/DrawerPresentational";
-import { useDrawer, DrawerController } from "./primitives/useDrawer";
-import PrimaryButton from "../../v1/components/inputs/Button/PrimaryButton";
+import { DrawerPresentational } from "../primitives/DrawerPresentational";
+import { useDrawer, DrawerController } from "../primitives/useDrawer";
+import PrimaryButton from "../../../v1/components/inputs/Button/PrimaryButton";
 
 const meta: Meta<typeof Drawer> = {
   title: "Component Library/Drawer",
@@ -39,8 +39,12 @@ export const Default: Story = {
 
 export const CustomWidth: Story = {
   args: {
-    drawerWidth: 400,
-    children: <Box p={2}>Narrow drawer</Box>,
+    drawerWidth: 200,
+    children: <Box p={2} height={400}>Narrow drawer & custom PaperSx</Box>,
+    PaperSx: {
+      outline: `dashed 3px yellow`,
+      bgcolor: `dodgerblue`,
+    },
   },
 };
 

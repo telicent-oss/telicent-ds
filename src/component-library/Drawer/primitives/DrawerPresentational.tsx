@@ -15,7 +15,8 @@ export interface DrawerPresentationalProps
   extends Omit<MuiMuiDrawerProps, "PaperProps">,
     React.HTMLAttributes<HTMLDivElement> {
   PaperProps?: MuiMuiDrawerProps["PaperProps"];
-  paperSx?: SxProps<Theme>;
+  // IDEA Alternative to PaperSx is a theme
+  PaperSx?: SxProps<Theme>;
   drawerWidth?: number;
   children: ReactNode;
   onToggle?: React.MouseEventHandler<HTMLButtonElement>;
@@ -40,8 +41,8 @@ export const DrawerPresentational = forwardRef<
     open,
     onClose,
     onToggle,
-    paperSx,
     PaperProps,
+    PaperSx,
     drawerWidth,
     style,
     children,
@@ -64,7 +65,7 @@ export const DrawerPresentational = forwardRef<
   const mergedPaperSx = Object.assign(
     {},
     defaultPaperSx,
-    ...(Array.isArray(paperSx) ? paperSx : [paperSx]),
+    ...(Array.isArray(PaperSx) ? PaperSx : [PaperSx]),
     ...(PaperProps?.sx
       ? Array.isArray(PaperProps.sx)
         ? PaperProps.sx
@@ -121,6 +122,7 @@ export const DrawerPresentational = forwardRef<
             BoxSx={{
               right: -34,
             }}
+            PaperSx={PaperSx}
             onClick={onToggle}
             id={`${NAME}--toggle-stand-in`}
           >
@@ -138,6 +140,7 @@ export const DrawerPresentational = forwardRef<
             pointerEvents: open ? "none" : "auto",
             left: 0,
           }}
+          PaperSx={PaperSx}
           onClick={onToggle}
           id={`${NAME}--toggle-animated-slide`}
         >

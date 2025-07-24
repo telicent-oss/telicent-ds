@@ -8,14 +8,14 @@ import Map, {
 } from "react-map-gl/maplibre";
 import ResultsMarkers, { ResultMarker } from "../ResultsMarkers/ResultsMarkers";
 import PolygonMarkers from "../Polygons";
-import { z } from "zod";
+import { useTheme, GlobalStyles } from "@mui/material";
 import { useMapCanvasContext } from "./MapCanvasProvider";
 
 // Note: without these styles the map container will be unrestrained,
 // and can cause it to resize - triggering other logic.
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
-import POLYGON_LAYERS from "../../polygonStyles";
+import POLYGON_LAYERS from "../../utils/polygonStyles";
 
 export interface MapCanvasProps {
   mapRef: React.RefObject<MapRef>;
@@ -38,7 +38,11 @@ export interface MapCanvasProps {
   selected: string[];
   onClickMarker?: (m: ResultMarker) => void;
   findByClassUri: (u: string) => any;
-  polygonLayers?: (mapboxgl.FillLayer | mapboxgl.LineLayer | mapboxgl.SymbolLayer)[];
+  polygonLayers?: (
+    | mapboxgl.FillLayer
+    | mapboxgl.LineLayer
+    | mapboxgl.SymbolLayer
+  )[];
 }
 
 const W_H_100 = { width: "100%", height: "100%" };
@@ -59,17 +63,30 @@ export const MapCanvas: React.FC<MapCanvasProps> = ({
   selected,
   onClickMarker,
   findByClassUri,
-  polygonLayers
+  polygonLayers,
 }) => {
   const { styleSelector } = useMapCanvasContext();
+  const theme = useTheme();
+
   return (
-    
+    <>
+      <GlobalStyles
+        styles={{
+          "#TelicentMap .maplibregl-ctrl-attrib": {
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? theme.palette.background.default
+                : theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          },
+        }}
+      />
       <Map
         ref={mapRef}
+        id="TelicentMap"
         onLoad={onLoad}
         initialViewState={initialViewState}
         cursor={cursor}
-        id="TelicentMap"
         interactiveLayerIds={["document-locations-layer"]}
         scrollZoom
         mapStyle={defaultStyle}
@@ -93,7 +110,9 @@ export const MapCanvas: React.FC<MapCanvasProps> = ({
               type="raster"
               layout={{
                 visibility:
-                  styleSelector.selected?.uri === el.uri ? "visible" : "none",
+                  styleSelector.selected?.uri === el.uri
+                    ? "visible"
+                    : "none",
               }}
             />
           </Source>
@@ -109,5 +128,6 @@ export const MapCanvas: React.FC<MapCanvasProps> = ({
           layers={polygonLayers}
         />
       </Map>
+    </>
   );
 };

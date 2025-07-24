@@ -17,6 +17,16 @@ const Presentational: React.FC<PresentationalProps> = (props) => {
   return (
     <div>
       <LayerSelectorPresentationalButton variant="secondary" {...props} />
+      <style>
+        {`
+          body {
+            overflow: auto !important;
+          }
+          #layer-selector-popover {
+            pointer-events: none !important;
+          }
+        `}
+      </style>
       <LayerSelectorPresentationalPopOver {...props} />
     </div>
   );
@@ -25,6 +35,30 @@ const Presentational: React.FC<PresentationalProps> = (props) => {
 const presentationalMeta: Meta<PresentationalProps> = {
   title: "Component Library/Map/primitives/LayerSelectorPresentational",
   component: Presentational,
+  tags: ["autodocs"], // ← enable docs page
+  parameters: {
+    docs: {
+      description: {
+        component: `
+Renders a fake Presentational LayerSelector to help demonstrate how the default LayerSelector is assembled (used in FeatureMap)
+
+
+<p>
+  👉 Open 
+  <a href="iframe.html?viewMode=docs&id=component-library-map-composites-featuremap--docs" target="_blank">
+    FeatureMap story
+  </a>
+</p>
+
+**NOTE** the PopOver story renders with position absolute, there is some hack styles to unlock the page when popover is visible.
+
+• \`data\`: Array of { uri, image, label }  
+• \`selectedIndex\` & \`anchorEl\`: control popover state  
+• Handlers: \`onClickDropdown\`, \`onCloseDropdown\`, \`onListItemClick\`
+`,
+      },
+    },
+  },
   // tags: ['autodocs'],
   argTypes: {
     data: { control: "object" },
@@ -43,14 +77,6 @@ export const Closed: PresentStory = {
   args: {
     data: sampleData,
     selectedIndex: 0,
-    anchorEl: null,
-  },
-};
-
-export const Open: PresentStory = {
-  args: {
-    data: sampleData,
-    selectedIndex: 1,
     anchorEl: document.createElement("button"),
   },
 };

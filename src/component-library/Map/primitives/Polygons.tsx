@@ -1,6 +1,6 @@
 import { Source, Layer } from "react-map-gl"
 import { FeatureCollection, Feature } from "geojson";
-import POLYGON_LAYERS from "../polygonStyles"
+import POLYGON_LAYERS from "../utils/polygonStyles"
 import React from "react";
 
 // ignore story-coverage.test.ts

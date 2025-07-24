@@ -2,7 +2,7 @@ import React from "react";
 import { render, act } from "@testing-library/react";
 import { Drawer, DrawerController } from "./Drawer";
 
-jest.mock("./primitives/DrawerPresentational", () => {
+jest.mock("../primitives/DrawerPresentational", () => {
   const React = require("react") as typeof import("react");
   const mockDrawerPresentational = jest.fn((props: any) => (
     <div data-testid="drawer">{props.children}</div>
@@ -19,7 +19,7 @@ jest.mock("./primitives/DrawerPresentational", () => {
 
 const {
   __mockDrawerPresentational,
-} = require("./primitives/DrawerPresentational");
+} = require("../primitives/DrawerPresentational");
 
 describe("Drawer", () => {
   beforeEach(() => __mockDrawerPresentational.mockClear());

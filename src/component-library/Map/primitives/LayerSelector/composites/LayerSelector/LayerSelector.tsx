@@ -12,7 +12,7 @@ export const LayerSelector: React.FC = () => {
   }
   return (
     <div>
-      <LayerSelectorPresentationalButton {...hook} />
+      <LayerSelectorPresentationalButton variant="text" {...hook} />
       <LayerSelectorPresentationalPopOver {...hook} />
     </div>
   );

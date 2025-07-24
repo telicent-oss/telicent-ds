@@ -1,2 +1,2 @@
 export * from "./InsetInMap";
-export * from "../Drawer/Drawer";
+export * from "../Drawer/composites/Drawer";

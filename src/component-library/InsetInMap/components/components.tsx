@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, BoxProps, Button } from "@mui/material";
 import { Position } from "../InsetInMap";
-export * from '../../Drawer/Drawer';
+export * from '../../Drawer/composites/Drawer';
 
 
 
