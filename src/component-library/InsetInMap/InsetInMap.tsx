@@ -2,6 +2,9 @@ import React from "react";
 import {
   workspace,
 } from "./components/components";
+export {
+  workspace as insetInMap,
+} from "./components/components";
 import { BoxProps } from "@mui/material";
 
 const { Background, Content, ControlArea } = workspace;
@@ -24,8 +27,9 @@ type RootPropsType = Omit<BoxProps, 'children' | 'content'>;
 
 export const InsetInMap: React.FC<RootPropsType & {
   content: React.ReactNode;
+  children?: React.ReactNode;
   controlArea?: Partial<Record<Position, React.ReactNode>>;
-}> = ({ content, controlArea = {}, sx, ...rest }) => {
+}> = ({ content, controlArea = {}, sx, children, ...rest }) => {
   return (
     <Background sx={sx} {...rest}>
       <Content>{content}</Content>
@@ -34,6 +38,7 @@ export const InsetInMap: React.FC<RootPropsType & {
           {node}
         </ControlArea>
       ))}
+      {children}
     </Background>
   );
 };
