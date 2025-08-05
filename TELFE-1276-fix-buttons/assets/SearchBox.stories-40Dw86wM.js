@@ -1,0 +1,14 @@
+import{f as e,w as n,u as o}from"./index-ZIyp8o0e.js";import{l as s}from"./Drawer-BtYQj-0_.js";import"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import"./jsx-runtime-DMAvRu52.js";import"./index-Dl6G-zuu.js";import"./createSvgIcon-sttI1-XB.js";import"./defaultTheme-Cydao2Tu.js";import"./SvgIcon-CjmMrQNX.js";import"./styled-D6pw60Bp.js";import"./generateUtilityClasses-YWFBP9tm.js";import"./DefaultPropsProvider-BHKfC5ky.js";import"./constants-Dx2Tj1Xl.js";import"./iframe-CA3yYro7.js";import"../sb-preview/runtime.js";import"./index-B0kOWIl9.js";import"./types-BzuXlqsY.js";import"./GlobalStyles-ByhVr9LE.js";import"./useTheme-DxGOHaWi.js";import"./useTheme-BYNjlLc8.js";import"./UserProfile-DaDj3L5p.js";import"./Text-BNIHq94e.js";import"./Typography-BuiWgCNN.js";import"./UserIcon-q_P09GsN.js";import"./index-BfyspvgH.js";import"./FlexBox-D6GhYe9U.js";import"./styled-HsAy3ZEw.js";import"./useThemeProps-CBEhXQxo.js";import"./Popover-BFLlbOqP.js";import"./utils-xzVdhYNG.js";import"./TransitionGroupContext-BU5kpZ0L.js";import"./useEnhancedEffect-DZnfS5Iy.js";import"./Paper-DB4yr4EO.js";import"./IconButton-DPejjeAT.js";import"./ButtonBase-BUg8pwcP.js";import"./index-1lBnjf3z.js";import"./useId-CkA8naEk.js";import"./TelicentHorizontalSVG-DbQp5T3V.js";import"./Container-BErEnX_q.js";import"./Box-DjrL3vcN.js";import"./DataSetIcon-BBABdu0b.js";import"./UIThemeProvider-BDvoFzpa.js";import"./colorManipulator-YQmhVZwB.js";import"./ThemeProvider-CN5YWCuf.js";import"./Chip-Bx_Lu-NR.js";import"./Divider-BE0LSpy8.js";import"./TreeView-DpHiciEK.js";import"./UserProfileContent-DdYm007D.js";import"./LinearProgress-yGZEzgsa.js";import"./Button-a6vHgwhc.js";import"./Button-C1gE5xKs.js";import"./LinkButton-B-URIbsY.js";import"./Card-CUWN1MwO.js";import"./CardActions-wDSfmjtr.js";import"./Popover-DhgGZshX.js";import"./Paper-CYQoaktD.js";import"./ErrorFallback-VtVYyFB3.js";import"./ErrorFallbackText-e1_2MPZH.js";import"./ErrorFallbackWrapper-B2v_McFA.js";import"./MapToggleButtonPresentational-DyF2Ew1L.js";import"./List-CmdUcGkz.js";const yt={title:"Inputs/Search/SearchBox",component:s,tags:["autodocs"],args:{onSearch:e()}},t={args:{placeholder:"Search all"},play:async({canvasElement:a})=>{const r=n(a);await o.type(r.getByRole("searchbox"),"data catalog"),await o.click(r.getByRole("button",{name:"search"}))}};var p,m,i;t.parameters={...t.parameters,docs:{...(p=t.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    placeholder: "Search all"
+  },
+  play: async ({
+    canvasElement
+  }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByRole("searchbox"), "data catalog");
+    await userEvent.click(canvas.getByRole("button", {
+      name: "search"
+    }));
+  }
+}`,...(i=(m=t.parameters)==null?void 0:m.docs)==null?void 0:i.source}}};const vt=["Example"];export{t as Example,vt as __namedExportsOrder,yt as default};
