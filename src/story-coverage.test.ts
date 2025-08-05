@@ -61,6 +61,9 @@ it("looks for components that appear to be missing a story - snapshots these com
 
   expect(missingStories).toMatchInlineSnapshot(`
     [
+      "./src/v1/components/buttons/Button/IconButton.tsx",
+      "./src/v1/components/buttons/Button/PrimaryButton.tsx",
+      "./src/v1/components/buttons/Button/SecondaryButton.tsx",
       "./src/v1/components/data-display/DropdownButton/assets/TestIcons.tsx",
       "./src/v1/components/data-display/FontAwesomeIcons/ClockIcon.tsx",
       "./src/v1/components/data-display/FontAwesomeIcons/DownArrowIcon.tsx",
@@ -85,11 +88,6 @@ it("looks for components that appear to be missing a story - snapshots these com
       "./src/v1/components/data-display/Text/TitleAndContent/TitleAndContent.tsx",
       "./src/v1/components/data-display/TreeView/TreeView.tsx",
       "./src/v1/components/data-display/UserProfile/UserProfileContent/UserStatus.tsx",
-      "./src/v1/components/inputs/Button/IconButton.tsx",
-      "./src/v1/components/inputs/Button/LinkButton.tsx",
-      "./src/v1/components/inputs/Button/PrimaryButton.tsx",
-      "./src/v1/components/inputs/Button/SecondaryButton.tsx",
-      "./src/v1/components/inputs/TextField.tsx",
       "./src/v1/components/layout/AppChrome.tsx",
       "./src/v1/components/layout/FlexBox.tsx",
       "./src/v1/components/surfaces/AppBar/TelicentBrand.tsx",
