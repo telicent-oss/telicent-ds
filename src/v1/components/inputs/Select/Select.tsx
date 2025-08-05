@@ -27,12 +27,14 @@ const Select: React.FC<SelectProps> = ({
       {label && (
         <InputLabel
           id={id}
-          sx={{
-            color: "#fff",
-            "&.Mui-focused": {
-              color: theme.palette.primary.main,
-            },
-          }}
+          sx={
+            {
+              // color: "theme.palette.text.primary,"
+              // "&.Mui-focused": {
+              //   color: theme.palette.primary.main,
+              // },
+            }
+          }
         >
           {label}
         </InputLabel>
@@ -40,6 +42,8 @@ const Select: React.FC<SelectProps> = ({
 
       <MUISelect
         {...rest}
+        color="primary"
+        variant="outlined"
         labelId={id}
         label={label}
         id={id}
@@ -47,39 +51,39 @@ const Select: React.FC<SelectProps> = ({
         disabled={disabled}
         onChange={onChange}
         size="small"
-        MenuProps={{
-          PaperProps: {
-            sx: {
-              backgroundColor: "#2A2A2A",
-              color: "white",
-            },
-          },
-        }}
-        sx={{
-          color: "#ffffff",
-          backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
-          ".MuiSelect-icon": {
-            color: "#6D6D6D",
-          },
-          ".MuiOutlinedInput-notchedOutline": {
-            borderColor: "#6D6D6D",
-          },
-          "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: theme.palette.primary.main,
-          },
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: theme.palette.primary.main,
-            borderWidth: "2px !important",
-          },
-          "&.Mui-selected": {
-            backgroundColor: "#2A2A2A",
-            color: "#fff",
-          },
-          ...sx,
-        }}
+        // MenuProps={{
+        //   PaperProps: {
+        //     sx: {
+        //       backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
+        //       color: theme.palette.primary.contrastText,
+        //     },
+        //   },
+        // }}
+        // sx={{
+        //   color: "#ffffff",
+        //   backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
+        //   ".MuiSelect-icon": {
+        //     color: "#6D6D6D",
+        //   },
+        //   ".MuiOutlinedInput-notchedOutline": {
+        //     borderColor: "#6D6D6D",
+        //   },
+        //   "&:hover .MuiOutlinedInput-notchedOutline": {
+        //     borderColor: theme.palette.primary.main,
+        //   },
+        //   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        //     borderColor: theme.palette.primary.main,
+        //     borderWidth: "2px !important",
+        //   },
+        //   "&.Mui-selected": {
+        //     backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
+        //     color: "#fff",
+        //   },
+        //   ...sx,
+        // }}
       >
         {options.map((option) => (
-          <MenuItem key={option?.value} value={option.value} disableRipple>
+          <MenuItem color="primary" key={option?.value} value={option.value} disableRipple>
             {option.label}
           </MenuItem>
         ))}
