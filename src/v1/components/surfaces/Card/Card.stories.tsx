@@ -26,7 +26,9 @@ export const OutlinedCard: Story = {
           American paddock!
         </Text>
         <CardActions>
-          <Button variant="secondary">Share</Button>
+          <Button color="secondary" variant="contained">
+            Share
+          </Button>
         </CardActions>
       </CardContent>
     ),
