@@ -1,7 +1,10 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import snapshotDiff from "snapshot-diff";
-import { PresentationalButton, LayerSelectorInsetInMap } from "./LayerSelectorInsetInMap";
+import {
+  PresentationalButton,
+  LayerSelectorInsetInMap,
+} from "./LayerSelectorInsetInMap";
 import type { PresentationalProps } from "../../primitives/LayerSelectorPresentational";
 
 jest.mock("../../../../../../export", () => ({
@@ -99,7 +102,7 @@ describe("PresentationalButton snapshotdiff", () => {
       +         color="primary"
                 id="layer-selector"
                 sx="[object Object]"
-      +         variant="primary"
+      +         variant="contained"
               >
                 <div
                   class="MuiBox-root css-1f388k3"
@@ -147,7 +150,9 @@ describe("PresentationalButton snapshotdiff", () => {
  * WHEN https://telicent.atlassian.net/browse/TELFE-1252
  */
 describe.skip("LayerSelectorInsetInMap wiring", () => {
-  beforeEach(() => (Object.values(__handlers) as jest.Mock[]).forEach((f) => f.mockClear()));
+  beforeEach(() =>
+    (Object.values(__handlers) as jest.Mock[]).forEach((f) => f.mockClear())
+  );
 
   test("returns null when <=1 item", () => {
     __setCtx({
