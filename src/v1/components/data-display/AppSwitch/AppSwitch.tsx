@@ -4,7 +4,7 @@ import MUIMenu from "@mui/material/Menu";
 import MUIMenuItem from "@mui/material/MenuItem";
 
 import { Text } from "../Text/Text";
-import IconButton from "../../inputs/Button/IconButton";
+import IconButton from "../../buttons/Button/IconButton";
 import GridIcon from "../Icons/GridIcon";
 import FlexBox from "../../layout/FlexBox";
 import MUITypography from "@mui/material/Typography";

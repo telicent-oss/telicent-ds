@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, BoxProps, IconButtonProps, SxProps, Theme } from "@mui/material";
 import { Paper } from "../../../export";
-import { IconButton } from "../../../v1/components/inputs";
+import { IconButton } from "../../../v1/components/buttons";
 import { STYLES } from "./constants";
 // ignore story-coverage.test.ts
 
@@ -10,16 +10,10 @@ export type TabButtonProps = {
   BoxSx: BoxProps["sx"]; // IDEA normalize against theme (when sx is a fn)
   onClick: IconButtonProps["onClick"];
   children: React.ReactNode;
-  PaperSx?:SxProps<Theme>;
+  PaperSx?: SxProps<Theme>;
 };
 
-export const TabButton: React.FC<TabButtonProps> = ({
-  id: dataTestId,
-  BoxSx,
-  PaperSx,
-  onClick,
-  children,
-}) => (
+export const TabButton: React.FC<TabButtonProps> = ({ id: dataTestId, BoxSx, PaperSx, onClick, children }) => (
   <Box
     id={dataTestId}
     sx={{

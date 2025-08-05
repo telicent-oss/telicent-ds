@@ -1,9 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import MiniSearchAutocomplete, {
-  MiniSearchAutocompleteProps,
-} from "./MiniSearchAutocomplete";
+import MiniSearchAutocomplete, { MiniSearchAutocompleteProps } from "./MiniSearchAutocomplete";
 import {
   Divider,
   DownArrowIcon,
@@ -13,7 +11,7 @@ import {
   PlusCircleIcon,
   Text,
 } from "../../data-display";
-import IconButton from "../Button/IconButton";
+import IconButton from "../../buttons/Button/IconButton";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import { FlexBox } from "../../layout";
 import PopOver from "../../surfaces/PopOver/Popover";
@@ -22,9 +20,9 @@ import IESType from "../../data-display/IESType/IESType";
 type LabelString = { id: string; label: string; isRecentSearch: boolean };
 
 // This component is created to specify MiniSearchAutocompleteProps generic parameters
-const StoryExample = (
-  props: MiniSearchAutocompleteProps<LabelString, false, false, true>
-) => <MiniSearchAutocomplete<LabelString, false, false, true> {...props} />;
+const StoryExample = (props: MiniSearchAutocompleteProps<LabelString, false, false, true>) => (
+  <MiniSearchAutocomplete<LabelString, false, false, true> {...props} />
+);
 
 const meta = {
   title: "Inputs/Search/MiniSearchAutocomplete",
@@ -92,7 +90,7 @@ export const RecentSearches: Story = {
     ],
     placeholder: "Search",
   },
-  render: (args: Story['args']) => <StoryExample {...args} />,
+  render: (args: Story["args"]) => <StoryExample {...args} />,
 };
 
 /**
@@ -166,15 +164,8 @@ export const SearchResults: Story = {
         <StoryExample
           {...args}
           endIcon={
-            <IconButton
-              size="small"
-              aria-label="toggle pop over"
-              onClick={openPopUp}
-            >
-              <DownArrowIcon
-                rotation={showPopOver ? 180 : undefined}
-                fontSize="inherit"
-              />
+            <IconButton size="small" aria-label="toggle pop over" onClick={openPopUp}>
+              <DownArrowIcon rotation={showPopOver ? 180 : undefined} fontSize="inherit" />
             </IconButton>
           }
         />
@@ -197,17 +188,9 @@ export const SearchResults: Story = {
               <ListItem key={result.id} disablePadding>
                 <ListItemButton role="undefined" disableRipple>
                   <ListItemIcon>
-                    <IESType
-                      backgroundColor="black"
-                      borderColor="yellow"
-                      color="yellow"
-                      iconClass={result.iconClass}
-                    />
+                    <IESType backgroundColor="black" borderColor="yellow" color="yellow" iconClass={result.iconClass} />
                   </ListItemIcon>
-                  <ListItemText
-                    primary={result.label}
-                    secondary={result.type}
-                  />
+                  <ListItemText primary={result.label} secondary={result.type} />
                   <IconButton edge="end" aria-label="delete" size="small">
                     <PlusCircleIcon fontSize="inherit" />
                   </IconButton>

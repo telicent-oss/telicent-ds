@@ -4,7 +4,7 @@ import MUIBox from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
 
 import { DownArrowIcon, Text } from "../../data-display";
-import { IconButton } from "../../inputs";
+import { IconButton } from "../../buttons";
 import { useFloatingPanelContext } from "../FloatingPanel/useFloatingPanelContext";
 
 interface PanelProps extends HTMLAttributes<HTMLDivElement> {
@@ -55,12 +55,9 @@ const Panel: React.FC<PanelProps> = ({
   const theme = useTheme();
   const context = useFloatingPanelContext();
 
-  const visible = (!context.panels[targetId]?.minimised &&
-    context.panels[targetId]?.visible);
+  const visible = !context.panels[targetId]?.minimised && context.panels[targetId]?.visible;
 
-  const backgroundColor = theme.palette.mode === "dark"
-    ? theme.palette.grey[900]
-    : theme.palette.grey[300];
+  const backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : theme.palette.grey[300];
 
   return (
     <MUIBox
@@ -87,15 +84,7 @@ const Panel: React.FC<PanelProps> = ({
         {iconBeforeTitle}
         <Text sx={{ paddingRight: 4 }}>
           {title}
-          {count > 0
-            ? (
-              <span
-                css={{ marginLeft: 4, color: theme.palette.primary.main }}
-              >
-                ({count})
-              </span>
-            )
-            : null}
+          {count > 0 ? <span css={{ marginLeft: 4, color: theme.palette.primary.main }}>({count})</span> : null}
         </Text>
         <IconButton
           size="small"
@@ -117,7 +106,7 @@ const Panel: React.FC<PanelProps> = ({
           padding: 0.4,
         }}
       >
-        {!context?.get(targetId, 'minimised') && children}
+        {!context?.get(targetId, "minimised") && children}
       </MUIBox>
     </MUIBox>
   );

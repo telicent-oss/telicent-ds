@@ -1,5 +1,5 @@
-import { IconButton, Button, Box  } from "@mui/material";
-export const mui = { IconButton, Button, Box }
+import { IconButton, Button, Box } from "@mui/material";
+export const mui = { IconButton, Button, Box };
 
 import "./main.css";
 
@@ -14,6 +14,7 @@ export { default as useExtendedTheme } from "./hooks/useExtendedTheme";
 export * from "./v1/components/data-display";
 export * from "./v1/components/feedback";
 export * from "./v1/components/inputs";
+export * from "./v1/components/buttons";
 export * from "./v1/components/layout";
 export * from "./v1/components/surfaces";
 export * from "./v1/theme";
@@ -29,7 +30,6 @@ export * from "./candidate-packages/authorize-flow/broadcastChannelService";
 export * from "./candidate-packages/authorize-flow/useAuthSync";
 export * from "./candidate-packages/authorize-flow";
 export * from "./candidate-packages/preferred-label-lib";
-
 
 // PROPOSED @telicent-oss/utils-lib
 export {

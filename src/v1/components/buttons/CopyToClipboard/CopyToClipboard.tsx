@@ -26,7 +26,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ text, title, ariaLabe
 
   return (
     <Button
-      variant="noStyle"
+      style="base"
       onClick={handleClick}
       disableRipple
       title={title}

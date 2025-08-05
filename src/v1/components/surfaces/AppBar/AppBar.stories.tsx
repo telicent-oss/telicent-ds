@@ -3,7 +3,7 @@ import { userEvent, within } from "@storybook/test";
 
 import AppBar from "./AppBar";
 import { AppSwitch, Text, UserProfile, UserStatus } from "../../data-display";
-import { Button } from "../../inputs";
+import { Button } from "../../buttons";
 import { appList } from "../../data-display/AppSwitch/AppSwitch.stories";
 
 const meta: Meta<typeof AppBar> = {
@@ -63,7 +63,7 @@ export const WithSignOutButton: Story = {
   args: {
     ...WithAppName.args,
     endChild: (
-      <Button variant="primary" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
+      <Button color="primary" variant="contained" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
         Sign Out
       </Button>
     ),
@@ -75,7 +75,7 @@ export const WithAppSwitch: Story = {
     ...WithAppName.args,
     startChild: <AppSwitch apps={appList} />,
     endChild: (
-      <Button variant="primary" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
+      <Button color="primary" variant="contained" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
         Sign Out
       </Button>
     ),
@@ -99,4 +99,3 @@ export const WithNoBrand: Story = {
     ),
   },
 };
-

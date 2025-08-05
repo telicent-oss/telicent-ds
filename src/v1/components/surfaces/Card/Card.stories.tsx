@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Card from "./Card";
 import CardContent from "./CardContent";
 import Text, { H1 } from "../../data-display/Text/Text";
-import Button from "../../inputs/Button/Button";
+import Button from "../../buttons/Button/Button";
 import CardActions from "./CardActions";
 
 const meta: Meta<typeof Card> = {
@@ -22,8 +22,8 @@ export const OutlinedCard: Story = {
       <CardContent>
         <H1>Capybara</H1>
         <Text paragraph>
-          Capybara are the biggest rodents in the world. Our capy family can be seen strutting their
-          stuff in our South American paddock!
+          Capybara are the biggest rodents in the world. Our capy family can be seen strutting their stuff in our South
+          American paddock!
         </Text>
         <CardActions>
           <Button variant="secondary">Share</Button>

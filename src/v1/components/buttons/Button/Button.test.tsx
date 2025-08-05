@@ -140,8 +140,7 @@ describe("Button", () => {
 
   it("primary variant diff", () => {
     const { container } = render(<Button {...props} variant="primary" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -152,8 +151,7 @@ describe("Button", () => {
 
   it("secondary variant diff", () => {
     const { container } = render(<Button {...props} variant="secondary" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -194,8 +192,7 @@ describe("Button", () => {
 
   it("tertiary variant diff", () => {
     const { container } = render(<Button {...props} variant="tertiary" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -234,101 +231,9 @@ describe("Button", () => {
     `);
   });
 
-  it("link variant diff", () => {
-    const { container } = render(<Button {...props} variant="link" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
-      "- 
-      + 
-
-      @@ --- --- @@
-      + width: -webkit-fit-content;
-      + width: -moz-fit-content;
-      + width: fit-content;
-      + }
-      +
-      + .emotion-1 {
-      @@ --- --- @@
-      - padding: 6px 16px;
-      + padding: 6px 8px;
-      @@ --- --- @@
-      - color: #fff;
-      - background-color: #1976d2;
-      - box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
-      + color: #1976d2;
-      + min-width: -webkit-fit-content;
-      + min-width: -moz-fit-content;
-      + min-width: fit-content;
-      + padding: 0px;
-      @@ --- --- @@
-      - .emotion-0::-moz-focus-inner {
-      + .emotion-1::-moz-focus-inner {
-      @@ --- --- @@
-      - .emotion-0.Mui-disabled {
-      + .emotion-1.Mui-disabled {
-      @@ --- --- @@
-      - .emotion-0 {
-      + .emotion-1 {
-      @@ --- --- @@
-      - .emotion-0:hover {
-      + .emotion-1:hover {
-      @@ --- --- @@
-      - background-color: #1565c0;
-      - box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
-      + background-color: rgba(25, 118, 210, 0.04);
-      @@ --- --- @@
-      - .emotion-0:hover {
-      - background-color: #1976d2;
-      + .emotion-1:hover {
-      + background-color: transparent;
-      @@ --- --- @@
-      - .emotion-0:active {
-      - box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
-      + .emotion-1.Mui-disabled {
-      + color: rgba(0, 0, 0, 0.26);
-      @@ --- --- @@
-      - .emotion-0.Mui-focusVisible {
-      - box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
-      + .emotion-1:hover {
-      + background-color: transparent;
-      @@ --- --- @@
-      - .emotion-0.Mui-disabled {
-      - color: rgba(0, 0, 0, 0.26);
-      - box-shadow: none;
-      - background-color: rgba(0, 0, 0, 0.12);
-      + .emotion-1:not(.Mui-disabled):hover+.ButtonLinkLine {
-      + opacity: 1;
-      + width: 100%;
-      @@ --- --- @@
-      - .emotion-1 {
-      - overflow: hidden;
-      - pointer-events: none;
-      - position: absolute;
-      - z-index: 0;
-      - top: 0;
-      - right: 0;
-      - bottom: 0;
-      - left: 0;
-      - border-radius: inherit;
-      + .emotion-2 {
-      + border-top: 1.5px solid;
-      + border-color: #1976d2;
-      + opacity: 0;
-      + width: 0;
-      + margin-left: auto;
-      + margin-right: auto;
-      + transition-duration: 400ms;
-      + transition-property: width,opacity;
-      + transition-timing-function: cubic-bezier(0.39, 0.58, 0.57, 1);
-      @@ --- --- @@
-      - {Symbol(SameObject caches): [Object]}"
-    `);
-  });
-
   it("noStyle variant diff", () => {
-    const { container } = render(<Button {...props} variant="noStyle" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    const { container } = render(<Button {...props} style="base" />);
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -382,11 +287,8 @@ describe("Button", () => {
   });
 
   it("unknown variant falls back to text diff", () => {
-    const { container } = render(
-      <Button {...(props as any)} variant="unknown" />
-    );
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    const { container } = render(<Button {...(props as any)} variant="unknown" />);
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -424,9 +326,7 @@ describe("Button", () => {
 
   it("forwards ref and props", () => {
     const ref = React.createRef<HTMLButtonElement>();
-    const { getByText } = render(
-      <Button {...props} size="small" disabled ref={ref} data-test="foo" />
-    );
+    const { getByText } = render(<Button {...props} size="small" disabled ref={ref} data-test="foo" />);
     expect(getByText("Test Button")).toHaveAttribute("data-test", "foo");
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });

@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 
 const meta: Meta<typeof CopyToClipboard> = {
-  title: "Inputs/CopyToClipboard",
+  title: "Buttons/CopyToClipboard",
   component: CopyToClipboard,
   tags: ["autodocs"],
   parameters: {
