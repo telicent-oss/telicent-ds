@@ -68,3 +68,5 @@ export const WithCustomColour: Story = {
     sx: { color: "white" },
   },
 };
+
+export const WithSimulatedError = () => <CopyToClipboard text="This will fail" testFailure />;
