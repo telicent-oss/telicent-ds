@@ -318,8 +318,9 @@ export declare const CopyToClipboard: default_2.FC<CopyToClipboardProps>;
 
 declare type CopyToClipboardProps = ButtonProps_3 & {
     text: string;
-    title: string;
+    title?: string;
     ariaLabel?: string;
+    testFailure?: boolean;
 };
 
 export declare const createApi: (baseURL?: string) => ApiFactory;
