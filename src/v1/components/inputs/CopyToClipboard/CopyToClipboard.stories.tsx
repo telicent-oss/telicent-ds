@@ -46,15 +46,40 @@ export default meta;
 
 type Story = StoryObj<typeof CopyToClipboard>;
 
-const RenderCopyToClipboard = ({ ...args }) => {
-  const [copied, setCopied] = useState(false);
-
-  return <CopyToClipboard text="http://example.com" title="Copy URL" ariaLabel="copy to clipboard" {...args} />;
-};
 
 export const Default: Story = {
   args: {
     text: "this is a default example string",
+    title: "Copy to clipboard",
+    ariaLabel: "Copy to clipboard button",
+  },
+};
+
+
+export const Text: Story = {
+  args: {
+    text: "this is a primary",
+    variant: "text",
+    title: "Copy to clipboard",
+    ariaLabel: "Copy to clipboard button",
+  },
+};
+
+
+export const Primary: Story = {
+  args: {
+    text: "this is a primary",
+    color: "primary",
+    title: "Copy to clipboard",
+    ariaLabel: "Copy to clipboard button",
+  },
+};
+
+export const PrimaryText: Story = {
+  args: {
+    text: "this is a primary",
+    color: "primary",
+    variant: "text",
     title: "Copy to clipboard",
     ariaLabel: "Copy to clipboard button",
   },
@@ -65,7 +90,7 @@ export const WithCustomColour: Story = {
     text: "this is a white color example string",
     title: "Copy to clipboard with white color",
     ariaLabel: "Copy to clipboard button with white color",
-    sx: { color: "white" },
+    sx: { color: "fuchsia", backgroundColor: 'darkslategrey' },
   },
 };
 
