@@ -320,6 +320,7 @@ declare type CopyToClipboardProps = ButtonProps & {
     title?: string;
     ariaLabel?: string;
     testFailure?: boolean;
+    variant?: "link" | "text" | "noStyle" | "primary" | "secondary" | "tertiary" | undefined;
 };
 
 export declare const createApi: (baseURL?: string) => ApiFactory;
