@@ -313,6 +313,16 @@ declare interface ControlAreaProps extends Omit<BoxProps, 'position'> {
     position: Position;
 }
 
+export declare const CopyToClipboard: default_2.FC<CopyToClipboardProps>;
+
+declare type CopyToClipboardProps = ButtonProps & {
+    text: string;
+    title?: string;
+    ariaLabel?: string;
+    testFailure?: boolean;
+    variant?: "link" | "text" | "noStyle" | "primary" | "secondary" | "tertiary" | undefined;
+};
+
 export declare const createApi: (baseURL?: string) => ApiFactory;
 
 declare interface CustomCheckboxProps extends CheckboxProps {
