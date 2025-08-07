@@ -24,18 +24,25 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
 }) => {
   const [icon, setIcon] = useState(faCopy);
   const [error, setError] = useState<string | null>(null);
+
   const theme = useExtendedTheme();
 
   const handleClick = async () => {
     try {
       setError(null);
-      if (testFailure) throw new Error("Simulated clipboard failure");
+
+      if (testFailure) {
+        throw new Error("Simulated clipboard failure");
+      }
       await navigator.clipboard.writeText(text);
       setIcon(faCheck);
-      setTimeout(() => setIcon(faCopy), 1500);
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Clipboard write failed";
-      setError(msg);
+      setTimeout(() => {
+        setIcon(faCopy);
+      }, 1500);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Clipboard write failed";
+      console.error(errorMessage);
+      setError(errorMessage);
     }
   };
 
@@ -68,11 +75,12 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
       <Button
         onClick={handleClick}
         disableRipple
-        title={title}
+        title={title + !text ? '(no text to copy)' : ''}
         aria-label={ariaLabel}
         sx={sx}
         color={color}
         variant={variant}
+        disabled={!text}
       >
         <FontAwesomeIcon icon={icon} />
       </Button>
