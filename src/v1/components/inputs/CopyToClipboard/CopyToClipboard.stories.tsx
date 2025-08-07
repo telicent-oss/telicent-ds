@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import CopyToClipboard from "./CopyToClipboard";
-import { Box } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 
 const meta: Meta<typeof CopyToClipboard> = {
@@ -39,18 +39,13 @@ Example usage:
     id: "copy-to-clipboard-default",
     ariaLabel: "copy uri",
   },
-  decorators: (Story) => <Box sx={{ margin: "auto" }}>{Story()}</Box>,
+  decorators: (Story) => <Paper><Box sx={{ padding: 1 }}>{Story()}</Box></Paper>,
 } satisfies Meta<typeof CopyToClipboard>;
 
 export default meta;
 
 type Story = StoryObj<typeof CopyToClipboard>;
 
-const RenderCopyToClipboard = ({ ...args }) => {
-  const [copied, setCopied] = useState(false);
-
-  return <CopyToClipboard text="http://example.com" title="Copy URL" ariaLabel="copy to clipboard" {...args} />;
-};
 
 export const Default: Story = {
   args: {
@@ -60,23 +55,63 @@ export const Default: Story = {
   },
 };
 
-export const WithPrimayStyle: Story = {
+export const NoText: Story = {
   args: {
-    text: "this is a default example string",
     title: "Copy to clipboard",
     ariaLabel: "Copy to clipboard button",
-    variant: "primary",
-    sx: { color: "white" },
   },
 };
 
-export const WithCustomColour: Story = {
+export const WithSimulatedError = () => 
+<div>
+  <CopyToClipboard text="This will fail" testFailure />
+  <Typography sx={{color: "secondary.contrastText"}}><code>testFailure</code> flag set to force failure</Typography>
+  </div>
+
+
+export const VariantSecondary: Story = {
   args: {
-    text: "this is a white color example string",
+    text: "Text for clipboard via VariantSecondary",
+    variant: "secondary",
+    title: "Copy to clipboard",
+    ariaLabel: "Copy to clipboard button",
+  },
+};
+export const ColorInheritVariantText: Story = {
+  args: {
+    text: "Text for clipboard via ColorInheritVariantText",
+    color: "inherit",
+    variant: "text",
+    title: "Copy to clipboard",
+    ariaLabel: "Copy to clipboard button",
+  },
+};
+
+
+export const ColorPrimary: Story = {
+  args: {
+    text: "Text for clipboard via ColorPrimary",
+    color: "primary",
+    title: "Copy to clipboard",
+    ariaLabel: "Copy to clipboard button",
+  },
+};
+
+export const ColorPrimaryVariantText: Story = {
+  args: {
+    text: "Text for clipboard via ColorPrimaryVariantText",
+    color: "primary",
+    variant: "text",
+    title: "Copy to clipboard",
+    ariaLabel: "Copy to clipboard button",
+  },
+};
+
+export const WithCustomStyle: Story = {
+  args: {
+    text: "Text for clipboard via WithCustomStyle",
     title: "Copy to clipboard with white color",
     ariaLabel: "Copy to clipboard button with white color",
-    sx: { color: "white" },
+    sx: { color: "fuchsia", backgroundColor: 'darkslategrey' },
   },
 };
-
-export const WithSimulatedError = () => <CopyToClipboard text="This will fail" testFailure />;
