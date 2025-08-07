@@ -11,6 +11,7 @@ export type CopyToClipboardProps = ButtonProps & {
   title?: string;
   ariaLabel?: string;
   testFailure?: boolean;
+  variant?: "link" | "text" | "noStyle" | "primary" | "secondary" | "tertiary" | undefined;
 };
 
 const CopyToClipboard: React.FC<CopyToClipboardProps> = ({

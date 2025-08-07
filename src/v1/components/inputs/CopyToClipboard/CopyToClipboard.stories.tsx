@@ -18,7 +18,7 @@ By default, the icon inherits the app's primary color. However, this color can e
 ## The component supports the following use cases:
 - **Controlled mode:** Use the \`text\` and \`title\` props to define the content that will be copied and the button's tooltip text.
 - **Icon Feedback:** The button dynamically changes the icon from a copy icon to a checkmark once the content is successfully copied to the clipboard.
-
+- **Failure State:** This include a failure state that can be done by passing \`testFailure\` as a prop. 
 ---
 
 ### When & How to use it
@@ -54,13 +54,13 @@ export const Default: Story = {
     ariaLabel: "Copy to clipboard button",
   },
 };
+
 export const NoText: Story = {
   args: {
     title: "Copy to clipboard",
     ariaLabel: "Copy to clipboard button",
   },
 };
-
 
 export const WithSimulatedError = () => 
 <div>
@@ -109,7 +109,7 @@ export const ColorPrimaryVariantText: Story = {
 
 export const WithCustomStyle: Story = {
   args: {
-    text: "this is a white color example string",
+    text: "Text for clipboard via WithCustomStyle",
     title: "Copy to clipboard with white color",
     ariaLabel: "Copy to clipboard button with white color",
     sx: { color: "fuchsia", backgroundColor: 'darkslategrey' },
