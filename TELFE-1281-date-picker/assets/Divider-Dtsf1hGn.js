@@ -1,0 +1,4 @@
+import{j as t}from"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import{D as i}from"./Divider-Cjysf9bk.js";const a=e=>t(i,{...e});a.__docgenInfo={description:"",methods:[],displayName:"Divider",props:{component:{required:!1,tsType:{name:"ReactElementType",raw:"React.ElementType"},description:"The component used for the root node. Either a string to use a HTML element or a component."},flexItem:{required:!1,tsType:{name:"boolean"},description:`If true, a vertical divider will have the correct height when used in flex
+container. (By default, a vertical divider will have a calculated height of
+0px if it is the child of a flex container.)`},orientation:{required:!1,tsType:{name:"union",raw:"'horizontal' | 'vertical'",elements:[{name:"literal",value:"'horizontal'"},{name:"literal",value:"'vertical'"}]},description:`The component orientation.
+@default 'horizontal'`}}};export{a as D};
