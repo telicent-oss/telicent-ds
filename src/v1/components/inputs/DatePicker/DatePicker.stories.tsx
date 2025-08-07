@@ -1,9 +1,10 @@
-import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import dayjs, { Dayjs } from "dayjs";
 import DatePicker from "./DatePicker";
+import { Box } from "@mui/material";
+import { useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
 
-const meta: Meta<typeof DatePicker> = {
+const meta = {
   title: "Inputs/DatePicker",
   component: DatePicker,
   tags: ["autodocs"],
@@ -11,52 +12,75 @@ const meta: Meta<typeof DatePicker> = {
     docs: {
       description: {
         component: `
-A reusable date picker component built with MUI's \`<DatePicker>\`.
+A date-only input built on MUI's \`<DatePicker>\`, wrapped with our design-system styling and pre-configured with \`dayjs\` support.
 
-This version comes pre-wrapped with a \`LocalizationProvider\` using \`AdapterDayjs\`, so you **do not need to wrap it yourself** when using in your app or stories.
+---
 
-### Features
-- Custom label
-- Optional helper text
-- Error state support
-- Min/Max date restriction
-- Wrapped internally with \`LocalizationProvider\` using \`dayjs\`
+### When & How to use it
 
-### Props
-- \`value: Dayjs | null\` — selected date
-- \`onChange: (value: Dayjs | null) => void\` — change handler
-- \`label?: string\`
-- \`disabled?: boolean\`
-- \`error?: boolean\`
-- \`helperText?: string\`
-- \`minDate?: Dayjs\`
-- \`maxDate?: Dayjs\`
-- \`textFieldProps?: TextFieldProps\` — pass extra props to the underlying text field
-        `,
+Use this component when you need users to pick a **single calendar date**, with or without constraints. It is already wrapped in a \`LocalizationProvider\` internally, so no setup is needed.
+
+#### ✅ Controlled usage
+
+\`\`\`tsx
+const [date, setDate] = useState(dayjs());
+
+<DatePicker
+  label="Start date"
+  value={date}
+  onChange={setDate}
+/>
+\`\`\`
+
+#### ✅ With date limits
+
+\`\`\`tsx
+<DatePicker
+  value={date}
+  onChange={setDate}
+  minDate={dayjs().subtract(7, "day")}
+  maxDate={dayjs().add(7, "day")}
+/>
+\`\`\`
+`,
       },
     },
   },
-};
+  decorators: [(Story) => <Box sx={{ maxWidth: 300, mx: "auto" }}>{Story()}</Box>],
+} satisfies Meta<typeof DatePicker>;
 
 export default meta;
-
 type Story = StoryObj<typeof DatePicker>;
 
-export const WithMinMax: Story = {
-  render: () => {
-    const [date, setDate] = useState<Dayjs | null>(dayjs());
-    const minDate = dayjs().subtract(5, "day");
-    const maxDate = dayjs().add(10, "day");
+// ⏱ Controlled example
+const RenderDatePicker = ({ ...args }) => {
+  const [date, setDate] = useState<Dayjs | null>(dayjs());
 
-    return (
-      <DatePicker
-        label="Choose within range"
-        value={date}
-        onChange={setDate}
-        minDate={minDate}
-        maxDate={maxDate}
-        helperText={`Between ${minDate.format("DD/MM")} and ${maxDate.format("DD/MM")}`}
-      />
-    );
+  return <DatePicker value={date} onChange={setDate} {...args} />;
+};
+
+export const Default: Story = {
+  render: (args) => <RenderDatePicker {...args} />,
+  args: {
+    label: "Pick a date",
+  },
+};
+
+export const WithMinMax: Story = {
+  render: (args) => <RenderDatePicker {...args} />,
+  args: {
+    label: "Restricted range",
+    minDate: dayjs().subtract(5, "day"),
+    maxDate: dayjs().add(5, "day"),
+    helperText: "You can only select dates within ±5 days",
+  },
+};
+
+export const ErrorState: Story = {
+  render: (args) => <RenderDatePicker {...args} />,
+  args: {
+    label: "Required",
+    error: true,
+    helperText: "Please select a valid date",
   },
 };
