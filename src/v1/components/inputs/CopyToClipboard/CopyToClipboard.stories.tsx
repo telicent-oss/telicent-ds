@@ -60,6 +60,16 @@ export const Default: Story = {
   },
 };
 
+export const WithPrimayStyle: Story = {
+  args: {
+    text: "this is a default example string",
+    title: "Copy to clipboard",
+    ariaLabel: "Copy to clipboard button",
+    variant: "primary",
+    sx: { color: "white" },
+  },
+};
+
 export const WithCustomColour: Story = {
   args: {
     text: "this is a white color example string",

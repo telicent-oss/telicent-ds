@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
-import Button from "../Button/Button";
+import Button, { ButtonProps } from "../Button/Button";
 import { FlexBox, useExtendedTheme } from "../../../../export";
-import { ButtonProps, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 export type CopyToClipboardProps = ButtonProps & {
   text: string;
   title?: string;
   ariaLabel?: string;
   testFailure?: boolean;
+  variant?: "link" | "text" | "noStyle" | "primary" | "secondary" | "tertiary" | undefined;
 };
 
 const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
@@ -18,6 +19,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   title = "copy to clipboard",
   ariaLabel = "copy to clipboard",
   testFailure = false,
+  variant = "noStyle",
   sx,
 }) => {
   const [icon, setIcon] = useState(faCopy);
@@ -47,7 +49,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   return (
     <FlexBox direction="row" spacing={1} alignItems="flex-start">
       <Button
-        variant="noStyle"
+        variant={variant}
         onClick={handleClick}
         disableRipple
         title={title}
