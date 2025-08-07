@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.31.0](https://github.com/telicent-oss/telicent-ds/compare/v0.30.2...v0.31.0) (2025-08-07)
+
+
+### Features
+
+* add copy to clipboard button ([#298](https://github.com/telicent-oss/telicent-ds/issues/298)) ([7473baf](https://github.com/telicent-oss/telicent-ds/commit/7473baf54d7052a47e00813fa242640a4772cc88))
+
 ## [0.30.2](https://github.com/telicent-oss/telicent-ds/compare/v0.30.1...v0.30.2) (2025-07-28)
 
 
