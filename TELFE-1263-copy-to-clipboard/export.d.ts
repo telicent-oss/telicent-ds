@@ -6,7 +6,6 @@ import { BoxProps } from '@mui/material';
 import { BoxTypeMap } from '@mui/system';
 import { ButtonBaseProps } from '@mui/material';
 import { ButtonProps as ButtonProps_2 } from '@mui/material/Button';
-import { ButtonProps as ButtonProps_3 } from '@mui/material';
 import { ButtonTypeMap } from '@mui/material';
 import { CardHeaderProps } from '@mui/material/CardHeader';
 import { CardProps as CardProps_2 } from '@mui/material/Card';
@@ -316,11 +315,12 @@ declare interface ControlAreaProps extends Omit<BoxProps, 'position'> {
 
 export declare const CopyToClipboard: default_2.FC<CopyToClipboardProps>;
 
-declare type CopyToClipboardProps = ButtonProps_3 & {
+declare type CopyToClipboardProps = ButtonProps & {
     text: string;
     title?: string;
     ariaLabel?: string;
     testFailure?: boolean;
+    variant?: "link" | "text" | "noStyle" | "primary" | "secondary" | "tertiary" | undefined;
 };
 
 export declare const createApi: (baseURL?: string) => ApiFactory;
