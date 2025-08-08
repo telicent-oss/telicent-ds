@@ -42,7 +42,7 @@ const [value, setValue] = useState(dayjs());
       },
     },
   },
-  decorators: [(Story) => <Box sx={{ maxWidth: 320, mx: "auto" }}>{Story()}</Box>],
+  decorators: [(Story) => <Box sx={{ width: "100%", mx: "auto" }}>{Story()}</Box>],
 } satisfies Meta<typeof DateTimePicker>;
 
 export default meta;

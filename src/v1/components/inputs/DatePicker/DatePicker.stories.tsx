@@ -40,7 +40,7 @@ const [date, setDate] = useState(dayjs());
       },
     },
   },
-  decorators: [(Story) => <Box sx={{ maxWidth: 300, mx: "auto" }}>{Story()}</Box>],
+  decorators: [(Story) => <Box sx={{ width: "100%", mx: "auto" }}>{Story()}</Box>],
 } satisfies Meta<typeof DatePicker>;
 
 export default meta;
