@@ -36,16 +36,6 @@ const [value, setValue] = useState(dayjs());
 />
 \`\`\`
 
-#### ✅ With date-time limits
-
-\`\`\`tsx
-<DateTimePicker
-  value={value}
-  onChange={setValue}
-  minDateTime={dayjs().startOf("day")}
-  maxDateTime={dayjs().endOf("day")}
-/>
-\`\`\`
 `,
       },
     },
@@ -70,7 +60,17 @@ export const Default: Story = {
   },
 };
 
-export const WithMinMax: Story = {
+export const ErrorState: Story = {
+  render: (args) => <RenderDateTimePicker {...args} />,
+  args: {
+    label: "Required field",
+    error: true,
+    errorMsg: "Something went wrong",
+    helperText: "Date and time are required",
+  },
+};
+
+export const WithMinMaxDates: Story = {
   render: (args) => <RenderDateTimePicker {...args} />,
   args: {
     label: "Restricted time range",
@@ -78,13 +78,23 @@ export const WithMinMax: Story = {
     maxDateTime: dayjs().add(2, "day").endOf("day"),
     helperText: "Only available within the next 48 hours",
   },
-};
-
-export const ErrorState: Story = {
-  render: (args) => <RenderDateTimePicker {...args} />,
-  args: {
-    label: "Required field",
-    error: true,
-    helperText: "Date and time are required",
+  parameters: {
+    docs: {
+      description: {
+        story: `
+You can use dayjs to dynamicaly restrict the date and time range. If you have specific date you can do that by passing a string \`dayjs('2025-08-07T08:00')\`
+\`\`\`
+<DateTimePicker
+  value={value}
+  onChange={setValue}
+  label="Restricted time range"
+  minDateTime={dayjs().startOf("day")}
+  maxDateTime={dayjs().add(2, "day").endOf("day")}
+  helperText="Only available within the next 48 hours"
+/>
+\`\`\`
+`,
+      },
+    },
   },
 };

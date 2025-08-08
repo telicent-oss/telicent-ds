@@ -1,32 +1,36 @@
 import React from "react";
-import { DateTimePicker as MuiDateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import {
+  DateTimePicker as MuiDateTimePicker,
+  DateTimePickerProps as MUIDateTimePickerProps,
+} from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { TextField, TextFieldProps } from "@mui/material";
-import dayjs, { Dayjs } from "dayjs";
+import { SxProps, TextFieldProps } from "@mui/material";
+import { Dayjs } from "dayjs";
 
-export interface DateTimePickerProps {
-  label?: string;
-  value: Dayjs | null;
-  onChange: (value: Dayjs | null) => void;
-  disabled?: boolean;
-  error?: boolean;
-  helperText?: string;
+export type DateTimePickerProps = MUIDateTimePickerProps & {
+  sx?: SxProps;
   textFieldProps?: TextFieldProps;
+  helperText?: string;
+  fullWidth?: boolean;
   minDateTime?: Dayjs;
   maxDateTime?: Dayjs;
-}
+  errorMsg?: string;
+  error?: boolean;
+};
 
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
   label = "Select date & time",
   value,
   onChange,
   disabled = false,
-  error,
   helperText,
   textFieldProps = {},
   minDateTime,
   maxDateTime,
+  fullWidth,
+  errorMsg,
+  error = Boolean(errorMsg),
 }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -39,9 +43,9 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         maxDateTime={maxDateTime}
         slotProps={{
           textField: {
-            fullWidth: true,
+            fullWidth,
             error,
-            helperText,
+            helperText: error ? errorMsg : helperText,
             ...textFieldProps,
           },
         }}
