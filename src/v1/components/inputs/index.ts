@@ -6,5 +6,6 @@ export type { SelectProps } from "./Select/Select";
 export type { Options } from "./Select/Select";
 
 export { default as Checkbox } from "./Checkbox/Checkbox";
+export { default as CopyToClipboard } from "./CopyToClipboard/CopyToClipboard";
 
 export * from "./SearchBox";
