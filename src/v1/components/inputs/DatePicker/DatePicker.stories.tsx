@@ -16,13 +16,17 @@ A date-only input built on MUI's \`<DatePicker>\`, wrapped with our design-syste
 
 ---
 
+The value is controlled when its parent manages it by providing a value prop.
+
 ### When & How to use it
 
 Use this component when you need users to pick a **single calendar date**, with or without constraints. It is already wrapped in a \`LocalizationProvider\` internally, so no setup is needed.
 
-#### ✅ Controlled usage
+#### Controlled usage example
 
 \`\`\`tsx
+import dayjs from "dayjs";
+
 const [date, setDate] = useState(dayjs());
 
 <DatePicker
@@ -32,16 +36,6 @@ const [date, setDate] = useState(dayjs());
 />
 \`\`\`
 
-#### ✅ With date limits
-
-\`\`\`tsx
-<DatePicker
-  value={date}
-  onChange={setDate}
-  minDate={dayjs().subtract(7, "day")}
-  maxDate={dayjs().add(7, "day")}
-/>
-\`\`\`
 `,
       },
     },
@@ -66,7 +60,16 @@ export const Default: Story = {
   },
 };
 
-export const WithMinMax: Story = {
+export const ErrorState: Story = {
+  render: (args) => <RenderDatePicker {...args} />,
+  args: {
+    label: "Required",
+    errorMsg: "Oops, something went wrong with the validation",
+    helperText: "Please select a valid date",
+  },
+};
+
+export const WithDateRestrictions: Story = {
   render: (args) => <RenderDatePicker {...args} />,
   args: {
     label: "Restricted range",
@@ -74,13 +77,24 @@ export const WithMinMax: Story = {
     maxDate: dayjs().add(5, "day"),
     helperText: "You can only select dates within ±5 days",
   },
-};
+  parameters: {
+    docs: {
+      description: {
+        story: `
+You can use dayjs to dynamicaly restrict the date and time range. If you have specific date you can do that by passing a string \`dayjs('2025-08-07')\`
+\`\`\`
+<DatePicker
+  value={value}
+  onChange={setValue}
+  label="Restricted time range"
+  minDateTime={dayjs().subtract(5, "day")}
+  maxDateTime={dayjs().add(5, "day")}
+  helperText="You can only select dates within ±5 days"
+/>
+\`\`\`
 
-export const ErrorState: Story = {
-  render: (args) => <RenderDatePicker {...args} />,
-  args: {
-    label: "Required",
-    error: true,
-    helperText: "Please select a valid date",
+`,
+      },
+    },
   },
 };

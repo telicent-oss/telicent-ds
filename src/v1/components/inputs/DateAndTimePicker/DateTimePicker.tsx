@@ -5,11 +5,16 @@ import {
 } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { SxProps, TextFieldProps } from "@mui/material";
+import { TextFieldProps } from "@mui/material";
 import { Dayjs } from "dayjs";
 
+// Decided to expose `error` and `helperText` and related props directly on the component,
+// rather than requiring devs to use slotProps.textField.
+// This ensures consistency with the rest of our inputs (eg: textField, Select, Checkbox).
+// Developers familiar with MUI's pattern of accepting `error` and `helperText` directly will find this API intuitive and predictable,
+// reducing cognitive overhead and onboarding time.
+
 export type DateTimePickerProps = MUIDateTimePickerProps & {
-  sx?: SxProps;
   textFieldProps?: TextFieldProps;
   helperText?: string;
   fullWidth?: boolean;
@@ -23,7 +28,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   label = "Select date & time",
   value,
   onChange,
-  disabled = false,
   helperText,
   textFieldProps = {},
   minDateTime,
@@ -31,6 +35,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   fullWidth,
   errorMsg,
   error = Boolean(errorMsg),
+  ...rest
 }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -38,7 +43,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         label={label}
         value={value}
         onChange={onChange}
-        disabled={disabled}
         minDateTime={minDateTime}
         maxDateTime={maxDateTime}
         slotProps={{
@@ -49,6 +53,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
             ...textFieldProps,
           },
         }}
+        {...rest}
       />
     </LocalizationProvider>
   );

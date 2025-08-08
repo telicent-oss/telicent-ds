@@ -24,9 +24,11 @@ No need to wrap in a \`LocalizationProvider\` — it's already handled internall
 
 ---
 
-#### ✅ Controlled usage
+#### Controlled usage example
 
 \`\`\`tsx
+import dayjs, { Dayjs } from "dayjs";
+
 const [value, setValue] = useState(dayjs());
 
 <DateTimePicker
@@ -70,7 +72,7 @@ export const ErrorState: Story = {
   },
 };
 
-export const WithMinMaxDates: Story = {
+export const WithDateRestrictions: Story = {
   render: (args) => <RenderDateTimePicker {...args} />,
   args: {
     label: "Restricted time range",
