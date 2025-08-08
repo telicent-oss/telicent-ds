@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import MUIBox from "@mui/material/Box/Box";
+import MUIBox from "@mui/material/Box";
 
 import { ClockIcon, MapIcon } from "../../data-display";
 import { FloatingPanel, FloatingPanelContext } from "./index";
@@ -38,12 +38,7 @@ export const Demo: Story = {
           count={10}
           targetId="timeline"
         />
-        <FloatingPanel.DockItem
-          icon={<MapIcon fontSize="inherit" />}
-          label="Map"
-          count={6}
-          targetId="map"
-        />
+        <FloatingPanel.DockItem icon={<MapIcon fontSize="inherit" />} label="Map" count={6} targetId="map" />
       </>
     ),
   },

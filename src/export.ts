@@ -1,5 +1,5 @@
-import { IconButton, Button, Box  } from "@mui/material";
-export const mui = { IconButton, Button, Box }
+import { IconButton, Button, Box } from "@mui/material";
+export const mui = { IconButton, Button, Box };
 
 import "./main.css";
 
@@ -29,7 +29,6 @@ export * from "./candidate-packages/authorize-flow/broadcastChannelService";
 export * from "./candidate-packages/authorize-flow/useAuthSync";
 export * from "./candidate-packages/authorize-flow";
 export * from "./candidate-packages/preferred-label-lib";
-
 
 // PROPOSED @telicent-oss/utils-lib
 export {
