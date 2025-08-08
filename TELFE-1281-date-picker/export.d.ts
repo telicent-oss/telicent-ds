@@ -14,6 +14,7 @@ import { ChipProps as ChipProps_2 } from '@mui/material/Chip';
 import { ChipProps as ChipProps_3 } from '@mui/material';
 import { CircularProgressProps } from '@mui/material/CircularProgress';
 import { CircularProgressProps as CircularProgressProps_2 } from '@mui/material';
+import { DateTimePickerProps as DateTimePickerProps_2 } from '@mui/x-date-pickers/DateTimePicker';
 import { Dayjs } from 'dayjs';
 import { default as default_2 } from 'react';
 import { default as default_3 } from 'zod';
@@ -74,8 +75,8 @@ import { SkeletonTypeMap } from '@mui/material/Skeleton';
 import { StackProps } from '@mui/material/Stack';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
-import { SxProps } from '@mui/material/styles';
-import { SxProps as SxProps_2 } from '@mui/material';
+import { SxProps } from '@mui/material';
+import { SxProps as SxProps_2 } from '@mui/material/styles';
 import { TableBodyProps } from '@mui/material';
 import { TableCellProps as TableCellProps_2 } from '@mui/material';
 import { TableContainerProps as TableContainerProps_2 } from '@mui/material';
@@ -341,17 +342,16 @@ declare interface DatePickerProps {
 
 export declare const DateTimePicker: default_2.FC<DateTimePickerProps>;
 
-declare interface DateTimePickerProps {
-    label?: string;
-    value: Dayjs | null;
-    onChange: (value: Dayjs | null) => void;
-    disabled?: boolean;
-    error?: boolean;
-    helperText?: string;
+declare type DateTimePickerProps = DateTimePickerProps_2 & {
+    sx?: SxProps;
     textFieldProps?: TextFieldProps;
+    helperText?: string;
+    fullWidth?: boolean;
     minDateTime?: Dayjs;
     maxDateTime?: Dayjs;
-}
+    errorMsg?: string;
+    error?: boolean;
+};
 
 declare type DefaultOption = {
     label: string;
@@ -454,7 +454,7 @@ export declare interface DrawerController {
 
 declare interface DrawerPresentationalProps extends Omit<DrawerProps_2, "PaperProps">, default_2.HTMLAttributes<HTMLDivElement> {
     PaperProps?: DrawerProps_2["PaperProps"];
-    PaperSx?: SxProps<Theme>;
+    PaperSx?: SxProps_2<Theme>;
     drawerWidth?: number;
     children: ReactNode;
     onToggle?: default_2.MouseEventHandler<HTMLButtonElement>;
@@ -465,7 +465,7 @@ export declare interface DrawerProps extends Omit<DrawerPresentationalProps, "op
     /** (default: true) */
     initialOpen?: boolean;
     onVisibilityChange?: (open: boolean) => void;
-    PaperSx?: SxProps_2<Theme_2>;
+    PaperSx?: SxProps<Theme_2>;
 }
 
 export declare const DropdownButton: default_2.FC<DropdownButtonProps>;
@@ -513,7 +513,7 @@ export declare const ErrorFallbackWrapper: default_2.FC<ErrorFallbackWrapperProp
 export declare type ErrorFallbackWrapperProps = {
     children: default_2.ReactNode;
     height?: number | string;
-    sx?: SxProps_2<Theme_2>;
+    sx?: SxProps<Theme_2>;
 };
 
 export declare const FeatureMap: default_2.FC<FeatureMapProps>;
