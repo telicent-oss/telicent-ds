@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn, userEvent, within } from "@storybook/test";
 
-import Button from "../../inputs/Button/Button";
+import Button from "../../buttons/Button/Button";
 import { Text } from "../../data-display/Text/Text";
 import PopOver from "./Popover";
 
@@ -23,9 +23,7 @@ export const Demo: Story = {
     open: false,
   },
   render: (args) => {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-      null
-    );
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);

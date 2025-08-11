@@ -4,7 +4,7 @@ import { Box, Button } from "@mui/material";
 import { Drawer, DrawerProps } from "./Drawer";
 import { DrawerPresentational } from "../primitives/DrawerPresentational";
 import { useDrawer, DrawerController } from "../primitives/useDrawer";
-import PrimaryButton from "../../../v1/components/inputs/Button/PrimaryButton";
+import PrimaryButton from "../../../v1/components/buttons/Button/PrimaryButton";
 
 const meta: Meta<typeof Drawer> = {
   title: "Component Library/Drawer",
@@ -100,9 +100,7 @@ export const ImperativeApi: Story = {
         <PrimaryButton onClick={onToggle}>Toggle Drawer</PrimaryButton>
 
         <DrawerPresentational {...drawerPropsNoToggle}>
-          <Box p={2}>
-            Chevron hidden: onClick unset, so clicking does nothing
-          </Box>
+          <Box p={2}>Chevron hidden: onClick unset, so clicking does nothing</Box>
         </DrawerPresentational>
       </>
     );

@@ -12,14 +12,14 @@ const generateButtonOverrides = (uiTheme: UITheme) =>
           border: `1px solid #CFD8DC`,
           boxShadow: theme.shadows[2],
         }),
-        outlinedPrimary: ({ theme }) => ({
-          border: `1px solid ${theme.palette.primary.main}`,
-          backgroundColor: theme.palette.secondary.main,
-          ":hover": {
-            backgroundColor:
-              `${THEME_COLORS[uiTheme][100]}`,
-          },
-        }),
+        // outlinedPrimary: ({ theme }) => ({
+        //   border: `1px solid ${theme.palette.primary.main}`,
+        //   backgroundColor: theme.palette.secondary.main,
+        //   ":hover": {
+        //     backgroundColor:
+        //       `${THEME_COLORS[uiTheme][100]}`,
+        //   },
+        // }),
         startIcon: {
           ">*:nth-last-of-type(1)": {
             fontSize: "inherit",

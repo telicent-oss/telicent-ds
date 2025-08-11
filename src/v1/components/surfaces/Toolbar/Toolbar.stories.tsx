@@ -6,12 +6,11 @@ import { fn } from "@storybook/test";
 import Toolbar from "./Toolbar";
 import MiniSearchBox from "../../inputs/SearchBox/MiniSearchBox";
 import { FlexBox } from "../../layout";
-import Button from "../../inputs/Button/Button";
+import Button from "../../buttons/Button/Button";
 import FloppyDiskIcon from "../../data-display/Icons/FloppyDiskIcon";
 import DownArrowIcon from "../../data-display/FontAwesomeIcons/DownArrowIcon";
 import TooltipToggleButton from "../../inputs/TooltipToggleButton";
 import { Divider } from "../../data-display";
-
 
 const meta: Meta<typeof Toolbar> = {
   title: "Surfaces/Toolbar",
@@ -28,7 +27,6 @@ export const Example: Story = {
         <MiniSearchBox />
 
         <FlexBox direction="row" alignItems="center" gap={1}>
-
           <TooltipToggleButton
             size="small"
             value="more-actions"
@@ -44,16 +42,9 @@ export const Example: Story = {
           </Button>
           <Divider orientation="vertical" flexItem />
 
-          <Button
-            color="inherit"
-            variant="text"
-            endIcon={<FloppyDiskIcon />}
-            onClick={() => fn()}
-            sx={{ ml: 1 }}
-          >
+          <Button color="inherit" variant="text" endIcon={<FloppyDiskIcon />} onClick={() => fn()} sx={{ ml: 1 }}>
             Save
           </Button>
-
         </FlexBox>
       </FlexBox>
     ),

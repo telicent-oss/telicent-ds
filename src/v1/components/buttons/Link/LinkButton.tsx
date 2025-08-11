@@ -5,7 +5,7 @@ import { useTheme } from "@mui/material/styles";
 
 type LinkButtonProps = Omit<MUIButtonProps, "variant" | "color">;
 
-const LinkButton = forwardRef<HTMLButtonElement, LinkButtonProps>((buttonProps, ref) => {
+const Link = forwardRef<HTMLButtonElement, LinkButtonProps>((buttonProps, ref) => {
   const theme = useTheme();
 
   return (
@@ -46,4 +46,4 @@ const LinkButton = forwardRef<HTMLButtonElement, LinkButtonProps>((buttonProps, 
   );
 });
 
-export default LinkButton;
+export default Link;

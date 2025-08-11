@@ -1,31 +1,18 @@
 import React, { useState } from "react";
-import MUICircularProgress, {
-  CircularProgressProps as MUICircularProgressProps,
-} from "@mui/material/CircularProgress";
+import MUICircularProgress, { CircularProgressProps as MUICircularProgressProps } from "@mui/material/CircularProgress";
 import OutlinedInput from "@mui/material/OutlinedInput";
 
 import { DownArrowIcon, SearchIcon } from "../../data-display";
 import { FlexBox } from "../../layout";
-import IconButton from "../Button/IconButton";
+import IconButton from "../../buttons/Button/IconButton";
 
 export interface ProgressProps
-  extends Omit<
-    MUICircularProgressProps,
-    "classes" | "color" | "size" | "sx" | "thickness"
-  > {}
+  extends Omit<MUICircularProgressProps, "classes" | "color" | "size" | "sx" | "thickness"> {}
 
 export interface SearchInputBaseProps
   extends Omit<
     React.HTMLAttributes<HTMLDivElement>,
-    | "children"
-    | "color"
-    | "defaultValue"
-    | "onBlur"
-    | "onChange"
-    | "onFocus"
-    | "onInvalid"
-    | "onKeyDown"
-    | "onKeyUp"
+    "children" | "color" | "defaultValue" | "onBlur" | "onChange" | "onFocus" | "onInvalid" | "onKeyDown" | "onKeyUp"
   > {
   /**
    * If `true`, the `input` element is focused during the first mount.
@@ -92,9 +79,7 @@ export interface SearchInputBaseProps
   /**
    * `(event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => void;`
    */
-  onKeyDown?: React.KeyboardEventHandler<
-    HTMLTextAreaElement | HTMLInputElement
-  >;
+  onKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   /**
    * `(event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => void;`
    */
@@ -149,22 +134,11 @@ export interface MiniSearchBoxProps extends SearchInputBaseProps {
 
 // NOTE: Not being exported, use MiniSearchAutocomplete instead
 const MiniSearchBox = (props: MiniSearchBoxProps) => {
-  const {
-    loading = false,
-    endIcon,
-    onSearch,
-    onTogglePopOver,
-    onFocus,
-    onBlur,
-    progressProps,
-    ...inputProps
-  } = props;
+  const { loading = false, endIcon, onSearch, onTogglePopOver, onFocus, onBlur, progressProps, ...inputProps } = props;
 
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleOnFocus = (
-    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleOnFocus = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setIsFocused(true);
 
     if (onFocus) {
@@ -172,9 +146,7 @@ const MiniSearchBox = (props: MiniSearchBoxProps) => {
     }
   };
 
-  const handleOnBlur = (
-    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleOnBlur = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setIsFocused(false);
 
     if (onBlur) {
@@ -190,18 +162,9 @@ const MiniSearchBox = (props: MiniSearchBoxProps) => {
         <>
           <FlexBox direction="row" spacing={0.5}>
             {loading ? (
-              <MUICircularProgress
-                color={isFocused ? "primary" : "inherit"}
-                size="20px"
-                {...progressProps}
-              />
+              <MUICircularProgress color={isFocused ? "primary" : "inherit"} size="20px" {...progressProps} />
             ) : (
-              <IconButton
-                size="small"
-                onClick={onSearch}
-                color={isFocused ? "primary" : undefined}
-                aria-label="search"
-              >
+              <IconButton size="small" onClick={onSearch} color={isFocused ? "primary" : undefined} aria-label="search">
                 <SearchIcon fontSize="inherit" />
               </IconButton>
             )}

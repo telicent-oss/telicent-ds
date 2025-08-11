@@ -1,15 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import {
-  PopOver,
-  FlexGrid,
-  FlexGridItem,
-  Button,
-  Text,
-  useExtendedTheme,
-  ButtonProps,
-} from "../../../../../export";
+import { PopOver, FlexGrid, FlexGridItem, Button, Text, useExtendedTheme, ButtonProps } from "../../../../../export";
 import { Image } from "../primitives/Image";
 import { PopOverProps } from "../../../../../v1/components/surfaces/PopOver/Popover";
 
@@ -21,8 +13,7 @@ export interface LayerOption {
   label: string;
 }
 
-export interface PresentationalProps
-  extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
+export interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
   selectedIndex: number;
   data: LayerOption[];
   anchorEl: HTMLButtonElement | null;
@@ -31,9 +22,7 @@ export interface PresentationalProps
   onListItemClick: (index: number) => void;
 }
 
-export const LayerSelectorPresentationalButton: React.FC<
-  PresentationalProps
-> = ({
+export const LayerSelectorPresentationalButton: React.FC<PresentationalProps> = ({
   data,
   selectedIndex,
   anchorEl,
@@ -69,9 +58,13 @@ export const LayerSelectorPresentationalButton: React.FC<
   );
 };
 
-export const LayerSelectorPresentationalPopOver: React.FC<
-  PresentationalProps
-> = ({ data, selectedIndex, anchorEl, onCloseDropdown, onListItemClick }) => {
+export const LayerSelectorPresentationalPopOver: React.FC<PresentationalProps> = ({
+  data,
+  selectedIndex,
+  anchorEl,
+  onCloseDropdown,
+  onListItemClick,
+}) => {
   const extendedTheme = useExtendedTheme();
   const isOpen = Boolean(anchorEl);
   const id = isOpen ? "layer-selector-popover" : undefined;
@@ -100,14 +93,10 @@ export const LayerSelectorPresentationalPopOver: React.FC<
                 onClick={() => onListItemClick(index)}
                 variant="text"
                 key={item.label}
-                style={{ width: "100%", justifyContent: "flex-start" }}
+                sx={{ width: "100%", justifyContent: "flex-start" }}
               >
                 <Image
-                  borderColor={
-                    index === selectedIndex
-                      ? extendedTheme.palette.primary.main
-                      : "transparent"
-                  }
+                  borderColor={index === selectedIndex ? extendedTheme.palette.primary.main : "transparent"}
                   src={item.image}
                   alt={item.label}
                   title={item.label}

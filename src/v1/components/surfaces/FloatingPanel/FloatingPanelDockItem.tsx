@@ -4,7 +4,7 @@ import MUIListItem from "@mui/material/ListItem";
 import MUIListItemButton from "@mui/material/ListItemButton";
 import MUIListItemText from "@mui/material/ListItemText";
 
-import IconButton from "../../inputs/Button/IconButton";
+import IconButton from "../../buttons/Button/IconButton";
 import { CloseIcon, DownArrowIcon } from "../../data-display";
 import { useFloatingPanelContext } from "./useFloatingPanelContext";
 
@@ -27,24 +27,12 @@ interface FloatingPanelItemProps extends HTMLAttributes<HTMLLIElement> {
   count?: number;
 }
 
-const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
-  count = 0,
-  label,
-  icon,
-  targetId,
-  ...props
-}) => {
+const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({ count = 0, label, icon, targetId, ...props }) => {
   const theme = useTheme();
   const context = useFloatingPanelContext();
-  const visible =
-    (context.panels[targetId]?.minimised &&
-      context.panels[targetId]?.visible) ||
-    false;
+  const visible = (context.panels[targetId]?.minimised && context.panels[targetId]?.visible) || false;
 
-  const backgroundColor =
-    theme.palette.mode === "dark"
-      ? theme.palette.grey[900]
-      : theme.palette.grey[300];
+  const backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : theme.palette.grey[300];
 
   return (
     <MUIListItem
@@ -69,16 +57,11 @@ const FloatingPanelItem: React.FC<FloatingPanelItemProps> = ({
           sx={{
             marginLeft: 1,
             whiteSpace: "nowrap",
-            color:
-              theme.palette.mode === "dark"
-                ? theme.palette.common.white
-                : theme.palette.common.black,
+            color: theme.palette.mode === "dark" ? theme.palette.common.white : theme.palette.common.black,
           }}
         >
           {label}
-          {count > 0 ? (
-            <span css={{ color: theme.palette.primary.main }}> ({count})</span>
-          ) : null}
+          {count > 0 ? <span css={{ color: theme.palette.primary.main }}> ({count})</span> : null}
         </MUIListItemText>
       </MUIListItemButton>
     </MUIListItem>

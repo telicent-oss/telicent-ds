@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import UserProfileContent from "./UserProfileContent";
 import FlexBox from "../../../layout/FlexBox";
 import { Text } from "../../Text/Text";
-import Button from "../../../inputs/Button/Button";
+import Button from "../../../buttons/Button/Button";
 
 const meta = {
   title: "Data display/User profile/User profile content",
@@ -63,7 +63,7 @@ export const WithActions: Story = {
           </FlexBox>
         ))}
         <FlexBox direction="row" columnGap={2} justifyContent="end">
-          <Button variant="secondary" disableElevation>
+          <Button variant="outlined" color="primary" disableElevation>
             Action
           </Button>
           <Button disableElevation>Action</Button>

@@ -14,6 +14,7 @@ export { default as useExtendedTheme } from "./hooks/useExtendedTheme";
 export * from "./v1/components/data-display";
 export * from "./v1/components/feedback";
 export * from "./v1/components/inputs";
+export * from "./v1/components/buttons";
 export * from "./v1/components/layout";
 export * from "./v1/components/surfaces";
 export * from "./v1/theme";

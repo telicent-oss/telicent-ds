@@ -4,7 +4,7 @@ import { fn, userEvent, within } from "@storybook/test";
 
 import MiniSearchBox from "./MiniSearchBox";
 import PopOver from "../../surfaces/PopOver/Popover";
-import IconButton from "../Button/IconButton";
+import IconButton from "../../buttons/Button/IconButton";
 import DownArrowIcon from "../../data-display/FontAwesomeIcons/DownArrowIcon";
 
 const meta = {
@@ -55,11 +55,7 @@ export const WithDownArrow: Story = {
           {...args}
           onTogglePopOver={openPopUp}
           endIcon={
-            <IconButton
-              size="small"
-              aria-label="toggle pop over"
-              onClick={openPopUp}
-            >
+            <IconButton size="small" aria-label="toggle pop over" onClick={openPopUp}>
               <DownArrowIcon rotation={showPopOver ? 180 : undefined} fontSize="inherit" />
             </IconButton>
           }

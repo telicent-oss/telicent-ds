@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import InputBase, { InputBaseProps } from "@mui/material/InputBase";
 
-import PrimaryButton from "../Button/PrimaryButton";
+import PrimaryButton from "../../buttons/Button/PrimaryButton";
 import { SearchIcon } from "../../data-display";
 
 export interface SearchBoxProps<Value = string> {
@@ -45,7 +45,7 @@ export interface SearchBoxProps<Value = string> {
    * The value of the input element, required for a controlled component.
    */
   value?: Value;
-};
+}
 
 const SearchBox: React.FC<SearchBoxProps> = ({
   autoFocus = false,
@@ -57,15 +57,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onChange,
   onSearch,
 }) => (
-  <Box
-    id="search-box"
-    height={44}
-    width={600}
-    display="flex"
-    alignItems="center"
-    component="form"
-    onSubmit={onSearch}
-  >
+  <Box id="search-box" height={44} width={600} display="flex" alignItems="center" component="form" onSubmit={onSearch}>
     <InputBase
       id="search-box-input"
       type="search"

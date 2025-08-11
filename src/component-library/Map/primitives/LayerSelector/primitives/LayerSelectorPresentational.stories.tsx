@@ -16,7 +16,7 @@ const sampleData: LayerOption[] = [
 const Presentational: React.FC<PresentationalProps> = (props) => {
   return (
     <div>
-      <LayerSelectorPresentationalButton variant="secondary" {...props} />
+      <LayerSelectorPresentationalButton color="secondary" variant="outlined" {...props} />
       <style>
         {`
           body {

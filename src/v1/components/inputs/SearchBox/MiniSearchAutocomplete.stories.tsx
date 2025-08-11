@@ -11,8 +11,9 @@ import {
   PlusCircleIcon,
   Text,
 } from "../../data-display";
-import IconButton from "../Button/IconButton";
-import ListItemText from "@mui/material/ListItemText";
+
+import IconButton from "../../buttons/Button/IconButton";
+import ListItemText from "@mui/material/ListItemText/ListItemText";
 import { FlexBox } from "../../layout";
 import PopOver from "../../surfaces/PopOver/Popover";
 import IESType from "../../data-display/IESType/IESType";

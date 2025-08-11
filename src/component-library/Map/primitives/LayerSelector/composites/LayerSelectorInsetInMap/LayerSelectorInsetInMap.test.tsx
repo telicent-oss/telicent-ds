@@ -82,7 +82,7 @@ describe("PresentationalButton snapshotdiff", () => {
         selectedIndex={1}
         anchorEl={{} as any}
         color="primary"
-        variant="primary"
+        variant="contained"
         sx={{ m: 1 }}
       />
     ).asFragment();
@@ -102,7 +102,7 @@ describe("PresentationalButton snapshotdiff", () => {
       +         color="primary"
                 id="layer-selector"
                 sx="[object Object]"
-      +         variant="primary"
+      +         variant="contained"
               >
                 <div
                   class="MuiBox-root css-1f388k3"

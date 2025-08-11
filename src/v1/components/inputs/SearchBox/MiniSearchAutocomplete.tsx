@@ -1,8 +1,6 @@
 import React, { forwardRef } from "react";
 import { styled } from "@mui/system";
-import useAutocomplete, {
-  UseAutocompleteProps,
-} from "@mui/material/useAutocomplete";
+import useAutocomplete, { UseAutocompleteProps } from "@mui/material/useAutocomplete";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MUICircularProgress from "@mui/material/CircularProgress";
 import MUIPopper from "@mui/material/Popper";
@@ -17,7 +15,7 @@ import { useTheme } from "@mui/material/styles";
 import { useForkRef } from "@mui/material/utils";
 
 import FlexBox from "../../layout/FlexBox";
-import IconButton from "../Button/IconButton";
+import IconButton from "../../buttons/Button/IconButton";
 import SearchIcon from "../../data-display/FontAwesomeIcons/SearchIcon";
 import { ProgressProps } from "./MiniSearchBox";
 
@@ -95,12 +93,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
   DisableClearable extends boolean = false,
   FreeSolo extends boolean = false
 >(
-  props: MiniSearchAutocompleteProps<
-    Value,
-    Multiple,
-    DisableClearable,
-    FreeSolo
-  >,
+  props: MiniSearchAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo>,
   ref: React.ForwardedRef<HTMLDivElement>
 ) {
   const {
@@ -166,17 +159,12 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
         placeholder={placeholder || "Search"}
       />
       {anchorEl && (
-        <MUIPopper
-          open={popupOpen}
-          anchorEl={anchorEl}
-          slots={{ root: StyledPopper }}
-        >
+        <MUIPopper open={popupOpen} anchorEl={anchorEl} slots={{ root: StyledPopper }}>
           {(groupedOptions as Value[]).length > 0 ? (
             <MUIPaper
               elevation={3}
               sx={{
-                backgroundColor:
-                  theme.palette.mode === "dark" ? "#2A2A2A" : "#eee",
+                backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#eee",
                 backgroundImage: "none",
                 width: 360,
                 padding: 2,
@@ -184,10 +172,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
               }}
             >
               <FlexBox rowGap={1}>
-                <MUIList
-                  sx={{ maxHeight: 400, overflow: "auto" }}
-                  {...getListboxProps()}
-                >
+                <MUIList sx={{ maxHeight: 400, overflow: "auto" }} {...getListboxProps()}>
                   {(groupedOptions as Value[]).map((option, index) => {
                     const optionProps = getOptionProps({
                       option,
@@ -201,19 +186,15 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
                     const { key, ...props } = optionProps;
                     return (
                       <MUIListItem key={`${key}-${index}`} disablePadding {...props}>
-                        <MUIListItemButton onClick={(event) => {
-                          if (onSearch) {
-                            onSearch(event)
-                          }
-                        }}>
-                          <FlexBox
-                            direction="row"
-                            columnGap={1}
-                            alignItems="center"
-                          >
-                            {option.isRecentSearch ? (
-                              <FontAwesomeIcon icon={faClockRotateLeft} />
-                            ) : null}
+                        <MUIListItemButton
+                          onClick={(event) => {
+                            if (onSearch) {
+                              onSearch(event);
+                            }
+                          }}
+                        >
+                          <FlexBox direction="row" columnGap={1} alignItems="center">
+                            {option.isRecentSearch ? <FontAwesomeIcon icon={faClockRotateLeft} /> : null}
                             <MUIListItemText primary={option.label} />
                           </FlexBox>
                         </MUIListItemButton>
@@ -231,7 +212,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
 });
 
 // preserve generic component signature so stories can still use `<MiniSearchAutocomplete<...>>`
-export default (MiniSearchAutocomplete as <
+export default MiniSearchAutocomplete as <
   Value extends AutocompleteOption = AutocompleteOption,
   Multiple extends boolean = false,
   DisableClearable extends boolean = false,
@@ -240,4 +221,4 @@ export default (MiniSearchAutocomplete as <
   props: MiniSearchAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo> & {
     ref?: React.Ref<HTMLDivElement>;
   }
-) => React.ReactElement | null);
+) => React.ReactElement | null;
