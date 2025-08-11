@@ -5,11 +5,26 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 
-// Decided to expose `error` and `helperText` and related props directly on the component,
-// rather than requiring devs to use slotProps.textField.
-// This ensures consistency with the rest of our inputs (eg: textField, Select, Checkbox).
-// Developers familiar with MUI's pattern of accepting `error` and `helperText` directly will find this API intuitive and predictable,
-// reducing cognitive overhead and onboarding time.
+/**
+ * ⚠️ DIVERGENCE:
+ * We’re intentionally breaking the “no API changes” guideline here.
+ *
+ * Background:
+ * This control isn’t a native MUI component, even though it comes from the @mui scope.
+ * Out of the box, the `x-date-pickers` API requires devs to wire validation through `slotProps.textField`,
+ * which is inconsistent with the rest of our MUI-like inputs.
+ *
+ * What:
+ * Exposed `error`, `helperText`, and related props directly on the component.
+ *
+ * Why:
+ * - Aligns this component’s API with other inputs in our DS (TextField, Select, Checkbox, etc.).
+ * - Matches MUI’s common pattern of accepting `error` and `helperText` at the top level, making it more intuitive.
+ * - Simplifies validation wiring, avoiding the need to engage with `slotProps.textField`.
+ * - Reduces cognitive overhead and onboarding time for developers familiar with MUI conventions.
+ *
+ * Approved by Ash & Vee.
+ */
 
 export type DatePickerProps = MuiDatePickerProps & {
   label?: string;
@@ -25,14 +40,10 @@ export type DatePickerProps = MuiDatePickerProps & {
 
 const DatePicker: React.FC<DatePickerProps> = ({
   label = "Select date",
-  value,
-  onChange,
   errorMsg,
-  error = Boolean(errorMsg),
   helperText,
+  error = Boolean(errorMsg),
   textFieldProps = {},
-  minDate,
-  maxDate,
   fullWidth = false,
   ...rest
 }) => {
@@ -40,10 +51,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MuiDatePicker
         label={label}
-        value={value}
-        onChange={onChange}
-        minDate={minDate}
-        maxDate={maxDate}
         slotProps={{
           textField: {
             fullWidth,
