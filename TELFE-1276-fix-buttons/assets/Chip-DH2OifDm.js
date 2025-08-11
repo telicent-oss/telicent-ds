@@ -1,0 +1,1 @@
+import{j as a}from"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import{C as i}from"./Chip-D8IxPV3x.js";const r=({variant:e="filled",...o})=>a(i,{variant:e,color:"primary",...o});r.__docgenInfo={description:"",methods:[],displayName:"Chip",props:{variant:{defaultValue:{value:'"filled"',computed:!1},required:!1}}};export{r as C};
