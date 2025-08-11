@@ -36,7 +36,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   const handleClick = async () => {
     try {
       if (testFailure) {
-        throw new Error("Something went wrong! As expected");
+        throw new Error("Simulated clipboard failure");
       }
       await navigator.clipboard.writeText(text);
       setOpen(true);
