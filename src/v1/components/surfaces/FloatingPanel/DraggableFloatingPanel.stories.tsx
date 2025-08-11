@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import MUIBox from "@mui/material/Box/Box";
+import MUIBox from "@mui/material/Box";
 
 import { FlexBox } from "../../layout";
 import { MapIcon } from "../../data-display";
@@ -42,12 +42,7 @@ export const Demo: Story = {
           loading="lazy"
           css={{ objectFit: "cover" }}
         />
-        <FlexBox
-          direction="row"
-          spacing={1}
-          paddingInline={1}
-          paddingBottom={1}
-        >
+        <FlexBox direction="row" spacing={1} paddingInline={1} paddingBottom={1}>
           <div
             css={{
               borderRadius: 4,
