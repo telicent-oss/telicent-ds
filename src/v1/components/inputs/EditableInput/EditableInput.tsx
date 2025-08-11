@@ -4,6 +4,7 @@ import { IconButton } from "../../buttons";
 import { faFloppyDisk, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FloppyDiskIcon } from "../../data-display";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FlexBox } from "../../layout";
 
 export type InputText = TextFieldProps & {
   value: string;
@@ -33,20 +34,20 @@ const EditableInput: React.FC<InputText> = ({ value, onSave, ...props }) => {
       {isEditing ? (
         <>
           <TextField value={tempValue ?? ""} onChange={(e) => setTempValue(e.target.value)} {...props} />
-          <IconButton onClick={handleCancel}>
+          <IconButton onClick={handleCancel} size="small">
             <FontAwesomeIcon icon={faXmark} />
           </IconButton>
-          <IconButton onClick={handleSave}>
+          <IconButton onClick={handleSave} size="small">
             <FontAwesomeIcon icon={faFloppyDisk} />
           </IconButton>
         </>
       ) : (
-        <>
+        <FlexBox justifyContent="center" direction="row" justifyItems="center">
           <Typography>{value}</Typography>
-          <IconButton onClick={handleEdit}>
-            <FontAwesomeIcon icon={faPencil} />
+          <IconButton onClick={handleEdit} size="small">
+            <FontAwesomeIcon icon={faPencil} size="sm" />
           </IconButton>
-        </>
+        </FlexBox>
       )}
     </Box>
   );
