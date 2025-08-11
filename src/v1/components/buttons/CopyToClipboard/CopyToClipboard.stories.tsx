@@ -93,18 +93,3 @@ export const Error: Story = {
     },
   },
 };
-
-export const Variants: Story = {
-  args: {
-    text: "This will fail",
-    color: "primary",
-    variant: "outlined",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "You can see below how the tooltip would render in case of an error.",
-      },
-    },
-  },
-};
