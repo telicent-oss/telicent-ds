@@ -14,6 +14,9 @@ import { ChipProps as ChipProps_2 } from '@mui/material/Chip';
 import { ChipProps as ChipProps_3 } from '@mui/material';
 import { CircularProgressProps } from '@mui/material/CircularProgress';
 import { CircularProgressProps as CircularProgressProps_2 } from '@mui/material';
+import { DatePickerProps as DatePickerProps_2 } from '@mui/x-date-pickers/DatePicker';
+import { DateTimePickerProps as DateTimePickerProps_2 } from '@mui/x-date-pickers/DateTimePicker';
+import { Dayjs } from 'dayjs';
 import { default as default_2 } from 'react';
 import { default as default_3 } from 'zod';
 import { DialogActionsProps } from '@mui/material';
@@ -28,7 +31,7 @@ import { FlattenedStyleType } from '@telicent-oss/ontologyservice';
 import { FlattenedStyleTypeForFindIcon } from '@telicent-oss/ontologyservice';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { ForwardedRef } from 'react';
-import { Grid2Props } from '@mui/material/Unstable_Grid2';
+import { GridProps } from '@mui/material/Grid';
 import { HTMLAttributes } from 'react';
 import { IconButtonProps } from '@mui/material/IconButton';
 import { IconButtonTypeMap } from '@mui/material';
@@ -334,6 +337,72 @@ export declare const DataServiceIcon: default_2.FC<SvgIconProps_2>;
 
 export declare const DataSetIcon: default_2.FC<SvgIconProps_2>;
 
+export declare const DatePicker: default_2.FC<DatePickerProps>;
+
+/**
+ * ⚠️ DIVERGENCE:
+ * We’re intentionally breaking the “no API changes” guideline here.
+ *
+ * Background:
+ * This control isn’t a native MUI component, even though it comes from the @mui scope.
+ * Out of the box, the `x-date-pickers` API requires devs to wire validation through `slotProps.textField`,
+ * which is inconsistent with the rest of our MUI-like inputs.
+ *
+ * What:
+ * Exposed `error`, `helperText`, and related props directly on the component.
+ *
+ * Why:
+ * - Aligns this component’s API with other inputs in our DS (TextField, Select, Checkbox, etc.).
+ * - Matches MUI’s common pattern of accepting `error` and `helperText` at the top level, making it more intuitive.
+ * - Simplifies validation wiring, avoiding the need to engage with `slotProps.textField`.
+ * - Reduces cognitive overhead and onboarding time for developers familiar with MUI conventions.
+ *
+ * Approved by Ash & Vee.
+ */
+declare type DatePickerProps = DatePickerProps_2 & {
+    label?: string;
+    value: Dayjs | null;
+    error?: boolean;
+    helperText?: string;
+    textFieldProps?: TextFieldProps;
+    minDate?: Dayjs;
+    maxDate?: Dayjs;
+    errorMsg?: String;
+    fullWidth?: boolean;
+};
+
+export declare const DateTimePicker: default_2.FC<DateTimePickerProps>;
+
+/**
+ * ⚠️ DIVERGENCE:
+ * We’re intentionally breaking the “no API changes” guideline here.
+ *
+ * Background:
+ * This control isn’t a native MUI component, even though it comes from the @mui scope.
+ * Out of the box, the `x-date-pickers` API requires devs to wire validation through `slotProps.textField`,
+ * which is inconsistent with the rest of our MUI-like inputs.
+ *
+ * What:
+ * Exposed `error`, `helperText`, and related props directly on the component.
+ *
+ * Why:
+ * - Aligns this component’s API with other inputs in our DS (TextField, Select, Checkbox, etc.).
+ * - Matches MUI’s common pattern of accepting `error` and `helperText` at the top level, making it more intuitive.
+ * - Simplifies validation wiring, avoiding the need to engage with `slotProps.textField`.
+ * - Reduces cognitive overhead and onboarding time for developers familiar with MUI conventions.
+ *
+ * Approved by Ash & Vee.
+ */
+declare type DateTimePickerProps = DateTimePickerProps_2 & {
+    textFieldProps?: TextFieldProps;
+    helperText?: string;
+    fullWidth?: boolean;
+    minDateTime?: Dayjs;
+    maxDateTime?: Dayjs;
+    errorMsg?: string;
+    error?: boolean;
+};
+
 declare type DefaultOption = {
     label: string;
 };
@@ -513,7 +582,7 @@ export declare const FlexGrid: default_2.FC<FlexGridProps>;
 
 export declare const FlexGridItem: default_2.FC<FlexGridProps>;
 
-declare type FlexGridProps = Omit<Grid2Props, "container" | "classes">;
+declare type FlexGridProps = Omit<GridProps, "container" | "classes">;
 
 export declare const FloatingPanel: {
     Dock: FC<FloatingPanelDockProps>;
