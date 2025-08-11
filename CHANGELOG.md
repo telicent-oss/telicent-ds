@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.30.2](https://github.com/telicent-oss/telicent-ds/compare/v0.30.1...v0.30.2) (2025-07-28)
+
+
+### Bug Fixes
+
+* **MapCanvas:** [TELFE-647] fitBounds() next tick & after re-layout ([#296](https://github.com/telicent-oss/telicent-ds/issues/296)) ([c68d6c5](https://github.com/telicent-oss/telicent-ds/commit/c68d6c5b341cd81249a068a85db5880f9552cb52))
+
 ## [0.30.1](https://github.com/telicent-oss/telicent-ds/compare/v0.30.0...v0.30.1) (2025-07-24)
 
 
