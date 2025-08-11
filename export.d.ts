@@ -87,7 +87,6 @@ import { TableRowProps as TableRowProps_2 } from '@mui/material';
 import { TabProps } from '@mui/material';
 import { TabsProps } from '@mui/material';
 import { TextFieldProps } from '@mui/material';
-import { TextFieldProps as TextFieldProps_2 } from '@mui/material/TextField';
 import { Theme } from '@mui/material/styles';
 import { Theme as Theme_2 } from '@mui/material';
 import { ToggleButtonProps } from '@mui/material/ToggleButton';
@@ -191,52 +190,9 @@ export declare function broadcastAuthEvent(event: AuthEvent): void;
 
 export declare const Button: default_2.ForwardRefExoticComponent<Omit<ButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
 
-export declare interface ButtonProps extends Omit<ButtonProps_2, "color" | "component" | "disableElevation" | "endIcon" | "fullWidth" | "href" | "size" | "startIcon" | "variant" | "classes"> {
-    /**
-     * The color of the component.
-     * @default 'primary'
-     */
-    color?: "primary" | "inherit";
-    /**
-     * The component used for the root node. Either a string to use a HTML element
-     * or a component.
-     */
-    component?: ButtonProps_2["component"];
-    /**
-     * If `true`, the component is disabled.
-     * @default false
-     */
-    disabled?: boolean;
-    /**
-     * If `true`, no elevation is used.
-     * @default false
-     */
-    disableElevation?: boolean;
-    /**
-     * Element placed after the children.
-     */
-    endIcon?: default_2.ReactNode;
-    /**
-     * If `true`, the button will take up the full width of its container.
-     * @default false
-     */
-    fullWidth?: boolean;
-    /**
-     * The size of the component.
-     * `small` is equivalent to the dense button styling.
-     * @default 'medium'
-     */
-    size?: ButtonProps_2["size"];
-    /**
-     * Element placed before the children.
-     */
-    startIcon?: default_2.ReactNode;
-    /**
-     * The variant to use.
-     * @default 'primary'
-     */
-    variant?: "primary" | "secondary" | "tertiary" | "link" | "text" | "noStyle";
-}
+export declare type ButtonProps = ButtonProps_2 & {
+    style?: "base";
+};
 
 export declare const ButtonZoomIn: default_2.FC<{
     onClick?: () => void;
@@ -320,10 +276,11 @@ export declare const CopyToClipboard: default_2.FC<CopyToClipboardProps>;
 
 declare type CopyToClipboardProps = ButtonProps & {
     text: string;
+    successMsg?: string;
     title?: string;
     ariaLabel?: string;
     testFailure?: boolean;
-    variant?: "link" | "text" | "noStyle" | "primary" | "secondary" | "tertiary" | undefined;
+    style?: String;
 };
 
 export declare const createApi: (baseURL?: string) => ApiFactory;
@@ -739,6 +696,10 @@ declare interface LicenseProps {
 }
 
 export declare const LinearProgress: default_2.FC<LinearProgressProps>;
+
+export declare const Link: default_2.ForwardRefExoticComponent<Omit<LinkButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
+
+declare type LinkButtonProps = Omit<ButtonProps_2, "variant" | "color">;
 
 export declare const List: default_2.FC<ListProps>;
 
@@ -2173,8 +2134,6 @@ declare interface TeliUserProfileProps extends Partial<TeliUserAvatarProps> {
 
 declare const Text_2: default_2.FC<TextProps>;
 export { Text_2 as Text }
-
-export declare const TextField: default_2.FC<TextFieldProps_2>;
 
 export declare type TextProps = BaseProps & Partial<{
     /**
