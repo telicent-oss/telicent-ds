@@ -20,6 +20,7 @@ By default, the icon inherits the app's primary color. However, this color can e
 - **Icon Feedback:** The button dynamically changes the icon from a copy icon to a checkmark once the content is successfully copied to the clipboard.
 - **Failure State:** This include a failure state that can be done by passing \`testFailure\` as a prop. 
 - **Custom Success Message:** use \`successMsg\` prop to define a custom messsage that will be displayed on the tooltip on success.
+
 ---
 
 ### When & How to use it
