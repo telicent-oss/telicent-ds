@@ -3,7 +3,7 @@ import { useState } from "react";
 import EditableTextField from "./EditableTextField";
 
 const meta: Meta<typeof EditableTextField> = {
-  title: "Inputs/EditableTextField",
+  title: "Inputs/Editable TextField",
   component: EditableTextField,
   tags: ["autodocs"],
   parameters: {
@@ -60,7 +60,7 @@ export const Basic: Story = {
   },
 };
 
-export const LongText: Story = {
+export const FullWidth: Story = {
   render: () => {
     const [value, setValue] = useState(
       "This is a longer paragraph of editable text that shows how the component handles more content. Edit me!"
@@ -83,5 +83,25 @@ export const CustomWidth: Story = {
     };
 
     return <EditableTextField value={value} onSave={handleChange} label="long input text" sx={{ width: "250px" }} />;
+  },
+};
+
+export const WithErrorText: Story = {
+  render: () => {
+    const [value, setValue] = useState("Edit me!");
+
+    const handleChange = (newValue: string) => {
+      setValue(newValue);
+    };
+
+    return (
+      <EditableTextField
+        value={value}
+        onSave={handleChange}
+        label="long input text"
+        error={true}
+        errorText="Something went wrong!"
+      />
+    );
   },
 };

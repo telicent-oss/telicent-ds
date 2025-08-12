@@ -9,9 +9,10 @@ import { FlexBox } from "../../layout";
 export type InputText = TextFieldProps & {
   value: string;
   onSave: (value: string) => void;
+  errorText?: string;
 };
 
-const EditableTextField: React.FC<InputText> = ({ value, onSave, ...props }) => {
+const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorText, helperText, ...props }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value || "");
 
@@ -33,7 +34,13 @@ const EditableTextField: React.FC<InputText> = ({ value, onSave, ...props }) => 
     <Box display="flex" alignItems="center" gap={1}>
       {isEditing ? (
         <>
-          <TextField value={tempValue ?? ""} onChange={(e) => setTempValue(e.target.value)} {...props} />
+          <TextField
+            value={tempValue ?? ""}
+            onChange={(e) => setTempValue(e.target.value)}
+            error={error}
+            helperText={error ? errorText : helperText}
+            {...props}
+          />
           <IconButton onClick={handleSave} size="small">
             <CheckIcon sx={{ color: "green" }} />
           </IconButton>
