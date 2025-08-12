@@ -33,8 +33,9 @@ const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorTex
   return (
     <Box display="flex" alignItems="center" gap={1}>
       {isEditing ? (
-        <>
+        <FlexBox direction="row" alignItems="center" gap={1}>
           <TextField
+            autoFocus
             value={tempValue ?? ""}
             onChange={(e) => setTempValue(e.target.value)}
             error={error}
@@ -42,12 +43,12 @@ const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorTex
             {...props}
           />
           <IconButton onClick={handleSave} size="small">
-            <CheckIcon sx={{ color: "green" }} />
+            <CheckIcon sx={{ color: "green", lineHeight: "inherit" }} />
           </IconButton>
           <IconButton onClick={handleCancel} size="small">
-            <ClearIcon sx={{ color: "red" }} />
+            <ClearIcon sx={{ color: "red", lineHeight: "inherit" }} />
           </IconButton>
-        </>
+        </FlexBox>
       ) : (
         <FlexBox direction="row" alignItems="center" gap={1}>
           <Typography>{value}</Typography>
