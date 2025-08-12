@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import EditableInput from "./EditableInput";
+import EditableTextField from "./EditableTextField";
 
-const meta: Meta<typeof EditableInput> = {
-  title: "Inputs/EditableInput",
-  component: EditableInput,
+const meta: Meta<typeof EditableTextField> = {
+  title: "Inputs/EditableTextField",
+  component: EditableTextField,
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -40,7 +40,7 @@ A text display that can seamlessly switch between **read-only** and **edit** mod
 \`\`\`tsx
  const [value, setValue] = useState("");
 
-<EditableInput value={value} onSave={setValue} label="test input" />
+<EditableTextField value={value} onSave={setValue} label="test input" />
 \`\`\`
         `,
       },
@@ -50,13 +50,13 @@ A text display that can seamlessly switch between **read-only** and **edit** mod
 
 export default meta;
 
-type Story = StoryObj<typeof EditableInput>;
+type Story = StoryObj<typeof EditableTextField>;
 
 export const Basic: Story = {
   render: () => {
     const [value, setValue] = useState("Click the pencil to edit");
 
-    return <EditableInput value={value} onSave={setValue} label="test input" />;
+    return <EditableTextField value={value} onSave={setValue} label="test input" />;
   },
 };
 
@@ -70,7 +70,7 @@ export const LongText: Story = {
       setValue(newValue);
     };
 
-    return <EditableInput value={value} onSave={handleChange} label="long input text" fullWidth />;
+    return <EditableTextField value={value} onSave={handleChange} label="long input text" fullWidth />;
   },
 };
 
@@ -82,6 +82,6 @@ export const CustomWidth: Story = {
       setValue(newValue);
     };
 
-    return <EditableInput value={value} onSave={handleChange} label="long input text" sx={{ width: "250px" }} />;
+    return <EditableTextField value={value} onSave={handleChange} label="long input text" sx={{ width: "250px" }} />;
   },
 };

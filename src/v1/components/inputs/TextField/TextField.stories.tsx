@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import TextField from "./TextField";
 
 const meta: Meta<typeof TextField> = {
-  title: "Inputs/Input Text",
+  title: "Inputs/Text Field",
   component: TextField,
   tags: ["autodocs"],
   argTypes: {

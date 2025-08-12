@@ -11,7 +11,7 @@ export type InputText = TextFieldProps & {
   onSave: (value: string) => void;
 };
 
-const EditableInput: React.FC<InputText> = ({ value, onSave, ...props }) => {
+const EditableTextField: React.FC<InputText> = ({ value, onSave, ...props }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value || "");
 
@@ -53,4 +53,4 @@ const EditableInput: React.FC<InputText> = ({ value, onSave, ...props }) => {
   );
 };
 
-export default EditableInput;
+export default EditableTextField;
