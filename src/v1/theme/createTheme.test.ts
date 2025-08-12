@@ -16,10 +16,7 @@ test("tmp theme diffs via unified patches", () => {
     isDarkSet.map((isDark) => {
       asMock(mockCreateMuiTheme).mockClear();
       createTheme(name, isDark, true);
-      return [
-        `${name} (${isDark ? "light" : "dark"})`,
-        asMock(mockCreateMuiTheme).mock.calls[0][0],
-      ];
+      return [`${name} (${isDark ? "light" : "dark"})`, asMock(mockCreateMuiTheme).mock.calls[0][0]];
     })
   );
 
@@ -28,13 +25,7 @@ test("tmp theme diffs via unified patches", () => {
   const report = pairs
     .slice(1)
     .map(([name, opts], idx) => {
-      const patch = createPatch(
-        `${idx}`,
-        baseOptsStr,
-        JSON.stringify(opts, null, 2),
-        baseName,
-        name
-      );
+      const patch = createPatch(`${idx}`, baseOptsStr, JSON.stringify(opts, null, 2), baseName, name);
       return patch;
     })
     .join("\n\n");
@@ -44,7 +35,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -78,45 +78,25 @@
+    @@ -75,36 +75,20 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -112,7 +103,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -80,12 +80,12 @@
+    @@ -77,12 +77,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -146,7 +137,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -78,45 +78,25 @@
+    @@ -75,36 +75,20 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -218,7 +209,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -80,12 +80,12 @@
+    @@ -77,12 +77,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -252,7 +243,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -78,45 +78,25 @@
+    @@ -75,36 +75,20 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -324,7 +315,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -80,12 +80,12 @@
+    @@ -77,12 +77,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -358,7 +349,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -78,45 +78,25 @@
+    @@ -75,36 +75,20 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -430,7 +421,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -80,11 +80,11 @@
+    @@ -77,11 +77,11 @@
        },
        "palette": {
          "mode": "dark",
@@ -462,7 +453,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -78,45 +78,25 @@
+    @@ -75,36 +75,20 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },

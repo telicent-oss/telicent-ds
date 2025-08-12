@@ -5,6 +5,7 @@ import { FeatureCollection, Feature } from "geojson";
 import { ResultMarker } from "../ResultsMarkers/ResultsMarkers";
 import { calculateBounds } from "../../utils/helper/helper";
 import { LngLatBounds } from "maplibre-gl";
+import debounce from "lodash.debounce";
 
 export function useMapCanvas(params: {
   markers: ResultMarker[];
@@ -20,34 +21,51 @@ export function useMapCanvas(params: {
     setCursor("auto");
   };
 
-  const fitMarkerAndPolygonBounds = () => {
-    if (!mapRef.current || (geoPolygons.features.length < 1 && markers.length < 1)) return;
-    const map = mapRef.current;
+  const fitMarkerAndPolygonBounds = debounce(
+    () => {
+      if (
+        !mapRef.current ||
+        (geoPolygons.features.length < 1 && markers.length < 1)
+      )
+        return;
+      const map = mapRef.current;
 
-    let bounds: LngLatBounds;
-    if (selected.length < 1) {
-      bounds = calculateBounds(markers, geoPolygons.features);
-    } else {
-      const selectedMarkers = markers
-        .reduce((acc, marker) => {
-          if (selected.find(s => marker.uri === s)) {
-            acc.push(marker)
+      let bounds: LngLatBounds;
+      if (selected.length < 1) {
+        bounds = calculateBounds(markers, geoPolygons.features);
+      } else {
+        const selectedMarkers = markers.reduce((acc, marker) => {
+          if (selected.find((s) => marker.uri === s)) {
+            acc.push(marker);
           }
-          return acc
-        }, [] as ResultMarker[])
+          return acc;
+        }, [] as ResultMarker[]);
 
-      const selectedPolygons = geoPolygons.features.reduce((acc, polygon) => {
-        if (selected.find(s => polygon.properties?.iso3166_a3.endsWith(s.split("#")[1]))) {
-          acc.push(polygon)
-        }
-        return acc
-      }, [] as Feature[])
+        const selectedPolygons = geoPolygons.features.reduce((acc, polygon) => {
+          if (
+            selected.find((s) =>
+              polygon.properties?.iso3166_a3.endsWith(s.split("#")[1])
+            )
+          ) {
+            acc.push(polygon);
+          }
+          return acc;
+        }, [] as Feature[]);
 
-      bounds = calculateBounds(selectedMarkers, selectedPolygons)
-    }
+        bounds = calculateBounds(selectedMarkers, selectedPolygons);
+      }
 
-    map.fitBounds(bounds, { padding: 20, maxZoom: 8, duration: 500, offset: offsetRef.current });
-  }
+      map.resize();
+      map.fitBounds(bounds, {
+        padding: 20,
+        maxZoom: 8,
+        duration: 500,
+        offset: offsetRef.current,
+      });
+    },
+    0,
+    { leading: false, trailing: true }
+  );
 
   useEffect(() => {
     fitMarkerAndPolygonBounds();
@@ -55,7 +73,7 @@ export function useMapCanvas(params: {
 
   const onLoad = () => {
     fitMarkerAndPolygonBounds();
-  }
+  };
 
   return {
     mapRef,
@@ -68,6 +86,6 @@ export function useMapCanvas(params: {
     setOffset: (off: [number, number]) => {
       offsetRef.current = off;
       fitMarkerAndPolygonBounds();
-    }
+    },
   };
 }
