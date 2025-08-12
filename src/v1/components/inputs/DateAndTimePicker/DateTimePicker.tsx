@@ -61,6 +61,20 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
           },
         }}
         {...rest}
+        sx={{
+          "& .MuiYearCalendar-root, & .MuiMonthCalendar-root": {
+            "&::-webkit-scrollbar": {
+              width: 8,
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#1976d2",
+              borderRadius: 4,
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "#f0f0f0",
+            },
+          },
+        }}
       />
     </LocalizationProvider>
   );
