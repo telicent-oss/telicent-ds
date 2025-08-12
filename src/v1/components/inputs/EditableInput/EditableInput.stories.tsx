@@ -10,15 +10,38 @@ const meta: Meta<typeof EditableInput> = {
     docs: {
       description: {
         component: `
-An input component that toggles between a static label and an editable text field.
+A text display that can seamlessly switch between **read-only** and **edit** modes, ideal for inline editing in forms, tables, or profile pages.  
 
-- Click the pencil icon to enter edit mode.
-- Type your new value.
-- Click the floppy disk icon to save.
+---
+
+**How it works:**
+1. In read-only mode, the current value is shown as text alongside an **edit** (pencil) icon.
+2. Click the pencil icon to switch to edit mode, revealing a standard MUI \`<TextField>\` pre-filled with the current value.
+3. Type your changes, then:
+   - Click the **check** icon to save, triggering the \`onSave\` callback.
+   - Click the **clear** icon to cancel and revert to the original value.
+
+---
+
+**Key Features:**
+- Fully controlled via the \`value\` and \`onSave\` props.
+- Inherits all standard MUI \`TextField\` props, allowing customization of width, placeholder, size, variant, and more.
+- Works with any parent state management — simply update the \`value\` in \`onSave\` to persist changes.
+
+---
 
 **Props:**
-- \`value: string\` — the current text
-- \`onChange: (value: string) => void\` — called when the user saves a new value
+- \`value: string\` — The current displayed text.
+- \`onSave: (value: string) => void\` — Called when the user saves a new value.
+- *(...plus all standard MUI \`TextFieldProps\`)*
+
+**Tip:** Pass \`sx\` or \`style\` to control width, max-width, or other layout properties.
+
+\`\`\`tsx
+ const [value, setValue] = useState("");
+
+<EditableInput value={value} onSave={setValue} label="test input" />
+\`\`\`
         `,
       },
     },
@@ -47,6 +70,18 @@ export const LongText: Story = {
       setValue(newValue);
     };
 
-    return <EditableInput value={value} onSave={handleChange} />;
+    return <EditableInput value={value} onSave={handleChange} label="long input text" fullWidth />;
+  },
+};
+
+export const CustomWidth: Story = {
+  render: () => {
+    const [value, setValue] = useState("Edit me!");
+
+    const handleChange = (newValue: string) => {
+      setValue(newValue);
+    };
+
+    return <EditableInput value={value} onSave={handleChange} label="long input text" sx={{ width: "250px" }} />;
   },
 };

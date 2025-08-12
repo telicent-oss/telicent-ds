@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
 import { Box, TextField, TextFieldProps, Typography } from "@mui/material";
 import { IconButton } from "../../buttons";
-import { faFloppyDisk, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FloppyDiskIcon } from "../../data-display";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EditIcon from "@mui/icons-material/Edit";
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 import { FlexBox } from "../../layout";
 
 export type InputText = TextFieldProps & {
@@ -34,18 +34,18 @@ const EditableInput: React.FC<InputText> = ({ value, onSave, ...props }) => {
       {isEditing ? (
         <>
           <TextField value={tempValue ?? ""} onChange={(e) => setTempValue(e.target.value)} {...props} />
-          <IconButton onClick={handleCancel} size="small">
-            <FontAwesomeIcon icon={faXmark} />
-          </IconButton>
           <IconButton onClick={handleSave} size="small">
-            <FontAwesomeIcon icon={faFloppyDisk} />
+            <CheckIcon sx={{ color: "green" }} />
+          </IconButton>
+          <IconButton onClick={handleCancel} size="small">
+            <ClearIcon sx={{ color: "red" }} />
           </IconButton>
         </>
       ) : (
-        <FlexBox justifyContent="center" direction="row" justifyItems="center">
+        <FlexBox direction="row" alignItems="center" gap={1}>
           <Typography>{value}</Typography>
           <IconButton onClick={handleEdit} size="small">
-            <FontAwesomeIcon icon={faPencil} size="sm" />
+            <EditIcon fontSize="inherit" />
           </IconButton>
         </FlexBox>
       )}
