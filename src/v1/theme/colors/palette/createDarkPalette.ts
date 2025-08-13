@@ -9,10 +9,10 @@ const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] =>
   merge(createLightPalette(uiTheme), {
     mode: "dark",
     primary: {
-      main: THEME_COLORS[uiTheme].main,
-      light: THEME_COLORS[uiTheme].light,
-      dark: THEME_COLORS[uiTheme].dark,
-      contrastText: THEME_COLORS[uiTheme].contrastText,
+      main: THEME_COLORS[uiTheme].primary.main,
+      light: THEME_COLORS[uiTheme].primary.light,
+      dark: THEME_COLORS[uiTheme].primary.dark,
+      contrastText: THEME_COLORS[uiTheme].primary.contrastText,
     },
     secondary: {
       main: "#8a8a8a",

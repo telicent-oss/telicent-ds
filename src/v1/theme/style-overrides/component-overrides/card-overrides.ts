@@ -10,7 +10,7 @@ const generateCardOverrides = (uiTheme: UITheme) =>
           style: {
             borderWidth: 1,
             borderStyle: "solid",
-            borderColor: alpha(THEME_COLORS[uiTheme][200], 0.4),
+            borderColor: alpha(THEME_COLORS[uiTheme].primary.main, 0.4),
           },
         },
       ],
