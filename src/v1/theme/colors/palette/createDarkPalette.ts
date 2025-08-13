@@ -1,18 +1,10 @@
 import { ThemeOptions } from "@mui/material";
-import { common } from "@mui/material/colors";
 import { grey } from "@mui/material/colors";
-import merge from "lodash.merge";
-import createLightPalette from "./createLightPalette";
 import THEME_COLORS, { UITheme } from "../theme-colors";
 
 const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] => ({
   mode: "dark",
-  primary: {
-    main: THEME_COLORS[uiTheme].primary.main,
-    light: THEME_COLORS[uiTheme].primary.light,
-    dark: THEME_COLORS[uiTheme].primary.dark,
-    contrastText: THEME_COLORS[uiTheme].primary.contrastText,
-  },
+  primary: THEME_COLORS[uiTheme].primary,
   secondary: {
     main: "#8a8a8a",
     light: "#A1A1A1",
