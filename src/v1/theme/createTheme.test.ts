@@ -53,8 +53,8 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
            "main": "#2F44CA",
-           "light": "rgba(47, 68, 202, 0.5)",
            "dark": "rgba(47, 68, 202, 0.7)",
+           "light": "rgba(47, 68, 202, 0.5)",
            "contrastText": "#FFFFFF"
          },
          "secondary": {
@@ -118,12 +118,12 @@ test("tmp theme diffs via unified patches", () => {
          "mode": "dark",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#F56AAA",
-    +      "light": "rgba(245, 106, 170, 0.5)",
     +      "dark": "rgba(245, 106, 170, 0.7)",
+    +      "light": "rgba(245, 106, 170, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
@@ -155,12 +155,12 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#F56AAA",
-    +      "light": "rgba(245, 106, 170, 0.5)",
     +      "dark": "rgba(245, 106, 170, 0.7)",
+    +      "light": "rgba(245, 106, 170, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
@@ -224,12 +224,12 @@ test("tmp theme diffs via unified patches", () => {
          "mode": "dark",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#F2A64B",
-    +      "light": "rgba(242, 166, 75, 0.5)",
     +      "dark": "rgba(242, 166, 75, 0.7)",
+    +      "light": "rgba(242, 166, 75, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
@@ -261,12 +261,12 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#F2A64B",
-    +      "light": "rgba(242, 166, 75, 0.5)",
     +      "dark": "rgba(242, 166, 75, 0.7)",
+    +      "light": "rgba(242, 166, 75, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
@@ -330,12 +330,12 @@ test("tmp theme diffs via unified patches", () => {
          "mode": "dark",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#20BCFA",
-    +      "light": "rgba(32, 188, 250, 0.5)",
     +      "dark": "rgba(32, 188, 250, 0.7)",
+    +      "light": "rgba(32, 188, 250, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
@@ -367,12 +367,12 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#20BCFA",
-    +      "light": "rgba(32, 188, 250, 0.5)",
     +      "dark": "rgba(32, 188, 250, 0.7)",
+    +      "light": "rgba(32, 188, 250, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
@@ -436,12 +436,12 @@ test("tmp theme diffs via unified patches", () => {
          "mode": "dark",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#000000",
-    +      "light": "rgba(0, 0, 0, 0.5)",
     +      "dark": "rgba(0, 0, 0, 0.7)",
+    +      "light": "rgba(0, 0, 0, 0.5)",
     +      "contrastText": "#fff"
          },
          "secondary": {
@@ -473,12 +473,12 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#000000",
-    +      "light": "rgba(0, 0, 0, 0.5)",
     +      "dark": "rgba(0, 0, 0, 0.7)",
+    +      "light": "rgba(0, 0, 0, 0.5)",
     +      "contrastText": "#fff"
          },
          "secondary": {
