@@ -77,7 +77,7 @@ const Swatch = ({ label, color }: { label: string; color: string }) => (
   </Box>
 );
 
-const ColorsGrouped = ({ onlyCore = false }: { onlyCore?: boolean }) => {
+const ColorViewer = ({ onlyCore = false }: { onlyCore?: boolean }) => {
   const { palette } = useTheme();
   const entries = collectEntries(palette);
   const grouped = groupByCategory(entries);
@@ -114,11 +114,11 @@ const ColorsGrouped = ({ onlyCore = false }: { onlyCore?: boolean }) => {
   );
 };
 
-type Story = StoryObj<typeof ColorsGrouped>;
+type Story = StoryObj<typeof ColorViewer>;
 
 export default {
-  title: "Theme/Colors (Grouped)",
-  component: ColorsGrouped,
+  title: "Theme/Color Viewer",
+  component: ColorViewer,
   argTypes: {
     onlyCore: {
       control: "boolean",
@@ -133,7 +133,7 @@ export default {
       },
     },
   },
-} as Meta<typeof ColorsGrouped>;
+} as Meta<typeof ColorViewer>;
 
 export const AllGroups: Story = {
   args: { onlyCore: false },

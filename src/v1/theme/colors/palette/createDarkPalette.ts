@@ -5,33 +5,32 @@ import merge from "lodash.merge";
 import createLightPalette from "./createLightPalette";
 import THEME_COLORS, { UITheme } from "../theme-colors";
 
-const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] =>
-  merge(createLightPalette(uiTheme), {
-    mode: "dark",
-    primary: {
-      main: THEME_COLORS[uiTheme].primary.main,
-      light: THEME_COLORS[uiTheme].primary.light,
-      dark: THEME_COLORS[uiTheme].primary.dark,
-      contrastText: THEME_COLORS[uiTheme].primary.contrastText,
-    },
-    secondary: {
-      main: "#8a8a8a",
-      light: "#A1A1A1",
-      dark: "#606060",
-      contrastText: "#FFFFFF",
-    },
-    text: {
-      primary: "#FFFFFF",
-      secondary: "rgba(255, 255, 255, 0.7)",
-      disabled: "#999999",
-    },
-    background: {
-      default: "#1D1D1D",
-      paper: "#252525",
-    },
-    grey: {
-      ...grey,
-    },
-  });
+const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] => ({
+  mode: "dark",
+  primary: {
+    main: THEME_COLORS[uiTheme].primary.main,
+    light: THEME_COLORS[uiTheme].primary.light,
+    dark: THEME_COLORS[uiTheme].primary.dark,
+    contrastText: THEME_COLORS[uiTheme].primary.contrastText,
+  },
+  secondary: {
+    main: "#8a8a8a",
+    light: "#A1A1A1",
+    dark: "#606060",
+    contrastText: "#FFFFFF",
+  },
+  text: {
+    primary: "#FFFFFF",
+    secondary: "rgba(255, 255, 255, 0.7)",
+    disabled: "#999999",
+  },
+  background: {
+    default: "#1D1D1D",
+    paper: "#252525",
+  },
+  grey: {
+    ...grey,
+  },
+});
 
 export default createDarkPalette;
