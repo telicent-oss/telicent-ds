@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -75,45 +75,25 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -55,7 +55,7 @@ test("tmp theme diffs via unified patches", () => {
            "main": "#2F44CA",
            "light": "rgba(47, 68, 202, 0.5)",
            "dark": "rgba(47, 68, 202, 0.7)",
-           "contrastText": "#fff"
+           "contrastText": "#FFFFFF"
          },
          "secondary": {
     -      "main": "#8a8a8a",
@@ -112,7 +112,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -77,12 +77,12 @@
+    @@ -80,12 +80,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -120,7 +120,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
-    -      "contrastText": "#fff"
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F56AAA",
     +      "light": "rgba(245, 106, 170, 0.5)",
     +      "dark": "rgba(245, 106, 170, 0.7)",
@@ -146,7 +146,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -75,45 +75,25 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -157,7 +157,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
-    -      "contrastText": "#fff"
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F56AAA",
     +      "light": "rgba(245, 106, 170, 0.5)",
     +      "dark": "rgba(245, 106, 170, 0.7)",
@@ -218,7 +218,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -77,12 +77,12 @@
+    @@ -80,12 +80,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -226,7 +226,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
-    -      "contrastText": "#fff"
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F2A64B",
     +      "light": "rgba(242, 166, 75, 0.5)",
     +      "dark": "rgba(242, 166, 75, 0.7)",
@@ -252,7 +252,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -75,45 +75,25 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -263,7 +263,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
-    -      "contrastText": "#fff"
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F2A64B",
     +      "light": "rgba(242, 166, 75, 0.5)",
     +      "dark": "rgba(242, 166, 75, 0.7)",
@@ -324,7 +324,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -77,12 +77,12 @@
+    @@ -80,12 +80,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -332,7 +332,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
-    -      "contrastText": "#fff"
+    -      "contrastText": "#FFFFFF"
     +      "main": "#20BCFA",
     +      "light": "rgba(32, 188, 250, 0.5)",
     +      "dark": "rgba(32, 188, 250, 0.7)",
@@ -358,7 +358,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -75,45 +75,25 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -369,7 +369,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
-    -      "contrastText": "#fff"
+    -      "contrastText": "#FFFFFF"
     +      "main": "#20BCFA",
     +      "light": "rgba(32, 188, 250, 0.5)",
     +      "dark": "rgba(32, 188, 250, 0.7)",
@@ -430,7 +430,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -77,11 +77,11 @@
+    @@ -80,12 +80,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -438,13 +438,15 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#000000",
     +      "light": "rgba(0, 0, 0, 0.5)",
     +      "dark": "rgba(0, 0, 0, 0.7)",
-           "contrastText": "#fff"
+    +      "contrastText": "#fff"
          },
          "secondary": {
            "main": "#8a8a8a",
+           "light": "#A1A1A1",
 
 
     Index: 8
@@ -462,7 +464,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -75,45 +75,25 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -473,10 +475,11 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#000000",
     +      "light": "rgba(0, 0, 0, 0.5)",
     +      "dark": "rgba(0, 0, 0, 0.7)",
-           "contrastText": "#fff"
+    +      "contrastText": "#fff"
          },
          "secondary": {
     -      "main": "#8a8a8a",
