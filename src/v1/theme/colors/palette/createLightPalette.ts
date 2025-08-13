@@ -1,4 +1,3 @@
-import { common } from "@mui/material/colors";
 import { alpha, ThemeOptions } from "@mui/material/styles";
 import THEME_COLORS, { UITheme } from "../theme-colors";
 

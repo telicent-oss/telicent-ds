@@ -24,18 +24,18 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
           borderRadius: theme.shape.borderRadius,
           border: "1px solid transparent",
           "&.Mui-selected": {
-            backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+            backgroundColor: theme.palette.background.default,
             color: theme.palette.primary.main,
           },
           "&.Mui-selected.Mui-selected": {
-            backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+            backgroundColor: theme.palette.background.default,
             color: theme.palette.primary.main,
           },
           "&.Mui-selected.Mui-selected:hover": {
-            backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+            backgroundColor: theme.palette.background.default,
           },
           "&.Mui-selected:hover": {
-            backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
+            backgroundColor: theme.palette.background.default,
             color: theme.palette.primary.main,
             backgroundImage: "none",
           },
@@ -43,8 +43,7 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
             backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
           },
           "&:hover": {
-            backgroundColor:
-              theme.palette.mode === "dark" ? theme.palette.background.default : theme.palette.primary.main,
+            backgroundColor: theme.palette.background.default,
             border: `1px solid ${theme.palette.primary.main}`,
           },
         }),

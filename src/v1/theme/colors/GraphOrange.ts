@@ -3,7 +3,7 @@ import { alpha } from "@mui/material/styles";
 
 const main = "#F2A64B";
 
-const GRAPH_ORANGE = {
+const GraphOrange = {
   primary: {
     main: main,
     dark: alpha(main, 0.7),
@@ -12,7 +12,7 @@ const GRAPH_ORANGE = {
   },
 };
 
-// const GRAPH_ORANGE = {
+// const GraphOrange = {
 //   50: alpha(main, 0.1),
 //   100: alpha(main, 0.2),
 //   200: alpha(main, 0.3),
@@ -21,4 +21,4 @@ const GRAPH_ORANGE = {
 //   600: alpha(main, 0.7),
 // };
 
-export default GRAPH_ORANGE;
+export default GraphOrange;
