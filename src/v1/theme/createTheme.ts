@@ -30,7 +30,7 @@ const cache: ThemeCache = Object.fromEntries(
 ) as ThemeCache;
 
 export const createTheme = (uiTheme: UITheme, dark: boolean, skipCache = false) =>
-  // (!skipCache && cache?.[uiTheme]?.[dark ? "dark" : "light"]) ||
+  (!skipCache && cache?.[uiTheme]?.[dark ? "dark" : "light"]) ||
   createThemePure(uiTheme, dark ? createDarkPalette(uiTheme) : createLightPalette(uiTheme));
 
 export default createTheme;
