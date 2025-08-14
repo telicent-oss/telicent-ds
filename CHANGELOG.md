@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.31.0](https://github.com/telicent-oss/telicent-ds/compare/v0.30.2...v0.31.0) (2025-08-14)
+
+
+### Features
+
+* add copy to clipboard button ([#298](https://github.com/telicent-oss/telicent-ds/issues/298)) ([7473baf](https://github.com/telicent-oss/telicent-ds/commit/7473baf54d7052a47e00813fa242640a4772cc88))
+* Date and Time Picker ([#301](https://github.com/telicent-oss/telicent-ds/issues/301)) ([25e0a86](https://github.com/telicent-oss/telicent-ds/commit/25e0a867c889d24698b3813a0b45cfaa7267b097))
+* Text Field / Editable Text Field ([#303](https://github.com/telicent-oss/telicent-ds/issues/303)) ([14c6b60](https://github.com/telicent-oss/telicent-ds/commit/14c6b6000f02c887260e478eb6ffb2381190e6e3))
+
+
+### Bug Fixes
+
+* buttons ([#302](https://github.com/telicent-oss/telicent-ds/issues/302)) ([3c5506e](https://github.com/telicent-oss/telicent-ds/commit/3c5506effd9ff9620060271435801c3a4c207a90))
+* remove colour override of button ([#305](https://github.com/telicent-oss/telicent-ds/issues/305)) ([30cf366](https://github.com/telicent-oss/telicent-ds/commit/30cf366dd9f521550f74ad3b7a6af2930b72c5fd))
+* update colour palettes ([#304](https://github.com/telicent-oss/telicent-ds/issues/304)) ([b5d765a](https://github.com/telicent-oss/telicent-ds/commit/b5d765a0268f90d49827e60c086a724a098e6b95))
+
 ## [0.30.2](https://github.com/telicent-oss/telicent-ds/compare/v0.30.1...v0.30.2) (2025-07-28)
 
 
