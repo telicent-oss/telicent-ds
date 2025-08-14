@@ -12,8 +12,8 @@ const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] => ({
     contrastText: "#FFFFFF",
   },
   text: {
-    primary: "#FFFFFF",
-    secondary: "#000000",
+    primary: "#ececec",
+    secondary: "rgba(255, 255, 255, 0.7)",
     disabled: "#999999",
   },
   background: {

@@ -65,9 +65,10 @@ test("tmp theme diffs via unified patches", () => {
     +      "main": "#F9F9F9"
          },
          "text": {
-    -      "primary": "#FFFFFF",
+    -      "primary": "#ececec",
+    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-           "secondary": "#000000",
+    +      "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
@@ -170,9 +171,10 @@ test("tmp theme diffs via unified patches", () => {
     +      "main": "#F9F9F9"
          },
          "text": {
-    -      "primary": "#FFFFFF",
+    -      "primary": "#ececec",
+    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-           "secondary": "#000000",
+    +      "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
@@ -275,9 +277,10 @@ test("tmp theme diffs via unified patches", () => {
     +      "main": "#F9F9F9"
          },
          "text": {
-    -      "primary": "#FFFFFF",
+    -      "primary": "#ececec",
+    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-           "secondary": "#000000",
+    +      "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
@@ -380,9 +383,10 @@ test("tmp theme diffs via unified patches", () => {
     +      "main": "#F9F9F9"
          },
          "text": {
-    -      "primary": "#FFFFFF",
+    -      "primary": "#ececec",
+    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-           "secondary": "#000000",
+    +      "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
@@ -485,9 +489,10 @@ test("tmp theme diffs via unified patches", () => {
     +      "main": "#F9F9F9"
          },
          "text": {
-    -      "primary": "#FFFFFF",
+    -      "primary": "#ececec",
+    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-           "secondary": "#000000",
+    +      "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
