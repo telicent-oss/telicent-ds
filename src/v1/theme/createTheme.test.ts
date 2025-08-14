@@ -66,9 +66,8 @@ test("tmp theme diffs via unified patches", () => {
          },
          "text": {
     -      "primary": "#FFFFFF",
-    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-    +      "secondary": "#000000",
+           "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
@@ -172,9 +171,8 @@ test("tmp theme diffs via unified patches", () => {
          },
          "text": {
     -      "primary": "#FFFFFF",
-    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-    +      "secondary": "#000000",
+           "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
@@ -278,9 +276,8 @@ test("tmp theme diffs via unified patches", () => {
          },
          "text": {
     -      "primary": "#FFFFFF",
-    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-    +      "secondary": "#000000",
+           "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
@@ -384,9 +381,8 @@ test("tmp theme diffs via unified patches", () => {
          },
          "text": {
     -      "primary": "#FFFFFF",
-    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-    +      "secondary": "#000000",
+           "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
@@ -490,9 +486,8 @@ test("tmp theme diffs via unified patches", () => {
          },
          "text": {
     -      "primary": "#FFFFFF",
-    -      "secondary": "rgba(255, 255, 255, 0.7)",
     +      "primary": "#000000",
-    +      "secondary": "#000000",
+           "secondary": "#000000",
            "disabled": "#999999"
          },
          "background": {
