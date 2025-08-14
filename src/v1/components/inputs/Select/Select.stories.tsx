@@ -68,6 +68,7 @@ const RenderSelect = ({ ...args }) => {
 
   return (
     <Select
+      color="primary"
       label="Select Option"
       value={selected}
       onChange={handleChange}

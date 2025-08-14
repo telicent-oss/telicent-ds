@@ -1,4 +1,4 @@
-import { ThemeOptions } from "@mui/material";
+import { alpha, ThemeOptions } from "@mui/material";
 import { UITheme } from "../colors/theme-colors";
 import * as componentOverrides from "./component-overrides";
 import { TYPOGRAPHY_FONT_FACES } from "./typography";
@@ -15,44 +15,40 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
         },
       },
     },
-    // MuiMenuItem: {
-    //   styleOverrides: {
-    //     root: ({ theme }) => ({
-    //       display: "flex",
-    //       alignItems: "center",
-    //       margin: theme.spacing(0, 1),
-    //       borderRadius: theme.shape.borderRadius,
-    //       border: "1px solid transparent",
-    //       "&.Mui-selected": {
-    //         backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "rgba(0, 0, 0, 0.04)",
-    //         color: theme.palette.primary.main,
-    //       },
-    //       "&.Mui-selected.Mui-selected": {
-    //         backgroundColor:
-    //           theme.palette.mode === "dark" ? theme.palette.background.default : theme.palette.primary.main,
-    //         color: theme.palette.primary.main,
-    //       },
-    //       "&.Mui-selected.Mui-selected:hover": {
-    //         backgroundColor:
-    //           theme.palette.mode === "dark" ? theme.palette.background.default : theme.palette.primary.main,
-    //       },
-    //       "&.Mui-selected:hover": {
-    //         backgroundColor:
-    //           theme.palette.mode === "dark" ? theme.palette.background.default : theme.palette.primary.main,
-    //         color: theme.palette.primary.main,
-    //         backgroundImage: "none",
-    //       },
-    //       "& .MuiPaper-root": {
-    //         backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
-    //       },
-    //       "&:hover": {
-    //         backgroundColor:
-    //           theme.palette.mode === "dark" ? theme.palette.background.default : theme.palette.primary.main,
-    //         border: `1px solid ${theme.palette.primary.main}`,
-    //       },
-    //     }),
-    //   },
-    // },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          display: "flex",
+          alignItems: "center",
+          margin: theme.spacing(0, 1),
+          borderRadius: theme.shape.borderRadius,
+          border: "1px solid transparent",
+          "&.Mui-selected": {
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.primary.main,
+          },
+          "&.Mui-selected.Mui-selected": {
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.primary.main,
+          },
+          "&.Mui-selected.Mui-selected:hover": {
+            backgroundColor: theme.palette.background.default,
+          },
+          "&.Mui-selected:hover": {
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.primary.main,
+            backgroundImage: "none",
+          },
+          "& .MuiPaper-root": {
+            backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#ffffff",
+          },
+          "&:hover": {
+            backgroundColor: theme.palette.background.default,
+            border: `1px solid ${theme.palette.primary.main}`,
+          },
+        }),
+      },
+    },
 
     MuiAppBar: {
       styleOverrides: {

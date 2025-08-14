@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -75,36 +75,20 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -53,16 +53,26 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
            "main": "#2F44CA",
-           "light": "#5969D5",
-           "dark": "#2636A2",
-           "contrastText": "#fff"
+           "dark": "rgba(47, 68, 202, 0.7)",
+           "light": "rgba(47, 68, 202, 0.5)",
+           "contrastText": "#FFFFFF"
          },
          "secondary": {
-    -      "main": "#222222"
+    -      "main": "#8a8a8a",
+    -      "light": "#A1A1A1",
+    -      "dark": "#606060",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F9F9F9"
          },
+         "text": {
+    -      "primary": "#FFFFFF",
+    +      "primary": "#000000",
+           "secondary": "#000000",
+           "disabled": "#999999"
+         },
          "background": {
-    -      "default": "#1D1D1D"
+    -      "default": "#1D1D1D",
+    -      "paper": "#252525"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -79,7 +89,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F8F9F9"
+    +      "default": "#e3e3e3"
          }
        },
        "typography": {
@@ -95,29 +105,29 @@ test("tmp theme diffs via unified patches", () => {
                "style": {
                  "borderWidth": 1,
                  "borderStyle": "solid",
-    -            "borderColor": "rgba(141, 153, 226, 0.4)"
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
     +            "borderColor": "rgba(245, 106, 170, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -77,12 +77,12 @@
+    @@ -80,12 +80,12 @@
        },
        "palette": {
          "mode": "dark",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "#5969D5",
-    -      "dark": "#2636A2",
-    -      "contrastText": "#fff"
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F56AAA",
-    +      "light": "rgba(245, 106, 170, 0.5)",
     +      "dark": "rgba(245, 106, 170, 0.7)",
+    +      "light": "rgba(245, 106, 170, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
-           "main": "#222222"
-         },
+           "main": "#8a8a8a",
+           "light": "#A1A1A1",
 
 
     Index: 2
@@ -129,13 +139,13 @@ test("tmp theme diffs via unified patches", () => {
                "style": {
                  "borderWidth": 1,
                  "borderStyle": "solid",
-    -            "borderColor": "rgba(141, 153, 226, 0.4)"
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
     +            "borderColor": "rgba(245, 106, 170, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -75,36 +75,20 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -144,20 +154,30 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "#5969D5",
-    -      "dark": "#2636A2",
-    -      "contrastText": "#fff"
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F56AAA",
-    +      "light": "rgba(245, 106, 170, 0.5)",
     +      "dark": "rgba(245, 106, 170, 0.7)",
+    +      "light": "rgba(245, 106, 170, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
-    -      "main": "#222222"
+    -      "main": "#8a8a8a",
+    -      "light": "#A1A1A1",
+    -      "dark": "#606060",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F9F9F9"
          },
+         "text": {
+    -      "primary": "#FFFFFF",
+    +      "primary": "#000000",
+           "secondary": "#000000",
+           "disabled": "#999999"
+         },
          "background": {
-    -      "default": "#1D1D1D"
+    -      "default": "#1D1D1D",
+    -      "paper": "#252525"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -174,7 +194,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F8F9F9"
+    +      "default": "#e3e3e3"
          }
        },
        "typography": {
@@ -190,29 +210,29 @@ test("tmp theme diffs via unified patches", () => {
                "style": {
                  "borderWidth": 1,
                  "borderStyle": "solid",
-    -            "borderColor": "rgba(141, 153, 226, 0.4)"
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
     +            "borderColor": "rgba(242, 166, 75, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -77,12 +77,12 @@
+    @@ -80,12 +80,12 @@
        },
        "palette": {
          "mode": "dark",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "#5969D5",
-    -      "dark": "#2636A2",
-    -      "contrastText": "#fff"
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F2A64B",
-    +      "light": "rgba(242, 166, 75, 0.5)",
     +      "dark": "rgba(242, 166, 75, 0.7)",
+    +      "light": "rgba(242, 166, 75, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
-           "main": "#222222"
-         },
+           "main": "#8a8a8a",
+           "light": "#A1A1A1",
 
 
     Index: 4
@@ -224,13 +244,13 @@ test("tmp theme diffs via unified patches", () => {
                "style": {
                  "borderWidth": 1,
                  "borderStyle": "solid",
-    -            "borderColor": "rgba(141, 153, 226, 0.4)"
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
     +            "borderColor": "rgba(242, 166, 75, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -75,36 +75,20 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -239,20 +259,30 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "#5969D5",
-    -      "dark": "#2636A2",
-    -      "contrastText": "#fff"
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F2A64B",
-    +      "light": "rgba(242, 166, 75, 0.5)",
     +      "dark": "rgba(242, 166, 75, 0.7)",
+    +      "light": "rgba(242, 166, 75, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
-    -      "main": "#222222"
+    -      "main": "#8a8a8a",
+    -      "light": "#A1A1A1",
+    -      "dark": "#606060",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F9F9F9"
          },
+         "text": {
+    -      "primary": "#FFFFFF",
+    +      "primary": "#000000",
+           "secondary": "#000000",
+           "disabled": "#999999"
+         },
          "background": {
-    -      "default": "#1D1D1D"
+    -      "default": "#1D1D1D",
+    -      "paper": "#252525"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -269,7 +299,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F8F9F9"
+    +      "default": "#e3e3e3"
          }
        },
        "typography": {
@@ -285,29 +315,29 @@ test("tmp theme diffs via unified patches", () => {
                "style": {
                  "borderWidth": 1,
                  "borderStyle": "solid",
-    -            "borderColor": "rgba(141, 153, 226, 0.4)"
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
     +            "borderColor": "rgba(32, 188, 250, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -77,12 +77,12 @@
+    @@ -80,12 +80,12 @@
        },
        "palette": {
          "mode": "dark",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "#5969D5",
-    -      "dark": "#2636A2",
-    -      "contrastText": "#fff"
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#20BCFA",
-    +      "light": "rgba(32, 188, 250, 0.5)",
     +      "dark": "rgba(32, 188, 250, 0.7)",
+    +      "light": "rgba(32, 188, 250, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
-           "main": "#222222"
-         },
+           "main": "#8a8a8a",
+           "light": "#A1A1A1",
 
 
     Index: 6
@@ -319,13 +349,13 @@ test("tmp theme diffs via unified patches", () => {
                "style": {
                  "borderWidth": 1,
                  "borderStyle": "solid",
-    -            "borderColor": "rgba(141, 153, 226, 0.4)"
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
     +            "borderColor": "rgba(32, 188, 250, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -75,36 +75,20 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -334,20 +364,30 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "#5969D5",
-    -      "dark": "#2636A2",
-    -      "contrastText": "#fff"
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#20BCFA",
-    +      "light": "rgba(32, 188, 250, 0.5)",
     +      "dark": "rgba(32, 188, 250, 0.7)",
+    +      "light": "rgba(32, 188, 250, 0.5)",
     +      "contrastText": "#000"
          },
          "secondary": {
-    -      "main": "#222222"
+    -      "main": "#8a8a8a",
+    -      "light": "#A1A1A1",
+    -      "dark": "#606060",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F9F9F9"
          },
+         "text": {
+    -      "primary": "#FFFFFF",
+    +      "primary": "#000000",
+           "secondary": "#000000",
+           "disabled": "#999999"
+         },
          "background": {
-    -      "default": "#1D1D1D"
+    -      "default": "#1D1D1D",
+    -      "paper": "#252525"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -364,7 +404,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F8F9F9"
+    +      "default": "#e3e3e3"
          }
        },
        "typography": {
@@ -380,27 +420,29 @@ test("tmp theme diffs via unified patches", () => {
                "style": {
                  "borderWidth": 1,
                  "borderStyle": "solid",
-    -            "borderColor": "rgba(141, 153, 226, 0.4)"
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
     +            "borderColor": "rgba(0, 0, 0, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -77,11 +77,11 @@
+    @@ -80,12 +80,12 @@
        },
        "palette": {
          "mode": "dark",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "#5969D5",
-    -      "dark": "#2636A2",
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#000000",
-    +      "light": "rgba(0, 0, 0, 0.5)",
     +      "dark": "rgba(0, 0, 0, 0.7)",
-           "contrastText": "#fff"
+    +      "light": "rgba(0, 0, 0, 0.5)",
+    +      "contrastText": "#fff"
          },
          "secondary": {
-           "main": "#222222"
+           "main": "#8a8a8a",
+           "light": "#A1A1A1",
 
 
     Index: 8
@@ -412,13 +454,13 @@ test("tmp theme diffs via unified patches", () => {
                "style": {
                  "borderWidth": 1,
                  "borderStyle": "solid",
-    -            "borderColor": "rgba(141, 153, 226, 0.4)"
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
     +            "borderColor": "rgba(0, 0, 0, 0.4)"
                }
              }
            ],
            "styleOverrides": {}
-    @@ -75,36 +75,20 @@
+    @@ -78,45 +78,25 @@
            "styleOverrides": "\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Space Grotesk';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Space Grotesk'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 400;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 500;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n\\n    @font-face {\\n      font-family: 'Figtree';\\n      font-style: normal;\\n      font-variant: normal;\\n      font-weight: 700;\\n      src: local('Figtree'), url() format('woff2');\\n    }\\n    "
          }
        },
@@ -427,19 +469,30 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
     -      "main": "#2F44CA",
-    -      "light": "#5969D5",
-    -      "dark": "#2636A2",
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#000000",
-    +      "light": "rgba(0, 0, 0, 0.5)",
     +      "dark": "rgba(0, 0, 0, 0.7)",
-           "contrastText": "#fff"
+    +      "light": "rgba(0, 0, 0, 0.5)",
+    +      "contrastText": "#fff"
          },
          "secondary": {
-    -      "main": "#222222"
+    -      "main": "#8a8a8a",
+    -      "light": "#A1A1A1",
+    -      "dark": "#606060",
+    -      "contrastText": "#FFFFFF"
     +      "main": "#F9F9F9"
          },
+         "text": {
+    -      "primary": "#FFFFFF",
+    +      "primary": "#000000",
+           "secondary": "#000000",
+           "disabled": "#999999"
+         },
          "background": {
-    -      "default": "#1D1D1D"
+    -      "default": "#1D1D1D",
+    -      "paper": "#252525"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -456,7 +509,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F8F9F9"
+    +      "default": "#e3e3e3"
          }
        },
        "typography": {

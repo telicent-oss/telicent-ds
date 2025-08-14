@@ -43,11 +43,11 @@ A styled button component built on top of MUI’s \`<Button>\`, using our design
   argTypes: {
     color: {
       control: "select",
-      options: ["primary", "secondary", "error", "info", "success", "warning"], // customize to your theme
+      options: ["primary", "secondary", "error", "info", "success", "warning"],
     },
     variant: {
       control: "select",
-      options: ["contained", "outlined", "text"], // include "link" if you support it via your `style` prop
+      options: ["contained", "outlined", "text"],
     },
   },
   decorators: (Story) => <Box sx={{ button: { marginInline: 2 }, a: { marginInline: 2 } }}>{Story()}</Box>,
@@ -118,27 +118,31 @@ export const Sizes: Story = {
   },
 };
 
-export const WithIcons: Story = {
-  render: (args) => (
-    <>
-      <Button startIcon={<DataSetIcon />} color="primary" variant="contained">
-        {args.children}
-      </Button>
-      <Button endIcon={<DataSetIcon />} color="primary" variant="contained">
-        {args.children}
-      </Button>
-    </>
-  ),
+export const StartIcon: Story = {
+  args: {
+    color: "primary",
+    variant: "contained",
+    startIcon: <DataSetIcon />,
+  },
   parameters: {
     docs: {
       description: {
-        story: `
-You can enhance the visual clarity and usability of your buttons by adding icons using the \`startIcon\` or \`endIcon\` props.
+        story: "Use `startIcon={<IconComponent />}` to place an icon before the button label",
+      },
+    },
+  },
+};
 
-- Use \`startIcon={<IconComponent />}\` to place an icon before the button label.
-- Use \`endIcon={<IconComponent />}\` to place it after the label.
-
-This is especially useful for actions that benefit from recognizable visual cues, such as downloads, data updates, or navigation.`,
+export const EndIcon: Story = {
+  args: {
+    color: "primary",
+    variant: "contained",
+    endIcon: <DataSetIcon />,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Use `endIcon={<IconComponent />}` to place it after the label",
       },
     },
   },

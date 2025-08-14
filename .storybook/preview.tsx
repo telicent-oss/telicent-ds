@@ -16,6 +16,7 @@ const preview: Preview = {
       const selectedMode = context.globals.mode || "light";
       const selectedTheme = context.globals.theme || "GraphOrange";
       const isDark = selectedMode !== "light";
+
       return (
         <UIThemeProvider dark={isDark} theme={selectedTheme}>
           <Story />
