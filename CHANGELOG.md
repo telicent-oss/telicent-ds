@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.31.1](https://github.com/telicent-oss/telicent-ds/compare/v0.31.0...v0.31.1) (2025-08-15)
+
+
+### Bug Fixes
+
+* export textField ([#306](https://github.com/telicent-oss/telicent-ds/issues/306)) ([b5389c1](https://github.com/telicent-oss/telicent-ds/commit/b5389c1af4edf53be9a2a1be2eb8794ef39691e1))
+* text field and input text field ([#307](https://github.com/telicent-oss/telicent-ds/issues/307)) ([ba7779a](https://github.com/telicent-oss/telicent-ds/commit/ba7779a65577156721c671b2f0c7d8f9212c91be))
+
 ## [0.31.0](https://github.com/telicent-oss/telicent-ds/compare/v0.30.2...v0.31.0) (2025-08-14)
 
 
