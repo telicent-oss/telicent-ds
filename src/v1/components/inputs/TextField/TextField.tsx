@@ -1,13 +1,10 @@
 import React from "react";
-import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
+import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@mui/material";
 
-export type TextField = TextFieldProps & { errorText?: string };
+type TextFieldProps = MuiTextFieldProps & { errorText?: string };
 
-const TextField: React.FC<TextField> = ({ errorText = "", ...props }) => {
-  const { value, label, error, helperText } = props;
-  return (
-    <MuiTextField value={value} label={label} error={error} helperText={error ? errorText : helperText} {...props} />
-  );
+const TextField: React.FC<TextFieldProps> = ({ errorText, value, label, error, helperText, ...rest }) => {
+  return <MuiTextField value={value} error={error} helperText={error ? errorText : helperText} {...rest} />;
 };
 
 export default TextField;

@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 import { FlexBox } from "../../layout";
+import { Text } from "../../data-display";
 
 export type InputText = TextFieldProps & {
   value: string;
@@ -12,7 +13,7 @@ export type InputText = TextFieldProps & {
   errorText?: string;
 };
 
-const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorText, helperText, ...props }) => {
+const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorText, helperText, label, ...props }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value || "");
 
@@ -36,6 +37,7 @@ const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorTex
         <FlexBox direction="row" alignItems="center" gap={1}>
           <TextField
             autoFocus
+            label={label}
             value={tempValue ?? ""}
             onChange={(e) => setTempValue(e.target.value)}
             error={error}
@@ -50,11 +52,14 @@ const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorTex
           </IconButton>
         </FlexBox>
       ) : (
-        <FlexBox direction="row" alignItems="center" gap={1}>
-          <Typography>{value}</Typography>
-          <IconButton onClick={handleEdit} size="small">
-            <EditIcon fontSize="inherit" />
-          </IconButton>
+        <FlexBox direction="column">
+          {label && <Text sx={{ fontWeight: "bold" }}>{label}:</Text>}
+          <FlexBox direction="row" alignItems="center" gap={1}>
+            <Typography>{value}</Typography>
+            <IconButton onClick={handleEdit} size="small">
+              <EditIcon fontSize="inherit" />
+            </IconButton>
+          </FlexBox>
         </FlexBox>
       )}
     </Box>
