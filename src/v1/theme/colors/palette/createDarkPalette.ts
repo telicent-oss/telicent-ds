@@ -23,9 +23,7 @@ const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] =>
       default: "#1D1D1D",
       paper: "#252525",
     },
-    grey: {
-      ...grey,
-    },
+    grey,
   });
 
 export default createDarkPalette;

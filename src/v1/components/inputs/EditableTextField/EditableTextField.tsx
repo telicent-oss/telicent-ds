@@ -53,9 +53,7 @@ const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorTex
         </FlexBox>
       ) : (
         <FlexBox direction="column">
-          <Text>
-            <b>{label}:</b>
-          </Text>
+          {label && <Text sx={{ fontWeight: "bold" }}>{label}:</Text>}
           <FlexBox direction="row" alignItems="center" gap={1}>
             <Typography>{value}</Typography>
             <IconButton onClick={handleEdit} size="small">
