@@ -500,6 +500,8 @@ declare type DSProvidersProps = Partial<{
     ontologyService: OntologyService;
 }>;
 
+export declare const EditableTextField: default_2.FC<InputText>;
+
 export declare const ENCODE_SEARCH_PARAMS_MODES_Schema: z.ZodUnion<[z.ZodLiteral<"as base64">, z.ZodLiteral<"as uri component">]>;
 
 export declare type ENCODE_SEARCH_PARAMS_MODES_Type = z.infer<typeof ENCODE_SEARCH_PARAMS_MODES_Schema>;
@@ -647,6 +649,12 @@ export declare interface IESTypeProps extends default_2.HTMLAttributes<HTMLEleme
     color: string;
     iconClass: string;
 }
+
+declare type InputText = TextFieldProps & {
+    value: string;
+    onSave: (value: string) => void;
+    errorText?: string;
+};
 
 export declare const InsetInMap: default_2.FC<RootPropsType & {
     content: default_2.ReactNode;
@@ -2134,6 +2142,12 @@ declare interface TeliUserProfileProps extends Partial<TeliUserAvatarProps> {
 
 declare const Text_2: default_2.FC<TextProps>;
 export { Text_2 as Text }
+
+export declare const TextField: default_2.FC<TextFieldProps_2>;
+
+declare type TextFieldProps_2 = TextFieldProps & {
+    errorText?: string;
+};
 
 export declare type TextProps = BaseProps & Partial<{
     /**
