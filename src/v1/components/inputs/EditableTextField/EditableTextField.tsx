@@ -25,60 +25,54 @@ const EditableTextField: React.FC<InputText> = ({
   fullWidth,
   ...props
 }) => {
-  const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorText, helperText, label, ...props }) => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [tempValue, setTempValue] = useState(value || "");
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempValue, setTempValue] = useState(value ?? "");
+  const theme = useExtendedTheme();
 
-    const theme = useExtendedTheme();
-
-    const handleEdit = () => {
-      setIsEditing(true);
-    };
-
-    const handleSave = () => {
-      onSave(tempValue);
-      setIsEditing(false);
-    };
-
-    const handleCancel = () => {
-      setTempValue(value);
-      setIsEditing(false);
-    };
-
-    return (
-      <Box display="flex" alignItems="center" gap={1}>
-        {isEditing || value === "" ? (
-          <FlexBox direction="row" alignItems="baseline" gap={1}>
-            <TextField
-              autoFocus
-              label={label}
-              value={tempValue ?? ""}
-              onChange={(e) => setTempValue(e.target.value)}
-              error={error}
-              helperText={error ? errorText : helperText}
-              {...props}
-            />
-            <IconButton onClick={handleSave} size="small">
-              <CheckIcon sx={{ color: theme.palette.primary.main, lineHeight: "inherit" }} />
-            </IconButton>
-            <IconButton onClick={handleCancel} size="small">
-              <ClearIcon sx={{ color: theme.palette.primary.main, lineHeight: "inherit" }} />
-            </IconButton>
-          </FlexBox>
-        ) : (
-          <FlexBox direction="column">
-            {label && <Text sx={{ fontWeight: "bold" }}>{label}:</Text>}
-            <FlexBox direction="row" alignItems="center" gap={1}>
-              <Typography>{value}</Typography>
-              <IconButton onClick={handleEdit} size="small">
-                <EditIcon fontSize="inherit" />
-              </IconButton>
-            </FlexBox>
-          </FlexBox>
-        )}
-      </Box>
-    );
+  const handleEdit = () => setIsEditing(true);
+  const handleSave = () => {
+    onSave(tempValue);
+    setIsEditing(false);
   };
+  const handleCancel = () => {
+    setTempValue(value);
+    setIsEditing(false);
+  };
+
+  return (
+    <Box display="flex" alignItems="center" gap={1}>
+      {isEditing || value === "" ? (
+        <FlexBox direction="row" alignItems="baseline" gap={1}>
+          <TextField
+            autoFocus
+            label={label}
+            value={tempValue}
+            onChange={(e) => setTempValue(e.target.value)}
+            error={error}
+            helperText={error ? errorText : helperText}
+            fullWidth={fullWidth}
+            {...props}
+          />
+          <IconButton onClick={handleSave} size="small">
+            <CheckIcon sx={{ color: theme.palette.primary.main, lineHeight: "inherit" }} />
+          </IconButton>
+          <IconButton onClick={handleCancel} size="small">
+            <ClearIcon sx={{ color: theme.palette.primary.main, lineHeight: "inherit" }} />
+          </IconButton>
+        </FlexBox>
+      ) : (
+        <FlexBox direction="column">
+          {label && <Text sx={{ fontWeight: "bold" }}>{label}:</Text>}
+          <FlexBox direction="row" alignItems="center" gap={1}>
+            <Typography>{value}</Typography>
+            <IconButton onClick={handleEdit} size="small">
+              <EditIcon fontSize="inherit" />
+            </IconButton>
+          </FlexBox>
+        </FlexBox>
+      )}
+    </Box>
+  );
 };
 
 export default EditableTextField;
