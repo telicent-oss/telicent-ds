@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.31.2](https://github.com/telicent-oss/telicent-ds/compare/v0.31.1...v0.31.2) (2025-08-20)
+
+
+### Bug Fixes
+
+* empty pr to raise version ([#310](https://github.com/telicent-oss/telicent-ds/issues/310)) ([a6f7457](https://github.com/telicent-oss/telicent-ds/commit/a6f745734f37d10b21b5520bbf8480dc0006f206))
+* raising the version of the ds ([a6f7457](https://github.com/telicent-oss/telicent-ds/commit/a6f745734f37d10b21b5520bbf8480dc0006f206))
+* text field and editable text field changes ([#309](https://github.com/telicent-oss/telicent-ds/issues/309)) ([8ef461d](https://github.com/telicent-oss/telicent-ds/commit/8ef461d9cb9d2e06534912eec2af9fc6268146ff))
+
 ## [0.31.1](https://github.com/telicent-oss/telicent-ds/compare/v0.31.0...v0.31.1) (2025-08-15)
 
 
