@@ -8,12 +8,14 @@ import { FlexBox } from "../../layout";
 import { Text } from "../../data-display";
 import { useExtendedTheme } from "../../../../export";
 
+
 export type InputText = TextFieldProps & {
   value: string;
   onSave: (value: string) => void;
   errorText?: string;
   fullWidth?: boolean;
 };
+
 
 const EditableTextField: React.FC<InputText> = ({
   value,
@@ -25,6 +27,8 @@ const EditableTextField: React.FC<InputText> = ({
   fullWidth,
   ...props
 }) => {
+const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorText, helperText, label, ...props }) => {
+
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value || "");
 
