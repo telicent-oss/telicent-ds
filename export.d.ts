@@ -654,6 +654,7 @@ declare type InputText = TextFieldProps & {
     value: string;
     onSave: (value: string) => void;
     errorText?: string;
+    fullWidth?: boolean;
 };
 
 export declare const InsetInMap: default_2.FC<RootPropsType & {
