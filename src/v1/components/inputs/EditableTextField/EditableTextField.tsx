@@ -6,16 +6,29 @@ import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 import { FlexBox } from "../../layout";
 import { Text } from "../../data-display";
+import { useExtendedTheme } from "../../../../export";
 
 export type InputText = TextFieldProps & {
   value: string;
   onSave: (value: string) => void;
   errorText?: string;
+  fullWidth?: boolean;
 };
 
-const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorText, helperText, label, ...props }) => {
+const EditableTextField: React.FC<InputText> = ({
+  value,
+  onSave,
+  error,
+  errorText,
+  helperText,
+  label,
+  fullWidth,
+  ...props
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value || "");
+
+  const theme = useExtendedTheme();
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -33,8 +46,8 @@ const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorTex
 
   return (
     <Box display="flex" alignItems="center" gap={1}>
-      {isEditing ? (
-        <FlexBox direction="row" alignItems="center" gap={1}>
+      {isEditing || value === "" ? (
+        <FlexBox direction="row" alignItems="baseline" gap={1}>
           <TextField
             autoFocus
             label={label}
@@ -45,10 +58,10 @@ const EditableTextField: React.FC<InputText> = ({ value, onSave, error, errorTex
             {...props}
           />
           <IconButton onClick={handleSave} size="small">
-            <CheckIcon sx={{ color: "green", lineHeight: "inherit" }} />
+            <CheckIcon sx={{ color: theme.palette.primary.main, lineHeight: "inherit" }} />
           </IconButton>
           <IconButton onClick={handleCancel} size="small">
-            <ClearIcon sx={{ color: "red", lineHeight: "inherit" }} />
+            <ClearIcon sx={{ color: theme.palette.primary.main, lineHeight: "inherit" }} />
           </IconButton>
         </FlexBox>
       ) : (

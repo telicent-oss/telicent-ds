@@ -105,3 +105,22 @@ export const WithErrorText: Story = {
     );
   },
 };
+
+export const NoInitialValue: Story = {
+  render: () => {
+    const [value, setValue] = useState<string>("");
+
+    const handleChange = (newValue: string) => {
+      setValue(newValue);
+    };
+
+    return (
+      <EditableTextField
+        value={value}
+        onSave={handleChange}
+        label="This is an empty field"
+        helperText="This is a helper text, that will show on the input field as long as there are no errorText"
+      />
+    );
+  },
+};
