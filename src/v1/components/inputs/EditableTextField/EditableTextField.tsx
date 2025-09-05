@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
 import { Box, TextField, TextFieldProps, Typography } from "@mui/material";
 import { IconButton } from "../../buttons";
-import EditIcon from "@mui/icons-material/Edit";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
+import EditIcon from "@telicent-oss/mui-icons-material/Edit";
+import CheckIcon from "@telicent-oss/mui-icons-material/Check";
+import ClearIcon from "@telicent-oss/mui-icons-material/Clear";
 import { FlexBox } from "../../layout";
 import { Text } from "../../data-display";
 import { useExtendedTheme } from "../../../../export";

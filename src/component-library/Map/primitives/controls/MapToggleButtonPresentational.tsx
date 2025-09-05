@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, FormControlLabel, IconButton, Paper } from "@mui/material";
 
-import ListIcon from "@mui/icons-material/List";
+import ListIcon from "@telicent-oss/mui-icons-material/List";
 import SecondaryButton, { SecondaryButtonProps } from "../../../../v1/components/buttons/Button/SecondaryButton";
 
 export const MapToggleButtonPresentational: React.FC<SecondaryButtonProps> = (props) => {
