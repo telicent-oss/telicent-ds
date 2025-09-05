@@ -11,11 +11,11 @@ import {
 
 // configure({ testIdAttribute: "id" });
 
-// jest.mock("@mui/icons-material/ChevronLeft", () => ({
+// jest.mock("@telicent-oss/mui-icons-material/ChevronLeft", () => ({
 //   __esModule: true,
 //   default: (props: any) => <span id="chevron-left-icon" {...props} />,
 // }));
-// jest.mock("@mui/icons-material/ChevronRight", () => ({
+// jest.mock("@telicent-oss/mui-icons-material/ChevronRight", () => ({
 //   __esModule: true,
 //   default: (props: any) => <span id="chevron-right-icon" {...props} />,
 // }));
