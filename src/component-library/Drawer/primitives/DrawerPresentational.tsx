@@ -4,8 +4,8 @@ import MuiDrawer, {
 } from "@mui/material/Drawer";
 import { Box } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
-import ChevronLeftIcon from "@telicent-oss/mui-icons-material/ChevronLeft";
-import ChevronRightIcon from "@telicent-oss/mui-icons-material/ChevronRight";
+import { ChevronRight as ChevronRightIcon } from "@telicent-oss/mui-icons-material";
+import { ChevronLeft as ChevronLeftIcon } from "@telicent-oss/mui-icons-material";
 import { TabButton } from "./TabButton";
 import { STYLES } from "./constants";
 // ignore story-coverage.test.ts

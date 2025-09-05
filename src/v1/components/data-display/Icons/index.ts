@@ -12,5 +12,5 @@ export { default as PlusCircleIcon } from "./PlusCircleIcon";
 export { default as TelicentMark } from "./TelicentMark";
 export { default as TelicentHorizontalSVG } from "./TelicentHorizontalSVG";
 export { default as UserIcon } from "./UserIcon";
-export { default as ListIcon } from "@telicent-oss/mui-icons-material/List";
-export { default as LocationOnIcon  } from "@telicent-oss/mui-icons-material/LocationOn";
+export { List as ListIcon } from "@telicent-oss/mui-icons-material";
+export { LocationOn as LocationOnIcon  } from "@telicent-oss/mui-icons-material";
