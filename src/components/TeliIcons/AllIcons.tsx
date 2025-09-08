@@ -6,7 +6,6 @@ import TeliEditIcon from "./TeliEditIcon";
 import TeliSearchIcon from "./TeliSearchIcon";
 import { TeliSortAZIcon, TeliSortZAIcon } from "./TeliSortIcons";
 import ClockRotateLeft from "./ClockRotateLeft";
-
 const Icon: React.FC<{
   icon: React.ReactNode;
   label: string;
