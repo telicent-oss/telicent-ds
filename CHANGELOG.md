@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.31.3](https://github.com/telicent-oss/telicent-ds/compare/v0.31.2...v0.31.3) (2025-09-10)
+
+
+### Bug Fixes
+
+* update tree view styles and accept sx ([#314](https://github.com/telicent-oss/telicent-ds/issues/314)) ([a55be24](https://github.com/telicent-oss/telicent-ds/commit/a55be246364028ddb7aee47fab982e23144b2a4c))
+* use @telicent-oss/mui-icons-material ([#312](https://github.com/telicent-oss/telicent-ds/issues/312)) ([08549d7](https://github.com/telicent-oss/telicent-ds/commit/08549d7f03f0de7af7babe3f7baaadbf3c1c4041))
+
 ## [0.31.2](https://github.com/telicent-oss/telicent-ds/compare/v0.31.1...v0.31.2) (2025-08-20)
 
 
