@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTheme } from "@mui/material";
+import { SxProps, useTheme } from "@mui/material";
 import { RichTreeView, TreeViewBaseItem } from "@mui/x-tree-view";
 
 type TreeViewProps<Item extends object = TreeViewBaseItem> = { items: Item[] } & Partial<{
@@ -95,9 +95,10 @@ type TreeViewProps<Item extends object = TreeViewBaseItem> = { items: Item[] } &
    * array of strings; when false (default) a string.
    */
   selectedItems: string | string[];
+  sx: SxProps;
 }>;
 
-const TreeView: React.FC<TreeViewProps> = ({ alwaysExpandedIds = [], ...treeViewProps }) => {
+const TreeView: React.FC<TreeViewProps> = ({ alwaysExpandedIds = [], sx, ...treeViewProps }) => {
   const theme = useTheme();
   const [expandedItems, setExpandedItems] = useState(alwaysExpandedIds);
 
@@ -115,6 +116,7 @@ const TreeView: React.FC<TreeViewProps> = ({ alwaysExpandedIds = [], ...treeView
       {...treeViewProps}
       sx={{
         ".MuiTreeItem-content": {
+          marginY: "2px",
           ":hover": {
             ...highlightingStyle,
           },
@@ -131,6 +133,11 @@ const TreeView: React.FC<TreeViewProps> = ({ alwaysExpandedIds = [], ...treeView
             },
           },
         },
+
+        "& .MuiRichTreeView-itemContent": {
+          marginY: "40px",
+        },
+        ...sx,
       }}
     />
   );
