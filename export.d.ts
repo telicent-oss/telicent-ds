@@ -2285,6 +2285,7 @@ export declare type TreeViewProps<Item extends object = TreeViewBaseItem> = {
      * array of strings; when false (default) a string.
      */
     selectedItems: string | string[];
+    sx: SxProps_2;
 }>;
 
 export declare type UITheme = default_3.infer<typeof UIThemeSchema>;
