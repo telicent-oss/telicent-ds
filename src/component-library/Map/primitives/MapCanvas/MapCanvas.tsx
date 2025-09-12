@@ -72,13 +72,20 @@ export const MapCanvas: React.FC<MapCanvasProps> = ({
     <>
       <GlobalStyles
         styles={{
-          "#TelicentMap .maplibregl-ctrl-attrib": {
+        [`#TelicentMap .maplibregl-ctrl-attrib, 
+          #TelicentMap .maplibregl-ctrl-attrib a
+          `]: {
             backgroundColor:
               theme.palette.mode === "dark"
                 ? theme.palette.background.default
                 : theme.palette.background.paper,
             color: theme.palette.text.primary,
           },
+          // Uses a background-image of a black info icon.
+          [`#TelicentMap .maplibregl-ctrl-attrib-button`]:{
+            backgroundColor: 'transparent',
+            ...(theme.palette.mode === "dark" ? {filter: 'invert(100%)'} : {filter: 'invert(10%)'})
+          }
         }}
       />
       <Map
