@@ -16,11 +16,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (
-    event:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLDivElement>
-  ) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -54,10 +50,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
         >
           {fullName}
         </H2>
-        <MUIAvatar
-          variant="circular-outlined"
-          sx={{ width: 32, height: 32, borderColor: "inherit" }}
-        >
+        <MUIAvatar variant="circular-outlined" sx={{ width: 32, height: 32, borderColor: "inherit" }}>
           <UserIcon color="inherit" />
         </MUIAvatar>
         <MUIIconButton aria-label="user-profile" color="inherit">
@@ -75,7 +68,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
           paper: {
             sx: {
               padding: 2.5,
-              border: `1px solid #8D99E270`,
               width: 300,
               filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15))",
             },
