@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.31.4](https://github.com/telicent-oss/telicent-ds/compare/v0.31.3...v0.31.4) (2025-09-19)
+
+
+### Bug Fixes
+
+* remove border around user profile modal ([#317](https://github.com/telicent-oss/telicent-ds/issues/317)) ([12a3eb5](https://github.com/telicent-oss/telicent-ds/commit/12a3eb507f4c2cc24a671fa80dfd6ceff1ba8d4d))
+
 ## [0.31.3](https://github.com/telicent-oss/telicent-ds/compare/v0.31.2...v0.31.3) (2025-09-10)
 
 
