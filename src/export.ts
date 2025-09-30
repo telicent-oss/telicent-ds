@@ -23,6 +23,8 @@ export * from "./v1/components/utils/index";
 // Component library
 export * from "./component-library/Map";
 export * from "./component-library/InsetInMap";
+export * from "./component-library/Map/v2/primitives/MapCanvas/MapCanvas";
+export * from "./component-library/Map/v2/composites/BasicMap/BasicMap";
 
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/AuthModal";
@@ -54,5 +56,3 @@ export {
 
 export { renderErrorToHtml } from "./candidate-packages/renderErrorToHtml/renderErrorToHtml";
 export { parseOrThrowWithInput } from "./candidate-packages/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
-
-//
