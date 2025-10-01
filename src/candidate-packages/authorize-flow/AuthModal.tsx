@@ -5,16 +5,16 @@ import { Box } from "@mui/material";
 import { AuthEvent, onAuthEvent } from "./broadcastChannelService";
 
 interface AuthRedirectModalProps {
-  signOutUrl: string;
+  authClient: any; // AuthServerOAuth2Client instance
   debounceMs?: number;
 }
 
-export const AuthModal: React.FC<AuthRedirectModalProps> = ({ signOutUrl, debounceMs = 5000 }) => {
+export const AuthModal: React.FC<AuthRedirectModalProps> = ({ authClient, debounceMs = 5000 }) => {
   const alreadyTriggered = useRef(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLoginClick = () => {
-    window.open(signOutUrl, "_blank");
+    authClient.login(); // TODO any
   };
 
   useEffect(() => {
