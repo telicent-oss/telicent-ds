@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ApiFactory, SessionHandlingConfig } from "./types";
 import { withSessionHandling } from "./withSessionHandling";
+export { setupOAuthEventListeners } from './setupOAuthEventListeners';
 
 export const createApi = (baseURL?: string, authClient?: any): ApiFactory => {
   const instance = axios.create({

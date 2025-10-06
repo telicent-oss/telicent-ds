@@ -2,39 +2,51 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState, useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
-import AuthServerOAuth2Client from "@telicent/fe-auth-lib";
+import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
 import { AuthModal } from "./AuthModal";
 import { IframeSwitch } from "./IFrameSwitch";
 import { createApi } from "./index";
+import { AuthEvent, broadcastAuthEvent } from "./broadcastChannelService";
 
 import {
   Alert,
   Breadcrumbs,
   Button,
+  ButtonProps,
   Collapse,
   Container,
   Stack,
+  StackProps,
   Typography,
+  TypographyProps,
 } from "@mui/material";
 
 // Reusables
-const SpacedStack = (props) => <Stack spacing={2} {...props} />;
+const SpacedStack = (props: StackProps) => <Stack spacing={2} {...props} />;
 
-const MonoSpace = (props) => <Typography sx={{ fontFamily: "monospace", ...(props?.sx || null) }} {...props} />;
+const MonoSpace = (props: TypographyProps) => (
+  <Typography
+    sx={{ fontFamily: "monospace", ...(props?.sx || null) }}
+    {...props}
+  />
+);
 
-const ActionButton = (props) => <Button variant="contained" size="small" sx={{ alignSelf: "flex-start" }} {...props} />;
+const ActionButton = (props: ButtonProps) => (
+  <Button
+    variant="text"
+    size="small"
+    sx={{ alignSelf: "flex-start" }}
+    {...props}
+  />
+);
 
 interface OAuthFlowDemoProps {
   config?: {
     clientId?: string;
     authServerUrl?: string;
-    redirectUri?: string;
+    popupRedirectUri?: string;
     scope?: string;
-    redirectTarget?:
-      | { type: "window" }
-      | { type: "newWindow"; features?: string }
-      | { type: "iframe"; selector: string };
   };
 }
 
@@ -50,25 +62,18 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
   const [error, setError] = useState<string | null>(null);
   const [userInfoExpanded, setUserInfoExpanded] = useState(false);
   const [queryClient] = useState(() => new QueryClient());
-
+  
+  const popupRedirectUri = "http://localhost:6006/iframe.html?viewMode=story&id=candidate-packages-auth-flow--storybook-oauth-callback&globals=&args=";
   const defaultConfig = {
     clientId: "fe-storybook-app-config",
     authServerUrl: "http://auth.telicent.localhost",
-    // See telicent-io/auth-server/fe-storybook-app-config/package.json
-    redirectUri:
-      "http://localhost:6006/iframe.html?viewMode=story&id=candidate-packages-auth-flow--storybook-oauth-callback&globals=&args=",
     scope: "openid profile offline_access",
-    redirectTarget: {
-      type: "newWindow" as const,
-      features: "width=600,height=700",
-    },
+    popupRedirectUri,
     onLogout: () => {
       setAuthState("initial");
       setIsAuthenticated(false);
       setUserInfo(null);
-      setApiStatusDisplay(
-        "Logged out."
-      );
+      setApiStatusDisplay("Logged out.");
     },
     ...config,
   };
@@ -79,23 +84,25 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
     setClient(oauthClient);
 
     // Create API instance with OAuth client integration
-    const apiInstance = createApi('http://protected-api.telicent.localhost', oauthClient)
-      .withSessionHandling({
-        queryClient,
-        keysToInvalidate: []
-      });
+    const apiInstance = createApi(
+      "http://protected-api.telicent.localhost",
+      oauthClient
+    ).withSessionHandling({
+      queryClient,
+      keysToInvalidate: [],
+    });
     setApi(apiInstance);
 
     const checkAuth = async () => {
       try {
-        console.log('checkAuth: Starting authentication check');
+        console.log("checkAuth: Starting authentication check");
         const isAuth = await oauthClient.isAuthenticated();
-        console.log('checkAuth: isAuthenticated =', isAuth);
+        console.log("checkAuth: isAuthenticated =", isAuth);
         if (isAuth) {
           setAuthState("done");
           setIsAuthenticated(true);
           const userInfo = oauthClient.getUserInfo();
-          console.log('checkAuth: userInfo =', userInfo);
+          console.log("checkAuth: userInfo =", userInfo);
           if (userInfo) {
             setUserInfo(userInfo);
           } else {
@@ -105,94 +112,79 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
               note: "ID token not available, but session is valid",
             });
           }
+          // Broadcast authentication success to close AuthModal
+          broadcastAuthEvent(AuthEvent.AUTHENTICATED);
         } else {
-          console.log('checkAuth: User not authenticated');
+          console.log("checkAuth: User not authenticated");
           setAuthState("initial");
         }
       } catch (err) {
-        console.error('checkAuth: Error =', err);
+        console.error("checkAuth: Error =", err);
         setError(String(err));
       }
     };
 
     // Minimal event handling for OAuth client's popup communication
     const handleOAuthSuccess = () => {
-      console.log('OAuth success event received');
+      console.log("OAuth success event received");
       checkAuth();
     };
     const handleOAuthError = () => {
-      console.log('OAuth error event received');
-      setError('Authentication failed');
-      setAuthState('initial');
+      console.log("OAuth error event received");
+      setError("Authentication failed");
+      setAuthState("initial");
     };
-    const handleOAuthCallback = async (event) => {
-      console.log('OAuth callback event received', event.detail);
-      setAuthState('callback');
+    const handleOAuthCallback = async (event: CustomEvent) => {
+      console.log("OAuth callback event received", event.detail);
+      setAuthState("callback");
 
       try {
         // Process the callback with the provided URL
         const callbackUrl = event.detail.callbackUrl;
-        console.log('Processing callback URL:', callbackUrl);
-        const callbackResult = await oauthClient.handleCallback(new URL(callbackUrl).search);
-        console.log('Callback processed successfully:', callbackResult);
+        console.log("Processing callback URL:", callbackUrl);
+        const callbackResult = await oauthClient.handleCallback(
+          new URL(callbackUrl).search
+        );
+        console.log("Callback processed successfully:", callbackResult);
         checkAuth();
       } catch (error) {
-        console.error('Callback processing failed:', error);
+        console.error("Callback processing failed:", error);
         setError(String(error));
-        setAuthState('initial');
+        setAuthState("initial");
       }
     };
 
-    window.addEventListener(AuthServerOAuth2Client.OAUTH_SUCCESS, handleOAuthSuccess);
-    window.addEventListener(AuthServerOAuth2Client.OAUTH_ERROR, handleOAuthError);
-    window.addEventListener('oauth-callback', handleOAuthCallback);
+    window.addEventListener(
+      AuthServerOAuth2Client.OAUTH_SUCCESS,
+      handleOAuthSuccess
+    );
+    window.addEventListener(
+      AuthServerOAuth2Client.OAUTH_ERROR,
+      handleOAuthError
+    );
+    window.addEventListener("oauth-callback", handleOAuthCallback);
 
     checkAuth();
 
     return () => {
-      window.removeEventListener(AuthServerOAuth2Client.OAUTH_SUCCESS, handleOAuthSuccess);
-      window.removeEventListener(AuthServerOAuth2Client.OAUTH_ERROR, handleOAuthError);
-      window.removeEventListener('oauth-callback', handleOAuthCallback);
+      window.removeEventListener(
+        AuthServerOAuth2Client.OAUTH_SUCCESS,
+        handleOAuthSuccess
+      );
+      window.removeEventListener(
+        AuthServerOAuth2Client.OAUTH_ERROR,
+        handleOAuthError
+      );
+      window.removeEventListener("oauth-callback", handleOAuthCallback);
     };
   }, []);
 
-  const handleLogin = () => client?.login();
-  const handleLogout = async () => {
-    if (client) await client.logout();
-  };
-  const handleSimulateTimeout = async () => {
-    simulateSessionTimeout();
-  };
-
-  const handleMakeAuthenticatedRequest = async () => {
-    if (!api) return;
-    setApiStatusDisplay("⏳ Loading...");
-    try {
-      const response = await api.instance.get('http://protected-api.telicent.localhost/get');
-      setApiStatusDisplay(`✅ ${response.status}`);
-    } catch (err) {
-      if (err.response?.status === 401) {
-        setApiStatusDisplay("🔄 Session expired - redirecting to login");
-      } else {
-        setApiStatusDisplay(`❌ Error: ${err.message}`);
-      }
+  // Reset API status when authentication state changes
+  useEffect(() => {
+    if (isAuthenticated && apiStatusDisplay.includes("⏳")) {
+      setApiStatusDisplay("Ready to test");
     }
-  };
-
-  const simulateSessionTimeout = async () => {
-    // Use client logout to simulate timeout - keeps UI clean
-    if (client) {
-      await client.logout();
-      setIsAuthenticated(false);
-      setUserInfo(null);
-      setAuthState("initial");
-      setApiStatusDisplay(
-        "Session expired. Click 'client.makeAuthenticatedRequest' to trigger login flow..."
-      );
-    }
-  };
-
-
+  }, [isAuthenticated]);
 
   if (error) {
     return (
@@ -219,8 +211,8 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
 
   return (
     // <ThemeProvider theme={baseTheme}>
-      <Container maxWidth="md">
-        <SpacedStack>
+    <Container maxWidth="md">
+      <SpacedStack>
         <IframeSwitch linkText="Open in dedicated window">
           <SpacedStack>
             {client && <AuthModal authClient={client} debounceMs={3000} />}
@@ -230,8 +222,10 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
                   variant="h5"
                   sx={{
                     fontWeight: authState === "initial" ? "bold" : "normal",
-                    color: authState === "initial" ? "primary.main" : "text.secondary",
-                    
+                    color:
+                      authState === "initial"
+                        ? "primary.main"
+                        : "text.secondary",
                   }}
                 >
                   1. Unauthenticated
@@ -240,7 +234,10 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
                   variant="h5"
                   sx={{
                     fontWeight: authState === "callback" ? "bold" : "normal",
-                    color: authState === "callback" ? "primary.main" : "text.secondary"
+                    color:
+                      authState === "callback"
+                        ? "primary.main"
+                        : "text.secondary",
                   }}
                 >
                   2. Processing Code
@@ -248,8 +245,14 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
                 <Typography
                   variant="h5"
                   sx={{
-                    fontWeight: (authState === "done" && isAuthenticated) ? "bold" : "normal",
-                    color: (authState === "done" && isAuthenticated) ? "success.main" : "text.secondary"
+                    fontWeight:
+                      authState === "done" && isAuthenticated
+                        ? "bold"
+                        : "normal",
+                    color:
+                      authState === "done" && isAuthenticated
+                        ? "success.main"
+                        : "text.secondary",
                   }}
                 >
                   3. Authenticated
@@ -259,100 +262,115 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
           </SpacedStack>
 
           <SpacedStack>
-            {/* Client */}
             <SpacedStack>
-              <Typography variant="h5">Client</Typography>
-
-
-              {/* Methods */}
+              <Typography variant="h5">
+                AuthServerOAuth2Client-powered methods
+              </Typography>
               <SpacedStack>
-                <Typography variant="h6">
-                  Methods
-                </Typography>
-                <SpacedStack>
-                  <MonoSpace variant="body2">
-                    login()
-                  </MonoSpace>
-                  <ActionButton
-                    onClick={handleLogin}
-                    disabled={isAuthenticated}
-                  >
-                    Call
-                  </ActionButton>
-                </SpacedStack>
-
-                <SpacedStack>
-                  <MonoSpace variant="body2">
-                    logout()
-                  </MonoSpace>
-                  <ActionButton
-                    onClick={handleLogout}
-                    disabled={!isAuthenticated}
-                  >
-                    Call
-                  </ActionButton>
-                </SpacedStack>
-
-                <SpacedStack>
-                  <MonoSpace variant="body2">
-                    createApi().instance.get("//protected-api.telicent.localhost/data")
-                  </MonoSpace>
-                  <ActionButton
-                    onClick={handleMakeAuthenticatedRequest}
-                  >
-                    Call
-                  </ActionButton>
-                  <Typography variant="body2">
-                    {apiStatusDisplay}
-                  </Typography>
-                </SpacedStack>
-
-                 
-
-                {/* getUserInfo() under Methods */}
-                <SpacedStack>
-                  <MonoSpace variant="body2">getUserInfo()</MonoSpace>
-                  {userInfo ? (
-                    <Typography
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => setUserInfoExpanded(!userInfoExpanded)}
-                    >
-                      See info {userInfoExpanded ? "▼" : "▶"}
-                    </Typography>
-                  ) : <Typography variant="body2">(auto-called when logged in)</Typography>}
-
-                  <Collapse in={userInfoExpanded}>
-                    {!userInfo ? (
-                      <Typography variant="body2" color="text.secondary">
-                        No user info available
-                      </Typography>
-                    ) : (
-                      <pre style={{ fontFamily: "monospace", fontSize: "14px", margin: 0 }}>
-                        {JSON.stringify(userInfo, null, 2)}
-                      </pre>
-                    )}
-                  </Collapse>
-                </SpacedStack>
-              </SpacedStack>
-            </SpacedStack>
-            <SpacedStack>
-              <Typography variant="h5">Debug actions</Typography>
-
-              <SpacedStack>
-                <Typography variant="body1">
-                  Simulate session timeout
-                </Typography>
+                <MonoSpace variant="body2">loginWithPopup()</MonoSpace>
                 <ActionButton
-                  onClick={handleSimulateTimeout}
+                  onClick={() => client?.loginWithPopup(popupRedirectUri)}
+                  disabled={isAuthenticated}
                 >
                   Call
                 </ActionButton>
+              </SpacedStack>
+
+              <SpacedStack>
+                <MonoSpace variant="body2">logout()</MonoSpace>
+                <ActionButton
+                  onClick={async () => {
+                    if (client) await client.logout();
+                  }}
+                  disabled={!isAuthenticated}
+                >
+                  Call
+                </ActionButton>
+              </SpacedStack>
+
+              <SpacedStack>
+                <MonoSpace variant="body2">
+                  Mock Api call createApi().instance.get("//protected-api.telicent.localhost/data")
+                </MonoSpace>
+                <ActionButton
+                  onClick={async () => {
+                    if (!api) return;
+                    setApiStatusDisplay("⏳ Loading...");
+
+                    // Add timeout and cleanup
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+                    try {
+                      const response = await api.instance.get(
+                        "http://protected-api.telicent.localhost/get",
+                        { signal: controller.signal }
+                      );
+                      setApiStatusDisplay(`${response.status >= 400 ? '❌' : '✅'} ${response.status}`);
+                    } catch (err) {
+                      if (controller.signal.aborted) {
+                        setApiStatusDisplay("⏰ Request timeout");
+                      } else if (err && typeof err === 'object' && 'response' in err) {
+                        const status = err.response?.status;
+                        if (status === 401) {
+                          setApiStatusDisplay("🔄 Session expired - redirecting to login");
+                        } else {
+                          setApiStatusDisplay(`❌ ${status || 'Network error'}`);
+                        }
+                      } else {
+                        const message = err && typeof err === 'object' && 'message' in err && typeof err.message === 'string' ? err.message : 'Unknown error';
+                        setApiStatusDisplay(`⛔ ${message}`);
+                      }
+                    } finally {
+                      clearTimeout(timeoutId);
+                    }
+                  }}
+                  disabled={!api || apiStatusDisplay.includes("⏳")}
+                >
+                  Call
+                </ActionButton>
+                <Typography variant="body2">{apiStatusDisplay}</Typography>
+              </SpacedStack>
+
+              {/* getUserInfo() under Methods */}
+              <SpacedStack>
+                <MonoSpace variant="body2">getUserInfo()</MonoSpace>
+                {userInfo ? (
+                  <Typography
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => setUserInfoExpanded(!userInfoExpanded)}
+                  >
+                    See info {userInfoExpanded ? "▼" : "▶"}
+                  </Typography>
+                ) : (
+                  <Typography variant="body2">
+                    (auto-called when logged in)
+                  </Typography>
+                )}
+
+                <Collapse in={userInfoExpanded}>
+                  {!userInfo ? (
+                    <Typography variant="body2" color="text.secondary">
+                      No user info available
+                    </Typography>
+                  ) : (
+                    <pre
+                      style={{
+                        fontFamily: "monospace",
+                        fontSize: "14px",
+                        margin: 0,
+                      }}
+                    >
+                      {JSON.stringify(userInfo, null, 2)}
+                    </pre>
+                  )}
+                </Collapse>
               </SpacedStack>
             </SpacedStack>
           </SpacedStack>
         </IframeSwitch>
       </SpacedStack>
-      </Container>
+    </Container>
     // </ThemeProvider>
   );
 };
@@ -375,7 +393,7 @@ React equivalent of spa-client/public/index.html. Demonstrates the complete OAut
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { args: {} };
+export const LoginWithPopup: Story = { args: {} };
 
 // export const WithNewWindow: Story = {
 //   args: {
@@ -407,7 +425,6 @@ const LoginSuccessComponent = () => {
         const client = new AuthServerOAuth2Client({
           clientId: "fe-storybook-app-config",
           authServerUrl: "http://auth.telicent.localhost",
-          redirectUri: window.location.href.split('?')[0],
           scope: "openid profile offline_access",
         });
 
@@ -451,13 +468,41 @@ const LoginSuccessComponent = () => {
         <Typography>{status}</Typography>
         <Typography>This window will close in {secs}s…</Typography>
         <Stack direction="row">
-          <ActionButton onClick={() => window.close()}>
-            Close now
-          </ActionButton>
+          <ActionButton onClick={() => window.close()}>Close now</ActionButton>
         </Stack>
       </Stack>
     </Container>
   );
+};
+
+export const LoginCurrentWindow: StoryObj = {
+  name: "Login (Current Window) - TODO",
+  render: () => {
+    return (
+      <Container maxWidth="md">
+        <SpacedStack>
+          <Typography variant="h4">TODO: Create login() Call Version</Typography>
+          <Typography variant="h6">UI Components to Add:</Typography>
+          <Typography component="div">
+            <ul>
+              <li>Authentication status indicator</li>
+              <li>login() button with current window redirect</li>
+              <li>User info display section</li>
+              <li>Protected API call test button</li>
+              <li>Logout button</li>
+              <li>OAuth flow progress breadcrumbs</li>
+              <li>Error handling and display</li>
+            </ul>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Note: This will require a different clientId/redirectUri configuration
+            than the popup version since the callback behavior differs.
+          </Typography>
+        </SpacedStack>
+      </Container>
+    );
+  },
+  parameters: { layout: "centered" },
 };
 
 export const StorybookOauthCallback: StoryObj = {
