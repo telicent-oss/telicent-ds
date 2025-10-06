@@ -226,7 +226,7 @@
       "!src/**/*/*.d.ts"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(mapbox-gl|@telicent-oss/ontologyservice|@mui)/)"
+      "node_modules/(?!(mapbox-gl|@telicent-oss/ontologyservice|@telicent-oss/fe-auth-lib|@mui)/)"
     ]
   },
   "config": {
