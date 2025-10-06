@@ -7,7 +7,7 @@
     "url": "https://github.com/telicent-oss/telicent-ds.git"
   },
   "type": "module",
-  "version": "0.31.3",
+  "version": "0.31.3-TELFE-1314.14",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -17,6 +17,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@telicent-oss/mui-icons-material": "^1.0.0",
+    "@telicent-oss/fe-auth-lib": "1.0.0-TELFE-1314.20",
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.6",
     "@mui/x-date-pickers": "^8.9.2",
@@ -74,6 +75,7 @@
     "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
     "local-publish": "./scripts/local-publish.sh",
     "lp": "yarn local-publish",
+    "local-install": "yarn install --registry http://localhost:4873",
     "postlocal-publish": "./scripts/update-deps.mjs --file ./updateDeps.gitignored.json",
     "git-checks": " ./.husky/pre-commit && ./.husky/pre-push",
     "git-hooks": "yarn git-checks",

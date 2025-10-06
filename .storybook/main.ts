@@ -21,15 +21,6 @@ const config: StorybookConfig = {
           "mapbox-gl": "maplibre-gl",
         },
       },
-      server: {
-        proxy: {
-          '/auth': {
-            target: 'http://auth.telicent.localhost',
-            changeOrigin: true,
-            rewrite: (path: string) => path.replace(/^\/auth/, '')
-          }
-        }
-      }
     });
   },
 };

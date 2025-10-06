@@ -3762,6 +3762,11 @@
   dependencies:
     "@tanstack/query-core" "5.83.0"
 
+"@telicent-oss/fe-auth-lib@1.0.0-TELFE-1314.20":
+  version "1.0.0-TELFE-1314.20"
+  resolved "http://localhost:4873/@telicent-oss/fe-auth-lib/-/fe-auth-lib-1.0.0-TELFE-1314.20.tgz#1fec404c951d2a9ab93b36525727cf0baa91f1ec"
+  integrity sha512-WFz0haaoBlcUAwT6X6aNGoFnxbRWK3V2hRx0RDGFzZK9fCMYEDVWcZtbBcX22jsplDH8A9NC7lj3KPs27pRo6Q==
+
 "@telicent-oss/mui-icons-material@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@telicent-oss/mui-icons-material/-/mui-icons-material-1.0.0.tgz#51eec909394f7ecb726a3b09852204751fccf044"
