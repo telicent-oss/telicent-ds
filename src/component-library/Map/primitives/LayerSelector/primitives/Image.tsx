@@ -5,8 +5,9 @@ import { Box } from "@mui/material";
 interface ImageProps {
   borderColor: string;
   src: string;
-  alt: string;
+  alt?: string;
   title: string;
+  role?: React.AriaRole;
 }
 
 export const Image: React.FC<ImageProps> = ({
@@ -14,6 +15,7 @@ export const Image: React.FC<ImageProps> = ({
   src,
   alt,
   title,
+  role,
 }) => (
   <Box
     sx={{
@@ -30,6 +32,7 @@ export const Image: React.FC<ImageProps> = ({
     <img
       src={src}
       alt={alt}
+      role={role}
       title={title}
       style={{
         width: 25,

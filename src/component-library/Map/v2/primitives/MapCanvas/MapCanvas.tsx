@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Map } from "ol";
-import { ensureView, ensureLayers, attachMeta } from "./utils";
+import { ensureView } from "./utils";
 import { MapCanvasV2Props } from "../../types"
 import "ol/ol.css";
 

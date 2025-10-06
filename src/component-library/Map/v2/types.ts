@@ -71,11 +71,11 @@ export type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig;
 export interface BasicMapProperties {
   zoom: number;
   center: number[];
-  layers: LayerConfig[];
+  layers?: LayerConfig[];
   /**
    * @deprecated Use `layers` instead. This prop will be removed in a future release.
    */
-  mapStyleOptions: LegacyMapConfig;
+  mapStyleOptions?: LegacyMapConfig;
 }
 
 export type OverlayFeatureConfig = {

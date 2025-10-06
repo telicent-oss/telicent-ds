@@ -5,7 +5,7 @@ import { PopOver, FlexGrid, FlexGridItem, Button, Text, useExtendedTheme, Button
 
 import { Image } from "../../../primitives/LayerSelector/primitives/Image";
 import { PopOverProps } from "../../../../../v1/components/surfaces/PopOver/Popover";
-import { LayerConfig, LayerSelectorProps } from "../../types";
+import { LayerSelectorProps } from "../../types";
 import { getMeta } from "../MapCanvas/utils";
 import BaseLayer from "ol/layer/Base";
 
@@ -112,7 +112,7 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 									<Image
 										borderColor={index === selectedIndex ? extendedTheme.palette.primary.main : "transparent"}
 										src={meta.image}
-										alt={meta.label}
+										role="presentation"
 										title={meta.label}
 									/>
 									<Text textTransform="capitalize" variant="body2">
@@ -130,7 +130,7 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 
 export const LayerSelector: React.FC<LayerSelectorProps> = ({ layersRef }) => {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-	const [selectedIndex, setSelectedIndex] = useState(layersRef.current.findIndex(l => getMeta(l).visible) || 0);
+	const [selectedIndex, setSelectedIndex] = useState(layersRef.current.findIndex(l => getMeta(l)?.visible) || 0);
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(e.currentTarget);
@@ -148,6 +148,8 @@ export const LayerSelector: React.FC<LayerSelectorProps> = ({ layersRef }) => {
 				setSelectedIndex(index);
 		});
 	};
+
+	if (layersRef.current?.length <= 1) return null;
 
 	return <div id="layer-selector" style={{ position: "fixed", bottom: 0 }}>
 		<LayerSelectorPresentationalButton anchorEl={anchorEl} onClickDropdown={handleClick} variant="text" data={layersRef.current} selectedIndex={selectedIndex} />
