@@ -134,13 +134,14 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
       setError("Authentication failed");
       setAuthState("initial");
     };
-    const handleOAuthCallback = async (event: CustomEvent) => {
-      console.log("OAuth callback event received", event.detail);
+    const handleOAuthCallback = async (event: Event) => {
+      const customEvent = event as CustomEvent;
+      console.log("OAuth callback event received", customEvent.detail);
       setAuthState("callback");
 
       try {
         // Process the callback with the provided URL
-        const callbackUrl = event.detail.callbackUrl;
+        const callbackUrl = customEvent.detail.callbackUrl;
         console.log("Processing callback URL:", callbackUrl);
         const callbackResult = await oauthClient.handleCallback(
           new URL(callbackUrl).search
@@ -311,11 +312,12 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
                       if (controller.signal.aborted) {
                         setApiStatusDisplay("⏰ Request timeout");
                       } else if (err && typeof err === 'object' && 'response' in err) {
-                        const status = err.response?.status;
+                        const axiosError = err as { response: { status: number } };
+                        const status = axiosError.response.status;
                         if (status === 401) {
                           setApiStatusDisplay("🔄 Session expired - redirecting to login");
                         } else {
-                          setApiStatusDisplay(`❌ ${status || 'Network error'}`);
+                          setApiStatusDisplay(`❌ ${status}`);
                         }
                       } else {
                         const message = err && typeof err === 'object' && 'message' in err && typeof err.message === 'string' ? err.message : 'Unknown error';
