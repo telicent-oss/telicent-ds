@@ -12,7 +12,7 @@ type Props = {
   className?: string;
 };
 
-export const IframeSwitch: React.FC<Props> = ({
+export const ForceNoIframe: React.FC<Props> = ({
   children,
   linkText = "Open this view in a new window",
   className,

@@ -14,7 +14,7 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({ authClient, deboun
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLoginClick = () => {
-    authClient.loginWithPopup(); // TODO any
+    authClient.loginWithPopup();
   };
 
   useEffect(() => {

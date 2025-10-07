@@ -1,51 +1,48 @@
 # Authorize Flow Integration Guide
 
-This guide shows how to integrate `createApi` with `@telicent-oss/fe-auth-lib` for authenticated HTTP requests.
+## Using `createApi`
 
-## Using createApi
+This is what Telicent FE apps use.
 
-The `createApi` function integrates axios with `@telicent-oss/fe-auth-lib`:
+The `createApi` function integrates the following:
+* `axios` for sensible wrapping HTTP transport
+* `react-query` for react integration
+* `@telicent-oss/fe-auth-lib` to communicate with `@telicent-oss/auth-server`
 
-```javascript
+```js
 import { createApi } from '@telicent-oss/ds/authorize-flow';
 import AuthServerOAuth2Client from '@telicent-oss/fe-auth-lib';
 
-// Initialize OAuth client
+// Handy to keep ref for various auth-related events
 const authClient = new AuthServerOAuth2Client({
   clientId: 'your-client-id',
   authServerUrl: 'http://auth.telicent.localhost'
 });
 
-// Create API instance
-const api = createApi('https://api.example.com', authClient)
+const api = createApi(
+    'https://api.example.com', 
+    authClient
+  )
   .withSessionHandling({
-    queryClient,
-    keysToInvalidate: ['user', 'profile']
+    queryClient, // React Query client for cache invalidation
+    keysToInvalidate: ['user', 'profile'] // Query keys to invalidate on auth changes
   });
+```
 
-// Make authenticated requests
+Uses `authClient`'s method makeAuthenticatedRequest() under-the-hood:
+```js
+
 const response = await api.instance.get('/protected-data');
 const userData = await api.instance.post('/users', { name: 'John' });
 ```
 
-**How it works**: The `createApi` function uses `@telicent-oss/fe-auth-lib`'s `makeAuthenticatedRequest` method for API calls.
-
 ## Configuration Options
-
-### withSessionHandling
-
-```javascript
-const api = createApi(baseURL, authClient).withSessionHandling({
-  queryClient,           // React Query client for cache invalidation
-  keysToInvalidate: []   // Query keys to invalidate on auth changes
-});
-```
 
 ## Alternative Integration
 
 For non-axios HTTP clients, use `@telicent-oss/fe-auth-lib` directly:
 
-```javascript
+```js
 // Direct method (recommended)
 const response = await authClient.makeAuthenticatedRequest('/api/data');
 
