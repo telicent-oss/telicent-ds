@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import { SessionHandlingConfig } from "./types";
 import { AuthEvent, broadcastAuthEvent, onAuthEvent } from "./broadcastChannelService";
+import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
 export function withSessionHandling(
   instance: AxiosInstance,
@@ -9,7 +10,7 @@ export function withSessionHandling(
     keysToInvalidate = [],
     broadcastChannel,
   }: SessionHandlingConfig,
-  authClient?: any // AuthServerOAuth2Client instance
+  authClient?: AuthServerOAuth2Client
 ) {
   if (authClient) {
     instance.defaults.adapter = async (config) => {
