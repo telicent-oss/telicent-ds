@@ -93,7 +93,6 @@ it("looks for components that appear to be missing a story - snapshots these com
       "./src/v1/components/surfaces/AppBar/TelicentBrand.tsx",
       "./src/v1/components/surfaces/FloatingPanel/FloatingPanelProvider.tsx",
       "./src/v1/components/surfaces/FloatingPanel/FloatingPanelToggleButton.tsx",
-      "./src/component-library/Map/v2/composites/BasicMap/BasicMap.tsx",
       "./src/component-library/Map/v2/primitives/LayerSelector/LayerSelector.tsx",
       "./src/component-library/Map/v2/primitives/MapCanvas/MapCanvas.tsx",
     ]
