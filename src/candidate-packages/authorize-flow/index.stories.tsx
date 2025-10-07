@@ -5,9 +5,10 @@ import { QueryClient } from "@tanstack/react-query";
 import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
 import { AuthModal } from "./AuthModal";
-import { IframeSwitch } from "./IFrameSwitch";
+import { ForceNoIframe } from "./ForceNoIframe";
 import { createApi } from "./index";
 import { AuthEvent, broadcastAuthEvent } from "./broadcastChannelService";
+import { setupOAuthEventListeners } from "./setupOAuthEventListeners";
 
 import {
   Alert,
@@ -124,59 +125,34 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
       }
     };
 
-    // Minimal event handling for OAuth client's popup communication
     const handleOAuthSuccess = () => {
-      console.log("OAuth success event received");
       checkAuth();
     };
-    const handleOAuthError = () => {
-      console.log("OAuth error event received");
+
+    const handleOAuthError = (error?: any) => {
       setError("Authentication failed");
       setAuthState("initial");
     };
-    const handleOAuthCallback = async (event: Event) => {
-      const customEvent = event as CustomEvent;
-      console.log("OAuth callback event received", customEvent.detail);
-      setAuthState("callback");
 
-      try {
-        // Process the callback with the provided URL
-        const callbackUrl = customEvent.detail.callbackUrl;
-        console.log("Processing callback URL:", callbackUrl);
-        const callbackResult = await oauthClient.handleCallback(
-          new URL(callbackUrl).search
-        );
-        console.log("Callback processed successfully:", callbackResult);
-        checkAuth();
-      } catch (error) {
-        console.error("Callback processing failed:", error);
-        setError(String(error));
-        setAuthState("initial");
-      }
-    };
-
-    window.addEventListener(
-      AuthServerOAuth2Client.OAUTH_SUCCESS,
-      handleOAuthSuccess
-    );
-    window.addEventListener(
-      AuthServerOAuth2Client.OAUTH_ERROR,
+    // Set up OAuth event listeners
+    const cleanup = setupOAuthEventListeners(
+      oauthClient,
+      handleOAuthSuccess,
       handleOAuthError
     );
-    window.addEventListener("oauth-callback", handleOAuthCallback);
+
+    // Handle callback processing state
+    const handleCallback = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      setAuthState("callback");
+    };
+    window.addEventListener("oauth-callback", handleCallback);
 
     checkAuth();
 
     return () => {
-      window.removeEventListener(
-        AuthServerOAuth2Client.OAUTH_SUCCESS,
-        handleOAuthSuccess
-      );
-      window.removeEventListener(
-        AuthServerOAuth2Client.OAUTH_ERROR,
-        handleOAuthError
-      );
-      window.removeEventListener("oauth-callback", handleOAuthCallback);
+      cleanup();
+      window.removeEventListener("oauth-callback", handleCallback);
     };
   }, []);
 
@@ -214,7 +190,7 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
     // <ThemeProvider theme={baseTheme}>
     <Container maxWidth="md">
       <SpacedStack>
-        <IframeSwitch linkText="Open in dedicated window">
+        <ForceNoIframe linkText="Open in dedicated window">
           <SpacedStack>
             {client && <AuthModal authClient={client} debounceMs={3000} />}
             <SpacedStack>
@@ -370,7 +346,7 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
               </SpacedStack>
             </SpacedStack>
           </SpacedStack>
-        </IframeSwitch>
+        </ForceNoIframe>
       </SpacedStack>
     </Container>
     // </ThemeProvider>
@@ -397,28 +373,9 @@ type Story = StoryObj<typeof meta>;
 
 export const LoginWithPopup: Story = { args: {} };
 
-// export const WithNewWindow: Story = {
-//   args: {
-//     config: {
-//       redirectTarget: { type: "newWindow", features: "width=600,height=700" },
-//     },
-//   },
-// };
-
-// export const WithCustomConfig: Story = {
-//   args: {
-//     config: {
-//       clientId: "custom-spa-client",
-//       scope: "openid profile email",
-//       redirectTarget: { type: "window" },
-//     },
-//   },
-// };
 
 const LoginSuccessComponent = () => {
-  const [msLeft, setMsLeft] = useState(3000);
   const [status, setStatus] = useState("Processing callback...");
-  const [workComplete, setWorkComplete] = useState(false);
 
   // Use OAuth client to handle popup callback automatically
   useEffect(() => {
@@ -436,39 +393,16 @@ const LoginSuccessComponent = () => {
         console.error("Callback error:", error);
         setStatus("Callback failed!");
       }
-      setWorkComplete(true);
     };
 
     handleCallback();
   }, []);
-
-  // RAF countdown → close at 0 (only start after work is complete)
-  useEffect(() => {
-    if (!workComplete) return;
-
-    const end = performance.now() + 3000;
-    let raf = 0;
-    const tick = (now: number) => {
-      const remaining = Math.max(0, end - now);
-      setMsLeft(remaining);
-      if (remaining <= 0) {
-        window.close();
-        return;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [workComplete]);
-
-  const secs = (msLeft / 1000).toFixed(1);
 
   return (
     <Container maxWidth="sm">
       <Stack>
         <Typography variant="h4">OAuth Callback</Typography>
         <Typography>{status}</Typography>
-        <Typography>This window will close in {secs}s…</Typography>
         <Stack direction="row">
           <ActionButton onClick={() => window.close()}>Close now</ActionButton>
         </Stack>
@@ -511,9 +445,9 @@ export const StorybookOauthCallback: StoryObj = {
   name: "Login success",
   render: () => {
     return (
-      <IframeSwitch linkText="Open in dedicated window">
+      <ForceNoIframe linkText="Open in dedicated window">
         <LoginSuccessComponent />
-      </IframeSwitch>
+      </ForceNoIframe>
     );
   },
   parameters: { layout: "centered" },
