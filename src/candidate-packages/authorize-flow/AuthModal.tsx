@@ -3,9 +3,10 @@ import { H3, Text } from "../../v1/components/data-display/Text/Text";
 import { FlexBox, Button, Modal } from "../../export";
 import { Box } from "@mui/material";
 import { AuthEvent, onAuthEvent } from "./broadcastChannelService";
+import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
 interface AuthRedirectModalProps {
-  authClient: any; // AuthServerOAuth2Client instance
+  authClient: AuthServerOAuth2Client;
   debounceMs?: number;
 }
 

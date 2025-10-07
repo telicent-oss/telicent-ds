@@ -2,13 +2,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState, useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
-import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
+import AuthServerOAuth2Client, { UserInfo } from "@telicent-oss/fe-auth-lib";
 
 import { AuthModal } from "./AuthModal";
 import { ForceNoIframe } from "./ForceNoIframe";
 import { createApi } from "./index";
-import { AuthEvent, broadcastAuthEvent } from "./broadcastChannelService";
+import { AuthEvent, broadcastAuthEvent, onAuthEvent } from "./broadcastChannelService";
 import { setupOAuthEventListeners } from "./setupOAuthEventListeners";
+import { RequestApi } from "./types";
 
 import {
   Alert,
@@ -51,14 +52,20 @@ interface OAuthFlowDemoProps {
   };
 }
 
+interface NoUserInfo {
+  authenticated: boolean;
+  source: string;
+  note: string;
+}
+
 const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
-  const [client, setClient] = useState<any>(null);
-  const [api, setApi] = useState<any>(null);
+  const [client, setClient] = useState<AuthServerOAuth2Client | null>(null);
+  const [api, setApi] = useState<RequestApi | null>(null);
   const [authState, setAuthState] = useState<"initial" | "callback" | "done">(
     "initial"
   );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userInfo, setUserInfo] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | NoUserInfo | null>(null);
   const [apiStatusDisplay, setApiStatusDisplay] = useState<string>("—");
   const [error, setError] = useState<string | null>(null);
   const [userInfoExpanded, setUserInfoExpanded] = useState(false);
@@ -129,7 +136,7 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
       checkAuth();
     };
 
-    const handleOAuthError = (error?: any) => {
+    const handleOAuthError = (error?: Error) => {
       setError("Authentication failed");
       setAuthState("initial");
     };
@@ -148,17 +155,18 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
     };
     window.addEventListener("oauth-callback", handleCallback);
 
+
     checkAuth();
 
     return () => {
       cleanup();
       window.removeEventListener("oauth-callback", handleCallback);
     };
-  }, []);
+  }, [apiStatusDisplay]);
 
   // Reset API status when authentication state changes
   useEffect(() => {
-    if (isAuthenticated && apiStatusDisplay.includes("⏳")) {
+    if (isAuthenticated && (apiStatusDisplay.includes("⏳") || apiStatusDisplay.includes("🔄"))) {
       setApiStatusDisplay("Ready to test");
     }
   }, [isAuthenticated]);

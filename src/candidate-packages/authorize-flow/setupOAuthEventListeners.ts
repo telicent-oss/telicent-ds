@@ -3,7 +3,7 @@ import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 export const setupOAuthEventListeners = (
   OAuth2Client: AuthServerOAuth2Client,
   onAuthSuccess?: () => void,
-  onAuthError?: (error?: any) => void
+  onAuthError?: (error?: Error) => void
 ): (() => void) => {
   const handleOAuthSuccess = () => {
     console.log("OAuth success event received");
@@ -29,7 +29,7 @@ export const setupOAuthEventListeners = (
       onAuthSuccess?.();
     } catch (error) {
       console.error("Callback processing failed:", error);
-      onAuthError?.(error);
+      onAuthError?.(error instanceof Error ? error : new Error(String(error)));
     }
   };
 
