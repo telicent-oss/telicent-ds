@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Map } from "ol";
+import { Map, View } from "ol";
 import { ensureView } from "./utils";
 import { MapCanvasV2Props } from "../../types"
 import "ol/ol.css";
@@ -12,14 +12,14 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 }) => {
 	const mapRef = useRef<HTMLDivElement>(null);
 	const mapInstance = useRef<Map | null>(null);
-
+	const viewRef = useRef<View>(ensureView(zoom, center));
 	useEffect(() => {
 		if (!mapRef.current || layersRef.current.length === 0) return;
 
 		mapInstance.current = new Map({
 			target: mapRef.current,
 			layers: layersRef.current,
-			view: ensureView(zoom, center)
+			view: viewRef.current,
 		});
 
 		return () => {
