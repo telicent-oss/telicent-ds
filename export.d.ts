@@ -90,6 +90,7 @@ import { TextFieldProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Theme as Theme_2 } from '@mui/material';
 import { ToggleButtonProps } from '@mui/material/ToggleButton';
+import { ToolbarProps } from '@mui/material';
 import { TreeViewBaseItem } from '@mui/x-tree-view';
 import { TypographyProps } from '@mui/material/Typography';
 import { URLSearchParamsInit } from 'react-router-dom';
@@ -2171,9 +2172,6 @@ declare interface TitleAndContentProps {
 export declare type ToggleFn = (id: string) => void;
 
 export declare const Toolbar: default_2.FC<ToolbarProps>;
-
-declare interface ToolbarProps extends default_2.ComponentProps<"div">, default_2.PropsWithChildren {
-}
 
 export declare const TooltipToggleButton: default_2.FC<TooltipToggleButtonProps>;
 
