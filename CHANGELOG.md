@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/telicent-oss/telicent-ds/compare/v0.31.4...v1.0.0) (2025-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* update miniSearch and toolbar ([#322](https://github.com/telicent-oss/telicent-ds/issues/322))
+
+### Bug Fixes
+
+* update miniSearch and toolbar ([#322](https://github.com/telicent-oss/telicent-ds/issues/322)) ([4783cf0](https://github.com/telicent-oss/telicent-ds/commit/4783cf00865a93a97b84fd6fcf21e10bfe33d504))
+
 ## [0.31.4](https://github.com/telicent-oss/telicent-ds/compare/v0.31.3...v0.31.4) (2025-09-26)
 
 
