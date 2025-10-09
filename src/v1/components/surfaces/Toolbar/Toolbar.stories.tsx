@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>;
 export const Example: Story = {
   args: {
     children: (
-      <FlexBox direction="row" justifyContent="space-between" alignItems="center">
+      <FlexBox direction="row" justifyContent="space-between" alignItems="center" sx={{ flexGrow: 1 }}>
         <MiniSearchBox />
 
         <FlexBox direction="row" alignItems="center" gap={1}>
@@ -34,7 +34,7 @@ export const Example: Story = {
             selected={false}
             onClick={() => fn()}
           >
-            More Actions&nbsp; <DownArrowIcon />
+            More Actions <DownArrowIcon />
           </TooltipToggleButton>
           <Divider orientation="vertical" flexItem />
           <Button variant="text" endIcon={<DownArrowIcon />} onClick={() => fn()}>
