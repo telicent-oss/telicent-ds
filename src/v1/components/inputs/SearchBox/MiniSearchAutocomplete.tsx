@@ -148,7 +148,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
             height: "1em",
             width: "1em",
             cursor: "pointer",
-            background: updateCancelButton,
+            background: cancelIcon,
           },
         }}
         id={id}
