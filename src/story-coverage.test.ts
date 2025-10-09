@@ -88,8 +88,6 @@ it("looks for components that appear to be missing a story - snapshots these com
       "./src/v1/components/data-display/Text/TitleAndContent/TitleAndContent.tsx",
       "./src/v1/components/data-display/TreeView/TreeView.tsx",
       "./src/v1/components/data-display/UserProfile/UserProfileContent/UserStatus.tsx",
-      "./src/v1/components/feedback/CircularProgress/CircularProgress.tsx",
-      "./src/v1/components/feedback/Spinner/Spinner.tsx",
       "./src/v1/components/layout/AppChrome.tsx",
       "./src/v1/components/layout/FlexBox.tsx",
       "./src/v1/components/surfaces/AppBar/TelicentBrand.tsx",
