@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { Map, View } from "ol";
-import { ensureView } from "./utils";
-import { MapCanvasV2Props } from "../../types"
 import "ol/ol.css";
+import { MapCanvasV2Props } from "../../types/map-types";
+import { ensureView } from "./utils";
 
 
 export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	zoom,
 	center,
-	layersRef
+	layersRef,
 }) => {
 	const mapRef = useRef<HTMLDivElement>(null);
 	const mapInstance = useRef<Map | null>(null);
@@ -22,6 +22,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			view: viewRef.current,
 		});
 
+		console.log(mapInstance.current.getView().getProjection().getCode())
 		return () => {
 			mapInstance.current?.setTarget(undefined);
 		};

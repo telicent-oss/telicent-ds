@@ -2,19 +2,23 @@ import React, { useRef } from "react";
 import { Box } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react";
 import { BasicMapV2 } from "./BasicMap";
-import { BasicMapProperties, LayerConfig } from "../../types";
+import { BasicMapProperties } from "../../types/map-types";
+import { LayerConfig } from "../../types/layers";
+
 
 export const allArgs: BasicMapProperties = {
 	zoom: 5,
 	center: [0, 0],
 	layers: [],
-	mapStyleOptions: undefined
+	mapStyleOptions: undefined,
+	markers: []
 };
 
 const partialArgs: Partial<BasicMapProperties> = allArgs;
 // Example base layers
 const baseLayers: LayerConfig[] = [
 	{
+		id: "OpenStreetMap",
 		kind: "base-raster",
 		provider: "xyz",
 		label: "OpenStreetMap",
