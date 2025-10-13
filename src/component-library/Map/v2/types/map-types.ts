@@ -3,6 +3,7 @@ import BaseLayer from "ol/layer/Base";
 import { OverlayFeatureConfig } from "./overlays";
 import { LayerConfig } from "./layers";
 import { MarkerFeature } from "./markers";
+import { Map } from "ol";
 
 export type LegacyTileSet = {
   label: string;
@@ -33,9 +34,11 @@ export type StyleConfig =
   | ((feature: unknown) => StyleConfig);
 
 export type LayersRef = React.MutableRefObject<BaseLayer[]>;
+export type MapInstanceRef = React.MutableRefObject<Map | null>;
 
 export type MapCanvasV2Props = {
   layersRef: LayersRef;
+  mapInstanceRef: MapInstanceRef;
   zoom: number;
   center: Coordinate;
 };

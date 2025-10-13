@@ -12,5 +12,7 @@ export const ensureView = (zoom: number, center: Coordinate = [0, 0]) => {
   return new View({
     zoom: zoom ?? defaultZoom,
     center: fromLonLat(center),
+    minZoom: 2,
+    maxZoom: 18,
   });
 };

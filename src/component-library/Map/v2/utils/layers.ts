@@ -199,3 +199,5 @@ export const attachMeta = (layer: BaseLayer, meta: LayerMeta) => {
 };
 
 export const getMeta = (layer: BaseLayer): LayerMeta => layer.get("meta");
+
+export const MARKER_LAYER_ID = "marker-layer";

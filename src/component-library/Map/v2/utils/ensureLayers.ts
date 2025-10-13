@@ -14,16 +14,23 @@ export const ensureLayers = (layerConfigs: LayerConfig[]): BaseLayer[] => {
     return [new TileLayer({ source: new OSM() })];
   }
 
-  return layerConfigs.map((layerConfig) => {
+  return layerConfigs.map((layerConfig, index) => {
     switch (layerConfig.kind) {
       case "base-raster":
-        return getBaseRasterLayer(layerConfig);
+        const baseRasterLayer = getBaseRasterLayer(layerConfig);
+        baseRasterLayer.setZIndex(index);
+        return baseRasterLayer;
 
       case "base-vector-tiles":
-        return getBaseVectorTileLayer(layerConfig);
+        const baseVectorTileLayer = getBaseVectorTileLayer(layerConfig);
+        baseVectorTileLayer.setZIndex(index);
+        return baseVectorTileLayer;
 
       case "overlay-vector":
-        return getOverlayVectorLayer(layerConfig);
+        const overlayVectorLayer = getOverlayVectorLayer(layerConfig);
+        overlayVectorLayer.setZIndex(index);
+        overlayVectorLayer.setDeclutter(false);
+        return overlayVectorLayer;
       default:
         throw new Error(`Unknown layer kind: ${JSON.stringify(layerConfig)}`);
     }

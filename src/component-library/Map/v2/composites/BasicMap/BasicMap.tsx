@@ -2,19 +2,23 @@
 import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas"
 import { LayerSelector } from "../../primitives/LayerSelector/LayerSelector";
 import { useRef, useMemo, useEffect, useState } from "react";
-import { convertMarkerToFeature, findVectorLayerById } from "../../primitives/MapCanvas/utils";
 
+import { Feature, Map } from "ol";
 import BaseLayer from "ol/layer/Base";
 import { BasicMapProperties } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
+import { MARKER_LAYER_ID } from "../../utils/layers";
+import { convertMarkerToFeature, findVectorLayerById } from "../../utils/feature";
+import { panToFeature, panToFeatures } from "./interactions/addPanToFeature";
 
-const MARKER_LAYER_ID = "marker-layer";
 
 export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 	const [layersReady, setLayersReady] = useState(false);
+	const mapInstance = useRef<Map | null>(null);
+
 	const effectiveLayers = useMemo(() => {
 		const baseLayers =
 			Array.isArray(props.layers) && props.layers.length > 0
@@ -29,8 +33,7 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 				kind: "overlay-vector",
 				id: MARKER_LAYER_ID,
 				data: props.markers?.map(convertMarkerToFeature) ?? [],      // simple marker objects from props
-				visible: true,
-				zIndex: 1,
+				visible: true
 			},
 			// Polygon layer
 			// {
@@ -39,7 +42,6 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 			// 	data: props.geoPolygons ?? [],  // simple polygon objects from props
 			// 	style: DEFAULT_POLYGON_STYLE,   // internal default style
 			// 	visible: true,
-			// 	zIndex: 0,
 			// },
 		];
 
@@ -61,7 +63,6 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 		}
 
 		const source = markerLayer.getSource();
-		console.log("s", source);
 		if (!source) {
 			console.debug("Could not find layer source");
 			return;
@@ -69,12 +70,18 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 
 		source.clear();
 		const features = props.markers.map(markerToOLFeature)
-		console.log({ features })
 		source.addFeatures(features);
+
+		if (features.length === 1) {
+			panToFeature(mapInstance.current!, features[0])
+		} else {
+			panToFeatures(mapInstance.current!, features)
+		}
+
 	}, [props.markers, layersReady])
 
 	return <>
-		<MapCanvasV2 layersRef={layersRef} {...props} />
+		<MapCanvasV2 layersRef={layersRef} mapInstanceRef={mapInstance} {...props} />
 		<LayerSelector layersRef={layersRef} />
 	</>
 }

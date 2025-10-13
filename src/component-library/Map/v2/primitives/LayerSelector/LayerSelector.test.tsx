@@ -6,7 +6,7 @@ import {
 	LayerSelectorPresentationalButton,
 	LayerSelectorPresentationalPopOverV2,
 } from "./LayerSelector";
-import { getMeta } from "../MapCanvas/utils";
+import { getMeta } from "../../utils/layers";
 
 // --- Mock getMeta ---
 jest.mock("../MapCanvas/utils", () => ({

@@ -26,10 +26,9 @@ export const markerToOLFeature = (marker: MarkerFeature): Feature<Point> => {
   const gh = marker.geohash.includes("http")
     ? marker.geohash.split("http://geohash.org/")[1]
     : marker.geohash;
-  console.log({ gh });
+
   const { latitude, longitude } = geohash.decode(gh);
 
-  console.log({ latitude, longitude });
   const feature = new Feature({
     geometry: new Point(fromLonLat([longitude, latitude])),
     ...marker.meta,
@@ -38,10 +37,9 @@ export const markerToOLFeature = (marker: MarkerFeature): Feature<Point> => {
 
   // Use the new OL marker helper for style
   const markerStyle: MarkerStyle = marker.style ?? { markerType: "pin" };
-  console.log({ markerStyle });
   const style = getGeneratedOlIcon(markerStyle);
 
-  console.log({ style });
+  feature.set("originalStyle", style); // This is needed when selecting Features
   feature.setStyle(style);
 
   return feature;
