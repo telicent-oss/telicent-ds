@@ -9,7 +9,6 @@ import { Tooltip, tooltipClasses } from "@mui/material";
 export type CopyToClipboardProps = ButtonProps & {
   text: string;
   successMsg?: string;
-  title?: string;
   ariaLabel?: string;
   testFailure?: boolean;
   style?: String;
@@ -18,7 +17,6 @@ export type CopyToClipboardProps = ButtonProps & {
 const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   text,
   successMsg = "Copied!",
-  title = "copy to clipboard",
   ariaLabel = "copy to clipboard",
   testFailure = false,
   sx,
@@ -77,7 +75,6 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
       <Button
         style="base"
         onClick={handleClick}
-        title={title}
         aria-label={ariaLabel}
         sx={{ color: theme.palette.primary.main, padding: 0.5, borderRadius: 1, ...sx }}
       >
