@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/telicent-oss/telicent-ds/compare/v1.0.0...v1.0.1) (2025-10-14)
+
+
+### Bug Fixes
+
+* remove title from copy to clipboard and tooltip already has a title prop ([#324](https://github.com/telicent-oss/telicent-ds/issues/324)) ([3662108](https://github.com/telicent-oss/telicent-ds/commit/3662108471e9b419edb77d30911cb09fa15538ed))
+
 ## [1.0.0](https://github.com/telicent-oss/telicent-ds/compare/v0.31.4...v1.0.0) (2025-10-09)
 
 
