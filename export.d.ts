@@ -278,7 +278,6 @@ export declare const CopyToClipboard: default_2.FC<CopyToClipboardProps>;
 declare type CopyToClipboardProps = ButtonProps & {
     text: string;
     successMsg?: string;
-    title?: string;
     ariaLabel?: string;
     testFailure?: boolean;
     style?: String;
