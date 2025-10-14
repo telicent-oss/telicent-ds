@@ -31,7 +31,6 @@ Example usage:
 \`\`\`jsx
 <CopyToClipboard 
   text="http://example.com"
-  title="Copy URL"
   ariaLabel="Copy URL button"
 />
 \`\`\`
@@ -51,7 +50,7 @@ type Story = StoryObj<typeof CopyToClipboard>;
 export const Default: Story = {
   args: {
     text: "this is a default example string",
-    title: "Copy to clipboard",
+
     ariaLabel: "Copy to clipboard button",
   },
 };
@@ -74,7 +73,6 @@ export const CustomSuccessMessage: Story = {
 export const CustomStyle: Story = {
   args: {
     text: "Text for clipboard via WithCustomStyle",
-    title: "Copy to clipboard with white color",
     ariaLabel: "Copy to clipboard button with white color",
     sx: { color: "fuchsia", backgroundColor: "darkslategrey" },
   },
