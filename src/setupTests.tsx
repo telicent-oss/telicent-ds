@@ -7,6 +7,8 @@ import "@testing-library/jest-dom";
 import { MarkerProps } from "react-map-gl/maplibre";
 import React, { forwardRef } from "react";
 
+
+
 import { createSerializer } from '@emotion/jest'
 expect.addSnapshotSerializer(
   createSerializer({
@@ -83,136 +85,9 @@ globalThis.BroadcastChannel = class {
   };
 } as any;
 
-// OL mocks
-jest.mock("ol/Map", () => {
-  return jest.fn().mockImplementation(() => ({
-    setTarget: jest.fn(),
-  }));
-});
-
-class MockBaseLayer {
-  private meta: any;
-  set(key: string, value: any) {
-    if (key === "meta") this.meta = value;
-  }
-  get(key: string) {
-    if (key === "meta") return this.meta;
-    return undefined;
-  }
-}
-
-jest.mock("ol/layer/Tile", () => ({
+jest.mock("ol-mapbox-style", () => ({
   __esModule: true,
-  default: MockBaseLayer,
+  default: jest.fn(),
+  apply: jest.fn(),
 }));
 
-jest.mock("ol/layer/Vector", () => ({
-  __esModule: true,
-  default: MockBaseLayer,
-}));
-
-jest.mock("ol/layer/VectorTile", () => ({
-  __esModule: true,
-  default: MockBaseLayer,
-}));
-
-jest.mock("ol/layer/Group", () => ({
-  __esModule: true,
-  default: MockBaseLayer,
-}));
-
-jest.mock("ol/source/VectorTile", () => {
-  return jest.fn().mockImplementation(() => ({
-    // you can stub any methods used in your code
-    setUrl: jest.fn(),
-    getTileGrid: jest.fn(),
-  }));
-});
-
-jest.mock("ol/format/MVT", () => {
-  return jest.fn().mockImplementation(() => ({}));
-});
-
-jest.mock("ol/layer/Group", () => {
-  return jest.fn().mockImplementation(() => ({
-    set: jest.fn(),
-    get: jest.fn(),
-  }));
-});
-
-jest.mock("ol/source/Vector", () => ({
-  __esModule: true,
-  default: class MockVectorSource {
-    constructor() { }
-  },
-}));
-
-jest.mock("ol/source", () => {
-  class MockOSM {
-    constructor(options?: any) { Object.assign(this, options); }
-  }
-
-  class MockXYZ {
-    constructor(options?: any) { Object.assign(this, options); }
-  }
-
-  return {
-    __esModule: true,
-    OSM: MockOSM,
-    XYZ: MockXYZ,
-  };
-});
-
-jest.mock("ol/style", () => {
-  class MockCircle {
-    constructor(options: any) {
-      Object.assign(this, options);
-    }
-  }
-
-  class MockFill {
-    constructor(options: any) { Object.assign(this, options); }
-  }
-
-  class MockStroke {
-    constructor(options: any) { Object.assign(this, options); }
-  }
-
-  class MockStyle {
-    constructor(options: any) { Object.assign(this, options); }
-  }
-
-  class MockText {
-    constructor(options: any) { Object.assign(this, options); }
-  }
-
-  return {
-    __esModule: true,
-    Circle: MockCircle,
-    Fill: MockFill,
-    Stroke: MockStroke,
-    Style: MockStyle,
-    Text: MockText,
-  };
-});
-
-jest.mock('ol/style/Fill', () => ({ __esModule: true, default: class { } }));
-jest.mock('ol/style/Stroke', () => ({ __esModule: true, default: class { } }));
-jest.mock('ol/style/Style', () => ({ __esModule: true, default: class { } }));
-jest.mock('ol/style/Text', () => ({ __esModule: true, default: class { } }));
-
-jest.mock("ol/Feature", () => jest.fn().mockImplementation(() => ({})));
-
-jest.mock("ol/proj", () => jest.fn().mockImplementation(() => ({})));
-
-jest.mock("ol/geom", () => ({
-  Point: jest.fn(),
-  Polygon: jest.fn(),
-  MultiPolygon: jest.fn(),
-}));
-
-jest.mock("ol-mapbox-style", () => ({ __esModule: true, default: jest.fn() }));
-
-jest.mock("ol/format/GeoJSON", () => jest.fn().mockImplementation(() => ({})));
-jest.mock("ol", () => jest.fn().mockImplementation(() => ({})));
-jest.mock('ol/ol.css', () => ({}));

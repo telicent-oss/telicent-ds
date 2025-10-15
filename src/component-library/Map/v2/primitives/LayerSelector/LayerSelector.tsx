@@ -99,10 +99,8 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 			{
 				<FlexGrid direction="column">
 					{data
-						.filter(item => {
-							console.debug(item.get("kind"));
-							return item.get("kind")?.startsWith("base")
-						})
+						.filter(item =>
+							item.get("kind")?.startsWith("base"))
 						.map((item, index) => {
 							const meta = getMeta(item)
 							return (
@@ -148,6 +146,7 @@ export const LayerSelector: React.FC<LayerSelectorProps> = ({ layersRef }) => {
 	const handleOnListItemClick = (label: string) => {
 		layersRef.current.forEach((layer, index) => {
 			const meta = getMeta(layer);
+			if (layer.get("kind") === "overlay-vector") return;
 			layer.setVisible(meta?.label === label);
 			if (meta?.label === label)
 				setSelectedIndex(index);

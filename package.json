@@ -220,7 +220,8 @@
     "moduleNameMapper": {
       "\\.(woff2)$": "<rootDir>/__mocks__/fileMock.ts",
       "mapbox-gl": "maplibre-gl",
-      "^d3$": "<rootDir>/node_modules/d3/dist/d3.min.js"
+      "^d3$": "<rootDir>/node_modules/d3/dist/d3.min.js",
+      "^ol/(.*)$": "<rootDir>/__mocks__/ol/$1"
     },
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
@@ -229,7 +230,7 @@
       "!src/**/*/*.d.ts"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(mapbox-gl|@telicent-oss/ontologyservice|@mui)/)"
+      "node_modules/(?!(mapbox-gl|@telicent-oss/ontologyservice|@mui|ol)/)"
     ]
   },
   "config": {

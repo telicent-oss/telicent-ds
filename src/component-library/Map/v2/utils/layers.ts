@@ -11,7 +11,7 @@ import {
 import VectorSource from "ol/source/Vector";
 import { Point, Polygon } from "ol/geom";
 import { fromLonLat } from "ol/proj";
-import { Feature } from "ol";
+import Feature from "ol/Feature";
 import VectorLayer from "ol/layer/Vector";
 import { StyleLike } from "ol/style/Style";
 import { Fill, Stroke, Style } from "ol/style";
@@ -82,38 +82,6 @@ export const getOverlayVectorLayer = (
 
   return layer;
 };
-
-// export const getOverlayVectorLayer = (
-//   config: OverlayVectorLayerConfig
-// ): BaseLayer => {
-//   const source = new VectorSource({
-//     features: (config.data ?? []).map((item) => {
-//       const geometry =
-//         item.type === "Point"
-//           ? new Point(fromLonLat(item.coordinates as [number, number]))
-//           : new Polygon(item.coordinates as number[][][]).transform(
-//               "EPSG:4326",
-//               "EPSG:3857"
-//             );
-//
-//       const feature = new Feature({ geometry, id: item.id, ...item.meta });
-//       if (item.label) feature.set("label", item.label);
-//       return feature;
-//     }),
-//   });
-//
-//   const layer = new VectorLayer({
-//     source,
-//     visible: config.visible ?? true,
-//     style: config.style ?? getDefaultOverlayStyle(),
-//     zIndex: config.zIndex ?? 10,
-//   });
-//
-//   layer.set("id", config.id);
-//   layer.set("kind", config.kind);
-//
-//   return layer;
-// };
 
 export const getBaseVectorTileLayer = (
   layerConfig: BaseVectorTileLayerConfig

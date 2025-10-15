@@ -9,12 +9,26 @@ import {
 import { getMeta } from "../../utils/layers";
 
 // --- Mock getMeta ---
-jest.mock("../MapCanvas/utils", () => ({
+jest.mock("../../utils/layers", () => ({
 	getMeta: jest.fn(),
 }));
 
 // --- Mock BaseLayer class ---
-class MockLayer {
+export class MockLayer {
+	private props: Record<string, any> = {};
+
+	constructor(initial?: Record<string, any>) {
+		if (initial) Object.assign(this.props, initial);
+	}
+
+	get(key: string) {
+		return this.props[key];
+	}
+
+	set(key: string, val: any) {
+		this.props[key] = val;
+	}
+
 	setVisible = jest.fn();
 }
 
@@ -22,7 +36,10 @@ describe("LayerSelector components", () => {
 	let layersMock: MockLayer[];
 
 	beforeEach(() => {
-		layersMock = [new MockLayer(), new MockLayer()];
+		layersMock = [
+			new MockLayer({ kind: "baseLayer", meta: { label: "Layer 1", image: "img1.png", visible: true } }),
+			new MockLayer({ kind: "baseLayer", meta: { label: "Layer 2", image: "img2.png", visible: true } })
+		];
 
 		// mock getMeta
 		(getMeta as jest.Mock).mockImplementation((layer: any) => {

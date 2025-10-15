@@ -17,7 +17,6 @@ export const convertMarkerToFeature = (marker: MarkerFeature) => {
   const gh = marker.geohash.includes("http")
     ? marker.geohash.split("http://geohash.org/")[1]
     : marker.geohash;
-  console.log({ gh });
   const { latitude, longitude } = geohash.decode(gh);
   return {
     type: "Point",
@@ -28,7 +27,10 @@ export const convertMarkerToFeature = (marker: MarkerFeature) => {
   } as OverlayFeatureConfig;
 };
 
-const toOlStyle = (styleConfig: StyleConfig, feature?: unknown): StyleLike => {
+export const toOlStyle = (
+  styleConfig?: StyleConfig,
+  feature?: unknown
+): StyleLike => {
   if (!styleConfig) return defaultVectorStyle;
 
   if (typeof styleConfig === "function") {
@@ -53,11 +55,5 @@ const toOlStyle = (styleConfig: StyleConfig, feature?: unknown): StyleLike => {
 export const findVectorLayerById = (
   layers: BaseLayer[],
   id: string
-): VectorLayer | undefined => {
-  console.log(
-    "id",
-    id,
-    layers.find((l) => l.get("id") === id)
-  );
-  return layers.find((l) => l.get("id") === id) as VectorLayer | undefined;
-};
+): VectorLayer | undefined =>
+  layers.find((l) => l.get("id") === id) as VectorLayer | undefined;

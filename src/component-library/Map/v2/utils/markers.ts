@@ -1,21 +1,14 @@
 import geohash from "../../utils/geohash/geohash";
-import { Feature } from "ol";
+import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
 import { fromLonLat } from "ol/proj";
-import { MarkerStyle } from "../types/markers";
+import { MarkerFeature, MarkerStyle } from "../types/markers";
 import { getGeneratedOlIcon } from "../styles/markers";
 
 export enum MarkerAnchor {
   BOTTOM_MIDDLE,
   TOP_MIDDLE,
   CENTER,
-}
-
-export interface MarkerFeature {
-  id: string;
-  geohash: string;
-  meta?: Record<string, any>;
-  style?: MarkerStyle;
 }
 
 /**

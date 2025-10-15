@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { Feature, Map, View } from "ol";
+import Feature from "ol/Feature";
+import View from "ol/View";
+import Map from "ol/Map";
 import "ol/ol.css";
 import { MapCanvasV2Props } from "../../types/map-types";
 import { panToFeature, panToFeatures } from "../../composites/BasicMap/interactions/addPanToFeature";
