@@ -40,7 +40,7 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 			{
 				kind: "overlay-vector",
 				id: "polygon-layer",
-				data: [],
+				data: props?.polygons ?? [],
 				visible: true,
 			},
 		];
@@ -55,7 +55,7 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 	}, [layersRef.current]);
 
 	useEffect(() => {
-
+		if (!mapInstance.current) return;
 		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
 		if (!markerLayer) {
 			console.debug("No marker layer found");
@@ -78,9 +78,9 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 		const features = [...markerFeatures, ...polygonFeatures]
 
 		if (features.length === 1) {
-			panToFeature(mapInstance.current!, features[0])
+			panToFeature(mapInstance.current, features[0])
 		} else {
-			panToFeatures(mapInstance.current!, features)
+			panToFeatures(mapInstance.current, features)
 		}
 
 	}, [props.markers, props.polygons, layersReady])

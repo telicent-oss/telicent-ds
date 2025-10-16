@@ -13,6 +13,8 @@ export const polygonToOLFeature = (
       ? new MultiPolygon(coordinates)
       : new Polygon(coordinates);
 
+  geometry.transform("EPSG:4326", "EPSG:3857");
+
   const feature = new Feature({
     geometry,
     ...meta,
