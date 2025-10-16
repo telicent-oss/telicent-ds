@@ -3,7 +3,7 @@ import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas"
 import { LayerSelector } from "../../primitives/LayerSelector/LayerSelector";
 import { useRef, useMemo, useEffect, useState } from "react";
 
-import { Feature, Map } from "ol";
+import { Map } from "ol";
 import BaseLayer from "ol/layer/Base";
 import { BasicMapProperties } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
@@ -13,6 +13,7 @@ import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { MARKER_LAYER_ID } from "../../utils/layers";
 import { convertMarkerToFeature, findVectorLayerById } from "../../utils/feature";
 import { panToFeature, panToFeatures } from "./interactions/addPanToFeature";
+import { polygonToOLFeature } from "../../utils/polygons";
 
 
 export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
@@ -36,13 +37,12 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 				visible: true
 			},
 			// Polygon layer
-			// {
-			// 	kind: "overlay-vector",
-			// 	id: "polygon-layer",
-			// 	data: props.geoPolygons ?? [],  // simple polygon objects from props
-			// 	style: DEFAULT_POLYGON_STYLE,   // internal default style
-			// 	visible: true,
-			// },
+			{
+				kind: "overlay-vector",
+				id: "polygon-layer",
+				data: [],
+				visible: true,
+			},
 		];
 
 		return [...baseLayers, ...overlayVectorLayers];
@@ -69,8 +69,13 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 		}
 
 		source.clear();
-		const features = props.markers.map(markerToOLFeature)
-		source.addFeatures(features);
+		const markerFeatures = props.markers.map(markerToOLFeature);
+		source.addFeatures(markerFeatures);
+
+		const polygonFeatures = props.polygons.map(polygonToOLFeature);
+		source.addFeatures(polygonFeatures);
+
+		const features = [...markerFeatures, ...polygonFeatures]
 
 		if (features.length === 1) {
 			panToFeature(mapInstance.current!, features[0])
@@ -78,7 +83,7 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 			panToFeatures(mapInstance.current!, features)
 		}
 
-	}, [props.markers, layersReady])
+	}, [props.markers, props.polygons, layersReady])
 
 	return <>
 		<MapCanvasV2 layersRef={layersRef} mapInstanceRef={mapInstance} {...props} />

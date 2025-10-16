@@ -11,7 +11,8 @@ export const allArgs: BasicMapProperties = {
 	center: [0, 0],
 	layers: [],
 	mapStyleOptions: undefined,
-	markers: []
+	markers: [],
+	polygons: []
 };
 
 const partialArgs: Partial<BasicMapProperties> = allArgs;
