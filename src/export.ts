@@ -25,11 +25,8 @@ export * from "./component-library/Map";
 export * from "./component-library/InsetInMap";
 
 // Candidate Packages
-export * from "./candidate-packages/authorize-flow/AuthModal";
-export * from "./candidate-packages/authorize-flow/broadcastChannelService";
-export * from "./candidate-packages/authorize-flow/useAuthSync";
-export * from "./candidate-packages/authorize-flow";
-export * from "./candidate-packages/preferred-label-lib";
+export * as authorizeFlowDeprecated from "./candidate-packages/authorize-flow-deprecated/exports";
+export * from "./candidate-packages/authorize-flow/exports";
 
 // PROPOSED @telicent-oss/utils-lib
 export {
