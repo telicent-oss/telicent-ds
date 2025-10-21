@@ -28,8 +28,9 @@ jobs:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
           scope: 'telicent-oss'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
+
+      - name: Upgrade npm to latest
+        run: npm i -g npm@latest
       - name: Get node version
         id: node
         run: |
