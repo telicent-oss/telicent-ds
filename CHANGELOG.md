@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/telicent-oss/telicent-ds/compare/v1.0.1...v1.0.2) (2025-10-21)
+
+
+### Bug Fixes
+
+* update fixed panels and tests ([#328](https://github.com/telicent-oss/telicent-ds/issues/328)) ([7376ab4](https://github.com/telicent-oss/telicent-ds/commit/7376ab4c482c00343a8dbc739fb203e5c02f558b))
+
 ## [1.0.1](https://github.com/telicent-oss/telicent-ds/compare/v1.0.0...v1.0.1) (2025-10-14)
 
 
