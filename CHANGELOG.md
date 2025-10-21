@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/telicent-oss/telicent-ds/compare/v1.0.3...v1.0.4) (2025-10-21)
+
+
+### Bug Fixes
+
+* update publish yml ([#332](https://github.com/telicent-oss/telicent-ds/issues/332)) ([8d0a927](https://github.com/telicent-oss/telicent-ds/commit/8d0a92783ff625e0daafb2d4fa637a4a0eb2e9b1))
+
 ## [1.0.3](https://github.com/telicent-oss/telicent-ds/compare/v1.0.2...v1.0.3) (2025-10-21)
 
 
