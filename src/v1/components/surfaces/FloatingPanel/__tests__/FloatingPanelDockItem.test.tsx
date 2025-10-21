@@ -18,7 +18,6 @@ describe("Floating panel dock item component", () => {
   test.skip("The toggleMinimised function is called with the value of the targetId prop", async () => {
     const toggleMinimisedMock = jest.fn();
     jest.spyOn(floatingPanelContext, "useFloatingPanelContext").mockReturnValue({
-      toggleMinimised: toggleMinimisedMock,
       toggleVisibility: jest.fn(),
       get: jest.fn(),
       panels: { map: { visible: true, minimised: true } },
@@ -35,7 +34,6 @@ describe("Floating panel dock item component", () => {
   test("renders total count when number is greater than 0", () => {
     jest.spyOn(floatingPanelContext, "useFloatingPanelContext").mockReturnValue({
       toggleVisibility: jest.fn(),
-      toggleMinimised: jest.fn(),
       get: jest.fn(),
       panels: { map: { visible: true, minimised: true } },
     });
