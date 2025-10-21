@@ -25,8 +25,10 @@ export * from "./component-library/Map";
 export * from "./component-library/InsetInMap";
 
 // Candidate Packages
-export * as authorizeFlowDeprecated from "./candidate-packages/authorize-flow-deprecated/exports";
 export * from "./candidate-packages/authorize-flow/exports";
+import * as authorizeFlowDeprecated from "./candidate-packages/authorize-flow-deprecated/exports";
+export { authorizeFlowDeprecated };
+export * from "./candidate-packages/preferred-label-lib";
 
 // PROPOSED @telicent-oss/utils-lib
 export {
