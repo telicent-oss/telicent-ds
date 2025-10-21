@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
     paths:
       - CHANGELOG.md
   workflow_dispatch:
@@ -27,6 +26,17 @@ jobs:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
           scope: "telicent-oss"
+
+      - name: Upgrade npm to latest
+        run: npm i -g npm@latest
+
+      - name: Verify npm version >= 11.5.1
+        run: |
+          NPMV=$(npm --version)
+          echo "npm version: $NPMV"
+          node -e "const v=process.argv[1].split('.').map(Number);const ok=(v[0]>11)|| (v[0]===11 && (v[1]>5 || (v[1]===5 && v[2]>=1))); if(!ok){console.error('Need npm >= 11.5.1'); process.exit(1)}" "$NPMV"
+
       - run: LOCAL_MACHINE=false yarn install --frozen-lockfile
       - run: yarn build
+
       - run: npm publish --access public --provenance
