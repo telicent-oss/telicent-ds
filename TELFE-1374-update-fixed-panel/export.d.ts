@@ -544,8 +544,6 @@ export declare const FlexGridItem: default_2.FC<FlexGridProps>;
 declare type FlexGridProps = Omit<GridProps, "container" | "classes">;
 
 export declare const FloatingPanel: {
-    Dock: FC<FloatingPanelDockProps>;
-    DockItem: FC<FloatingPanelItemProps>;
     DraggablePanel: FC<DraggableFloatingPanelProps>;
     Provider: FC<FloatingPanelProviderProps>;
     ToggleButton: FC<FloatingPanelToggleButtonProps>;
@@ -555,31 +553,8 @@ export declare const FloatingPanelContext: default_2.Context<FloatingPanelContex
 
 export declare interface FloatingPanelContextType {
     toggleVisibility: ToggleFn;
-    toggleMinimised: ToggleFn;
     get: GetFn;
     panels: PanelsType;
-}
-
-export declare interface FloatingPanelDockProps extends PropsWithChildren<HTMLAttributes<HTMLUListElement>> {
-}
-
-export declare interface FloatingPanelItemProps extends HTMLAttributes<HTMLLIElement> {
-    /**
-     * The item label
-     */
-    label: string;
-    /**
-     * The id target reference for the toggle button.
-     */
-    targetId: string;
-    /**
-     * The icon to be displayed before the title
-     */
-    icon?: default_2.ReactNode;
-    /**
-     * Total number of items
-     */
-    count?: number;
 }
 
 export declare const FloatingPanelProvider: default_2.FC<FloatingPanelProviderProps>;
