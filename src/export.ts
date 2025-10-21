@@ -28,8 +28,10 @@ export * from "./component-library/Map/v2/composites/BasicMap/BasicMap";
 export * from "./component-library/Map/v2/types";
 
 // Candidate Packages
-export * as authorizeFlowDeprecated from "./candidate-packages/authorize-flow-deprecated/exports";
 export * from "./candidate-packages/authorize-flow/exports";
+import * as authorizeFlowDeprecated from "./candidate-packages/authorize-flow-deprecated/exports";
+export { authorizeFlowDeprecated };
+export * from "./candidate-packages/preferred-label-lib";
 
 // PROPOSED @telicent-oss/utils-lib
 export {
