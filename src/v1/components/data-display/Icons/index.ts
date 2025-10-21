@@ -1,5 +1,6 @@
 export { default as BinIcon } from "./BinIcon";
 export { default as CloseIcon } from "./CloseIcon";
+export { default as XIcon } from "./XIcon";
 export { default as DataServiceIcon } from "./DataServiceIcon";
 export { default as DataSetIcon } from "./DataSetIcon";
 export { default as DragHandleIcon } from "./DragHandleIcon";
@@ -13,4 +14,4 @@ export { default as TelicentMark } from "./TelicentMark";
 export { default as TelicentHorizontalSVG } from "./TelicentHorizontalSVG";
 export { default as UserIcon } from "./UserIcon";
 export { List as ListIcon } from "@telicent-oss/mui-icons-material";
-export { LocationOn as LocationOnIcon  } from "@telicent-oss/mui-icons-material";
+export { LocationOn as LocationOnIcon } from "@telicent-oss/mui-icons-material";
