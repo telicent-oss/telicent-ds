@@ -29,7 +29,6 @@ describe("Fixed panel component", () => {
   });
 
   test("the panel should not be visible if visible is false", () => {
-    const toggleMinimisedMock = jest.fn();
     jest.spyOn(floatingPanelContext, "useFloatingPanelContext").mockReturnValue({
       toggleVisibility: jest.fn(),
       get: jest.fn(),
@@ -41,7 +40,6 @@ describe("Fixed panel component", () => {
   });
 
   test("the panel should not be visible if minimised is true", () => {
-    const toggleMinimisedMock = jest.fn();
     jest.spyOn(floatingPanelContext, "useFloatingPanelContext").mockReturnValue({
       toggleVisibility: jest.fn(),
       get: jest.fn(),
@@ -53,7 +51,6 @@ describe("Fixed panel component", () => {
     expect(screen.getByText("Geo locations")).not.toBeVisible();
   });
   test("the panel should be visible if visible is true and minimised is false", () => {
-    const toggleMinimisedMock = jest.fn();
     jest.spyOn(floatingPanelContext, "useFloatingPanelContext").mockReturnValue({
       toggleVisibility: jest.fn(),
       get: jest.fn(),
