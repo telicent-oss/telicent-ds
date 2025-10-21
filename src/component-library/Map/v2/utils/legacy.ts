@@ -6,7 +6,7 @@ export const mapLegacyConfigToLayers = (
 ): LayerConfig[] => {
   const layers: LayerConfig[] = [];
 
-  if ("vectorStyles" in legacy) {
+  if (legacy.vectorStyles) {
     layers.push({
       id: legacy.vectorStyles.label,
       kind: "base-vector-tiles",
@@ -19,7 +19,7 @@ export const mapLegacyConfigToLayers = (
     });
   }
 
-  if ("tileSets" in legacy && Array.isArray(legacy.tileSets)) {
+  if (legacy.tileSets && Array.isArray(legacy.tileSets)) {
     legacy.tileSets.forEach((tileset) => {
       layers.push({
         id: tileset.label,

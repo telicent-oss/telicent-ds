@@ -13,7 +13,7 @@ export const NAME = "drawer-presentational";
 
 export interface DrawerPresentationalProps
   extends Omit<MuiMuiDrawerProps, "PaperProps">,
-    React.HTMLAttributes<HTMLDivElement> {
+  React.HTMLAttributes<HTMLDivElement> {
   PaperProps?: MuiMuiDrawerProps["PaperProps"];
   // IDEA Alternative to PaperSx is a theme
   PaperSx?: SxProps<Theme>;

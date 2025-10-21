@@ -19,10 +19,10 @@ export type LegacyVectorStyle = {
   image: string;
 };
 
-export type LegacyMapConfig =
-  | { vectorStyles: LegacyVectorStyle; tileSets?: LegacyTileSet[] }
-  | { tileSets: LegacyTileSet[] }
-  | { vectorStyles: LegacyVectorStyle };
+export type LegacyMapConfig = {
+  vectorStyles?: LegacyVectorStyle;
+  tileSets?: LegacyTileSet[];
+};
 
 export type StyleConfig =
   | Partial<{
@@ -40,20 +40,41 @@ export type MapInstanceRef = React.MutableRefObject<Map | null>;
 export type MapCanvasV2Props = {
   layersRef: LayersRef;
   mapInstanceRef: MapInstanceRef;
+  onFeatureClick?: (ids: string[]) => void;
   zoom: number;
   center: Coordinate;
+  controls?: Partial<MapControlsConfig>;
 };
+
+export type BasicMapV2Handle = {
+  zoomIn: () => void;
+  zoomOut: () => void;
+  panToFeature: (id: string) => void;
+  panToFeatures: (ids: string[]) => void;
+
+  // zoomInAsync: () => Promise<void>;
+  // zoomOutAsync: () => Promise<void>;
+  // panToAsync: (ids: string[]) => Promise<void>;
+};
+
+export interface MapControlsConfig {
+  showZoom: boolean;
+  showRotate: boolean;
+  showFullScreen: boolean;
+}
 
 export interface BasicMapProperties {
   zoom: number;
   center: number[];
   layers?: LayerConfig[];
+  controls?: Partial<MapControlsConfig>;
   /**
    * @deprecated Use `layers` instead. This prop will be removed in a future release.
    */
   mapStyleOptions?: LegacyMapConfig;
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
+  onFeatureClick?: (ids: string[]) => void;
 }
 
 export interface LayerSelectorProps {

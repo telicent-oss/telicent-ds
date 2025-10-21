@@ -48,7 +48,9 @@ export const LayerSelectorPresentationalButton: React.FC<PresentationalButtonPro
 		return null;
 	}
 
+	console.log({ data, sI: data[selectedIndex], selectedIndex })
 	const meta = useMemo(() => getMeta(data[selectedIndex]), [selectedIndex]);
+	console.log({ meta });
 
 	return (
 		<Button
@@ -133,7 +135,8 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 
 export const LayerSelector: React.FC<LayerSelectorProps> = ({ layersRef }) => {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-	const [selectedIndex, setSelectedIndex] = useState(layersRef.current.findIndex(l => getMeta(l)?.visible) || 0);
+	const initialIndex = layersRef.current.findIndex(l => getMeta(l)?.visible);
+	const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(e.currentTarget);

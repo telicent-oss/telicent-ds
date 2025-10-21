@@ -1,22 +1,22 @@
 
 import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas"
 import { LayerSelector } from "../../primitives/LayerSelector/LayerSelector";
-import { useRef, useMemo, useEffect, useState } from "react";
+import React, { useRef, useMemo, useEffect, useState, useImperativeHandle } from "react";
 
 import { Map } from "ol";
 import BaseLayer from "ol/layer/Base";
-import { BasicMapProperties } from "../../types/map-types";
+import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { MARKER_LAYER_ID } from "../../utils/layers";
 import { convertMarkerToFeature, findVectorLayerById } from "../../utils/feature";
-import { panToFeature, panToFeatures } from "./interactions/addPanToFeature";
+import { getFeaturesById, panToFeature, panToFeatures } from "./interactions/addPanToFeature";
 import { polygonToOLFeature } from "../../utils/polygons";
 
 
-export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
+export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>((props, ref) => {
 	const [layersReady, setLayersReady] = useState(false);
 	const mapInstance = useRef<Map | null>(null);
 
@@ -85,8 +85,52 @@ export const BasicMapV2: React.FC<BasicMapProperties> = (props) => {
 
 	}, [props.markers, props.polygons, layersReady])
 
+	useImperativeHandle(ref, () => ({
+		zoomIn: () => {
+			const view = mapInstance.current?.getView();
+			if (!view) {
+				console.warn("Map view is not ready yet");
+				return;
+			}
+
+			const currentZoom = view.getZoom() ?? 0; // defensive
+			view.setZoom(currentZoom + 1);
+		},
+		zoomOut: () => {
+			const view = mapInstance.current?.getView();
+			if (!view) {
+				console.warn("Map view is not ready yet");
+				return;
+			}
+
+			const currentZoom = view.getZoom() ?? 0; // defensive
+			view.setZoom(currentZoom - 1);
+		},
+		panToFeature: (id: string) => {
+			if (!mapInstance.current) {
+				console.warn("Map is not ready yet");
+				return;
+			}
+
+			const features = getFeaturesById(layersRef.current, [id])
+			if (features.length === 0) return;
+			panToFeature(mapInstance.current, features[0]);
+		},
+		panToFeatures: (ids: string[]) => {
+			if (!mapInstance.current) {
+				console.warn("Map is not ready yet");
+				return;
+			}
+
+			const features = getFeaturesById(layersRef.current, ids)
+			if (features.length === 0) return;
+			panToFeature(mapInstance.current, features[0]);
+		},
+
+	}), [mapInstance.current, layersRef.current])
+
 	return <>
 		<MapCanvasV2 layersRef={layersRef} mapInstanceRef={mapInstance} {...props} />
 		<LayerSelector layersRef={layersRef} />
 	</>
-}
+})

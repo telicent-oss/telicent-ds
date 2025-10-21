@@ -12,7 +12,7 @@ export const anchorMap: Record<MarkerType, MarkerAnchor> = {
 };
 
 // types/MarkerFeature.ts
-export type MarkerType = "pin" | "circle" | "icon";
+export type MarkerType = "pin" | "circle" | "icon" | string;
 
 export interface MarkerStyle {
   fallbackText?: string;
@@ -29,7 +29,7 @@ export interface MarkerStyle {
 export interface MarkerFeature {
   id: string;
   geohash: string;
-  type: string; // semantic type, e.g. vandalism / accident
+  type?: string; // semantic type, e.g. vandalism / accident
   name?: string;
   uri?: string;
   meta?: Record<string, any>;
