@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/telicent-oss/telicent-ds/compare/v1.0.2...v1.0.3) (2025-10-21)
+
+
+### Bug Fixes
+
+* update workflow ([#330](https://github.com/telicent-oss/telicent-ds/issues/330)) ([60eba85](https://github.com/telicent-oss/telicent-ds/commit/60eba857805c9cc7f05c0c67409871cfc1573a7e))
+
 ## [1.0.2](https://github.com/telicent-oss/telicent-ds/compare/v1.0.1...v1.0.2) (2025-10-21)
 
 
