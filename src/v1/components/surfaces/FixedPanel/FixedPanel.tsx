@@ -3,7 +3,7 @@ import MUIStack from "@mui/material/Stack";
 import MUIBox from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
 
-import { DownArrowIcon, Text } from "../../data-display";
+import { Text, XIcon } from "../../data-display";
 import { IconButton } from "../../buttons";
 import { useFloatingPanelContext } from "../FloatingPanel/useFloatingPanelContext";
 
@@ -88,11 +88,11 @@ const Panel: React.FC<PanelProps> = ({
         </Text>
         <IconButton
           size="small"
-          onClick={() => context?.toggleMinimised(targetId)}
+          onClick={() => context?.toggleVisibility(targetId)}
           color="primary"
           aria-label="minimise"
         >
-          <DownArrowIcon />
+          <XIcon fontSize="small" />
         </IconButton>
       </MUIStack>
       <MUIBox

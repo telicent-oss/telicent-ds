@@ -1,24 +1,19 @@
 import React from "react";
-import { useTheme } from "@mui/material";
+import { ToolbarProps, useTheme } from "@mui/material";
+import { Toolbar as MuiToolbar } from "@mui/material";
+import { FlexBox } from "../../layout";
 
-export interface ToolbarProps
-  extends React.ComponentProps<"div">,
-    React.PropsWithChildren {}
-
-const Toolbar: React.FC<ToolbarProps> = (props) => {
+const Toolbar: React.FC<ToolbarProps> = ({ children, sx, ...rest }) => {
   const theme = useTheme();
   return (
-    <div
-      css={{
-        backgroundColor: theme.palette.mode === "dark" ? "#2e2e2e" : "#eeeeee",
-        height: 48,
-        paddingInline: 10,
-        paddingBlock: 4,
-        marginTop: 2,
-        color: "white",
-      }}
-      {...props}
-    />
+    <MuiToolbar
+      disableGutters={true}
+      variant="dense"
+      sx={{ backgroundColor: theme.palette.mode === "dark" ? "#2e2e2e" : "#eeeeee", paddingX: 2, paddingY: 1, ...sx }}
+      {...rest}
+    >
+      {children}
+    </MuiToolbar>
   );
 };
 

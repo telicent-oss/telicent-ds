@@ -15,7 +15,6 @@ const meta: Meta<typeof Panel> = {
       value={{
         panels: { map: { visible: true, minimised: false } },
         toggleVisibility: () => {},
-        toggleMinimised: () => {},
         get: () => false,
       }}
     >

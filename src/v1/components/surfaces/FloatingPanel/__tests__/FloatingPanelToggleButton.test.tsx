@@ -7,14 +7,11 @@ import { setup as renderWithUser } from "../../../../../test-utils";
 describe("Floating Panel Toggle Button component", () => {
   test("toggleVisible gets called with value of the id prop", async () => {
     const toggleVisibilityMock = jest.fn();
-    jest
-      .spyOn(floatingPanelContext, "useFloatingPanelContext")
-      .mockReturnValue({
-        toggleVisibility: toggleVisibilityMock,
-        toggleMinimised: jest.fn(),
-        get: jest.fn(),
-        panels: {},
-      });
+    jest.spyOn(floatingPanelContext, "useFloatingPanelContext").mockReturnValue({
+      toggleVisibility: toggleVisibilityMock,
+      get: jest.fn(),
+      panels: {},
+    });
 
     const { user } = renderWithUser(
       <FloatingPanelToggleButton id="map" value="map1">
@@ -41,14 +38,8 @@ describe("Floating Panel Toggle Button component", () => {
       }
     );
 
-    expect(screen.getByRole("button", { name: "Toggle map" })).toHaveAttribute(
-      "aria-pressed",
-      "false"
-    );
+    expect(screen.getByRole("button", { name: "Toggle map" })).toHaveAttribute("aria-pressed", "false");
     await user.click(screen.getByRole("button", { name: "Toggle map" }));
-    expect(screen.getByRole("button", { name: "Toggle map" })).toHaveAttribute(
-      "aria-pressed",
-      "true"
-    );
+    expect(screen.getByRole("button", { name: "Toggle map" })).toHaveAttribute("aria-pressed", "true");
   });
 });

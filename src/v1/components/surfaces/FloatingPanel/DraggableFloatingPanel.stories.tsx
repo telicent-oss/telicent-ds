@@ -14,7 +14,7 @@ const meta: Meta<typeof FloatingPanel.DraggablePanel> = {
       value={{
         panels: { map: { visible: true, minimised: false } },
         toggleVisibility: () => {},
-        toggleMinimised: () => {},
+
         get: () => false,
       }}
     >

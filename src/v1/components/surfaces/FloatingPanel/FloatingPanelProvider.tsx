@@ -12,33 +12,18 @@ type GetFn = (id: string, state: "visible" | "minimised") => boolean;
 
 interface FloatingPanelContextType {
   toggleVisibility: ToggleFn;
-  toggleMinimised: ToggleFn;
   get: GetFn;
   panels: PanelsType;
 }
 
-export const FloatingPanelContext = createContext<
-  FloatingPanelContextType | undefined
->(undefined);
+export const FloatingPanelContext = createContext<FloatingPanelContextType | undefined>(undefined);
 
 interface FloatingPanelProviderProps {
   children: React.ReactNode;
 }
 
-export const FloatingPanelProvider: React.FC<FloatingPanelProviderProps> = ({
-  children,
-}) => {
+export const FloatingPanelProvider: React.FC<FloatingPanelProviderProps> = ({ children }) => {
   const [panels, setPanels] = useState<PanelsType>({});
-
-  const toggleMinimised: ToggleFn = (id) => {
-    setPanels((prevStates) => ({
-      ...prevStates,
-      [id]: {
-        ...prevStates[id],
-        minimised: !prevStates[id]?.minimised,
-      },
-    }));
-  };
 
   const toggleVisibility: ToggleFn = (id) => {
     setPanels((prevStates) => {
@@ -56,18 +41,8 @@ export const FloatingPanelProvider: React.FC<FloatingPanelProviderProps> = ({
   const get: GetFn = (id, state) => !!panels[id]?.[state];
 
   return (
-    <FloatingPanelContext.Provider
-      value={{ panels, get, toggleMinimised, toggleVisibility }}
-    >
-      {children}
-    </FloatingPanelContext.Provider>
+    <FloatingPanelContext.Provider value={{ panels, get, toggleVisibility }}>{children}</FloatingPanelContext.Provider>
   );
 };
 
-export type {
-  FloatingPanelContextType,
-  FloatingPanelProviderProps,
-  PanelsType,
-  PanelState,
-  ToggleFn
-};
+export type { FloatingPanelContextType, FloatingPanelProviderProps, PanelsType, PanelState, ToggleFn };
