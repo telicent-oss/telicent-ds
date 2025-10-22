@@ -31,13 +31,19 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		if (controls?.showZoom) olControls.push(new Zoom());
 		if (controls?.showRotate) olControls.push(new Rotate());
 		if (controls?.showFullScreen) olControls.push(new FullScreen());
+
 		mapInstanceRef.current = new Map({
 			target: mapRef.current,
 			controls: olControls,
 			layers: layersRef.current,
 			view: viewRef.current,
 		});
-
+		mapInstanceRef.current.getLayers().forEach(layer => {
+			if ("getSource" in layer && typeof layer.getSource === "function") {
+				const src = layer.getSource();
+				src?.on("tileloaderror", (e: Error) => console.warn("Tile error", e))
+			}
+		})
 		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
 		if (!markerLayer) {
 			console.debug("No marker layer configured");

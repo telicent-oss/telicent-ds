@@ -68,11 +68,11 @@ export const panToFeature = (
   if (!view) return;
 
   const bestZoom = getBestZoomForExtent(map, extent);
-  const zoom = Math.min(bestZoom, maxZoom);
+  const zoom = Math.round(Math.min(bestZoom - 1, maxZoom));
 
+  view.setZoom(zoom);
   view.fit(extent, {
     padding,
-    maxZoom: zoom,
     duration,
   });
 };
@@ -116,11 +116,12 @@ export const panToFeatures = (
   if (!view) return;
 
   const bestZoom = getBestZoomForExtent(map, combinedExtent);
-  const zoom = Math.min(bestZoom, maxZoom);
+  const zoom = Math.round(Math.min(bestZoom, maxZoom));
+
+  view.setZoom(zoom);
 
   view.fit(combinedExtent, {
     padding,
-    maxZoom: zoom,
     duration,
   });
 };
