@@ -1,0 +1,1 @@
+import{j as r}from"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import{r as n}from"./index-Dl6G-zuu.js";import{I as s}from"./IconButton-CV1Rw-GO.js";const a=n.forwardRef((o,t)=>r(s,{ref:t,...o}));a.__docgenInfo={description:"",methods:[],displayName:"IconButton"};export{a as I};
