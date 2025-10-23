@@ -1,6 +1,10 @@
 import { Coordinate } from "ol/coordinate";
 import BaseLayer from "ol/layer/Base";
-import { StyleLike } from "ol/style/Style";
+import { OverlayFeatureConfig } from "./overlays";
+import { LayerConfig } from "./layers";
+import { MarkerFeature } from "./markers";
+import { Map } from "ol";
+import { PolygonFeature } from "./polygons";
 
 export type LegacyTileSet = {
   label: string;
@@ -31,42 +35,14 @@ export type StyleConfig =
   | ((feature: unknown) => StyleConfig);
 
 export type LayersRef = React.MutableRefObject<BaseLayer[]>;
-
-export type BaseRasterLayerConfig = {
-  kind: "base-raster";
-  provider?: "osm" | "xyz" | "wmts";
-  attribution?: string; // TODO: Possibly overwritten?
-  url?: string;
-  visible?: boolean;
-  previewImage: string;
-  label: string;
-};
+export type MapInstanceRef = React.MutableRefObject<Map | null>;
 
 export type MapCanvasV2Props = {
   layersRef: LayersRef;
+  mapInstanceRef: MapInstanceRef;
   zoom: number;
   center: Coordinate;
 };
-
-export type BaseVectorTileLayerConfig = {
-  kind: "base-vector-tiles";
-  provider?: "mapbox" | "maptiler" | "arcgis" | "custom";
-  url: string;
-  styleUrl?: string; // e.g. Mapbox/MapTiler JSON
-  accessToken?: string;
-  visible?: boolean;
-  previewImage: string;
-  label: string;
-};
-
-export type OverlayVectorLayerConfig = {
-  kind: "overlay-vector";
-  data: OverlayFeatureConfig[];
-  style?: StyleLike;
-  visible?: boolean;
-};
-
-export type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig;
 
 export interface BasicMapProperties {
   zoom: number;
@@ -76,24 +52,23 @@ export interface BasicMapProperties {
    * @deprecated Use `layers` instead. This prop will be removed in a future release.
    */
   mapStyleOptions?: LegacyMapConfig;
+  markers: MarkerFeature[];
+  polygons: PolygonFeature[];
 }
-
-export type OverlayFeatureConfig = {
-  type: "Point" | "Polygon" | "MultiPolygon";
-  coordinates: number[] | number[][] | number[][][];
-  label?: string;
-  id?: string;
-
-  /** Optional extra metadata the app might need */
-  meta?: Record<string, any>;
-};
 
 export interface LayerSelectorProps {
   layersRef: LayersRef;
 }
 
-export type LayerMeta = {
-  label: string;
-  image: string;
-  visible: boolean;
-};
+export type OverlayType = "tile" | "geojson" | "vector";
+
+export interface OverlayConfig {
+  id: string;
+  type: OverlayType;
+  source: string | GeoJSON.FeatureCollection;
+  visible?: boolean;
+  zIndex?: number;
+  opacity?: number;
+  style?: Record<string, any>;
+  data?: OverlayFeatureConfig[];
+}

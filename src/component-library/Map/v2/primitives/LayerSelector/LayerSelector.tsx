@@ -5,9 +5,9 @@ import { PopOver, FlexGrid, FlexGridItem, Button, Text, useExtendedTheme, Button
 
 import { Image } from "../../../primitives/LayerSelector/primitives/Image";
 import { PopOverProps } from "../../../../../v1/components/surfaces/PopOver/Popover";
-import { LayerSelectorProps } from "../../types";
-import { getMeta } from "../MapCanvas/utils";
 import BaseLayer from "ol/layer/Base";
+import { LayerSelectorProps } from "../../types/map-types";
+import { getMeta } from "../../utils/layers";
 
 export interface LayerOption {
 	uri: string;
@@ -98,30 +98,33 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 		>
 			{
 				<FlexGrid direction="column">
-					{data.map((item, index) => {
-						const meta = getMeta(item)
-						return (
-							<FlexGridItem alignContent={"flex-start"} key={meta.label}>
-								<Button
-									// disabled={item.visible}
-									onClick={() => onListItemClick(meta.label)}
-									variant="text"
-									key={meta.label}
-									sx={{ width: "100%", justifyContent: "flex-start" }}
-								>
-									<Image
-										borderColor={index === selectedIndex ? extendedTheme.palette.primary.main : "transparent"}
-										src={meta.image}
-										role="presentation"
-										title={meta.label}
-									/>
-									<Text textTransform="capitalize" variant="body2">
-										{meta.label}
-									</Text>
-								</Button>
-							</FlexGridItem>
-						)
-					})}
+					{data
+						.filter(item =>
+							item.get("kind")?.startsWith("base"))
+						.map((item, index) => {
+							const meta = getMeta(item)
+							return (
+								<FlexGridItem alignContent={"flex-start"} key={meta.label}>
+									<Button
+										// disabled={item.visible}
+										onClick={() => onListItemClick(meta.label)}
+										variant="text"
+										key={meta.label}
+										sx={{ width: "100%", justifyContent: "flex-start" }}
+									>
+										<Image
+											borderColor={index === selectedIndex ? extendedTheme.palette.primary.main : "transparent"}
+											src={meta.image}
+											role="presentation"
+											title={meta.label}
+										/>
+										<Text textTransform="capitalize" variant="body2">
+											{meta.label}
+										</Text>
+									</Button>
+								</FlexGridItem>
+							)
+						})}
 				</FlexGrid>
 			}
 		</PopOver>
@@ -143,6 +146,7 @@ export const LayerSelector: React.FC<LayerSelectorProps> = ({ layersRef }) => {
 	const handleOnListItemClick = (label: string) => {
 		layersRef.current.forEach((layer, index) => {
 			const meta = getMeta(layer);
+			if (layer.get("kind") === "overlay-vector") return;
 			layer.setVisible(meta?.label === label);
 			if (meta?.label === label)
 				setSelectedIndex(index);
