@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/telicent-oss/telicent-ds/compare/v1.0.4...v1.1.0) (2025-10-23)
+
+
+### Features
+
+* Telfe 1325/user configured map ([#321](https://github.com/telicent-oss/telicent-ds/issues/321)) ([06cfd46](https://github.com/telicent-oss/telicent-ds/commit/06cfd468f8adb6a7aa40266d6b21e71a3ca4fc0b))
+
 ## [1.0.4](https://github.com/telicent-oss/telicent-ds/compare/v1.0.3...v1.0.4) (2025-10-21)
 
 
