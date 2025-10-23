@@ -16,27 +16,31 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@telicent-oss/mui-icons-material": "^1.0.0",
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.6",
     "@mui/x-date-pickers": "^8.9.2",
     "@react-spring/web": "9.7.3",
+    "@telicent-oss/mui-icons-material": "^1.0.0",
     "@telicent-oss/react-lib": "^0.5.0",
     "@telicent-oss/telicent-frontend-cli": "^1.5.0",
     "@types/lodash.debounce": "^4.0.9",
     "classnames": "^2.3.1",
     "d3": "^7.8.2",
     "dayjs": "^1.11.13",
+    "gsap": "^3.13.0",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
     "maplibre-gl": "^3.5.0",
+    "ol": "^10.6.1",
+    "ol-mapbox-style": "^13.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "^5.0.0",
     "react-map-gl": "^7.1.6",
     "react-rnd": "^10.4.13",
     "react-router-dom": "^6.23.1",
+    "svg-path-parser": "^1.1.0",
     "zod": "^3.21.4"
   },
   "resolutions": {
@@ -118,8 +122,8 @@
     "@storybook/test": "8.4.0",
     "@storybook/theming": "^8.6.12",
     "@tanstack/react-query": "^5.18.0",
-    "@telicent-oss/ontologyservice": "^1.0.2",
     "@telicent-oss/mui-icons-material": "^1.0.0",
+    "@telicent-oss/ontologyservice": "^1.0.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
@@ -132,6 +136,7 @@
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.32",
     "@types/react-dom": "^18.0.11",
+    "@types/svg-path-parser": "^1.1.6",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^5.57.0",
     "@vitejs/plugin-react": "^4.2.0",
@@ -215,7 +220,8 @@
     "moduleNameMapper": {
       "\\.(woff2)$": "<rootDir>/__mocks__/fileMock.ts",
       "mapbox-gl": "maplibre-gl",
-      "^d3$": "<rootDir>/node_modules/d3/dist/d3.min.js"
+      "^d3$": "<rootDir>/node_modules/d3/dist/d3.min.js",
+      "^ol/(.*)$": "<rootDir>/__mocks__/ol/$1"
     },
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
@@ -224,7 +230,7 @@
       "!src/**/*/*.d.ts"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(mapbox-gl|@telicent-oss/ontologyservice|@mui)/)"
+      "node_modules/(?!(mapbox-gl|@telicent-oss/ontologyservice|@mui|ol)/)"
     ]
   },
   "config": {

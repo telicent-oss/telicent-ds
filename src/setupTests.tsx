@@ -7,6 +7,8 @@ import "@testing-library/jest-dom";
 import { MarkerProps } from "react-map-gl/maplibre";
 import React, { forwardRef } from "react";
 
+
+
 import { createSerializer } from '@emotion/jest'
 expect.addSnapshotSerializer(
   createSerializer({
@@ -82,3 +84,10 @@ globalThis.BroadcastChannel = class {
     if (type === 'message') this.onmessage = null;
   };
 } as any;
+
+jest.mock("ol-mapbox-style", () => ({
+  __esModule: true,
+  default: jest.fn(),
+  apply: jest.fn(),
+}));
+
