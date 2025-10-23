@@ -44,6 +44,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 				src?.on("tileloaderror", (e: Error) => console.warn("Tile error", e))
 			}
 		})
+
 		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
 		if (!markerLayer) {
 			console.debug("No marker layer configured");
@@ -65,24 +66,6 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 
 				if (onFeatureClick) {
 					onFeatureClick(ids);
-				}
-			},
-		});
-
-		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
-		if (!markerLayer) {
-			console.debug("No marker layer configured");
-			return
-		}
-
-		const select = addSelectInteraction({
-			map: mapInstanceRef.current,
-			layer: markerLayer,
-			onSelect: (features: Feature[]) => {
-				if (features.length === 1) {
-					panToFeature(mapInstanceRef.current!, features[0]);
-				} else {
-					panToFeatures(mapInstanceRef.current!, features);
 				}
 			},
 		});

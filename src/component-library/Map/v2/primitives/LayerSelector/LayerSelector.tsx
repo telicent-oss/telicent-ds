@@ -48,9 +48,7 @@ export const LayerSelectorPresentationalButton: React.FC<PresentationalButtonPro
 		return null;
 	}
 
-	console.log({ data, sI: data[selectedIndex], selectedIndex })
 	const meta = useMemo(() => getMeta(data[selectedIndex]), [selectedIndex]);
-	console.log({ meta });
 
 	return (
 		<Button
