@@ -94,6 +94,7 @@ import { TextFieldProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Theme as Theme_2 } from '@mui/material';
 import { ToggleButtonProps } from '@mui/material/ToggleButton';
+import { ToolbarProps } from '@mui/material';
 import { TreeViewBaseItem } from '@mui/x-tree-view';
 import { TypographyProps } from '@mui/material/Typography';
 import { URLSearchParamsInit } from 'react-router-dom';
@@ -331,7 +332,6 @@ export declare const CopyToClipboard: default_2.FC<CopyToClipboardProps>;
 declare type CopyToClipboardProps = ButtonProps & {
     text: string;
     successMsg?: string;
-    title?: string;
     ariaLabel?: string;
     testFailure?: boolean;
     style?: String;
@@ -598,8 +598,6 @@ export declare const FlexGridItem: default_2.FC<FlexGridProps>;
 declare type FlexGridProps = Omit<GridProps, "container" | "classes">;
 
 export declare const FloatingPanel: {
-    Dock: FC<FloatingPanelDockProps>;
-    DockItem: FC<FloatingPanelItemProps>;
     DraggablePanel: FC<DraggableFloatingPanelProps>;
     Provider: FC<FloatingPanelProviderProps>;
     ToggleButton: FC<FloatingPanelToggleButtonProps>;
@@ -609,31 +607,8 @@ export declare const FloatingPanelContext: default_2.Context<FloatingPanelContex
 
 export declare interface FloatingPanelContextType {
     toggleVisibility: ToggleFn;
-    toggleMinimised: ToggleFn;
     get: GetFn;
     panels: PanelsType;
-}
-
-export declare interface FloatingPanelDockProps extends PropsWithChildren<HTMLAttributes<HTMLUListElement>> {
-}
-
-export declare interface FloatingPanelItemProps extends HTMLAttributes<HTMLLIElement> {
-    /**
-     * The item label
-     */
-    label: string;
-    /**
-     * The id target reference for the toggle button.
-     */
-    targetId: string;
-    /**
-     * The icon to be displayed before the title
-     */
-    icon?: default_2.ReactNode;
-    /**
-     * Total number of items
-     */
-    count?: number;
 }
 
 export declare const FloatingPanelProvider: default_2.FC<FloatingPanelProviderProps>;
@@ -2363,9 +2338,6 @@ export declare type ToggleFn = (id: string) => void;
 
 export declare const Toolbar: default_2.FC<ToolbarProps>;
 
-declare interface ToolbarProps extends default_2.ComponentProps<"div">, default_2.PropsWithChildren {
-}
-
 export declare const TooltipToggleButton: default_2.FC<TooltipToggleButtonProps>;
 
 declare interface TooltipToggleButtonProps extends Omit<ToggleButtonProps, "sx" | "classes" | "color"> {
@@ -2548,5 +2520,7 @@ export declare const UserStatus: default_2.FC<UserStatusProps>;
 export declare type UserStatusProps = PropsWithChildren & {
     fullName: string;
 };
+
+export declare const XIcon: default_2.FC<SvgIconProps>;
 
 export { }
