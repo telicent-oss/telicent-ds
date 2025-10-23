@@ -103,6 +103,10 @@ import { useMap } from 'react-map-gl/maplibre';
 import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
 
+export declare const anchorMap: Record<MarkerType, MarkerAnchor>;
+
+export declare type AnchorPosition = "center" | "top-left" | "top-middle" | "top-right" | "middle-left" | "middle-right" | "bottom-left" | "bottom-middle" | "bottom-right";
+
 declare interface ApiFactory {
     instance: AxiosInstance;
     withSessionHandling: (config: SessionHandlingConfig) => {
@@ -187,7 +191,7 @@ export declare const base64Codec: Codec;
 
 export declare type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;
 
-declare type BaseRasterLayerConfig = {
+export declare type BaseRasterLayerConfig = {
     id: string;
     kind: "base-raster";
     provider?: "osm" | "xyz" | "wmts";
@@ -198,7 +202,7 @@ declare type BaseRasterLayerConfig = {
     label: string;
 };
 
-declare type BaseVectorTileLayerConfig = {
+export declare type BaseVectorTileLayerConfig = {
     id: string;
     kind: "base-vector-tiles";
     provider?: "mapbox" | "maptiler" | "arcgis" | "custom";
@@ -212,19 +216,28 @@ declare type BaseVectorTileLayerConfig = {
 
 export declare const BasicMap: default_2.FC<FeatureMapProps>;
 
-declare interface BasicMapProperties {
+export declare interface BasicMapProperties {
     zoom: number;
     center: number[];
     layers?: LayerConfig[];
+    controls?: Partial<MapControlsConfig>;
     /**
      * @deprecated Use `layers` instead. This prop will be removed in a future release.
      */
     mapStyleOptions?: LegacyMapConfig;
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
+    onFeatureClick?: (ids: string[]) => void;
 }
 
-export declare const BasicMapV2: React.FC<BasicMapProperties>;
+export declare const BasicMapV2: default_2.ForwardRefExoticComponent<BasicMapProperties & default_2.RefAttributes<BasicMapV2Handle>>;
+
+export declare type BasicMapV2Handle = {
+    zoomIn: () => void;
+    zoomOut: () => void;
+    panToFeature: (id: string) => void;
+    panToFeatures: (ids: string[]) => void;
+};
 
 export declare const BinIcon: default_2.FC<SvgIconProps>;
 
@@ -685,7 +698,13 @@ export declare const insetInMap: {
     ControlArea: default_2.FC<ControlAreaProps>;
 };
 
-declare type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig | OverlayVectorLayerConfig;
+export declare type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig | OverlayVectorLayerConfig;
+
+export declare type LayerMeta = {
+    label: string;
+    image: string;
+    visible: boolean;
+};
 
 export declare interface LayerOption {
     uri: string;
@@ -697,25 +716,25 @@ export declare const LayerSelector: default_2.FC;
 
 export declare const LayerSelectorInsetInMap: default_2.FC<Pick<PresentationalProps, "color" | "sx" | "variant">>;
 
-declare type LayersRef = React.MutableRefObject<default_4[]>;
+export declare interface LayerSelectorProps {
+    layersRef: LayersRef;
+}
 
-declare type LegacyMapConfig = {
-    vectorStyles: LegacyVectorStyle;
+export declare type LayersRef = React.MutableRefObject<default_4[]>;
+
+export declare type LegacyMapConfig = {
+    vectorStyles?: LegacyVectorStyle;
     tileSets?: LegacyTileSet[];
-} | {
-    tileSets: LegacyTileSet[];
-} | {
-    vectorStyles: LegacyVectorStyle;
 };
 
-declare type LegacyTileSet = {
+export declare type LegacyTileSet = {
     label: string;
     uri: string;
     image: string;
     attribution: string;
 };
 
-declare type LegacyVectorStyle = {
+export declare type LegacyVectorStyle = {
     label: string;
     uri: string;
     image: string;
@@ -894,16 +913,24 @@ export declare interface MapCanvasState {
 
 export declare const MapCanvasV2: default_2.FC<MapCanvasV2Props>;
 
-declare type MapCanvasV2Props = {
+export declare type MapCanvasV2Props = {
     layersRef: LayersRef;
     mapInstanceRef: MapInstanceRef;
+    onFeatureClick?: (ids: string[]) => void;
     zoom: number;
     center: Coordinate;
+    controls?: Partial<MapControlsConfig>;
 };
+
+export declare interface MapControlsConfig {
+    showZoom: boolean;
+    showRotate: boolean;
+    showFullScreen: boolean;
+}
 
 export declare const MapIcon: default_2.FC<SvgIconProps>;
 
-declare type MapInstanceRef = React.MutableRefObject<Map_2 | null>;
+export declare type MapInstanceRef = React.MutableRefObject<Map_2 | null>;
 
 export { MapProvider }
 
@@ -914,17 +941,23 @@ declare interface MapStyleConfig {
 
 export declare const MapToggleButtonPresentational: default_2.FC<SecondaryButtonProps>;
 
-declare interface MarkerFeature {
+export declare enum MarkerAnchor {
+    CENTER = "center",
+    BOTTOM_MIDDLE = "bottom-middle",
+    TOP_MIDDLE = "top-middle"
+}
+
+export declare interface MarkerFeature {
     id: string;
     geohash: string;
-    type: string;
+    type?: string;
     name?: string;
     uri?: string;
     meta?: Record<string, any>;
     style?: MarkerStyle;
 }
 
-declare interface MarkerStyle {
+export declare interface MarkerStyle {
     fallbackText?: string;
     markerType?: MarkerType;
     color?: string;
@@ -936,7 +969,7 @@ declare interface MarkerStyle {
     zIndex?: number;
 }
 
-declare type MarkerType = "pin" | "circle" | "icon";
+export declare type MarkerType = "pin" | "circle" | "icon" | string;
 
 declare interface MenuItem {
     id: string;
@@ -1060,7 +1093,18 @@ export declare interface Options {
     label: string;
 }
 
-declare type OverlayFeatureConfig = {
+export declare interface OverlayConfig {
+    id: string;
+    type: OverlayType;
+    source: string | GeoJSON.FeatureCollection;
+    visible?: boolean;
+    zIndex?: number;
+    opacity?: number;
+    style?: Record<string, any>;
+    data?: OverlayFeatureConfig[];
+}
+
+export declare type OverlayFeatureConfig = {
     type: "Point" | "Polygon" | "MultiPolygon";
     coordinates: number[] | number[][] | number[][][];
     label?: string;
@@ -1069,13 +1113,16 @@ declare type OverlayFeatureConfig = {
     meta?: Record<string, any>;
 };
 
-declare type OverlayVectorLayerConfig = {
+export declare type OverlayType = "tile" | "geojson" | "vector";
+
+export declare type OverlayVectorLayerConfig = {
     id: string;
     kind: "overlay-vector";
     data: OverlayFeatureConfig[];
     style?: StyleLike;
     visible?: boolean;
     zIndex?: number;
+    projection?: string;
 };
 
 declare interface PanelProps extends HTMLAttributes<HTMLDivElement> {
@@ -1135,7 +1182,7 @@ export declare const PlayIcon: default_2.FC<SvgIconProps>;
 
 export declare const PlusCircleIcon: default_2.FC<SvgIconProps>;
 
-declare interface PolygonFeature {
+export declare interface PolygonFeature {
     id: string;
     type: PolygonType;
     coordinates: Coordinate;
@@ -1144,12 +1191,12 @@ declare interface PolygonFeature {
     style?: PolygonStyle;
 }
 
-declare interface PolygonStyle {
+export declare interface PolygonStyle {
     color: string;
     backgroundColor: string;
 }
 
-declare type PolygonType = "Polygon" | "MultiPolygon";
+export declare type PolygonType = "Polygon" | "MultiPolygon";
 
 /**
  * A PopOver can be used to display some content on top of another.
@@ -1410,6 +1457,14 @@ declare interface StandardLayoutProps {
      */
     beta?: boolean;
 }
+
+export declare type StyleConfig = Partial<{
+    fillColor: string;
+    strokeColor: string;
+    strokeWidth: number;
+    radius: number;
+    text?: string;
+}> | ((feature: unknown) => StyleConfig);
 
 declare type StyleOption = {
     label: string;
