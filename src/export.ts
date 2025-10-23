@@ -1,6 +1,5 @@
 import { IconButton, Button, Box } from "@mui/material";
 export const mui = { IconButton, Button, Box };
-
 import "./main.css";
 
 export { default as TeliStandardLayout } from "./layouts/TeliStandardLayout/TeliStandardLayout";
@@ -25,6 +24,7 @@ export * from "./component-library/Map";
 export * from "./component-library/InsetInMap";
 export * from "./component-library/Map/v2/primitives/MapCanvas/MapCanvas";
 export * from "./component-library/Map/v2/composites/BasicMap/BasicMap";
+export * from "./component-library/Map/v2/types";
 
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/AuthModal";

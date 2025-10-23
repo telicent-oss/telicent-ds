@@ -9,13 +9,16 @@ import { addSelectInteraction } from "../../composites/BasicMap/interactions/add
 import { findVectorLayerById } from "../../utils/feature";
 import { MARKER_LAYER_ID } from "../../utils/layers";
 import { ensureView } from "../../utils/ensureView";
+import { defaults as olDefaultControls, Zoom, Rotate, FullScreen } from "ol/control";
 
 
 export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	zoom,
 	center,
+	onFeatureClick,
 	layersRef,
 	mapInstanceRef,
+	controls
 }) => {
 	const mapRef = useRef<HTMLDivElement>(null);
 	// const mapInstance = useRef<Map | null>(null);
@@ -23,11 +26,24 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	useEffect(() => {
 		if (!mapRef.current || layersRef.current.length === 0) return;
 
+		// Build OL controls internally based on the config
+		const olControls = olDefaultControls({ zoom: false, rotate: false, attribution: true }); // disable OL zoom/rotate by default
+		if (controls?.showZoom) olControls.push(new Zoom());
+		if (controls?.showRotate) olControls.push(new Rotate());
+		if (controls?.showFullScreen) olControls.push(new FullScreen());
+
 		mapInstanceRef.current = new Map({
 			target: mapRef.current,
+			controls: olControls,
 			layers: layersRef.current,
 			view: viewRef.current,
 		});
+		mapInstanceRef.current.getLayers().forEach(layer => {
+			if ("getSource" in layer && typeof layer.getSource === "function") {
+				const src = layer.getSource();
+				src?.on("tileloaderror", (e: Error) => console.warn("Tile error", e))
+			}
+		})
 
 		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
 		if (!markerLayer) {
@@ -39,10 +55,17 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			map: mapInstanceRef.current,
 			layer: markerLayer,
 			onSelect: (features: Feature[]) => {
+				const ids = features
+					.map(f => f.getId?.())
+					.filter((id): id is string => typeof id === "string");
 				if (features.length === 1) {
 					panToFeature(mapInstanceRef.current!, features[0]);
 				} else {
 					panToFeatures(mapInstanceRef.current!, features);
+				}
+
+				if (onFeatureClick) {
+					onFeatureClick(ids);
 				}
 			},
 		});

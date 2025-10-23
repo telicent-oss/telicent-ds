@@ -7,7 +7,7 @@ describe("ensureView", () => {
       opts: {
         center: [0, 0],
         maxZoom: 18,
-        minZoom: 2,
+        minZoom: 1,
         zoom: 2,
       },
       zoom: 2,
@@ -20,7 +20,7 @@ describe("ensureView", () => {
       opts: {
         center: [1, 1],
         maxZoom: 18,
-        minZoom: 2,
+        minZoom: 1,
         zoom: 3,
       },
       zoom: 3,

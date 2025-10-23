@@ -1,29 +1,98 @@
 import type { Map as OlMap } from "ol";
+import type Geometry from "ol/geom/Geometry";
+import ol from "ol";
+import { Extent, getCenter } from "ol/extent";
 import type Feature from "ol/Feature";
-import { getCenter } from "ol/extent";
-import { getWidth, getHeight } from "ol/extent";
-import { easeOut } from "ol/easing";
+import BaseLayer from "ol/layer/Base";
 
-export const panToFeature = (map: OlMap, feature: Feature, zoom = 15) => {
+export const getFeaturesById = (
+  layers: BaseLayer[],
+  ids: string[]
+): Feature[] => {
+  const features: Feature[] = [];
+
+  layers.forEach((layer) => {
+    if ("getSource" in layer && typeof layer.getSource === "function") {
+      const source = layer.getSource();
+      if (!source?.getFeatureById) return;
+
+      ids.forEach((id) => {
+        const feature = source.getFeatureById(id);
+        if (feature) features.push(feature);
+      });
+    }
+  });
+
+  return features;
+};
+
+const getNearestResolution = (view: ol.View, targetRes: number | undefined) => {
+  if (!targetRes) return targetRes;
+  const resolutions = view.getResolutions();
+  if (!resolutions) return targetRes;
+  return resolutions.reduce((prev, curr) =>
+    Math.abs(curr - targetRes) < Math.abs(prev - targetRes) ? curr : prev
+  );
+};
+
+const getBestZoomForExtent = (map: OlMap, extent: Extent): number => {
+  const view = map.getView();
+
+  const resolutionForExtent = view.getResolutionForExtent(
+    extent,
+    map.getSize()
+  );
+  if (!resolutionForExtent) return view.getZoom() ?? 0;
+
+  const nearestRes = view.getResolutions()
+    ? getNearestResolution(view, resolutionForExtent)
+    : resolutionForExtent;
+
+  const zoom = view.getZoomForResolution(
+    nearestRes ?? view.getResolution() ?? 0
+  );
+  return zoom ?? view.getZoom() ?? 0;
+};
+
+export const panToFeature = (
+  map: OlMap,
+  feature: Feature<Geometry>,
+  options: PanOptions = {}
+): void => {
   const geometry = feature.getGeometry();
   if (!geometry) return;
 
-  const view = map.getView();
+  const { padding = [50, 50, 50, 50], maxZoom = 16, duration = 600 } = options;
   const extent = geometry.getExtent();
-  const center = getCenter(extent);
+  const view = map.getView();
+  if (!view) return;
 
-  view.animate({
-    center,
-    zoom,
-    duration: 500,
+  const bestZoom = getBestZoomForExtent(map, extent);
+  const zoom = Math.round(Math.min(bestZoom - 1, maxZoom));
+
+  view.setZoom(zoom);
+  view.fit(extent, {
+    padding,
+    duration,
   });
 };
 
+interface PanOptions {
+  padding?: [number, number, number, number];
+  maxZoom?: number;
+  duration?: number;
+}
+
+/**
+ * Smoothly pans and zooms the map to fit one or more features.
+ */
 export const panToFeatures = (
   map: OlMap,
-  features: Feature[],
-  padding = [80, 80, 80, 80]
-) => {
+  features: Feature<Geometry>[],
+  options: PanOptions = {}
+): void => {
+  const { padding = [50, 50, 50, 50], maxZoom = 16, duration = 600 } = options;
+
   if (!features.length) return;
 
   const extents = features
@@ -33,7 +102,7 @@ export const panToFeatures = (
   if (!extents.length) return;
 
   // combine extents
-  const combined = extents.reduce(
+  const combinedExtent = extents.reduce(
     (acc, e) => [
       Math.min(acc[0], e[0]),
       Math.min(acc[1], e[1]),
@@ -44,37 +113,58 @@ export const panToFeatures = (
   );
 
   const view = map.getView();
-  const mapSize = map.getSize();
-  if (!mapSize) return;
+  if (!view) return;
 
-  // calculate the target resolution that fits the extent in the map
-  const [mapWidth, mapHeight] = mapSize;
-  const extentWidth = getWidth(combined);
-  const extentHeight = getHeight(combined);
+  const bestZoom = getBestZoomForExtent(map, combinedExtent);
+  const zoom = Math.round(Math.min(bestZoom, maxZoom));
 
-  // nominal resolutions of the tile grid
-  const resolutions = view.getResolutions?.(); // might be undefined
+  view.setZoom(zoom);
 
-  // choose resolution that fits extent, snapping to tile grid if possible
-  let targetResolution = Math.max(
-    extentWidth / (mapWidth - padding[1] - padding[3]),
-    extentHeight / (mapHeight - padding[0] - padding[2])
-  );
-
-  if (resolutions) {
-    // snap to nearest resolution
-    targetResolution = resolutions.reduce((prev, curr) =>
-      Math.abs(curr - targetResolution) < Math.abs(prev - targetResolution)
-        ? curr
-        : prev
-    );
-  }
-  view.fit(combined, { padding, duration: 0 }); // instant, correct resolution
-
-  // animate fit with snapped resolution
-  view.animate({
-    center: view.getCenter(),
-    duration: 600,
-    easing: easeOut,
-  }); // smooth visual motion
+  view.fit(combinedExtent, {
+    padding,
+    duration,
+  });
 };
+
+// export const panToFeature = (map: OlMap, feature: Feature) => {
+//   const geometry = feature.getGeometry();
+//   if (!geometry) return;
+//
+//   const extent = geometry.getExtent();
+//   const view = map.getView();
+//
+//   view.fit(extent, { padding: [50, 50, 50, 50] });
+// };
+//
+// export const panToFeatures = (
+//   map: OlMap,
+//   features: Feature[],
+//   padding = [50, 50, 50, 50],
+//   maxZoom = 16
+// ) => {
+//   if (!features.length) return;
+//
+//   const extents = features
+//     .map((f) => f.getGeometry()?.getExtent())
+//     .filter((e): e is [number, number, number, number] => !!e);
+//
+//   if (!extents.length) return;
+//
+//   // combine extents
+//   const combined = extents.reduce(
+//     (acc, e) => [
+//       Math.min(acc[0], e[0]),
+//       Math.min(acc[1], e[1]),
+//       Math.max(acc[2], e[2]),
+//       Math.max(acc[3], e[3]),
+//     ],
+//     extents[0]
+//   );
+//
+//   const view = map.getView();
+//   view.fit(combined, {
+//     padding,
+//     maxZoom,
+//     duration: 0,
+//   });
+// };

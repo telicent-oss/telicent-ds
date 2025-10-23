@@ -31,6 +31,7 @@ export type OverlayVectorLayerConfig = {
   style?: StyleLike;
   visible?: boolean;
   zIndex?: number;
+  projection?: string;
 };
 
 export type LayerConfig =

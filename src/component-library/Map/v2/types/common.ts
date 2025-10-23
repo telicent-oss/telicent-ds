@@ -1,7 +1,3 @@
-import BaseLayer from "ol/layer/Base";
-
-export type LayersRef = React.MutableRefObject<BaseLayer[]>;
-
 export type AnchorPosition =
   | "center"
   | "top-left"
