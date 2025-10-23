@@ -52,6 +52,7 @@ import { ListItemTextProps as ListItemTextProps_2 } from '@mui/material/ListItem
 import { ListProps } from '@mui/material/List';
 import { ListProps as ListProps_2 } from '@mui/material';
 import { LocationOn as LocationOnIcon } from '@telicent-oss/mui-icons-material';
+import { Map as Map_2 } from 'ol';
 import { MapProvider } from 'react-map-gl/maplibre';
 import { MapRef } from 'react-map-gl/maplibre';
 import { MenuItemProps } from '@mui/material';
@@ -76,6 +77,7 @@ import { SelectProps as SelectProps_2 } from '@mui/material';
 import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { SkeletonTypeMap } from '@mui/material/Skeleton';
 import { StackProps } from '@mui/material/Stack';
+import { StyleLike } from 'ol/style/Style';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
 import { SxProps } from '@mui/material/styles';
@@ -186,6 +188,7 @@ export declare const base64Codec: Codec;
 export declare type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;
 
 declare type BaseRasterLayerConfig = {
+    id: string;
     kind: "base-raster";
     provider?: "osm" | "xyz" | "wmts";
     attribution?: string;
@@ -196,6 +199,7 @@ declare type BaseRasterLayerConfig = {
 };
 
 declare type BaseVectorTileLayerConfig = {
+    id: string;
     kind: "base-vector-tiles";
     provider?: "mapbox" | "maptiler" | "arcgis" | "custom";
     url: string;
@@ -216,6 +220,8 @@ declare interface BasicMapProperties {
      * @deprecated Use `layers` instead. This prop will be removed in a future release.
      */
     mapStyleOptions?: LegacyMapConfig;
+    markers: MarkerFeature[];
+    polygons: PolygonFeature[];
 }
 
 export declare const BasicMapV2: React.FC<BasicMapProperties>;
@@ -679,7 +685,7 @@ export declare const insetInMap: {
     ControlArea: default_2.FC<ControlAreaProps>;
 };
 
-declare type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig;
+declare type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig | OverlayVectorLayerConfig;
 
 export declare interface LayerOption {
     uri: string;
@@ -890,11 +896,14 @@ export declare const MapCanvasV2: default_2.FC<MapCanvasV2Props>;
 
 declare type MapCanvasV2Props = {
     layersRef: LayersRef;
+    mapInstanceRef: MapInstanceRef;
     zoom: number;
     center: Coordinate;
 };
 
 export declare const MapIcon: default_2.FC<SvgIconProps>;
+
+declare type MapInstanceRef = React.MutableRefObject<Map_2 | null>;
 
 export { MapProvider }
 
@@ -904,6 +913,30 @@ declare interface MapStyleConfig {
 }
 
 export declare const MapToggleButtonPresentational: default_2.FC<SecondaryButtonProps>;
+
+declare interface MarkerFeature {
+    id: string;
+    geohash: string;
+    type: string;
+    name?: string;
+    uri?: string;
+    meta?: Record<string, any>;
+    style?: MarkerStyle;
+}
+
+declare interface MarkerStyle {
+    fallbackText?: string;
+    markerType?: MarkerType;
+    color?: string;
+    strokeWidth?: number;
+    backgroundColor?: string;
+    innerSvg?: string;
+    borderColor?: string;
+    size?: number;
+    zIndex?: number;
+}
+
+declare type MarkerType = "pin" | "circle" | "icon";
 
 declare interface MenuItem {
     id: string;
@@ -1027,6 +1060,24 @@ export declare interface Options {
     label: string;
 }
 
+declare type OverlayFeatureConfig = {
+    type: "Point" | "Polygon" | "MultiPolygon";
+    coordinates: number[] | number[][] | number[][][];
+    label?: string;
+    id?: string;
+    marker?: string | MarkerStyle;
+    meta?: Record<string, any>;
+};
+
+declare type OverlayVectorLayerConfig = {
+    id: string;
+    kind: "overlay-vector";
+    data: OverlayFeatureConfig[];
+    style?: StyleLike;
+    visible?: boolean;
+    zIndex?: number;
+};
+
 declare interface PanelProps extends HTMLAttributes<HTMLDivElement> {
     /**
      * For linking to associated ToggleButtonState
@@ -1083,6 +1134,22 @@ declare type Picked = Pick<MapCanvasProps, "initialViewState" | "defaultStyle" |
 export declare const PlayIcon: default_2.FC<SvgIconProps>;
 
 export declare const PlusCircleIcon: default_2.FC<SvgIconProps>;
+
+declare interface PolygonFeature {
+    id: string;
+    type: PolygonType;
+    coordinates: Coordinate;
+    name: string;
+    meta?: Record<string, any>;
+    style?: PolygonStyle;
+}
+
+declare interface PolygonStyle {
+    color: string;
+    backgroundColor: string;
+}
+
+declare type PolygonType = "Polygon" | "MultiPolygon";
 
 /**
  * A PopOver can be used to display some content on top of another.
