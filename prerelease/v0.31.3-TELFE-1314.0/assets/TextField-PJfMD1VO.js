@@ -1,1 +1,0 @@
-import{j as i}from"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import{T as o}from"./TextField-BXJNoCm8.js";const p=({errorText:t,error:e,helperText:r,...s})=>i(o,{error:e,helperText:e?t:r,...s});p.__docgenInfo={description:"",methods:[],displayName:"TextField",props:{errorText:{required:!1,tsType:{name:"string"},description:""}}};export{p as T};
