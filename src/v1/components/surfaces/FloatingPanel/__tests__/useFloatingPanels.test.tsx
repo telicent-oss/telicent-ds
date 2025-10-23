@@ -12,7 +12,7 @@ describe("useFloatingPanels custom hook", () => {
               map: { visible: true, minimised: false },
               timeline: { visible: false, minimised: false },
             },
-            toggleMinimised: jest.fn(),
+
             toggleVisibility: jest.fn(),
             get: jest.fn(),
           }}

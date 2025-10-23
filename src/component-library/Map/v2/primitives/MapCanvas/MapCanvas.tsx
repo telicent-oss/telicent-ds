@@ -69,6 +69,24 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			},
 		});
 
+		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
+		if (!markerLayer) {
+			console.debug("No marker layer configured");
+			return
+		}
+
+		const select = addSelectInteraction({
+			map: mapInstanceRef.current,
+			layer: markerLayer,
+			onSelect: (features: Feature[]) => {
+				if (features.length === 1) {
+					panToFeature(mapInstanceRef.current!, features[0]);
+				} else {
+					panToFeatures(mapInstanceRef.current!, features);
+				}
+			},
+		});
+
 		return () => {
 			mapInstanceRef.current?.removeInteraction(select);
 			mapInstanceRef.current?.setTarget(undefined);

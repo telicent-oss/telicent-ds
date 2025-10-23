@@ -1,5 +1,52 @@
 # Changelog
 
+## [1.0.4](https://github.com/telicent-oss/telicent-ds/compare/v1.0.3...v1.0.4) (2025-10-21)
+
+
+### Bug Fixes
+
+* update publish yml ([#332](https://github.com/telicent-oss/telicent-ds/issues/332)) ([8d0a927](https://github.com/telicent-oss/telicent-ds/commit/8d0a92783ff625e0daafb2d4fa637a4a0eb2e9b1))
+
+## [1.0.3](https://github.com/telicent-oss/telicent-ds/compare/v1.0.2...v1.0.3) (2025-10-21)
+
+
+### Bug Fixes
+
+* update workflow ([#330](https://github.com/telicent-oss/telicent-ds/issues/330)) ([60eba85](https://github.com/telicent-oss/telicent-ds/commit/60eba857805c9cc7f05c0c67409871cfc1573a7e))
+
+## [1.0.2](https://github.com/telicent-oss/telicent-ds/compare/v1.0.1...v1.0.2) (2025-10-21)
+
+
+### Bug Fixes
+
+* update fixed panels and tests ([#328](https://github.com/telicent-oss/telicent-ds/issues/328)) ([7376ab4](https://github.com/telicent-oss/telicent-ds/commit/7376ab4c482c00343a8dbc739fb203e5c02f558b))
+
+## [1.0.1](https://github.com/telicent-oss/telicent-ds/compare/v1.0.0...v1.0.1) (2025-10-14)
+
+
+### Bug Fixes
+
+* remove title from copy to clipboard and tooltip already has a title prop ([#324](https://github.com/telicent-oss/telicent-ds/issues/324)) ([3662108](https://github.com/telicent-oss/telicent-ds/commit/3662108471e9b419edb77d30911cb09fa15538ed))
+
+## [1.0.0](https://github.com/telicent-oss/telicent-ds/compare/v0.31.4...v1.0.0) (2025-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* update miniSearch and toolbar ([#322](https://github.com/telicent-oss/telicent-ds/issues/322))
+
+### Bug Fixes
+
+* update miniSearch and toolbar ([#322](https://github.com/telicent-oss/telicent-ds/issues/322)) ([4783cf0](https://github.com/telicent-oss/telicent-ds/commit/4783cf00865a93a97b84fd6fcf21e10bfe33d504))
+
+## [0.31.4](https://github.com/telicent-oss/telicent-ds/compare/v0.31.3...v0.31.4) (2025-09-26)
+
+
+### Bug Fixes
+
+* **map:** [TELFE-1316] dark map attribution style ([#316](https://github.com/telicent-oss/telicent-ds/issues/316)) ([330e804](https://github.com/telicent-oss/telicent-ds/commit/330e804ec2e3d4283aa10501a60ecae98d08169d))
+* remove border around user profile modal ([#317](https://github.com/telicent-oss/telicent-ds/issues/317)) ([12a3eb5](https://github.com/telicent-oss/telicent-ds/commit/12a3eb507f4c2cc24a671fa80dfd6ceff1ba8d4d))
+
 ## [0.31.3](https://github.com/telicent-oss/telicent-ds/compare/v0.31.2...v0.31.3) (2025-09-10)
 
 
