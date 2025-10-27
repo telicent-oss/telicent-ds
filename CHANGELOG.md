@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/telicent-oss/telicent-ds/compare/v1.1.0...v1.1.1) (2025-10-27)
+
+
+### Bug Fixes
+
+* expose layersRef ([#337](https://github.com/telicent-oss/telicent-ds/issues/337)) ([4443066](https://github.com/telicent-oss/telicent-ds/commit/44430669d39d90b6d628c0683c08b7e5b510fee0))
+
 ## [1.1.0](https://github.com/telicent-oss/telicent-ds/compare/v1.0.4...v1.1.0) (2025-10-23)
 
 
