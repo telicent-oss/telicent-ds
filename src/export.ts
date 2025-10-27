@@ -23,6 +23,7 @@ export * from "./v1/components/utils/index";
 export * from "./component-library/Map";
 export * from "./component-library/InsetInMap";
 export * from "./component-library/Map/v2/primitives/MapCanvas/MapCanvas";
+export * from "./component-library/Map/v2/primitives/LayerSelector/LayerSelector";
 export * from "./component-library/Map/v2/composites/BasicMap/BasicMap";
 export * from "./component-library/Map/v2/types";
 

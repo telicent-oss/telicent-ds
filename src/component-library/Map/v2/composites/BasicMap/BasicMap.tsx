@@ -1,6 +1,6 @@
 
 import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas"
-import { LayerSelector } from "../../primitives/LayerSelector/LayerSelector";
+import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
 import React, { useRef, useMemo, useEffect, useState, useImperativeHandle } from "react";
 
 import { Map } from "ol";
@@ -20,6 +20,8 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 	const [layersReady, setLayersReady] = useState(false);
 	const mapInstance = useRef<Map | null>(null);
 
+	const showLayerSelector =
+		props.controls?.showLayerSelector ?? true;
 	const effectiveLayers = useMemo(() => {
 		const baseLayers =
 			Array.isArray(props.layers) && props.layers.length > 0
@@ -48,10 +50,14 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 		return [...baseLayers, ...overlayVectorLayers];
 	}, [props.layers, props.mapStyleOptions]);
 
+
 	const layersRef = useRef<BaseLayer[]>(ensureLayers(effectiveLayers));
 
 	useEffect(() => {
 		setLayersReady(true)
+		if (props.onLayersReady) {
+			props.onLayersReady(true);
+		}
 	}, [layersRef.current]);
 
 	useEffect(() => {
@@ -126,11 +132,14 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 			if (features.length === 0) return;
 			panToFeature(mapInstance.current, features[0]);
 		},
+		layersRef
 
 	}), [mapInstance.current, layersRef.current])
 
 	return <>
 		<MapCanvasV2 layersRef={layersRef} mapInstanceRef={mapInstance} {...props} />
-		<LayerSelector layersRef={layersRef} />
+		{showLayerSelector &&
+			<LayerSelectorV2 layersRef={layersRef} />
+		}
 	</>
 })

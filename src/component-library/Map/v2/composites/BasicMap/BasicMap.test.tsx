@@ -6,13 +6,13 @@ jest.mock("../../primitives/MapCanvas/MapCanvas", () => ({
 }));
 
 jest.mock("../../primitives/LayerSelector/LayerSelector", () => ({
-	LayerSelector: jest.fn(() => <div id="layer-selector" />)
+	LayerSelectorV2: jest.fn(() => <div id="layer-selector" />)
 }));
 
 import { render } from "@testing-library/react";
 import { BasicMapV2 } from "./BasicMap";
 import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
-import { LayerSelector } from "../../primitives/LayerSelector/LayerSelector";
+import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
 import { BasicMapProperties } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { ensureLayers } from "../../utils/ensureLayers";
@@ -38,7 +38,7 @@ describe.skip("BasicMapV2", () => {
 		render(<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} />);
 
 		expect(MapCanvasV2).toHaveBeenCalled();
-		expect(LayerSelector).toHaveBeenCalled();
+		expect(LayerSelectorV2).toHaveBeenCalled();
 	});
 
 	it("calls ensureLayers with effectiveLayers", () => {
