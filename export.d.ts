@@ -228,6 +228,7 @@ export declare interface BasicMapProperties {
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
     onFeatureClick?: (ids: string[]) => void;
+    onLayersReady?: (isReady: boolean) => void;
 }
 
 export declare const BasicMapV2: default_2.ForwardRefExoticComponent<BasicMapProperties & default_2.RefAttributes<BasicMapV2Handle>>;
@@ -237,6 +238,7 @@ export declare type BasicMapV2Handle = {
     zoomOut: () => void;
     panToFeature: (id: string) => void;
     panToFeatures: (ids: string[]) => void;
+    layersRef: LayersRef;
 };
 
 export declare const BinIcon: default_2.FC<SvgIconProps>;
@@ -714,11 +716,18 @@ export declare interface LayerOption {
 
 export declare const LayerSelector: default_2.FC;
 
-export declare const LayerSelectorInsetInMap: default_2.FC<Pick<PresentationalProps, "color" | "sx" | "variant">>;
+export declare const LayerSelectorInsetInMap: default_2.FC<Pick<PresentationalProps_2, "color" | "sx" | "variant">>;
+
+export declare const LayerSelectorPresentationalButton: default_2.FC<PresentationalButtonProps>;
+
+export declare const LayerSelectorPresentationalPopOverV2: default_2.FC<PresentationalProps>;
 
 export declare interface LayerSelectorProps {
     layersRef: LayersRef;
+    style?: React.CSSProperties;
 }
+
+export declare const LayerSelectorV2: default_2.FC<LayerSelectorProps>;
 
 export declare type LayersRef = React.MutableRefObject<default_4[]>;
 
@@ -731,7 +740,7 @@ export declare type LegacyTileSet = {
     label: string;
     uri: string;
     image: string;
-    attribution: string;
+    attribution?: string;
 };
 
 export declare type LegacyVectorStyle = {
@@ -926,6 +935,7 @@ export declare interface MapControlsConfig {
     showZoom: boolean;
     showRotate: boolean;
     showFullScreen: boolean;
+    showLayerSelector: boolean;
 }
 
 export declare const MapIcon: default_2.FC<SvgIconProps>;
@@ -1267,7 +1277,22 @@ export declare const PreferredLabelCache: {
     get: (val: string) => string;
 };
 
-declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
+export declare interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
+    data?: default_4[];
+    anchorEl: HTMLButtonElement | null;
+    onClickDropdown: ButtonProps["onClick"];
+    selectedIndex: number;
+}
+
+export declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
+    data: default_4[];
+    anchorEl: HTMLButtonElement | null;
+    onCloseDropdown: PopOverProps["onClose"];
+    onListItemClick: (label: string) => void;
+    selectedIndex: number;
+}
+
+declare interface PresentationalProps_2 extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
     selectedIndex: number;
     data: LayerOption[];
     anchorEl: HTMLButtonElement | null;
