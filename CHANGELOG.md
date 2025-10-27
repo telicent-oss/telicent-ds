@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/telicent-oss/telicent-ds/compare/v1.1.1...v1.1.2) (2025-10-27)
+
+
+### Bug Fixes
+
+* pan to feature ([#339](https://github.com/telicent-oss/telicent-ds/issues/339)) ([c3e8812](https://github.com/telicent-oss/telicent-ds/commit/c3e88127b362aab9c7afe677e16762d89700a0b2))
+
 ## [1.1.1](https://github.com/telicent-oss/telicent-ds/compare/v1.1.0...v1.1.1) (2025-10-27)
 
 
