@@ -2,7 +2,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import {
-	LayerSelector,
+	LayerSelectorV2,
 	LayerSelectorPresentationalButton,
 	LayerSelectorPresentationalPopOverV2,
 } from "./LayerSelector";
@@ -99,7 +99,7 @@ describe("LayerSelector components", () => {
 
 	// --- Full LayerSelector ---
 	it("LayerSelector opens popover and updates visibility on click", () => {
-		render(<LayerSelector layersRef={{ current: layersMock as any }} />);
+		render(<LayerSelectorV2 layersRef={{ current: layersMock as any }} />);
 
 		// Button for opening popover
 		const button = screen.getByRole("button");
@@ -114,7 +114,7 @@ describe("LayerSelector components", () => {
 	});
 
 	it("returns null if only one layer is present", () => {
-		render(<LayerSelector layersRef={{ current: [layersMock[0]] as any }} />);
+		render(<LayerSelectorV2 layersRef={{ current: [layersMock[0]] as any }} />);
 		expect(screen.queryByRole("button")).toBeNull();
 	});
 });

@@ -67,10 +67,10 @@ export const panToFeature = (
   const view = map.getView();
   if (!view) return;
 
-  const bestZoom = getBestZoomForExtent(map, extent);
-  const zoom = Math.round(Math.min(bestZoom - 1, maxZoom));
+  // const bestZoom = getBestZoomForExtent(map, extent);
+  // const zoom = Math.round(Math.min(bestZoom - 5, maxZoom));
 
-  view.setZoom(zoom);
+  // view.setZoom(zoom);
   view.fit(extent, {
     padding,
     duration,
@@ -125,46 +125,3 @@ export const panToFeatures = (
     duration,
   });
 };
-
-// export const panToFeature = (map: OlMap, feature: Feature) => {
-//   const geometry = feature.getGeometry();
-//   if (!geometry) return;
-//
-//   const extent = geometry.getExtent();
-//   const view = map.getView();
-//
-//   view.fit(extent, { padding: [50, 50, 50, 50] });
-// };
-//
-// export const panToFeatures = (
-//   map: OlMap,
-//   features: Feature[],
-//   padding = [50, 50, 50, 50],
-//   maxZoom = 16
-// ) => {
-//   if (!features.length) return;
-//
-//   const extents = features
-//     .map((f) => f.getGeometry()?.getExtent())
-//     .filter((e): e is [number, number, number, number] => !!e);
-//
-//   if (!extents.length) return;
-//
-//   // combine extents
-//   const combined = extents.reduce(
-//     (acc, e) => [
-//       Math.min(acc[0], e[0]),
-//       Math.min(acc[1], e[1]),
-//       Math.max(acc[2], e[2]),
-//       Math.max(acc[3], e[3]),
-//     ],
-//     extents[0]
-//   );
-//
-//   const view = map.getView();
-//   view.fit(combined, {
-//     padding,
-//     maxZoom,
-//     duration: 0,
-//   });
-// };

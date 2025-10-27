@@ -9,12 +9,6 @@ import BaseLayer from "ol/layer/Base";
 import { LayerSelectorProps } from "../../types/map-types";
 import { getMeta } from "../../utils/layers";
 
-export interface LayerOption {
-	uri: string;
-	image: string;
-	label: string;
-}
-
 export interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
 	data?: BaseLayer[];
 	anchorEl: HTMLButtonElement | null;
@@ -131,7 +125,7 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 	);
 };
 
-export const LayerSelector: React.FC<LayerSelectorProps> = ({ layersRef }) => {
+export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layersRef, style = {} }) => {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 	const initialIndex = layersRef.current.findIndex(l => getMeta(l)?.visible);
 	const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
@@ -156,7 +150,7 @@ export const LayerSelector: React.FC<LayerSelectorProps> = ({ layersRef }) => {
 
 	if (layersRef.current?.length <= 1) return null;
 
-	return <div id="layer-selector" style={{ position: "fixed", bottom: 0 }}>
+	return <div id="layer-selector" style={{ position: "absolute", bottom: 0, ...style }}>
 		<LayerSelectorPresentationalButton anchorEl={anchorEl} onClickDropdown={handleClick} variant="text" data={layersRef.current} selectedIndex={selectedIndex} />
 		<LayerSelectorPresentationalPopOverV2 anchorEl={anchorEl} onCloseDropdown={handleClose} onListItemClick={handleOnListItemClick} data={layersRef.current} selectedIndex={selectedIndex} />
 	</div>

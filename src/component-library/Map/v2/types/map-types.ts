@@ -10,7 +10,7 @@ export type LegacyTileSet = {
   label: string;
   uri: string;
   image: string;
-  attribution: string;
+  attribution?: string;
 };
 
 export type LegacyVectorStyle = {
@@ -51,7 +51,7 @@ export type BasicMapV2Handle = {
   zoomOut: () => void;
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
-
+  layersRef: LayersRef;
   // zoomInAsync: () => Promise<void>;
   // zoomOutAsync: () => Promise<void>;
   // panToAsync: (ids: string[]) => Promise<void>;
@@ -61,6 +61,7 @@ export interface MapControlsConfig {
   showZoom: boolean;
   showRotate: boolean;
   showFullScreen: boolean;
+  showLayerSelector: boolean;
 }
 
 export interface BasicMapProperties {
@@ -75,10 +76,12 @@ export interface BasicMapProperties {
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
   onFeatureClick?: (ids: string[]) => void;
+  onLayersReady?: (isReady: boolean) => void;
 }
 
 export interface LayerSelectorProps {
   layersRef: LayersRef;
+  style?: React.CSSProperties;
 }
 
 export type OverlayType = "tile" | "geojson" | "vector";
