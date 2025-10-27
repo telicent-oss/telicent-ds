@@ -67,10 +67,10 @@ export const panToFeature = (
   const view = map.getView();
   if (!view) return;
 
-  // const bestZoom = getBestZoomForExtent(map, extent);
-  // const zoom = Math.round(Math.min(bestZoom - 5, maxZoom));
+  const bestZoom = getBestZoomForExtent(map, extent);
+  const zoom = Math.round(Math.min(bestZoom - 5, maxZoom));
 
-  // view.setZoom(zoom);
+  view.setZoom(zoom);
   view.fit(extent, {
     padding,
     duration,
