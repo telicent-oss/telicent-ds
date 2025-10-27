@@ -4,6 +4,9 @@ import ol from "ol";
 import { Extent, getCenter } from "ol/extent";
 import type Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
+import Point from "ol/geom/Point";
+import Polygon from "ol/geom/Polygon";
+import { Coordinate } from "ol/coordinate";
 
 export const getFeaturesById = (
   layers: BaseLayer[],
@@ -62,18 +65,27 @@ export const panToFeature = (
   const geometry = feature.getGeometry();
   if (!geometry) return;
 
-  const { padding = [50, 50, 50, 50], maxZoom = 16, duration = 600 } = options;
-  const extent = geometry.getExtent();
   const view = map.getView();
   if (!view) return;
 
-  const bestZoom = getBestZoomForExtent(map, extent);
-  const zoom = Math.round(Math.min(bestZoom - 5, maxZoom));
+  let center: Coordinate | undefined;
+  if (geometry instanceof Point) {
+    center = geometry.getCoordinates();
+  } else if (geometry instanceof Polygon) {
+    const extent = geometry.getExtent();
+    center = [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2];
+  } else {
+    const extent = geometry.getExtent();
+    center = extent
+      ? [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2]
+      : undefined;
+  }
 
-  view.setZoom(zoom);
-  view.fit(extent, {
-    padding,
-    duration,
+  if (!center) return;
+
+  view.animate({
+    center,
+    duration: options.duration ?? 600,
   });
 };
 
