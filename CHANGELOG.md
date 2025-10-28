@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/telicent-oss/telicent-ds/compare/v1.2.0...v1.2.1) (2025-10-28)
+
+
+### Bug Fixes
+
+* update unmounting logic for layersRef ([#343](https://github.com/telicent-oss/telicent-ds/issues/343)) ([8be62b9](https://github.com/telicent-oss/telicent-ds/commit/8be62b90d5ccfb6908297ae83c3c4f96c70cb90e))
+
 ## [1.2.0](https://github.com/telicent-oss/telicent-ds/compare/v1.1.2...v1.2.0) (2025-10-28)
 
 
