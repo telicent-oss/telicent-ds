@@ -58,8 +58,18 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 		if (props.onLayersReady) {
 			props.onLayersReady(true);
 		}
-	}, [layersRef.current]);
+		return () => {
+			setLayersReady(false);
+			props.onLayersReady?.(false);
+		};
+	}, [!!layersRef.current]);
 
+	useEffect(() => {
+		return () => {
+			setLayersReady(false);
+			props.onLayersReady?.(false);
+		};
+	}, [])
 	useEffect(() => {
 		if (!mapInstance.current) return;
 		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
@@ -136,9 +146,11 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 
 	}), [mapInstance.current, layersRef.current])
 
+	console.log({ layersReady, layersRef: layersRef.current, showLayerSelector })
+
 	return <>
 		<MapCanvasV2 layersRef={layersRef} mapInstanceRef={mapInstance} {...props} />
-		{showLayerSelector &&
+		{layersReady && layersRef.current && showLayerSelector &&
 			<LayerSelectorV2 layersRef={layersRef} />
 		}
 	</>
