@@ -1,10 +1,19 @@
 import React from "react";
 import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@mui/material";
 
-type TextFieldProps = MuiTextFieldProps & { errorText?: string };
-
-const TextField: React.FC<TextFieldProps> = ({ errorText, error, helperText, ...rest }) => {
-  return <MuiTextField error={error} helperText={error ? errorText : helperText} {...rest} />;
+type Props = MuiTextFieldProps & {
+  errorText?: React.ReactNode;
 };
+
+const TextField = React.forwardRef<HTMLInputElement, Props>(({ errorText, error, helperText, ...rest }, ref) => {
+  return (
+    <MuiTextField
+      {...rest}
+      inputRef={ref}
+      error={Boolean(error ?? errorText)}
+      helperText={error ? errorText ?? helperText : helperText}
+    />
+  );
+});
 
 export default TextField;
