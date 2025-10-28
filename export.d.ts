@@ -2,6 +2,7 @@ import { AppBarProps as AppBarProps_2 } from '@mui/material/AppBar';
 import { AutocompleteProps } from '@mui/material';
 import { AvatarProps } from '@mui/material/Avatar';
 import { AxiosInstance } from 'axios';
+import { BaseSelectProps } from '@mui/material';
 import { BoxProps } from '@mui/material';
 import { BoxTypeMap } from '@mui/system';
 import { ButtonBaseProps } from '@mui/material';
@@ -29,6 +30,8 @@ import { DrawerProps as DrawerProps_2 } from '@mui/material/Drawer';
 import { ExtendButtonBase } from '@mui/material';
 import { ExtendedTheme } from '../v1/theme/theme-type';
 import { FC } from 'react';
+import { FilledSelectProps } from '@mui/material';
+import { FilledTextFieldProps } from '@mui/material';
 import { FlattenedStyleType } from '@telicent-oss/ontologyservice';
 import { FlattenedStyleTypeForFindIcon } from '@telicent-oss/ontologyservice';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
@@ -59,6 +62,8 @@ import { MenuItemProps } from '@mui/material';
 import { MenuProps } from '@mui/material';
 import { ModalProps as ModalProps_2 } from '@mui/material/Modal';
 import { OntologyService } from '@telicent-oss/ontologyservice';
+import { OutlinedSelectProps } from '@mui/material';
+import { OutlinedTextFieldProps } from '@mui/material';
 import { OverridableComponent } from '@mui/types';
 import { OverridableComponent as OverridableComponent_2 } from '@mui/material/OverridableComponent';
 import { PaperProps } from '@mui/material/Paper';
@@ -77,6 +82,8 @@ import { SelectProps as SelectProps_2 } from '@mui/material';
 import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { SkeletonTypeMap } from '@mui/material/Skeleton';
 import { StackProps } from '@mui/material/Stack';
+import { StandardSelectProps } from '@mui/material';
+import { StandardTextFieldProps } from '@mui/material';
 import { StyleLike } from 'ol/style/Style';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
@@ -1454,7 +1461,16 @@ declare type SearchResultsProps = Partial<{
 
 declare type SecondaryButtonProps = Omit<ButtonProps_2, "variant" | "color">;
 
-export declare const Select: default_2.FC<SelectProps>;
+export declare const Select: default_2.ForwardRefExoticComponent<(Omit<FilledSelectProps & BaseSelectProps<unknown> & {
+    options: Options[];
+    width?: number;
+}, "ref"> | Omit<StandardSelectProps & BaseSelectProps<unknown> & {
+    options: Options[];
+    width?: number;
+}, "ref"> | Omit<OutlinedSelectProps & BaseSelectProps<unknown> & {
+    options: Options[];
+    width?: number;
+}, "ref">) & default_2.RefAttributes<HTMLInputElement>>;
 
 export { SelectChangeEvent }
 
@@ -2335,11 +2351,13 @@ declare interface TeliUserProfileProps extends Partial<TeliUserAvatarProps> {
 declare const Text_2: default_2.FC<TextProps>;
 export { Text_2 as Text }
 
-export declare const TextField: default_2.FC<TextFieldProps_2>;
-
-declare type TextFieldProps_2 = TextFieldProps & {
-    errorText?: string;
-};
+export declare const TextField: default_2.ForwardRefExoticComponent<(Omit<OutlinedTextFieldProps & {
+    errorText?: default_2.ReactNode;
+}, "ref"> | Omit<FilledTextFieldProps & {
+    errorText?: default_2.ReactNode;
+}, "ref"> | Omit<StandardTextFieldProps & {
+    errorText?: default_2.ReactNode;
+}, "ref">) & default_2.RefAttributes<HTMLInputElement>>;
 
 export declare type TextProps = BaseProps & Partial<{
     /**

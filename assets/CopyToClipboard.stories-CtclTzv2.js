@@ -1,0 +1,63 @@
+import{j as y}from"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import{C as f}from"./Drawer-Cl0eh9nj.js";import{B as x}from"./Box-D_PqCh9-.js";import"./jsx-runtime-DMAvRu52.js";import"./index-Dl6G-zuu.js";import"./constants-BQ4cxhgd.js";import"./iframe-BOd0hhho.js";import"../sb-preview/runtime.js";import"./index-B0kOWIl9.js";import"./types-JQgdQoTs.js";import"./useTheme-KUAcGPiB.js";import"./defaultTheme-BO-GVTvG.js";import"./useTheme-Pepcoth9.js";import"./GlobalStyles-Dgqu9ZBa.js";import"./GlobalStyles-DUEYx911.js";import"./UserProfile-BxAQRKdr.js";import"./Text-BFNiasyU.js";import"./Typography-Cuh1ru_h.js";import"./styled-CxLuQ4yi.js";import"./generateUtilityClasses-BrkKsHLY.js";import"./DefaultPropsProvider-CqwcgZRv.js";import"./UserIcon-BXQcnugD.js";import"./SvgIcon-CLvgKtsF.js";import"./index-BfyspvgH.js";import"./FlexBox-CtZjnzR4.js";import"./styled-DQdJekOl.js";import"./createStyled-a9EbIl6L.js";import"./useThemeProps-cJESbEea.js";import"./createSvgIcon-DtNep-FY.js";import"./Popover-BWwK9c_C.js";import"./utils-C8sSVwFJ.js";import"./TransitionGroupContext-BU5kpZ0L.js";import"./useEnhancedEffect-DZnfS5Iy.js";import"./Paper-CYPvuqVC.js";import"./IconButton-aZDif4_A.js";import"./ButtonBase-COX4AZc7.js";import"./Menu-6SEWvgOm.js";import"./index-CfJV9iyf.js";import"./Select-B3yJvOVt.js";import"./useId-CkA8naEk.js";import"./AdapterDayjs-Dxz3ssCX.js";import"./useThemeProps-7HV0XwLr.js";import"./colorManipulator-BzIEvLd4.js";import"./TextField-BXF1k-T7.js";import"./Button-BVpYsrGj.js";import"./Chip-CGb5QCI3.js";import"./TelicentHorizontalSVG-DlSq0ZBw.js";import"./FlexGrid-CT_1tX54.js";import"./Container-0fCyAqte.js";import"./DataSetIcon-XV4rPdps.js";import"./MenuItem-B-D4s_cu.js";import"./dividerClasses-Bf8NGDkJ.js";import"./UIThemeProvider-Bf8bDzz-.js";import"./ThemeProvider-CXSeX4Uf.js";import"./IconButton-s5-t7JwX.js";import"./Chip-CZtKK3pl.js";import"./Divider-BInkGxYa.js";import"./Divider-nQy9ALGk.js";import"./TreeView-CLm9yUm1.js";import"./UserProfileContent-Dj2MBbg7.js";import"./LinearProgress-CwQNtVoX.js";import"./Button-KcRgJ0xu.js";import"./LinkButton-CCP5S-HK.js";import"./TextField-um4XWDOw.js";import"./Select-BKxTornM.js";import"./DatePicker-BaeNpiHF.js";import"./DateTimePicker-Bc91_Vqm.js";import"./Card-FwEEuDZt.js";import"./CardActions-hlVg_9Nm.js";import"./Popover-C7MCebY1.js";import"./Paper-DqTy2_Xb.js";import"./ErrorFallback-R5oVL8pn.js";import"./ErrorFallbackText-BLmhXvDQ.js";import"./ErrorFallbackWrapper-Cv-_dl0b.js";import"./MapToggleButtonPresentational-bPqb6oXs.js";import"./Remove-D5fK3_9H.js";import"./Edit-DuWAK1JC.js";const Go={title:"Buttons/CopyToClipboard",component:f,tags:["autodocs"],parameters:{docs:{description:{component:`
+A versatile 'Copy to Clipboard' button component built on top of Mui's \`Button\` and FontAwesome icons. It allows users to copy text to their clipboard and provides immediate visual feedback by changing the icon from a 'copy' icon to a 'check' icon.
+
+By default, the icon inherits the app's primary color. However, this color can easily be customized by passing a different color through the \`sx\` prop.
+
+## The component supports the following use cases:
+- **Controlled mode:** Use the \`text\` props to define the content that will be copied to the clipboard.
+- **Icon Feedback:** The button dynamically changes the icon from a copy icon to a checkmark once the content is successfully copied to the clipboard.
+- **Failure State:** This include a failure state that can be done by passing \`testFailure\` as a prop. 
+- **Custom Success Message:** use \`successMsg\` prop to define a custom messsage that will be displayed on the tooltip on success.
+
+---
+
+### When & How to use it
+- **Copying Links or Text:** Use this button in scenarios where users need to copy text or links to their clipboard (e.g., sharing URLs, copying ids).
+
+Example usage:
+
+\`\`\`jsx
+<CopyToClipboard 
+  text="http://example.com"
+  ariaLabel="Copy URL button"
+/>
+\`\`\`
+`}},id:"copy-to-clipboard-default",ariaLabel:"copy uri"},decorators:g=>y(x,{sx:{margin:"auto"},children:g()})},o={args:{text:"this is a default example string",ariaLabel:"Copy to clipboard button"}},t={args:{text:"Hooray!",successMsg:"Hooaray!!"},parameters:{docs:{description:{story:"You can customise the tooltip to display a different message when the copy to clipboard is successfull just pass a string to  `successMsg`"}}}},r={args:{text:"Text for clipboard via WithCustomStyle",ariaLabel:"Copy to clipboard button with white color",sx:{color:"fuchsia",backgroundColor:"darkslategrey"}}},e={args:{testFailure:!0,text:"This will fail"},parameters:{docs:{description:{story:"You can see below how the tooltip would render in case of an error."}}}};var s,i,a;o.parameters={...o.parameters,docs:{...(s=o.parameters)==null?void 0:s.docs,source:{originalSource:`{
+  args: {
+    text: "this is a default example string",
+    ariaLabel: "Copy to clipboard button"
+  }
+}`,...(a=(i=o.parameters)==null?void 0:i.docs)==null?void 0:a.source}}};var p,c,n;t.parameters={...t.parameters,docs:{...(p=t.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    text: "Hooray!",
+    successMsg: "Hooaray!!"
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "You can customise the tooltip to display a different message when the copy to clipboard is successfull just pass a string to  \`successMsg\`"
+      }
+    }
+  }
+}`,...(n=(c=t.parameters)==null?void 0:c.docs)==null?void 0:n.source}}};var m,l,u;r.parameters={...r.parameters,docs:{...(m=r.parameters)==null?void 0:m.docs,source:{originalSource:`{
+  args: {
+    text: "Text for clipboard via WithCustomStyle",
+    ariaLabel: "Copy to clipboard button with white color",
+    sx: {
+      color: "fuchsia",
+      backgroundColor: "darkslategrey"
+    }
+  }
+}`,...(u=(l=r.parameters)==null?void 0:l.docs)==null?void 0:u.source}}};var d,h,b;e.parameters={...e.parameters,docs:{...(d=e.parameters)==null?void 0:d.docs,source:{originalSource:`{
+  args: {
+    testFailure: true,
+    text: "This will fail"
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "You can see below how the tooltip would render in case of an error."
+      }
+    }
+  }
+}`,...(b=(h=e.parameters)==null?void 0:h.docs)==null?void 0:b.source}}};const Jo=["Default","CustomSuccessMessage","CustomStyle","Error"];export{r as CustomStyle,t as CustomSuccessMessage,o as Default,e as Error,Jo as __namedExportsOrder,Go as default};
