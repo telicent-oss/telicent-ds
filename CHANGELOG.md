@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/telicent-oss/telicent-ds/compare/v1.1.2...v1.2.0) (2025-10-28)
+
+
+### Features
+
+* update text field and select to pass ref ([#336](https://github.com/telicent-oss/telicent-ds/issues/336)) ([c15498c](https://github.com/telicent-oss/telicent-ds/commit/c15498c24498d3c96af95d89f488cdbb308e0a24))
+
 ## [1.1.2](https://github.com/telicent-oss/telicent-ds/compare/v1.1.1...v1.1.2) (2025-10-27)
 
 
