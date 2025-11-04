@@ -70,12 +70,13 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
   const [error, setError] = useState<string | null>(null);
   const [userInfoExpanded, setUserInfoExpanded] = useState(false);
   const [queryClient] = useState(() => new QueryClient());
-  
+
   const popupRedirectUri = "http://localhost:6006/iframe.html?viewMode=story&id=candidate-packages-auth-flow--storybook-oauth-callback&globals=&args=";
   const defaultConfig = {
     clientId: "fe-storybook-app-config",
     authServerUrl: "http://auth.telicent.localhost",
     scope: "openid profile offline_access",
+    redirectUri: 'http://localhost:6006/',
     popupRedirectUri,
     onLogout: () => {
       setAuthState("initial");
