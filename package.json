@@ -22,6 +22,7 @@
     "@mui/material": "^5.16.6",
     "@mui/x-date-pickers": "^8.9.2",
     "@react-spring/web": "9.7.3",
+    "@telicent-oss/mui-icons-material": "^1.0.0",
     "@telicent-oss/react-lib": "^0.5.0",
     "@telicent-oss/telicent-frontend-cli": "^1.5.0",
     "@types/lodash.debounce": "^4.0.9",
