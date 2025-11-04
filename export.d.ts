@@ -21,7 +21,8 @@ import { DateTimePickerProps as DateTimePickerProps_2 } from '@mui/x-date-picker
 import { Dayjs } from 'dayjs';
 import { default as default_2 } from 'react';
 import { default as default_3 } from 'zod';
-import { default as default_4 } from 'ol/layer/Base';
+import { default as default_4 } from '@telicent-oss/fe-auth-lib';
+import { default as default_5 } from 'ol/layer/Base';
 import { DialogActionsProps } from '@mui/material';
 import { DialogContentProps } from '@mui/material';
 import { DialogProps } from '@mui/material';
@@ -114,16 +115,6 @@ export declare const anchorMap: Record<MarkerType, MarkerAnchor>;
 
 export declare type AnchorPosition = "center" | "top-left" | "top-middle" | "top-right" | "middle-left" | "middle-right" | "bottom-left" | "bottom-middle" | "bottom-right";
 
-declare interface ApiFactory {
-    instance: AxiosInstance;
-    withSessionHandling: (config: SessionHandlingConfig) => {
-        instance: AxiosInstance;
-    };
-    build: () => {
-        instance: AxiosInstance;
-    };
-}
-
 export declare const AppBar: default_2.FC<AppBarProps>;
 
 export declare type AppBarProps = Partial<{
@@ -182,10 +173,22 @@ export declare enum AuthEvent {
     UNAUTHORIZED = "unauthorized"
 }
 
-export declare const AuthModal: React.FC<AuthRedirectModalProps>;
+export declare const AuthModal: React.FC<AuthRedirectModalProps_2>;
 
-declare interface AuthRedirectModalProps {
-    signOutUrl: string;
+export declare namespace authorizeFlowDeprecated {
+        {
+        AuthModal_2 as AuthModal,
+        onAuthEvent_2 as onAuthEvent,
+        broadcastAuthEvent_2 as broadcastAuthEvent,
+        AuthEvent_2 as AuthEvent,
+        registerAuthSync_2 as registerAuthSync,
+        useAuthSync_2 as useAuthSync,
+        createApi_2 as createApi
+    }
+}
+
+declare interface AuthRedirectModalProps_2 {
+    authClient: default_4;
     debounceMs?: number;
 }
 
@@ -346,7 +349,9 @@ declare type CopyToClipboardProps = ButtonProps & {
     style?: String;
 };
 
-export declare const createApi: (baseURL?: string) => ApiFactory;
+export declare const createApi: (baseURL?: string, authClient?: default_4) => RequestApi;
+
+export declare const createRequestApi: (baseURL?: string, authClient?: default_4) => RequestApi;
 
 declare interface CustomCheckboxProps extends CheckboxProps {
     label?: string;
@@ -736,7 +741,7 @@ export declare interface LayerSelectorProps {
 
 export declare const LayerSelectorV2: default_2.FC<LayerSelectorProps>;
 
-export declare type LayersRef = React.MutableRefObject<default_4[]>;
+export declare type LayersRef = React.MutableRefObject<default_5[]>;
 
 export declare type LegacyMapConfig = {
     vectorStyles?: LegacyVectorStyle;
@@ -1285,14 +1290,14 @@ export declare const PreferredLabelCache: {
 };
 
 export declare interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    data?: default_4[];
+    data?: default_5[];
     anchorEl: HTMLButtonElement | null;
     onClickDropdown: ButtonProps["onClick"];
     selectedIndex: number;
 }
 
 export declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    data: default_4[];
+    data: default_5[];
     anchorEl: HTMLButtonElement | null;
     onCloseDropdown: PopOverProps["onClose"];
     onListItemClick: (label: string) => void;
@@ -1321,6 +1326,14 @@ declare type RecentSearchProps = Partial<{
 export declare const registerAuthSync: (queryClient: QueryClient, baseUrl?: string) => () => void;
 
 export declare const renderErrorToHtml: (error: unknown, context?: string) => void;
+
+declare interface RequestApi {
+    instance: AxiosInstance;
+    withSessionHandling: (config: SessionHandlingConfig_2) => RequestApi;
+    build: () => {
+        instance: AxiosInstance;
+    };
+}
 
 declare type RequiredRest = Omit<Picked, keyof Optional>;
 
@@ -1479,11 +1492,13 @@ export declare type SelectProps = SelectProps_2 & {
     width?: number;
 };
 
-declare interface SessionHandlingConfig {
+declare interface SessionHandlingConfig_2 {
     queryClient?: QueryClient;
     broadcastChannel?: BroadcastChannel;
     keysToInvalidate?: QueryKey[];
 }
+
+export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: () => void, onAuthError?: (error?: Error) => void) => (() => void);
 
 export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
 
