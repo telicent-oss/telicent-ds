@@ -1,4 +1,11 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
+
+
+if grep -q 'localhost:4873' yarn.lock; then
+  echo 'ERROR: localhost:4873 (local Verdaccio) found in yarn.lock' >&2
+  exit 1
+fi
+
 yarn tsc --noEmit
 yarn test --watchAll=false
