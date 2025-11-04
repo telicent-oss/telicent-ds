@@ -3,19 +3,18 @@ import { H3, Text } from "../../v1/components/data-display/Text/Text";
 import { FlexBox, Button, Modal } from "../../export";
 import { Box } from "@mui/material";
 import { AuthEvent, onAuthEvent } from "./broadcastChannelService";
-import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
 interface AuthRedirectModalProps {
-  authClient: AuthServerOAuth2Client;
+  signOutUrl: string;
   debounceMs?: number;
 }
 
-export const AuthModal: React.FC<AuthRedirectModalProps> = ({ authClient, debounceMs = 5000 }) => {
+export const AuthModal: React.FC<AuthRedirectModalProps> = ({ signOutUrl, debounceMs = 5000 }) => {
   const alreadyTriggered = useRef(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLoginClick = () => {
-    authClient.loginWithPopup();
+    window.open(signOutUrl, "_blank");
   };
 
   useEffect(() => {

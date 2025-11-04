@@ -28,10 +28,9 @@ export * from "./component-library/Map/v2/composites/BasicMap/BasicMap";
 export * from "./component-library/Map/v2/types";
 
 // Candidate Packages
-export * from "./candidate-packages/authorize-flow/AuthModal";
-export * from "./candidate-packages/authorize-flow/broadcastChannelService";
-export * from "./candidate-packages/authorize-flow/useAuthSync";
-export * from "./candidate-packages/authorize-flow";
+export * from "./candidate-packages/authorize-flow/exports";
+import * as authorizeFlowDeprecated from "./candidate-packages/authorize-flow-deprecated/exports";
+export { authorizeFlowDeprecated };
 export * from "./candidate-packages/preferred-label-lib";
 
 // PROPOSED @telicent-oss/utils-lib

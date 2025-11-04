@@ -12,8 +12,8 @@ export interface AuthConfig {
   onAuthError?: () => void;
 }
 
-export interface RequestApi {
+export interface ApiFactory {
   instance: AxiosInstance;
-  withSessionHandling: (config: SessionHandlingConfig) => RequestApi;
+  withSessionHandling: (config: SessionHandlingConfig) => {instance: AxiosInstance};
   build: () => { instance: AxiosInstance };
 }
