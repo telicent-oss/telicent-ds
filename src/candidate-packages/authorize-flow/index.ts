@@ -3,6 +3,7 @@ import { RequestApi, SessionHandlingConfig } from "./types";
 import { withSessionHandling } from "./withSessionHandling";
 import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 export { setupOAuthEventListeners } from './setupOAuthEventListeners';
+export { AuthV2ConfigSchema, type AuthV2Config } from './AuthV2ConfigSchema';
 
 export const createRequestApi = (baseURL?: string, authClient?: AuthServerOAuth2Client): RequestApi => {
   const instance = axios.create({
