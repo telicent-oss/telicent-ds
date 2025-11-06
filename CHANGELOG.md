@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/telicent-oss/telicent-ds/compare/v1.3.0...v1.3.1) (2025-11-06)
+
+
+### Bug Fixes
+
+* update searchbox to accept width ([#347](https://github.com/telicent-oss/telicent-ds/issues/347)) ([18288eb](https://github.com/telicent-oss/telicent-ds/commit/18288eb362f7f21d0afc3e73f7dbcd1182d09933))
+
 ## [1.3.0](https://github.com/telicent-oss/telicent-ds/compare/v1.2.1...v1.3.0) (2025-11-04)
 
 
