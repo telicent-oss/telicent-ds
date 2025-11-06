@@ -1,6 +1,5 @@
 import AuthServerOAuth2Client, { AuthServerOAuth2ClientConfig, UserInfo } from "@telicent-oss/fe-auth-lib";
 import React, { useEffect, useMemo, useState } from "react"
-import { AuthEvent, broadcastAuthEvent } from "../services/broadcastChannelService";
 import { AuthContext } from "./AuthContext";
 import { setupOAuthEventListeners } from "../services/setupOAuthEventListeners";
 import { registerAuthSync } from "../utils";
