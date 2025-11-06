@@ -202,7 +202,7 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
       <SpacedStack>
         <ForceNoIframe linkText="Open in dedicated window">
           <SpacedStack>
-            <AuthProvider config={defaultConfig} queryClient={queryClient}>
+            <AuthProvider config={defaultConfig} queryClient={queryClient} apiUrl="http://changeme.com">
               <AuthModal debounceMs={3000} />
             </AuthProvider>
             <SpacedStack>

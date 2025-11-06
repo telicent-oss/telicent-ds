@@ -21,7 +21,7 @@ const mockAuthClient = {
 // ----- PROVIDER WRAPPER -----
 const queryClient = new QueryClient();
 const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <AuthProvider config={{}} queryClient={queryClient}>{children}</AuthProvider>
+  <AuthProvider apiUrl="http://changeme.com" config={{}} queryClient={queryClient}>{children}</AuthProvider>
 );
 
 // ----- TESTS -----
@@ -32,7 +32,7 @@ describe("Auth Library Tests", () => {
 
   test("AuthProvider renders children and modal", async () => {
     render(
-      <AuthProvider config={{}} queryClient={queryClient}>
+      <AuthProvider apiUrl="http://changeme.com" config={{}} queryClient={queryClient}>
         <div>Child Content</div>
       </AuthProvider>
     );
@@ -60,7 +60,7 @@ describe("Auth Library Tests", () => {
 
   test("AuthRedirectUri calls finishPopupFlow and shows message", () => {
     render(
-      <AuthProvider config={{}} queryClient={queryClient}>
+      <AuthProvider apiUrl="http://changeme.com" config={{}} queryClient={queryClient}>
         <MemoryRouter initialEntries={["/auth-redirect-uri"]}>
           <Routes>
             <Route path="/auth-redirect-uri" element={<AuthRedirectUri config={{}} />} />

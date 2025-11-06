@@ -9,12 +9,13 @@ import { createApi } from "../index";
 import { AuthModal } from "../components/AuthModal";
 
 interface AuthProviderProps {
+  apiUrl: string;
   config: AuthServerOAuth2ClientConfig;
   queryClient: QueryClient;
   children: React.ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ config, queryClient, children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, queryClient, children }) => {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
@@ -46,13 +47,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ config, queryClient,
 
   // Build API client
   const api = useMemo(() => {
-    const factory = createApi(config.apiUrl, client);
+    const factory = createApi(apiUrl, client);
     factory.withSessionHandling({
       keysToInvalidate: [],
       queryClient,
     });
     return factory.build().instance;
-  }, [client, queryClient, config.apiUrl]);
+  }, [client, queryClient, apiUrl]);
 
   const value = {
     user,
