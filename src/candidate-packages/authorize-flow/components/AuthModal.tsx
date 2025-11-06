@@ -1,21 +1,20 @@
-import { useState, useRef, useCallback, useEffect } from "react";
-import { H3, Text } from "../../v1/components/data-display/Text/Text";
-import { FlexBox, Button, Modal } from "../../export";
-import { Box } from "@mui/material";
-import { AuthEvent, onAuthEvent } from "./broadcastChannelService";
-import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
+import { useState, useRef, useEffect } from "react";
+import { H3, Text } from "../../../v1/components/data-display/Text/Text";
+import { FlexBox, Button, Modal } from "../../../export";
+import { AuthEvent, onAuthEvent } from "../services/broadcastChannelService";
+import { useAuth } from "../context/useAuth";
 
 interface AuthRedirectModalProps {
-  authClient: AuthServerOAuth2Client;
   debounceMs?: number;
 }
 
-export const AuthModal: React.FC<AuthRedirectModalProps> = ({ authClient, debounceMs = 5000 }) => {
+export const AuthModal: React.FC<AuthRedirectModalProps> = ({ debounceMs = 5000 }) => {
+  const { login } = useAuth();
   const alreadyTriggered = useRef(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLoginClick = () => {
-    authClient.loginWithPopup();
+    login();
   };
 
   useEffect(() => {
@@ -40,7 +39,7 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({ authClient, deboun
   };
 
   return (
-    <Modal hideCloseButton onClose={() => {}} sx={{ m: 2, p: 2 }} open={isOpen}>
+    <Modal hideCloseButton onClose={() => { }} sx={{ m: 2, p: 2 }} open={isOpen}>
       <FlexBox sx={{ p: 2, overflowY: "auto" }}>
         <H3>Your session is no longer active</H3>
         <Text sx={{ pt: 4 }}>

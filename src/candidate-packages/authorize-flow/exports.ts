@@ -1,4 +1,6 @@
-export * from "./AuthModal";
-export * from "./broadcastChannelService";
-export * from "./useAuthSync";
-export * from ".";
+export {};
+export * from "./services/broadcastChannelService";
+export * from "./context/AuthProvider";
+export * from "./context/useAuth";
+export * from "./pages/AuthRedirectUri";
+export * from "./index";
