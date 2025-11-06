@@ -201,6 +201,7 @@ export declare namespace authorizeFlowDeprecated {
 export declare const AuthProvider: default_2.FC<AuthProviderProps>;
 
 declare interface AuthProviderProps {
+    apiUrl: string;
     config: AuthServerOAuth2ClientConfig;
     queryClient: QueryClient;
     children: default_2.ReactNode;
