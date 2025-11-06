@@ -1,9 +1,9 @@
-import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
+import AuthServerOAuth2Client, { UserInfo } from "@telicent-oss/fe-auth-lib";
 import { AxiosInstance } from "axios";
 import { createContext } from "react";
 
 export interface AuthContextProps {
-  user: unknown;
+  user: UserInfo | null;
   error: Error | null;
   loading: boolean;
   authClient: AuthServerOAuth2Client;
