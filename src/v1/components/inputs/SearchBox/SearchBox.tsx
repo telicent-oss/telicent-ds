@@ -45,6 +45,7 @@ export interface SearchBoxProps<Value = string> {
    * The value of the input element, required for a controlled component.
    */
   value?: Value;
+  width?: number;
 }
 
 const SearchBox: React.FC<SearchBoxProps> = ({
@@ -56,8 +57,17 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onBlur,
   onChange,
   onSearch,
+  width = 600,
 }) => (
-  <Box id="search-box" height={44} width={600} display="flex" alignItems="center" component="form" onSubmit={onSearch}>
+  <Box
+    id="search-box"
+    height={44}
+    width={width}
+    display="flex"
+    alignItems="center"
+    component="form"
+    onSubmit={onSearch}
+  >
     <InputBase
       id="search-box-input"
       type="search"
