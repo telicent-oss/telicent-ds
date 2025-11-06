@@ -1,5 +1,6 @@
 import AuthServerOAuth2Client, { AuthServerOAuth2ClientConfig, UserInfo } from "@telicent-oss/fe-auth-lib";
 import React, { useEffect, useMemo, useState } from "react"
+import { AuthEvent, broadcastAuthEvent } from "../services/broadcastChannelService";
 import { AuthContext } from "./AuthContext";
 import { setupOAuthEventListeners } from "../services/setupOAuthEventListeners";
 import { registerAuthSync } from "../utils";
@@ -24,6 +25,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ config, queryClient,
       client,
       async () => {
         setLoading(true);
+        broadcastAuthEvent(AuthEvent.AUTHENTICATED)
         console.log("Auth success → fetching user profile...");
         const profile = await client.getUserInfo();
         setUser(profile);
