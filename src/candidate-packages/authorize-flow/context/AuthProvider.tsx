@@ -1,6 +1,5 @@
 import AuthServerOAuth2Client, { AuthServerOAuth2ClientConfig, UserInfo } from "@telicent-oss/fe-auth-lib";
 import React, { useEffect, useMemo, useState } from "react"
-import { AuthEvent, broadcastAuthEvent } from "../services/broadcastChannelService";
 import { AuthContext } from "./AuthContext";
 import { setupOAuthEventListeners } from "../services/setupOAuthEventListeners";
 import { registerAuthSync } from "../utils";
@@ -22,27 +21,39 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
   const [client] = useState(() => new AuthServerOAuth2Client(config));
 
   useEffect(() => {
-    const cleanupAuth = setupOAuthEventListeners(
-      client,
-      async () => {
-        setLoading(true);
-        broadcastAuthEvent(AuthEvent.AUTHENTICATED)
-        console.log("Auth success → fetching user profile...");
-        const profile = await client.getUserInfo();
+    let mounted = true;
+
+    const onError = (err: unknown) => {
+      if (!mounted) return;
+      setUser(null);
+      setError(err instanceof Error ? err : new Error(String(err)));
+      setLoading(false);
+    };
+
+    const onSuccess = async () => {
+      if (!mounted) return;
+      setLoading(true);
+      try {
+        const profile = await client.getUserInfo(); // may resolve after unmount
+        if (!mounted) return;
         setUser(profile);
-        setLoading(false);
-      },
-      (err) => {
-        console.error("Auth error", err);
-        setError(err ?? new Error("Unknown auth error"));
-        setUser(null);
-        setLoading(false);
-      })
+        setError(null);
+      } catch (e) {
+        if (!mounted) return;
+        onError(e);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError);
     const cleanupSync = registerAuthSync(queryClient, config.apiUrl);
+
     return () => {
+      mounted = false;            // prevents post-unmount effects
       cleanupAuth();
       cleanupSync();
-    }
+    };
   }, [client, queryClient, config.apiUrl]);
 
   // Build API client

@@ -95,7 +95,7 @@ export function withSessionHandling(
           "message" in error &&
           typeof error.message === "string"
             ? error.message
-            : "Unknown error";
+            : `Unknown error ${error}`;
         return Promise.reject({
           message,
           config,
