@@ -1456,6 +1456,7 @@ export declare interface SearchBoxProps<Value = string> {
      * The value of the input element, required for a controlled component.
      */
     value?: Value;
+    width?: number;
 }
 
 export declare const SearchIcon: default_2.FC<SearchIconProps>;
