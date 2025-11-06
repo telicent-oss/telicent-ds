@@ -109,6 +109,7 @@ import { TypographyProps } from '@mui/material/Typography';
 import { URLSearchParamsInit } from 'react-router-dom';
 import { UseAutocompleteProps } from '@mui/material/useAutocomplete';
 import { useMap } from 'react-map-gl/maplibre';
+import { UserInfo } from '@telicent-oss/fe-auth-lib';
 import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
 
@@ -168,7 +169,7 @@ declare interface AppSwitchProps extends default_2.HTMLAttributes<HTMLButtonElem
 }
 
 declare interface AuthContextProps {
-    user: unknown;
+    user: UserInfo | null;
     error: Error | null;
     loading: boolean;
     authClient: default_5;
