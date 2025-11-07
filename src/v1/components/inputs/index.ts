@@ -4,6 +4,7 @@ export { default as EditableTextField } from "./EditableTextField/EditableTextFi
 export { default as TextField } from "./TextField/TextField";
 
 export { default as Select } from "./Select/Select";
+export { default as Autocomplete } from "./Autocomplete/Autocomplete";
 export type { SelectProps } from "./Select/Select";
 export type { Options } from "./Select/Select";
 
