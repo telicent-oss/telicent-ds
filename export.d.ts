@@ -1,4 +1,5 @@
 import { AppBarProps as AppBarProps_2 } from '@mui/material/AppBar';
+import { AuthServerOAuth2ClientConfig } from '@telicent-oss/fe-auth-lib';
 import { AutocompleteProps } from '@mui/material';
 import { AvatarProps } from '@mui/material/Avatar';
 import { AxiosInstance } from 'axios';
@@ -21,8 +22,8 @@ import { DateTimePickerProps as DateTimePickerProps_2 } from '@mui/x-date-picker
 import { Dayjs } from 'dayjs';
 import { default as default_2 } from 'react';
 import { default as default_3 } from 'zod';
-import { default as default_4 } from '@telicent-oss/fe-auth-lib';
-import { default as default_5 } from 'ol/layer/Base';
+import { default as default_4 } from 'ol/layer/Base';
+import { default as default_5 } from '@telicent-oss/fe-auth-lib';
 import { DialogActionsProps } from '@mui/material';
 import { DialogContentProps } from '@mui/material';
 import { DialogProps } from '@mui/material';
@@ -108,6 +109,7 @@ import { TypographyProps } from '@mui/material/Typography';
 import { URLSearchParamsInit } from 'react-router-dom';
 import { UseAutocompleteProps } from '@mui/material/useAutocomplete';
 import { useMap } from 'react-map-gl/maplibre';
+import { UserInfo } from '@telicent-oss/fe-auth-lib';
 import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
 
@@ -166,6 +168,16 @@ declare interface AppSwitchProps extends default_2.HTMLAttributes<HTMLButtonElem
     className?: string;
 }
 
+declare interface AuthContextProps {
+    user: UserInfo | null;
+    error: Error | null;
+    loading: boolean;
+    authClient: default_5;
+    api: AxiosInstance;
+    login: () => Promise<void>;
+    logout: () => Promise<void>;
+}
+
 export declare enum AuthEvent {
     AUTHENTICATED = "authenticated",
     REAUTHENTICATED = "reauthenticated",
@@ -173,23 +185,32 @@ export declare enum AuthEvent {
     UNAUTHORIZED = "unauthorized"
 }
 
-export declare const AuthModal: React.FC<AuthRedirectModalProps_2>;
-
 export declare namespace authorizeFlowDeprecated {
         {
-        AuthModal_2 as AuthModal,
+        AuthModal,
         onAuthEvent_2 as onAuthEvent,
         broadcastAuthEvent_2 as broadcastAuthEvent,
         AuthEvent_2 as AuthEvent,
-        registerAuthSync_2 as registerAuthSync,
-        useAuthSync_2 as useAuthSync,
-        createApi_2 as createApi
+        createApi_2 as createApi,
+        SessionHandlingConfig,
+        AuthConfig,
+        ApiFactory
     }
 }
 
-declare interface AuthRedirectModalProps_2 {
-    authClient: default_4;
-    debounceMs?: number;
+export declare const AuthProvider: default_2.FC<AuthProviderProps>;
+
+declare interface AuthProviderProps {
+    apiUrl: string;
+    config: AuthServerOAuth2ClientConfig;
+    queryClient: QueryClient;
+    children: default_2.ReactNode;
+}
+
+export declare const AuthRedirectUri: FC<AuthRedirectUriProps>;
+
+declare interface AuthRedirectUriProps {
+    config: AuthServerOAuth2ClientConfig;
 }
 
 declare type AutocompleteOption = {
@@ -349,9 +370,9 @@ declare type CopyToClipboardProps = ButtonProps & {
     style?: String;
 };
 
-export declare const createApi: (baseURL?: string, authClient?: default_4) => RequestApi;
+export declare const createApi: (baseURL?: string, authClient?: default_5) => RequestApi;
 
-export declare const createRequestApi: (baseURL?: string, authClient?: default_4) => RequestApi;
+export declare const createRequestApi: (baseURL?: string, authClient?: default_5) => RequestApi;
 
 declare interface CustomCheckboxProps extends CheckboxProps {
     label?: string;
@@ -741,7 +762,7 @@ export declare interface LayerSelectorProps {
 
 export declare const LayerSelectorV2: default_2.FC<LayerSelectorProps>;
 
-export declare type LayersRef = React.MutableRefObject<default_5[]>;
+export declare type LayersRef = React.MutableRefObject<default_4[]>;
 
 export declare type LegacyMapConfig = {
     vectorStyles?: LegacyVectorStyle;
@@ -1290,14 +1311,14 @@ export declare const PreferredLabelCache: {
 };
 
 export declare interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    data?: default_5[];
+    data?: default_4[];
     anchorEl: HTMLButtonElement | null;
     onClickDropdown: ButtonProps["onClick"];
     selectedIndex: number;
 }
 
 export declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    data: default_5[];
+    data: default_4[];
     anchorEl: HTMLButtonElement | null;
     onCloseDropdown: PopOverProps["onClose"];
     onListItemClick: (label: string) => void;
@@ -1322,8 +1343,6 @@ declare type RecentSearchProps = Partial<{
     nothingFoundText: string;
     children: default_2.ReactNode;
 }>;
-
-export declare const registerAuthSync: (queryClient: QueryClient, baseUrl?: string) => () => void;
 
 export declare const renderErrorToHtml: (error: unknown, context?: string) => void;
 
@@ -1495,11 +1514,10 @@ export declare type SelectProps = SelectProps_2 & {
 
 declare interface SessionHandlingConfig_2 {
     queryClient?: QueryClient;
-    broadcastChannel?: BroadcastChannel;
     keysToInvalidate?: QueryKey[];
 }
 
-export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: () => void, onAuthError?: (error?: Error) => void) => (() => void);
+export declare const setupOAuthEventListeners: (OAuth2Client: default_5, onAuthSuccess?: () => void, onAuthError?: (error?: Error) => void) => (() => void);
 
 export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
 
@@ -2525,7 +2543,7 @@ export declare const uriComponentCodec: Codec;
 
 export { URLSearchParamsInit }
 
-export declare const useAuthSync: (queryClient: QueryClient, baseUrl: string) => void;
+export declare const useAuth: () => AuthContextProps;
 
 export declare const useDebounce: (value: any, delay?: number) => any;
 
