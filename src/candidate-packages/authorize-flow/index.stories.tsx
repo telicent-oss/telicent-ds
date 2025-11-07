@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
 import AuthServerOAuth2Client, { UserInfo } from "@telicent-oss/fe-auth-lib";
 
-import { AuthModal } from "./AuthModal";
-import { ForceNoIframe } from "./ForceNoIframe";
+import { AuthModal } from "./components/AuthModal";
+import { ForceNoIframe } from "./components/ForceNoIframe";
 import { createApi } from "./index";
-import { AuthEvent, broadcastAuthEvent, onAuthEvent } from "./broadcastChannelService";
-import { setupOAuthEventListeners } from "./setupOAuthEventListeners";
+import { AuthEvent, broadcastAuthEvent } from "./services/broadcastChannelService";
+import { setupOAuthEventListeners } from "./services/setupOAuthEventListeners";
 import { RequestApi } from "./types";
 
 import {
@@ -23,6 +23,7 @@ import {
   Typography,
   TypographyProps,
 } from "@mui/material";
+import { AuthProvider } from "./context/AuthProvider";
 
 // Reusables
 const SpacedStack = (props: StackProps) => <Stack spacing={2} {...props} />;
@@ -201,7 +202,9 @@ const OAuthFlowDemo: React.FC<OAuthFlowDemoProps> = ({ config = {} }) => {
       <SpacedStack>
         <ForceNoIframe linkText="Open in dedicated window">
           <SpacedStack>
-            {client && <AuthModal authClient={client} debounceMs={3000} />}
+            <AuthProvider config={defaultConfig} queryClient={queryClient} apiUrl="http://changeme.com">
+              <AuthModal debounceMs={3000} />
+            </AuthProvider>
             <SpacedStack>
               <Breadcrumbs separator="→">
                 <Typography

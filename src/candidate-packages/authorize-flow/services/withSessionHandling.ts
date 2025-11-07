@@ -1,27 +1,27 @@
 import { AxiosInstance } from "axios";
-import { SessionHandlingConfig } from "./types";
-import { AuthEvent, broadcastAuthEvent, onAuthEvent } from "./broadcastChannelService";
+import { SessionHandlingConfig } from "../types";
+import {
+  AuthEvent,
+  broadcastAuthEvent,
+  onAuthEvent,
+} from "./broadcastChannelService";
 import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
 export function withSessionHandling(
   instance: AxiosInstance,
-  {
-    queryClient,
-    keysToInvalidate = [],
-    broadcastChannel,
-  }: SessionHandlingConfig,
+  { queryClient, keysToInvalidate = [] }: SessionHandlingConfig,
   authClient?: AuthServerOAuth2Client
 ) {
   if (authClient) {
     instance.defaults.adapter = async (config) => {
-      const fullUrl = config.url?.startsWith('http')
+      const fullUrl = config.url?.startsWith("http")
         ? config.url
-        : `${config.baseURL || ''}${config.url || ''}`;
+        : `${config.baseURL || ""}${config.url || ""}`;
 
       try {
         const response = await authClient.makeAuthenticatedRequest(fullUrl, {
           method: config.method,
-          skipAutoLogout: true
+          skipAutoLogout: true,
         });
 
         if (response.status === 401) {
@@ -31,10 +31,11 @@ export function withSessionHandling(
             let unsubscribe: (() => void) | null = null;
 
             const retryAfterAuth = () => {
-              authClient.makeAuthenticatedRequest(fullUrl, {
-                method: config.method,
-                skipAutoLogout: true
-              })
+              authClient
+                .makeAuthenticatedRequest(fullUrl, {
+                  method: config.method,
+                  skipAutoLogout: true,
+                })
                 .then((retryResponse: Response) => {
                   return retryResponse.text().then((retryText: string) => {
                     const retryData = retryText ? JSON.parse(retryText) : null;
@@ -42,9 +43,11 @@ export function withSessionHandling(
                       data: retryData,
                       status: retryResponse.status,
                       statusText: retryResponse.statusText,
-                      headers: Object.fromEntries(retryResponse.headers.entries()),
+                      headers: Object.fromEntries(
+                        retryResponse.headers.entries()
+                      ),
                       config,
-                      request: {}
+                      request: {},
                     });
                   });
                 })
@@ -72,8 +75,8 @@ export function withSessionHandling(
               status: response.status,
               statusText: response.statusText,
               data,
-              headers: Object.fromEntries(response.headers.entries())
-            }
+              headers: Object.fromEntries(response.headers.entries()),
+            },
           });
         }
 
@@ -83,18 +86,24 @@ export function withSessionHandling(
           statusText: response.statusText,
           headers: Object.fromEntries(response.headers.entries()),
           config,
-          request: {}
+          request: {},
         });
       } catch (error) {
-        const message = error && typeof error === 'object' && 'message' in error && typeof error.message === 'string' ? error.message : 'Unknown error';
+        const message =
+          error &&
+          typeof error === "object" &&
+          "message" in error &&
+          typeof error.message === "string"
+            ? error.message
+            : `Unknown error ${error}`;
         return Promise.reject({
           message,
           config,
           request: {},
           response: {
             status: 500,
-            data: { error: message }
-          }
+            data: { error: message },
+          },
         });
       }
     };

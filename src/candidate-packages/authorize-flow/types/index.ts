@@ -3,7 +3,6 @@ import { QueryClient, QueryKey } from "@tanstack/react-query";
 
 export interface SessionHandlingConfig {
   queryClient?: QueryClient;
-  broadcastChannel?: BroadcastChannel;
   keysToInvalidate?: QueryKey[];
 }
 

@@ -1,5 +1,5 @@
 export {};
 export * from "./AuthModal";
 export * from "./broadcastChannelService";
-export * from "./useAuthSync";
-export * from ".";
+export * from "./index";
+export * from "./types";
