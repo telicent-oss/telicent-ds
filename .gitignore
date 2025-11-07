@@ -35,3 +35,4 @@ App.tsx
 
 *storybook.log
 *.gitignored*
+.claude
