@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/telicent-oss/telicent-ds/compare/v1.3.1...v1.4.0) (2025-11-07)
+
+
+### Features
+
+* add AuthProvider ([#349](https://github.com/telicent-oss/telicent-ds/issues/349)) ([e712013](https://github.com/telicent-oss/telicent-ds/commit/e712013bededaf2c211181e94aa72097182c5b7a))
+
 ## [1.3.1](https://github.com/telicent-oss/telicent-ds/compare/v1.3.0...v1.3.1) (2025-11-06)
 
 
