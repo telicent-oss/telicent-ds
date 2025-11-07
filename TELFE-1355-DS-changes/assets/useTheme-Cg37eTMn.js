@@ -1,1 +1,0 @@
-import{r}from"./index-Dl6G-zuu.js";import{T as n}from"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import{e as o}from"./identifier-C6mAUaLB.js";function s(e){return Object.keys(e).length===0}function m(e=null){const t=r.useContext(n);return!t||s(t)?e:t}const u=o();function h(e=u){return m(e)}export{m as a,h as u};
