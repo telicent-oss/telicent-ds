@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/ashleycoleman/telicent-oss/rdf-libraries/scripts/**)",
+      "Bash(curl -L https://github.com/telicent-oss/telicent-ds/releases/download/v0.31.3-TELFE-1314.19/telicent-oss-ds-0.31.3-TELFE-1314.19.tgz -o /tmp/test.tgz)",
+      "Bash(tar -tzf /tmp/test.tgz)",
+      "Bash(curl -sL https://github.com/telicent-oss/rdf-libraries/releases/download/fe-auth-lib-v0.0.1-TELFE-1371.17/telicent-oss-fe-auth-lib-0.0.1-TELFE-1371.17.tgz)",
+      "Bash(tar -tzf -)",
+      "Bash(tar -xzf - -O package/package.json)",
+      "Bash(curl -sL https://github.com/telicent-oss/telicent-ds/releases/download/v0.31.3-TELFE-1314.19/telicent-oss-ds-0.31.3-TELFE-1314.19.tgz)",
+      "Read(//private/tmp/**)",
+      "Bash(cat /tmp/ds.json)",
+      "Bash(npm view @telicent-oss/fe-auth-lib versions --json)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

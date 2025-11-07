@@ -29,6 +29,7 @@ jobs:
 
       - name: Upgrade npm to latest
         run: npm i -g npm@latest
+        
 
       - name: Verify npm version >= 11.5.1
         run: |

@@ -7,12 +7,16 @@ import MUIMenu from "@mui/material/Menu";
 import { H2 } from "../Text/Text";
 import UserIcon from "../Icons/UserIcon";
 import DownArrowIcon from "../FontAwesomeIcons/DownArrowIcon";
+import { pickDataAriaRoleProps, WithDataAriaRole } from "../../utils/DomAttrProps";
 
-export type UserProfileProps = PropsWithChildren & {
+
+export type BaseProps = PropsWithChildren & {
   fullName: string;
 };
+export type UserProfileProps = WithDataAriaRole<typeof MUIStack, BaseProps>;
 
-const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
+
+const UserProfile: React.FC<UserProfileProps> = ({ fullName, children, ...rest }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
 
@@ -33,6 +37,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
         alignItems="center"
         spacing={1}
         sx={{ cursor: "pointer" }}
+        {...pickDataAriaRoleProps(rest)}
       >
         <H2
           variant="h6"
