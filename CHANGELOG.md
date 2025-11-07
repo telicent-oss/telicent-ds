@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/telicent-oss/telicent-ds/compare/v1.4.0...v1.4.1) (2025-11-07)
+
+
+### Bug Fixes
+
+* **publish.yml:** remove tag ([#352](https://github.com/telicent-oss/telicent-ds/issues/352)) ([d77c90c](https://github.com/telicent-oss/telicent-ds/commit/d77c90ceb9c089f2dfd35b22be03119708bfae21))
+
 ## [1.4.0](https://github.com/telicent-oss/telicent-ds/compare/v1.3.1...v1.4.0) (2025-11-07)
 
 
