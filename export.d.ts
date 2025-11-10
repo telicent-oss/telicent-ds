@@ -28,6 +28,7 @@ import { DialogActionsProps } from '@mui/material';
 import { DialogContentProps } from '@mui/material';
 import { DialogProps } from '@mui/material';
 import { DialogTitleProps } from '@mui/material';
+import { DividerProps as DividerProps_2 } from '@mui/material/Divider';
 import { DrawerProps as DrawerProps_2 } from '@mui/material/Drawer';
 import { ExtendButtonBase } from '@mui/material';
 import { ExtendedTheme } from '../v1/theme/theme-type';
@@ -38,6 +39,7 @@ import { FlattenedStyleType } from '@telicent-oss/ontologyservice';
 import { FlattenedStyleTypeForFindIcon } from '@telicent-oss/ontologyservice';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { ForwardedRef } from 'react';
+import { ForwardRefExoticComponent } from 'react';
 import { GridProps } from '@mui/material/Grid';
 import { HTMLAttributes } from 'react';
 import { IconButtonProps } from '@mui/material/IconButton';
@@ -78,6 +80,7 @@ import { PropsWithChildren } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 import { QueryKey } from '@tanstack/react-query';
 import { ReactNode } from 'react';
+import { RefAttributes } from 'react';
 import { RefObject } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { SelectProps as SelectProps_2 } from '@mui/material';
@@ -213,9 +216,24 @@ declare interface AuthRedirectUriProps {
     config: AuthServerOAuth2ClientConfig;
 }
 
+export declare const Autocomplete: ForwardRefExoticComponent<AutoCompleteProps & RefAttributes<HTMLDivElement>>;
+
 declare type AutocompleteOption = {
     label: string;
     isRecentSearch: boolean;
+};
+
+declare type AutoCompleteProps = {
+    label: string;
+    value: string | null;
+    onChange: (value: string | null) => void;
+    options: Option_2[];
+    placeholder?: string;
+    disabled?: boolean;
+    error?: boolean;
+    helperText?: string;
+    fullWidth?: boolean;
+    size?: "small" | "medium";
 };
 
 export declare const base64Codec: Codec;
@@ -462,24 +480,20 @@ export declare interface DependenciesTable {
 
 export declare const DependenciesTable: default_2.FC<DependenciesTable>;
 
+export declare const Dialog: FC<DialogProps_2>;
+
+declare interface DialogProps_2 extends DialogProps {
+    open: boolean;
+    onClose: () => void;
+    children: ReactNode;
+}
+
 export declare const Divider: (props: DividerProps) => JSX_2.Element;
 
-declare interface DividerProps {
-    /**
-     * The component used for the root node. Either a string to use a HTML element or a component.
-     */
+declare interface DividerProps extends DividerProps_2 {
     component?: React.ElementType;
-    /**
-     * If true, a vertical divider will have the correct height when used in flex
-     * container. (By default, a vertical divider will have a calculated height of
-     * 0px if it is the child of a flex container.)
-     */
     flexItem?: boolean;
-    /**
-     * The component orientation.
-     * @default 'horizontal'
-     */
-    orientation?: 'horizontal' | 'vertical';
+    orientation?: "horizontal" | "vertical";
 }
 
 export declare const DownArrowIcon: default_2.FC<DownArrowIconProps>;
@@ -1079,6 +1093,31 @@ export declare interface MiniSearchAutocompleteProps<Value extends AutocompleteO
     onKeyDown?: default_2.KeyboardEventHandler<HTMLInputElement>;
 }
 
+export declare const MiniSearchBox: (props: MiniSearchBoxProps) => JSX_2.Element;
+
+export declare interface MiniSearchBoxProps extends SearchInputBaseProps {
+    /**
+     * If true, a loading indicator will be visible
+     */
+    loading?: boolean;
+    /**
+     * Element placed after the search icon
+     */
+    endIcon?: default_2.ReactNode;
+    /**
+     * Callback fired when the search button is clicked
+     *
+     * `(event: React.MouseEvent<HTMLButtonElement>) => void;`
+     */
+    onSearch?: default_2.MouseEventHandler<HTMLButtonElement>;
+    /**
+     * Callback fired when the down arrow button is clicked
+     *
+     * `(event: React.MouseEvent<HTMLButtonElement>) => void;`
+     */
+    onTogglePopOver?: default_2.MouseEventHandler<HTMLButtonElement>;
+}
+
 export declare const MinusCircleIcon: default_2.FC<SvgIconProps>;
 
 export declare const Modal: default_2.FC<ModalProps>;
@@ -1126,6 +1165,11 @@ export declare interface OntologyInputHierarchy {
     ontology: IconStyle;
     children?: OntologyInputHierarchy[];
 }
+
+declare type Option_2 = {
+    label: string;
+    value: string;
+};
 
 declare type Optional = Pick<Picked, "initialViewState" | "geoPolygons" | "attributionControl">;
 
@@ -1483,6 +1527,102 @@ export declare const SearchIcon: default_2.FC<SearchIconProps>;
 declare type SearchIconProps = Omit<FontAwesomeIconProps, "icon"> & {
     color?: "primary" | "inherit";
 };
+
+declare interface SearchInputBaseProps extends Omit<default_2.HTMLAttributes<HTMLDivElement>, "children" | "color" | "defaultValue" | "onBlur" | "onChange" | "onFocus" | "onInvalid" | "onKeyDown" | "onKeyUp"> {
+    /**
+     * If `true`, the `input` element is focused during the first mount.
+     */
+    autoFocus?: boolean;
+    /**
+     * If `true`, the `input` will indicate an error.
+     */
+    error?: boolean;
+    /**
+     * If `true`, the `input` will take up the full width of its container.
+     * @default false
+     */
+    fullWidth?: boolean;
+    /**
+     * Can be used to give context. If ' ' is provided, the component reserves one
+     * line height for displaying a future message.
+     */
+    helperText?: string;
+    /**
+     * The id of the `input` element.
+     */
+    id?: string;
+    /**
+     * Pass a ref to the `input` element.
+     */
+    inputRef?: default_2.Ref<any>;
+    /**
+     * Maximum number of rows to display when multiline option is set to true.
+     */
+    maxRows?: string | number;
+    /**
+     * Minimum number of rows to display when multiline option is set to true.
+     */
+    minRows?: string | number;
+    /**
+     * If true, a text area auto size element will be rendered
+     * @default false;
+     */
+    multiline?: boolean;
+    /**
+     * Name attribute of the `input` element.
+     */
+    name?: string;
+    /**
+     * Callback fired when the `input` is blurred.
+     *
+     * `(event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement>) => void;`
+     * Note: The first argument (event) might be undefined.
+     */
+    onBlur?: default_2.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+    /**
+     * Callback fired when the value is changed
+     *
+     * `(event: React.ChangeEvent) => void`
+     * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} event The event source of the callback.
+     * You can pull out the new value by accessing `event.target.value` (string).
+     */
+    onChange?: default_2.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+    /**
+     * `(event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement>) => void;`
+     */
+    onFocus?: default_2.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+    /**
+     * `(event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => void;`
+     */
+    onKeyDown?: default_2.KeyboardEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+    /**
+     * `(event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => void;`
+     */
+    onKeyUp?: default_2.KeyboardEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+    /**
+     * Callback fired when the `input` doesn't satisfy its constraints.
+     *
+     * `(event: React.FormEvent<HTMLTextAreaElement | HTMLInputElement>) => void;`
+     */
+    onInvalid?: default_2.FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+    /**
+     * The short hint displayed in the input before the user enters a value.
+     */
+    placeholder?: string;
+    /**
+     * Props which will be applied to the circular progress indicator when loading
+     * is set to true
+     */
+    progressProps?: ProgressProps;
+    /**
+     * Number of rows to display when multiline option is set to true.
+     */
+    rows?: string | number;
+    /**
+     * The value of the `input` element, required for a controlled component.
+     */
+    value?: unknown;
+}
 
 export declare const SearchResults: default_2.FC<SearchResultsProps>;
 
