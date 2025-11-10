@@ -1,5 +1,5 @@
-// export { default as MiniSearchBox } from "./MiniSearchBox";
-// export type { MiniSearchBoxProps } from "./MiniSearchBox";
+export { default as MiniSearchBox } from "./MiniSearchBox";
+export type { MiniSearchBoxProps } from "./MiniSearchBox";
 
 export { default as MiniSearchAutocomplete } from "./MiniSearchAutocomplete";
 export type { MiniSearchAutocompleteProps } from "./MiniSearchAutocomplete";
