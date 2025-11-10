@@ -4,20 +4,23 @@ on:
   push:
     branches:
       - main
-    paths:
-      - CHANGELOG.md
+      - prerelease/**
   workflow_dispatch:
 
 jobs:
-  publish_package:
+  # =========================
+  # Pre-release (branch: prerelease/**)
+  # Publishes with dist-tag = package.json version (must contain '-')
+  # =========================
+  publish_prerelease:
+    if: startsWith(github.ref, 'refs/heads/prerelease/')
     permissions:
       id-token: write
       contents: read
-
+      packages: write
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js with NPM registry
@@ -29,7 +32,6 @@ jobs:
 
       - name: Upgrade npm to latest
         run: npm i -g npm@latest
-        
 
       - name: Verify npm version >= 11.5.1
         run: |
@@ -37,7 +39,65 @@ jobs:
           echo "npm version: $NPMV"
           node -e "const v=process.argv[1].split('.').map(Number);const ok=(v[0]>11)|| (v[0]===11 && (v[1]>5 || (v[1]===5 && v[2]>=1))); if(!ok){console.error('Need npm >= 11.5.1'); process.exit(1)}" "$NPMV"
 
-      - run: LOCAL_MACHINE=false yarn install --frozen-lockfile
-      - run: yarn build
+      - name: Install dependencies
+        run: LOCAL_MACHINE=false yarn install --frozen-lockfile
 
-      - run: npm publish --access public --provenance
+      - name: Build
+        run: yarn build
+
+      - name: Read version and assert pre-release
+        id: meta
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if [[ "$VERSION" != *-* ]]; then
+            echo "Expected a pre-release semver (contains '-'). Found: $VERSION"
+            exit 1
+          fi
+
+      - name: Publish pre-release (dist-tag = version)
+        env:
+          DIST_TAG: ${{ steps.meta.outputs.version }}
+        run: |
+          echo "Publishing with dist-tag: ${DIST_TAG}"
+          npm publish --tag "${DIST_TAG}" --access public --provenance
+
+  # =========================
+  # Production (branch: main)
+  # Publishes to 'latest'
+  # =========================
+  publish_stable:
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js with NPM registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+          scope: "telicent-oss"
+
+      - name: Upgrade npm to latest
+        run: npm i -g npm@latest
+
+      - name: Verify npm version >= 11.5.1
+        run: |
+          NPMV=$(npm --version)
+          echo "npm version: $NPMV"
+          node -e "const v=process.argv[1].split('.').map(Number);const ok=(v[0]>11)|| (v[0]===11 && (v[1]>5 || (v[1]===5 && v[2]>=1))); if(!ok){console.error('Need npm >= 11.5.1'); process.exit(1)}" "$NPMV"
+
+      - name: Install dependencies
+        run: LOCAL_MACHINE=false yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Publish stable (latest)
+        run: npm publish --access public --provenance
