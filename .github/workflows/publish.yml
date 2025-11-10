@@ -10,7 +10,7 @@ on:
 jobs:
   # =========================
   # Pre-release (branch: prerelease/**)
-  # Publishes with dist-tag = package.json version (must contain '-')
+  # Publishes with dist-tag = "pr-" + package.json version (version itself is NOT used as a tag)
   # =========================
   publish_prerelease:
     if: startsWith(github.ref, 'refs/heads/prerelease/')
@@ -55,10 +55,12 @@ jobs:
             echo "Expected a pre-release semver (contains '-'). Found: $VERSION"
             exit 1
           fi
+          # NPM forbids dist-tags that parse as a semver/range. Prefix to avoid that.
+          echo "dist_tag=pr-$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Publish pre-release (dist-tag = version)
+      - name: Publish pre-release (dist-tag = pr-<version>)
         env:
-          DIST_TAG: ${{ steps.meta.outputs.version }}
+          DIST_TAG: ${{ steps.meta.outputs.dist_tag }}
         run: |
           echo "Publishing with dist-tag: ${DIST_TAG}"
           npm publish --tag "${DIST_TAG}" --access public --provenance
@@ -72,6 +74,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
