@@ -191,6 +191,8 @@ export declare enum AuthEvent {
 export declare namespace authorizeFlowDeprecated {
         {
         AuthModal,
+        registerAuthSync,
+        useAuthSync,
         onAuthEvent_2 as onAuthEvent,
         broadcastAuthEvent_2 as broadcastAuthEvent,
         AuthEvent_2 as AuthEvent,
