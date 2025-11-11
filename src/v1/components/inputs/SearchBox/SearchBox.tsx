@@ -5,7 +5,7 @@ import InputBase, { InputBaseProps } from "@mui/material/InputBase";
 import PrimaryButton from "../../buttons/Button/PrimaryButton";
 import { SearchIcon } from "../../data-display";
 
-export interface SearchBoxProps<Value = string> {
+export interface SearchBoxProps {
   /**
    * If true, the input element is focused during the first mount.
    */
@@ -28,11 +28,10 @@ export interface SearchBoxProps<Value = string> {
    */
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
-   * Callback fired when the search button is clicked.
-   * @param event
-   * @returns
+   * Callback fired on form submit (press Enter or click the button).
+   * You decide whether to call event.preventDefault() in the handler.
    */
-  onSearch?: (event: React.MouseEvent<HTMLFormElement>) => void;
+  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
   /**
    * Name attribute of the input element.
    */
@@ -44,7 +43,7 @@ export interface SearchBoxProps<Value = string> {
   /**
    * The value of the input element, required for a controlled component.
    */
-  value?: Value;
+  value?: string;
   width?: number;
 }
 
@@ -56,7 +55,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   value,
   onBlur,
   onChange,
-  onSearch,
+  onSubmit,
   width = 600,
 }) => (
   <Box
@@ -66,7 +65,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     display="flex"
     alignItems="center"
     component="form"
-    onSubmit={onSearch}
+    onSubmit={onSubmit}
   >
     <InputBase
       id="search-box-input"
