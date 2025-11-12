@@ -16,14 +16,15 @@ import { ChipProps as ChipProps_2 } from '@mui/material/Chip';
 import { ChipProps as ChipProps_3 } from '@mui/material';
 import { CircularProgressProps } from '@mui/material/CircularProgress';
 import { CircularProgressProps as CircularProgressProps_2 } from '@mui/material';
+import { Context } from 'react';
 import { Coordinate } from 'ol/coordinate';
 import { DatePickerProps as DatePickerProps_2 } from '@mui/x-date-pickers/DatePicker';
 import { DateTimePickerProps as DateTimePickerProps_2 } from '@mui/x-date-pickers/DateTimePicker';
 import { Dayjs } from 'dayjs';
 import { default as default_2 } from 'react';
 import { default as default_3 } from 'zod';
-import { default as default_4 } from 'ol/layer/Base';
-import { default as default_5 } from '@telicent-oss/fe-auth-lib';
+import { default as default_4 } from '@telicent-oss/fe-auth-lib';
+import { default as default_5 } from 'ol/layer/Base';
 import { DialogActionsProps } from '@mui/material';
 import { DialogContentProps } from '@mui/material';
 import { DialogProps } from '@mui/material';
@@ -171,11 +172,13 @@ declare interface AppSwitchProps extends default_2.HTMLAttributes<HTMLButtonElem
     className?: string;
 }
 
-declare interface AuthContextProps {
+export declare const AuthContext: Context<AuthContextProps | null>;
+
+export declare interface AuthContextProps {
     user: UserInfo | null;
     error: Error | null;
     loading: boolean;
-    authClient: default_5;
+    authClient: default_4;
     api: AxiosInstance;
     login: () => Promise<void>;
     logout: () => Promise<void>;
@@ -390,9 +393,9 @@ declare type CopyToClipboardProps = ButtonProps & {
     style?: String;
 };
 
-export declare const createApi: (baseURL?: string, authClient?: default_5) => RequestApi;
+export declare const createApi: (baseURL?: string, authClient?: default_4) => RequestApi;
 
-export declare const createRequestApi: (baseURL?: string, authClient?: default_5) => RequestApi;
+export declare const createRequestApi: (baseURL?: string, authClient?: default_4) => RequestApi;
 
 declare interface CustomCheckboxProps extends CheckboxProps {
     label?: string;
@@ -778,7 +781,7 @@ export declare interface LayerSelectorProps {
 
 export declare const LayerSelectorV2: default_2.FC<LayerSelectorProps>;
 
-export declare type LayersRef = React.MutableRefObject<default_4[]>;
+export declare type LayersRef = React.MutableRefObject<default_5[]>;
 
 export declare type LegacyMapConfig = {
     vectorStyles?: LegacyVectorStyle;
@@ -1357,14 +1360,14 @@ export declare const PreferredLabelCache: {
 };
 
 export declare interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    data?: default_4[];
+    data?: default_5[];
     anchorEl: HTMLButtonElement | null;
     onClickDropdown: ButtonProps["onClick"];
     selectedIndex: number;
 }
 
 export declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    data: default_4[];
+    data: default_5[];
     anchorEl: HTMLButtonElement | null;
     onCloseDropdown: PopOverProps["onClose"];
     onListItemClick: (label: string) => void;
@@ -1659,7 +1662,7 @@ declare interface SessionHandlingConfig_2 {
     keysToInvalidate?: QueryKey[];
 }
 
-export declare const setupOAuthEventListeners: (OAuth2Client: default_5, onAuthSuccess?: () => void, onAuthError?: (error?: Error) => void) => (() => void);
+export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: () => void, onAuthError?: (error?: Error) => void) => (() => void);
 
 export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
 
