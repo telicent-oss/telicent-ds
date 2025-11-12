@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/telicent-oss/telicent-ds/compare/v1.5.1...v1.5.2) (2025-11-12)
+
+
+### Bug Fixes
+
+* revert useAuthSync ([31c6291](https://github.com/telicent-oss/telicent-ds/commit/31c6291af0408607179df7a1d38f755ac25a2b80))
+
 ## [1.5.1](https://github.com/telicent-oss/telicent-ds/compare/v1.5.0...v1.5.1) (2025-11-11)
 
 
