@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.4](https://github.com/telicent-oss/telicent-ds/compare/v1.5.3...v1.5.4) (2025-11-17)
+
+
+### Bug Fixes
+
+* prevent infinite loop ([#363](https://github.com/telicent-oss/telicent-ds/issues/363)) ([3efe78c](https://github.com/telicent-oss/telicent-ds/commit/3efe78cf4a953903e64183fa5eb2a26f727a6b6d))
+
 ## [1.5.3](https://github.com/telicent-oss/telicent-ds/compare/v1.5.2...v1.5.3) (2025-11-17)
 
 
