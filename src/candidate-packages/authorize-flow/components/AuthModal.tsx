@@ -41,11 +41,11 @@ export const AuthModal: React.FC<AuthRedirectModalProps> = ({ debounceMs = 5000 
   return (
     <Modal hideCloseButton onClose={() => { }} sx={{ m: 2, p: 2 }} open={isOpen}>
       <FlexBox sx={{ p: 2, overflowY: "auto" }}>
-        <H3>Your session is no longer active</H3>
+        <H3>You are not signed in</H3>
         <Text sx={{ pt: 4 }}>
           Your session may have expired, you may have signed out, or your account isn&apos;t active.
         </Text>
-        <Text>Please login again to continue.</Text>
+        <Text>Please login to continue.</Text>
         <Text sx={{ pt: 4 }}>If you continue to have issues, contact your system administrator.</Text>
         <FlexBox ml="auto" mt={2} gap={1} direction="row">
           <Button color="primary" variant="outlined" disableElevation onClick={handleCloseClick} size="large">
