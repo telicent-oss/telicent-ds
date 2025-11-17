@@ -66,14 +66,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     const { onError, onSuccess } = createAuthHandlers(client, setUser, setError, location.pathname);
     const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError);
     const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
-
     const cleanupCheck = runAsync(async () => {
+      const loginAttemptKey = "auth-login-attempted";
       if (location.pathname.includes("/callback")) return;
       const authenticated = await client.isAuthenticated();
       if (!authenticated) {
-        client.login();
+        // Prevent infinite retry loop
+        if (!sessionStorage.getItem(loginAttemptKey)) {
+          sessionStorage.setItem(loginAttemptKey, "1");
+          client.login();
+        }
         return;
       }
+
+      // login succeeded → reset guard
+      sessionStorage.removeItem(loginAttemptKey);
       const profile = client.getUserInfo();
       setUser(profile);
       setError(null);
