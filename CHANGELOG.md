@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/telicent-oss/telicent-ds/compare/v1.5.2...v1.5.3) (2025-11-17)
+
+
+### Bug Fixes
+
+* add callback page ([#361](https://github.com/telicent-oss/telicent-ds/issues/361)) ([debac40](https://github.com/telicent-oss/telicent-ds/commit/debac409b98a966044a4d8765814120aebfb5a84))
+
 ## [1.5.2](https://github.com/telicent-oss/telicent-ds/compare/v1.5.1...v1.5.2) (2025-11-12)
 
 
