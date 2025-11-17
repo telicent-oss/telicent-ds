@@ -313,6 +313,12 @@ export declare const ButtonZoomOut: default_2.FC<{
     onClick?: () => void;
 }>;
 
+export declare const Callback: FC<CallbackProps>;
+
+declare interface CallbackProps {
+    clientId: string;
+}
+
 export declare const Card: default_2.FC<CardProps>;
 
 export declare const CardActions: default_2.FC<PropsWithChildren>;
