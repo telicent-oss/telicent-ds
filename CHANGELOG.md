@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.6](https://github.com/telicent-oss/telicent-ds/compare/v1.5.5...v1.5.6) (2025-11-18)
+
+
+### Bug Fixes
+
+* pass data and header to auth'd request ([82ded99](https://github.com/telicent-oss/telicent-ds/commit/82ded99bcc3d086a9c98d2047e58571ca27686c6))
+
 ## [1.5.5](https://github.com/telicent-oss/telicent-ds/compare/v1.5.4...v1.5.5) (2025-11-18)
 
 
