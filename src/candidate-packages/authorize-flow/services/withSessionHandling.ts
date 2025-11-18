@@ -20,6 +20,8 @@ export function withSessionHandling(
 
       try {
         const response = await authClient.makeAuthenticatedRequest(fullUrl, {
+          body: config.data,
+          headers: config.headers,
           method: config.method,
           skipAutoLogout: true,
         });
