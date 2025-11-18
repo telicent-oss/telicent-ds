@@ -6,6 +6,7 @@ import { registerAuthSync } from "../utils";
 import { QueryClient } from "@tanstack/react-query";
 import { createApi } from "../index";
 import { AuthModal } from "../components/AuthModal";
+import { AuthEvent, broadcastAuthEvent } from "../exports";
 
 interface AuthProviderProps {
   apiUrl: string;
@@ -20,17 +21,22 @@ const createAuthHandlers = (
   setError: Function,
   locationPath: string
 ) => {
+
   const onError = (err: unknown) => {
-    if (locationPath.includes("/callback")) return;
     setUser(null);
     setError(err instanceof Error ? err : new Error(String(err)));
   };
 
   const onSuccess = async () => {
-    if (locationPath.includes("/callback")) return;
     const profile = client.getUserInfo();
     setUser(profile);
     setError(null);
+    broadcastAuthEvent(AuthEvent.AUTHENTICATED)
+    const isPopupFlow = !!window.opener
+    if (!isPopupFlow) {
+      const returnTo = sessionStorage.getItem("auth:returnTo") ?? "/"
+      window.location.replace(returnTo);
+    }
   };
 
   return { onError, onSuccess };
@@ -73,7 +79,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
       if (!authenticated) {
         // Prevent infinite retry loop
         if (!sessionStorage.getItem(loginAttemptKey)) {
-          sessionStorage.setItem(loginAttemptKey, "1");
+          sessionStorage.setItem(loginAttemptKey, "1"); // will get removed from session on successful login
+          sessionStorage.setItem("auth:returnTo", window.location.href); //set this so the user will be riderected to their intended page upon succussful login
           client.login();
         }
         return;
