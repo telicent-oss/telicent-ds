@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.5](https://github.com/telicent-oss/telicent-ds/compare/v1.5.4...v1.5.5) (2025-11-18)
+
+
+### Bug Fixes
+
+* complete login flow ([#365](https://github.com/telicent-oss/telicent-ds/issues/365)) ([f4d2290](https://github.com/telicent-oss/telicent-ds/commit/f4d2290e321b42ec6226095d660b7da97b1b2f6f))
+
 ## [1.5.4](https://github.com/telicent-oss/telicent-ds/compare/v1.5.3...v1.5.4) (2025-11-17)
 
 
