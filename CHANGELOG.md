@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.8](https://github.com/telicent-oss/telicent-ds/compare/v1.5.7...v1.5.8) (2025-11-19)
+
+
+### Bug Fixes
+
+* suppress modal for check endpoint ([#372](https://github.com/telicent-oss/telicent-ds/issues/372)) ([1cf2993](https://github.com/telicent-oss/telicent-ds/commit/1cf29935e1162f0ab3930337671c84968bd2579a))
+
 ## [1.5.7](https://github.com/telicent-oss/telicent-ds/compare/v1.5.6...v1.5.7) (2025-11-19)
 
 
