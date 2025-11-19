@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosRequestHeaders } from "axios";
 import { SessionHandlingConfig } from "../types";
 import {
   AuthEvent,
@@ -6,6 +6,9 @@ import {
   onAuthEvent,
 } from "./broadcastChannelService";
 import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
+
+const formatPayload = (headers: AxiosRequestHeaders, data: unknown) =>
+  headers["Content-Type"] === "application/json" ? JSON.stringify(data) : data;
 
 export function withSessionHandling(
   instance: AxiosInstance,
@@ -20,7 +23,7 @@ export function withSessionHandling(
 
       try {
         const response = await authClient.makeAuthenticatedRequest(fullUrl, {
-          body: config.data ? JSON.stringify(config.data) : undefined,
+          body: formatPayload(config.headers, config.data),
           headers: config.headers,
           method: config.method,
           skipAutoLogout: true,
