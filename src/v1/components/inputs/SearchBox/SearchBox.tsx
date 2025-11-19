@@ -5,7 +5,7 @@ import InputBase, { InputBaseProps } from "@mui/material/InputBase";
 import PrimaryButton from "../../buttons/Button/PrimaryButton";
 import { SearchIcon } from "../../data-display";
 
-export interface SearchBoxProps<Value = string> {
+export interface SearchBoxProps<Value = string> extends React.ComponentProps<typeof InputBase>{
   /**
    * If true, the input element is focused during the first mount.
    */
@@ -58,6 +58,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onChange,
   onSearch,
   width = 600,
+  ...rest
 }) => (
   <Box
     id="search-box"
@@ -89,6 +90,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
       onChange={onChange}
       value={value}
       name={name}
+      {...rest}
     />
     <PrimaryButton
       id="search-box-button"
