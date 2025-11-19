@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.7](https://github.com/telicent-oss/telicent-ds/compare/v1.5.6...v1.5.7) (2025-11-19)
+
+
+### Bug Fixes
+
+* add payload checks ([#370](https://github.com/telicent-oss/telicent-ds/issues/370)) ([09d39ce](https://github.com/telicent-oss/telicent-ds/commit/09d39ce3f77a74c6866b31f1d3f151f331484e6f))
+
 ## [1.5.6](https://github.com/telicent-oss/telicent-ds/compare/v1.5.5...v1.5.6) (2025-11-18)
 
 
