@@ -30,7 +30,9 @@ export function withSessionHandling(
         });
 
         if (response.status === 401) {
-          broadcastAuthEvent(AuthEvent.UNAUTHORIZED);
+          if (!fullUrl.includes("/session/check")) {
+            broadcastAuthEvent(AuthEvent.UNAUTHORIZED);
+          }
 
           return new Promise((resolve, reject) => {
             let unsubscribe: (() => void) | null = null;
