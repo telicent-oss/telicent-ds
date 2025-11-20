@@ -1,11 +1,10 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import InputBase, { InputBaseProps } from "@mui/material/InputBase";
-
 import PrimaryButton from "../../buttons/Button/PrimaryButton";
 import { SearchIcon } from "../../data-display";
 
-export interface SearchBoxProps<Value = string> {
+export interface SearchBoxProps<Value = string> extends React.ComponentProps<typeof InputBase>{
   /**
    * If true, the input element is focused during the first mount.
    */
@@ -48,7 +47,7 @@ export interface SearchBoxProps<Value = string> {
   width?: number;
 }
 
-const SearchBox: React.FC<SearchBoxProps> = ({
+export const SearchBox: React.FC<SearchBoxProps> = ({
   autoFocus = false,
   placeholder = "Search",
   inputRef,
@@ -57,10 +56,11 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onBlur,
   onChange,
   onSearch,
+  disabled,
   width = 600,
+  ...rest
 }) => (
   <Box
-    id="search-box"
     height={44}
     width={width}
     display="flex"
@@ -69,7 +69,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     onSubmit={onSearch}
   >
     <InputBase
-      id="search-box-input"
+      data-test-handle="search-box-input"
       type="search"
       sx={{
         height: "100%",
@@ -89,11 +89,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({
       onChange={onChange}
       value={value}
       name={name}
+      disabled={disabled}
+      {...rest}
     />
     <PrimaryButton
-      id="search-box-button"
+      data-test-handle="search-box-button"
       aria-label="search"
       type="submit"
+      disabled={disabled}
       sx={{
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,

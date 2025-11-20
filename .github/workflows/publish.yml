@@ -1,34 +1,48 @@
 name: publish.yml
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-    paths:
-      - CHANGELOG.md
-  workflow_dispatch:
+      - prerelease/**
+
+permissions:
+  actions: read
+  contents: read
 
 jobs:
-  publish_package:
+  # =========================
+  # Pre-release (branch: prerelease/**)
+  # Publishes packages with pre-release versions (e.g., 1.0.0-TELFE-1401.0)
+  # =========================
+  publish_prerelease:
+    if: startsWith(github.ref, 'refs/heads/prerelease/')
     permissions:
       id-token: write
       contents: read
-
+      packages: write
     runs-on: ubuntu-latest
-
     steps:
+      - name: Set Git Config
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js with NPM registry
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: "https://registry.npmjs.org"
-          scope: "telicent-oss"
+          node-version: 20.19
+          registry-url: 'https://registry.npmjs.org'
+          scope: 'telicent-oss'
 
       - name: Upgrade npm to latest
-        run: npm i -g npm@latest
+        run: LOCAL_MACHINE=false npm install -g npm@latest # npm >= 11.5.1 required for trusted publishing
 
       - name: Verify npm version >= 11.5.1
         run: |
@@ -36,7 +50,77 @@ jobs:
           echo "npm version: $NPMV"
           node -e "const v=process.argv[1].split('.').map(Number);const ok=(v[0]>11)|| (v[0]===11 && (v[1]>5 || (v[1]===5 && v[2]>=1))); if(!ok){console.error('Need npm >= 11.5.1'); process.exit(1)}" "$NPMV"
 
-      - run: LOCAL_MACHINE=false yarn install --frozen-lockfile
-      - run: yarn build
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-node20-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node20-
 
-      - run: npm publish --access public --provenance
+      - name: Install dependencies
+        run: LOCAL_MACHINE=false yarn install --frozen-lockfile
+
+      - name: Build package
+        run: yarn build
+
+      - name: Publish pre-release package
+        run: npm publish --access public
+        env:
+          NPM_CONFIG_PROVENANCE: 'true'
+
+  # =========================
+  # Production (branch: main, path: CHANGELOG.md)
+  # Publishes packages with stable versions to 'latest' tag
+  # =========================
+  publish_stable:
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Git Config
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js with NPM registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19
+          registry-url: 'https://registry.npmjs.org'
+          scope: 'telicent-oss'
+
+      - name: Upgrade npm to latest
+        run: LOCAL_MACHINE=false npm install -g npm@latest # npm >= 11.5.1 required for trusted publishing
+
+      - name: Verify npm version >= 11.5.1
+        run: |
+          NPMV=$(npm --version)
+          echo "npm version: $NPMV"
+          node -e "const v=process.argv[1].split('.').map(Number);const ok=(v[0]>11)|| (v[0]===11 && (v[1]>5 || (v[1]===5 && v[2]>=1))); if(!ok){console.error('Need npm >= 11.5.1'); process.exit(1)}" "$NPMV"
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-node20-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node20-
+
+      - name: Install dependencies
+        run: LOCAL_MACHINE=false yarn install --frozen-lockfile
+
+      - name: Build package
+        run: yarn build
+
+      - name: Publish stable package
+        run: npm publish --access public
+        env:
+          NPM_CONFIG_PROVENANCE: 'true'
