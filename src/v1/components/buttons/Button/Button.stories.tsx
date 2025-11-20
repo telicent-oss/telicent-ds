@@ -69,6 +69,21 @@ export const Primary: Story = {
     },
   },
 };
+export const Error: Story = {
+  args: {
+    color: "primary",
+    variant: "contained",
+    error: true,
+    errorText: "There is a problem"
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Error",
+      },
+    },
+  },
+};
 
 export const Secondary: Story = {
   args: {
