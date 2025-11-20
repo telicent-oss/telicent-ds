@@ -2,7 +2,10 @@ import React from "react";
 import { render, cleanup } from "@testing-library/react";
 
 import Button, { ButtonProps } from "./Button";
-import { cleanSerializedDiff } from "../../../../candidate-packages/clean-diff";
+import {
+  cleanHtmlDiff,
+  cleanSerializedDiff,
+} from "../../../../candidate-packages/clean-diff";
 
 describe("Button", () => {
   let props: ButtonProps;
@@ -233,6 +236,68 @@ describe("Button", () => {
       -
       @@ --- --- @@
       - {Symbol(SameObject caches): [Object]}"
+    `);
+  });
+
+  it("with error diff", () => {
+    const base = render(<Button id="btn" children="Test Button" />);
+    const err = render(
+      <Button id="btn" children="Test Button" error errorText="OH NO!" />
+    );
+    expect(cleanSerializedDiff(base.container, err.container))
+      .toMatchInlineSnapshot(`
+      "- 
+      + 
+
+      @@ --- --- @@
+      + border-color: #d32f2f;
+      + border-width: 1px;
+      + border-style: solid;
+      @@ --- --- @@
+      + }
+      +
+      + .emotion-0:hover {
+      + border-color: #c62828;
+      @@ --- --- @@
+      + }
+      +
+      + .emotion-2 {
+      + color: rgba(0, 0, 0, 0.6);
+      + font-family: "Roboto","Helvetica","Arial",sans-serif;
+      + font-weight: 400;
+      + font-size: 0.75rem;
+      + line-height: 1.66;
+      + letter-spacing: 0.03333em;
+      + text-align: left;
+      + margin-top: 3px;
+      + margin-right: 0;
+      + margin-bottom: 0;
+      + margin-left: 0;
+      + }
+      +
+      + .emotion-2.Mui-disabled {
+      + color: rgba(0, 0, 0, 0.38);
+      + }
+      +
+      + .emotion-2.Mui-error {
+      + color: #d32f2f;"
+    `);
+    expect(cleanHtmlDiff(base.container, err.container)).toMatchInlineSnapshot(`
+      "- 
+      + 
+
+      @@ --- --- @@
+      -     class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+      +     aria-describedby="btn-helper"
+      +     aria-invalid="true"
+      +     class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1as4kv-MuiButtonBase-root-MuiButton-root"
+      @@ --- --- @@
+      +   <p
+      +     class="MuiFormHelperText-root Mui-error css-1d1r5q-MuiFormHelperText-root"
+      +     id="btn-helper"
+      +   >
+      +     OH NO!
+      +   </p>"
     `);
   });
 
