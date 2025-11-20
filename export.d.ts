@@ -25,6 +25,7 @@ import { default as default_2 } from 'react';
 import { default as default_3 } from 'zod';
 import { default as default_4 } from '@telicent-oss/fe-auth-lib';
 import { default as default_5 } from 'ol/layer/Base';
+import { default as default_6 } from '@mui/material/InputBase';
 import { DialogActionsProps } from '@mui/material';
 import { DialogContentProps } from '@mui/material';
 import { DialogProps } from '@mui/material';
@@ -1490,7 +1491,7 @@ declare type SearchAutocompleteProps<Option = DefaultOption> = {
 
 export declare const SearchBox: default_2.FC<SearchBoxProps>;
 
-export declare interface SearchBoxProps<Value = string> {
+export declare interface SearchBoxProps<Value = string> extends default_2.ComponentProps<typeof default_6> {
     /**
      * If true, the input element is focused during the first mount.
      */
