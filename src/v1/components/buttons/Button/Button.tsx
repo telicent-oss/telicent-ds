@@ -5,7 +5,7 @@ import type { SxProps, Theme } from "@mui/material/styles";
 
 export type ButtonProps = MUIButtonProps & {
   style?: "base";
-  error?: boolean;
+  error?: boolean; // Note: does nothing if button has no border
   errorText?: string;
   helperTextProps?: FormHelperTextProps;
 };
