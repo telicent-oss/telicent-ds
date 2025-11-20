@@ -23,3 +23,10 @@ export const Example: Story = {
     await userEvent.click(canvas.getByRole("button", { name: "search" }));
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    placeholder: "Search all",
+    disabled: true,
+  },
+};
