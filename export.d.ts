@@ -192,9 +192,11 @@ export declare enum AuthEvent {
     UNAUTHORIZED = "unauthorized"
 }
 
+export declare const AuthModal: React.FC<AuthRedirectModalProps_2>;
+
 export declare namespace authorizeFlowDeprecated {
         {
-        AuthModal,
+        AuthModal_2 as AuthModal,
         registerAuthSync,
         useAuthSync,
         onAuthEvent_2 as onAuthEvent,
@@ -214,6 +216,10 @@ declare interface AuthProviderProps {
     config: AuthServerOAuth2ClientConfig;
     queryClient: QueryClient;
     children: default_2.ReactNode;
+}
+
+declare interface AuthRedirectModalProps_2 {
+    debounceMs?: number;
 }
 
 export declare const AuthRedirectUri: FC<AuthRedirectUriProps>;
@@ -1669,7 +1675,7 @@ declare interface SessionHandlingConfig_2 {
     keysToInvalidate?: QueryKey[];
 }
 
-export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: () => void, onAuthError?: (error?: Error) => void) => (() => void);
+export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: (redirect?: URL) => void, onAuthError?: (error?: Error) => void) => (() => void);
 
 export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
 
