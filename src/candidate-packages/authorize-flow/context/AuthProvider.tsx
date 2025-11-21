@@ -31,7 +31,8 @@ const createAuthHandlers = (
     setUser(profile);
     setError(null);
     broadcastAuthEvent(AuthEvent.AUTHENTICATED)
-    if (redirect) window.location.replace(redirect)
+    const isPopupFlow = !!window.opener
+    if (!isPopupFlow && redirect) window.location.replace(redirect)
   };
 
   return { onError, onSuccess };
