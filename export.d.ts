@@ -40,6 +40,7 @@ import { FilledTextFieldProps } from '@mui/material';
 import { FlattenedStyleType } from '@telicent-oss/ontologyservice';
 import { FlattenedStyleTypeForFindIcon } from '@telicent-oss/ontologyservice';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
+import { FormHelperTextProps } from '@mui/material';
 import { ForwardedRef } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { GridProps } from '@mui/material/Grid';
@@ -310,6 +311,9 @@ export declare const Button: default_2.ForwardRefExoticComponent<Omit<ButtonProp
 
 export declare type ButtonProps = ButtonProps_2 & {
     style?: "base";
+    error?: boolean;
+    errorText?: string;
+    helperTextProps?: FormHelperTextProps;
 };
 
 export declare const ButtonZoomIn: default_2.FC<{
