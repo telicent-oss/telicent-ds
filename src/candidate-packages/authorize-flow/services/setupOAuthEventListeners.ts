@@ -6,9 +6,14 @@ export const extractRedirectFromState = (url: URL) => {
 
   const [csrf, encodedUrl] = rawState.split(".");
   url.searchParams.set("state", csrf);
-  const redirectUrl = atob(encodedUrl.replace(/-/g, "+").replace(/_/g, "/"));
+  let redirectUrl: URL | undefined;
+  if (encodedUrl) {
+    redirectUrl = new URL(
+      atob(encodedUrl.replace(/-/g, "+").replace(/_/g, "/"))
+    );
+  }
 
-  return { redirect: new URL(redirectUrl), url };
+  return { redirect: redirectUrl, url };
 };
 
 export const setupOAuthEventListeners = (
