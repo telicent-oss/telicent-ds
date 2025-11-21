@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.9](https://github.com/telicent-oss/telicent-ds/compare/v1.5.8...v1.5.9) (2025-11-21)
+
+
+### Bug Fixes
+
+* **SearchBox:** enabled disabled TELFE-1401 ([#369](https://github.com/telicent-oss/telicent-ds/issues/369)) ([f12c8aa](https://github.com/telicent-oss/telicent-ds/commit/f12c8aa409f6f32592a901ffeefb009388669024))
+* Telfe 1414/suppress check auth modal ([#376](https://github.com/telicent-oss/telicent-ds/issues/376)) ([8342d20](https://github.com/telicent-oss/telicent-ds/commit/8342d205933a169c7d038c8473bc9539a794c13f))
+
 ## [1.5.8](https://github.com/telicent-oss/telicent-ds/compare/v1.5.7...v1.5.8) (2025-11-19)
 
 
