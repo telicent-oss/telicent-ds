@@ -5,7 +5,6 @@ import { setupOAuthEventListeners } from "../services/setupOAuthEventListeners";
 import { registerAuthSync } from "../utils";
 import { QueryClient } from "@tanstack/react-query";
 import { createApi } from "../index";
-import { AuthModal } from "../components/AuthModal";
 import { AuthEvent, broadcastAuthEvent } from "../exports";
 
 interface AuthProviderProps {
@@ -27,16 +26,13 @@ const createAuthHandlers = (
     setError(err instanceof Error ? err : new Error(String(err)));
   };
 
-  const onSuccess = async () => {
+  const onSuccess = async (redirect?: URL) => {
     const profile = client.getUserInfo();
     setUser(profile);
     setError(null);
     broadcastAuthEvent(AuthEvent.AUTHENTICATED)
     const isPopupFlow = !!window.opener
-    if (!isPopupFlow) {
-      const returnTo = sessionStorage.getItem("auth:returnTo") ?? "/"
-      window.location.replace(returnTo);
-    }
+    if (!isPopupFlow && redirect) window.location.replace(redirect)
   };
 
   return { onError, onSuccess };
@@ -73,21 +69,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError);
     const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
     const cleanupCheck = runAsync(async () => {
-      const loginAttemptKey = "auth-login-attempted";
       if (location.pathname.includes("/callback")) return;
       const authenticated = await client.isAuthenticated();
       if (!authenticated) {
         // Prevent infinite retry loop
-        if (!sessionStorage.getItem(loginAttemptKey)) {
-          sessionStorage.setItem(loginAttemptKey, "1"); // will get removed from session on successful login
-          sessionStorage.setItem("auth:returnTo", window.location.href); //set this so the user will be riderected to their intended page upon succussful login
-          client.login();
-        }
-        return;
+        client.login();
       }
 
-      // login succeeded → reset guard
-      sessionStorage.removeItem(loginAttemptKey);
       const profile = client.getUserInfo();
       setUser(profile);
       setError(null);
@@ -120,5 +108,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     logout: () => client.logout(),
   };
 
-  return <AuthContext.Provider value={value}><AuthModal />{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
