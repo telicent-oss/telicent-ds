@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.11](https://github.com/telicent-oss/telicent-ds/compare/v1.5.10...v1.5.11) (2025-11-21)
+
+
+### Bug Fixes
+
+* Telfe 1414/suppress check auth modal ([#378](https://github.com/telicent-oss/telicent-ds/issues/378)) ([0627fb4](https://github.com/telicent-oss/telicent-ds/commit/0627fb4c9e2143fa14067f421aa8aa5149fd1f77))
+
 ## [1.5.10](https://github.com/telicent-oss/telicent-ds/compare/v1.5.9...v1.5.10) (2025-11-21)
 
 
