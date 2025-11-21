@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.10](https://github.com/telicent-oss/telicent-ds/compare/v1.5.9...v1.5.10) (2025-11-21)
+
+
+### Bug Fixes
+
+* **Button:** error state ([#375](https://github.com/telicent-oss/telicent-ds/issues/375)) ([99ff2ed](https://github.com/telicent-oss/telicent-ds/commit/99ff2ed04e7cf9bb0fd96f033fc1a3317765b7fc))
+
 ## [1.5.9](https://github.com/telicent-oss/telicent-ds/compare/v1.5.8...v1.5.9) (2025-11-21)
 
 
