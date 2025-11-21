@@ -6,7 +6,6 @@ interface CallbackProps {
 }
 export const Callback: FC<CallbackProps> = ({ clientId }) => {
   useEffect(() => {
-    // const params = new URL(window.location.href).searchParams;
     setTimeout(() => {
       const event = new CustomEvent("oauth-callback", {
         detail: {
@@ -14,7 +13,6 @@ export const Callback: FC<CallbackProps> = ({ clientId }) => {
           clientId: clientId
         },
       });
-      console.log("dispatching", event)
       window.dispatchEvent(event);
     }, 0)
   }, [clientId]);
