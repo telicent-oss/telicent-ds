@@ -5,7 +5,7 @@ import { setupOAuthEventListeners } from "../services/setupOAuthEventListeners";
 import { registerAuthSync } from "../utils";
 import { QueryClient } from "@tanstack/react-query";
 import { createApi } from "../index";
-import { AuthEvent, broadcastAuthEvent } from "../exports";
+import { AuthModal } from "../components/AuthModal";
 
 interface AuthProviderProps {
   apiUrl: string;
@@ -14,79 +14,47 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-const createAuthHandlers = (
-  client: AuthServerOAuth2Client,
-  setUser: Function,
-  setError: Function,
-  locationPath: string
-) => {
-
-  const onError = (err: unknown) => {
-    setUser(null);
-    setError(err instanceof Error ? err : new Error(String(err)));
-  };
-
-  const onSuccess = async (redirect?: URL) => {
-    const profile = client.getUserInfo();
-    setUser(profile);
-    setError(null);
-    broadcastAuthEvent(AuthEvent.AUTHENTICATED)
-    const isPopupFlow = !!window.opener
-    if (!isPopupFlow && redirect) window.location.replace(redirect)
-  };
-
-  return { onError, onSuccess };
-};
-
-const runAsync = (asyncFn: () => Promise<void>, setLoading: (b: boolean) => void) => {
-  let mounted = true;
-
-  const wrapped = async () => {
-    setLoading(true);
-    try {
-      await asyncFn();
-    } finally {
-      if (mounted) setLoading(false);
-    }
-  };
-
-  wrapped();
-
-  return () => {
-    mounted = false;
-  };
-};
-
 export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, queryClient, children }) => {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
-
   const [client] = useState(() => new AuthServerOAuth2Client(config));
 
   useEffect(() => {
-    const { onError, onSuccess } = createAuthHandlers(client, setUser, setError, location.pathname);
-    const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError);
-    const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
-    const cleanupCheck = runAsync(async () => {
-      if (location.pathname.includes("/callback")) return;
-      const authenticated = await client.isAuthenticated();
-      if (!authenticated) {
-        // Prevent infinite retry loop
-        client.login();
-      }
+    let mounted = true;
 
-      const profile = client.getUserInfo();
-      setUser(profile);
-      setError(null);
-    }, setLoading);
+    const onError = (err: unknown) => {
+      if (!mounted) return;
+      setUser(null);
+      setError(err instanceof Error ? err : new Error(String(err)));
+      setLoading(false);
+    };
+
+    const onSuccess = async () => {
+      if (!mounted) return;
+      setLoading(true);
+      try {
+        const profile = await client.getUserInfo(); // may resolve after unmount
+        if (!mounted) return;
+        setUser(profile);
+        setError(null);
+      } catch (e) {
+        if (!mounted) return;
+        onError(e);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError);
+    const cleanupSync = registerAuthSync(queryClient, config.apiUrl);
 
     return () => {
+      mounted = false;            // prevents post-unmount effects
       cleanupAuth();
       cleanupSync();
-      cleanupCheck();
     };
-  }, [client, queryClient, config.apiUrl, location.pathname]);
+  }, [client, queryClient, config.apiUrl]);
 
   // Build API client
   const api = useMemo(() => {
@@ -104,9 +72,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     loading,
     api,
     authClient: client,
-    login: () => client.loginWithPopup(client.config.popupRedirectUri),
+    login: () => client.loginWithPopup(config.popupRedirectUri),
     logout: () => client.logout(),
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}><AuthModal />{children}</AuthContext.Provider>;
 }

@@ -1,24 +1,8 @@
 import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
-export const extractRedirectFromState = (url: URL) => {
-  const rawState = new URLSearchParams(url.search).get("state");
-  if (!rawState) return { redirect: undefined, url };
-
-  const [csrf, encodedUrl] = rawState.split(".");
-  url.searchParams.set("state", csrf);
-  let redirectUrl: URL | undefined;
-  if (encodedUrl) {
-    redirectUrl = new URL(
-      atob(encodedUrl.replace(/-/g, "+").replace(/_/g, "/"))
-    );
-  }
-
-  return { redirect: redirectUrl, url };
-};
-
 export const setupOAuthEventListeners = (
   OAuth2Client: AuthServerOAuth2Client,
-  onAuthSuccess?: (redirect?: URL) => void,
+  onAuthSuccess?: () => void,
   onAuthError?: (error?: Error) => void
 ): (() => void) => {
   const handleOAuthSuccess = () => {
@@ -38,14 +22,11 @@ export const setupOAuthEventListeners = (
     try {
       const callbackUrl = customEvent.detail.callbackUrl;
       console.log("Processing callback URL:", callbackUrl);
-
-      const { redirect, url } = extractRedirectFromState(new URL(callbackUrl));
-
       const callbackResult = await OAuth2Client.handleCallback(
-        new URL(url).search
+        new URL(callbackUrl).search
       );
       console.log("Callback processed successfully:", callbackResult);
-      onAuthSuccess?.(redirect);
+      onAuthSuccess?.();
     } catch (error) {
       console.error("Callback processing failed:", error);
       onAuthError?.(error instanceof Error ? error : new Error(String(error)));
