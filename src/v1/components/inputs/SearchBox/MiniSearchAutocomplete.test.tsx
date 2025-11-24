@@ -1,5 +1,5 @@
 import React from "react";
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MiniSearchAutocomplete, { MiniSearchAutocompleteProps } from "./MiniSearchAutocomplete";
 import { setup } from "../../../../test-utils";
@@ -153,5 +153,23 @@ describe("MiniSearchAutocomplete", () => {
     await user.type(input, "A");
 
     expect(onKeyDown).toHaveBeenCalled()
-  })
+  });
+
+  test("disabled: controls disabled / popper always closed", async () => {
+    const onSearch = jest.fn();
+    renderComponent({ disabled: true, onSearch });
+
+    const input = screen.getByRole("combobox");
+    expect(input).toBeDisabled();
+
+    const searchButton = screen.getByRole("button", { name: "search" });
+    expect(searchButton).toBeDisabled();
+
+    // Bypass pointer-events guard but still assert the handler isn't called
+    fireEvent.click(searchButton);
+    expect(onSearch).not.toHaveBeenCalled();
+
+    // Popper remains closed
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
 });
