@@ -1080,6 +1080,10 @@ export declare interface MiniSearchAutocompleteProps<Value extends AutocompleteO
      */
     loading?: boolean;
     /**
+     * If `true`, disables the entire control (input, popper trigger, and action).
+     */
+    disabled?: boolean;
+    /**
      * Name attribute of the input element.
      */
     name?: string;
@@ -1644,6 +1648,10 @@ declare interface SearchInputBaseProps extends Omit<default_2.HTMLAttributes<HTM
      * The value of the `input` element, required for a controlled component.
      */
     value?: unknown;
+    /**
+     * If `true`, disables the entire control (input and action button).
+     */
+    disabled?: boolean;
 }
 
 export declare const SearchResults: default_2.FC<SearchResultsProps>;
