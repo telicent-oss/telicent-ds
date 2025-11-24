@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.12](https://github.com/telicent-oss/telicent-ds/compare/v1.5.11...v1.5.12) (2025-11-24)
+
+
+### Bug Fixes
+
+* **MiniSearchBox:** [TELFE-1401] allow disabled ([#380](https://github.com/telicent-oss/telicent-ds/issues/380)) ([cf096c6](https://github.com/telicent-oss/telicent-ds/commit/cf096c6de1edc569b57ee7de79f37fc28f86508b))
+
 ## [1.5.11](https://github.com/telicent-oss/telicent-ds/compare/v1.5.10...v1.5.11) (2025-11-21)
 
 
