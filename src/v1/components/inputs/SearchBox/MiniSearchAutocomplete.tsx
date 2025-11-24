@@ -49,6 +49,10 @@ export interface MiniSearchAutocompleteProps<
    */
   loading?: boolean;
   /**
+   * If `true`, disables the entire control (input, popper trigger, and action).
+   */
+  disabled?: boolean;
+  /**
    * Name attribute of the input element.
    */
   name?: string;
@@ -101,6 +105,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
     error,
     id,
     loading,
+    disabled,
     name,
     placeholder,
     progressProps,
@@ -138,9 +143,11 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
       <OutlinedInput
         ref={rootRef}
         slotProps={{ root: { ...getRootProps() } }}
-        inputProps={getInputProps()}
+        // ensure the native input has the disabled attribute (for .toBeDisabled())
+        inputProps={{ ...getInputProps(), disabled }}
         size="small"
         type="search"
+        disabled={disabled}
         sx={{
           width: 360, // Style the native clear ("X") icon
           '& input[type="search"]::-webkit-search-cancel-button': {
@@ -161,7 +168,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
               {loading ? (
                 <MUICircularProgress id="loading" size="20px" {...progressProps} />
               ) : (
-                <IconButton size="small" onClick={onSearch} aria-label="search">
+                <IconButton size="small" onClick={onSearch} aria-label="search" disabled={disabled}>
                   <SearchIcon fontSize="inherit" />
                 </IconButton>
               )}
@@ -172,7 +179,7 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
         placeholder={placeholder || "Search"}
       />
       {anchorEl && (
-        <MUIPopper open={popupOpen} anchorEl={anchorEl} slots={{ root: StyledPopper }}>
+        <MUIPopper open={popupOpen && !disabled} anchorEl={anchorEl} slots={{ root: StyledPopper }}>
           {(groupedOptions as Value[]).length > 0 ? (
             <MUIPaper
               elevation={3}
@@ -200,7 +207,9 @@ const MiniSearchAutocomplete = forwardRef(function Autocomplete<
                     return (
                       <MUIListItem key={`${key}-${index}`} disablePadding {...props}>
                         <MUIListItemButton
+                          disabled={disabled}
                           onClick={(event) => {
+                            if (disabled) return;
                             if (onSearch) {
                               onSearch(event);
                             }

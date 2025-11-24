@@ -107,6 +107,10 @@ export interface SearchInputBaseProps
    * The value of the `input` element, required for a controlled component.
    */
   value?: unknown;
+  /**
+   * If `true`, disables the entire control (input and action button).
+   */
+  disabled?: boolean;
 }
 
 export interface MiniSearchBoxProps extends SearchInputBaseProps {
@@ -134,7 +138,8 @@ export interface MiniSearchBoxProps extends SearchInputBaseProps {
 
 // NOTE: Not being exported, use MiniSearchAutocomplete instead
 const MiniSearchBox = (props: MiniSearchBoxProps) => {
-  const { loading = false, endIcon, onSearch, onTogglePopOver, onFocus, onBlur, progressProps, ...inputProps } = props;
+  const { loading = false, endIcon, onSearch, onTogglePopOver, onFocus, onBlur, progressProps, disabled, ...inputProps } =
+    props;
 
   const [isFocused, setIsFocused] = useState(false);
 
@@ -158,13 +163,20 @@ const MiniSearchBox = (props: MiniSearchBoxProps) => {
     <OutlinedInput
       size="small"
       type="search"
+      disabled={disabled}
       endAdornment={
         <>
           <FlexBox direction="row" spacing={0.5}>
             {loading ? (
               <MUICircularProgress color={isFocused ? "primary" : "inherit"} size="20px" {...progressProps} />
             ) : (
-              <IconButton size="small" onClick={onSearch} color={isFocused ? "primary" : undefined} aria-label="search">
+              <IconButton
+                size="small"
+                onClick={onSearch}
+                color={isFocused ? "primary" : undefined}
+                aria-label="search"
+                disabled={disabled}
+              >
                 <SearchIcon fontSize="inherit" />
               </IconButton>
             )}
