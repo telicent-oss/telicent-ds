@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.14](https://github.com/telicent-oss/telicent-ds/compare/v1.5.13...v1.5.14) (2025-11-26)
+
+
+### Bug Fixes
+
+* bump fe-auth-lib ([#384](https://github.com/telicent-oss/telicent-ds/issues/384)) ([1a01e52](https://github.com/telicent-oss/telicent-ds/commit/1a01e52507f3f0d9c616fc03774d9a31f72aaf44))
+
 ## [1.5.13](https://github.com/telicent-oss/telicent-ds/compare/v1.5.12...v1.5.13) (2025-11-24)
 
 
