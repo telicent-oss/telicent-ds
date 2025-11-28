@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.15](https://github.com/telicent-oss/telicent-ds/compare/v1.5.14...v1.5.15) (2025-11-28)
+
+
+### Bug Fixes
+
+* update get user from client ([be51a64](https://github.com/telicent-oss/telicent-ds/commit/be51a64bab93d80f685634b445279073a5ad9ce4))
+
 ## [1.5.14](https://github.com/telicent-oss/telicent-ds/compare/v1.5.13...v1.5.14) (2025-11-26)
 
 
