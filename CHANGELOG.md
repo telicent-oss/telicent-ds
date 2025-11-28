@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.16](https://github.com/telicent-oss/telicent-ds/compare/v1.5.15...v1.5.16) (2025-11-28)
+
+
+### Bug Fixes
+
+* export protected route ([#389](https://github.com/telicent-oss/telicent-ds/issues/389)) ([1da7697](https://github.com/telicent-oss/telicent-ds/commit/1da769790d7edddbe0a54cd0c275c17b436fe9a4))
+
 ## [1.5.15](https://github.com/telicent-oss/telicent-ds/compare/v1.5.14...v1.5.15) (2025-11-28)
 
 
