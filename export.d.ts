@@ -1407,6 +1407,8 @@ declare interface PresentationalProps_2 extends Pick<ButtonProps, "sx" | "varian
 declare interface ProgressProps extends Omit<CircularProgressProps, "classes" | "color" | "size" | "sx" | "thickness"> {
 }
 
+export declare const ProtectedRoutes: () => JSX_2.Element | null;
+
 export declare const RecentSearches: default_2.FC<RecentSearchProps>;
 
 declare type RecentSearchProps = Partial<{
