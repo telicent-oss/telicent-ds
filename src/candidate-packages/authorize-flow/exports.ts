@@ -6,4 +6,5 @@ export * from "./context/AuthContext";
 export * from "./pages/AuthRedirectUri";
 export * from "./pages/Callback";
 export * from "./components/AuthModal";
+export * from "./components/ProtectedRoutes";
 export * from "./index";
