@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.17](https://github.com/telicent-oss/telicent-ds/compare/v1.5.16...v1.5.17) (2025-11-28)
+
+
+### Bug Fixes
+
+* bump deps ([85e4161](https://github.com/telicent-oss/telicent-ds/commit/85e4161cf05721b8a965cb048c20d2a9d5480cca))
+
 ## [1.5.16](https://github.com/telicent-oss/telicent-ds/compare/v1.5.15...v1.5.16) (2025-11-28)
 
 
