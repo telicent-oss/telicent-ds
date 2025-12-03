@@ -50,15 +50,6 @@ const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
   }
 };
 
-// const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
-//   if (headers["Content-Type"] === "application/json") {
-//     return JSON.stringify(data);
-//   } else if (headers["Content-Type"] === "application/x-www-form-urlencoded") {
-//     return new URLSearchParams(data as URLSearchParams).toString();
-//   } else {
-//     return data;
-//   }
-// };
 
 export function withSessionHandling(
   instance: AxiosInstance,
