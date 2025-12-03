@@ -1,11 +1,15 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { FlexBox, Text } from "../../../export";
 
 interface CallbackProps {
   clientId: string;
 }
 export const Callback: FC<CallbackProps> = ({ clientId }) => {
+  const fired = useRef(false);
+
   useEffect(() => {
+    if (fired.current) return;
+    fired.current = true;
     setTimeout(() => {
       const event = new CustomEvent("oauth-callback", {
         detail: {

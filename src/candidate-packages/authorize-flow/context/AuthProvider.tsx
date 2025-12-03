@@ -6,6 +6,7 @@ import { registerAuthSync } from "../utils";
 import { QueryClient } from "@tanstack/react-query";
 import { createApi } from "../index";
 import { AuthEvent, broadcastAuthEvent } from "../exports";
+import { useRef } from "react";
 
 interface AuthProviderProps {
   apiUrl: string;
@@ -61,6 +62,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
   const [user, setUser] = useState<UserInfo | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
+  const loginTriggered = useRef(false);
 
   const [client] = useState(() => new AuthServerOAuth2Client(config));
 
@@ -71,7 +73,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     const cleanupCheck = runAsync(async () => {
       if (location.pathname.includes("/callback")) return;
       const authenticated = await client.isAuthenticated();
-      if (!authenticated) {
+      if (!authenticated && !loginTriggered.current) {
+        loginTriggered.current = true;
         // Prevent infinite retry loop
         client.login();
       }

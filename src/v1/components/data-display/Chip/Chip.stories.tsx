@@ -26,6 +26,9 @@ const meta = {
         },
       },
     },
+    variant: {
+      type: "string"
+    },
     label: {
       description: "The content of the component.",
     },
