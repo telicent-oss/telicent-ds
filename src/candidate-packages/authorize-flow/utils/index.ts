@@ -9,7 +9,7 @@ export const registerAuthSync = (
     switch (event) {
       case AuthEvent.AUTHENTICATED:
       case AuthEvent.REAUTHENTICATED:
-        queryClient.refetchQueries({ stale: true });
+        queryClient.invalidateQueries({ stale: true });
         break;
       case AuthEvent.USER_CHANGED:
         window.location.replace(baseUrl);
