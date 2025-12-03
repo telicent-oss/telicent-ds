@@ -18,8 +18,12 @@ bc.onmessage = (event: MessageEvent) => {
 export function onAuthEvent(callback: (event: AuthEvent) => void): () => void {
   listeners.add(callback);
 
-  // Immediately fire last known message (StrictMode-safe)
-  if (lastMessage !== null) {
+  // Only replay UNAUTHORIZED on subscription. Replaying AUTH* created the refetch ouroboros:
+  // - AUTH* broadcast sets lastMessage
+  // - New subscriber replays AUTH* immediately
+  // - registerAuthSync (utils) refetchQueries globally
+  // - Next subscriber/broadcast repeats the refetch
+  if (lastMessage === AuthEvent.UNAUTHORIZED) {
     callback(lastMessage);
   }
 
