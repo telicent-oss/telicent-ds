@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.18](https://github.com/telicent-oss/telicent-ds/compare/v1.5.17...v1.5.18) (2025-12-03)
+
+
+### Bug Fixes
+
+* better header handling ([#395](https://github.com/telicent-oss/telicent-ds/issues/395)) ([d8bcffb](https://github.com/telicent-oss/telicent-ds/commit/d8bcffb92089185409f36a75c1b8eaf3bf756d50))
+
 ## [1.5.17](https://github.com/telicent-oss/telicent-ds/compare/v1.5.16...v1.5.17) (2025-11-28)
 
 
