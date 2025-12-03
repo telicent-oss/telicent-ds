@@ -7,8 +7,58 @@ import {
 } from "./broadcastChannelService";
 import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
-const formatPayload = (headers: AxiosRequestHeaders, data: unknown) =>
-  headers["Content-Type"] === "application/json" ? JSON.stringify(data) : data;
+// const formatPayload = (headers: AxiosRequestHeaders, data: unknown) =>
+//   headers["Content-Type"] === "application/json" ? JSON.stringify(data) : data;
+const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
+  // Axios lowercases header names internally
+  const rawCt = headers.get?.("content-type");
+  // Narrow to string safely
+  let ct: string | undefined;
+  if (typeof rawCt === "string") {
+    ct = rawCt.toLowerCase();
+  } else if (Array.isArray(rawCt) && typeof rawCt[0] === "string") {
+    ct = rawCt[0].toLowerCase();
+  } else {
+    ct = undefined;
+  }
+
+  switch (ct) {
+    case "application/json":
+      return JSON.stringify(data);
+
+    case "application/x-www-form-urlencoded":
+      return new URLSearchParams(data as Record<string, string>).toString();
+
+    case "multipart/form-data":
+      return data; // FormData must pass through untouched
+
+    case "application/octet-stream":
+      return data; // binary types must not be stringified
+
+    case "text/plain":
+      return String(data);
+
+    case "application/xml":
+    case "text/xml":
+      if (typeof data !== "string") {
+        throw new Error("XML payload must be a string");
+      }
+      return data;
+
+    default:
+      return data; // fallback
+  }
+};
+
+// const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
+//   if (headers["Content-Type"] === "application/json") {
+//     return JSON.stringify(data);
+//   } else if (headers["Content-Type"] === "application/x-www-form-urlencoded") {
+//     return new URLSearchParams(data as URLSearchParams).toString();
+//   } else {
+//     return data;
+//   }
+// };
 
 export function withSessionHandling(
   instance: AxiosInstance,
