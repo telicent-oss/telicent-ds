@@ -79,7 +79,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
         client.login();
       }
 
-      const profile = client.getUserInfo();
+      const profile = await client.getUserInfoFromAPI();
       setUser(profile);
       setError(null);
     }, setLoading);

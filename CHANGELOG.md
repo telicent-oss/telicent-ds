@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.5.17](https://github.com/telicent-oss/telicent-ds/compare/v1.5.16...v1.5.17) (2025-11-28)
+
+
+### Bug Fixes
+
+* bump deps ([85e4161](https://github.com/telicent-oss/telicent-ds/commit/85e4161cf05721b8a965cb048c20d2a9d5480cca))
+
+## [1.5.16](https://github.com/telicent-oss/telicent-ds/compare/v1.5.15...v1.5.16) (2025-11-28)
+
+
+### Bug Fixes
+
+* export protected route ([#389](https://github.com/telicent-oss/telicent-ds/issues/389)) ([1da7697](https://github.com/telicent-oss/telicent-ds/commit/1da769790d7edddbe0a54cd0c275c17b436fe9a4))
+
+## [1.5.15](https://github.com/telicent-oss/telicent-ds/compare/v1.5.14...v1.5.15) (2025-11-28)
+
+
+### Bug Fixes
+
+* update get user from client ([be51a64](https://github.com/telicent-oss/telicent-ds/commit/be51a64bab93d80f685634b445279073a5ad9ce4))
+
+## [1.5.14](https://github.com/telicent-oss/telicent-ds/compare/v1.5.13...v1.5.14) (2025-11-26)
+
+
+### Bug Fixes
+
+* bump fe-auth-lib ([#384](https://github.com/telicent-oss/telicent-ds/issues/384)) ([1a01e52](https://github.com/telicent-oss/telicent-ds/commit/1a01e52507f3f0d9c616fc03774d9a31f72aaf44))
+
 ## [1.5.13](https://github.com/telicent-oss/telicent-ds/compare/v1.5.12...v1.5.13) (2025-11-24)
 
 
