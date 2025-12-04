@@ -16,3 +16,10 @@ export const registerAuthSync = (
         break;
     }
   });
+
+export const clearAuthSessionFromStorage = () => {
+  sessionStorage.removeItem("oauth_state");
+  sessionStorage.removeItem("oauth_code_verifier");
+  sessionStorage.removeItem("oauth_nonce");
+  sessionStorage.removeItem("oauth_redirect");
+};

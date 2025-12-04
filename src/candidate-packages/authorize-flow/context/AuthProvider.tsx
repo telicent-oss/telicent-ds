@@ -18,7 +18,7 @@ const createAuthHandlers = (
   client: AuthServerOAuth2Client,
   setUser: Function,
   setError: Function,
-  locationPath: string
+  location: string
 ) => {
 
   const onError = (err: unknown) => {
@@ -61,7 +61,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
   const [user, setUser] = useState<UserInfo | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
-
   const [client] = useState(() => new AuthServerOAuth2Client(config));
 
   useEffect(() => {

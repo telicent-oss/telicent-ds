@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { FlexBox, Text } from "../../../export";
+import { FlexBox, TeliSpinner, Text } from "../../../export";
 
 interface CallbackProps {
   clientId: string;
@@ -18,9 +18,9 @@ export const Callback: FC<CallbackProps> = ({ clientId }) => {
   }, [clientId]);
 
   return (
-    <FlexBox gap={2} sx={{ marginX: 5 }}>
+    <FlexBox gap={2} sx={{ marginX: 5 }} height="100vh" justifyContent="center" alignItems="center">
       <FlexBox>
-        <Text variant="body1">Processing login...</Text>
+        <TeliSpinner size={64} className="mx-auto !text-whiteSmoke-50" />
       </FlexBox>
     </FlexBox>
   );
