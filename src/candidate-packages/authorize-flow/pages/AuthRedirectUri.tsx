@@ -8,9 +8,10 @@ interface AuthRedirectUriProps {
 
 export const AuthRedirectUri: FC<AuthRedirectUriProps> = ({ config }) => {
   React.useEffect(() => {
+    if (!config || Object.values(config).length === 0) return;
     const client = new AuthServerOAuth2Client(config);
     client.finishPopupFlow()
-  }, [])
+  }, [config])
 
   return (
     <FlexBox gap={2} sx={{ marginX: 5 }}>

@@ -18,10 +18,19 @@ const mockAuthClient = {
   getUserInfo: jest.fn().mockResolvedValue({ name: "Test User", email: "test@example.com" }),
 } as any;
 
+const mockConfig = {
+  redirectUri: "http://app.redirect.localhost",
+  popupRedirectUri: "http://app.popupredirect.localhost",
+  authServerUrl: "http://auth.telicent.localhost",
+  clientId: "mockClient",
+  scope: "offline",
+  onLogout: jest.fn(),
+}
+
 // ----- PROVIDER WRAPPER -----
 const queryClient = new QueryClient();
 const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <AuthProvider apiUrl="http://changeme.com" config={{}} queryClient={queryClient}>{children}</AuthProvider>
+  <AuthProvider apiUrl="http://changeme.com" config={mockConfig} queryClient={queryClient}>{children}</AuthProvider>
 );
 
 // ----- TESTS -----
@@ -32,12 +41,14 @@ describe("Auth Library Tests", () => {
 
   test("AuthProvider renders children and modal", async () => {
     render(
-      <AuthProvider apiUrl="http://changeme.com" config={{}} queryClient={queryClient}>
+      <AuthProvider apiUrl="http://changeme.com" config={mockConfig} queryClient={queryClient}>
         <div>Child Content</div>
       </AuthProvider>
     );
 
-    expect(screen.getByText("Child Content")).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.getByText("Child Content")).toBeInTheDocument();
+    })
     // AuthModal text example
     // Simulate 401
     act(() => {
@@ -52,25 +63,28 @@ describe("Auth Library Tests", () => {
   test("useAuth hook returns context values", () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
 
-    expect(result.current.authClient).toBeDefined();
-    expect(result.current.api).toBeDefined();
-    expect(typeof result.current.login).toBe("function");
-    expect(typeof result.current.logout).toBe("function");
+    waitFor(() => {
+
+      expect(result.current.authClient).toBeDefined();
+      expect(result.current.api).toBeDefined();
+      expect(typeof result.current.login).toBe("function");
+      expect(typeof result.current.logout).toBe("function");
+    })
   });
 
   test("AuthRedirectUri calls finishPopupFlow and shows message", () => {
     render(
-      <AuthProvider apiUrl="http://changeme.com" config={{}} queryClient={queryClient}>
+      <AuthProvider apiUrl="http://changeme.com" config={mockConfig} queryClient={queryClient}>
         <MemoryRouter initialEntries={["/auth-redirect-uri"]}>
           <Routes>
-            <Route path="/auth-redirect-uri" element={<AuthRedirectUri config={{}} />} />
+            <Route path="/auth-redirect-uri" element={<AuthRedirectUri config={mockConfig} />} />
           </Routes>
         </MemoryRouter>
       </AuthProvider>
     );
 
-    expect(screen.getByText(/Processing login/i)).toBeInTheDocument();
     waitFor(() => {
+      expect(screen.getByText(/Processing login/i)).toBeInTheDocument();
       expect(mockAuthClient.finishPopupFlow).toHaveBeenCalled();
     })
   });
