@@ -81,14 +81,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
         const authenticated = await client.isAuthenticated();
         if (!authenticated) client.login();
 
-        try {
-          const profile = await client.getUserInfoFromAPI();
-          setUser(profile);
-          setError(null);
-        } catch (e) {
-          setUser(null);
-          setError(e instanceof Error ? e : new Error("Unknown error while trying to get user info"));
-        }
+        const profile = client.getUserInfo();
+        setUser(profile);
+        setError(null);
       }
 
       setInitialised(true);
@@ -126,4 +121,3 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
