@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.19](https://github.com/telicent-oss/telicent-ds/compare/v1.5.18...v1.5.19) (2025-12-05)
+
+
+### Bug Fixes
+
+* protect against undefined configs ([87a4a39](https://github.com/telicent-oss/telicent-ds/commit/87a4a396a4a6c4da021ef4d2264bab40f9ac0bdd))
+
 ## [1.5.18](https://github.com/telicent-oss/telicent-ds/compare/v1.5.17...v1.5.18) (2025-12-03)
 
 
