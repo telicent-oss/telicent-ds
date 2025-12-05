@@ -61,24 +61,37 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
   const [user, setUser] = useState<UserInfo | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const [client] = useState(() => new AuthServerOAuth2Client(config));
+  const [client, setClient] = useState<AuthServerOAuth2Client | null>(null);
+  const [initialised, setInitialised] = useState(false);
 
   useEffect(() => {
+    if (!config || Object.values(config).length === 0) return;
+    setClient(new AuthServerOAuth2Client(config));
+  }, [config]);
+
+  useEffect(() => {
+    if (!client) return;
+
     const { onError, onSuccess } = createAuthHandlers(client, setUser, setError, location.pathname);
     const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError);
     const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
+
     const cleanupCheck = runAsync(async () => {
-      if (location.pathname.includes("/callback")) return;
-      const authenticated = await client.isAuthenticated();
-      if (!authenticated) {
-        // Prevent infinite retry loop
-        client.login();
+      if (!location.pathname.includes("/callback")) {
+        const authenticated = await client.isAuthenticated();
+        if (!authenticated) client.login();
+
+        try {
+          const profile = await client.getUserInfoFromAPI();
+          setUser(profile);
+          setError(null);
+        } catch (e) {
+          setUser(null);
+          setError(e instanceof Error ? e : new Error("Unknown error while trying to get user info"));
+        }
       }
 
-      const profile = await client.getUserInfoFromAPI();
-      setUser(profile);
-      setError(null);
+      setInitialised(true);
     }, setLoading);
 
     return () => {
@@ -88,8 +101,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     };
   }, [client, queryClient, config.apiUrl, location.pathname]);
 
-  // Build API client
   const api = useMemo(() => {
+    if (!client) return;
     const factory = createApi(apiUrl, client);
     factory.withSessionHandling({
       keysToInvalidate: [],
@@ -97,6 +110,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     });
     return factory.build().instance;
   }, [client, queryClient, apiUrl]);
+
+  // Block until client is fully configured + initialised
+  if (!client || !initialised || !api) return null;
 
   const value = {
     user,
@@ -109,4 +125,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
+};
+
