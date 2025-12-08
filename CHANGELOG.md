@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.20](https://github.com/telicent-oss/telicent-ds/compare/v1.5.19...v1.5.20) (2025-12-08)
+
+
+### Bug Fixes
+
+* **dep:** use fe-auth-lib v1.0.0 ([#399](https://github.com/telicent-oss/telicent-ds/issues/399)) ([7223076](https://github.com/telicent-oss/telicent-ds/commit/7223076f84054bcad80739352ccd0ffe15664f73))
+* **dep:** use fe-auth-lib v1.0.0 ([#401](https://github.com/telicent-oss/telicent-ds/issues/401)) ([eff223e](https://github.com/telicent-oss/telicent-ds/commit/eff223ed7e5bd4c4adeedda3fd6976df69278689))
+
 ## [1.5.19](https://github.com/telicent-oss/telicent-ds/compare/v1.5.18...v1.5.19) (2025-12-05)
 
 
