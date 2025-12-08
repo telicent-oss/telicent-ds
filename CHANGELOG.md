@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.22](https://github.com/telicent-oss/telicent-ds/compare/v1.5.21...v1.5.22) (2025-12-08)
+
+
+### Bug Fixes
+
+* **fonts.css:** [TELFE-1436] added & bump fe-auth-lib ([#404](https://github.com/telicent-oss/telicent-ds/issues/404)) ([282857d](https://github.com/telicent-oss/telicent-ds/commit/282857d5107d39e4c40cc18e019d97533fcbb15d))
+
 ## [1.5.21](https://github.com/telicent-oss/telicent-ds/compare/v1.5.20...v1.5.21) (2025-12-08)
 
 
