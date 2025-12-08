@@ -5,9 +5,8 @@
   --font-heading: "Space Grotesk", system-ui, sans-serif;
 }
 
-body,
-.MuiTypography-root {
-  font-family: var(--font-body);
+body {
+  font-family: var(--font-body) !important;
 }
 
 h1,
@@ -15,12 +14,6 @@ h2,
 h3,
 h4,
 h5,
-h6,
-.MuiTypography-h1,
-.MuiTypography-h2,
-.MuiTypography-h3,
-.MuiTypography-h4,
-.MuiTypography-h5,
-.MuiTypography-h6 {
-  font-family: var(--font-heading);
+h6 {
+  font-family: var(--font-heading) !important;
 }
