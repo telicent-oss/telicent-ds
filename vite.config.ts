@@ -40,6 +40,14 @@ export default defineConfig({
               src: "src/assets/fonts",
               dest: "dist/assets",
             },
+            {
+              src: "src/styles/typography.css",
+              dest: "dist",
+            },
+            {
+              src: "src/styles/fonts.css",
+              dest: "dist",
+            },
             { src: "src/fontawesome.css", dest: "dist" },
 
             {
