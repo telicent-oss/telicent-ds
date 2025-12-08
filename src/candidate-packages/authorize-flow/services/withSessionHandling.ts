@@ -24,6 +24,11 @@ const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
 
   switch (ct) {
     case "application/json":
+      if (data === undefined || data === null) return data;
+      if (typeof data === "string") {
+        // If Axios already serialized, do not stringify again
+        return data;
+      }
       return JSON.stringify(data);
 
     case "application/x-www-form-urlencoded":
