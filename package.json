@@ -214,6 +214,16 @@
       "style": "./dist/fontawesome.css"
     },
     "./dist/fontawesome.css.map": "./dist/fontawesome.css.map",
+    "./dist/styles/typography.css": {
+      "import": "./dist/typography.css",
+      "require": "./dist/typography.css",
+      "style": "./dist/typography.css"
+    },
+    "./dist/styles/fonts.css": {
+      "import": "./dist/fonts.css",
+      "require": "./dist/fonts.css",
+      "style": "./dist/fonts.css"
+    },
     "./dist/typography.css": {
       "import": "./dist/typography.css",
       "require": "./dist/typography.css",
@@ -223,16 +233,6 @@
       "import": "./dist/fonts.css",
       "require": "./dist/fonts.css",
       "style": "./dist/fonts.css"
-    },
-    "./dist/styles/fonts.css": {
-      "import": "./dist/fonts.css",
-      "require": "./dist/fonts.css",
-      "style": "./dist/fonts.css"
-    },
-    "./dist/styles/typography.css": {
-      "import": "./dist/typography.css",
-      "require": "./dist/typography.css",
-      "style": "./dist/typography.css"
     }
   },
   "jest": {
