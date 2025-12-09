@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.23](https://github.com/telicent-oss/telicent-ds/compare/v1.5.22...v1.5.23) (2025-12-09)
+
+
+### Bug Fixes
+
+* **Callback.tsx:** add spinner and message ([#406](https://github.com/telicent-oss/telicent-ds/issues/406)) ([c4e55d4](https://github.com/telicent-oss/telicent-ds/commit/c4e55d4b052836de08b96633724e2c4a129d6462))
+
 ## [1.5.22](https://github.com/telicent-oss/telicent-ds/compare/v1.5.21...v1.5.22) (2025-12-08)
 
 
