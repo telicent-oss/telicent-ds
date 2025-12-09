@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { FlexBox, Text } from "../../../export";
+import { TeliSpinner } from "../../../export";
 
 interface CallbackProps {
   clientId: string;
@@ -18,10 +18,12 @@ export const Callback: FC<CallbackProps> = ({ clientId }) => {
   }, [clientId]);
 
   return (
-    <FlexBox gap={2} sx={{ marginX: 5 }}>
-      <FlexBox>
-        <Text variant="body1">Processing login...</Text>
-      </FlexBox>
-    </FlexBox>
+    <div
+      className="grid place-content-center gap-y-2"
+      style={{ height: "calc(100vh - 224px)" }}
+    >
+      <TeliSpinner size={64} className="mx-auto !text-whiteSmoke-50" />
+      <p>Logging you in. You'll be ridirected shortly.</p>
+    </div>
   );
-};
+}
