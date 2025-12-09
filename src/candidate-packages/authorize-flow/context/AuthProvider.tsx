@@ -14,6 +14,28 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
+const normalizePathname = (pathname: string) => pathname.replace(/\/+$/, "") || "/";
+
+const matchCurrentUri = (target?: string): boolean => {
+  if (typeof window === "undefined") return false;
+  if (!target) {
+    console.error("[AuthProvider] redirectUri missing; cannot identify callback safely");
+    return false;
+  }
+
+  try {
+    const currentUrl = new URL(window.location.href);
+    const targetUrl = new URL(target);
+    return (
+      currentUrl.origin === targetUrl.origin &&
+      normalizePathname(currentUrl.pathname) === normalizePathname(targetUrl.pathname)
+    );
+  } catch (err) {
+    console.error("[AuthProvider] Failed to parse redirectUri for comparison", err);
+    return false;
+  }
+};
+
 const createAuthHandlers = (
   client: AuthServerOAuth2Client,
   setUser: Function,
@@ -77,16 +99,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
 
     const cleanupCheck = runAsync(async () => {
-      if (!location.pathname.includes("/callback")) {
-        const authenticated = await client.isAuthenticated();
-        if (!authenticated) client.login();
+      try {
+        const isStandardCallback = matchCurrentUri(client.config.redirectUri);
+        const isPopupCallback = matchCurrentUri(client.config.popupRedirectUri);
 
-        const profile = client.getUserInfo();
-        setUser(profile);
-        setError(null);
+        // In popup callback windows, rely on finishPopupFlow to complete auth; avoid isAuthenticated/login
+        if (!isPopupCallback && !isStandardCallback) {
+          const authenticated = await client.isAuthenticated();
+          if (!authenticated) client.login();
+
+          const profile = client.getUserInfo();
+          setUser(profile);
+          setError(null);
+        }
+      } catch (err) {
+        console.error("[AuthProvider] Auth check failed", err);
+        setError(err instanceof Error ? err : new Error(String(err)));
+      } finally {
+        setInitialised(true);
       }
-
-      setInitialised(true);
     }, setLoading);
 
     return () => {
