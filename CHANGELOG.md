@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.24](https://github.com/telicent-oss/telicent-ds/compare/v1.5.23...v1.5.24) (2025-12-09)
+
+
+### Bug Fixes
+
+* **withSessionHandling:** [TELFE-1440] use AxiosHeaders to clearnly read Content-Type ([#408](https://github.com/telicent-oss/telicent-ds/issues/408)) ([1c89717](https://github.com/telicent-oss/telicent-ds/commit/1c897170715d8b1c4b6787ad8b36b8d058d319ca))
+
 ## [1.5.23](https://github.com/telicent-oss/telicent-ds/compare/v1.5.22...v1.5.23) (2025-12-09)
 
 
