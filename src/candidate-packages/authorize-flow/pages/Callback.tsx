@@ -19,11 +19,18 @@ export const Callback: FC<CallbackProps> = ({ clientId }) => {
 
   return (
     <div
-      className="grid place-content-center gap-y-2"
-      style={{ height: "calc(100vh - 224px)" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        gap: "0.5rem",
+      }}
     >
-      <TeliSpinner size={64} className="mx-auto !text-whiteSmoke-50" />
-      <p>Logging you in. You'll be ridirected shortly.</p>
+      <TeliSpinner size={64} style={{ color: "rgba(255,255,255,0.5)" }} />
+      <p>Logging you in. You'll be redirected shortly.</p>
     </div>
   );
+
 }
