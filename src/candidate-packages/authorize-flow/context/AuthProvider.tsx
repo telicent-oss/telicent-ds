@@ -127,20 +127,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
 
     const cleanupCheck = runAsync(async () => {
-      const isPopupCallback = isAuthPopupCallback(client.config.popupRedirectUri, client.config.redirectUri);
-      const isStandardCallback = typeof window !== "undefined" && window.location.pathname.includes("/callback");
+      try {
+        const isPopupCallback = isAuthPopupCallback(
+          client.config.popupRedirectUri,
+          client.config.redirectUri
+        );
+        const isStandardCallback =
+          typeof window !== "undefined" &&
+          window.location.pathname.includes("/callback");
 
-      // In popup callback windows, rely on finishPopupFlow to complete auth; avoid isAuthenticated/login
-      if (!isPopupCallback && !isStandardCallback) {
-        const authenticated = await client.isAuthenticated();
-        if (!authenticated) client.login();
+        // In popup callback windows, rely on finishPopupFlow to complete auth; avoid isAuthenticated/login
+        if (!isPopupCallback && !isStandardCallback) {
+          const authenticated = await client.isAuthenticated();
+          if (!authenticated) client.login();
 
-        const profile = client.getUserInfo();
-        setUser(profile);
-        setError(null);
+          const profile = client.getUserInfo();
+          setUser(profile);
+          setError(null);
+        }
+      } catch (err) {
+        console.error("[AuthProvider] Auth check failed", err);
+        setError(err instanceof Error ? err : new Error(String(err)));
+      } finally {
+        setInitialised(true);
       }
-
-      setInitialised(true);
     }, setLoading);
 
     return () => {
