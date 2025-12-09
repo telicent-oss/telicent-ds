@@ -6,6 +6,7 @@ import { registerAuthSync } from "../utils";
 import { QueryClient } from "@tanstack/react-query";
 import { createApi } from "../index";
 import { AuthEvent, broadcastAuthEvent } from "../exports";
+import { matchCurrentUri } from "../utils/matchCurrentUrl";
 
 interface AuthProviderProps {
   apiUrl: string;
@@ -77,7 +78,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
 
     const cleanupCheck = runAsync(async () => {
-      if (!location.pathname.includes("/callback")) {
+      try {
+        const isStandardCallback = matchCurrentUri(client.config.redirectUri);
+        const isPopupCallback = matchCurrentUri(client.config.popupRedirectUri);
+
+        // In popup callback windows, rely on finishPopupFlow to complete auth; avoid isAuthenticated/login
+        if (!isPopupCallback && !isStandardCallback) {
         const authenticated = await client.isAuthenticated();
         if (!authenticated) client.login();
 
@@ -85,8 +91,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
         setUser(profile);
         setError(null);
       }
-
+      } catch (err) {
+        console.error("[AuthProvider] Auth check failed", err);
+        setError(err instanceof Error ? err : new Error(String(err)));
+      } finally {
       setInitialised(true);
+      }
     }, setLoading);
 
     return () => {
