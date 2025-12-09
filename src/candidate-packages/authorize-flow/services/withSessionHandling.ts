@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosRequestHeaders } from "axios";
+import { AxiosInstance, AxiosRequestHeaders, AxiosHeaders } from "axios";
 import { SessionHandlingConfig } from "../types";
 import {
   AuthEvent,
@@ -7,20 +7,8 @@ import {
 } from "./broadcastChannelService";
 import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
-// const formatPayload = (headers: AxiosRequestHeaders, data: unknown) =>
-//   headers["Content-Type"] === "application/json" ? JSON.stringify(data) : data;
 const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
-  // Axios lowercases header names internally
-  const rawCt = headers.get?.("content-type");
-  // Narrow to string safely
-  let ct: string | undefined;
-  if (typeof rawCt === "string") {
-    ct = rawCt.toLowerCase();
-  } else if (Array.isArray(rawCt) && typeof rawCt[0] === "string") {
-    ct = rawCt[0].toLowerCase();
-  } else {
-    ct = undefined;
-  }
+  const ct = new AxiosHeaders(headers).get("Content-Type")?.toString().toLowerCase();
 
   switch (ct) {
     case "application/json":
@@ -55,6 +43,8 @@ const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
   }
 };
 
+export { formatPayload };
+
 
 export function withSessionHandling(
   instance: AxiosInstance,
@@ -68,9 +58,11 @@ export function withSessionHandling(
         : `${config.baseURL || ""}${config.url || ""}`;
 
       try {
+        const headers = new AxiosHeaders(config.headers).toJSON();
+
         const response = await authClient.makeAuthenticatedRequest(fullUrl, {
           body: formatPayload(config.headers, config.data),
-          headers: config.headers,
+          headers: headers as Record<string, string>,
           method: config.method,
           skipAutoLogout: true,
         });
