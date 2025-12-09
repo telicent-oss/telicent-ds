@@ -9,6 +9,7 @@ import { ForceNoIframe } from "./components/ForceNoIframe";
 import { createApi } from "./index";
 import { AuthEvent, broadcastAuthEvent } from "./services/broadcastChannelService";
 import { setupOAuthEventListeners } from "./services/setupOAuthEventListeners";
+import { AuthRedirectUri } from "./pages/AuthRedirectUri";
 import { RequestApi } from "./types";
 
 import {
@@ -397,6 +398,9 @@ const LoginSuccessComponent = () => {
           clientId: "fe-storybook-app-config",
           authServerUrl: "http://auth.telicent.localhost",
           scope: "openid profile offline_access",
+          redirectUri: 'http://localhost:6006/',
+          popupRedirectUri: 'http://localhost:6006/',
+          onLogout: () => {},
         });
 
         client.finishPopupFlow();
@@ -462,5 +466,25 @@ export const StorybookOauthCallback: StoryObj = {
       </ForceNoIframe>
     );
   },
+  parameters: { layout: "centered" },
+};
+
+const authRedirectStoryConfig = {
+  clientId: "storybook-callback-test",
+  authServerUrl: "http://auth.telicent.localhost",
+  scope: "openid profile offline_access",
+  redirectUri: "http://localhost:6006/",
+  popupRedirectUri:
+    "http://localhost:6006/iframe.html?viewMode=story&id=candidate-packages-auth-flow--auth-redirect-uri&globals=",
+  onLogout: () => {},
+};
+
+export const AuthRedirectUriStory: StoryObj = {
+  name: "Auth redirect (popup callback)",
+  render: () => (
+    <ForceNoIframe linkText="Open callback in dedicated window">
+      <AuthRedirectUri config={authRedirectStoryConfig} />
+    </ForceNoIframe>
+  ),
   parameters: { layout: "centered" },
 };

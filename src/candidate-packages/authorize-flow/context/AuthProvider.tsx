@@ -14,6 +14,56 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
+const normalizePathname = (pathname: string) => pathname.replace(/\/+$/, "") || "/";
+
+const urlsMatch = (left: string, right: string): boolean => {
+  const leftUrl = new URL(left);
+  const rightUrl = new URL(right);
+
+  return (
+    leftUrl.origin === rightUrl.origin &&
+    normalizePathname(leftUrl.pathname) === normalizePathname(rightUrl.pathname)
+  );
+};
+
+const isAuthPopupCallback = (popupRedirectUri: string, redirectUri?: string): boolean => {
+  if (typeof window === "undefined") return false;
+
+  const isPopupContext = !!window.opener || window.parent !== window;
+  if (!isPopupContext) return false;
+
+  if (!window.location.pathname.includes("/callback")) return false;
+
+  if (!popupRedirectUri) {
+    console.error("[auth-popup] popupRedirectUri missing; cannot identify popup callback safely");
+    return false;
+  }
+
+  try {
+    const currentUrl = new URL(window.location.href);
+    const redirectUrl = new URL(popupRedirectUri);
+
+    if (redirectUri) {
+      try {
+        if (urlsMatch(popupRedirectUri, redirectUri)) {
+          console.error("[auth-popup] popupRedirectUri matches redirectUri; popup detection would be unsafe");
+          return false;
+        }
+      } catch (e) {
+        console.error("[auth-popup] Failed to parse redirectUri for comparison", e);
+      }
+    }
+
+    return (
+      currentUrl.origin === redirectUrl.origin &&
+      normalizePathname(currentUrl.pathname) === normalizePathname(redirectUrl.pathname)
+    );
+  } catch (err) {
+    console.error("[auth-popup] Failed to parse popupRedirectUri", err);
+    return false;
+  }
+};
+
 const createAuthHandlers = (
   client: AuthServerOAuth2Client,
   setUser: Function,
@@ -77,7 +127,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
 
     const cleanupCheck = runAsync(async () => {
-      if (!location.pathname.includes("/callback")) {
+      const isPopupCallback = isAuthPopupCallback(client.config.popupRedirectUri, client.config.redirectUri);
+      const isStandardCallback = typeof window !== "undefined" && window.location.pathname.includes("/callback");
+
+      // In popup callback windows, rely on finishPopupFlow to complete auth; avoid isAuthenticated/login
+      if (!isPopupCallback && !isStandardCallback) {
         const authenticated = await client.isAuthenticated();
         if (!authenticated) client.login();
 
