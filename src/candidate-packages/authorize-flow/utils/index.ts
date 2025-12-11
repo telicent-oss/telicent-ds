@@ -1,6 +1,10 @@
 import { QueryClient } from "@tanstack/react-query";
 import { AuthEvent, onAuthEvent } from "../services/broadcastChannelService";
 
+export * from "./isAuthRedirectUri";
+export * from "./normalizePathname";
+export * from "./parseAbsoluteUrl";
+
 export const registerAuthSync = (
   queryClient: QueryClient,
   baseUrl: string = ""

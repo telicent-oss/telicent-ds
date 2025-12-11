@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Select as MUISelect, MenuItem, SelectProps as MuiSelectProps } from "@mui/material";
+import { FormControl, InputLabel, Select as MUISelect, MenuItem, SelectProps as MuiSelectProps, FormHelperText } from "@mui/material";
 import React from "react";
 
 export interface Options {
@@ -6,13 +6,19 @@ export interface Options {
   label: string;
 }
 
-export type SelectProps = MuiSelectProps & { options: Options[]; width?: number };
+export type SelectProps = MuiSelectProps & { options: Options[]; width?: number | string; helperText?: React.ReactNode; };
 
 const Select = React.forwardRef<HTMLInputElement, SelectProps>(
-  ({ label, value, id, options, width, onChange, disabled = false, sx, ...rest }, ref) => {
+  ({ label, value, id, options, width, onChange, disabled = false, sx, helperText, error = false, required = false, fullWidth = false, ...rest }, ref) => {
     return (
-      <FormControl sx={{ minWidth: 88, width }} size="small">
-        {label && <InputLabel id={id}>{label}</InputLabel>}
+      <FormControl
+        sx={{ minWidth: 88, ...(width && { width }), ...(fullWidth && { width: '100%' }) }}
+        size="small"
+        error={error}
+        required={required}
+        fullWidth={fullWidth}
+      >
+        {label && <InputLabel id={id} required={required}>{label}</InputLabel>}
 
         <MUISelect
           {...rest}
@@ -26,6 +32,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
           onChange={onChange}
           size="small"
           inputRef={ref}
+          error={error}
         >
           {options.map((option) => (
             <MenuItem color="primary" key={option?.value} value={option.value} disableRipple>
@@ -33,6 +40,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
             </MenuItem>
           ))}
         </MUISelect>
+        {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
       </FormControl>
     );
   }

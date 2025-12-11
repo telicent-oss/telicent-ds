@@ -15,11 +15,12 @@ type AutoCompleteProps = {
   helperText?: string;
   fullWidth?: boolean;
   size?: "small" | "medium";
+  required?: boolean;
 };
 
 const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
   (
-    { label, value, onChange, options, placeholder, disabled, error, helperText, fullWidth = true, size = "small" },
+    { label, value, onChange, options, placeholder, disabled, error, helperText, fullWidth = true, size = "small", required = false },
     ref
   ) => {
     const selected = options.find((option) => option.value === value) ?? null;
@@ -42,6 +43,7 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
             error={error}
             helperText={helperText}
             size={size}
+            required={required}
           />
         )}
       />
