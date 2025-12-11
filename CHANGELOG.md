@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.25](https://github.com/telicent-oss/telicent-ds/compare/v1.5.24...v1.5.25) (2025-12-11)
+
+
+### Bug Fixes
+
+* **authorize-flow:** [TELFE-1441] add matchCurrentUrl + forms ([#415](https://github.com/telicent-oss/telicent-ds/issues/415)) ([861b4be](https://github.com/telicent-oss/telicent-ds/commit/861b4beeacd80bc9687ad0532f3e9b0fbc7a3dc6))
+* **Callback.tsx:** fix typo ([#412](https://github.com/telicent-oss/telicent-ds/issues/412)) ([236d237](https://github.com/telicent-oss/telicent-ds/commit/236d2373a63ae716df9df22c0939d452db7b68b1))
+
 ## [1.5.24](https://github.com/telicent-oss/telicent-ds/compare/v1.5.23...v1.5.24) (2025-12-09)
 
 
