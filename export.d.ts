@@ -247,6 +247,7 @@ declare type AutoCompleteProps = {
     helperText?: string;
     fullWidth?: boolean;
     size?: "small" | "medium";
+    required?: boolean;
 };
 
 export declare const base64Codec: Codec;
@@ -767,6 +768,13 @@ export declare const insetInMap: {
     Background: default_2.FC<BoxProps>;
     Content: default_2.FC<BoxProps>;
     ControlArea: default_2.FC<ControlAreaProps>;
+};
+
+export declare const isAuthRedirect: ({ config, url, }: IsAuthRedirectArgs) => boolean;
+
+export declare type IsAuthRedirectArgs = {
+    config: AuthServerOAuth2ClientConfig;
+    url: string | URL;
 };
 
 export declare type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig | OverlayVectorLayerConfig;
@@ -1666,20 +1674,24 @@ declare type SecondaryButtonProps = Omit<ButtonProps_2, "variant" | "color">;
 
 export declare const Select: default_2.ForwardRefExoticComponent<(Omit<FilledSelectProps & BaseSelectProps<unknown> & {
     options: Options[];
-    width?: number;
+    width?: number | string;
+    helperText?: default_2.ReactNode;
 }, "ref"> | Omit<StandardSelectProps & BaseSelectProps<unknown> & {
     options: Options[];
-    width?: number;
+    width?: number | string;
+    helperText?: default_2.ReactNode;
 }, "ref"> | Omit<OutlinedSelectProps & BaseSelectProps<unknown> & {
     options: Options[];
-    width?: number;
+    width?: number | string;
+    helperText?: default_2.ReactNode;
 }, "ref">) & default_2.RefAttributes<HTMLInputElement>>;
 
 export { SelectChangeEvent }
 
 export declare type SelectProps = SelectProps_2 & {
     options: Options[];
-    width?: number;
+    width?: number | string;
+    helperText?: default_2.ReactNode;
 };
 
 declare interface SessionHandlingConfig_2 {
