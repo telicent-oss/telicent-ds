@@ -3783,10 +3783,10 @@
   dependencies:
     "@tanstack/query-core" "5.90.12"
 
-"@telicent-oss/fe-auth-lib@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@telicent-oss/fe-auth-lib/-/fe-auth-lib-1.0.1.tgz#90b36f43d8c62317e6c88df9174ae34f7f3f88c3"
-  integrity sha512-+sttu9nSOU95lECuwlvBDjJN5WcOwQOyKHIlPHLZttocbgE3pM2u/CyDi/XY2ZuYBUydkWVf9QR5RD/apOLb5A==
+"@telicent-oss/fe-auth-lib@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/fe-auth-lib/-/fe-auth-lib-1.0.2.tgz#a0594d6b485c90d4147fd0e548d0f0c1b2d1a9bb"
+  integrity sha512-Ll/XAov+GK7prK7upN5CyU+sAHD0FLyVYzISPpt3Bhl6RcxtN5viZZ3ZJ8maQgEMveltYYCoTZ6GasNl+A6Ewg==
   dependencies:
     zod "^3.23.8"
 
