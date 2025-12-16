@@ -84,9 +84,9 @@ export const getOverlayVectorLayer = (
   return layer;
 };
 
-export const getBaseVectorTileLayer = (
+export const getBaseVectorTileLayer = async (
   layerConfig: BaseVectorTileLayerConfig
-): BaseLayer => {
+): Promise<BaseLayer> => {
   switch (layerConfig.provider) {
     case "mapbox":
     case "maptiler":
@@ -116,7 +116,7 @@ export const getBaseVectorTileLayer = (
         return `${layerConfig.url}/tile/${z}/${y}/${x}.pbf`;
       }
       const arcgisStyleUrl = `${layerConfig.url}/resources/styles/root.json`;
-      const sourceProjection = getProjection(layerConfig.projection);
+      const sourceProjection = getProjection("EPSG:4326");
 
       // OL VectorTile layer for ArcGIS
       const layer = new VectorTileLayer({
@@ -137,11 +137,11 @@ export const getBaseVectorTileLayer = (
         visible: layerConfig.visible,
       });
 
-      applyStyle(layer, arcgisStyleUrl, "esri");
-
       layer.set("id", layerConfig.id);
       layer.set("kind", layerConfig.kind);
       layer.set("label", layerConfig.label);
+      layer.set("debug-id", Math.random().toString(36).slice(2));
+      await applyStyle(layer, arcgisStyleUrl, "esri");
 
       return attachMeta(layer, {
         visible: Boolean(layerConfig.visible),
@@ -151,7 +151,9 @@ export const getBaseVectorTileLayer = (
 
     case "custom":
       // assume valid style JSON or MVT endpoint; user handles mapping
-      const customLayer = new LayerGroup();
+      const customLayer = new LayerGroup({
+        visible: layerConfig.visible,
+      });
       apply(customLayer, layerConfig.styleUrl || layerConfig.url, {
         accessToken: layerConfig.accessToken,
       });
