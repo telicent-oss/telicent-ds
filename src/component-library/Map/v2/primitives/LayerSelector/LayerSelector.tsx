@@ -153,7 +153,7 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
 		});
 	};
 
-	if (!layers || selectedIndex === null) return null;
+	if (layers.length <= 1 || selectedIndex === null) return null;
 
 	return <div id="layer-selector" style={{ position: "absolute", bottom: 0, ...style }}>
 		<LayerSelectorPresentationalButton anchorEl={anchorEl} onClickDropdown={handleClick} variant="text" data={layers} selectedIndex={selectedIndex} />

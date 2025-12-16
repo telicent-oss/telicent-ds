@@ -99,7 +99,7 @@ describe("LayerSelector components", () => {
 
 	// --- Full LayerSelector ---
 	it("LayerSelector opens popover and updates visibility on click", () => {
-		render(<LayerSelectorV2 layersRef={{ current: layersMock as any }} />);
+		render(<LayerSelectorV2 layers={layersMock as any} />);
 
 		// Button for opening popover
 		const button = screen.getByRole("button");
@@ -114,7 +114,7 @@ describe("LayerSelector components", () => {
 	});
 
 	it("returns null if only one layer is present", () => {
-		render(<LayerSelectorV2 layersRef={{ current: [layersMock[0]] as any }} />);
+		render(<LayerSelectorV2 layers={[layersMock[0]] as any} />);
 		expect(screen.queryByRole("button")).toBeNull();
 	});
 });
