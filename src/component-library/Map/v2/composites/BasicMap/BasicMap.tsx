@@ -17,18 +17,19 @@ import { polygonToOLFeature } from "../../utils/polygons";
 
 
 export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>((props, ref) => {
-	const [layersReady, setLayersReady] = useState(false);
+	const [layers, setLayers] = useState<BaseLayer[]>([]);
+	// const layersRef = useRef<BaseLayer[] | null>(null);
+	// const [layersReady, setLayersReady] = useState(false);
 	const mapInstance = useRef<Map | null>(null);
 
-	const showLayerSelector =
-		props.controls?.showLayerSelector ?? true;
+	const showLayerSelector = true;
+	// props.controls?.showLayerSelector ?? true;
+
 	const effectiveLayers = useMemo(() => {
 		const baseLayers =
 			Array.isArray(props.layers) && props.layers.length > 0
 				? props.layers
-				: props.mapStyleOptions && Object.keys(props.mapStyleOptions).length > 0
-					? mapLegacyConfigToLayers(props.mapStyleOptions)
-					: [];
+				: [];
 
 		const overlayVectorLayers: LayerConfig[] = [
 			// Marker layer
@@ -51,28 +52,43 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 	}, [props.layers, props.mapStyleOptions]);
 
 
-	const layersRef = useRef<BaseLayer[]>(ensureLayers(effectiveLayers));
-
 	useEffect(() => {
-		setLayersReady(true)
-		if (props.onLayersReady) {
-			props.onLayersReady(true);
-		}
-		return () => {
-			setLayersReady(false);
-			props.onLayersReady?.(false);
-		};
-	}, [!!layersRef.current]);
+		let cancelled = false;
 
-	useEffect(() => {
+		(async () => {
+			const layers = await ensureLayers(effectiveLayers);
+			if (!cancelled) {
+				setLayers(layers)
+			}
+		})();
+
 		return () => {
-			setLayersReady(false);
-			props.onLayersReady?.(false);
+			cancelled = true;
 		};
-	}, [])
+	}, [effectiveLayers]);
+	// const layersRef = useRef<BaseLayer[]>(ensureLayers(effectiveLayers));
+
+	// useEffect(() => {
+	// 	setLayersReady(true)
+	// 	if (props.onLayersReady) {
+	// 		props.onLayersReady(true);
+	// 	}
+	// 	return () => {
+	// 		setLayersReady(false);
+	// 		props.onLayersReady?.(false);
+	// 	};
+	// }, [!!layersRef.current]);
+
+	// useEffect(() => {
+	// 	return () => {
+	// 		setLayersReady(false);
+	// 		props.onLayersReady?.(false);
+	// 	};
+	// }, [])
+
 	useEffect(() => {
 		if (!mapInstance.current) return;
-		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
+		const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
 		if (!markerLayer) {
 			console.debug("No marker layer found");
 			return;
@@ -98,8 +114,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 		} else {
 			panToFeatures(mapInstance.current, features)
 		}
-
-	}, [props.markers, props.polygons, layersReady])
+	}, [props.markers, props.polygons, layers])
 
 	useImperativeHandle(ref, () => ({
 		zoomIn: () => {
@@ -128,7 +143,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 				return;
 			}
 
-			const features = getFeaturesById(layersRef.current, [id])
+			const features = getFeaturesById(layers, [id])
 			if (features.length === 0) return;
 			panToFeature(mapInstance.current, features[0]);
 		},
@@ -138,20 +153,19 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 				return;
 			}
 
-			const features = getFeaturesById(layersRef.current, ids)
+			const features = getFeaturesById(layers, ids)
 			if (features.length === 0) return;
 			panToFeature(mapInstance.current, features[0]);
 		},
-		layersRef
+		layers
+	}), [mapInstance.current, layers])
 
-	}), [mapInstance.current, layersRef.current])
-
-	console.log({ layersReady, layersRef: layersRef.current, showLayerSelector })
+	console.log({ layers, showLayerSelector })
 
 	return <>
-		<MapCanvasV2 layersRef={layersRef} mapInstanceRef={mapInstance} {...props} />
-		{layersReady && layersRef.current && showLayerSelector &&
-			<LayerSelectorV2 layersRef={layersRef} />
+		<MapCanvasV2 layersRef={layers} mapInstanceRef={mapInstance} {...props} />
+		{showLayerSelector &&
+			<LayerSelectorV2 layers={layers} />
 		}
 	</>
 })

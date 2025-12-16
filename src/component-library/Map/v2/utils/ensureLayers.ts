@@ -8,13 +8,15 @@ import {
   getOverlayVectorLayer,
 } from "./layers";
 
-export const ensureLayers = (layerConfigs: LayerConfig[]): BaseLayer[] => {
+export const ensureLayers = async (
+  layerConfigs: LayerConfig[]
+): Promise<BaseLayer[]> => {
   if (!layerConfigs || layerConfigs.length === 0) {
     console.info("No layers provided. Adding default OSM base layer.");
     return [new TileLayer({ source: new OSM() })];
   }
 
-  return layerConfigs.map((layerConfig, index) => {
+  const layerPromises = layerConfigs.map(async (layerConfig, index) => {
     switch (layerConfig.kind) {
       case "base-raster":
         const baseRasterLayer = getBaseRasterLayer(layerConfig);
@@ -22,7 +24,7 @@ export const ensureLayers = (layerConfigs: LayerConfig[]): BaseLayer[] => {
         return baseRasterLayer;
 
       case "base-vector-tiles":
-        const baseVectorTileLayer = getBaseVectorTileLayer(layerConfig);
+        const baseVectorTileLayer = await getBaseVectorTileLayer(layerConfig);
         baseVectorTileLayer.setZIndex(index);
         return baseVectorTileLayer;
 
@@ -31,8 +33,11 @@ export const ensureLayers = (layerConfigs: LayerConfig[]): BaseLayer[] => {
         overlayVectorLayer.setZIndex(index);
         overlayVectorLayer.setDeclutter(false);
         return overlayVectorLayer;
+
       default:
         throw new Error(`Unknown layer kind: ${JSON.stringify(layerConfig)}`);
     }
   });
+
+  return Promise.all(layerPromises);
 };

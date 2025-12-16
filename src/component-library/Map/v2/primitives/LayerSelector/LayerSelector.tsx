@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { PopOver, FlexGrid, FlexGridItem, Button, Text, useExtendedTheme, ButtonProps } from "../../../../../export";
@@ -125,9 +125,9 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 	);
 };
 
-export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layersRef, style = {} }) => {
+export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = {} }) => {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-	const initialIndex = layersRef.current.findIndex(l => getMeta(l)?.visible);
+	const initialIndex = layers.findIndex(l => getMeta(l)?.visible);
 	const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -138,20 +138,25 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layersRef, style
 		setAnchorEl(null);
 	};
 
+	useEffect(() => {
+		const index = layers.findIndex(l => getMeta(l)?.visible);
+		setSelectedIndex(index !== -1 ? index : 0);
+	}, [layers]);
+
 	const handleOnListItemClick = (label: string) => {
-		layersRef.current.forEach((layer, index) => {
+		layers.forEach((layer, index) => {
 			const meta = getMeta(layer);
 			if (layer.get("kind") === "overlay-vector") return;
-			layer.setVisible(meta?.label === label);
-			if (meta?.label === label)
-				setSelectedIndex(index);
+			const visible = meta?.label === label;
+			layer.setVisible(visible);
+			if (visible) setSelectedIndex(index);
 		});
 	};
 
-	if (layersRef.current?.length <= 1) return null;
+	if (!layers || selectedIndex === null) return null;
 
 	return <div id="layer-selector" style={{ position: "absolute", bottom: 0, ...style }}>
-		<LayerSelectorPresentationalButton anchorEl={anchorEl} onClickDropdown={handleClick} variant="text" data={layersRef.current} selectedIndex={selectedIndex} />
-		<LayerSelectorPresentationalPopOverV2 anchorEl={anchorEl} onCloseDropdown={handleClose} onListItemClick={handleOnListItemClick} data={layersRef.current} selectedIndex={selectedIndex} />
+		<LayerSelectorPresentationalButton anchorEl={anchorEl} onClickDropdown={handleClick} variant="text" data={layers} selectedIndex={selectedIndex} />
+		<LayerSelectorPresentationalPopOverV2 anchorEl={anchorEl} onCloseDropdown={handleClose} onListItemClick={handleOnListItemClick} data={layers} selectedIndex={selectedIndex} />
 	</div>
 }

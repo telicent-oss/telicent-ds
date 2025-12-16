@@ -23,7 +23,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	// const mapInstance = useRef<Map | null>(null);
 	const viewRef = useRef<View>(ensureView(zoom, center));
 	useEffect(() => {
-		if (!mapRef.current || layersRef.current.length === 0) return;
+		if (!mapRef.current || (!layersRef.current)) return;
 
 		// Build OL controls internally based on the config
 		const olControls = olDefaultControls({ zoom: false, rotate: false, attribution: true }); // disable OL zoom/rotate by default
@@ -31,7 +31,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		if (controls?.showRotate) olControls.push(new Rotate());
 		if (controls?.showFullScreen) olControls.push(new FullScreen());
 
-	
+
 		mapInstanceRef.current = new Map({
 			target: mapRef.current,
 			controls: olControls,
@@ -77,6 +77,6 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	}, [layersRef.current, zoom, center]);
 
 	return <div id="TelicentMap" className="map-container" style={{
-		width: "100%", height: "100%", background: "#f8f4f0"
+		width: "100%", height: "100%"
 	}} ref={mapRef}></div>
 }
