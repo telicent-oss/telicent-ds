@@ -116,7 +116,7 @@ export const getBaseVectorTileLayer = async (
         return `${layerConfig.url}/tile/${z}/${y}/${x}.pbf`;
       }
       const arcgisStyleUrl = `${layerConfig.url}/resources/styles/root.json`;
-      const sourceProjection = getProjection("EPSG:4326");
+      const sourceProjection = getProjection(layerConfig.projection);
 
       // OL VectorTile layer for ArcGIS
       const layer = new VectorTileLayer({
@@ -129,7 +129,6 @@ export const getBaseVectorTileLayer = async (
           tileGrid: createXYZ({
             extent: sourceProjection?.getExtent(),
             tileSize: 512,
-            minZoom: 1,
             maxZoom: 15,
           }),
           tileUrlFunction: tileUrlFunction,
@@ -140,15 +139,15 @@ export const getBaseVectorTileLayer = async (
       layer.set("id", layerConfig.id);
       layer.set("kind", layerConfig.kind);
       layer.set("label", layerConfig.label);
-      layer.set("debug-id", Math.random().toString(36).slice(2));
-      await applyStyle(layer, arcgisStyleUrl, "esri");
 
-      return attachMeta(layer, {
+      const layerWithMeta = attachMeta(layer, {
         visible: Boolean(layerConfig.visible),
         label: layerConfig.label,
         image: layerConfig.previewImage,
       });
 
+      await applyStyle(layerWithMeta, arcgisStyleUrl, "esri");
+      return layerWithMeta;
     case "custom":
       // assume valid style JSON or MVT endpoint; user handles mapping
       const customLayer = new LayerGroup({
@@ -188,7 +187,10 @@ export const getBaseRasterLayer = (layerConfig: BaseRasterLayerConfig) => {
   return attachMeta(layer, { image, label, visible: Boolean(visible) });
 };
 
-export const attachMeta = (layer: BaseLayer, meta: LayerMeta) => {
+export const attachMeta = <T extends BaseLayer>(
+  layer: T,
+  meta: LayerMeta
+): T => {
   layer.set("meta", meta);
   return layer;
 };

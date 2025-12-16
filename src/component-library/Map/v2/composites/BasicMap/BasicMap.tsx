@@ -9,27 +9,27 @@ import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
-import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { MARKER_LAYER_ID } from "../../utils/layers";
 import { convertMarkerToFeature, findVectorLayerById } from "../../utils/feature";
 import { getFeaturesById, panToFeature, panToFeatures } from "./interactions/addPanToFeature";
 import { polygonToOLFeature } from "../../utils/polygons";
+import { mapLegacyConfigToLayers } from "../../utils/legacy";
 
 
 export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>((props, ref) => {
 	const [layers, setLayers] = useState<BaseLayer[]>([]);
-	// const layersRef = useRef<BaseLayer[] | null>(null);
-	// const [layersReady, setLayersReady] = useState(false);
 	const mapInstance = useRef<Map | null>(null);
 
-	const showLayerSelector = true;
-	// props.controls?.showLayerSelector ?? true;
+	const showLayerSelector =
+		props.controls?.showLayerSelector ?? true;
 
 	const effectiveLayers = useMemo(() => {
 		const baseLayers =
 			Array.isArray(props.layers) && props.layers.length > 0
 				? props.layers
-				: [];
+				: props.mapStyleOptions && Object.keys(props.mapStyleOptions).length > 0
+					? mapLegacyConfigToLayers(props.mapStyleOptions)
+					: [];
 
 		const overlayVectorLayers: LayerConfig[] = [
 			// Marker layer
@@ -49,16 +49,21 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 		];
 
 		return [...baseLayers, ...overlayVectorLayers];
-	}, [props.layers, props.mapStyleOptions]);
+	}, [props.layers]);
 
 
 	useEffect(() => {
 		let cancelled = false;
 
 		(async () => {
-			const layers = await ensureLayers(effectiveLayers);
-			if (!cancelled) {
-				setLayers(layers)
+			try {
+				const layers = await ensureLayers(effectiveLayers);
+				if (!cancelled) {
+					setLayers(layers)
+				}
+			} catch (e) {
+				console.error("ensureLayers failed", e);
+				return
 			}
 		})();
 
@@ -66,25 +71,17 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 			cancelled = true;
 		};
 	}, [effectiveLayers]);
-	// const layersRef = useRef<BaseLayer[]>(ensureLayers(effectiveLayers));
 
-	// useEffect(() => {
-	// 	setLayersReady(true)
-	// 	if (props.onLayersReady) {
-	// 		props.onLayersReady(true);
-	// 	}
-	// 	return () => {
-	// 		setLayersReady(false);
-	// 		props.onLayersReady?.(false);
-	// 	};
-	// }, [!!layersRef.current]);
+	useEffect(() => {
+		if (layers.length < 1) return;
+		props?.onLayersReady?.(true);
+	}, [layers])
 
-	// useEffect(() => {
-	// 	return () => {
-	// 		setLayersReady(false);
-	// 		props.onLayersReady?.(false);
-	// 	};
-	// }, [])
+	useEffect(() => {
+		return () => {
+			props.onLayersReady?.(false);
+		};
+	}, [])
 
 	useEffect(() => {
 		if (!mapInstance.current) return;
@@ -160,10 +157,9 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 		layers
 	}), [mapInstance.current, layers])
 
-	console.log({ layers, showLayerSelector })
-
+	const { layers: _ignored, ...restProps } = props;
 	return <>
-		<MapCanvasV2 layersRef={layers} mapInstanceRef={mapInstance} {...props} />
+		<MapCanvasV2 layers={layers} mapInstanceRef={mapInstance} {...restProps} />
 		{showLayerSelector &&
 			<LayerSelectorV2 layers={layers} />
 		}

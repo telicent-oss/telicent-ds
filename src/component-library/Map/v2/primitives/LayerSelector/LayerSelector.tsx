@@ -146,11 +146,14 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
 	const handleOnListItemClick = (label: string) => {
 		layers.forEach((layer, index) => {
 			const meta = getMeta(layer);
-			if (layer.get("kind") === "overlay-vector") return;
+			if (layer.get("kind") === "overlay-vector") return; // skip overlays
 			const visible = meta?.label === label;
 			layer.setVisible(visible);
 			if (visible) setSelectedIndex(index);
 		});
+
+
+		handleClose();
 	};
 
 	if (layers.length <= 1 || selectedIndex === null) return null;

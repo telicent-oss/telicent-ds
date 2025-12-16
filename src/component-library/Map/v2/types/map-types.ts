@@ -38,7 +38,7 @@ export type LayersRef = React.MutableRefObject<BaseLayer[] | null>;
 export type MapInstanceRef = React.MutableRefObject<Map | null>;
 
 export type MapCanvasV2Props = {
-  layersRef: LayersRef;
+  layers: BaseLayer[];
   mapInstanceRef: MapInstanceRef;
   onFeatureClick?: (ids: string[]) => void;
   zoom: number;
