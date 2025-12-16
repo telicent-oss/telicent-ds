@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.28](https://github.com/telicent-oss/telicent-ds/compare/v1.5.27...v1.5.28) (2025-12-16)
+
+
+### Bug Fixes
+
+* sync packages ([#421](https://github.com/telicent-oss/telicent-ds/issues/421)) ([e637d85](https://github.com/telicent-oss/telicent-ds/commit/e637d85fdc62f8d8fb49f9cecb945df94efd199a))
+
 ## [1.5.27](https://github.com/telicent-oss/telicent-ds/compare/v1.5.26...v1.5.27) (2025-12-16)
 
 
