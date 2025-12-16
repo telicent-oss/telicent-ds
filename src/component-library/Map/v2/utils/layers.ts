@@ -1,4 +1,4 @@
-import apply from "ol-mapbox-style";
+import apply, { applyStyle } from "ol-mapbox-style";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTileSource from "ol/source/VectorTile";
 import BaseLayer from "ol/layer/Base";
@@ -10,7 +10,7 @@ import {
 } from "../types/layers";
 import VectorSource from "ol/source/Vector";
 import { Point, Polygon } from "ol/geom";
-import { fromLonLat } from "ol/proj";
+import { fromLonLat, get as getProjection } from "ol/proj";
 import Feature from "ol/Feature";
 import VectorLayer from "ol/layer/Vector";
 import { StyleLike } from "ol/style/Style";
@@ -21,6 +21,7 @@ import MVT from "ol/format/MVT";
 import TileLayer from "ol/layer/Tile";
 import { XYZ } from "ol/source";
 import { OverlayFeatureConfig } from "../types/overlays";
+import { createXYZ } from "ol/tilegrid";
 
 const getDefaultOverlayStyle = (): StyleLike => (feature) => {
   const geomType = feature.getGeometry()?.getType();
@@ -90,7 +91,9 @@ export const getBaseVectorTileLayer = (
     case "mapbox":
     case "maptiler":
       // use ol-mapbox-style
-      const mapLayer = new LayerGroup(); // container layer
+      const mapLayer = new LayerGroup({
+        visible: layerConfig.visible,
+      }); // container layer
       apply(mapLayer, layerConfig.styleUrl || layerConfig.url, {
         accessToken: layerConfig.accessToken,
       });
@@ -105,14 +108,37 @@ export const getBaseVectorTileLayer = (
       });
 
     case "arcgis":
+      // ArcGIS VectorTileServer uses z/y/x in EPSG:4326.
+      function tileUrlFunction(tileCoord: unknown[]) {
+        const z = tileCoord[0];
+        const x = tileCoord[1];
+        const y = tileCoord[2]; // ArcGIS expects standard XYZ origin at top
+        return `${layerConfig.url}/tile/${z}/${y}/${x}.pbf`;
+      }
+      const arcgisStyleUrl = `${layerConfig.url}/resources/styles/root.json`;
+      const sourceProjection = getProjection(layerConfig.projection);
+
       // OL VectorTile layer for ArcGIS
       const layer = new VectorTileLayer({
         source: new VectorTileSource({
-          url: layerConfig.url + "/tile/{z}/{y}/{x}.pbf", // typical ArcGIS endpoint
+          attributions:
+            '© <a href="https://www.openstreetmap.org/copyright">' +
+            "OpenStreetMap contributors</a>",
+          projection: sourceProjection!,
           format: new MVT(),
+          tileGrid: createXYZ({
+            extent: sourceProjection?.getExtent(),
+            tileSize: 512,
+            minZoom: 1,
+            maxZoom: 15,
+          }),
+          tileUrlFunction: tileUrlFunction,
         }),
-        visible: layerConfig.visible !== false, // what?
+        visible: layerConfig.visible,
       });
+
+      applyStyle(layer, arcgisStyleUrl, "esri");
+
       layer.set("id", layerConfig.id);
       layer.set("kind", layerConfig.kind);
       layer.set("label", layerConfig.label);
@@ -148,7 +174,6 @@ export const getBaseRasterLayer = (layerConfig: BaseRasterLayerConfig) => {
     visible: layerConfig.visible ?? true,
     source: new XYZ({
       url: layerConfig.url,
-      projection: "EPSG:3857",
     }),
   });
 

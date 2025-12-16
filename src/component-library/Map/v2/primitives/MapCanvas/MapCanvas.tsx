@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import Feature from "ol/Feature";
 import View from "ol/View";
 import Map from "ol/Map";
-import "ol/ol.css";
 import { MapCanvasV2Props } from "../../types/map-types";
 import { panToFeature, panToFeatures } from "../../composites/BasicMap/interactions/addPanToFeature";
 import { addSelectInteraction } from "../../composites/BasicMap/interactions/addSelectInteraction";
@@ -10,7 +9,7 @@ import { findVectorLayerById } from "../../utils/feature";
 import { MARKER_LAYER_ID } from "../../utils/layers";
 import { ensureView } from "../../utils/ensureView";
 import { defaults as olDefaultControls, Zoom, Rotate, FullScreen } from "ol/control";
-
+import "ol/ol.css";
 
 export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	zoom,
@@ -32,6 +31,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		if (controls?.showRotate) olControls.push(new Rotate());
 		if (controls?.showFullScreen) olControls.push(new FullScreen());
 
+	
 		mapInstanceRef.current = new Map({
 			target: mapRef.current,
 			controls: olControls,
@@ -76,5 +76,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		};
 	}, [layersRef.current, zoom, center]);
 
-	return <div id="TelicentMap" className="map-container" style={{ width: "100%", height: "100%" }} ref={mapRef}></div>
+	return <div id="TelicentMap" className="map-container" style={{
+		width: "100%", height: "100%", background: "#f8f4f0"
+	}} ref={mapRef}></div>
 }

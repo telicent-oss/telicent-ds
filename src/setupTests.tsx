@@ -89,5 +89,6 @@ jest.mock("ol-mapbox-style", () => ({
   __esModule: true,
   default: jest.fn(),
   apply: jest.fn(),
+  applyStyle: jest.fn(() => Promise.resolve())
 }));
 
