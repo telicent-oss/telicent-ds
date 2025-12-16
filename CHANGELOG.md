@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.27](https://github.com/telicent-oss/telicent-ds/compare/v1.5.26...v1.5.27) (2025-12-16)
+
+
+### Bug Fixes
+
+* use correct projection ([#418](https://github.com/telicent-oss/telicent-ds/issues/418)) ([05fe5c5](https://github.com/telicent-oss/telicent-ds/commit/05fe5c5a9235cd0de8dd1d418a25fbd004e496d0))
+
 ## [1.5.26](https://github.com/telicent-oss/telicent-ds/compare/v1.5.25...v1.5.26) (2025-12-12)
 
 
