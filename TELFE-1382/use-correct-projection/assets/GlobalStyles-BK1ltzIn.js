@@ -1,1 +1,0 @@
-import{_ as e,T as o,d as s}from"./identifier-CCo8HfxA.js";import"./index-Dl6G-zuu.js";import{j as r}from"./jsx-runtime-DMAvRu52.js";import{G as m}from"./GlobalStyles-DdQ_E3CX.js";function f(t){return r.jsx(m,e({},t,{defaultTheme:s,themeId:o}))}export{f as G};

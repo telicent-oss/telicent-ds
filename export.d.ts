@@ -274,6 +274,7 @@ export declare type BaseVectorTileLayerConfig = {
     accessToken?: string;
     visible?: boolean;
     previewImage: string;
+    projection?: string;
     label: string;
 };
 
