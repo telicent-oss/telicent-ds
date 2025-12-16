@@ -31,7 +31,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		if (controls?.showRotate) olControls.push(new Rotate());
 		if (controls?.showFullScreen) olControls.push(new FullScreen());
 
-		console.log("layers", layersRef.current)
+	
 		mapInstanceRef.current = new Map({
 			target: mapRef.current,
 			controls: olControls,
