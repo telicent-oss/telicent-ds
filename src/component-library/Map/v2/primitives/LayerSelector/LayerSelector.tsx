@@ -8,6 +8,7 @@ import { PopOverProps } from "../../../../../v1/components/surfaces/PopOver/Popo
 import BaseLayer from "ol/layer/Base";
 import { LayerSelectorProps } from "../../types/map-types";
 import { getMeta } from "../../utils/layers";
+import { resolve } from "path";
 
 export interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
 	data?: BaseLayer[];
@@ -125,9 +126,25 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 	);
 };
 
+const resolveVisibleBaseLayerIndex = (layers: BaseLayer[]): number => {
+	const storedLabel = localStorage.getItem("map.baselayer");
+	const baseLayers = layers.filter(l => l.get("kind") !== "overlay-vector");
+
+	if (storedLabel) {
+		const storedIndex = baseLayers.findIndex(l => getMeta(l)?.label === storedLabel);
+		if (storedIndex !== -1) return storedIndex;
+	}
+
+	const configIndex = baseLayers.findIndex(l => getMeta(l)?.visible);
+	if (configIndex !== -1) return configIndex;
+
+	return 0;
+};
+
 export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = {} }) => {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-	const initialIndex = layers.findIndex(l => getMeta(l)?.visible);
+	const initialIndex = resolveVisibleBaseLayerIndex(layers);
+	console.log({ initialIndex })
 	const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -138,12 +155,8 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
 		setAnchorEl(null);
 	};
 
-	useEffect(() => {
-		const index = layers.findIndex(l => getMeta(l)?.visible);
-		setSelectedIndex(index !== -1 ? index : 0);
-	}, [layers]);
-
 	const handleOnListItemClick = (label: string) => {
+		localStorage.setItem("map.baselayer", label);
 		layers.forEach((layer, index) => {
 			const meta = getMeta(layer);
 			if (layer.get("kind") === "overlay-vector") return; // skip overlays
@@ -151,10 +164,18 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
 			layer.setVisible(visible);
 			if (visible) setSelectedIndex(index);
 		});
-
-
 		handleClose();
 	};
+
+	useEffect(() => {
+		const storedLabel = localStorage.getItem("map.baselayer");
+		if (!storedLabel) {
+			const index = layers.findIndex(l => getMeta(l)?.visible);
+			setSelectedIndex(index !== -1 ? index : 0);
+			return
+		}
+		handleOnListItemClick(storedLabel)
+	}, [layers]);
 
 	if (layers.length <= 1 || selectedIndex === null) return null;
 
