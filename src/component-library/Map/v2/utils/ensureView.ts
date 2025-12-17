@@ -11,6 +11,6 @@ export const ensureView = (zoom: number = 2, center: Coordinate = [0, 0]) => {
     zoom: zoom,
     center: fromLonLat(center),
     projection: "EPSG:3857",
-    minZoom: 1,
+    minZoom: 0,
   });
 };

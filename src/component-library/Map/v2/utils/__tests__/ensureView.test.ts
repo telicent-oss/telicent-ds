@@ -6,7 +6,7 @@ describe("ensureView", () => {
       center: [0, 0],
       opts: {
         center: [0, 0],
-        minZoom: 1,
+        minZoom: 0,
         projection: "EPSG:3857",
         zoom: 2,
       },
@@ -19,7 +19,7 @@ describe("ensureView", () => {
       center: [1, 1],
       opts: {
         center: [1, 1],
-        minZoom: 1,
+        minZoom: 0,
         projection: "EPSG:3857",
         zoom: 3,
       },

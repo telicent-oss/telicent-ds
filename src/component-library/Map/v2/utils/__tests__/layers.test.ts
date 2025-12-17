@@ -70,10 +70,8 @@ describe("layers util", () => {
         visible: true,
       });
     });
-  });
 
-  describe("getBaseVectorTileLayer", () => {
-    it("creates a mapbox/maptiler vector tile layer via apply", () => {
+    it("creates a mapbox/maptiler vector tile layer via apply", async () => {
       const config = {
         id: "vector-1",
         kind: "base-vector-tiles",
@@ -85,7 +83,7 @@ describe("layers util", () => {
         visible: true,
       };
 
-      const layer = getBaseVectorTileLayer(config as any);
+      const layer = await getBaseVectorTileLayer(config as any);
       expect(layer).toBeInstanceOf(LayerGroup);
       expect(apply).toHaveBeenCalledWith(
         expect.any(LayerGroup),
@@ -101,7 +99,7 @@ describe("layers util", () => {
       });
     });
 
-    it("creates an arcgis vector tile layer with MVT format", () => {
+    it("creates an arcgis vector tile layer with MVT format", async () => {
       const config = {
         id: "arcgis-layer",
         kind: "base-vector-tiles",
@@ -110,7 +108,9 @@ describe("layers util", () => {
         label: "ArcGIS",
       };
 
-      const layer = getBaseVectorTileLayer(config as any) as VectorTileLayer;
+      const layer = (await getBaseVectorTileLayer(
+        config as any
+      )) as VectorTileLayer;
       expect(layer).toBeInstanceOf(VectorTileLayer);
       const source = layer.getSource() as VectorTileSource;
       expect(source).toBeInstanceOf(VectorTileSource);
@@ -118,13 +118,14 @@ describe("layers util", () => {
     });
 
     it("throws for unknown provider", () => {
-      expect(() =>
-        getBaseVectorTileLayer({
-          id: "x",
-          kind: "base-vector-tiles",
-          provider: "nonsense",
-        } as any)
-      ).toThrow(/Unknown vector tile provider/);
+      expect(
+        async () =>
+          await getBaseVectorTileLayer({
+            id: "x",
+            kind: "base-vector-tiles",
+            provider: "nonsense",
+          } as any)
+      ).rejects.toThrow(/Unknown vector tile provider/);
     });
   });
 

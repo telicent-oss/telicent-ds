@@ -34,11 +34,11 @@ export type StyleConfig =
     }>
   | ((feature: unknown) => StyleConfig);
 
-export type LayersRef = React.MutableRefObject<BaseLayer[]>;
+export type LayersRef = React.MutableRefObject<BaseLayer[] | null>;
 export type MapInstanceRef = React.MutableRefObject<Map | null>;
 
 export type MapCanvasV2Props = {
-  layersRef: LayersRef;
+  layers: BaseLayer[];
   mapInstanceRef: MapInstanceRef;
   onFeatureClick?: (ids: string[]) => void;
   zoom: number;
@@ -51,7 +51,7 @@ export type BasicMapV2Handle = {
   zoomOut: () => void;
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
-  layersRef: LayersRef;
+  layers: BaseLayer[];
   // zoomInAsync: () => Promise<void>;
   // zoomOutAsync: () => Promise<void>;
   // panToAsync: (ids: string[]) => Promise<void>;
@@ -80,7 +80,7 @@ export interface BasicMapProperties {
 }
 
 export interface LayerSelectorProps {
-  layersRef: LayersRef;
+  layers: BaseLayer[];
   style?: React.CSSProperties;
 }
 

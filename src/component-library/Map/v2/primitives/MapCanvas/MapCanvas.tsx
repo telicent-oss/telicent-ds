@@ -15,15 +15,16 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	zoom,
 	center,
 	onFeatureClick,
-	layersRef,
+	layers,
 	mapInstanceRef,
 	controls
 }) => {
 	const mapRef = useRef<HTMLDivElement>(null);
 	// const mapInstance = useRef<Map | null>(null);
 	const viewRef = useRef<View>(ensureView(zoom, center));
+
 	useEffect(() => {
-		if (!mapRef.current || layersRef.current.length === 0) return;
+		if (!mapRef.current || layers.length < 1) return;
 
 		// Build OL controls internally based on the config
 		const olControls = olDefaultControls({ zoom: false, rotate: false, attribution: true }); // disable OL zoom/rotate by default
@@ -31,13 +32,14 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		if (controls?.showRotate) olControls.push(new Rotate());
 		if (controls?.showFullScreen) olControls.push(new FullScreen());
 
-	
+
 		mapInstanceRef.current = new Map({
 			target: mapRef.current,
 			controls: olControls,
-			layers: layersRef.current,
+			layers,
 			view: viewRef.current,
 		});
+
 		mapInstanceRef.current.getLayers().forEach(layer => {
 			if ("getSource" in layer && typeof layer.getSource === "function") {
 				const src = layer.getSource();
@@ -45,7 +47,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			}
 		})
 
-		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
+		const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
 		if (!markerLayer) {
 			console.debug("No marker layer configured");
 			return
@@ -74,7 +76,9 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			mapInstanceRef.current?.removeInteraction(select);
 			mapInstanceRef.current?.setTarget(undefined);
 		};
-	}, [layersRef.current, zoom, center]);
+	}, [layers, zoom, center]);
+
+	if (layers.length < 1) return null
 
 	return <div id="TelicentMap" className="map-container" style={{
 		width: "100%", height: "100%", background: "#f8f4f0"

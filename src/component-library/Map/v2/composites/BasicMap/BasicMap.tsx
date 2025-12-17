@@ -9,19 +9,20 @@ import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
-import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { MARKER_LAYER_ID } from "../../utils/layers";
 import { convertMarkerToFeature, findVectorLayerById } from "../../utils/feature";
 import { getFeaturesById, panToFeature, panToFeatures } from "./interactions/addPanToFeature";
 import { polygonToOLFeature } from "../../utils/polygons";
+import { mapLegacyConfigToLayers } from "../../utils/legacy";
 
 
 export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>((props, ref) => {
-	const [layersReady, setLayersReady] = useState(false);
+	const [layers, setLayers] = useState<BaseLayer[]>([]);
 	const mapInstance = useRef<Map | null>(null);
 
 	const showLayerSelector =
 		props.controls?.showLayerSelector ?? true;
+
 	const effectiveLayers = useMemo(() => {
 		const baseLayers =
 			Array.isArray(props.layers) && props.layers.length > 0
@@ -48,31 +49,43 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 		];
 
 		return [...baseLayers, ...overlayVectorLayers];
-	}, [props.layers, props.mapStyleOptions]);
+	}, [props.layers]);
 
-
-	const layersRef = useRef<BaseLayer[]>(ensureLayers(effectiveLayers));
 
 	useEffect(() => {
-		setLayersReady(true)
-		if (props.onLayersReady) {
-			props.onLayersReady(true);
-		}
+		let cancelled = false;
+
+		(async () => {
+			try {
+				const layers = await ensureLayers(effectiveLayers);
+				if (!cancelled) {
+					setLayers(layers)
+				}
+			} catch (e) {
+				console.error("ensureLayers failed", e);
+				return
+			}
+		})();
+
 		return () => {
-			setLayersReady(false);
-			props.onLayersReady?.(false);
+			cancelled = true;
 		};
-	}, [!!layersRef.current]);
+	}, [effectiveLayers]);
+
+	useEffect(() => {
+		if (layers.length < 1) return;
+		props?.onLayersReady?.(true);
+	}, [layers])
 
 	useEffect(() => {
 		return () => {
-			setLayersReady(false);
 			props.onLayersReady?.(false);
 		};
 	}, [])
+
 	useEffect(() => {
 		if (!mapInstance.current) return;
-		const markerLayer = findVectorLayerById(layersRef.current, MARKER_LAYER_ID);
+		const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
 		if (!markerLayer) {
 			console.debug("No marker layer found");
 			return;
@@ -98,8 +111,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 		} else {
 			panToFeatures(mapInstance.current, features)
 		}
-
-	}, [props.markers, props.polygons, layersReady])
+	}, [props.markers, props.polygons, layers])
 
 	useImperativeHandle(ref, () => ({
 		zoomIn: () => {
@@ -128,7 +140,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 				return;
 			}
 
-			const features = getFeaturesById(layersRef.current, [id])
+			const features = getFeaturesById(layers, [id])
 			if (features.length === 0) return;
 			panToFeature(mapInstance.current, features[0]);
 		},
@@ -138,20 +150,18 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 				return;
 			}
 
-			const features = getFeaturesById(layersRef.current, ids)
+			const features = getFeaturesById(layers, ids)
 			if (features.length === 0) return;
 			panToFeature(mapInstance.current, features[0]);
 		},
-		layersRef
+		layers
+	}), [mapInstance.current, layers])
 
-	}), [mapInstance.current, layersRef.current])
-
-	console.log({ layersReady, layersRef: layersRef.current, showLayerSelector })
-
+	const { layers: _ignored, ...restProps } = props;
 	return <>
-		<MapCanvasV2 layersRef={layersRef} mapInstanceRef={mapInstance} {...props} />
-		{layersReady && layersRef.current && showLayerSelector &&
-			<LayerSelectorV2 layersRef={layersRef} />
+		<MapCanvasV2 layers={layers} mapInstanceRef={mapInstance} {...restProps} />
+		{showLayerSelector &&
+			<LayerSelectorV2 layers={layers} />
 		}
 	</>
 })

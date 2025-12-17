@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { PopOver, FlexGrid, FlexGridItem, Button, Text, useExtendedTheme, ButtonProps } from "../../../../../export";
@@ -125,9 +125,24 @@ export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps>
 	);
 };
 
-export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layersRef, style = {} }) => {
+const resolveVisibleBaseLayerIndex = (layers: BaseLayer[]): number => {
+	const storedLabel = localStorage.getItem("map.baselayer");
+	const baseLayers = layers.filter(l => l.get("kind") !== "overlay-vector");
+
+	if (storedLabel) {
+		const storedIndex = baseLayers.findIndex(l => getMeta(l)?.label === storedLabel);
+		if (storedIndex !== -1) return storedIndex;
+	}
+
+	const configIndex = baseLayers.findIndex(l => getMeta(l)?.visible);
+	if (configIndex !== -1) return configIndex;
+
+	return 0;
+};
+
+export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = {} }) => {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-	const initialIndex = layersRef.current.findIndex(l => getMeta(l)?.visible);
+	const initialIndex = resolveVisibleBaseLayerIndex(layers);
 	const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -139,19 +154,31 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layersRef, style
 	};
 
 	const handleOnListItemClick = (label: string) => {
-		layersRef.current.forEach((layer, index) => {
+		localStorage.setItem("map.baselayer", label);
+		layers.forEach((layer, index) => {
 			const meta = getMeta(layer);
-			if (layer.get("kind") === "overlay-vector") return;
-			layer.setVisible(meta?.label === label);
-			if (meta?.label === label)
-				setSelectedIndex(index);
+			if (layer.get("kind") === "overlay-vector") return; // skip overlays
+			const visible = meta?.label === label;
+			layer.setVisible(visible);
+			if (visible) setSelectedIndex(index);
 		});
+		handleClose();
 	};
 
-	if (layersRef.current?.length <= 1) return null;
+	useEffect(() => {
+		const storedLabel = localStorage.getItem("map.baselayer");
+		if (!storedLabel) {
+			const index = layers.findIndex(l => getMeta(l)?.visible);
+			setSelectedIndex(index !== -1 ? index : 0);
+			return
+		}
+		handleOnListItemClick(storedLabel)
+	}, [layers]);
+
+	if (layers.length <= 1 || selectedIndex === null) return null;
 
 	return <div id="layer-selector" style={{ position: "absolute", bottom: 0, ...style }}>
-		<LayerSelectorPresentationalButton anchorEl={anchorEl} onClickDropdown={handleClick} variant="text" data={layersRef.current} selectedIndex={selectedIndex} />
-		<LayerSelectorPresentationalPopOverV2 anchorEl={anchorEl} onCloseDropdown={handleClose} onListItemClick={handleOnListItemClick} data={layersRef.current} selectedIndex={selectedIndex} />
+		<LayerSelectorPresentationalButton anchorEl={anchorEl} onClickDropdown={handleClick} variant="text" data={layers} selectedIndex={selectedIndex} />
+		<LayerSelectorPresentationalPopOverV2 anchorEl={anchorEl} onCloseDropdown={handleClose} onListItemClick={handleOnListItemClick} data={layers} selectedIndex={selectedIndex} />
 	</div>
 }

@@ -84,9 +84,9 @@ export const getOverlayVectorLayer = (
   return layer;
 };
 
-export const getBaseVectorTileLayer = (
+export const getBaseVectorTileLayer = async (
   layerConfig: BaseVectorTileLayerConfig
-): BaseLayer => {
+): Promise<BaseLayer> => {
   switch (layerConfig.provider) {
     case "mapbox":
     case "maptiler":
@@ -129,7 +129,6 @@ export const getBaseVectorTileLayer = (
           tileGrid: createXYZ({
             extent: sourceProjection?.getExtent(),
             tileSize: 512,
-            minZoom: 1,
             maxZoom: 15,
           }),
           tileUrlFunction: tileUrlFunction,
@@ -137,21 +136,23 @@ export const getBaseVectorTileLayer = (
         visible: layerConfig.visible,
       });
 
-      applyStyle(layer, arcgisStyleUrl, "esri");
-
       layer.set("id", layerConfig.id);
       layer.set("kind", layerConfig.kind);
       layer.set("label", layerConfig.label);
 
-      return attachMeta(layer, {
+      const layerWithMeta = attachMeta(layer, {
         visible: Boolean(layerConfig.visible),
         label: layerConfig.label,
         image: layerConfig.previewImage,
       });
 
+      await applyStyle(layerWithMeta, arcgisStyleUrl, "esri");
+      return layerWithMeta;
     case "custom":
       // assume valid style JSON or MVT endpoint; user handles mapping
-      const customLayer = new LayerGroup();
+      const customLayer = new LayerGroup({
+        visible: layerConfig.visible,
+      });
       apply(customLayer, layerConfig.styleUrl || layerConfig.url, {
         accessToken: layerConfig.accessToken,
       });
@@ -186,7 +187,10 @@ export const getBaseRasterLayer = (layerConfig: BaseRasterLayerConfig) => {
   return attachMeta(layer, { image, label, visible: Boolean(visible) });
 };
 
-export const attachMeta = (layer: BaseLayer, meta: LayerMeta) => {
+export const attachMeta = <T extends BaseLayer>(
+  layer: T,
+  meta: LayerMeta
+): T => {
   layer.set("meta", meta);
   return layer;
 };
