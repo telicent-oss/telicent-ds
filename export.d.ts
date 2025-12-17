@@ -302,7 +302,7 @@ export declare type BasicMapV2Handle = {
     zoomOut: () => void;
     panToFeature: (id: string) => void;
     panToFeatures: (ids: string[]) => void;
-    layersRef: LayersRef;
+    layers: default_5[];
 };
 
 export declare const BinIcon: default_2.FC<SvgIconProps>;
@@ -801,13 +801,13 @@ export declare const LayerSelectorPresentationalButton: default_2.FC<Presentatio
 export declare const LayerSelectorPresentationalPopOverV2: default_2.FC<PresentationalProps>;
 
 export declare interface LayerSelectorProps {
-    layersRef: LayersRef;
+    layers: default_5[];
     style?: React.CSSProperties;
 }
 
 export declare const LayerSelectorV2: default_2.FC<LayerSelectorProps>;
 
-export declare type LayersRef = React.MutableRefObject<default_5[]>;
+export declare type LayersRef = React.MutableRefObject<default_5[] | null>;
 
 export declare type LegacyMapConfig = {
     vectorStyles?: LegacyVectorStyle;
@@ -1001,7 +1001,7 @@ export declare interface MapCanvasState {
 export declare const MapCanvasV2: default_2.FC<MapCanvasV2Props>;
 
 export declare type MapCanvasV2Props = {
-    layersRef: LayersRef;
+    layers: default_5[];
     mapInstanceRef: MapInstanceRef;
     onFeatureClick?: (ids: string[]) => void;
     zoom: number;
