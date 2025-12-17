@@ -11,11 +11,6 @@ import {
 export const ensureLayers = async (
   layerConfigs: LayerConfig[]
 ): Promise<BaseLayer[]> => {
-  // console.log("layerConf", layerConfigs);
-  // if (!layerConfigs || layerConfigs.length < 0) {
-  //   console.info("No layers provided. Adding default OSM base layer.");
-  //   return [new TileLayer({ source: new OSM() })];
-  // }
 
   const layerPromises = layerConfigs.map(async (layerConfig, index) => {
     switch (layerConfig.kind) {

@@ -8,7 +8,6 @@ import { PopOverProps } from "../../../../../v1/components/surfaces/PopOver/Popo
 import BaseLayer from "ol/layer/Base";
 import { LayerSelectorProps } from "../../types/map-types";
 import { getMeta } from "../../utils/layers";
-import { resolve } from "path";
 
 export interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
 	data?: BaseLayer[];
@@ -144,7 +143,6 @@ const resolveVisibleBaseLayerIndex = (layers: BaseLayer[]): number => {
 export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = {} }) => {
 	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 	const initialIndex = resolveVisibleBaseLayerIndex(layers);
-	console.log({ initialIndex })
 	const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
