@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.30](https://github.com/telicent-oss/telicent-ds/compare/v1.5.29...v1.5.30) (2026-01-14)
+
+
+### Bug Fixes
+
+* **auth:** [TELFE-1477][TELFE-1423] /inactive-account bug ([#428](https://github.com/telicent-oss/telicent-ds/issues/428)) ([8cf2769](https://github.com/telicent-oss/telicent-ds/commit/8cf2769a0387ce0ba83b925a3aa43982bf53c386))
+
 ## [1.5.29](https://github.com/telicent-oss/telicent-ds/compare/v1.5.28...v1.5.29) (2025-12-17)
 
 
