@@ -20,6 +20,7 @@ const config = {
   redirectUri: "http://localhost:3000/search/callback",
   popupRedirectUri: "http://localhost:3000/search/auth-redirect-uri",
   scope: "openid profile",
+  onLogout: () => {},
 };
 
 describe("isAuthRedirect", () => {

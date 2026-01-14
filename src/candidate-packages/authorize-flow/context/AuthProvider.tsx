@@ -75,7 +75,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
 
     const { onError, onSuccess } = createAuthHandlers(client, setUser, setError, location.pathname);
     const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError);
-    const cleanupSync = registerAuthSync(queryClient, client.config.apiUrl);
+    const cleanupSync = registerAuthSync(queryClient);
 
     const cleanupCheck = runAsync(async () => {
       try {
@@ -104,7 +104,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
       cleanupSync();
       cleanupCheck();
     };
-  }, [client, queryClient, config.apiUrl, location.pathname]);
+  }, [client, queryClient, location.pathname]);
 
   const api = useMemo(() => {
     if (!client) return;
