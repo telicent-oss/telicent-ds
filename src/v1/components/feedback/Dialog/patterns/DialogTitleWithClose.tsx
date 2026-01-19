@@ -1,3 +1,5 @@
+// ignore story-coverage.test.ts
+// See Dialog.stories.tsx
 import * as React from "react";
 import Box from "@mui/material/Box";
 import type { Theme } from "@mui/material/styles";
