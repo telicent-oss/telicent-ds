@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -79,45 +79,25 @@
+    @@ -82,45 +82,25 @@
          },
          "MuiCssBaseline": {}
        },
@@ -112,7 +112,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -81,12 +81,12 @@
+    @@ -84,12 +84,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -146,7 +146,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -79,45 +79,25 @@
+    @@ -82,45 +82,25 @@
          },
          "MuiCssBaseline": {}
        },
@@ -218,7 +218,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -81,12 +81,12 @@
+    @@ -84,12 +84,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -252,7 +252,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -79,45 +79,25 @@
+    @@ -82,45 +82,25 @@
          },
          "MuiCssBaseline": {}
        },
@@ -324,7 +324,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -81,12 +81,12 @@
+    @@ -84,12 +84,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -358,7 +358,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -79,45 +79,25 @@
+    @@ -82,45 +82,25 @@
          },
          "MuiCssBaseline": {}
        },
@@ -430,7 +430,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -81,12 +81,12 @@
+    @@ -84,12 +84,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -464,7 +464,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -79,45 +79,25 @@
+    @@ -82,45 +82,25 @@
          },
          "MuiCssBaseline": {}
        },

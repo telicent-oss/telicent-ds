@@ -91,6 +91,20 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
         }),
       },
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          "& > .MuiDialogTitle-root, & > .MuiDialogContent-root, & > .MuiDialogActions-root":
+            {
+              padding: theme.spacing(0, 2, 2, 2),
+            },
+          "& > .MuiDialogTitle-root:first-child, & > .MuiDialogContent-root:first-child, & > .MuiDialogActions-root:first-child":
+            {
+              padding: theme.spacing(2),
+            },
+        }),
+      },
+    },
 
     MuiAppBar: {
       styleOverrides: {
