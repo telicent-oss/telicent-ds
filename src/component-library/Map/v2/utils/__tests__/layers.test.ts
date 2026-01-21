@@ -2,6 +2,10 @@ import VectorLayer from "ol/layer/Vector";
 import TileLayer from "ol/layer/Tile";
 import LayerGroup from "ol/layer/Group";
 import BaseLayer from "ol/layer/Base";
+import Style, { StyleLike } from "ol/style/Style";
+import CircleStyle from "ol/style/Circle";
+import Fill from "ol/style/Fill";
+import Stroke from "ol/style/Stroke";
 import { XYZ } from "ol/source";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTileSource from "ol/source/VectorTile";
@@ -12,15 +16,39 @@ import apply from "ol-mapbox-style";
 import {
   getOverlayVectorLayer,
   getBaseVectorTileLayer,
+  getDefaultOverlayStyle,
   getBaseRasterLayer,
   attachMeta,
   getMeta,
   MARKER_LAYER_ID,
+  attachTileLoadErrorLogging,
 } from "../layers";
 
 describe("layers util", () => {
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  describe("getDefaultOverlayStyle", () => {
+    it("returns a CircleStyle for Point geometries", () => {
+      const feature = {
+        getGeometry: () => ({ getType: () => "Point" }),
+      };
+
+      const styleLike = getDefaultOverlayStyle();
+      expect(typeof styleLike).toBe("function");
+
+      const styleFn = styleLike as (feature: any) => any;
+      const style = styleFn(feature as any);
+
+      expect(style.props.image).toBeDefined();
+      expect(style.props.image).toBeInstanceOf(CircleStyle);
+
+      // Style is a MockStyle instance
+      expect(style.props.image.options.radius).toBe(6);
+      expect(style.props.image.options.fill.props).toBeDefined();
+      expect(style.props.image.options.stroke.props).toBeDefined();
+    });
   });
 
   describe("getOverlayVectorLayer", () => {
@@ -140,5 +168,64 @@ describe("layers util", () => {
 
   it("exports marker layer ID constant", () => {
     expect(MARKER_LAYER_ID).toBe("marker-layer");
+  });
+  describe("attachTileLoadErrorLogging", () => {
+    it("attaches tileloaderror handler to layers with sources", () => {
+      const on = jest.fn();
+      const getSource = jest.fn(() => ({ on }));
+
+      const layerWithSource = { getSource };
+      const layerWithoutSource = {};
+
+      const layers = {
+        forEach: (cb: (layer: any) => void) => {
+          cb(layerWithSource);
+          cb(layerWithoutSource);
+        },
+      };
+
+      const errorHandler = jest.fn();
+
+      attachTileLoadErrorLogging(layers as any, errorHandler);
+
+      expect(getSource).toHaveBeenCalledTimes(1);
+      expect(on).toHaveBeenCalledWith("tileloaderror", errorHandler);
+    });
+
+    it("does nothing when getSource returns null", () => {
+      const getSource = jest.fn(() => null);
+
+      const layers = {
+        forEach: (cb: (layer: any) => void) => {
+          cb({ getSource });
+        },
+      };
+
+      attachTileLoadErrorLogging(layers as any);
+
+      expect(getSource).toHaveBeenCalled();
+    });
+
+    it("invokes the provided error handler when the event fires", () => {
+      let capturedHandler: ((e: Error) => void) | undefined;
+
+      const on = jest.fn((_, handler) => {
+        capturedHandler = handler;
+      });
+
+      const layers = {
+        forEach: (cb: (layer: any) => void) => {
+          cb({ getSource: () => ({ on }) });
+        },
+      };
+
+      const errorHandler = jest.fn();
+
+      attachTileLoadErrorLogging(layers as any, errorHandler);
+
+      capturedHandler!(new Error("boom"));
+
+      expect(errorHandler).toHaveBeenCalledWith(expect.any(Error));
+    });
   });
 });

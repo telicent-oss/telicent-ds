@@ -1,5 +1,6 @@
 import { StyleLike } from "ol/style/Style";
 import { OverlayFeatureConfig } from "./overlays";
+import BaseLayer from "ol/layer/Base";
 
 export type BaseVectorTileLayerConfig = {
   id: string;
@@ -45,3 +46,11 @@ export type LayerMeta = {
   image: string;
   visible: boolean;
 };
+
+export interface SourceWithEvents {
+  on(type: string, listener: (e: unknown) => void): void;
+}
+
+export interface LayerWithOptionalSource extends BaseLayer {
+  getSource?: () => SourceWithEvents | null;
+}

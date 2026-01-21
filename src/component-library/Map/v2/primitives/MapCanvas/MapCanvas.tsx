@@ -5,7 +5,7 @@ import { MapCanvasV2Props } from "../../types/map-types";
 import { panToFeature, panToFeatures } from "../../composites/BasicMap/interactions/addPanToFeature";
 import { addSelectInteraction } from "../../composites/BasicMap/interactions/addSelectInteraction";
 import { findVectorLayerById } from "../../utils/feature";
-import { MARKER_LAYER_ID } from "../../utils/layers";
+import { attachTileLoadErrorLogging, MARKER_LAYER_ID } from "../../utils/layers";
 import { ensureView } from "../../utils/ensureView";
 import "ol/ol.css";
 import { buildControls } from "../../utils/buildControls";
@@ -32,12 +32,10 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			view: viewRef.current
 		})
 
-		mapInstanceRef.current.getLayers().forEach(layer => {
-			if ("getSource" in layer && typeof layer.getSource === "function") {
-				const src = layer.getSource();
-				src?.on("tileloaderror", (e: Error) => console.warn("Tile error", e))
-			}
-		})
+		attachTileLoadErrorLogging(
+			mapInstanceRef.current.getLayers(),
+			(e: Error) => console.warn("Tile error", e)
+		);
 
 		const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
 		if (!markerLayer) {

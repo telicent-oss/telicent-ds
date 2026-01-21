@@ -95,6 +95,10 @@ describe("toOlStyle", () => {
     );
   });
 
+  it("should use default styles if no config is passed", () => {
+    expect(toOlStyle()).toEqual(defaultVectorStyle);
+  });
+
   describe("findVectorLayerById", () => {
     it("should return the layer with matching id", () => {
       // @ts-expect-error

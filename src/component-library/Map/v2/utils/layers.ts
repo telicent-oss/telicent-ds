@@ -22,8 +22,9 @@ import TileLayer from "ol/layer/Tile";
 import { XYZ } from "ol/source";
 import { OverlayFeatureConfig } from "../types/overlays";
 import { createXYZ } from "ol/tilegrid";
+import { Collection } from "ol";
 
-const getDefaultOverlayStyle = (): StyleLike => (feature) => {
+export const getDefaultOverlayStyle = (): StyleLike => (feature) => {
   const geomType = feature.getGeometry()?.getType();
   if (geomType === "Point") {
     return new Style({
@@ -198,3 +199,15 @@ export const attachMeta = <T extends BaseLayer>(
 export const getMeta = (layer: BaseLayer): LayerMeta => layer.get("meta");
 
 export const MARKER_LAYER_ID = "marker-layer";
+
+export const attachTileLoadErrorLogging = (
+  layers: Collection<BaseLayer>,
+  onError: (e: Error) => void = (e) => console.warn("Tile error", e)
+) => {
+  layers.forEach((layer) => {
+    if ("getSource" in layer && typeof layer.getSource === "function") {
+      const src = layer.getSource();
+      src?.on?.("tileloaderror", onError);
+    }
+  });
+};

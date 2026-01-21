@@ -35,6 +35,11 @@ class MockFeature {
   setId(id: string) {
     this.id = id;
   }
+
+  // noop event API to satisfy Feature typing
+  on() {}
+  once() {}
+  un() {}
 }
 
 export default MockFeature;

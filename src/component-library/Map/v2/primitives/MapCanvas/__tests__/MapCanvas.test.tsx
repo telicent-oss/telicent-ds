@@ -65,7 +65,7 @@ describe("MapCanvasV2", () => {
 	});
 
 	it("calls addSelectInteraction and feature click callbacks", () => {
-		const layers = [{ id: "layer1" }];
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 		const onFeatureClick = jest.fn();
 
 		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
@@ -81,6 +81,7 @@ describe("MapCanvasV2", () => {
 				layers={layers}
 				mapInstanceRef={{ current: null }}
 				onFeatureClick={onFeatureClick}
+				{...defaultProps}
 			/>
 		);
 
@@ -95,7 +96,7 @@ describe("MapCanvasV2", () => {
 	});
 
 	it("handles multiple features correctly", () => {
-		const layers = [{ id: "layer1" }];
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 		const onFeatureClick = jest.fn();
 		const feature2 = { getId: jest.fn(() => "feature2") };
 
@@ -110,6 +111,7 @@ describe("MapCanvasV2", () => {
 				layers={layers}
 				mapInstanceRef={{ current: null }}
 				onFeatureClick={onFeatureClick}
+				{...defaultProps}
 			/>
 		);
 
@@ -118,11 +120,11 @@ describe("MapCanvasV2", () => {
 	});
 
 	it("cleans up interactions on unmount", () => {
-		const layers = [{ id: "layer1" }];
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
 		(addSelectInteraction as jest.Mock).mockReturnValue("mockInteraction");
 
-		const { unmount } = render(<MapCanvasV2 layers={layers} mapInstanceRef={{ current: null }} />);
+		const { unmount } = render(<MapCanvasV2 layers={layers} mapInstanceRef={{ current: null }} {...defaultProps} />);
 		unmount();
 
 		expect(mockMapInstance.removeInteraction).toHaveBeenCalledWith("mockInteraction");
@@ -133,7 +135,7 @@ describe("MapCanvasV2", () => {
 		console.debug = jest.fn();
 		(findVectorLayerById as jest.Mock).mockReturnValue(undefined);
 
-		render(<MapCanvasV2 layers={[{ id: "layer1" }]} mapInstanceRef={{ current: null }} />);
+		render(<MapCanvasV2 layers={[{ id: "layer1" }] as unknown as BaseLayer[]} mapInstanceRef={{ current: null }} {...defaultProps} />);
 		expect(console.debug).toHaveBeenCalledWith("No marker layer configured");
 	});
 });
