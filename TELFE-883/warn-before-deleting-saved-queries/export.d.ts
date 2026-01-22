@@ -86,7 +86,6 @@ import { PopperPlacementType } from '@mui/base';
 import { PropsWithChildren } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 import { QueryKey } from '@tanstack/react-query';
-import * as React_2 from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { RefObject } from 'react';
@@ -102,7 +101,6 @@ import { SvgIconProps } from '@mui/material/SvgIcon';
 import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
 import { SxProps } from '@mui/material/styles';
 import { SxProps as SxProps_2 } from '@mui/material';
-import { SystemStyleObject } from '@mui/system';
 import { TableBodyProps } from '@mui/material';
 import { TableCellProps as TableCellProps_2 } from '@mui/material';
 import { TableContainerProps as TableContainerProps_2 } from '@mui/material';
@@ -525,22 +523,6 @@ export { DialogProps }
 export { DialogTitle }
 
 export { DialogTitleProps }
-
-export declare const DialogTitleWithClose: ({ id, title, onClose, closeLabel, closeAriaLabel, closeIcon, rootSx, titleSx, closeButtonSx, dialogTitleProps, closeButtonProps, }: DialogTitleWithCloseProps) => JSX_2.Element;
-
-declare type DialogTitleWithCloseProps = {
-    id: string;
-    title: React_2.ReactNode;
-    onClose: () => void;
-    closeLabel?: React_2.ReactNode;
-    closeAriaLabel?: string;
-    closeIcon?: React_2.ReactNode;
-    rootSx?: SlotSx;
-    titleSx?: SlotSx;
-    closeButtonSx?: SlotSx;
-    dialogTitleProps?: Omit<DialogTitleProps, "id" | "children" | "sx">;
-    closeButtonProps?: Omit<ButtonProps, "variant" | "onClick" | "sx" | "children" | "endIcon" | "aria-label">;
-};
 
 export declare const Divider: (props: DividerProps) => JSX_2.Element;
 
@@ -1734,8 +1716,6 @@ export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthS
 
 export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
 
-declare type SlotSx = SxObj | SxFn;
-
 declare interface StandardLayoutProps {
     /**
      * The telicent application name
@@ -1770,10 +1750,6 @@ declare interface StyleSelectorState {
         data: StyleOption[];
     };
 }
-
-declare type SxFn = (theme: Theme) => SxObj;
-
-declare type SxObj = SystemStyleObject<Theme>;
 
 declare type TableCellProps = Omit<TableCellProps_2, "sx" | "classes">;
 
