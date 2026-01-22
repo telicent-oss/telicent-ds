@@ -26,9 +26,12 @@ import { default as default_3 } from 'zod';
 import { default as default_4 } from '@telicent-oss/fe-auth-lib';
 import { default as default_5 } from 'ol/layer/Base';
 import { default as default_6 } from '@mui/material/InputBase';
+import { DialogActions } from '@mui/material';
 import { DialogActionsProps } from '@mui/material';
+import { DialogContent } from '@mui/material';
 import { DialogContentProps } from '@mui/material';
-import { DialogProps } from '@mui/material';
+import { DialogProps as DialogProps_2 } from '@mui/material';
+import { DialogTitle } from '@mui/material';
 import { DialogTitleProps } from '@mui/material';
 import { DividerProps as DividerProps_2 } from '@mui/material/Divider';
 import { DrawerProps as DrawerProps_2 } from '@mui/material/Drawer';
@@ -504,13 +507,25 @@ export declare interface DependenciesTable {
 
 export declare const DependenciesTable: default_2.FC<DependenciesTable>;
 
-export declare const Dialog: FC<DialogProps_2>;
+export declare const Dialog: FC<DialogProps>;
 
-declare interface DialogProps_2 extends DialogProps {
+export { DialogActions }
+
+export { DialogActionsProps }
+
+export { DialogContent }
+
+export { DialogContentProps }
+
+export declare interface DialogProps extends DialogProps_2 {
     open: boolean;
     onClose: () => void;
     children: ReactNode;
 }
+
+export { DialogTitle }
+
+export { DialogTitleProps }
 
 export declare const Divider: (props: DividerProps) => JSX_2.Element;
 
@@ -1457,10 +1472,10 @@ export declare const SearchAutocompleteDialog: default_2.FC<SearchAutocompleteDi
 declare type SearchAutocompleteDialogProps<SearchOption = {
     label: string;
 }> = Omit<SearchAutocompleteProps<SearchOption>, "listboxMaxHeight" | "fullWidth"> & {
-    open: DialogProps["open"];
+    open: DialogProps_2["open"];
     children: default_2.ReactNode;
 } & Partial<{
-    onClose: DialogProps["onClose"];
+    onClose: DialogProps_2["onClose"];
 }>;
 
 declare type SearchAutocompleteProps<Option = DefaultOption> = {
@@ -2018,7 +2033,7 @@ export declare const TeliDeleteIcon: default_2.FC<Partial<TeliIconProps>>;
  * Dialogs are purposefully interruptive, so they should be used sparingly.
  * More information about how this component can be used can be found [here](https://mui.com/material-ui/react-dialog/#scrolling-long-content)
  */
-export declare const TeliDialog: FC<DialogProps>;
+export declare const TeliDialog: FC<DialogProps_2>;
 
 export declare const TeliDialogActions: FC<DialogActionsProps>;
 
