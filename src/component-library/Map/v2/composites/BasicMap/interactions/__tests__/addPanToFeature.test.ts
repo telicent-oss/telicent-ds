@@ -1,7 +1,7 @@
 import BaseLayer from "ol/layer/Base";
 import Point from "ol/geom/Point";
 import Polygon from "ol/geom/Polygon";
-import { Feature } from "ol";
+
 import {
   panToFeature,
   panToFeatures,
@@ -147,7 +147,7 @@ describe("panToFeatures", () => {
     expect(fit).not.toHaveBeenCalled();
   });
 
-  it("filters out features without geometry", () => {
+  it("does nothing when all features lack geometry", () => {
     const f = { getGeometry: () => undefined } as any;
     panToFeatures(map, [f]);
     expect(setZoom).not.toHaveBeenCalled();

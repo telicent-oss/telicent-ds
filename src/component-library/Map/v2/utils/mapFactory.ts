@@ -1,4 +1,4 @@
-import Map from "ol/Map";
+import OlMap from "ol/Map";
 import View from "ol/View";
 import BaseLayer from "ol/layer/Base";
 import { Collection } from "ol";
@@ -15,7 +15,7 @@ export const createMap = ({
   view: View;
   controls?: Collection<Control>;
 }) =>
-  new Map({
+  new OlMap({
     target,
     layers,
     view,

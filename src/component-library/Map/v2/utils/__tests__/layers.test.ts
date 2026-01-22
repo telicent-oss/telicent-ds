@@ -2,10 +2,7 @@ import VectorLayer from "ol/layer/Vector";
 import TileLayer from "ol/layer/Tile";
 import LayerGroup from "ol/layer/Group";
 import BaseLayer from "ol/layer/Base";
-import Style, { StyleLike } from "ol/style/Style";
 import CircleStyle from "ol/style/Circle";
-import Fill from "ol/style/Fill";
-import Stroke from "ol/style/Stroke";
 import { XYZ } from "ol/source";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTileSource from "ol/source/VectorTile";
@@ -192,7 +189,9 @@ describe("layers util", () => {
       expect(on).toHaveBeenCalledWith("tileloaderror", errorHandler);
     });
 
-    it("does nothing when getSource returns null", () => {
+    it("does not attach tileloaderror listener when source is null", () => {
+      // NOTE: Adding the 'on' function to source makes it non-null.
+      // Therefore this test can't test to see if 'on' was not called.
       const getSource = jest.fn(() => null);
 
       const layers = {
