@@ -809,6 +809,10 @@ export declare const LayerSelectorV2: default_2.FC<LayerSelectorProps>;
 
 export declare type LayersRef = React.MutableRefObject<default_5[] | null>;
 
+export declare interface LayerWithOptionalSource extends default_5 {
+    getSource?: () => SourceWithEvents | null;
+}
+
 export declare type LegacyMapConfig = {
     vectorStyles?: LegacyVectorStyle;
     tileSets?: LegacyTileSet[];
@@ -1703,6 +1707,10 @@ declare interface SessionHandlingConfig_2 {
 export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: (redirect?: URL) => void, onAuthError?: (error?: Error) => void) => (() => void);
 
 export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
+
+export declare interface SourceWithEvents {
+    on(type: string, listener: (e: unknown) => void): void;
+}
 
 declare interface StandardLayoutProps {
     /**
