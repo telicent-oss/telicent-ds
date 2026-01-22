@@ -39,16 +39,16 @@ export const toOlStyle = (
   }
 
   return new Style({
-    fill: new Fill({ color: styleConfig.fillColor || "rgba(0,0,0,0.1)" }),
+    fill: new Fill({ color: styleConfig.fillColor }),
     stroke: new Stroke({
-      color: styleConfig.strokeColor || "#000",
-      width: styleConfig.strokeWidth || 1,
+      color: styleConfig.strokeColor,
+      width: styleConfig.strokeWidth,
     }),
     image: new CircleStyle({
       radius: styleConfig.radius || 5,
-      fill: new Fill({ color: styleConfig.fillColor || "#000" }),
+      fill: new Fill({ color: styleConfig.fillColor }),
     }),
-    text: styleConfig.text ? new Text({ text: styleConfig.text }) : undefined,
+    text: new Text({ text: styleConfig.text }),
   });
 };
 

@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import Feature from "ol/Feature";
 import View from "ol/View";
-import Map from "ol/Map";
 import { MapCanvasV2Props } from "../../types/map-types";
 import { panToFeature, panToFeatures } from "../../composites/BasicMap/interactions/addPanToFeature";
 import { addSelectInteraction } from "../../composites/BasicMap/interactions/addSelectInteraction";
 import { findVectorLayerById } from "../../utils/feature";
-import { MARKER_LAYER_ID } from "../../utils/layers";
+import { attachTileLoadErrorLogging, MARKER_LAYER_ID } from "../../utils/layers";
 import { ensureView } from "../../utils/ensureView";
-import { defaults as olDefaultControls, Zoom, Rotate, FullScreen } from "ol/control";
 import "ol/ol.css";
+import { buildControls } from "../../utils/buildControls";
+import { createMap } from "../../utils/mapFactory";
 
 export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	zoom,
@@ -20,32 +20,22 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	controls
 }) => {
 	const mapRef = useRef<HTMLDivElement>(null);
-	// const mapInstance = useRef<Map | null>(null);
 	const viewRef = useRef<View>(ensureView(zoom, center));
 
 	useEffect(() => {
 		if (!mapRef.current || layers.length < 1) return;
 
-		// Build OL controls internally based on the config
-		const olControls = olDefaultControls({ zoom: false, rotate: false, attribution: true }); // disable OL zoom/rotate by default
-		if (controls?.showZoom) olControls.push(new Zoom());
-		if (controls?.showRotate) olControls.push(new Rotate());
-		if (controls?.showFullScreen) olControls.push(new FullScreen());
-
-
-		mapInstanceRef.current = new Map({
+		mapInstanceRef.current = createMap({
 			target: mapRef.current,
-			controls: olControls,
+			controls: buildControls(controls),
 			layers,
-			view: viewRef.current,
-		});
-
-		mapInstanceRef.current.getLayers().forEach(layer => {
-			if ("getSource" in layer && typeof layer.getSource === "function") {
-				const src = layer.getSource();
-				src?.on("tileloaderror", (e: Error) => console.warn("Tile error", e))
-			}
+			view: viewRef.current
 		})
+
+		attachTileLoadErrorLogging(
+			mapInstanceRef.current.getLayers(),
+			(e: Error) => console.warn("Tile error", e)
+		);
 
 		const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
 		if (!markerLayer) {

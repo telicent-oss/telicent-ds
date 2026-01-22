@@ -1,4 +1,6 @@
-import { Fill, Stroke, Style } from "ol/style";
+import Fill from "ol/style/Fill";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
 import CircleStyle from "ol/style/Circle";
 
 const DEFAULT_PIN_SVG = `
