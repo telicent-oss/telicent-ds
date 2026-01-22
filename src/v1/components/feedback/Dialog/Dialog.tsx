@@ -11,5 +11,3 @@ export type {
   DialogContentProps,
   DialogActionsProps,
 } from "@mui/material";
-
-export { DialogTitleWithClose } from './patterns/DialogTitleWithClose';
