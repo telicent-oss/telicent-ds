@@ -1,5 +1,20 @@
 import React, { FC, ReactNode } from "react";
-import { Dialog as MuiDialog, DialogProps as MuiDialogProps } from "@mui/material";
+import {
+  Dialog as MuiDialog,
+  DialogProps as MuiDialogProps,
+} from "@mui/material";
+export {
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+
+export type {
+  DialogTitleProps,
+  DialogContentProps,
+  DialogActionsProps,
+} from "@mui/material";
+
 
 export interface DialogProps extends MuiDialogProps {
   open: boolean;

@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
-import { Button, DialogTitle, DialogContent, DialogActions, Typography } from "@mui/material";
-import Dialog from "./Dialog";
+import { Button, Typography } from "@mui/material";
+import Dialog, { DialogTitle, DialogContent, DialogActions } from "./Dialog";
 
 const meta: Meta<typeof Dialog> = {
   title: "Feedback/Dialog",
