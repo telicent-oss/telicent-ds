@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/telicent-oss/telicent-ds/compare/v1.5.30...v1.6.0) (2026-01-22)
+
+
+### Features
+
+* **Dialog:** [TELFE-883] export children ([#432](https://github.com/telicent-oss/telicent-ds/issues/432)) ([3b6e65a](https://github.com/telicent-oss/telicent-ds/commit/3b6e65a45d21298b35eb00696448991883666c74))
+
 ## [1.5.30](https://github.com/telicent-oss/telicent-ds/compare/v1.5.29...v1.5.30) (2026-01-14)
 
 
