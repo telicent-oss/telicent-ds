@@ -1,12 +1,10 @@
 import type { Map as OlMap } from "ol";
 import type Geometry from "ol/geom/Geometry";
 import ol from "ol";
-import { Extent, getCenter } from "ol/extent";
+import { Extent, getWidth } from "ol/extent";
 import type Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
 import Point from "ol/geom/Point";
-import Polygon from "ol/geom/Polygon";
-import { Coordinate } from "ol/coordinate";
 
 export const getFeaturesById = (
   layers: BaseLayer[],
@@ -62,30 +60,52 @@ export const panToFeature = (
   feature: Feature<Geometry>,
   options: PanOptions = {}
 ): void => {
+  const { duration = 600, padding = [50, 50, 50, 50] } = options;
   const geometry = feature.getGeometry();
   if (!geometry) return;
 
   const view = map.getView();
   if (!view) return;
 
-  let center: Coordinate | undefined;
+  const projection = view.getProjection();
+  const worldExtent = projection.getExtent();
+  const worldWidth = getWidth(worldExtent);
+
+  // Normalizes a longitude (X) to the world extent
+  const normalizeX = (x: number) => {
+    while (x < worldExtent[0]) x += worldWidth;
+    while (x > worldExtent[2]) x -= worldWidth;
+    return x;
+  };
+
+  // Determine extent
+  let extent: Extent;
   if (geometry instanceof Point) {
-    center = geometry.getCoordinates();
-  } else if (geometry instanceof Polygon) {
-    const extent = geometry.getExtent();
-    center = [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2];
+    const coords = geometry.getCoordinates();
+    extent = [coords[0], coords[1], coords[0], coords[1]];
   } else {
-    const extent = geometry.getExtent();
-    center = extent
-      ? [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2]
-      : undefined;
+    const geomExtent = geometry.getExtent();
+    if (!geomExtent) return;
+
+    // Normalize X for antimeridian
+    let x0 = normalizeX(geomExtent[0]);
+    let x1 = normalizeX(geomExtent[2]);
+
+    // Handle antimeridian crossing
+    const span = x1 - x0;
+    if (span > worldWidth / 2) {
+      const wrappedX0 = x0 + worldWidth;
+      const centerX = normalizeX((wrappedX0 + x1) / 2);
+      x0 = centerX;
+      x1 = centerX;
+    }
+
+    extent = [x0, geomExtent[1], x1, geomExtent[3]];
   }
 
-  if (!center) return;
-
-  view.animate({
-    center,
-    duration: options.duration ?? 600,
+  view.fit(extent, {
+    duration,
+    padding,
   });
 };
 
@@ -103,34 +123,61 @@ export const panToFeatures = (
   features: Feature<Geometry>[],
   options: PanOptions = {}
 ): void => {
-  const { padding = [50, 50, 50, 50], maxZoom = 16, duration = 600 } = options;
+  const { padding = [50, 50, 50, 50], duration = 600 } = options;
 
   if (!features.length) return;
-
-  const extents = features
-    .map((f) => f.getGeometry()?.getExtent())
-    .filter((e): e is [number, number, number, number] => !!e);
-
-  if (!extents.length) return;
-
-  // combine extents
-  const combinedExtent = extents.reduce(
-    (acc, e) => [
-      Math.min(acc[0], e[0]),
-      Math.min(acc[1], e[1]),
-      Math.max(acc[2], e[2]),
-      Math.max(acc[3], e[3]),
-    ],
-    extents[0]
-  );
 
   const view = map.getView();
   if (!view) return;
 
-  const bestZoom = getBestZoomForExtent(map, combinedExtent);
-  const zoom = Math.round(Math.min(bestZoom, maxZoom));
+  const projection = view.getProjection();
+  const worldExtent = projection.getExtent();
+  const worldWidth = getWidth(worldExtent);
 
-  view.setZoom(zoom);
+  const normalizeX = (x: number) => {
+    while (x < worldExtent[0]) x += worldWidth;
+    while (x > worldExtent[2]) x -= worldWidth;
+    return x;
+  };
+
+  // Extract and normalize extents
+  const extents = features
+    .map((f) => f.getGeometry()?.getExtent())
+    .filter((e): e is [number, number, number, number] => !!e)
+    .map(
+      (e) =>
+        [normalizeX(e[0]), e[1], normalizeX(e[2]), e[3]] as [
+          number,
+          number,
+          number,
+          number
+        ]
+    );
+
+  if (!extents.length) return;
+
+  // Detect if X span crosses the world midpoint
+  let combinedExtent: [number, number, number, number] = extents[0];
+  for (const e of extents.slice(1)) {
+    const x0 = e[0],
+      x1 = e[2];
+    let c0 = combinedExtent[0],
+      c1 = combinedExtent[2];
+
+    // If the span is bigger than half the world, wrap it
+    if (x1 - x0 > worldWidth / 2) {
+      combinedExtent[0] = Math.max(c0, x0);
+      combinedExtent[2] = Math.min(c1, x1);
+    } else {
+      combinedExtent[0] = Math.min(c0, x0);
+      combinedExtent[2] = Math.max(c1, x1);
+    }
+
+    combinedExtent[1] = Math.min(combinedExtent[1], e[1]);
+    combinedExtent[3] = Math.max(combinedExtent[3], e[3]);
+  }
+
+  // view.setZoom(zoom);
 
   view.fit(combinedExtent, {
     padding,
