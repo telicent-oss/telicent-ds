@@ -11,7 +11,7 @@ import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
 import { MARKER_LAYER_ID } from "../../utils/layers";
 import { convertMarkerToFeature, findVectorLayerById } from "../../utils/feature";
-import { getFeaturesById, panToFeature, panToFeatures } from "./interactions/addPanToFeature";
+import { getFeaturesById, fitToFeature, fitToFeatures } from "./interactions/addPanToFeature";
 import { polygonToOLFeature } from "../../utils/polygons";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
 
@@ -107,9 +107,9 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 		const features = [...markerFeatures, ...polygonFeatures]
 
 		if (features.length === 1) {
-			panToFeature(mapInstance.current, features[0])
+			fitToFeature(mapInstance.current, features[0])
 		} else {
-			panToFeatures(mapInstance.current, features)
+			fitToFeatures(mapInstance.current, features)
 		}
 	}, [props.markers, props.polygons, layers])
 
@@ -142,7 +142,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 
 			const features = getFeaturesById(layers, [id])
 			if (features.length === 0) return;
-			panToFeature(mapInstance.current, features[0]);
+			fitToFeature(mapInstance.current, features[0]);
 		},
 		panToFeatures: (ids: string[]) => {
 			if (!mapInstance.current) {
@@ -152,7 +152,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 
 			const features = getFeaturesById(layers, ids)
 			if (features.length === 0) return;
-			panToFeature(mapInstance.current, features[0]);
+			fitToFeature(mapInstance.current, features[0]);
 		},
 		layers
 	}), [mapInstance.current, layers])

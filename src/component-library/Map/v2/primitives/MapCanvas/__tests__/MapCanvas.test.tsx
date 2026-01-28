@@ -4,7 +4,7 @@ import { render, cleanup } from "@testing-library/react";
 import { createMap } from "../../../utils/mapFactory";
 import { addSelectInteraction } from "../../../composites/BasicMap/interactions/addSelectInteraction";
 import { findVectorLayerById } from "../../../utils/feature";
-import { panToFeature, panToFeatures } from "../../../composites/BasicMap/interactions/addPanToFeature";
+import { fitToFeature, fitToFeatures } from "../../../composites/BasicMap/interactions/addPanToFeature";
 import { MapCanvasV2 } from "../MapCanvas";
 import BaseLayer from "ol/layer/Base";
 
@@ -21,8 +21,8 @@ jest.mock("../../../composites/BasicMap/interactions/addSelectInteraction", () =
 }));
 
 jest.mock("../../../composites/BasicMap/interactions/addPanToFeature", () => ({
-	panToFeature: jest.fn(),
-	panToFeatures: jest.fn(),
+	fitToFeature: jest.fn(),
+	fitToFeatures: jest.fn(),
 }));
 
 const defaultProps = {
@@ -91,7 +91,7 @@ describe("MapCanvasV2", () => {
 			onSelect: expect.any(Function),
 		}));
 
-		expect(panToFeature).toHaveBeenCalledWith(mockMapInstance, mockFeature);
+		expect(fitToFeature).toHaveBeenCalledWith(mockMapInstance, mockFeature);
 		expect(onFeatureClick).toHaveBeenCalledWith(["feature1"]);
 	});
 
@@ -115,7 +115,7 @@ describe("MapCanvasV2", () => {
 			/>
 		);
 
-		expect(panToFeatures).toHaveBeenCalledWith(mockMapInstance, [mockFeature, feature2]);
+		expect(fitToFeatures).toHaveBeenCalledWith(mockMapInstance, [mockFeature, feature2]);
 		expect(onFeatureClick).toHaveBeenCalledWith(["feature1", "feature2"]);
 	});
 
