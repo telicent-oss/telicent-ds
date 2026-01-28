@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Feature from "ol/Feature";
 import View from "ol/View";
 import { MapCanvasV2Props } from "../../types/map-types";
-import { panToFeature, panToFeatures } from "../../composites/BasicMap/interactions/addPanToFeature";
+import { fitToFeature, fitToFeatures } from "../../composites/BasicMap/interactions/addPanToFeature";
 import { addSelectInteraction } from "../../composites/BasicMap/interactions/addSelectInteraction";
 import { findVectorLayerById } from "../../utils/feature";
 import { attachTileLoadErrorLogging, MARKER_LAYER_ID } from "../../utils/layers";
@@ -51,9 +51,9 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 					.map(f => f.getId?.())
 					.filter((id): id is string => typeof id === "string");
 				if (features.length === 1) {
-					panToFeature(mapInstanceRef.current!, features[0]);
+					fitToFeature(mapInstanceRef.current!, features[0]);
 				} else {
-					panToFeatures(mapInstanceRef.current!, features);
+					fitToFeatures(mapInstanceRef.current!, features);
 				}
 
 				if (onFeatureClick) {

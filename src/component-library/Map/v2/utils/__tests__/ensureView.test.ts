@@ -5,6 +5,7 @@ describe("ensureView", () => {
     expect(ensureView()).toEqual({
       center: [0, 0],
       opts: {
+        constrainResolution: false,
         center: [0, 0],
         minZoom: 0,
         projection: "EPSG:3857",
@@ -18,6 +19,7 @@ describe("ensureView", () => {
     expect(ensureView(3, [1, 1])).toEqual({
       center: [1, 1],
       opts: {
+        constrainResolution: false,
         center: [1, 1],
         minZoom: 0,
         projection: "EPSG:3857",

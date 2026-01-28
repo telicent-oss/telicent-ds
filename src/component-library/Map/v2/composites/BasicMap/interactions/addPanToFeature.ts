@@ -1,6 +1,5 @@
 import type { Map as OlMap } from "ol";
 import type Geometry from "ol/geom/Geometry";
-import ol from "ol";
 import { Extent, getWidth } from "ol/extent";
 import type Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
@@ -27,40 +26,12 @@ export const getFeaturesById = (
   return features;
 };
 
-const getNearestResolution = (view: ol.View, targetRes: number | undefined) => {
-  if (!targetRes) return targetRes;
-  const resolutions = view.getResolutions();
-  if (!resolutions) return targetRes;
-  return resolutions.reduce((prev, curr) =>
-    Math.abs(curr - targetRes) < Math.abs(prev - targetRes) ? curr : prev
-  );
-};
-
-const getBestZoomForExtent = (map: OlMap, extent: Extent): number => {
-  const view = map.getView();
-
-  const resolutionForExtent = view.getResolutionForExtent(
-    extent,
-    map.getSize()
-  );
-  if (!resolutionForExtent) return view.getZoom() ?? 0;
-
-  const nearestRes = view.getResolutions()
-    ? getNearestResolution(view, resolutionForExtent)
-    : resolutionForExtent;
-
-  const zoom = view.getZoomForResolution(
-    nearestRes ?? view.getResolution() ?? 0
-  );
-  return zoom ?? view.getZoom() ?? 0;
-};
-
-export const panToFeature = (
+export const fitToFeature = (
   map: OlMap,
   feature: Feature<Geometry>,
   options: PanOptions = {}
 ): void => {
-  const { duration = 600, padding = [50, 50, 50, 50] } = options;
+  const { duration = 600, maxZoom = 16, padding = [50, 50, 50, 50] } = options;
   const geometry = feature.getGeometry();
   if (!geometry) return;
 
@@ -104,6 +75,7 @@ export const panToFeature = (
   }
 
   view.fit(extent, {
+    maxZoom,
     duration,
     padding,
   });
@@ -118,12 +90,12 @@ interface PanOptions {
 /**
  * Smoothly pans and zooms the map to fit one or more features.
  */
-export const panToFeatures = (
+export const fitToFeatures = (
   map: OlMap,
   features: Feature<Geometry>[],
   options: PanOptions = {}
 ): void => {
-  const { padding = [50, 50, 50, 50], duration = 600 } = options;
+  const { padding = [50, 50, 50, 50], maxZoom = 16, duration = 600 } = options;
 
   if (!features.length) return;
 
@@ -180,6 +152,7 @@ export const panToFeatures = (
   // view.setZoom(zoom);
 
   view.fit(combinedExtent, {
+    maxZoom,
     padding,
     duration,
   });

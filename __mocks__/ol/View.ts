@@ -1,3 +1,5 @@
+import { Projection } from "ol/proj";
+
 // __mocks__/ol/View.ts
 export default class MockView {
   private opts: any;
@@ -18,6 +20,13 @@ export default class MockView {
 
   getCenter(): [number, number] {
     return this.center;
+  }
+
+  getProjection() {
+    return {
+      getCode: () => "EPSG:4326",
+      getExtent: () => [-180, -90, 180, 90],
+    };
   }
 
   setCenter(center: [number, number]) {

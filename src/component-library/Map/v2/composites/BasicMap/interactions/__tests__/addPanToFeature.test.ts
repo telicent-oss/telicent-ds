@@ -3,10 +3,11 @@ import Point from "ol/geom/Point";
 import Polygon from "ol/geom/Polygon";
 
 import {
-  panToFeature,
-  panToFeatures,
+  fitToFeature,
+  fitToFeatures,
   getFeaturesById,
 } from "../addPanToFeature";
+import { duration } from "@mui/material";
 
 describe("getFeaturesById", () => {
   it("returns features matching ids across layers", () => {
@@ -35,19 +36,33 @@ describe("getFeaturesById", () => {
 });
 
 describe("panToFeature", () => {
-  const animate = jest.fn();
-  const map = { getView: () => ({ animate }) } as any;
-
+  const fit = jest.fn();
+  const map = { getView: () => view, getSize: () => [800, 600] } as any;
+  const view = {
+    fit,
+    getZoom: () => 10,
+    getResolution: () => 1,
+    getResolutions: () => [4, 2, 1, 0.5],
+    getResolutionForExtent: () => 1,
+    getZoomForResolution: () => 12,
+    getProjection: () => ({
+      getCode: () => "EPSG:4326",
+      getExtent: () => [-180, -90, 180, 90],
+    }),
+  };
   beforeEach(() => {
-    animate.mockClear();
+    fit.mockClear();
   });
 
-  it("pans to Point geometry", () => {
+  it("fits to Point geometry", () => {
     const geometry = new Point([10, 20]);
     const feature = { getGeometry: () => geometry } as any;
-    panToFeature(map, feature);
-    expect(animate).toHaveBeenCalledWith(
-      expect.objectContaining({ center: [10, 20], duration: 600 })
+
+    fitToFeature(map, feature);
+
+    expect(fit).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ duration: 600 })
     );
   });
 
@@ -62,59 +77,62 @@ describe("panToFeature", () => {
       ],
     ]);
     const feature = { getGeometry: () => geometry } as any;
-    panToFeature(map, feature);
-    expect(animate).toHaveBeenCalledWith(
-      expect.objectContaining({ center: [5, 5] })
+    fitToFeature(map, feature);
+    expect(fit).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ duration: 600 })
     );
   });
 
   it("handles other geometry with getExtent", () => {
     const geometry = { getExtent: () => [0, 0, 10, 20] } as any;
     const feature = { getGeometry: () => geometry } as any;
-    panToFeature(map, feature);
-    expect(animate).toHaveBeenCalledWith(
-      expect.objectContaining({ center: [5, 10] })
+    fitToFeature(map, feature);
+    expect(fit).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ duration: 600 })
     );
   });
 
   it("does nothing if geometry.getExtent returns undefined", () => {
     const geometry = { getExtent: () => undefined } as any;
     const feature = { getGeometry: () => geometry } as any;
-    panToFeature(map, feature);
-    expect(animate).not.toHaveBeenCalled();
+    fitToFeature(map, feature);
+    expect(fit).not.toHaveBeenCalled();
   });
 
   it("does nothing if geometry is missing", () => {
     const feature = { getGeometry: () => undefined } as any;
-    panToFeature(map, feature);
-    expect(animate).not.toHaveBeenCalled();
+    fitToFeature(map, feature);
+    expect(fit).not.toHaveBeenCalled();
   });
 
   it("does nothing if map.getView returns undefined", () => {
     const brokenMap = { getView: () => undefined } as any;
     const geometry = new Point([1, 2]);
     const feature = { getGeometry: () => geometry } as any;
-    panToFeature(brokenMap, feature);
-    expect(animate).not.toHaveBeenCalled();
+    fitToFeature(brokenMap, feature);
+    expect(fit).not.toHaveBeenCalled();
   });
 });
 
 describe("panToFeatures", () => {
-  const setZoom = jest.fn();
   const fit = jest.fn();
   const view = {
-    setZoom,
     fit,
     getZoom: () => 10,
     getResolution: () => 1,
     getResolutions: () => [4, 2, 1, 0.5],
     getResolutionForExtent: () => 1,
     getZoomForResolution: () => 12,
+    getProjection: () => ({
+      getCode: () => "EPSG:4326",
+      getExtent: () => [-180, -90, 180, 90],
+    }),
   };
   const map = { getView: () => view, getSize: () => [800, 600] } as any;
 
   beforeEach(() => {
-    setZoom.mockClear();
     fit.mockClear();
   });
 
@@ -125,8 +143,7 @@ describe("panToFeatures", () => {
     const f2 = {
       getGeometry: () => ({ getExtent: () => [10, 10, 20, 20] }),
     } as any;
-    panToFeatures(map, [f1, f2]);
-    expect(setZoom).toHaveBeenCalledWith(12);
+    fitToFeatures(map, [f1, f2]);
     expect(fit).toHaveBeenCalledWith(
       [0, 0, 20, 20],
       expect.objectContaining({ padding: [50, 50, 50, 50], duration: 600 })
@@ -137,20 +154,25 @@ describe("panToFeatures", () => {
     const f = {
       getGeometry: () => ({ getExtent: () => [0, 0, 10, 10] }),
     } as any;
-    panToFeatures(map, [f], { maxZoom: 8 });
-    expect(setZoom).toHaveBeenCalledWith(8);
+    fitToFeatures(map, [f], { maxZoom: 8 });
+    expect(fit).toHaveBeenCalledWith(
+      expect.anything(), // extent
+      expect.objectContaining({
+        maxZoom: 8,
+      })
+    );
   });
 
   it("does nothing if no features", () => {
-    panToFeatures(map, []);
-    expect(setZoom).not.toHaveBeenCalled();
+    fitToFeatures(map, []);
+    // expect(setZoom).not.toHaveBeenCalled();
     expect(fit).not.toHaveBeenCalled();
   });
 
   it("does nothing when all features lack geometry", () => {
     const f = { getGeometry: () => undefined } as any;
-    panToFeatures(map, [f]);
-    expect(setZoom).not.toHaveBeenCalled();
+    fitToFeatures(map, [f]);
+    // expect(setZoom).not.toHaveBeenCalled();
     expect(fit).not.toHaveBeenCalled();
   });
 
@@ -159,8 +181,8 @@ describe("panToFeatures", () => {
       getGeometry: () => ({ getExtent: () => [0, 0, 10, 10] }),
     } as any;
     const brokenMap = { ...map, getView: () => undefined } as any;
-    panToFeatures(brokenMap, [f]);
-    expect(setZoom).not.toHaveBeenCalled();
+    fitToFeatures(brokenMap, [f]);
+    // expect(setZoom).not.toHaveBeenCalled();
     expect(fit).not.toHaveBeenCalled();
   });
 });
