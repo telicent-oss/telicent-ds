@@ -1,7 +1,6 @@
 // src/components/MapCanvas.tsx
 import React from "react";
 import Map, {
-  MapProvider,
   Source,
   Layer,
   MapRef,
@@ -15,7 +14,6 @@ import { useMapCanvasContext } from "./MapCanvasProvider";
 // and can cause it to resize - triggering other logic.
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
-import POLYGON_LAYERS from "../../utils/polygonStyles";
 
 export interface MapCanvasProps {
   mapRef: React.RefObject<MapRef>;
@@ -72,7 +70,7 @@ export const MapCanvas: React.FC<MapCanvasProps> = ({
     <>
       <GlobalStyles
         styles={{
-        [`#TelicentMap .maplibregl-ctrl-attrib, 
+          [`#TelicentMap .maplibregl-ctrl-attrib, 
           #TelicentMap .maplibregl-ctrl-attrib a
           `]: {
             backgroundColor:
@@ -82,9 +80,9 @@ export const MapCanvas: React.FC<MapCanvasProps> = ({
             color: theme.palette.text.primary,
           },
           // Uses a background-image of a black info icon.
-          [`#TelicentMap .maplibregl-ctrl-attrib-button`]:{
+          [`#TelicentMap .maplibregl-ctrl-attrib-button`]: {
             backgroundColor: 'transparent',
-            ...(theme.palette.mode === "dark" ? {filter: 'invert(100%)'} : {filter: 'invert(10%)'})
+            ...(theme.palette.mode === "dark" ? { filter: 'invert(100%)' } : { filter: 'invert(10%)' })
           }
         }}
       />
