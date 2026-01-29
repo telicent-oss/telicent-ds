@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.1](https://github.com/telicent-oss/telicent-ds/compare/v1.6.0...v1.6.1) (2026-01-29)
+
+
+### Bug Fixes
+
+* **markers:** TELFE-1508 add fallback logic to markers([#436](https://github.com/telicent-oss/telicent-ds/issues/436)) ([385b4a0](https://github.com/telicent-oss/telicent-ds/commit/385b4a0d64857449da10d9c41a436dca5ca6ca0f))
+* use pins regardless of markerType ([#438](https://github.com/telicent-oss/telicent-ds/issues/438)) ([2673c5a](https://github.com/telicent-oss/telicent-ds/commit/2673c5a322b09810f64ea5b6fc2aba56a726afac))
+
 ## [1.6.0](https://github.com/telicent-oss/telicent-ds/compare/v1.5.30...v1.6.0) (2026-01-22)
 
 
