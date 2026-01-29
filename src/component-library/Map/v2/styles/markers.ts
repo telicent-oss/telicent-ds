@@ -205,9 +205,6 @@ const getIconGenerator = (type?: unknown): ((s: MarkerStyle) => string) => {
 
 export const getGeneratedOlIcon = (style: MarkerStyle = {}): Style => {
   const type = style.markerType;
-  // const inner = style.innerSvg
-  //   ? scaleAndCenterPath(style.innerSvg, style.color, 24, 0.4)
-  //   : "";
   const inner = style.innerSvg ?? "";
 
   const useFallback = !inner && style.fallbackText;
