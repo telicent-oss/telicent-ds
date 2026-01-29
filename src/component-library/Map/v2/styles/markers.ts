@@ -204,7 +204,8 @@ const getIconGenerator = (type?: unknown): ((s: MarkerStyle) => string) => {
 };
 
 export const getGeneratedOlIcon = (style: MarkerStyle = {}): Style => {
-  const type = style.markerType;
+  // The markerType are for ontology app, not anything to do with maps.
+  const type = "pin";
   const inner = style.innerSvg ?? "";
 
   const useFallback = !inner && style.fallbackText;
