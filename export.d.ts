@@ -343,7 +343,7 @@ export declare const CardContent: default_2.FC<PropsWithChildren>;
 
 export declare const CardHeader: default_2.FC<CardHeaderProps>;
 
-declare type CardProps = Omit<CardProps_2, "classes" | "raised" | "sx"> & Partial<{
+declare type CardProps = Omit<CardProps_2, "classes" | "raised"> & Partial<{
     maxWidth: default_2.CSSProperties["maxWidth"];
 }>;
 
