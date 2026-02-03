@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/telicent-oss/telicent-ds/compare/v1.6.1...v1.6.2) (2026-02-03)
+
+
+### Bug Fixes
+
+* update card not to omit sx in props anymore ([#439](https://github.com/telicent-oss/telicent-ds/issues/439)) ([824cc5a](https://github.com/telicent-oss/telicent-ds/commit/824cc5a276084b99403e6bb15d026003797c7572))
+
 ## [1.6.1](https://github.com/telicent-oss/telicent-ds/compare/v1.6.0...v1.6.1) (2026-01-29)
 
 
