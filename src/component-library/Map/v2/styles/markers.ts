@@ -25,15 +25,15 @@ const svgToDataUrl = (svg: string) =>
 
 const makePinSvg = ({
   size = 28,
-  backgroundColor = "#FF6600", // pin body
-  color = "#fff", // icon color
+  backgroundColor = "#FF6600",
+  color = "#fff",
   innerSvg,
 }: MarkerStyle): string => {
   const icon = innerSvg
     ? scaleAndCenterPath(innerSvg, color, {
         cx: 12,
         cy: 9,
-        size: 9, // slightly smaller than circle icon
+        size: 9,
       })
     : "";
 
@@ -41,40 +41,43 @@ const makePinSvg = ({
 <svg
   xmlns="http://www.w3.org/2000/svg"
   width="${size}"
-  height="${size}"
-  viewBox="0 0 24 24"
+  height="${size * (28 / 24)}"
+  viewBox="0 0 24 28"
 >
-  <!-- pin body -->
-  <path
-    d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"
-    fill="${backgroundColor}"
-  />
+  <g transform="translate(0 2)">
+    <path
+      d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"
+      fill="${backgroundColor}"
+      stroke="${color}"
+      stroke-width="1"
+      stroke-linejoin="round"
+    />
 
-  <!-- subtle head highlight (suggested badge) -->
-  <circle
-    cx="12"
-    cy="9"
-    r="6"
-    fill="rgba(255,255,255,0.18)"
-  />
+    <circle
+      fill="${backgroundColor}"
+      cx="12"
+      cy="9"
+      r="6"
+    />
 
-  <!-- icon -->
-  ${icon}
+    ${icon}
+  </g>
 </svg>
 `;
 };
 
-/**
- * Extracts a path `d` from a raw SVG string.
- */
-export const sanitizeFaSvg = (rawSvg: string): string => {
-  // If <path> exists, just extract d
+export const extractPathD = (rawSvg: string): string => {
+  // If this already looks like a <g> with a <path>, extract the path
   const pathMatch = rawSvg.match(/<path[^>]*d="([^"]+)"/);
-  if (pathMatch) return pathMatch[1];
+  if (pathMatch) {
+    return pathMatch[1];
+  }
 
-  // If raw d commands exist, use as-is
+  // Otherwise assume raw path commands
   const dMatch = rawSvg.match(/M[\s\S]+/);
-  if (dMatch) return dMatch[0];
+  if (dMatch) {
+    return dMatch[0];
+  }
 
   throw new Error("No path data found in SVG");
 };
@@ -115,7 +118,7 @@ const scaleAndCenterPath = (
   color = "#F092D5",
   placement: IconPlacement
 ) => {
-  const d = sanitizeFaSvg(rawSvg);
+  const d = extractPathD(rawSvg);
   const bbox = getPathBBox(d);
 
   // scale to fit inside targetSize

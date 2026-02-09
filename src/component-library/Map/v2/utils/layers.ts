@@ -53,6 +53,7 @@ export const getOverlayVectorLayer = (
         const coords = item.coordinates as [number, number];
         geometry = new Point(fromLonLat(coords));
       } else {
+        console.log("item", item);
         // Polygons: OL expects [ [ [lon, lat], ... ], ... ] in EPSG:4326
         geometry = new Polygon(item.coordinates as number[][][]).transform(
           "EPSG:4326",
@@ -199,6 +200,7 @@ export const attachMeta = <T extends BaseLayer>(
 export const getMeta = (layer: BaseLayer): LayerMeta => layer.get("meta");
 
 export const MARKER_LAYER_ID = "marker-layer";
+export const POLYGON_LAYER_ID = "polygon-layer";
 
 export const attachTileLoadErrorLogging = (
   layers: Collection<BaseLayer>,

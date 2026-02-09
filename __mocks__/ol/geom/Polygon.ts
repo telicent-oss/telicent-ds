@@ -1,35 +1,55 @@
 export default class MockPolygon {
-  coordinates: any[];
+  private coordinates: number[][][];
 
-  constructor(coords: any[] = []) {
+  constructor(coords: number[][][] = []) {
     this.coordinates = coords;
   }
 
-  // OpenLayers Polygon methods you may use in tests
   getCoordinates() {
     return this.coordinates;
   }
 
-  setCoordinates(coords: any[]) {
+  setCoordinates(coords: number[][][]) {
     this.coordinates = coords;
   }
 
-  // Add other methods as needed, e.g. getExtent(), etc.
+  getType() {
+    return "Polygon";
+  }
+
+  clone() {
+    // deep copy coordinates
+    return new MockPolygon(
+      this.coordinates.map((ring) => ring.map(([x, y]) => [x, y]))
+    );
+  }
+
+  translate(dx: number, dy: number) {
+    this.coordinates = this.coordinates.map((ring) =>
+      ring.map(([x, y]) => [x + dx, y + dy])
+    );
+    return this;
+  }
+
   getExtent(): [number, number, number, number] {
     if (!this.coordinates.length) {
       return [0, 0, 0, 0];
     }
 
-    const flat = this.coordinates.flat(2);
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
 
-    const xs: number[] = [];
-    const ys: number[] = [];
-
-    for (let i = 0; i < flat.length; i += 2) {
-      xs.push(flat[i]);
-      ys.push(flat[i + 1]);
+    for (const ring of this.coordinates) {
+      for (const [x, y] of ring) {
+        if (x < minX) minX = x;
+        if (y < minY) minY = y;
+        if (x > maxX) maxX = x;
+        if (y > maxY) maxY = y;
+      }
     }
 
-    return [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+    return [minX, minY, maxX, maxY];
   }
 }

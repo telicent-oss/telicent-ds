@@ -14,10 +14,12 @@ export const createMap = ({
   layers: BaseLayer[];
   view: View;
   controls?: Collection<Control>;
-}) =>
-  new OlMap({
+}) => {
+  console.log({ layers, view });
+  return new OlMap({
     target,
     layers,
     view,
     controls,
   });
+};

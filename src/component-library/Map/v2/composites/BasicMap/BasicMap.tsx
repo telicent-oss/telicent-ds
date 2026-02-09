@@ -1,4 +1,3 @@
-
 import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas"
 import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
 import React, { useRef, useMemo, useEffect, useState, useImperativeHandle } from "react";
@@ -9,8 +8,8 @@ import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
-import { MARKER_LAYER_ID } from "../../utils/layers";
-import { convertMarkerToFeature, findVectorLayerById } from "../../utils/feature";
+import { MARKER_LAYER_ID, POLYGON_LAYER_ID } from "../../utils/layers";
+import { findVectorLayerById } from "../../utils/feature";
 import { getFeaturesById, fitToFeature, fitToFeatures } from "./interactions/addPanToFeature";
 import { polygonToOLFeature } from "../../utils/polygons";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
@@ -36,18 +35,17 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 			{
 				kind: "overlay-vector",
 				id: MARKER_LAYER_ID,
-				data: props.markers?.map(convertMarkerToFeature) ?? [],      // simple marker objects from props
+				data: [],
 				visible: true
 			},
 			// Polygon layer
 			{
 				kind: "overlay-vector",
-				id: "polygon-layer",
-				data: props?.polygons ?? [],
+				id: POLYGON_LAYER_ID,
+				data: [],
 				visible: true,
 			},
 		];
-
 		return [...baseLayers, ...overlayVectorLayers];
 	}, [props.layers]);
 
@@ -99,6 +97,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 
 		source.clear();
 		const markerFeatures = props.markers.map(markerToOLFeature);
+		console.log({ markerFeatures })
 		source.addFeatures(markerFeatures);
 
 		const polygonFeatures = props.polygons.map(polygonToOLFeature);
@@ -106,12 +105,35 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 
 		const features = [...markerFeatures, ...polygonFeatures]
 
+		console.log({ features })
 		if (features.length === 1) {
 			fitToFeature(mapInstance.current, features[0])
 		} else {
 			fitToFeatures(mapInstance.current, features)
 		}
 	}, [props.markers, props.polygons, layers])
+
+	useEffect(() => {
+		const map = mapInstance.current;
+		if (!map) return;
+
+		const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
+		const polygonLayer = findVectorLayerById(layers, POLYGON_LAYER_ID);
+
+		const markerFeatures =
+			markerLayer?.getSource()?.getFeatures() ?? [];
+		const polygonFeatures =
+			polygonLayer?.getSource()?.getFeatures() ?? [];
+
+		const features = [...markerFeatures, ...polygonFeatures];
+		if (!features.length) return;
+
+		if (features.length === 1) {
+			fitToFeature(map, features[0]);
+		} else {
+			fitToFeatures(map, features);
+		}
+	}, [props.markers, props.polygons, layers]);
 
 	useImperativeHandle(ref, () => ({
 		zoomIn: () => {
@@ -121,7 +143,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 				return;
 			}
 
-			const currentZoom = view.getZoom() ?? 0; // defensive
+			const currentZoom = view.getZoom() ?? 0;
 			view.setZoom(currentZoom + 1);
 		},
 		zoomOut: () => {
@@ -131,7 +153,7 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 				return;
 			}
 
-			const currentZoom = view.getZoom() ?? 0; // defensive
+			const currentZoom = view.getZoom() ?? 0;
 			view.setZoom(currentZoom - 1);
 		},
 		panToFeature: (id: string) => {

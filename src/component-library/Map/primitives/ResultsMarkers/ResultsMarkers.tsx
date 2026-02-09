@@ -45,19 +45,21 @@ export const ResultsMarkers: React.FC<ResultsMarkersProps> = ({
   selected,
   findByClassUri,
   onClick
-}) => (
-  <Source
-    id="document-locations"
-    type={GEOJSON}
-    data={{ type: FEATURE_COLLECTION, features: markers }}
-    generateId
-  >
-    {markers.map((marker: ResultMarker) => (
-      <DocumentMarker key={marker.uri} marker={marker} onClick={onClick} findByClassUri={findByClassUri} selected={selected} />
-    ))}
-  </Source>
-);
-
+}) => {
+  console.log({ markers });
+  return (
+    <Source
+      id="document-locations"
+      type={GEOJSON}
+      data={{ type: FEATURE_COLLECTION, features: markers }}
+      generateId
+    >
+      {markers.map((marker: ResultMarker) => (
+        <DocumentMarker key={marker.uri} marker={marker} onClick={onClick} findByClassUri={findByClassUri} selected={selected} />
+      ))}
+    </Source>
+  );
+};
 
 export type ResultMarker = {
   geohash: string;
