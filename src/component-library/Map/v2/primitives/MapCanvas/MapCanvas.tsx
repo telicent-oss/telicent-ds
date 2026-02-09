@@ -53,10 +53,12 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		const map = mapInstanceRef.current;
 		if (!map || layers.length === 0) return;
 
-		attachTileLoadErrorLogging(
+		const detach = attachTileLoadErrorLogging(
 			map.getLayers(),
 			(e: Error) => console.warn("Tile error", e)
 		);
+
+		return detach;
 	}, [layers, mapReady]);
 
 	useEffect(() => {

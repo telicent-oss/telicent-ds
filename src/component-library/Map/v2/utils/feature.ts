@@ -14,7 +14,6 @@ import geohash from "../../utils/geohash/geohash";
 import { OverlayFeatureConfig } from "../types/overlays";
 
 export const convertMarkerToFeature = (marker: MarkerFeature) => {
-  console.log({ convert: marker });
   const gh = marker.geohash.includes("http")
     ? marker.geohash.split("http://geohash.org/")[1]
     : marker.geohash;

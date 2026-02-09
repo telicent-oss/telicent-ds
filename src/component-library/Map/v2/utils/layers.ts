@@ -205,11 +205,24 @@ export const POLYGON_LAYER_ID = "polygon-layer";
 export const attachTileLoadErrorLogging = (
   layers: Collection<BaseLayer>,
   onError: (e: Error) => void = (e) => console.warn("Tile error", e)
-) => {
+): (() => void) => {
+  const detachers: Array<() => void> = [];
+
   layers.forEach((layer) => {
-    if ("getSource" in layer && typeof layer.getSource === "function") {
-      const src = layer.getSource();
-      src?.on?.("tileloaderror", onError);
+    if (
+      !("getSource" in layer) ||
+      typeof (layer as any).getSource !== "function"
+    )
+      return;
+
+    const src = (layer as any).getSource?.();
+    if (!src) return;
+
+    if (typeof src.on === "function" && typeof src.un === "function") {
+      src.on("tileloaderror", onError);
+      detachers.push(() => src.un("tileloaderror", onError));
     }
   });
+
+  return () => detachers.forEach((d) => d());
 };

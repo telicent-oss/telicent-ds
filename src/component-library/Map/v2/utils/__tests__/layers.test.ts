@@ -166,10 +166,12 @@ describe("layers util", () => {
   it("exports marker layer ID constant", () => {
     expect(MARKER_LAYER_ID).toBe("marker-layer");
   });
+
   describe("attachTileLoadErrorLogging", () => {
     it("attaches tileloaderror handler to layers with sources", () => {
       const on = jest.fn();
-      const getSource = jest.fn(() => ({ on }));
+      const un = jest.fn();
+      const getSource = jest.fn(() => ({ on, un }));
 
       const layerWithSource = { getSource };
       const layerWithoutSource = {};
@@ -183,15 +185,14 @@ describe("layers util", () => {
 
       const errorHandler = jest.fn();
 
-      attachTileLoadErrorLogging(layers as any, errorHandler);
+      const detach = attachTileLoadErrorLogging(layers as any, errorHandler);
 
       expect(getSource).toHaveBeenCalledTimes(1);
       expect(on).toHaveBeenCalledWith("tileloaderror", errorHandler);
+      expect(typeof detach).toBe("function");
     });
 
     it("does not attach tileloaderror listener when source is null", () => {
-      // NOTE: Adding the 'on' function to source makes it non-null.
-      // Therefore this test can't test to see if 'on' was not called.
       const getSource = jest.fn(() => null);
 
       const layers = {
@@ -200,9 +201,10 @@ describe("layers util", () => {
         },
       };
 
-      attachTileLoadErrorLogging(layers as any);
+      const detach = attachTileLoadErrorLogging(layers as any);
 
       expect(getSource).toHaveBeenCalled();
+      expect(() => detach()).not.toThrow();
     });
 
     it("invokes the provided error handler when the event fires", () => {
@@ -211,10 +213,11 @@ describe("layers util", () => {
       const on = jest.fn((_, handler) => {
         capturedHandler = handler;
       });
+      const un = jest.fn();
 
       const layers = {
         forEach: (cb: (layer: any) => void) => {
-          cb({ getSource: () => ({ on }) });
+          cb({ getSource: () => ({ on, un }) });
         },
       };
 
