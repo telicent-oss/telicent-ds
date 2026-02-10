@@ -46,7 +46,6 @@ export const ResultsMarkers: React.FC<ResultsMarkersProps> = ({
   findByClassUri,
   onClick
 }) => {
-  console.log({ markers });
   return (
     <Source
       id="document-locations"
