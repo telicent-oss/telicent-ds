@@ -3,20 +3,14 @@ import { Box } from "@mui/material";
 // ignore story-coverage.test.ts
 
 interface ImageProps {
-  borderColor: string;
+  borderColor?: string;
   src: string;
   alt?: string;
   title: string;
   role?: React.AriaRole;
 }
 
-export const Image: React.FC<ImageProps> = ({
-  borderColor,
-  src,
-  alt,
-  title,
-  role,
-}) => (
+export const Image: React.FC<ImageProps> = ({ borderColor, src, alt, title, role }) => (
   <Box
     sx={{
       border: `2px solid ${borderColor}`,
