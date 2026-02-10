@@ -1,6 +1,6 @@
 import type { Map as OlMap } from "ol";
 import type Geometry from "ol/geom/Geometry";
-import { Extent, getWidth } from "ol/extent";
+import { extend, Extent, getWidth } from "ol/extent";
 import type Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
 import Point from "ol/geom/Point";
@@ -87,16 +87,12 @@ interface PanOptions {
   duration?: number;
 }
 
-/**
- * Smoothly pans and zooms the map to fit one or more features.
- */
 export const fitToFeatures = (
   map: OlMap,
   features: Feature<Geometry>[],
   options: PanOptions = {}
 ): void => {
   const { padding = [50, 50, 50, 50], maxZoom = 16, duration = 600 } = options;
-
   if (!features.length) return;
 
   const view = map.getView();
@@ -104,56 +100,52 @@ export const fitToFeatures = (
 
   const projection = view.getProjection();
   const worldExtent = projection.getExtent();
+  if (!worldExtent) return;
+
   const worldWidth = getWidth(worldExtent);
 
-  const normalizeX = (x: number) => {
-    while (x < worldExtent[0]) x += worldWidth;
-    while (x > worldExtent[2]) x -= worldWidth;
-    return x;
-  };
+  let combinedExtent: [number, number, number, number] | null = null;
+  let refCenterX: number | null = null;
 
-  // Extract and normalize extents
-  const extents = features
-    .map((f) => f.getGeometry()?.getExtent())
-    .filter((e): e is [number, number, number, number] => !!e)
-    .map(
-      (e) =>
-        [normalizeX(e[0]), e[1], normalizeX(e[2]), e[3]] as [
-          number,
-          number,
-          number,
-          number
-        ]
-    );
+  for (const feature of features) {
+    const geom = feature.getGeometry();
+    if (!geom) continue;
 
-  if (!extents.length) return;
+    const extent = geom.getExtent();
+    const centerX = (extent[0] + extent[2]) / 2;
 
-  // Detect if X span crosses the world midpoint
-  let combinedExtent: [number, number, number, number] = extents[0];
-  for (const e of extents.slice(1)) {
-    const x0 = e[0],
-      x1 = e[2];
-    let c0 = combinedExtent[0],
-      c1 = combinedExtent[2];
-
-    // If the span is bigger than half the world, wrap it
-    if (x1 - x0 > worldWidth / 2) {
-      combinedExtent[0] = Math.max(c0, x0);
-      combinedExtent[2] = Math.min(c1, x1);
-    } else {
-      combinedExtent[0] = Math.min(c0, x0);
-      combinedExtent[2] = Math.max(c1, x1);
+    if (refCenterX === null) {
+      refCenterX = centerX;
     }
 
-    combinedExtent[1] = Math.min(combinedExtent[1], e[1]);
-    combinedExtent[3] = Math.max(combinedExtent[3], e[3]);
+    // determine which world copy to use
+    const delta = centerX - refCenterX;
+    const worldShift = Math.round(delta / worldWidth) * worldWidth;
+
+    // clone + shift geometry
+    const shifted = geom.clone();
+    shifted.translate(-worldShift, 0);
+
+    const shiftedExtent = shifted.getExtent() as [
+      number,
+      number,
+      number,
+      number
+    ];
+
+    if (!combinedExtent) {
+      combinedExtent = [...shiftedExtent];
+    } else {
+      extend(combinedExtent, shiftedExtent);
+      refCenterX = (combinedExtent[0] + combinedExtent[2]) / 2;
+    }
   }
 
-  // view.setZoom(zoom);
+  if (!combinedExtent) return;
 
   view.fit(combinedExtent, {
-    maxZoom,
     padding,
+    maxZoom,
     duration,
   });
 };

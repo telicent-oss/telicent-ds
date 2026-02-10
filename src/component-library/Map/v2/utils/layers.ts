@@ -53,6 +53,7 @@ export const getOverlayVectorLayer = (
         const coords = item.coordinates as [number, number];
         geometry = new Point(fromLonLat(coords));
       } else {
+        console.log("item", item);
         // Polygons: OL expects [ [ [lon, lat], ... ], ... ] in EPSG:4326
         geometry = new Polygon(item.coordinates as number[][][]).transform(
           "EPSG:4326",
@@ -199,15 +200,29 @@ export const attachMeta = <T extends BaseLayer>(
 export const getMeta = (layer: BaseLayer): LayerMeta => layer.get("meta");
 
 export const MARKER_LAYER_ID = "marker-layer";
+export const POLYGON_LAYER_ID = "polygon-layer";
 
 export const attachTileLoadErrorLogging = (
   layers: Collection<BaseLayer>,
   onError: (e: Error) => void = (e) => console.warn("Tile error", e)
-) => {
+): (() => void) => {
+  const detachers: Array<() => void> = [];
+
   layers.forEach((layer) => {
-    if ("getSource" in layer && typeof layer.getSource === "function") {
-      const src = layer.getSource();
-      src?.on?.("tileloaderror", onError);
+    if (
+      !("getSource" in layer) ||
+      typeof (layer as any).getSource !== "function"
+    )
+      return;
+
+    const src = (layer as any).getSource?.();
+    if (!src) return;
+
+    if (typeof src.on === "function" && typeof src.un === "function") {
+      src.on("tileloaderror", onError);
+      detachers.push(() => src.un("tileloaderror", onError));
     }
   });
+
+  return () => detachers.forEach((d) => d());
 };

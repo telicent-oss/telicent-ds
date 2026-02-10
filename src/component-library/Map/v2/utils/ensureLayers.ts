@@ -1,7 +1,5 @@
 import BaseLayer from "ol/layer/Base";
 import { LayerConfig } from "../types/layers";
-import { OSM } from "ol/source";
-import TileLayer from "ol/layer/Tile";
 import {
   getBaseRasterLayer,
   getBaseVectorTileLayer,
@@ -11,7 +9,6 @@ import {
 export const ensureLayers = async (
   layerConfigs: LayerConfig[]
 ): Promise<BaseLayer[]> => {
-
   const layerPromises = layerConfigs.map(async (layerConfig, index) => {
     switch (layerConfig.kind) {
       case "base-raster":

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Feature from "ol/Feature";
 import View from "ol/View";
 import { MapCanvasV2Props } from "../../types/map-types";
@@ -10,6 +10,7 @@ import { ensureView } from "../../utils/ensureView";
 import "ol/ol.css";
 import { buildControls } from "../../utils/buildControls";
 import { createMap } from "../../utils/mapFactory";
+import Collection from "ol/Collection";
 
 export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	zoom,
@@ -19,12 +20,12 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	mapInstanceRef,
 	controls
 }) => {
+	const [mapReady, setMapReady] = useState(false);
 	const mapRef = useRef<HTMLDivElement>(null);
 	const viewRef = useRef<View>(ensureView(zoom, center));
 
 	useEffect(() => {
-		if (!mapRef.current || layers.length < 1) return;
-
+		if (!mapRef.current || mapInstanceRef.current) return;
 		mapInstanceRef.current = createMap({
 			target: mapRef.current,
 			controls: buildControls(controls),
@@ -32,8 +33,40 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			view: viewRef.current
 		})
 
+		setMapReady(true);
+		return () => {
+			mapInstanceRef.current?.setTarget(undefined);
+			mapInstanceRef.current = null;
+			setMapReady(false);
+		}
+	}, [])
+
+	useEffect(() => {
+		if (!mapReady) return;
+		const map = mapInstanceRef.current;
+		if (!map) return;
+
+		map.getLayerGroup().setLayers(new Collection(layers));
+	}, [layers, mapReady]);
+
+	useEffect(() => {
+		const map = mapInstanceRef.current;
+		if (!map || layers.length === 0) return;
+
+		const detach = attachTileLoadErrorLogging(
+			map.getLayers(),
+			(e: Error) => console.warn("Tile error", e)
+		);
+
+		return detach;
+	}, [layers, mapReady]);
+
+	useEffect(() => {
+		const map = mapInstanceRef.current;
+		if (!map || layers.length === 0) return;
+
 		attachTileLoadErrorLogging(
-			mapInstanceRef.current.getLayers(),
+			map.getLayers(),
 			(e: Error) => console.warn("Tile error", e)
 		);
 
@@ -44,7 +77,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		}
 
 		const select = addSelectInteraction({
-			map: mapInstanceRef.current,
+			map,
 			layer: markerLayer,
 			onSelect: (features: Feature[]) => {
 				const ids = features
@@ -64,11 +97,8 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 
 		return () => {
 			mapInstanceRef.current?.removeInteraction(select);
-			mapInstanceRef.current?.setTarget(undefined);
 		};
-	}, [layers, zoom, center]);
-
-	if (layers.length < 1) return null
+	}, [layers]);
 
 	return <div id="TelicentMap" className="map-container" style={{
 		width: "100%", height: "100%", background: "#f8f4f0"

@@ -29,6 +29,16 @@ export default class MockMap {
     };
   }
 
+  getLayerGroup() {
+    return {
+      getLayers: () => ({
+        getArray: () => this.layers,
+      }),
+      setLayers: (collection: { getArray: () => any[] }) => {
+        this.layers = collection.getArray();
+      },
+    };
+  }
   updateSize() {}
   dispose() {}
 }

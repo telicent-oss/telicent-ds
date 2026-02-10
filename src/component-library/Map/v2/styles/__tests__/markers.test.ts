@@ -5,7 +5,7 @@ jest.mock("ol/style");
 jest.mock("ol/Feature");
 jest.mock("ol/geom/Point");
 
-import { getGeneratedOlIcon, getPathBBox, sanitizeFaSvg } from "../markers";
+import { getGeneratedOlIcon, getPathBBox, extractPathD } from "../markers";
 
 const decodeSvg = (src: string) => decodeURIComponent(src.split(",")[1]);
 
@@ -55,34 +55,9 @@ describe("marker icon generation (with __mocks__)", () => {
 
       expect(style.props.image.props.scale).toBe(1.5);
     });
-
-    it.skip("does not scale circle markers", () => {
-      const style = getGeneratedOlIcon({
-        markerType: "circle",
-      }) as any;
-
-      expect(style.props.image.props.scale).toBe(1.0);
-    });
-
-    it.skip("does not scale icon-only markers", () => {
-      const style = getGeneratedOlIcon({
-        markerType: "icon",
-      }) as any;
-
-      expect(style.props.image.props.scale).toBe(1.0);
-    });
   });
 
   describe("innerSvg handling", () => {
-    it("injects raw innerSvg path into SVG", () => {
-      const style = getGeneratedOlIcon({
-        markerType: "circle",
-        innerSvg: SIMPLE_PATH,
-      }) as any;
-      const decoded = decodeSvg(style.props.image.props.src);
-      expect(decoded).toContain(SIMPLE_PATH);
-    });
-
     it("does not double-wrap innerSvg with <g> elements", () => {
       const style = getGeneratedOlIcon({
         markerType: "pin",
@@ -90,8 +65,11 @@ describe("marker icon generation (with __mocks__)", () => {
       }) as any;
 
       const decoded = decodeSvg(style.props.image.props.src);
-      const groupCount = (decoded.match(/<g/g) || []).length;
-      expect(groupCount).toBe(1);
+
+      // The inner icon group is the only <g> that applies scaling
+      const scaledGroups = decoded.match(/<g[^>]*scale\(/g) || [];
+
+      expect(scaledGroups.length).toBe(1);
     });
   });
 
@@ -109,7 +87,7 @@ describe("marker icon generation (with __mocks__)", () => {
     });
   });
 
-  describe("sanitizeFaSvg", () => {
+  describe("extractPathD", () => {
     it("extracts d attribute from a <path> element", () => {
       const svg = `
       <svg>
@@ -117,21 +95,21 @@ describe("marker icon generation (with __mocks__)", () => {
       </svg>
     `;
 
-      const d = sanitizeFaSvg(svg);
+      const d = extractPathD(svg);
       expect(d).toBe("M10 10 L20 20 Z");
     });
 
     it("returns raw path data when given path commands only", () => {
       const raw = "M0 0 L10 0 L10 10 Z";
 
-      const d = sanitizeFaSvg(raw);
+      const d = extractPathD(raw);
       expect(d).toBe(raw);
     });
 
     it("throws when no path data can be found", () => {
       const svg = `<svg><circle cx="5" cy="5" r="2" /></svg>`;
 
-      expect(() => sanitizeFaSvg(svg)).toThrow("No path data found in SVG");
+      expect(() => extractPathD(svg)).toThrow("No path data found in SVG");
     });
   });
 

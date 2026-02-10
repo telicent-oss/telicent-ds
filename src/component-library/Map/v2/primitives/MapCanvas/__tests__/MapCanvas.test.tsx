@@ -7,6 +7,7 @@ import { findVectorLayerById } from "../../../utils/feature";
 import { fitToFeature, fitToFeatures } from "../../../composites/BasicMap/interactions/addPanToFeature";
 import { MapCanvasV2 } from "../MapCanvas";
 import BaseLayer from "ol/layer/Base";
+import { MARKER_LAYER_ID } from "../../../utils/layers";
 
 jest.mock("../../../utils/mapFactory", () => ({
 	createMap: jest.fn(),
@@ -39,6 +40,9 @@ describe("MapCanvasV2", () => {
 			getLayers: jest.fn(() => []),
 			removeInteraction: jest.fn(),
 			setTarget: jest.fn(),
+			getLayerGroup: jest.fn(() => ({
+				setLayers: jest.fn()
+			}))
 		};
 		(createMap as jest.Mock).mockReturnValue(mockMapInstance);
 
@@ -50,9 +54,13 @@ describe("MapCanvasV2", () => {
 		cleanup();
 	});
 
-	it("renders null if layers is empty", () => {
-		const { container } = render(<MapCanvasV2 layers={[]} mapInstanceRef={{ current: null }} {...defaultProps} />);
-		expect(container.firstChild).toBeNull();
+	it("renders map container even if layers is empty", () => {
+		const { container } = render(
+			<MapCanvasV2 layers={[]} mapInstanceRef={{ current: null }} {...defaultProps} />
+		);
+
+		const mapDiv = container.querySelector("#TelicentMap");
+		expect(mapDiv).toBeTruthy();
 	});
 
 	it("creates map and sets mapInstanceRef", () => {
@@ -119,15 +127,39 @@ describe("MapCanvasV2", () => {
 		expect(onFeatureClick).toHaveBeenCalledWith(["feature1", "feature2"]);
 	});
 
-	it("cleans up interactions on unmount", () => {
-		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
+	it("removes select interaction on unmount", () => {
+		const layers = [{ id: MARKER_LAYER_ID }] as unknown as BaseLayer[];
+
 		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
 		(addSelectInteraction as jest.Mock).mockReturnValue("mockInteraction");
 
-		const { unmount } = render(<MapCanvasV2 layers={layers} mapInstanceRef={{ current: null }} {...defaultProps} />);
+		const { unmount } = render(
+			<MapCanvasV2
+				layers={layers}
+				mapInstanceRef={{ current: mockMapInstance }}
+				{...defaultProps}
+			/>
+		);
+
 		unmount();
 
-		expect(mockMapInstance.removeInteraction).toHaveBeenCalledWith("mockInteraction");
+		expect(mockMapInstance.removeInteraction)
+			.toHaveBeenCalledWith("mockInteraction");
+	});
+
+	it("detaches map target on unmount if map was created", () => {
+		(createMap as jest.Mock).mockReturnValue(mockMapInstance);
+
+		const { unmount } = render(
+			<MapCanvasV2
+				layers={[]}
+				mapInstanceRef={{ current: null }}
+				{...defaultProps}
+			/>
+		);
+
+		unmount();
+
 		expect(mockMapInstance.setTarget).toHaveBeenCalledWith(undefined);
 	});
 
