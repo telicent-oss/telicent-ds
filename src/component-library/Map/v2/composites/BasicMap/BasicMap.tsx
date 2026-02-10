@@ -97,7 +97,6 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 
 		source.clear();
 		const markerFeatures = props.markers.map(markerToOLFeature);
-		console.log({ markerFeatures })
 		source.addFeatures(markerFeatures);
 
 		const polygonFeatures = props.polygons.map(polygonToOLFeature);
@@ -105,7 +104,6 @@ export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>
 
 		const features = [...markerFeatures, ...polygonFeatures]
 
-		console.log({ features })
 		if (features.length === 1) {
 			fitToFeature(mapInstance.current, features[0])
 		} else {
