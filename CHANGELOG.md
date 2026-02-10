@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.3](https://github.com/telicent-oss/telicent-ds/compare/v1.6.2...v1.6.3) (2026-02-10)
+
+
+### Bug Fixes
+
+* TELFE-1179 change how map renders ([#443](https://github.com/telicent-oss/telicent-ds/issues/443)) ([e4193d3](https://github.com/telicent-oss/telicent-ds/commit/e4193d3b2a2820c488785ceeace262a862b8780e))
+
 ## [1.6.2](https://github.com/telicent-oss/telicent-ds/compare/v1.6.1...v1.6.2) (2026-02-03)
 
 
