@@ -335,7 +335,11 @@ export declare const Card: default_2.FC<CardProps>;
 
 export declare const CardActions: default_2.FC<PropsWithChildren>;
 
-export declare const CardContent: default_2.FC<PropsWithChildren>;
+export declare const CardContent: default_2.FC<CardContentProps>;
+
+declare interface CardContentProps extends PropsWithChildren {
+    sx?: SxProps<Theme>;
+}
 
 export declare const CardHeader: default_2.FC<CardHeaderProps>;
 
