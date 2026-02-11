@@ -43,7 +43,6 @@ import { FilledTextFieldProps } from '@mui/material';
 import { FlattenedStyleType } from '@telicent-oss/ontologyservice';
 import { FlattenedStyleTypeForFindIcon } from '@telicent-oss/ontologyservice';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-import { FormHelperTextProps } from '@mui/material';
 import { ForwardedRef } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { GridProps } from '@mui/material/Grid';
@@ -316,9 +315,6 @@ export declare const Button: default_2.ForwardRefExoticComponent<Omit<ButtonProp
 
 export declare type ButtonProps = ButtonProps_2 & {
     style?: "base";
-    error?: boolean;
-    errorText?: string;
-    helperTextProps?: FormHelperTextProps;
 };
 
 export declare const ButtonZoomIn: default_2.FC<{
@@ -588,6 +584,7 @@ export declare interface DraggableFloatingPanelProps extends HTMLAttributes<HTML
         x: number;
         y: number;
     };
+    menu?: any;
 }
 
 export declare const DragHandleIcon: default_2.FC<SvgIconProps>;
@@ -809,11 +806,7 @@ export declare interface LayerOption {
 
 export declare const LayerSelector: default_2.FC;
 
-export declare const LayerSelectorInsetInMap: default_2.FC<Pick<PresentationalProps_2, "color" | "sx" | "variant">>;
-
-export declare const LayerSelectorPresentationalButton: default_2.FC<PresentationalButtonProps>;
-
-export declare const LayerSelectorPresentationalPopOverV2: default_2.FC<PresentationalProps>;
+export declare const LayerSelectorInsetInMap: default_2.FC<Pick<PresentationalProps, "color" | "sx" | "variant">>;
 
 export declare interface LayerSelectorProps {
     layers: default_5[];
@@ -1408,22 +1401,7 @@ export declare const PreferredLabelCache: {
     get: (val: string) => string;
 };
 
-export declare interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    data?: default_5[];
-    anchorEl: HTMLButtonElement | null;
-    onClickDropdown: ButtonProps["onClick"];
-    selectedIndex: number;
-}
-
-export declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    data: default_5[];
-    anchorEl: HTMLButtonElement | null;
-    onCloseDropdown: PopOverProps["onClose"];
-    onListItemClick: (label: string) => void;
-    selectedIndex: number;
-}
-
-declare interface PresentationalProps_2 extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
+declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
     selectedIndex: number;
     data: LayerOption[];
     anchorEl: HTMLButtonElement | null;
