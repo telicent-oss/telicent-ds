@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.4](https://github.com/telicent-oss/telicent-ds/compare/v1.6.3...v1.6.4) (2026-02-11)
+
+
+### Features
+
+* Menu, Button, LayerSelector changes ([#445](https://github.com/telicent-oss/telicent-ds/issues/445)) ([e7c1437](https://github.com/telicent-oss/telicent-ds/commit/e7c14374ea3fa4d3db7a0d94c86ce5198bf8b400))
+
+
+### Bug Fixes
+
+* add sx to card content ([#447](https://github.com/telicent-oss/telicent-ds/issues/447)) ([7edd627](https://github.com/telicent-oss/telicent-ds/commit/7edd6279789ec1e6a9e82ac0077d24e859b753ee))
+
 ## [1.6.3](https://github.com/telicent-oss/telicent-ds/compare/v1.6.2...v1.6.3) (2026-02-10)
 
 
