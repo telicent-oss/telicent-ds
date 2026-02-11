@@ -1,184 +1,122 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { PopOver, FlexGrid, FlexGridItem, Button, Text, useExtendedTheme, ButtonProps } from "../../../../../export";
+import type BaseLayer from "ol/layer/Base";
 
+import { Button, Text, useExtendedTheme } from "../../../../../export";
 import { Image } from "../../../primitives/LayerSelector/primitives/Image";
-import { PopOverProps } from "../../../../../v1/components/surfaces/PopOver/Popover";
-import BaseLayer from "ol/layer/Base";
-import { LayerSelectorProps } from "../../types/map-types";
+import type { LayerSelectorProps } from "../../types/map-types";
 import { getMeta } from "../../utils/layers";
 
-export interface PresentationalButtonProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-	data?: BaseLayer[];
-	anchorEl: HTMLButtonElement | null;
-	onClickDropdown: ButtonProps["onClick"];
-	selectedIndex: number;
-}
-
-export interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-	data: BaseLayer[];
-	anchorEl: HTMLButtonElement | null;
-	onCloseDropdown: PopOverProps["onClose"];
-	onListItemClick: (label: string) => void;
-	selectedIndex: number;
-}
-
-
-export const LayerSelectorPresentationalButton: React.FC<PresentationalButtonProps> = ({
-	data,
-	anchorEl,
-	onClickDropdown,
-	sx,
-	selectedIndex,
-	variant,
-	color,
-}) => {
-	const extendedTheme = useExtendedTheme();
-	const isOpen = Boolean(anchorEl);
-	const id = isOpen ? "layer-selector-popover" : undefined;
-
-	if (!data) {
-		return null;
-	}
-
-	const meta = useMemo(() => getMeta(data[selectedIndex]), [selectedIndex]);
-
-	return (
-		<Button
-			id="layer-selector"
-			size="large"
-			aria-describedby={id}
-			onClick={onClickDropdown}
-			sx={sx}
-			variant={variant}
-			color={color}
-		>
-			<Image
-				borderColor={extendedTheme.palette.primary.main}
-				src={meta.image}
-				alt={meta.label}
-				title={meta.label}
-			/>
-			<FontAwesomeIcon icon={isOpen ? faAngleUp : faAngleDown} />
-		</Button>
-	);
-};
-export const LayerSelectorPresentationalPopOverV2: React.FC<PresentationalProps> = ({
-	data,
-	anchorEl,
-	onCloseDropdown,
-	selectedIndex,
-	onListItemClick,
-}) => {
-	const extendedTheme = useExtendedTheme();
-	const isOpen = Boolean(anchorEl);
-	const id = isOpen ? "layer-selector-popover" : undefined;
-
-	return (
-		<PopOver
-			id={id}
-			open={isOpen}
-			anchorEl={anchorEl}
-			onClose={onCloseDropdown}
-			anchorOrigin={{
-				vertical: "bottom",
-				horizontal: "left",
-			}}
-			transformOrigin={{
-				vertical: "top",
-				horizontal: "left",
-			}}
-		>
-			{
-				<FlexGrid direction="column">
-					{data
-						.filter(item =>
-							item.get("kind")?.startsWith("base"))
-						.map((item, index) => {
-							const meta = getMeta(item)
-							return (
-								<FlexGridItem alignContent={"flex-start"} key={meta.label}>
-									<Button
-										// disabled={item.visible}
-										onClick={() => onListItemClick(meta.label)}
-										variant="text"
-										key={meta.label}
-										sx={{ width: "100%", justifyContent: "flex-start" }}
-									>
-										<Image
-											borderColor={index === selectedIndex ? extendedTheme.palette.primary.main : "transparent"}
-											src={meta.image}
-											role="presentation"
-											title={meta.label}
-										/>
-										<Text textTransform="capitalize" variant="body2">
-											{meta.label}
-										</Text>
-									</Button>
-								</FlexGridItem>
-							)
-						})}
-				</FlexGrid>
-			}
-		</PopOver>
-	);
-};
+import { Menu, type MenuOption } from "../../../../../v1/components/Navigation/Menu/Menu";
 
 const resolveVisibleBaseLayerIndex = (layers: BaseLayer[]): number => {
-	const storedLabel = localStorage.getItem("map.baselayer");
-	const baseLayers = layers.filter(l => l.get("kind") !== "overlay-vector");
+  const storedLabel = localStorage.getItem("map.baselayer");
+  const baseLayers = layers.filter((l) => l.get("kind") !== "overlay-vector");
 
-	if (storedLabel) {
-		const storedIndex = baseLayers.findIndex(l => getMeta(l)?.label === storedLabel);
-		if (storedIndex !== -1) return storedIndex;
-	}
+  if (storedLabel) {
+    const storedIndex = baseLayers.findIndex((l) => getMeta(l)?.label === storedLabel);
+    if (storedIndex !== -1) return storedIndex;
+  }
 
-	const configIndex = baseLayers.findIndex(l => getMeta(l)?.visible);
-	if (configIndex !== -1) return configIndex;
+  const configIndex = baseLayers.findIndex((l) => getMeta(l)?.visible);
+  if (configIndex !== -1) return configIndex;
 
-	return 0;
+  return 0;
 };
 
 export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = {} }) => {
-	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-	const initialIndex = resolveVisibleBaseLayerIndex(layers);
-	const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
+  const theme = useExtendedTheme();
 
-	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		setAnchorEl(e.currentTarget);
-	};
+  const initialIndex = resolveVisibleBaseLayerIndex(layers);
+  const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
 
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
+  const baseLayers = useMemo(() => layers.filter((l) => l.get("kind")?.startsWith("base")), [layers]);
 
-	const handleOnListItemClick = (label: string) => {
-		localStorage.setItem("map.baselayer", label);
-		layers.forEach((layer, index) => {
-			const meta = getMeta(layer);
-			if (layer.get("kind") === "overlay-vector") return; // skip overlays
-			const visible = meta?.label === label;
-			layer.setVisible(visible);
-			if (visible) setSelectedIndex(index);
-		});
-		handleClose();
-	};
+  const selectedMeta = useMemo(() => getMeta(baseLayers[selectedIndex]), [baseLayers, selectedIndex]);
 
-	useEffect(() => {
-		const storedLabel = localStorage.getItem("map.baselayer");
-		if (!storedLabel) {
-			const index = layers.findIndex(l => getMeta(l)?.visible);
-			setSelectedIndex(index !== -1 ? index : 0);
-			return
-		}
-		handleOnListItemClick(storedLabel)
-	}, [layers]);
+  const handleSelect = (label: string) => {
+    localStorage.setItem("map.baselayer", label);
 
-	if (layers.length <= 1 || selectedIndex === null) return null;
+    layers.forEach((layer) => {
+      const meta = getMeta(layer);
+      if (layer.get("kind") === "overlay-vector") return;
 
-	return <div id="layer-selector" style={{ position: "absolute", bottom: 0, ...style }}>
-		<LayerSelectorPresentationalButton anchorEl={anchorEl} onClickDropdown={handleClick} variant="text" data={layers} selectedIndex={selectedIndex} />
-		<LayerSelectorPresentationalPopOverV2 anchorEl={anchorEl} onCloseDropdown={handleClose} onListItemClick={handleOnListItemClick} data={layers} selectedIndex={selectedIndex} />
-	</div>
-}
+      const visible = meta?.label === label;
+      layer.setVisible(visible);
+
+      if (visible) {
+        const idx = baseLayers.findIndex((bl) => getMeta(bl)?.label === label);
+        if (idx !== -1) setSelectedIndex(idx);
+      }
+    });
+  };
+
+  useEffect(() => {
+    const storedLabel = localStorage.getItem("map.baselayer");
+
+    if (storedLabel) {
+      handleSelect(storedLabel);
+      return;
+    }
+
+    // If nothing stored, align selector with any layer marked visible in config
+    const idx = baseLayers.findIndex((l) => getMeta(l)?.visible);
+    setSelectedIndex(idx !== -1 ? idx : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [layers]);
+
+  if (baseLayers.length <= 1 || selectedIndex == null) return null;
+
+  const options: MenuOption[] = baseLayers.map((layer, index) => {
+    const meta = getMeta(layer);
+    const isSelected = index === selectedIndex;
+
+    return {
+      id: meta.label,
+      onClick: () => handleSelect(meta.label),
+      selected: isSelected,
+
+      icon: <Image src={meta.image} role="presentation" title={meta.label} />,
+      label: (
+        <Text textTransform="capitalize" variant="body2">
+          {meta.label}
+        </Text>
+      ),
+    };
+  });
+
+  return (
+    <div id="layer-selector" style={{ ...style }}>
+      <Menu
+        aria-label="layer selector"
+        menuId="layer-selector-menu"
+        options={options}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "left" }}
+        button={(btnProps) => (
+          <Button
+            {...btnProps}
+            id="layer-selector"
+            variant="text"
+            sx={{
+              p: 1,
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              backgroundColor: "#1D1D1D",
+              color: "white",
+              "&:hover": { color: theme.palette.primary.main, backgroundColor: "#1D1D1D" },
+            }}
+          >
+            {selectedMeta?.image ? (
+              <Image src={selectedMeta.image} alt={selectedMeta.label} title={selectedMeta.label} />
+            ) : null}
+
+            <FontAwesomeIcon icon={btnProps["aria-expanded"] ? faAngleUp : faAngleDown} />
+          </Button>
+        )}
+      />
+    </div>
+  );
+};

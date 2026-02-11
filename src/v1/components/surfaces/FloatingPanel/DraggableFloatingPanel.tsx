@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Rnd } from "react-rnd";
 
-import Panel from "../FixedPanel/FixedPanel"
+import Panel from "./Panel";
 import { useFloatingPanelContext } from "./useFloatingPanelContext";
 import { DragHandleIcon } from "../../data-display";
 
@@ -44,6 +44,7 @@ interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
    * The x and y property is used to set the default position of the component.
    */
   defaultPosition?: { x: number; y: number };
+  menu?: any;
 }
 
 const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
@@ -51,41 +52,49 @@ const DraggableFloatingPanel: React.FC<DraggableFloatingPanelProps> = ({
   defaultPosition = { x: 50, y: 150 },
   dragHandleClassName = "drag-handle",
   targetId,
+  menu,
   children,
   ...props
 }) => {
   const context = useFloatingPanelContext();
-  const theme = useTheme()
+  const theme = useTheme();
 
-  const visible = (!context.panels[targetId]?.minimised &&
-    context.panels[targetId]?.visible);
+  const visible = !context.panels[targetId]?.minimised && context.panels[targetId]?.visible;
 
-  const dragHandle = <DragHandleIcon
-    className={dragHandleClassName}
-    sx={{
-      fontSize: 14,
-      color: theme.palette.grey[400],
-      cursor: "move",
-    }}
-  />
+  const MIN_SIZE = 256;
 
+  const dragHandle = (
+    <DragHandleIcon
+      className={dragHandleClassName}
+      sx={{
+        fontSize: 14,
+        color: theme.palette.grey[400],
+        cursor: "move",
+      }}
+    />
+  );
 
   return (
     <Rnd
       bounds={bounds}
-      enableResizing={false}
+      enableResizing={{
+        bottomRight: true,
+      }}
+      minWidth={MIN_SIZE}
+      minHeight={MIN_SIZE}
       dragHandleClassName={dragHandleClassName}
       default={{
         x: defaultPosition.x,
         y: defaultPosition.y,
-        width: "auto",
-        height: "auto",
+        width: 500,
+        height: 500,
       }}
+      cancel=".map"
       css={{
         visibility: visible ? "visible" : "hidden",
       }}
     >
-      <Panel targetId={targetId} dragHandle={dragHandle} {...props}>
+      <Panel targetId={targetId} dragHandle={dragHandle} {...props} menu={menu}>
         {children}
       </Panel>
     </Rnd>
