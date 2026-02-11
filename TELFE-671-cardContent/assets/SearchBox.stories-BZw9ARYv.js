@@ -1,0 +1,19 @@
+import{f as l,w as d,u as p}from"./index-edE1QCkR.js";import{S as h}from"./AuthModal-Bo2PhiMS.js";import"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import"./jsx-runtime-DMAvRu52.js";import"./index-Dl6G-zuu.js";import"./Text-DnbGH9ax.js";import"./Typography-DvrCv4HQ.js";import"./identifier-CCo8HfxA.js";import"./styled-DiVYluCu.js";import"./generateUtilityClasses-CRyAR7Z0.js";import"./DefaultPropsProvider-BrPVfFhn.js";import"./constants-JHx33hjv.js";import"./iframe-DQQ2B3xv.js";import"../sb-preview/runtime.js";import"./index-Dn0cO_TJ.js";import"./types-JQgdQoTs.js";import"./useTheme-DC9e96ys.js";import"./useTheme-CEgm5wok.js";import"./GlobalStyles-BK1ltzIn.js";import"./GlobalStyles-DdQ_E3CX.js";import"./UserProfile-DRN111Dw.js";import"./UserIcon-B0AVfc7u.js";import"./SvgIcon-DDjczThx.js";import"./index-BfyspvgH.js";import"./FlexBox-owEKTX38.js";import"./styled-BEKiHWi7.js";import"./createStyled-9i3u5Rqa.js";import"./useThemeProps-BFLDat3t.js";import"./createSvgIcon-CxivGeKF.js";import"./Modal-cSJVsbaW.js";import"./utils-QfZKikgD.js";import"./TransitionGroupContext-Cbp9jVrs.js";import"./useEnhancedEffect-DZnfS5Iy.js";import"./IconButton-CL6GPvoG.js";import"./ButtonBase-C0n3d_CB.js";import"./Menu-CYNMhx33.js";import"./index-CXtVKvFt.js";import"./Popover-DD2HYYg7.js";import"./Paper-B-rBeRIm.js";import"./Select-8VTLrbff.js";import"./useId-CkA8naEk.js";import"./Popper-QmfZ5sgW.js";import"./TelicentHorizontalSVG-DP7xLAp3.js";import"./FlexGrid-M25hPc65.js";import"./Container-CFeVW3qn.js";import"./Box-DR7xjwgg.js";import"./DataSetIcon-CzT3Gt8m.js";import"./AdapterDayjs-D7vkZCXk.js";import"./useThemeProps-BTBzXMHi.js";import"./TextField-BU2nRZ6A.js";import"./colorManipulator-DBPky6cX.js";import"./DialogContent-DyFozIFy.js";import"./Button-DPeHgJ80.js";import"./Chip-B7XAvyWn.js";import"./MenuItem-MWBitPoC.js";import"./dividerClasses-DixuAXrT.js";import"./UIThemeProvider-vkr8-daa.js";import"./ThemeProvider-BPzF9hu_.js";import"./IconButton-CSCqGkQ5.js";import"./Chip-Jqcc-fVu.js";import"./Divider-HWnn5fVZ.js";import"./Divider-DOeen-K3.js";import"./TreeView-B3svt8lB.js";import"./UserProfileContent-BkWk_Qx8.js";import"./LinearProgress-CRSreEF6.js";import"./Dialog-C-jl0jSy.js";import"./Button-RcpSRAcx.js";import"./LinkButton-CJcpdsZt.js";import"./TextField-DztZaD0H.js";import"./Select-H2_Fcnx_.js";import"./Autocomplete-DQ7I-sdn.js";import"./DatePicker-DvTHUv-u.js";import"./DateTimePicker-dN1NYyu9.js";import"./Card-BWv60QFk.js";import"./CardActions-pj93ZpKu.js";import"./Popover-CAHG92mn.js";import"./Paper-BBwh5-3y.js";import"./ErrorFallback-fPXNZKjO.js";import"./ErrorFallbackText-BLCYy_1i.js";import"./ErrorFallbackWrapper-CSpgK55r.js";import"./MapToggleButtonPresentational-DY66EemL.js";import"./Remove-DLpXZYtt.js";import"./Edit-BwFhg13Q.js";const Nr={title:"Inputs/Search/SearchBox",component:h,tags:["autodocs"],args:{onSearch:l()}},r={args:{placeholder:"Search all"},play:async({canvasElement:c})=>{const o=d(c);await p.type(o.getByRole("searchbox"),"data catalog"),await p.click(o.getByRole("button",{name:"search"}))}},t={args:{placeholder:"Search all",disabled:!0}};var i,m,a;r.parameters={...r.parameters,docs:{...(i=r.parameters)==null?void 0:i.docs,source:{originalSource:`{
+  args: {
+    placeholder: "Search all"
+  },
+  play: async ({
+    canvasElement
+  }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByRole("searchbox"), "data catalog");
+    await userEvent.click(canvas.getByRole("button", {
+      name: "search"
+    }));
+  }
+}`,...(a=(m=r.parameters)==null?void 0:m.docs)==null?void 0:a.source}}};var e,s,n;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  args: {
+    placeholder: "Search all",
+    disabled: true
+  }
+}`,...(n=(s=t.parameters)==null?void 0:s.docs)==null?void 0:n.source}}};const Pr=["Example","Disabled"];export{t as Disabled,r as Example,Pr as __namedExportsOrder,Nr as default};
