@@ -4,9 +4,21 @@
 jest.mock("ol/style");
 jest.mock("ol/Feature");
 jest.mock("ol/geom/Point");
+jest.mock("../../utils/faIconResolver", () => ({
+  resolveFaIconPath: jest.fn(),
+  ensureFaIconPath: jest.fn(() => Promise.resolve(undefined)),
+}));
 
-import { getGeneratedOlIcon, getPathBBox, extractPathD } from "../markers";
-
+import {
+  getGeneratedOlIcon,
+  getPathBBox,
+  extractPathD,
+  makeCircleSvg,
+} from "../markers";
+import {
+  ensureFaIconPath,
+  resolveFaIconPath,
+} from "../../utils/faIconResolver";
 const decodeSvg = (src: string) => decodeURIComponent(src.split(",")[1]);
 
 describe("marker icon generation (with __mocks__)", () => {
@@ -58,15 +70,19 @@ describe("marker icon generation (with __mocks__)", () => {
   });
 
   describe("innerSvg handling", () => {
-    it("does not double-wrap innerSvg with <g> elements", () => {
+    it("does not double-wrap resolved icon path with <g> elements", () => {
+      (resolveFaIconPath as jest.Mock).mockReturnValue({
+        status: "ready",
+        path: SIMPLE_PATH,
+      });
+
       const style = getGeneratedOlIcon({
         markerType: "pin",
-        innerSvg: SIMPLE_PATH,
+        faIcon: "fa-solid fa-test",
       }) as any;
 
       const decoded = decodeSvg(style.props.image.props.src);
 
-      // The inner icon group is the only <g> that applies scaling
       const scaledGroups = decoded.match(/<g[^>]*scale\(/g) || [];
 
       expect(scaledGroups.length).toBe(1);
@@ -149,6 +165,63 @@ describe("marker icon generation (with __mocks__)", () => {
       expect(bbox.minY).toBe(0);
       expect(bbox.maxX).toBe(30);
       expect(bbox.maxY).toBe(20);
+    });
+  });
+  describe("SVG utilities", () => {
+    const SIMPLE_PATH = '<path d="M0 0 L10 0 L10 10 Z" />';
+
+    it("extracts path from full svg", () => {
+      expect(extractPathD(SIMPLE_PATH)).toBe("M0 0 L10 0 L10 10 Z");
+    });
+
+    it("extracts raw path commands", () => {
+      expect(extractPathD("M1 2 L3 4")).toBe("M1 2 L3 4");
+    });
+
+    it("computes bounding box", () => {
+      const bbox = getPathBBox("M0 0 L10 0 L10 10 Z");
+      expect(bbox.width).toBe(10);
+      expect(bbox.height).toBe(10);
+    });
+
+    it("throws when no path data", () => {
+      expect(() => extractPathD("<svg></svg>")).toThrow();
+    });
+  });
+
+  describe("generator fallbacks", () => {
+    it("falls back to pin scale", () => {
+      const style = getGeneratedOlIcon({ markerType: "unknown" as any }) as any;
+      expect(style).toBeTruthy();
+    });
+
+    it("falls back to pin generator", () => {
+      const svg = makeCircleSvg({}); // covers default params
+      expect(svg).toContain("<circle");
+    });
+  });
+
+  describe("faIcon async branch", () => {
+    it("triggers async load once and re-applies style", async () => {
+      const feature = { setStyle: jest.fn() } as any;
+
+      let callCount = 0;
+
+      (resolveFaIconPath as jest.Mock).mockImplementation(() => {
+        callCount++;
+        return callCount === 1
+          ? { status: "missing" }
+          : { status: "ready", path: "M0 0 L10 10 Z" };
+      });
+
+      (ensureFaIconPath as jest.Mock).mockResolvedValue("M0 0 L10 10 Z");
+
+      getGeneratedOlIcon({ faIcon: "fa-solid fa-user" }, feature);
+
+      await Promise.resolve(); // flush microtask
+
+      expect(ensureFaIconPath).toHaveBeenCalledTimes(1);
+      expect(feature.setStyle).toHaveBeenCalledTimes(1);
     });
   });
 });

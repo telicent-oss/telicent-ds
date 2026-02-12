@@ -1,3 +1,5 @@
+import { ensureFaIconPath, resolveFaIconPath } from "../utils/faIconResolver";
+import type { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { parseSVG, makeAbsolute } from "svg-path-parser";
 import { MarkerStyle, MarkerType } from "../types/markers";
 import Style from "ol/style/Style";
@@ -7,6 +9,9 @@ import Point from "ol/geom/Point";
 
 const iconCache = new Map<string, string>();
 
+type InternalMarkerStyle = MarkerStyle & {
+  innerSvg?: string;
+};
 type IconPlacement = {
   cx: number;
   cy: number;
@@ -28,7 +33,7 @@ const makePinSvg = ({
   backgroundColor = "#FF6600",
   color = "#fff",
   innerSvg,
-}: MarkerStyle): string => {
+}: InternalMarkerStyle): string => {
   const icon = innerSvg
     ? scaleAndCenterPath(innerSvg, color, {
         cx: 12,
@@ -150,7 +155,7 @@ export const makeCircleSvg = ({
   color = "#fff",
   strokeWidth = 2,
   innerSvg,
-}: MarkerStyle): string => {
+}: InternalMarkerStyle): string => {
   const inner = innerSvg
     ? scaleAndCenterPath(innerSvg, color, ICON_PLACEMENT)
     : "";
@@ -168,7 +173,7 @@ const makeIconOnlySvg = ({
   size = 28,
   innerSvg,
   color = "#FF6600",
-}: MarkerStyle): string => {
+}: InternalMarkerStyle): string => {
   const inner = innerSvg
     ? scaleAndCenterPath(innerSvg, color, ICON_PLACEMENT)
     : "";
@@ -199,18 +204,41 @@ const getMarkerScale = (type?: unknown): number => {
   return MARKER_SCALE.pin; // safe default
 };
 
-const getIconGenerator = (type?: unknown): ((s: MarkerStyle) => string) => {
+const getIconGenerator = (
+  type?: unknown
+): ((s: InternalMarkerStyle) => string) => {
   if (typeof type === "string" && type in iconGenerators) {
     return iconGenerators[type as MarkerType];
   }
   return iconGenerators.pin;
 };
 
-export const getGeneratedOlIcon = (style: MarkerStyle = {}): Style => {
+export const getGeneratedOlIcon = (
+  style: MarkerStyle = {},
+  feature?: Feature
+): Style => {
   // The markerType are for ontology app, not anything to do with maps.
   const type = "pin";
-  const inner = style.innerSvg ?? "";
 
+  let inner: string | undefined;
+
+  if (style.faIcon) {
+    const result = resolveFaIconPath(style.faIcon);
+    if (result.status === "ready") {
+      inner = result.path;
+    } else if (
+      typeof style.faIcon === "string" &&
+      result.status === "missing"
+    ) {
+      // Trigger async load
+      ensureFaIconPath(style.faIcon).then(() => {
+        if (feature) {
+          // Re-apply style once icon becomes available
+          feature.setStyle(getGeneratedOlIcon(style, feature));
+        }
+      });
+    }
+  }
   const useFallback = !inner && style.fallbackText;
 
   let svg: string;

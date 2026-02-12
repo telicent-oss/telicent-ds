@@ -26,6 +26,7 @@ export * from "./component-library/Map/v2/primitives/MapCanvas/MapCanvas";
 export * from "./component-library/Map/v2/primitives/LayerSelector/LayerSelector";
 export * from "./component-library/Map/v2/composites/BasicMap/BasicMap";
 export * from "./component-library/Map/v2/types";
+export * from "./component-library/Map/v2/utils";
 
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/exports";
