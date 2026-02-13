@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.5](https://github.com/telicent-oss/telicent-ds/compare/v1.6.4...v1.6.5) (2026-02-13)
+
+
+### Bug Fixes
+
+* get icons resolved by map ([#449](https://github.com/telicent-oss/telicent-ds/issues/449)) ([1737147](https://github.com/telicent-oss/telicent-ds/commit/17371477ad7b70a6bb2fac8d67ccdb826c291cb5))
+
 ## [1.6.4](https://github.com/telicent-oss/telicent-ds/compare/v1.6.3...v1.6.4) (2026-02-11)
 
 
