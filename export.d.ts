@@ -49,6 +49,7 @@ import { GridProps } from '@mui/material/Grid';
 import { HTMLAttributes } from 'react';
 import { IconButtonProps } from '@mui/material/IconButton';
 import { IconButtonTypeMap } from '@mui/material';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { InputBaseProps } from '@mui/material/InputBase';
 import { InputProps } from '@mui/material';
@@ -649,6 +650,11 @@ export declare const ENCODE_SEARCH_PARAMS_MODES_Schema: z.ZodUnion<[z.ZodLiteral
 
 export declare type ENCODE_SEARCH_PARAMS_MODES_Type = z.infer<typeof ENCODE_SEARCH_PARAMS_MODES_Schema>;
 
+/**
+ * Ensure an icon is loaded using the loader chain.
+ */
+export declare const ensureFaIconPath: (faIcon: string) => Promise<string | undefined>;
+
 export declare const ErrorFallback: default_2.FC<ErrorFallbackProps>;
 
 export declare type ErrorFallbackProps = Omit<ErrorFallbackWrapperProps, "children"> & ErrorFallbackTextProps;
@@ -667,6 +673,8 @@ export declare type ErrorFallbackWrapperProps = {
     height?: number | string;
     sx?: SxProps_2<Theme_2>;
 };
+
+declare type FaIconLoader = (faIcon: string) => Promise<IconDefinition | undefined>;
 
 export declare const FeatureMap: default_2.FC<FeatureMapProps>;
 
@@ -1067,7 +1075,7 @@ export declare interface MarkerStyle {
     color?: string;
     strokeWidth?: number;
     backgroundColor?: string;
-    innerSvg?: string;
+    faIcon?: string;
     borderColor?: string;
     size?: number;
     zIndex?: number;
@@ -1424,6 +1432,12 @@ declare type RecentSearchProps = Partial<{
     children: default_2.ReactNode;
 }>;
 
+/**
+ * Register an icon loader (app or library).
+ * Loaders are tried in registration order.
+ */
+export declare const registerFaIconLoader: (loader: FaIconLoader) => void;
+
 export declare const renderErrorToHtml: (error: unknown, context?: string) => void;
 
 declare interface RequestApi {
@@ -1435,6 +1449,15 @@ declare interface RequestApi {
 }
 
 declare type RequiredRest = Omit<Picked, keyof Optional>;
+
+export declare const resolveFaIconPath: (faIcon?: string | IconDefinition) => ResolveResult;
+
+declare interface ResolveResult {
+    path?: string;
+    status: ResolveStatus;
+}
+
+declare type ResolveStatus = "ready" | "missing" | "loading" | "invalid";
 
 declare type ResultMarker = {
     geohash: string;
