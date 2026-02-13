@@ -21,6 +21,10 @@ describe("getAnchorFraction", () => {
 });
 
 describe("markerToOLFeature", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("creates a Feature with geometry, id, and style", () => {
     const marker = {
       id: "m1",
@@ -36,29 +40,30 @@ describe("markerToOLFeature", () => {
 
     const feature = markerToOLFeature(marker);
 
-    // Check OpenLayers Feature basics
     expect(feature).toBeInstanceOf(Feature);
+
     const geom = feature.getGeometry();
     expect(geom).toBeInstanceOf(Point);
 
-    // Verify coordinates (mocked)
     expect((geom as Point).getCoordinates()).toEqual([
       0.10986328125, 51.52587890625,
     ]);
 
-    // Style checks
-    expect(getGeneratedOlIcon).toHaveBeenCalledWith({
-      markerType: "pin",
-      backgroundColor: "#000",
-      color: "#FFF",
-      fallbackText: "L",
-    });
+    // ✅ NEW correct assertion: first argument only
+    expect(getGeneratedOlIcon).toHaveBeenCalledWith(
+      marker.style,
+      expect.any(Feature)
+    );
   });
 
   it("uses default style when none is provided", () => {
     const marker = { id: "m3", geohash: "u10j4" } as MarkerFeature;
+
     markerToOLFeature(marker);
 
-    expect(getGeneratedOlIcon).toHaveBeenCalledWith({ markerType: "pin" });
+    expect(getGeneratedOlIcon).toHaveBeenCalledWith(
+      { markerType: "pin" },
+      expect.any(Feature)
+    );
   });
 });

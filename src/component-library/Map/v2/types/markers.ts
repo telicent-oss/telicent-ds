@@ -20,7 +20,7 @@ export interface MarkerStyle {
   color?: string; // e.g. "#ff6600"
   strokeWidth?: number;
   backgroundColor?: string; // e.g. "#ffffff"
-  innerSvg?: string;
+  faIcon?: string;
   borderColor?: string;
   size?: number; // in px (for reference scale)
   zIndex?: number;

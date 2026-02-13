@@ -30,7 +30,7 @@ export const markerToOLFeature = (marker: MarkerFeature): Feature<Point> => {
 
   // Use the new OL marker helper for style
   const markerStyle: MarkerStyle = marker.style ?? { markerType: "pin" };
-  const style = getGeneratedOlIcon(markerStyle);
+  const style = getGeneratedOlIcon(markerStyle, feature);
 
   feature.set("originalStyle", style); // This is needed when selecting Features
   feature.setStyle(style);
