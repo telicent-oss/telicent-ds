@@ -1,0 +1,31 @@
+import{a as I,j as r}from"./emotion-react-jsx-runtime.browser.esm-BgDa5HT4.js";import{A as P}from"./TelicentHorizontalSVG-B10Ukdzd.js";import"./DataSetIcon-CzT3Gt8m.js";import"./UserIcon-B0AVfc7u.js";import{U as k}from"./UserProfile-epQFiqFV.js";import{A as y,p as o}from"./AuthModal-C5AeUW8e.js";import"./Text-DnbGH9ax.js";import"./Chip-Jqcc-fVu.js";import{D as L}from"./Divider-HWnn5fVZ.js";import"./TreeView-B3svt8lB.js";import"./UserProfileContent-BkWk_Qx8.js";import{B as v}from"./Button-RcpSRAcx.js";import"./IconButton-CSCqGkQ5.js";import"./LinkButton-CJcpdsZt.js";import{appList as O}from"./AppSwitch.stories-DOYCim93.js";import{B as V}from"./Box-DR7xjwgg.js";import"./jsx-runtime-DMAvRu52.js";import"./index-Dl6G-zuu.js";import"./SvgIcon-DDjczThx.js";import"./identifier-CCo8HfxA.js";import"./styled-DiVYluCu.js";import"./generateUtilityClasses-CRyAR7Z0.js";import"./DefaultPropsProvider-BrPVfFhn.js";import"./FlexGrid-cELkpYdP.js";import"./useTheme-DC9e96ys.js";import"./useTheme-CEgm5wok.js";import"./Container-CFeVW3qn.js";import"./styled-BEKiHWi7.js";import"./createStyled-9i3u5Rqa.js";import"./useThemeProps-BFLDat3t.js";import"./FlexBox-owEKTX38.js";import"./Typography-DvrCv4HQ.js";import"./Paper-B-rBeRIm.js";import"./index-BfyspvgH.js";import"./createSvgIcon-CxivGeKF.js";import"./Modal-cSJVsbaW.js";import"./utils-QfZKikgD.js";import"./TransitionGroupContext-Cbp9jVrs.js";import"./useEnhancedEffect-DZnfS5Iy.js";import"./index-Dn0cO_TJ.js";import"./IconButton-CL6GPvoG.js";import"./ButtonBase-C0n3d_CB.js";import"./Menu-CYNMhx33.js";import"./index-CXtVKvFt.js";import"./Popover-DD2HYYg7.js";import"./constants-FFgaJUwN.js";import"./iframe-DQVzeDg6.js";import"../sb-preview/runtime.js";import"./types-JQgdQoTs.js";import"./GlobalStyles-BK1ltzIn.js";import"./GlobalStyles-DdQ_E3CX.js";import"./Select-8VTLrbff.js";import"./useId-CkA8naEk.js";import"./Popper-QmfZ5sgW.js";import"./AdapterDayjs-D7vkZCXk.js";import"./useThemeProps-BTBzXMHi.js";import"./TextField-BU2nRZ6A.js";import"./colorManipulator-DBPky6cX.js";import"./DialogContent-DyFozIFy.js";import"./Button-DPeHgJ80.js";import"./Chip-B7XAvyWn.js";import"./MenuItem-MWBitPoC.js";import"./dividerClasses-DixuAXrT.js";import"./UIThemeProvider-BLvKa1LM.js";import"./ThemeProvider-BPzF9hu_.js";import"./LinearProgress-CRSreEF6.js";import"./Dialog-C-jl0jSy.js";import"./TextField-DztZaD0H.js";import"./Select-D4OJP2ga.js";import"./Autocomplete-DQ7I-sdn.js";import"./DatePicker-DvTHUv-u.js";import"./DateTimePicker-dN1NYyu9.js";import"./Divider-DOeen-K3.js";import"./Card-BWv60QFk.js";import"./CardActions-pj93ZpKu.js";import"./Popover-CAHG92mn.js";import"./Paper-BBwh5-3y.js";import"./ErrorFallback-fPXNZKjO.js";import"./ErrorFallbackText-BLCYy_1i.js";import"./ErrorFallbackWrapper-CSpgK55r.js";import"./MapToggleButtonPresentational-DY66EemL.js";import"./Remove-DLpXZYtt.js";import"./Edit-BwFhg13Q.js";const m={},T=n=>(m==null?void 0:m.VITE_FIGSPEC)?{design:{type:"figspec",url:n}}:{design:{type:"figma",url:n}},ut={title:"Surfaces/AppBar",component:P,tags:["autodocs"],parameters:{docs:{description:{component:"The AppBar component provides a top navigation bar that supports branding, actions, and more."}},...T("https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=5870-18322&t=M1U919ZxRbInOHt7-4"),layout:"fullscreen"}},i={},t={args:{appName:"Catalogue"}},D=I(k,{fullName:"VeryLongEmailAddress@LongCompanyName.com",children:[r(o,{title:"Username",content:"Han Solo"}),r(o,{title:"Email",content:"han.solo@rebel-alliance.com"}),r(o,{title:"Deployed Organisation",content:"Rebel Alliance"}),r(o,{title:"Version number",content:"1.2.3"}),r(L,{}),r(V,{sx:{pt:1},children:r(v,{onClick:()=>console.log("Sign Out clicked"),color:"primary",variant:"contained",startIcon:r("i",{className:"fa-solid fa-arrow-right-from-bracket"}),"data-testid":"signOut",children:"Sign Out"})})]}),a={args:{isElevated:!0,...t.args,startChild:r(y,{apps:O}),endChild:D}},e={args:{appName:"Design System",version:"1.2.0"}},p={args:{...t.args,endChild:r(v,{color:"primary",variant:"contained",startIcon:r("i",{className:"fa-solid fa-arrow-right-from-bracket"}),children:"Sign Out"})}},s={args:{...t.args,disableBrand:!0,startChild:r(y,{apps:O}),endChild:D}};var c,d,l;i.parameters={...i.parameters,docs:{...(c=i.parameters)==null?void 0:c.docs,source:{originalSource:"{}",...(l=(d=i.parameters)==null?void 0:d.docs)==null?void 0:l.source}}};var g,u,h;t.parameters={...t.parameters,docs:{...(g=t.parameters)==null?void 0:g.docs,source:{originalSource:`{
+  args: {
+    appName: "Catalogue"
+  }
+}`,...(h=(u=t.parameters)==null?void 0:u.docs)==null?void 0:h.source}}};var f,S,A;a.parameters={...a.parameters,docs:{...(f=a.parameters)==null?void 0:f.docs,source:{originalSource:`{
+  args: {
+    isElevated: true,
+    ...WithAppName.args,
+    startChild: <AppSwitch apps={appList} />,
+    endChild: UserProfileExample
+  }
+}`,...(A=(S=a.parameters)==null?void 0:S.docs)==null?void 0:A.source}}};var N,C,B;e.parameters={...e.parameters,docs:{...(N=e.parameters)==null?void 0:N.docs,source:{originalSource:`{
+  args: {
+    appName: "Design System",
+    version: "1.2.0"
+  }
+}`,...(B=(C=e.parameters)==null?void 0:C.docs)==null?void 0:B.source}}};var b,x,W;p.parameters={...p.parameters,docs:{...(b=p.parameters)==null?void 0:b.docs,source:{originalSource:`{
+  args: {
+    ...WithAppName.args,
+    endChild: <Button color="primary" variant="contained" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
+        Sign Out
+      </Button>
+  }
+}`,...(W=(x=p.parameters)==null?void 0:x.docs)==null?void 0:W.source}}};var E,U,w;s.parameters={...s.parameters,docs:{...(E=s.parameters)==null?void 0:E.docs,source:{originalSource:`{
+  args: {
+    ...WithAppName.args,
+    disableBrand: true,
+    startChild: <AppSwitch apps={appList} />,
+    endChild: UserProfileExample
+  }
+}`,...(w=(U=s.parameters)==null?void 0:U.docs)==null?void 0:w.source}}};const ht=["Example","WithAppName","WithUserProfileAndAppSwitch","WithVersionNumber","WithSignOutButton","WithNoBrand"];export{i as Example,t as WithAppName,s as WithNoBrand,p as WithSignOutButton,a as WithUserProfileAndAppSwitch,e as WithVersionNumber,ht as __namedExportsOrder,ut as default};
