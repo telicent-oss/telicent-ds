@@ -73,7 +73,11 @@ const AppBar: React.FC<AppBarProps> = ({
           <>
             <TelicentMark fontSize="large" />
             <TelicentBrand />
-            <MUITypography variant="h1" color="primary" sx={{ fontFamily: "Figtree", fontSize: 40, fontWeight: 400 }}>
+            <MUITypography
+              variant="h1"
+              color="primary"
+              sx={{ fontFamily: "Figtree", fontSize: 30, fontWeight: 400, pt: "2px" }}
+            >
               {appName?.toUpperCase()}
             </MUITypography>
           </>

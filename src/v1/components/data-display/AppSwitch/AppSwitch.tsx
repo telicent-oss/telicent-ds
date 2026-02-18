@@ -44,7 +44,7 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
         onClick={handleClick}
         color="primary"
       >
-        <GridIcon />
+        <GridIcon sx={{ height: 24, width: 24 }} />
       </IconButton>
       <MUIMenu
         id="app-switch-menu"
