@@ -20,8 +20,8 @@ const TelicentMark: React.FC<TelicentMarkProps> = ({
   return (
     <FlexBox
       sx={{
-        width: "34px",
-        height: "34px",
+        width: "fit-content",
+        height: "fit-content",
         padding: transparentBg ? 0 : 0.5,
         backgroundColor: transparentBg ? "transparent" : theme.palette.primary.main,
       }}
