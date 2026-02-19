@@ -1235,7 +1235,7 @@ declare type Optional = Pick<Picked, "initialViewState" | "geoPolygons" | "attri
 declare type Optionalized = Partial<Optional>;
 
 export declare interface Options {
-    value: string;
+    value: string | number;
     label: string;
 }
 
