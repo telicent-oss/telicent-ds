@@ -1,0 +1,1 @@
+import{j as e}from"./emotion-react-jsx-runtime.browser.esm-e0zr1XFC.js";import{S as r}from"./FlexBox-wqE_3hOo.js";const t=({children:o})=>e(r,{rowGap:2,children:o});t.__docgenInfo={description:"",methods:[],displayName:"UserProfileContent"};export{t as U};
