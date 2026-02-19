@@ -20,17 +20,11 @@ export type TextProps = BaseProps &
     /**
      * The type of text style to use.
      */
-    variant:
-      | "subtitle1"
-      | "subtitle2"
-      | "body1"
-      | "body2"
-      | "overline"
-      | "caption";
+    variant: "subtitle1" | "subtitle2" | "body1" | "body2" | "overline" | "caption";
   }>;
 
-const Text: React.FC<TextProps> = ({ variant = "body1", ...textProps }) => (
-  <Typography component="p" variant={variant} {...textProps} />
+const Text: React.FC<TextProps> = ({ variant = "body1", component = "p", ...textProps }) => (
+  <Typography component={component} variant={variant} {...textProps} />
 );
 
 const H1: React.FC<HeadingProps> = ({ variant = "h1", ...headingProps }) => (

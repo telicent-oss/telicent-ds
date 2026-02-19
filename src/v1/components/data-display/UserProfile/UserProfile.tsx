@@ -36,6 +36,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
       >
         <Text
           variant="subtitle1"
+          component="h2"
           sx={{
             display: { xs: "none", sm: "block" },
             maxWidth: {
