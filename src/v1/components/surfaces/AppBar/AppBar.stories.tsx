@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
 
 import AppBar from "./AppBar";
-import { AppSwitch, Text, UserProfile, UserStatus } from "../../data-display";
+import { AppSwitch, Divider, TitleAndContent, UserProfile } from "../../data-display";
 import { Button } from "../../buttons";
 import { appList } from "../../data-display/AppSwitch/AppSwitch.stories";
+import { figmaDesign } from "../../../../../.storybook/figmaDesign";
+import { Box } from "@mui/material";
 
 const meta: Meta<typeof AppBar> = {
   title: "Surfaces/AppBar",
@@ -16,6 +17,10 @@ const meta: Meta<typeof AppBar> = {
         component: "The AppBar component provides a top navigation bar that supports branding, actions, and more.",
       },
     },
+
+    ...figmaDesign(
+      "https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=5870-18322&t=M1U919ZxRbInOHt7-4",
+    ),
     layout: "fullscreen",
   },
 };
@@ -27,28 +32,37 @@ export const Example: Story = {};
 
 export const WithAppName: Story = {
   args: {
-    appName: "Design System",
+    appName: "Catalogue",
   },
 };
 
-export const WithUserProfile: Story = {
-  args: {
-    ...WithAppName.args,
-    endChild: (
-      <UserProfile fullName="Han Solo">
-        <UserStatus fullName="Han Solo">
-          <Text variant="subtitle1">Roles</Text>
-          <Text>Smuggler</Text>
-          <Text>Scoundrel</Text>
-          <Text>Hero</Text>
-        </UserStatus>
-      </UserProfile>
-    ),
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+const UserProfileExample = (
+  <UserProfile fullName="VeryLongEmailAddress@LongCompanyName.com">
+    <TitleAndContent title={"Username"} content={"Han Solo"} />
+    <TitleAndContent title={"Email"} content={"han.solo@rebel-alliance.com"} />
+    <TitleAndContent title={"Deployed Organisation"} content={"Rebel Alliance"} />
+    <TitleAndContent title={"Version number"} content={"1.2.3"} />
+    <Divider />
+    <Box sx={{ pt: 1 }}>
+      <Button
+        onClick={() => console.log("Sign Out clicked")}
+        color="primary"
+        variant="contained"
+        startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}
+        data-testid="signOut"
+      >
+        Sign Out
+      </Button>
+    </Box>
+  </UserProfile>
+);
 
-    await userEvent.click(canvas.getByRole("button", { name: "user-profile" }));
+export const WithUserProfileAndAppSwitch: Story = {
+  args: {
+    isElevated: true,
+    ...WithAppName.args,
+    startChild: <AppSwitch apps={appList} />,
+    endChild: UserProfileExample,
   },
 };
 
@@ -70,32 +84,11 @@ export const WithSignOutButton: Story = {
   },
 };
 
-export const WithAppSwitch: Story = {
-  args: {
-    ...WithAppName.args,
-    startChild: <AppSwitch apps={appList} />,
-    endChild: (
-      <Button color="primary" variant="contained" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
-        Sign Out
-      </Button>
-    ),
-  },
-};
-
 export const WithNoBrand: Story = {
   args: {
     ...WithAppName.args,
     disableBrand: true,
     startChild: <AppSwitch apps={appList} />,
-    endChild: (
-      <UserProfile fullName="Han Solo">
-        <UserStatus fullName="Han Solo">
-          <Text variant="subtitle1">Roles</Text>
-          <Text>Smuggler</Text>
-          <Text>Scoundrel</Text>
-          <Text>Hero</Text>
-        </UserStatus>
-      </UserProfile>
-    ),
+    endChild: UserProfileExample,
   },
 };

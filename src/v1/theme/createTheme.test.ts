@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -79,45 +79,25 @@
+    @@ -88,45 +88,25 @@
          },
          "MuiCssBaseline": {}
        },
@@ -101,7 +101,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 1	DataNavy (light)
     +++ 1	DocumentPink (light)
-    @@ -38,9 +38,9 @@
+    @@ -47,9 +47,9 @@
                },
                "style": {
                  "borderWidth": 1,
@@ -112,7 +112,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -81,12 +81,12 @@
+    @@ -90,12 +90,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -135,7 +135,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 2	DataNavy (light)
     +++ 2	DocumentPink (dark)
-    @@ -38,9 +38,9 @@
+    @@ -47,9 +47,9 @@
                },
                "style": {
                  "borderWidth": 1,
@@ -146,7 +146,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -79,45 +79,25 @@
+    @@ -88,45 +88,25 @@
          },
          "MuiCssBaseline": {}
        },
@@ -207,7 +207,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 3	DataNavy (light)
     +++ 3	GraphOrange (light)
-    @@ -38,9 +38,9 @@
+    @@ -47,9 +47,9 @@
                },
                "style": {
                  "borderWidth": 1,
@@ -218,7 +218,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -81,12 +81,12 @@
+    @@ -90,12 +90,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -241,7 +241,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 4	DataNavy (light)
     +++ 4	GraphOrange (dark)
-    @@ -38,9 +38,9 @@
+    @@ -47,9 +47,9 @@
                },
                "style": {
                  "borderWidth": 1,
@@ -252,7 +252,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -79,45 +79,25 @@
+    @@ -88,45 +88,25 @@
          },
          "MuiCssBaseline": {}
        },
@@ -313,7 +313,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 5	DataNavy (light)
     +++ 5	AdminBlue (light)
-    @@ -38,9 +38,9 @@
+    @@ -47,9 +47,9 @@
                },
                "style": {
                  "borderWidth": 1,
@@ -324,7 +324,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -81,12 +81,12 @@
+    @@ -90,12 +90,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -347,7 +347,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 6	DataNavy (light)
     +++ 6	AdminBlue (dark)
-    @@ -38,9 +38,9 @@
+    @@ -47,9 +47,9 @@
                },
                "style": {
                  "borderWidth": 1,
@@ -358,7 +358,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -79,45 +79,25 @@
+    @@ -88,45 +88,25 @@
          },
          "MuiCssBaseline": {}
        },
@@ -419,7 +419,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 7	DataNavy (light)
     +++ 7	Blank (light)
-    @@ -38,9 +38,9 @@
+    @@ -47,9 +47,9 @@
                },
                "style": {
                  "borderWidth": 1,
@@ -430,7 +430,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -81,12 +81,12 @@
+    @@ -90,12 +90,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -453,7 +453,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 8	DataNavy (light)
     +++ 8	Blank (dark)
-    @@ -38,9 +38,9 @@
+    @@ -47,9 +47,9 @@
                },
                "style": {
                  "borderWidth": 1,
@@ -464,7 +464,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -79,45 +79,25 @@
+    @@ -88,45 +88,25 @@
          },
          "MuiCssBaseline": {}
        },

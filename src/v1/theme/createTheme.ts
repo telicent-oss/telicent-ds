@@ -4,11 +4,13 @@ import generateComponentOverrides from "./style-overrides/components";
 import TYPOGRAPHY_STYLE_OVERRIDES from "./style-overrides/typography";
 import createLightPalette from "./colors/palette/createLightPalette";
 import createDarkPalette from "./colors/palette/createDarkPalette";
+import { MUI_BREAKPOINTS } from "../tokens/breakpoints";
 
 export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
 
 export const createThemePure = (uiTheme: UITheme, palette: ThemeOptions["palette"]) => {
   return createMUITheme({
+    breakpoints: MUI_BREAKPOINTS,
     components: generateComponentOverrides(uiTheme),
     palette,
     typography: TYPOGRAPHY_STYLE_OVERRIDES,
@@ -26,7 +28,7 @@ const cache: ThemeCache = Object.fromEntries(
       light: createThemePure(uiTheme, createLightPalette(uiTheme)),
       dark: createThemePure(uiTheme, createDarkPalette(uiTheme)),
     },
-  ])
+  ]),
 ) as ThemeCache;
 
 export const createTheme = (uiTheme: UITheme, dark: boolean, skipCache = false) =>

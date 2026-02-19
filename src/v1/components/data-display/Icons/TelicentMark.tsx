@@ -1,7 +1,5 @@
 import React from "react";
-import MUISvgIcon, {
-  SvgIconProps as MUISvgIconProps,
-} from "@mui/material/SvgIcon";
+import MUISvgIcon, { SvgIconProps as MUISvgIconProps } from "@mui/material/SvgIcon";
 import { useTheme } from "@mui/material/styles";
 import { FlexBox } from "../../layout";
 
@@ -10,8 +8,8 @@ interface TelicentMarkProps extends MUISvgIconProps {
 }
 
 const TelicentMark: React.FC<TelicentMarkProps> = ({
-  width = 24,
-  height = 24,
+  width = 26,
+  height = 26,
   transparentBg = false,
   color,
   sx,
@@ -25,9 +23,7 @@ const TelicentMark: React.FC<TelicentMarkProps> = ({
         width: "fit-content",
         height: "fit-content",
         padding: transparentBg ? 0 : 0.5,
-        backgroundColor: transparentBg
-          ? "transparent"
-          : theme.palette.primary.main,
+        backgroundColor: transparentBg ? "transparent" : theme.palette.primary.main,
       }}
     >
       <MUISvgIcon

@@ -4,7 +4,7 @@ import MUIIconButton from "@mui/material/IconButton";
 import MUIAvatar from "@mui/material/Avatar";
 import MUIMenu from "@mui/material/Menu";
 
-import { H2 } from "../Text/Text";
+import Text from "../Text/Text";
 import UserIcon from "../Icons/UserIcon";
 import DownArrowIcon from "../FontAwesomeIcons/DownArrowIcon";
 
@@ -34,13 +34,16 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
         spacing={1}
         sx={{ cursor: "pointer" }}
       >
-        <H2
-          variant="h6"
+        <Text
+          variant="subtitle1"
+          component="h2"
           sx={{
             display: { xs: "none", sm: "block" },
             maxWidth: {
-              sm: "7rem",
-              md: "16rem",
+              sm: "clamp(130px, 15vw, 360px)",
+              md: "clamp(160px, 22vw, 360px)",
+              lg: "clamp(240px, 25vw, 600px)",
+              xl: "clamp(240px, calc(25vw + 80px), 600px)",
             },
             overflow: "hidden",
             whiteSpace: "nowrap",
@@ -49,12 +52,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {
           title={fullName}
         >
           {fullName}
-        </H2>
+        </Text>
         <MUIAvatar variant="circular-outlined" sx={{ width: 32, height: 32, borderColor: "inherit" }}>
           <UserIcon color="inherit" />
         </MUIAvatar>
         <MUIIconButton aria-label="user-profile" color="inherit">
-          <DownArrowIcon rotation={open ? 180 : undefined} size="sm" />
+          <DownArrowIcon rotation={open ? 180 : undefined} size="sm" color="primary" />
         </MUIIconButton>
       </MUIStack>
       <MUIMenu
