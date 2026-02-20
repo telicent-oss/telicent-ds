@@ -6,12 +6,11 @@ import {
   SelectProps as MuiSelectProps,
   FormHelperText,
 } from "@mui/material";
-import React from "react";
+import React, { useId } from "react";
 
 export interface Options {
-  id?: React.Key;
-  value?: any;
-  label: React.ReactNode | string;
+  value: string | number;
+  label: string;
 }
 
 export type SelectProps = MuiSelectProps & {
@@ -39,6 +38,11 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
     },
     ref,
   ) => {
+    const reactId = useId();
+    const selectedId = id ?? `select-${reactId}`;
+    const labelId = label ? `${selectedId}-label` : undefined;
+    const helperTextId = helperText ? `${selectedId}-helper-text` : undefined;
+
     return (
       <FormControl
         sx={{ minWidth: 88, ...(width && { width }), ...(fullWidth && { width: "100%" }), ...sx }}
@@ -56,10 +60,8 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
 
         <MUISelect
           {...rest}
-          multiple={false}
           color="primary"
           variant="outlined"
-          IconComponent={(props) => <FontAwesomeIcon icon={faAngleDown} {...props} />}
           labelId={labelId}
           label={label}
           id={selectedId}
@@ -68,12 +70,8 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
           inputRef={ref}
           aria-describedby={helperText ? helperTextId : undefined}
         >
-          {options.map((option, idx) => (
-            <MenuItem
-              key={option.id ?? option.value ?? option.label ?? idx}
-              value={option.value ?? option.label}
-              disableRipple
-            >
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value} disableRipple>
               {option.label}
             </MenuItem>
           ))}
