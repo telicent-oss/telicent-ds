@@ -4,6 +4,8 @@ import MUIMenuItem from "@mui/material/MenuItem";
 import MUIDivider from "@mui/material/Divider";
 import MUIListItemIcon from "@mui/material/ListItemIcon";
 import MUIListItemText from "@mui/material/ListItemText";
+import { SxProps } from "@mui/material";
+import { Theme } from "@emotion/react";
 
 export type MenuOption = {
   id: string;
@@ -38,6 +40,8 @@ type MenuProps = {
   anchorOrigin?: React.ComponentProps<typeof MUIMenu>["anchorOrigin"];
   transformOrigin?: React.ComponentProps<typeof MUIMenu>["transformOrigin"];
   autoFocusSelected?: boolean;
+
+  sx?: SxProps<Theme>;
 };
 
 export const Menu: React.FC<MenuProps> = ({
@@ -50,6 +54,7 @@ export const Menu: React.FC<MenuProps> = ({
   anchorOrigin = { vertical: "bottom", horizontal: "right" },
   transformOrigin = { vertical: "top", horizontal: "right" },
   autoFocusSelected = true,
+  sx,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -88,6 +93,7 @@ export const Menu: React.FC<MenuProps> = ({
           "aria-label": ariaLabel,
           ...(autoFocusSelected && selectedIndex >= 0 ? { autoFocusItem: true } : {}),
         }}
+        sx={sx}
       >
         {options.map((opt, idx) => (
           <React.Fragment key={opt.id}>
