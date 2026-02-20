@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0](https://github.com/telicent-oss/telicent-ds/compare/v1.6.5...v1.7.0) (2026-02-19)
+
+
+### Features
+
+* update AppBar (UI) ([#452](https://github.com/telicent-oss/telicent-ds/issues/452)) ([1ec4d7b](https://github.com/telicent-oss/telicent-ds/commit/1ec4d7b30c44924b98976d9702a5f012fa11d7dd))
+
+
+### Bug Fixes
+
+* do not install react as dependencies ([#454](https://github.com/telicent-oss/telicent-ds/issues/454)) ([c2e746d](https://github.com/telicent-oss/telicent-ds/commit/c2e746d522a48150480d23bf3f6070b2b834e272))
+
 ## [1.6.5](https://github.com/telicent-oss/telicent-ds/compare/v1.6.4...v1.6.5) (2026-02-13)
 
 
