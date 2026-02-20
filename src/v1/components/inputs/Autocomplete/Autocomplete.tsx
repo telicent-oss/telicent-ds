@@ -1,13 +1,19 @@
 import { Autocomplete as MuiAutocomplete } from "@mui/material";
 import { forwardRef } from "react";
 import TextField from "../TextField/TextField";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { Chip } from "../../data-display";
 
-type Option = { label: string; value: string };
-
-type AutoCompleteProps = {
+export type Option = {
   label: string;
-  value: string | null;
-  onChange: (value: string | null) => void;
+  value: string;
+  icon?: React.ReactNode;
+};
+
+type BaseProps = {
+  id?: string;
+  label: string;
   options: Option[];
   placeholder?: string;
   disabled?: boolean;
@@ -18,23 +24,68 @@ type AutoCompleteProps = {
   required?: boolean;
 };
 
+type SingleProps = BaseProps & {
+  multiple?: false;
+  value: Option | null;
+  onChange: (value: Option | null) => void;
+};
+
+type MultipleProps = BaseProps & {
+  multiple: true;
+  value: Option[];
+  onChange: (value: Option[]) => void;
+};
+
+type AutoCompleteProps = SingleProps | MultipleProps;
+
 const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
   (
-    { label, value, onChange, options, placeholder, disabled, error, helperText, fullWidth = true, size = "small", required = false },
-    ref
+    {
+      label,
+      value,
+      onChange,
+      options,
+      placeholder,
+      disabled,
+      error,
+      helperText,
+      fullWidth = true,
+      size = "small",
+      required = false,
+      multiple = false,
+      id,
+    },
+    ref,
   ) => {
-    const selected = options.find((option) => option.value === value) ?? null;
-
     return (
-      <MuiAutocomplete
+      <MuiAutocomplete<Option, boolean, false, false>
+        id={id}
         ref={ref}
         options={options}
-        value={selected}
-        onChange={(_, option) => onChange(option ? option.value : null)}
+        multiple={multiple}
+        value={value as any}
+        popupIcon={<FontAwesomeIcon icon={faAngleDown} />}
+        onChange={(_, next) => onChange((next ?? (multiple ? [] : null)) as any)}
         fullWidth={fullWidth}
         size={size}
         disabled={disabled}
-        isOptionEqualToValue={(option, value) => option.value === value.value}
+        isOptionEqualToValue={(option, val) => option.value === val.value}
+        renderTags={
+          multiple
+            ? (selectedOptions, getTagProps) =>
+                selectedOptions.map((option, index) => (
+                  <Chip
+                    variant="filled"
+                    color="default"
+                    size="small"
+                    // icon={option.icon}
+                    label={option.label}
+                    {...getTagProps({ index })}
+                    sx={{ pl: 1 }}
+                  />
+                ))
+            : undefined
+        }
         renderInput={(params) => (
           <TextField
             {...params}
@@ -48,7 +99,7 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
         )}
       />
     );
-  }
+  },
 );
 
 export default Autocomplete;

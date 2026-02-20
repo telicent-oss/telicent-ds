@@ -51,6 +51,10 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     },
     MuiAutocomplete: {
       styleOverrides: {
+        tag: {
+          marginTop: 0,
+          marginBottom: 0,
+        },
         paper: ({ theme }) => ({
           borderRadius: theme.shape.borderRadius,
         }),
@@ -69,20 +73,20 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
             color: theme.palette.primary.main,
           },
           "&.Mui-selected:hover, &[aria-selected='true']:hover": {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: theme.palette.primary.main,
             color: theme.palette.primary.main,
             backgroundImage: "none",
           },
 
           "&:hover, &.Mui-focused": {
             backgroundColor: `${theme.palette.background.default} !important`,
-            border: `1px solid ${theme.palette.primary.main}`,
+            border: `1px solid ${theme.palette.primary.main} !important`,
           },
 
           "&[aria-selected='true']": {
             backgroundColor: `${theme.palette.background.default} !important`,
             color: theme.palette.primary.main,
-            border: `1px solid ${theme.palette.primary.main}`,
+            border: `1px solid ${theme.palette.background.default}`,
           },
           "&[aria-selected='true']:hover, &.Mui-focused[aria-selected='true']": {
             backgroundColor: `${theme.palette.background.default} !important`,
