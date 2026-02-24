@@ -1,12 +1,16 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import Autocomplete, { Option } from "./Autocomplete";
+import { figmaDesign } from "../../../../../.storybook/figmaDesign";
 
 const meta: Meta<typeof Autocomplete> = {
   title: "Inputs/Autocomplete",
   component: Autocomplete,
   tags: ["autodocs"],
   parameters: {
+    ...figmaDesign(
+      "https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=6046-4249&t=jap5NMqoYYKJjVJz-4",
+    ),
     docs: {
       description: {
         component: `
