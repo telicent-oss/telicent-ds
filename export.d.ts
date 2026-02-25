@@ -239,10 +239,15 @@ declare type AutocompleteOption = {
     isRecentSearch: boolean;
 };
 
-declare type AutoCompleteProps = {
+declare type AutoCompleteProps = SingleProps | MultipleProps;
+
+export declare const base64Codec: Codec;
+
+export declare type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;
+
+declare type BaseProps_2 = {
+    id?: string;
     label: string;
-    value: string | null;
-    onChange: (value: string | null) => void;
     options: Option_2[];
     placeholder?: string;
     disabled?: boolean;
@@ -252,10 +257,6 @@ declare type AutoCompleteProps = {
     size?: "small" | "medium";
     required?: boolean;
 };
-
-export declare const base64Codec: Codec;
-
-export declare type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;
 
 export declare type BaseRasterLayerConfig = {
     id: string;
@@ -354,7 +355,7 @@ export declare const checkOntology: (iconType: string, findIcon: (classUri: stri
 
 export declare const Chip: default_2.FC<ChipProps>;
 
-export declare type ChipProps = Omit<ChipProps_2, "avatar" | "children" | "classes" | "clickable" | "color" | "component" | "deleteIcon" | "icon" | "skipFocusWhenDisabled" | "sx">;
+export declare type ChipProps = Omit<ChipProps_2, "avatar" | "children" | "classes" | "clickable" | "component" | "deleteIcon" | "icon" | "skipFocusWhenDisabled">;
 
 export declare const ClockIcon: default_2.FC<ClockIconProps>;
 
@@ -1198,6 +1199,12 @@ declare type MUIButtonBaseProps = Omit<ButtonBaseProps, "centerRipple" | "classe
 
 declare type MUIChipProps = Omit<ChipProps_3, "variant" | "color" | "avatar" | "classes">;
 
+declare type MultipleProps = BaseProps_2 & {
+    multiple: true;
+    value: Option_2[];
+    onChange: (value: Option_2[]) => void;
+};
+
 declare type NavProps = JSX.IntrinsicElements["nav"];
 
 export declare function onAuthEvent(callback: (event: AuthEvent) => void): () => void;
@@ -1228,6 +1235,7 @@ export declare interface OntologyInputHierarchy {
 declare type Option_2 = {
     label: string;
     value: string;
+    icon?: React.ReactNode;
 };
 
 declare type Optional = Pick<Picked, "initialViewState" | "geoPolygons" | "attributionControl">;
@@ -1726,11 +1734,19 @@ declare interface SessionHandlingConfig_2 {
 
 export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: (redirect?: URL) => void, onAuthError?: (error?: Error) => void) => (() => void);
 
+declare type SingleProps = BaseProps_2 & {
+    multiple?: false;
+    value: Option_2 | null;
+    onChange: (value: Option_2 | null) => void;
+};
+
 export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
 
 export declare interface SourceWithEvents {
     on(type: string, listener: (e: unknown) => void): void;
 }
+
+export declare const Spinner: FC<CircularProgressProps_2>;
 
 declare interface StandardLayoutProps {
     /**
