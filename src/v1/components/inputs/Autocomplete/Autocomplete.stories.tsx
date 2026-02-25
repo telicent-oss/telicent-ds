@@ -1,39 +1,106 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import Autocomplete from "./Autocomplete";
+import Autocomplete, { Option } from "./Autocomplete";
+import { figmaDesign } from "../../../../../.storybook/figmaDesign";
 
 const meta: Meta<typeof Autocomplete> = {
   title: "Inputs/Autocomplete",
   component: Autocomplete,
   tags: ["autodocs"],
   parameters: {
+    ...figmaDesign(
+      "https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=6046-4249&t=jap5NMqoYYKJjVJz-4",
+    ),
     docs: {
       description: {
         component: `
-An opinionated wrapper around MUI **Autocomplete** for simple label/value option lists.
+A Design System wrapper around MUI **Autocomplete** that follows **MUI’s expected value model**.
 
 ---
 
-**How it works**
-- Pass an array of \`{ label: string; value: string }\` options.
-- The component is **controlled** via \`value\` (a string or \`null\`) and \`onChange\` (receives a string or \`null\`).
-- It renders your DS \`<TextField>\` in \`renderInput\`, so all familiar props like \`label\`, \`helperText\`, \`error\`, \`size\`, and \`fullWidth\` work as expected.
+## How MUI expects Autocomplete to work
+
+MUI Autocomplete is designed to be controlled using the **actual option object(s)**, not just an id.
+
+- **Single select**: \`value\` should be \`Option | null\`
+- **Multi select**: \`value\` should be \`Option[]\` and you set \`multiple\`
+
+This is important because MUI needs the full option object to:
+- Render the selected label(s) correctly
+- Match options to selected values (using \`isOptionEqualToValue\`)
+- Render tags (chips) in \`multiple\` mode
+- Handle keyboard interactions and deletion (tag props)
+
+This wrapper keeps that model so you don’t have to do id-to-option mapping inside the component.
 
 ---
 
-**Props**
+## Controlled usage in apps
+
+### Single select
+Store the selected **Option** (or \`null\`) in state:
+
+\`\`\`tsx
+const [country, setCountry] = useState<Option | null>(null);
+
+<Autocomplete
+  label="Country"
+  options={options}
+  value={country}
+  onChange={setCountry}
+/>
+\`\`\`
+
+### Multi select (chips)
+Store an array of **Option**:
+
+\`\`\`tsx
+const [countries, setCountries] = useState<Option[]>([]);
+
+<Autocomplete
+  multiple
+  label="Countries"
+  options={options}
+  value={countries}
+  onChange={setCountries}
+/>
+\`\`\`
+
+### If your app stores ids (e.g. in a form)
+Keep this component MUI-native, and map at the app layer:
+
+\`\`\`tsx
+// app stores countryCode: string | null
+const selected = options.find(o => o.value === countryCode) ?? null;
+
+<Autocomplete
+  label="Country"
+  options={options}
+  value={selected}
+  onChange={(opt) => setCountryCode(opt?.value ?? null)}
+/>
+\`\`\`
+
+This keeps the DS component simple while still supporting id-based form state.
+
+---
+
+## Props
 - \`label: string\` — Input label.
-- \`value: string | null\` — Current selected option's \`value\`.
-- \`onChange: (value: string | null) => void\` — Called with the new \`value\` (or \`null\`).
-- \`options: { label: string; value: string }[]\`
+- \`options: Option[]\` — Array of \`{ label; value; icon? }\`.
+- **Single mode**
+  - \`value: Option | null\`
+  - \`onChange: (value: Option | null) => void\`
+- **Multiple mode**
+  - \`multiple: true\`
+  - \`value: Option[]\`
+  - \`onChange: (value: Option[]) => void\`
 - \`placeholder?: string\`
 - \`disabled?: boolean\`
 - \`error?: boolean\`
 - \`helperText?: string\`
 - \`fullWidth?: boolean\` (default \`true\`)
 - \`size?: "small" | "medium"\` (default \`"small"\`)
-
-**Tip:** To constrain width, wrap the component in a container (e.g. \`<div style={{ width: 280 }} />\`) since this wrapper doesn't expose \`sx\`.
         `,
       },
     },
@@ -44,7 +111,7 @@ export default meta;
 
 type Story = StoryObj<typeof Autocomplete>;
 
-const demoOptions = [
+const demoOptions: Option[] = [
   { label: "Afghanistan", value: "AF" },
   { label: "Albania", value: "AL" },
   { label: "Algeria", value: "DZ" },
@@ -59,7 +126,7 @@ const demoOptions = [
 
 export const Basic: Story = {
   render: () => {
-    const [value, setValue] = useState<string | null>(null);
+    const [value, setValue] = useState<Option | null>(null);
     return (
       <Autocomplete
         label="Select country"
@@ -74,14 +141,14 @@ export const Basic: Story = {
 
 export const Preselected: Story = {
   render: () => {
-    const [value, setValue] = useState<string | null>("AT");
+    const [value, setValue] = useState<Option | null>(demoOptions.find((o) => o.value === "AT") ?? null);
     return <Autocomplete label="Select country" value={value} onChange={setValue} options={demoOptions} />;
   },
 };
 
 export const WithHelperText: Story = {
   render: () => {
-    const [value, setValue] = useState<string | null>(null);
+    const [value, setValue] = useState<Option | null>(null);
     return (
       <Autocomplete
         label="Country"
@@ -97,18 +164,18 @@ export const WithHelperText: Story = {
 
 export const Disabled: Story = {
   render: () => {
-    const [value] = useState<string | null>("AU");
+    const [value] = useState<Option | null>(demoOptions.find((o) => o.value === "AU") ?? null);
     return <Autocomplete label="Country" value={value} onChange={() => {}} options={demoOptions} disabled />;
   },
 };
 
 export const LongList: Story = {
   render: () => {
-    const many = Array.from({ length: 100 }, (_, i) => ({
+    const many: Option[] = Array.from({ length: 50 }, (_, i) => ({
       label: `Option ${i + 1}`,
       value: `opt-${i + 1}`,
     }));
-    const [value, setValue] = useState<string | null>(null);
+    const [value, setValue] = useState<Option | null>(null);
     return (
       <Autocomplete
         label="Lots of options"
@@ -118,5 +185,16 @@ export const LongList: Story = {
         placeholder="Type to filter…"
       />
     );
+  },
+};
+
+export const MultiSelect: Story = {
+  render: () => {
+    const many: Option[] = Array.from({ length: 10 }, (_, i) => ({
+      label: `Option ${i + 1}`,
+      value: `opt-${i + 1}`,
+    }));
+    const [values, setValues] = useState<Option[]>([]);
+    return <Autocomplete multiple label="Countries" value={values} onChange={setValues} options={many} />;
   },
 };
