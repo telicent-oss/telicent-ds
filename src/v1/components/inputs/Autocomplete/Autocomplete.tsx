@@ -78,7 +78,6 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
                     variant="filled"
                     color="default"
                     size="small"
-                    // icon={option.icon}
                     label={option.label}
                     {...getTagProps({ index })}
                     sx={{ pl: 1 }}
