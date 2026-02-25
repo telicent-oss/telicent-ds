@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.1](https://github.com/telicent-oss/telicent-ds/compare/v1.7.0...v1.7.1) (2026-02-25)
+
+
+### Bug Fixes
+
+* update dropdown and other changes ([#456](https://github.com/telicent-oss/telicent-ds/issues/456)) ([d8c63d3](https://github.com/telicent-oss/telicent-ds/commit/d8c63d38b1659e8e5a0ffe99f0378029ae579605))
+
 ## [1.7.0](https://github.com/telicent-oss/telicent-ds/compare/v1.6.5...v1.7.0) (2026-02-19)
 
 
