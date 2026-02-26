@@ -22,6 +22,7 @@ type BaseProps = {
   fullWidth?: boolean;
   size?: "small" | "medium";
   required?: boolean;
+  onBlur?: React.FocusEventHandler<HTMLDivElement>;
 };
 
 type SingleProps = BaseProps & {
@@ -54,6 +55,7 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
       required = false,
       multiple = false,
       id,
+      onBlur,
     },
     ref,
   ) => {
@@ -61,6 +63,7 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
       <MuiAutocomplete<Option, boolean, false, false>
         id={id}
         ref={ref}
+        onBlur={onBlur}
         options={options}
         multiple={multiple}
         value={value as any}
