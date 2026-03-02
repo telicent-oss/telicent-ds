@@ -55,7 +55,7 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
       required = false,
       multiple = false,
       id,
-      ...props
+      onBlur,
     },
     ref,
   ) => {
@@ -63,6 +63,7 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
       <MuiAutocomplete<Option, boolean, false, false>
         id={id}
         ref={ref}
+        onBlur={onBlur}
         options={options}
         multiple={multiple}
         value={value as any}
@@ -98,7 +99,6 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
             required={required}
           />
         )}
-        {...props}
       />
     );
   },
