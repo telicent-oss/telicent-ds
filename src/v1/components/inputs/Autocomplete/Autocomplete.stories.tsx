@@ -109,9 +109,11 @@ This keeps the DS component simple while still supporting id-based form state.
 
 export default meta;
 
+const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 type Story = StoryObj<typeof Autocomplete>;
 
-const demoOptions: Option[] = [
+const countryOptions: Option[] = [
   { label: "Afghanistan", value: "AF" },
   { label: "Albania", value: "AL" },
   { label: "Algeria", value: "DZ" },
@@ -132,7 +134,7 @@ export const Basic: Story = {
         label="Select country"
         value={value}
         onChange={setValue}
-        options={demoOptions}
+        options={countryOptions}
         placeholder="Start typing…"
       />
     );
@@ -141,8 +143,8 @@ export const Basic: Story = {
 
 export const Preselected: Story = {
   render: () => {
-    const [value, setValue] = useState<Option | null>(demoOptions.find((o) => o.value === "AT") ?? null);
-    return <Autocomplete label="Select country" value={value} onChange={setValue} options={demoOptions} />;
+    const [value, setValue] = useState<Option | null>(countryOptions.find((o) => o.value === "AT") ?? null);
+    return <Autocomplete label="Select country" value={value} onChange={setValue} options={countryOptions} />;
   },
 };
 
@@ -154,7 +156,7 @@ export const WithHelperText: Story = {
         label="Country"
         value={value}
         onChange={setValue}
-        options={demoOptions}
+        options={countryOptions}
         helperText="Pick your country of residence"
         placeholder="Search countries"
       />
@@ -164,37 +166,90 @@ export const WithHelperText: Story = {
 
 export const Disabled: Story = {
   render: () => {
-    const [value] = useState<Option | null>(demoOptions.find((o) => o.value === "AU") ?? null);
-    return <Autocomplete label="Country" value={value} onChange={() => {}} options={demoOptions} disabled />;
+    const [value] = useState<Option | null>(countryOptions.find((o) => o.value === "AU") ?? null);
+    return <Autocomplete label="Country" value={value} onChange={() => {}} options={countryOptions} disabled />;
   },
 };
 
-export const LongList: Story = {
+export const AsyncLoading: Story = {
   render: () => {
-    const many: Option[] = Array.from({ length: 50 }, (_, i) => ({
-      label: `Option ${i + 1}`,
-      value: `opt-${i + 1}`,
-    }));
+    const [options, setOptions] = useState<Option[]>([]);
     const [value, setValue] = useState<Option | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    const load = async () => {
+      setLoading(true);
+      await wait(900);
+      setOptions(countryOptions);
+      setLoading(false);
+    };
+
     return (
-      <Autocomplete
-        label="Lots of options"
-        value={value}
-        onChange={setValue}
-        options={many}
-        placeholder="Type to filter…"
-      />
+      <div style={{ display: "grid", gap: 12, maxWidth: 420 }}>
+        <Autocomplete
+          label="Country (async)"
+          options={options}
+          value={value}
+          onChange={setValue}
+          placeholder={loading ? "Loading…" : "Start typing…"}
+          disabled={loading}
+          loading={loading}
+          onOpen={() => {
+            if (options.length === 0 && !loading) void load();
+          }}
+          noOptionsText={loading ? "Fetching countries…" : "No matches"}
+        />
+
+        <div style={{ fontSize: 12, opacity: 0.8 }}>Selected: {value ? `${value.label} (${value.value})` : "—"}</div>
+      </div>
     );
   },
 };
 
-export const MultiSelect: Story = {
+export const StoresIdInFormState: Story = {
   render: () => {
-    const many: Option[] = Array.from({ length: 10 }, (_, i) => ({
-      label: `Option ${i + 1}`,
-      value: `opt-${i + 1}`,
-    }));
+    // what a form library often stores
+    const [countryCode, setCountryCode] = useState<string | null>("AT");
+
+    const selected = countryOptions.find((o) => o.value === countryCode) ?? null;
+
+    return (
+      <div style={{ display: "grid", gap: 12, maxWidth: 420 }}>
+        <Autocomplete
+          label="Country (form stores id)"
+          options={countryOptions}
+          value={selected}
+          onChange={(opt) => setCountryCode(opt?.value ?? null)}
+          placeholder="Start typing…"
+        />
+
+        <div style={{ fontSize: 12, opacity: 0.8 }}>Form value (id): {countryCode ?? "—"}</div>
+      </div>
+    );
+  },
+};
+
+export const MultiSelectWithLimit: Story = {
+  render: () => {
     const [values, setValues] = useState<Option[]>([]);
-    return <Autocomplete multiple label="Countries" value={values} onChange={setValues} options={many} />;
+    const limit = 3;
+
+    return (
+      <div style={{ display: "grid", gap: 12, maxWidth: 520 }}>
+        <Autocomplete
+          multiple
+          label={`Pick up to ${limit} countries`}
+          options={countryOptions}
+          value={values}
+          onChange={setValues}
+          placeholder="Choose…"
+          getOptionDisabled={(opt) => values.length >= limit && !values.some((v) => v.value === opt.value)}
+        />
+
+        <div style={{ fontSize: 12, opacity: 0.8 }}>
+          Selected ({values.length}/{limit}): {values.length ? values.map((v) => v.label).join(", ") : "—"}
+        </div>
+      </div>
+    );
   },
 };
