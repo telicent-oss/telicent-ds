@@ -1,6 +1,7 @@
 import { AppBarProps as AppBarProps_2 } from '@mui/material/AppBar';
 import { AuthServerOAuth2ClientConfig } from '@telicent-oss/fe-auth-lib';
 import { AutocompleteProps } from '@mui/material';
+import { AutocompleteProps as AutocompleteProps_2 } from '@mui/material/Autocomplete';
 import { AvatarProps } from '@mui/material/Avatar';
 import { AxiosInstance } from 'axios';
 import { BaseSelectProps } from '@mui/material';
@@ -232,14 +233,12 @@ declare interface AuthRedirectUriProps {
     config: AuthServerOAuth2ClientConfig;
 }
 
-export declare const Autocomplete: ForwardRefExoticComponent<AutoCompleteProps & RefAttributes<HTMLDivElement>>;
+export declare const Autocomplete: ForwardRefExoticComponent<(Omit<SingleAutoCompleteProps, "ref"> | Omit<MultipleAutoCompleteProps, "ref">) & RefAttributes<HTMLDivElement>>;
 
 declare type AutocompleteOption = {
     label: string;
     isRecentSearch: boolean;
 };
-
-declare type AutoCompleteProps = SingleProps | MultipleProps;
 
 export declare const base64Codec: Codec;
 
@@ -256,7 +255,6 @@ declare type BaseProps_2 = {
     fullWidth?: boolean;
     size?: "small" | "medium";
     required?: boolean;
-    onBlur?: React.FocusEventHandler<HTMLDivElement>;
 };
 
 export declare type BaseRasterLayerConfig = {
@@ -1200,6 +1198,12 @@ declare type MUIButtonBaseProps = Omit<ButtonBaseProps, "centerRipple" | "classe
 
 declare type MUIChipProps = Omit<ChipProps_3, "variant" | "color" | "avatar" | "classes">;
 
+declare type MuiMultiplePassthrough = Omit<AutocompleteProps_2<Option_2, true, false, false>, "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size">;
+
+declare type MuiSinglePassthrough = Omit<AutocompleteProps_2<Option_2, false, false, false>, "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size">;
+
+declare type MultipleAutoCompleteProps = MultipleProps & MuiMultiplePassthrough;
+
 declare type MultipleProps = BaseProps_2 & {
     multiple: true;
     value: Option_2[];
@@ -1734,6 +1738,8 @@ declare interface SessionHandlingConfig_2 {
 }
 
 export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: (redirect?: URL) => void, onAuthError?: (error?: Error) => void) => (() => void);
+
+declare type SingleAutoCompleteProps = SingleProps & MuiSinglePassthrough;
 
 declare type SingleProps = BaseProps_2 & {
     multiple?: false;
