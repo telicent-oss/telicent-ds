@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.2](https://github.com/telicent-oss/telicent-ds/compare/v1.7.1...v1.7.2) (2026-03-03)
+
+
+### Bug Fixes
+
+* refactor autocomplete ([#458](https://github.com/telicent-oss/telicent-ds/issues/458)) ([845e24b](https://github.com/telicent-oss/telicent-ds/commit/845e24bb6820b424f6b7f37c5d1be7f85e139205))
+
 ## [1.7.1](https://github.com/telicent-oss/telicent-ds/compare/v1.7.0...v1.7.1) (2026-02-25)
 
 
