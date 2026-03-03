@@ -1,8 +1,7 @@
 import { Autocomplete as MuiAutocomplete } from "@mui/material";
+import type { AutocompleteProps as MuiAutocompleteProps } from "@mui/material/Autocomplete";
 import { forwardRef } from "react";
 import TextField from "../TextField/TextField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { Chip } from "../../data-display";
 
 export type Option = {
@@ -22,7 +21,6 @@ type BaseProps = {
   fullWidth?: boolean;
   size?: "small" | "medium";
   required?: boolean;
-  onBlur?: React.FocusEventHandler<HTMLDivElement>;
 };
 
 type SingleProps = BaseProps & {
@@ -37,9 +35,22 @@ type MultipleProps = BaseProps & {
   onChange: (value: Option[]) => void;
 };
 
-type AutoCompleteProps = SingleProps | MultipleProps;
+type MuiSinglePassthrough = Omit<
+  MuiAutocompleteProps<Option, false, false, false>,
+  "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size"
+>;
 
-const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
+type MuiMultiplePassthrough = Omit<
+  MuiAutocompleteProps<Option, true, false, false>,
+  "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size"
+>;
+
+type SingleAutoCompleteProps = SingleProps & MuiSinglePassthrough;
+type MultipleAutoCompleteProps = MultipleProps & MuiMultiplePassthrough;
+
+export type AutoCompleteProps = SingleAutoCompleteProps | MultipleAutoCompleteProps;
+
+const SingleAutocomplete = forwardRef<HTMLDivElement, SingleAutoCompleteProps>(
   (
     {
       label,
@@ -53,40 +64,83 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
       fullWidth = true,
       size = "small",
       required = false,
-      multiple = false,
       id,
-      onBlur,
+      ...rest
     },
     ref,
   ) => {
     return (
-      <MuiAutocomplete<Option, boolean, false, false>
+      <MuiAutocomplete
+        {...rest}
         id={id}
         ref={ref}
-        onBlur={onBlur}
         options={options}
-        multiple={multiple}
-        value={value as any}
-        popupIcon={<FontAwesomeIcon icon={faAngleDown} />}
-        onChange={(_, next) => onChange((next ?? (multiple ? [] : null)) as any)}
+        multiple={false}
+        value={value}
+        onChange={(_, next) => onChange(next ?? null)}
         fullWidth={fullWidth}
         size={size}
         disabled={disabled}
         isOptionEqualToValue={(option, val) => option.value === val.value}
-        renderTags={
-          multiple
-            ? (selectedOptions, getTagProps) =>
-                selectedOptions.map((option, index) => (
-                  <Chip
-                    variant="filled"
-                    color="default"
-                    size="small"
-                    label={option.label}
-                    {...getTagProps({ index })}
-                    sx={{ pl: 1 }}
-                  />
-                ))
-            : undefined
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={label}
+            placeholder={placeholder}
+            error={error}
+            helperText={helperText}
+            size={size}
+            required={required}
+          />
+        )}
+      />
+    );
+  },
+);
+
+const MultipleAutocomplete = forwardRef<HTMLDivElement, MultipleAutoCompleteProps>(
+  (
+    {
+      label,
+      value,
+      onChange,
+      options,
+      placeholder,
+      disabled,
+      error,
+      helperText,
+      fullWidth = true,
+      size = "small",
+      required = false,
+      id,
+      ...rest
+    },
+    ref,
+  ) => {
+    return (
+      <MuiAutocomplete
+        {...rest}
+        id={id}
+        ref={ref}
+        options={options}
+        multiple
+        value={value}
+        onChange={(_, next) => onChange(next ?? [])}
+        fullWidth={fullWidth}
+        size={size}
+        disabled={disabled}
+        isOptionEqualToValue={(option, val) => option.value === val.value}
+        renderTags={(selectedOptions, getTagProps) =>
+          selectedOptions.map((option, index) => (
+            <Chip
+              variant="filled"
+              color="default"
+              size="small"
+              label={option.label}
+              {...getTagProps({ index })}
+              sx={{ pl: 1 }}
+            />
+          ))
         }
         renderInput={(params) => (
           <TextField
@@ -103,5 +157,9 @@ const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>(
     );
   },
 );
+
+const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>((props, ref) => {
+  return props.multiple ? <MultipleAutocomplete {...props} ref={ref} /> : <SingleAutocomplete {...props} ref={ref} />;
+});
 
 export default Autocomplete;
