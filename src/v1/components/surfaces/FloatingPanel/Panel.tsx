@@ -64,7 +64,7 @@ const Panel: React.FC<PanelProps> = ({
 
   // const backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : theme.palette.grey[300];
 
-  const backgroundColor = "#2D2D2D";
+  const backgroundColor = "#2C2C2C";
 
   return (
     <MUIBox
