@@ -43,15 +43,13 @@ const TYPOGRAPHY_STYLE_OVERRIDES = {
   },
 } satisfies ThemeOptions["typography"];
 
-const TYPOGRAPHY_FONT_FACES = {
-  MuiCssBaseline: {
-    styleOverrides: `
+export const FONT_FACES_CSS = `
     @font-face {
       font-family: 'Space Grotesk';
       font-style: normal;
       font-variant: normal;
       font-weight: 400;
-      src: local('Space Grotesk'), url(${SpaceGroteskRegularWoff2}) format('woff2');
+      src: url(${SpaceGroteskRegularWoff2}) format('woff2');
     }
 
     @font-face {
@@ -59,7 +57,7 @@ const TYPOGRAPHY_FONT_FACES = {
       font-style: normal;
       font-variant: normal;
       font-weight: 500;
-      src: local('Space Grotesk'), url(${SpaceGroteskMediumWoff2}) format('woff2');
+      src:  url(${SpaceGroteskMediumWoff2}) format('woff2');
     }
 
     @font-face {
@@ -67,7 +65,7 @@ const TYPOGRAPHY_FONT_FACES = {
       font-style: normal;
       font-variant: normal;
       font-weight: 400;
-      src: local('Figtree'), url(${FigtreeRegularWoff2}) format('woff2');
+      src: url(${FigtreeRegularWoff2}) format('woff2');
     }
 
     @font-face {
@@ -75,7 +73,7 @@ const TYPOGRAPHY_FONT_FACES = {
       font-style: normal;
       font-variant: normal;
       font-weight: 500;
-      src: local('Figtree'), url(${FigtreeMediumWoff2}) format('woff2');
+      src: url(${FigtreeMediumWoff2}) format('woff2');
     }
 
     @font-face {
@@ -83,11 +81,8 @@ const TYPOGRAPHY_FONT_FACES = {
       font-style: normal;
       font-variant: normal;
       font-weight: 700;
-      src: local('Figtree'), url(${FigtreeBoldWoff2}) format('woff2');
+      src: url(${FigtreeBoldWoff2}) format('woff2');
     }
-    `,
-  },
-} satisfies ThemeOptions["components"];
+    `;
 
 export default TYPOGRAPHY_STYLE_OVERRIDES;
-export { TYPOGRAPHY_FONT_FACES };
