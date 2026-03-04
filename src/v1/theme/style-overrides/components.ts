@@ -1,8 +1,7 @@
 import { alpha, ThemeOptions } from "@mui/material";
 import { UITheme } from "../colors/theme-colors";
 import * as componentOverrides from "./component-overrides";
-import { TYPOGRAPHY_FONT_FACES } from "./typography";
-
+import { FONT_FACES_CSS } from "./typography";
 const generateComponentOverrides = (uiTheme: UITheme) =>
   ({
     ...componentOverrides.AVATAR_OVERRIDES,
@@ -104,28 +103,28 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
       },
     },
     MuiCssBaseline: {
-      ...TYPOGRAPHY_FONT_FACES.MuiCssBaseline,
-      styleOverrides: (theme) => ({
-        /* ✅ Universal scrollbar styling */
-        "*": {
-          /* Firefox */
-          scrollbarWidth: "thin",
-          scrollbarColor: `${theme.palette.divider} transparent`,
-        },
-        "*::-webkit-scrollbar": {
-          width: 8,
-          height: 8,
-        },
-        "*::-webkit-scrollbar-thumb": {
-          backgroundColor: theme.palette.divider,
-          borderRadius: 8,
-          border: "2px solid transparent",
-          backgroundClip: "content-box",
-        },
-        "*::-webkit-scrollbar-track": {
-          background: "transparent",
-        },
-      }),
+      styleOverrides: (theme) => `
+     ${FONT_FACES_CSS}
+
+     /* ✅ Universal scrollbar styling */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: ${theme.palette.divider} transparent;
+    }
+    *::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background-color: ${theme.palette.divider};
+      border-radius: 8px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    *::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  `,
     },
   } satisfies ThemeOptions["components"]);
 
