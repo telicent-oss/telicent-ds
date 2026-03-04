@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.3](https://github.com/telicent-oss/telicent-ds/compare/v1.7.2...v1.7.3) (2026-03-04)
+
+
+### Bug Fixes
+
+* issue where fonts were not being imported properly ([#462](https://github.com/telicent-oss/telicent-ds/issues/462)) ([2c41343](https://github.com/telicent-oss/telicent-ds/commit/2c41343de29b34b78b4da97b4c59e3822c77efde))
+
 ## [1.7.2](https://github.com/telicent-oss/telicent-ds/compare/v1.7.1...v1.7.2) (2026-03-03)
 
 
