@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.4](https://github.com/telicent-oss/telicent-ds/compare/v1.7.3...v1.7.4) (2026-03-04)
+
+
+### Bug Fixes
+
+* bg color of floating panel ([#464](https://github.com/telicent-oss/telicent-ds/issues/464)) ([5b84207](https://github.com/telicent-oss/telicent-ds/commit/5b842070660475fd202d4a35464a50cd713021ba))
+
 ## [1.7.3](https://github.com/telicent-oss/telicent-ds/compare/v1.7.2...v1.7.3) (2026-03-04)
 
 
