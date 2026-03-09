@@ -18,6 +18,7 @@ export * from "./v1/components/layout";
 export * from "./v1/components/surfaces";
 export * from "./v1/theme";
 export * from "./v1/components/utils/index";
+export * from "./v1/components/Brand/index";
 
 // Component library
 export * from "./component-library/Map";
