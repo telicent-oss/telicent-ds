@@ -73,17 +73,18 @@ export interface TeliSwitchProps {
  * refer to [Checkbox vs Toggle
  * Switch](https://uxplanet.org/checkbox-vs-toggle-switch-7fc6e83f10b8)
  */
-const TeliSwitch: FC<TeliSwitchProps> = ({
-  label,
-  labelPlacement = "end",
-  size = "small",
-  ...switchProps
-}) => {
-  if (!label) return <Switch size={size} {...switchProps} />;
+const TeliSwitch: FC<TeliSwitchProps> = ({ label, labelPlacement = "end", size = "small", ...switchProps }) => {
+  const switchControl = (
+    <span className="teli-switch">
+      <Switch size={size} {...switchProps} />
+    </span>
+  );
+
+  if (!label) return switchControl;
 
   return (
     <FormControlLabel
-      control={<Switch size={size} {...switchProps} />}
+      control={switchControl}
       label={label}
       labelPlacement={labelPlacement}
       className="m-0 gap-x-1.5"
