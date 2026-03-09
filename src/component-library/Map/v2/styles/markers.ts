@@ -71,16 +71,30 @@ const makePinSvg = ({
 };
 
 export const extractPathD = (rawSvg: string): string => {
-    // If this already looks like a <g> with a <path>, extract the path
-    const pathMatch = rawSvg.match(/<path[^>]*d="([^"]+)"/);
-    if (pathMatch) {
-        return pathMatch[1];
+    const cleanSvg = rawSvg.trim();
+
+    // 1. If it already looks like raw path commands (starts with M)
+    if (cleanSvg.startsWith("M")) {
+        return cleanSvg;
     }
 
-    // Otherwise assume raw path commands
-    const dMatch = rawSvg.match(/M[\s\S]+/);
-    if (dMatch) {
-        return dMatch[0];
+    // 2. Safely extract the 'd' attribute using string indices (O(n), ReDoS impossible)
+    const pathTagStart = cleanSvg.indexOf("<path");
+
+    if (pathTagStart !== -1) {
+        // Look for the d attribute AFTER the <path tag
+        const dAttrStart = cleanSvg.indexOf('d="', pathTagStart);
+
+        if (dAttrStart !== -1) {
+            // The actual path data starts 3 characters after the 'd'
+            const dataStart = dAttrStart + 3;
+            // Find the closing quote
+            const dataEnd = cleanSvg.indexOf('"', dataStart);
+
+            if (dataEnd !== -1) {
+                return cleanSvg.slice(dataStart, dataEnd);
+            }
+        }
     }
 
     throw new Error("No path data found in SVG");
