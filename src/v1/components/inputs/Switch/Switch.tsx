@@ -8,7 +8,18 @@ export type SwitchProps = Omit<MuiSwitchProps, "color"> & {
 };
 
 const Switch = forwardRef<HTMLButtonElement, SwitchProps>(({ label, labelPlacement = "end", ...props }, ref) => {
-  const switchElement = <MuiSwitch {...props} ref={ref} color="primary" />;
+  const switchElement = (
+    <MuiSwitch
+      {...props}
+      ref={ref}
+      color="primary"
+      sx={{
+        "& .MuiSwitch-switchBase:hover": {
+          backgroundColor: "transparent",
+        },
+      }}
+    />
+  );
 
   if (!label) {
     return switchElement;

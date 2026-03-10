@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import Switch from "./Switch";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import { figmaDesign } from "../../../../../.storybook/figmaDesign";
 
 const meta: Meta<typeof Switch> = {
   title: "Inputs/Switch",
@@ -33,6 +34,9 @@ A simple switch component built on Mui's \`<Switch>\` with our design-system the
 `,
       },
     },
+    ...figmaDesign(
+      "https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=6071-28707&t=OvkaqgZRmhsF3DIW-4",
+    ),
     id: "switch-default",
     ariaLabel: "switch",
   },
