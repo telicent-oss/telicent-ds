@@ -2762,6 +2762,29 @@ export declare type TreeViewProps<Item extends object = TreeViewBaseItem> = {
     sx: SxProps_2;
 }>;
 
+export declare const TypeIcon: default_2.FC<TypeIconProps>;
+
+export declare interface TypeIconProps {
+    /** Text for screen readers and tooltips */
+    alt: string;
+    /** Initials or text to show if no icon node is provided */
+    fallbackText?: string;
+    /** Primary color for the icon/text */
+    color?: string;
+    /** Background color for the avatar */
+    backgroundColor?: string;
+    /** Overrides the default border color */
+    borderColor?: string;
+    /** Accepts ANY valid React element (SVG, Material Icon, FontAwesome wrapper, etc.) */
+    iconNode?: ReactNode;
+    /** If true, the component will be rendered in a disabled state */
+    disabled?: boolean;
+    /** Controls the size of the component */
+    size?: TypeIconSizeProp;
+}
+
+declare type TypeIconSizeProp = "xs" | "sm" | "base" | "lg";
+
 export declare type UITheme = default_3.infer<typeof UIThemeSchema>;
 
 export declare const UIThemeProvider: default_2.FC<UIThemeProviderProps>;
