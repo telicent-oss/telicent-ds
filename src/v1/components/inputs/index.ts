@@ -7,6 +7,7 @@ export { default as Select } from "./Select/Select";
 export { default as Autocomplete } from "./Autocomplete/Autocomplete";
 export type { SelectProps } from "./Select/Select";
 export type { Options } from "./Select/Select";
+export { default as Switch } from "./Switch/Switch";
 
 export { default as DatePicker } from "./DatePicker/DatePicker";
 export { default as DateTimePicker } from "./DateAndTimePicker/DateTimePicker";
