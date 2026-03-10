@@ -1,6 +1,12 @@
-import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas"
+import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
 import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
-import React, { useRef, useMemo, useEffect, useState, useImperativeHandle } from "react";
+import React, {
+  useRef,
+  useMemo,
+  useEffect,
+  useState,
+  useImperativeHandle,
+} from "react";
 
 import { Map } from "ol";
 import BaseLayer from "ol/layer/Base";
@@ -10,178 +16,205 @@ import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
 import { MARKER_LAYER_ID, POLYGON_LAYER_ID } from "../../utils/layers";
 import { findVectorLayerById } from "../../utils/feature";
-import { getFeaturesById, fitToFeature, fitToFeatures } from "./interactions/addPanToFeature";
+import {
+  getFeaturesById,
+  fitToFeature,
+  fitToFeatures,
+} from "./interactions/addPanToFeature";
 import { polygonToOLFeature } from "../../utils/polygons";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
+import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
 
+export const BasicMapV2 = React.forwardRef<
+  BasicMapV2Handle,
+  BasicMapProperties
+>((props, ref) => {
+  const [layers, setLayers] = useState<BaseLayer[]>([]);
+  const mapInstance = useRef<Map | null>(null);
 
-export const BasicMapV2 = React.forwardRef<BasicMapV2Handle, BasicMapProperties>((props, ref) => {
-	const [layers, setLayers] = useState<BaseLayer[]>([]);
-	const mapInstance = useRef<Map | null>(null);
+  const showLayerSelector = props.controls?.showLayerSelector ?? true;
 
-	const showLayerSelector =
-		props.controls?.showLayerSelector ?? true;
+  const effectiveLayers = useMemo(() => {
+    const baseLayers =
+      Array.isArray(props.layers) && props.layers.length > 0
+        ? props.layers
+        : props.mapStyleOptions && Object.keys(props.mapStyleOptions).length > 0
+        ? mapLegacyConfigToLayers(props.mapStyleOptions)
+        : [];
 
-	const effectiveLayers = useMemo(() => {
-		const baseLayers =
-			Array.isArray(props.layers) && props.layers.length > 0
-				? props.layers
-				: props.mapStyleOptions && Object.keys(props.mapStyleOptions).length > 0
-					? mapLegacyConfigToLayers(props.mapStyleOptions)
-					: [];
+    const overlayVectorLayers: LayerConfig[] = [
+      // Marker layer
+      {
+        kind: "overlay-vector",
+        id: MARKER_LAYER_ID,
+        data: [],
+        visible: true,
+      },
+      // Polygon layer
+      {
+        kind: "overlay-vector",
+        id: POLYGON_LAYER_ID,
+        data: [],
+        visible: true,
+      },
+    ];
+    return [...baseLayers, ...overlayVectorLayers];
+  }, [props.layers]);
 
-		const overlayVectorLayers: LayerConfig[] = [
-			// Marker layer
-			{
-				kind: "overlay-vector",
-				id: MARKER_LAYER_ID,
-				data: [],
-				visible: true
-			},
-			// Polygon layer
-			{
-				kind: "overlay-vector",
-				id: POLYGON_LAYER_ID,
-				data: [],
-				visible: true,
-			},
-		];
-		return [...baseLayers, ...overlayVectorLayers];
-	}, [props.layers]);
+  useEffect(() => {
+    let cancelled = false;
 
+    (async () => {
+      try {
+        const layers = await ensureLayers(effectiveLayers);
+        if (!cancelled) {
+          setLayers(layers);
+        }
+      } catch (e) {
+        console.error("ensureLayers failed", e);
+        return;
+      }
+    })();
 
-	useEffect(() => {
-		let cancelled = false;
+    return () => {
+      cancelled = true;
+    };
+  }, [effectiveLayers]);
 
-		(async () => {
-			try {
-				const layers = await ensureLayers(effectiveLayers);
-				if (!cancelled) {
-					setLayers(layers)
-				}
-			} catch (e) {
-				console.error("ensureLayers failed", e);
-				return
-			}
-		})();
+  useEffect(() => {
+    if (layers.length < 1) return;
+    props?.onLayersReady?.(true);
+  }, [layers]);
 
-		return () => {
-			cancelled = true;
-		};
-	}, [effectiveLayers]);
+  useEffect(() => {
+    return () => {
+      props.onLayersReady?.(false);
+    };
+  }, []);
 
-	useEffect(() => {
-		if (layers.length < 1) return;
-		props?.onLayersReady?.(true);
-	}, [layers])
+  useEffect(() => {
+    if (!mapInstance.current) return;
+    const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
+    if (!markerLayer) {
+      console.debug("No marker layer found");
+      return;
+    }
 
-	useEffect(() => {
-		return () => {
-			props.onLayersReady?.(false);
-		};
-	}, [])
+    const source = markerLayer.getSource();
+    if (!source) {
+      console.debug("Could not find layer source");
+      return;
+    }
 
-	useEffect(() => {
-		if (!mapInstance.current) return;
-		const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
-		if (!markerLayer) {
-			console.debug("No marker layer found");
-			return;
-		}
+    /* source.clear(); */
+    /* const markerFeatures = props.markers.map(markerToOLFeature); */
+    /* source.addFeatures(markerFeatures); */
+    let cancelled = false;
 
-		const source = markerLayer.getSource();
-		if (!source) {
-			console.debug("Could not find layer source");
-			return;
-		}
+    (async () => {
+      await ensureMarkerIconsLoaded(props.markers);
 
-		source.clear();
-		const markerFeatures = props.markers.map(markerToOLFeature);
-		source.addFeatures(markerFeatures);
+      if (cancelled) return;
 
-		const polygonFeatures = props.polygons.map(polygonToOLFeature);
-		source.addFeatures(polygonFeatures);
+      source.clear();
 
-		const features = [...markerFeatures, ...polygonFeatures]
+      const markerFeatures = props.markers.map(markerToOLFeature);
+      source.addFeatures(markerFeatures);
 
-		if (features.length === 1) {
-			fitToFeature(mapInstance.current, features[0])
-		} else {
-			fitToFeatures(mapInstance.current, features)
-		}
-	}, [props.markers, props.polygons, layers])
+      const polygonFeatures = props.polygons.map(polygonToOLFeature);
+      source.addFeatures(polygonFeatures);
 
-	useEffect(() => {
-		const map = mapInstance.current;
-		if (!map) return;
+      const features = [...markerFeatures, ...polygonFeatures];
 
-		const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
-		const polygonLayer = findVectorLayerById(layers, POLYGON_LAYER_ID);
+      if (features.length === 1) {
+        fitToFeature(mapInstance.current!, features[0]);
+      } else {
+        fitToFeatures(mapInstance.current!, features);
+      }
+    })();
 
-		const markerFeatures =
-			markerLayer?.getSource()?.getFeatures() ?? [];
-		const polygonFeatures =
-			polygonLayer?.getSource()?.getFeatures() ?? [];
+    return () => {
+      cancelled = true;
+    };
+  }, [props.markers, props.polygons, layers]);
 
-		const features = [...markerFeatures, ...polygonFeatures];
-		if (!features.length) return;
+  useEffect(() => {
+    const map = mapInstance.current;
+    if (!map) return;
 
-		if (features.length === 1) {
-			fitToFeature(map, features[0]);
-		} else {
-			fitToFeatures(map, features);
-		}
-	}, [props.markers, props.polygons, layers]);
+    const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
+    const polygonLayer = findVectorLayerById(layers, POLYGON_LAYER_ID);
 
-	useImperativeHandle(ref, () => ({
-		zoomIn: () => {
-			const view = mapInstance.current?.getView();
-			if (!view) {
-				console.warn("Map view is not ready yet");
-				return;
-			}
+    const markerFeatures = markerLayer?.getSource()?.getFeatures() ?? [];
+    const polygonFeatures = polygonLayer?.getSource()?.getFeatures() ?? [];
 
-			const currentZoom = view.getZoom() ?? 0;
-			view.setZoom(currentZoom + 1);
-		},
-		zoomOut: () => {
-			const view = mapInstance.current?.getView();
-			if (!view) {
-				console.warn("Map view is not ready yet");
-				return;
-			}
+    const features = [...markerFeatures, ...polygonFeatures];
+    if (!features.length) return;
 
-			const currentZoom = view.getZoom() ?? 0;
-			view.setZoom(currentZoom - 1);
-		},
-		panToFeature: (id: string) => {
-			if (!mapInstance.current) {
-				console.warn("Map is not ready yet");
-				return;
-			}
+    if (features.length === 1) {
+      fitToFeature(map, features[0]);
+    } else {
+      fitToFeatures(map, features);
+    }
+  }, [props.markers, props.polygons, layers]);
 
-			const features = getFeaturesById(layers, [id])
-			if (features.length === 0) return;
-			fitToFeature(mapInstance.current, features[0]);
-		},
-		panToFeatures: (ids: string[]) => {
-			if (!mapInstance.current) {
-				console.warn("Map is not ready yet");
-				return;
-			}
+  useImperativeHandle(
+    ref,
+    () => ({
+      zoomIn: () => {
+        const view = mapInstance.current?.getView();
+        if (!view) {
+          console.warn("Map view is not ready yet");
+          return;
+        }
 
-			const features = getFeaturesById(layers, ids)
-			if (features.length === 0) return;
-			fitToFeature(mapInstance.current, features[0]);
-		},
-		layers
-	}), [mapInstance.current, layers])
+        const currentZoom = view.getZoom() ?? 0;
+        view.setZoom(currentZoom + 1);
+      },
+      zoomOut: () => {
+        const view = mapInstance.current?.getView();
+        if (!view) {
+          console.warn("Map view is not ready yet");
+          return;
+        }
 
-	const { layers: _ignored, ...restProps } = props;
-	return <>
-		<MapCanvasV2 layers={layers} mapInstanceRef={mapInstance} {...restProps} />
-		{showLayerSelector &&
-			<LayerSelectorV2 layers={layers} />
-		}
-	</>
-})
+        const currentZoom = view.getZoom() ?? 0;
+        view.setZoom(currentZoom - 1);
+      },
+      panToFeature: (id: string) => {
+        if (!mapInstance.current) {
+          console.warn("Map is not ready yet");
+          return;
+        }
+
+        const features = getFeaturesById(layers, [id]);
+        if (features.length === 0) return;
+        fitToFeature(mapInstance.current, features[0]);
+      },
+      panToFeatures: (ids: string[]) => {
+        if (!mapInstance.current) {
+          console.warn("Map is not ready yet");
+          return;
+        }
+
+        const features = getFeaturesById(layers, ids);
+        if (features.length === 0) return;
+        fitToFeature(mapInstance.current, features[0]);
+      },
+      layers,
+    }),
+    [mapInstance.current, layers]
+  );
+
+  const { layers: _ignored, ...restProps } = props;
+  return (
+    <>
+      <MapCanvasV2
+        layers={layers}
+        mapInstanceRef={mapInstance}
+        {...restProps}
+      />
+      {showLayerSelector && <LayerSelectorV2 layers={layers} />}
+    </>
+  );
+});
