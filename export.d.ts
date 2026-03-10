@@ -99,6 +99,7 @@ import { StandardTextFieldProps } from '@mui/material';
 import { StyleLike } from 'ol/style/Style';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
+import { SwitchProps as SwitchProps_2 } from '@mui/material/Switch';
 import { SxProps } from '@mui/material/styles';
 import { SxProps as SxProps_2 } from '@mui/material';
 import { TableBodyProps } from '@mui/material';
@@ -309,6 +310,14 @@ export declare type BasicMapV2Handle = {
 };
 
 export declare const BinIcon: default_2.FC<SvgIconProps>;
+
+export declare const Brand: default_2.FC<BrandProps>;
+
+declare interface BrandProps extends default_2.AnchorHTMLAttributes<HTMLAnchorElement> {
+    appName?: string;
+    beta?: boolean;
+    size?: "base" | "jumbo";
+}
 
 export declare function broadcastAuthEvent(event: AuthEvent): void;
 
@@ -1789,6 +1798,13 @@ declare interface StyleSelectorState {
         data: StyleOption[];
     };
 }
+
+export declare const Switch: ForwardRefExoticComponent<Omit<SwitchProps, "ref"> & RefAttributes<HTMLButtonElement>>;
+
+declare type SwitchProps = Omit<SwitchProps_2, "color"> & {
+    label?: string;
+    labelPlacement?: "end" | "start" | "top" | "bottom";
+};
 
 declare type TableCellProps = Omit<TableCellProps_2, "sx" | "classes">;
 
