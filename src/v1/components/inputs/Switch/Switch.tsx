@@ -17,6 +17,9 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(({ label, labelPlaceme
         "& .MuiSwitch-switchBase:hover": {
           backgroundColor: "transparent",
         },
+        "& .MuiSwitch-switchBase.Mui-checked:hover": {
+          backgroundColor: "transparent",
+        },
       }}
     />
   );
