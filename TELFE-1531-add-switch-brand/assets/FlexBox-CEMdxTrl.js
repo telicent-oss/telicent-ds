@@ -1,0 +1,1 @@
+import{j as e}from"./emotion-react-jsx-runtime.browser.esm-e0zr1XFC.js";import{r as t}from"./index-CTjT7uj6.js";import{S as a}from"./Stack-C-VLTEnn.js";const s=t.forwardRef((o,r)=>e(a,{ref:r,...o,children:o.children}));s.__docgenInfo={description:"",methods:[],displayName:"FlexBox"};export{s as F};
