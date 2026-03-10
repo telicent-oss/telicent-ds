@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.5](https://github.com/telicent-oss/telicent-ds/compare/v1.7.4...v1.7.5) (2026-03-10)
+
+
+### Bug Fixes
+
+* add missing components to the ds  ([#468](https://github.com/telicent-oss/telicent-ds/issues/468)) ([9500085](https://github.com/telicent-oss/telicent-ds/commit/95000857a528251bc5f596edcf0cffee7bc7b34c))
+* preload icons ([#467](https://github.com/telicent-oss/telicent-ds/issues/467)) ([b8b32f9](https://github.com/telicent-oss/telicent-ds/commit/b8b32f983ec2a24227b172a5f9753d3b30bf9da9))
+
 ## [1.7.4](https://github.com/telicent-oss/telicent-ds/compare/v1.7.3...v1.7.4) (2026-03-04)
 
 
