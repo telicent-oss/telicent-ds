@@ -96,10 +96,9 @@ const AppBar: React.FC<AppBarProps> = ({
                     fontSize: 30,
                     fontWeight: 400,
                     pt: "2px",
-                    textTransform: "uppercase",
                   }}
                 >
-                  {appName}
+                  {appName.toUpperCase()}
                 </MUITypography>
               )}
               {beta && (
