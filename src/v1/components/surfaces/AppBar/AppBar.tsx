@@ -13,11 +13,11 @@ export type AppBarProps = Partial<{
   startChild: React.ReactNode;
   endChild: React.ReactNode;
   position: MUIAppBarProps["position"];
-  version?: string;
-  onClick?: (event?: Event | React.SyntheticEvent) => void;
-  href?: string;
-  isElevated?: boolean;
-  disableBrand?: boolean;
+  version: string;
+  href: string;
+  target: React.HTMLAttributeAnchorTarget;
+  isElevated: boolean;
+  disableBrand: boolean;
 }>;
 
 const AppBar: React.FC<AppBarProps> = ({
@@ -27,94 +27,117 @@ const AppBar: React.FC<AppBarProps> = ({
   startChild,
   endChild,
   version,
-  isElevated,
-  disableBrand,
+  isElevated = false,
+  disableBrand = false,
   href,
+  target = "_blank",
 }) => {
   const theme = useExtendedTheme();
+
+  const isInteractive = Boolean(href);
+
+  const linkProps = href
+    ? {
+        component: "a" as const,
+        href,
+        target,
+        rel: "noopener noreferrer",
+      }
+    : {
+        component: "div" as const,
+      };
 
   return (
     <MUIAppBar
       color="inherit"
       position={position}
+      elevation={isElevated ? 4 : 0}
       sx={{
         borderRadius: 0,
-        backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "#ffffff",
+        backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : "#fff",
       }}
-      elevation={isElevated ? 4 : 0}
     >
-      {startChild && (
-        <MUIBox
-          id="app-switch-container"
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: 16,
-            transform: "translate(0, -50%)",
-          }}
-        >
-          {startChild}
-        </MUIBox>
-      )}
-      <MUIStack
-        component={href ? "a" : "div"}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        direction="row"
-        spacing={1}
-        alignItems="center"
+      <MUIBox
         sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          cursor: href ? "pointer" : "default",
+          display: "grid",
+          gridTemplateColumns: "1fr auto 1fr",
+          alignItems: "center",
+          minHeight: 64,
+          px: 2,
         }}
       >
-        {!disableBrand && (
-          <>
-            <TelicentMark fontSize="large" />
-            <TelicentBrand />
-            <MUITypography
-              variant="h1"
-              color="primary"
-              sx={{ fontFamily: "Figtree", fontSize: 30, fontWeight: 400, pt: "2px", textTransform: "uppercase" }}
-            >
-              {appName}
-            </MUITypography>
-          </>
-        )}
+        <MUIBox sx={{ justifySelf: "start", minWidth: 0 }}>{startChild}</MUIBox>
 
-        {version && (
-          <MUIBox
-            position="absolute"
-            bottom={5}
-            fontSize={12}
-            left="calc(100% - 12px)"
-            paddingInline={0.5}
-            sx={{
-              color: theme.palette.secondary.contrastText,
-              whiteSpace: "nowrap",
-              marginLeft: "-4px",
-            }}
-          >
-            {version}
-          </MUIBox>
-        )}
-      </MUIStack>
-      {endChild && (
         <MUIStack
+          {...linkProps}
+          direction="row"
+          spacing={1}
+          alignItems="center"
           sx={{
-            position: "absolute",
-            top: "50%",
-            right: 16,
-            transform: "translate(0, -50%)",
+            justifySelf: "center",
+            cursor: isInteractive ? "pointer" : "default",
+            textDecoration: "none",
+            color: "inherit",
+            position: "relative",
+            minWidth: 0,
           }}
         >
-          {endChild}
+          {!disableBrand && (
+            <>
+              <TelicentMark fontSize="large" />
+              <TelicentBrand />
+              {appName && (
+                <MUITypography
+                  variant="h1"
+                  component="span"
+                  color="primary"
+                  sx={{
+                    fontFamily: "Figtree",
+                    fontSize: 30,
+                    fontWeight: 400,
+                    pt: "2px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {appName}
+                </MUITypography>
+              )}
+              {beta && (
+                <MUIBox
+                  component="span"
+                  sx={{
+                    px: 0.75,
+                    py: 0.25,
+                    borderRadius: 1,
+                    bgcolor: theme.palette.primary.main,
+                    color: theme.palette.primary.contrastText,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    lineHeight: 1,
+                  }}
+                >
+                  BETA
+                </MUIBox>
+              )}
+            </>
+          )}
+
+          {version && (
+            <MUITypography
+              component="span"
+              variant="caption"
+              sx={{
+                color: theme.palette.secondary.contrastText,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {version}
+            </MUITypography>
+          )}
         </MUIStack>
-      )}
+
+        <MUIBox sx={{ justifySelf: "end", minWidth: 0 }}>{endChild}</MUIBox>
+      </MUIBox>
     </MUIAppBar>
   );
 };
