@@ -1,5 +1,4 @@
 import React from "react";
-import { common } from "@mui/material/colors";
 import MUIAppBar, { AppBarProps as MUIAppBarProps } from "@mui/material/AppBar";
 import MUIBox from "@mui/material/Box";
 import MUIStack from "@mui/material/Stack";
@@ -16,6 +15,7 @@ export type AppBarProps = Partial<{
   position: MUIAppBarProps["position"];
   version?: string;
   onClick?: (event?: Event | React.SyntheticEvent) => void;
+  href?: string;
   isElevated?: boolean;
   disableBrand?: boolean;
 }>;
@@ -27,9 +27,9 @@ const AppBar: React.FC<AppBarProps> = ({
   startChild,
   endChild,
   version,
-  onClick,
   isElevated,
   disableBrand,
+  href,
 }) => {
   const theme = useExtendedTheme();
 
@@ -57,6 +57,10 @@ const AppBar: React.FC<AppBarProps> = ({
         </MUIBox>
       )}
       <MUIStack
+        component={href ? "a" : "div"}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
         direction="row"
         spacing={1}
         alignItems="center"
@@ -64,10 +68,9 @@ const AppBar: React.FC<AppBarProps> = ({
           position: "absolute",
           top: "50%",
           left: "50%",
-          transform: "translate(-50%, -50%);",
-          cursor: onClick ? "pointer" : "default",
+          transform: "translate(-50%, -50%)",
+          cursor: href ? "pointer" : "default",
         }}
-        onClick={onClick}
       >
         {!disableBrand && (
           <>
@@ -76,9 +79,9 @@ const AppBar: React.FC<AppBarProps> = ({
             <MUITypography
               variant="h1"
               color="primary"
-              sx={{ fontFamily: "Figtree", fontSize: 30, fontWeight: 400, pt: "2px" }}
+              sx={{ fontFamily: "Figtree", fontSize: 30, fontWeight: 400, pt: "2px", textTransform: "uppercase" }}
             >
-              {appName?.toUpperCase()}
+              {appName}
             </MUITypography>
           </>
         )}
