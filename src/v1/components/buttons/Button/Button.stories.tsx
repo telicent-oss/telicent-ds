@@ -4,11 +4,15 @@ import Box from "@mui/material/Box";
 
 import Button from "./Button";
 import DataSetIcon from "../../data-display/Icons/DataSetIcon";
+import { figmaDesign } from "../../../../../.storybook/figmaDesign";
 
 const meta = {
   title: "Buttons/Button",
   component: Button,
   parameters: {
+    ...figmaDesign(
+      "https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=6065-28532&m=dev",
+    ),
     docs: {
       description: {
         component: `

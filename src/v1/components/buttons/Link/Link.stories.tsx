@@ -1,12 +1,16 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Link from "./LinkButton";
 import { Box } from "@mui/material";
+import { figmaDesign } from "../../../../../.storybook/figmaDesign";
 
 const meta: Meta<typeof Link> = {
   title: "Buttons/Link",
   component: Link,
   tags: ["autodocs"],
   parameters: {
+    ...figmaDesign(
+      "https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=6068-28559&m=dev",
+    ),
     docs: {
       description: {
         component: `

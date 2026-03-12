@@ -2,12 +2,16 @@ import { Meta, StoryObj } from "@storybook/react";
 import Checkbox from "./Checkbox";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import { figmaDesign } from "../../../../../.storybook/figmaDesign";
 
 const meta: Meta<typeof Checkbox> = {
   title: "Inputs/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
   parameters: {
+    ...figmaDesign(
+      "https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=6164-17320&m=dev",
+    ),
     docs: {
       description: {
         component: `
