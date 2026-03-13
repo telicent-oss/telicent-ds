@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.6](https://github.com/telicent-oss/telicent-ds/compare/v1.7.5...v1.7.6) (2026-03-13)
+
+
+### Bug Fixes
+
+* app bar changes ([#470](https://github.com/telicent-oss/telicent-ds/issues/470)) ([a3368d1](https://github.com/telicent-oss/telicent-ds/commit/a3368d14a50b6c7cb4cb699843171dbe62812f3f))
+
 ## [1.7.5](https://github.com/telicent-oss/telicent-ds/compare/v1.7.4...v1.7.5) (2026-03-10)
 
 
