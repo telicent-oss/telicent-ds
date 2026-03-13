@@ -98,7 +98,7 @@ const AppBar: React.FC<AppBarProps> = ({
                     pt: "2px",
                   }}
                 >
-                  {appName.toUpperCase()}
+                  {appName?.toUpperCase()}
                 </MUITypography>
               )}
               {beta && (
