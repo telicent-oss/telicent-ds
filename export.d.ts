@@ -136,10 +136,11 @@ export declare type AppBarProps = Partial<{
     startChild: default_2.ReactNode;
     endChild: default_2.ReactNode;
     position: AppBarProps_2["position"];
-    version?: string;
-    onClick?: (event?: Event | default_2.SyntheticEvent) => void;
-    isElevated?: boolean;
-    disableBrand?: boolean;
+    version: string;
+    href: string;
+    target: default_2.HTMLAttributeAnchorTarget;
+    isElevated: boolean;
+    disableBrand: boolean;
 }>;
 
 export declare const AppChrome: default_2.FC<AppChromeProps>;
