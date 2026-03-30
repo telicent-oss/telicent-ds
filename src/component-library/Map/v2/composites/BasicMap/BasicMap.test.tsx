@@ -24,7 +24,8 @@ const makeProps = (overrides?: Partial<BasicMapProperties>): BasicMapProperties 
 	center: [0, 0],
 	...overrides,
 	markers: [],
-	polygons: []
+	polygons: [],
+	paths: []
 });
 
 // Do I still need this if I have tested the children separately.
@@ -35,7 +36,7 @@ describe.skip("BasicMapV2", () => {
 	});
 
 	it("renders MapCanvasV2 and LayerSelector", () => {
-		render(<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} />);
+		render(<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} />);
 
 		expect(MapCanvasV2).toHaveBeenCalled();
 		expect(LayerSelectorV2).toHaveBeenCalled();

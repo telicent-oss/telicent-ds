@@ -14,7 +14,7 @@ import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
-import { MARKER_LAYER_ID, POLYGON_LAYER_ID } from "../../utils/layers";
+import { MARKER_LAYER_ID, POLYGON_LAYER_ID, PATH_LAYER_ID } from "../../utils/layers";
 import { findVectorLayerById } from "../../utils/feature";
 import {
   getFeaturesById,
@@ -22,6 +22,7 @@ import {
   fitToFeatures,
 } from "./interactions/addPanToFeature";
 import { polygonToOLFeature } from "../../utils/polygons";
+import { pathToOLFeature } from "../../utils/paths";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
 
@@ -54,6 +55,13 @@ export const BasicMapV2 = React.forwardRef<
       {
         kind: "overlay-vector",
         id: POLYGON_LAYER_ID,
+        data: [],
+        visible: true,
+      },
+      // Path layer
+      {
+        kind: "overlay-vector",
+        id: PATH_LAYER_ID,
         data: [],
         visible: true,
       },
@@ -95,20 +103,23 @@ export const BasicMapV2 = React.forwardRef<
   useEffect(() => {
     if (!mapInstance.current) return;
     const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
+    const polygonLayer = findVectorLayerById(layers, POLYGON_LAYER_ID);
+    const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
+
     if (!markerLayer) {
       console.debug("No marker layer found");
       return;
     }
 
-    const source = markerLayer.getSource();
-    if (!source) {
-      console.debug("Could not find layer source");
+    const markerSource = markerLayer.getSource();
+    const polygonSource = polygonLayer?.getSource();
+    const pathSource = pathLayer?.getSource();
+
+    if (!markerSource) {
+      console.debug("Could not find marker layer source");
       return;
     }
 
-    /* source.clear(); */
-    /* const markerFeatures = props.markers.map(markerToOLFeature); */
-    /* source.addFeatures(markerFeatures); */
     let cancelled = false;
 
     (async () => {
@@ -116,15 +127,20 @@ export const BasicMapV2 = React.forwardRef<
 
       if (cancelled) return;
 
-      source.clear();
+      markerSource.clear();
+      polygonSource?.clear();
+      pathSource?.clear();
 
       const markerFeatures = props.markers.map(markerToOLFeature);
-      source.addFeatures(markerFeatures);
+      markerSource.addFeatures(markerFeatures);
 
       const polygonFeatures = props.polygons.map(polygonToOLFeature);
-      source.addFeatures(polygonFeatures);
+      polygonSource?.addFeatures(polygonFeatures);
 
-      const features = [...markerFeatures, ...polygonFeatures];
+      const pathFeatures = (props.paths ?? []).map(pathToOLFeature);
+      pathSource?.addFeatures(pathFeatures);
+
+      const features = [...markerFeatures, ...polygonFeatures, ...pathFeatures];
 
       if (features.length === 1) {
         fitToFeature(mapInstance.current!, features[0]);
@@ -136,7 +152,7 @@ export const BasicMapV2 = React.forwardRef<
     return () => {
       cancelled = true;
     };
-  }, [props.markers, props.polygons, layers]);
+  }, [props.markers, props.polygons, props.paths, layers]);
 
   useEffect(() => {
     const map = mapInstance.current;
@@ -144,11 +160,13 @@ export const BasicMapV2 = React.forwardRef<
 
     const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
     const polygonLayer = findVectorLayerById(layers, POLYGON_LAYER_ID);
+    const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
 
     const markerFeatures = markerLayer?.getSource()?.getFeatures() ?? [];
     const polygonFeatures = polygonLayer?.getSource()?.getFeatures() ?? [];
+    const pathFeatures = pathLayer?.getSource()?.getFeatures() ?? [];
 
-    const features = [...markerFeatures, ...polygonFeatures];
+    const features = [...markerFeatures, ...polygonFeatures, ...pathFeatures];
     if (!features.length) return;
 
     if (features.length === 1) {
@@ -156,7 +174,7 @@ export const BasicMapV2 = React.forwardRef<
     } else {
       fitToFeatures(map, features);
     }
-  }, [props.markers, props.polygons, layers]);
+  }, [props.markers, props.polygons, props.paths, layers]);
 
   useImperativeHandle(
     ref,

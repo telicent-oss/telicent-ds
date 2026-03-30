@@ -201,6 +201,7 @@ export const getMeta = (layer: BaseLayer): LayerMeta => layer.get("meta");
 
 export const MARKER_LAYER_ID = "marker-layer";
 export const POLYGON_LAYER_ID = "polygon-layer";
+export const PATH_LAYER_ID = "path-layer";
 
 export const attachTileLoadErrorLogging = (
   layers: Collection<BaseLayer>,

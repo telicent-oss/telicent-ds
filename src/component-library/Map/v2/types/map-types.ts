@@ -4,6 +4,7 @@ import { OverlayFeatureConfig } from "./overlays";
 import { LayerConfig } from "./layers";
 import { MarkerFeature } from "./markers";
 import { Map } from "ol";
+import { PathFeature } from "./paths";
 import { PolygonFeature } from "./polygons";
 
 export type LegacyTileSet = {
@@ -75,6 +76,7 @@ export interface BasicMapProperties {
   mapStyleOptions?: LegacyMapConfig;
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
+  paths?: PathFeature[];
   onFeatureClick?: (ids: string[]) => void;
   onLayersReady?: (isReady: boolean) => void;
 }
