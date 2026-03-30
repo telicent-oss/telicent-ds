@@ -96,6 +96,35 @@ describe("layers util", () => {
       });
     });
 
+    it("applies opacity when provided", () => {
+      const config = {
+        id: "raster-opacity",
+        kind: "base-raster",
+        url: "https://example.com/{z}/{x}/{y}.png",
+        label: "Dimmed Raster",
+        visible: true,
+        previewImage: "preview.png",
+        opacity: 0.4,
+      };
+
+      const layer = getBaseRasterLayer(config as any);
+      expect(layer.getOpacity()).toBe(0.4);
+    });
+
+    it("defaults to opacity 1 when not provided", () => {
+      const config = {
+        id: "raster-default",
+        kind: "base-raster",
+        url: "https://example.com/{z}/{x}/{y}.png",
+        label: "Normal Raster",
+        visible: true,
+        previewImage: "preview.png",
+      };
+
+      const layer = getBaseRasterLayer(config as any);
+      expect(layer.getOpacity()).toBe(1);
+    });
+
     it("creates a mapbox/maptiler vector tile layer via apply", async () => {
       const config = {
         id: "vector-1",
@@ -124,6 +153,23 @@ describe("layers util", () => {
       });
     });
 
+    it("applies opacity to maptiler vector tile layer", async () => {
+      const config = {
+        id: "vector-opacity",
+        kind: "base-vector-tiles",
+        provider: "maptiler",
+        url: "https://tiles.com/style.json",
+        label: "Dimmed MapTiler",
+        accessToken: "123",
+        previewImage: "img.png",
+        visible: true,
+        opacity: 0.5,
+      };
+
+      const layer = await getBaseVectorTileLayer(config as any);
+      expect(layer.getOpacity()).toBe(0.5);
+    });
+
     it("creates an arcgis vector tile layer with MVT format", async () => {
       const config = {
         id: "arcgis-layer",
@@ -140,6 +186,21 @@ describe("layers util", () => {
       const source = layer.getSource() as VectorTileSource;
       expect(source).toBeInstanceOf(VectorTileSource);
       expect(layer.get("meta").label).toBe("ArcGIS");
+    });
+
+    it("applies opacity to arcgis vector tile layer", async () => {
+      const config = {
+        id: "arcgis-opacity",
+        kind: "base-vector-tiles",
+        provider: "arcgis",
+        url: "https://example.com/arcgis",
+        label: "Dimmed ArcGIS",
+        previewImage: "img.png",
+        opacity: 0.3,
+      };
+
+      const layer = await getBaseVectorTileLayer(config as any);
+      expect(layer.getOpacity()).toBe(0.3);
     });
 
     it("throws for unknown provider", () => {

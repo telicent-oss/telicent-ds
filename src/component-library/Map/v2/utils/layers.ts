@@ -102,6 +102,9 @@ export const getBaseVectorTileLayer = async (
       mapLayer.set("id", layerConfig.id);
       mapLayer.set("kind", layerConfig.kind);
       mapLayer.set("label", layerConfig.label);
+      if (layerConfig.opacity !== undefined) {
+        mapLayer.setOpacity(layerConfig.opacity);
+      }
 
       return attachMeta(mapLayer, {
         visible: Boolean(layerConfig.visible),
@@ -141,6 +144,9 @@ export const getBaseVectorTileLayer = async (
       layer.set("id", layerConfig.id);
       layer.set("kind", layerConfig.kind);
       layer.set("label", layerConfig.label);
+      if (layerConfig.opacity !== undefined) {
+        layer.setOpacity(layerConfig.opacity);
+      }
 
       const layerWithMeta = attachMeta(layer, {
         visible: Boolean(layerConfig.visible),
@@ -161,6 +167,9 @@ export const getBaseVectorTileLayer = async (
       customLayer.set("id", layerConfig.id);
       customLayer.set("kind", layerConfig.kind);
       customLayer.set("label", layerConfig.label);
+      if (layerConfig.opacity !== undefined) {
+        customLayer.setOpacity(layerConfig.opacity);
+      }
       return attachMeta(customLayer, {
         visible: Boolean(layerConfig.visible),
         label: layerConfig.label,
@@ -183,6 +192,9 @@ export const getBaseRasterLayer = (layerConfig: BaseRasterLayerConfig) => {
   layer.set("id", layerConfig.id);
   layer.set("kind", layerConfig.kind);
   layer.set("label", layerConfig.label);
+  if (layerConfig.opacity !== undefined) {
+    layer.setOpacity(layerConfig.opacity);
+  }
 
   const { previewImage: image, label, visible } = layerConfig;
 

@@ -52,6 +52,7 @@ export type BasicMapV2Handle = {
   zoomOut: () => void;
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
+  setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
   // zoomInAsync: () => Promise<void>;
   // zoomOutAsync: () => Promise<void>;

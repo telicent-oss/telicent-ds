@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
-import { Box } from "@mui/material";
+import { useRef } from "react";
+import { Box, Button, Stack } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react";
 import { BasicMapV2 } from "./BasicMap";
-import { BasicMapProperties } from "../../types/map-types";
+import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { PathFeature } from "../../types/paths";
 
@@ -348,4 +348,84 @@ export const MovementTrailWithDirection: Story = {
 	},
 };
 
+// ---------------------------------------------------------------------------
+// Layer opacity: config-driven
+//
+// The base raster layer is created with opacity: 0.4, so it renders dimmed
+// from mount. Useful for emphasising data overlays over the background.
+// ---------------------------------------------------------------------------
+const dimmedBaseLayers: LayerConfig[] = [
+	{
+		id: "osm-dimmed",
+		kind: "base-raster",
+		provider: "xyz",
+		label: "OpenStreetMap (dimmed)",
+		url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+		previewImage: "/images/street.png",
+		visible: true,
+		opacity: 0.4,
+	},
+];
 
+export const ConfigDrivenOpacity: Story = {
+	args: {
+		zoom: 5,
+		center: [0, 0],
+		layers: dimmedBaseLayers,
+		paths: samplePaths,
+	},
+};
+
+// ---------------------------------------------------------------------------
+// Layer opacity: runtime control via ref handle
+//
+// Demonstrates setLayerOpacity() on the imperative ref. Buttons let you
+// toggle between dimmed (0.3) and full (1.0) opacity at runtime.
+// ---------------------------------------------------------------------------
+const RuntimeOpacityDemo = () => {
+	const mapRef = useRef<BasicMapV2Handle>(null);
+
+	return (
+		<Box sx={{ width: "100%", height: "100%" }}>
+			<Stack direction="row" spacing={1} sx={{ p: 1, position: "absolute", zIndex: 10 }}>
+				<Button
+					variant="contained"
+					size="small"
+					onClick={() => mapRef.current?.setLayerOpacity("osm", 0.3)}
+				>
+					Dim base layer
+				</Button>
+				<Button
+					variant="contained"
+					size="small"
+					onClick={() => mapRef.current?.setLayerOpacity("osm", 1)}
+				>
+					Restore base layer
+				</Button>
+			</Stack>
+			<BasicMapV2
+				ref={mapRef}
+				zoom={5}
+				center={[0, 0]}
+				layers={[
+					{
+						id: "osm",
+						kind: "base-raster",
+						provider: "xyz",
+						label: "OpenStreetMap",
+						url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+						previewImage: "/images/street.png",
+						visible: true,
+					},
+				]}
+				markers={[]}
+				polygons={[]}
+				paths={samplePaths}
+			/>
+		</Box>
+	);
+};
+
+export const RuntimeOpacity: Story = {
+	render: () => <RuntimeOpacityDemo />,
+};
