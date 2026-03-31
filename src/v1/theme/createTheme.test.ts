@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -93,45 +93,25 @@
+    @@ -93,45 +93,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -57,12 +57,15 @@ test("tmp theme diffs via unified patches", () => {
            "light": "rgba(47, 68, 202, 0.5)",
            "contrastText": "#FFFFFF"
          },
-         "secondary": {
-    -      "main": "#8a8a8a",
-    -      "light": "#A1A1A1",
-    -      "dark": "#606060",
+         "tertiary": {
+    -      "main": "#6B6B6B",
+    -      "dark": "rgba(107, 107, 107, 0.7)",
+    -      "light": "rgba(107, 107, 107, 0.5)",
     -      "contrastText": "#FFFFFF"
-    +      "main": "#F9F9F9"
+    +      "main": "#8094A3",
+    +      "dark": "rgba(128, 148, 163, 0.7)",
+    +      "light": "rgba(128, 148, 163, 0.5)",
+    +      "contrastText": "#252525"
          },
          "text": {
     -      "primary": "#ececec",
@@ -90,7 +93,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#e3e3e3"
+    +      "default": "#F9F9F9"
          }
        },
        "typography": {
@@ -126,9 +129,9 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(245, 106, 170, 0.5)",
     +      "contrastText": "#000"
          },
-         "secondary": {
-           "main": "#8a8a8a",
-           "light": "#A1A1A1",
+         "tertiary": {
+           "main": "#6B6B6B",
+           "dark": "rgba(107, 107, 107, 0.7)",
 
 
     Index: 2
@@ -146,7 +149,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -93,45 +93,25 @@
+    @@ -93,45 +93,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -163,12 +166,15 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(245, 106, 170, 0.5)",
     +      "contrastText": "#000"
          },
-         "secondary": {
-    -      "main": "#8a8a8a",
-    -      "light": "#A1A1A1",
-    -      "dark": "#606060",
+         "tertiary": {
+    -      "main": "#6B6B6B",
+    -      "dark": "rgba(107, 107, 107, 0.7)",
+    -      "light": "rgba(107, 107, 107, 0.5)",
     -      "contrastText": "#FFFFFF"
-    +      "main": "#F9F9F9"
+    +      "main": "#8094A3",
+    +      "dark": "rgba(128, 148, 163, 0.7)",
+    +      "light": "rgba(128, 148, 163, 0.5)",
+    +      "contrastText": "#252525"
          },
          "text": {
     -      "primary": "#ececec",
@@ -196,7 +202,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#e3e3e3"
+    +      "default": "#F9F9F9"
          }
        },
        "typography": {
@@ -232,9 +238,9 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(242, 166, 75, 0.5)",
     +      "contrastText": "#000"
          },
-         "secondary": {
-           "main": "#8a8a8a",
-           "light": "#A1A1A1",
+         "tertiary": {
+           "main": "#6B6B6B",
+           "dark": "rgba(107, 107, 107, 0.7)",
 
 
     Index: 4
@@ -252,7 +258,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -93,45 +93,25 @@
+    @@ -93,45 +93,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -269,12 +275,15 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(242, 166, 75, 0.5)",
     +      "contrastText": "#000"
          },
-         "secondary": {
-    -      "main": "#8a8a8a",
-    -      "light": "#A1A1A1",
-    -      "dark": "#606060",
+         "tertiary": {
+    -      "main": "#6B6B6B",
+    -      "dark": "rgba(107, 107, 107, 0.7)",
+    -      "light": "rgba(107, 107, 107, 0.5)",
     -      "contrastText": "#FFFFFF"
-    +      "main": "#F9F9F9"
+    +      "main": "#8094A3",
+    +      "dark": "rgba(128, 148, 163, 0.7)",
+    +      "light": "rgba(128, 148, 163, 0.5)",
+    +      "contrastText": "#252525"
          },
          "text": {
     -      "primary": "#ececec",
@@ -302,7 +311,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#e3e3e3"
+    +      "default": "#F9F9F9"
          }
        },
        "typography": {
@@ -338,9 +347,9 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(32, 188, 250, 0.5)",
     +      "contrastText": "#000"
          },
-         "secondary": {
-           "main": "#8a8a8a",
-           "light": "#A1A1A1",
+         "tertiary": {
+           "main": "#6B6B6B",
+           "dark": "rgba(107, 107, 107, 0.7)",
 
 
     Index: 6
@@ -358,7 +367,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -93,45 +93,25 @@
+    @@ -93,45 +93,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -375,12 +384,15 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(32, 188, 250, 0.5)",
     +      "contrastText": "#000"
          },
-         "secondary": {
-    -      "main": "#8a8a8a",
-    -      "light": "#A1A1A1",
-    -      "dark": "#606060",
+         "tertiary": {
+    -      "main": "#6B6B6B",
+    -      "dark": "rgba(107, 107, 107, 0.7)",
+    -      "light": "rgba(107, 107, 107, 0.5)",
     -      "contrastText": "#FFFFFF"
-    +      "main": "#F9F9F9"
+    +      "main": "#8094A3",
+    +      "dark": "rgba(128, 148, 163, 0.7)",
+    +      "light": "rgba(128, 148, 163, 0.5)",
+    +      "contrastText": "#252525"
          },
          "text": {
     -      "primary": "#ececec",
@@ -408,7 +420,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#e3e3e3"
+    +      "default": "#F9F9F9"
          }
        },
        "typography": {
@@ -444,9 +456,9 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(0, 0, 0, 0.5)",
     +      "contrastText": "#fff"
          },
-         "secondary": {
-           "main": "#8a8a8a",
-           "light": "#A1A1A1",
+         "tertiary": {
+           "main": "#6B6B6B",
+           "dark": "rgba(107, 107, 107, 0.7)",
 
 
     Index: 8
@@ -464,7 +476,7 @@ test("tmp theme diffs via unified patches", () => {
              }
            ],
            "styleOverrides": {}
-    @@ -93,45 +93,25 @@
+    @@ -93,45 +93,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -481,12 +493,15 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(0, 0, 0, 0.5)",
     +      "contrastText": "#fff"
          },
-         "secondary": {
-    -      "main": "#8a8a8a",
-    -      "light": "#A1A1A1",
-    -      "dark": "#606060",
+         "tertiary": {
+    -      "main": "#6B6B6B",
+    -      "dark": "rgba(107, 107, 107, 0.7)",
+    -      "light": "rgba(107, 107, 107, 0.5)",
     -      "contrastText": "#FFFFFF"
-    +      "main": "#F9F9F9"
+    +      "main": "#8094A3",
+    +      "dark": "rgba(128, 148, 163, 0.7)",
+    +      "light": "rgba(128, 148, 163, 0.5)",
+    +      "contrastText": "#252525"
          },
          "text": {
     -      "primary": "#ececec",
@@ -514,7 +529,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#e3e3e3"
+    +      "default": "#F9F9F9"
          }
        },
        "typography": {
