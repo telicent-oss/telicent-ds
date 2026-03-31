@@ -2,6 +2,7 @@ import { pathToOLFeature } from "../paths";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
 import { MultiLineString } from "ol/geom";
+import { Style } from "ol/style";
 import { PathFeature } from "../../types/paths";
 
 describe("pathToOLFeature", () => {
@@ -19,7 +20,7 @@ describe("pathToOLFeature", () => {
     const feature = pathToOLFeature(path);
 
     expect(feature).toBeInstanceOf(Feature);
-    expect(feature.get("id") ?? (feature as any).id).toBe("p1");
+    expect(feature.getId()).toBe("p1");
     expect(feature.getGeometry()).toBeInstanceOf(LineString);
   });
 
@@ -43,7 +44,7 @@ describe("pathToOLFeature", () => {
     const feature = pathToOLFeature(path);
 
     expect(feature).toBeInstanceOf(Feature);
-    expect((feature as any).id).toBe("p2");
+    expect(feature.getId()).toBe("p2");
     expect(feature.getGeometry()).toBeInstanceOf(MultiLineString);
   });
 
@@ -100,7 +101,7 @@ describe("pathToOLFeature", () => {
 
     // Should be an array: 1 stroke style + 1 arrow per segment (2 segments)
     expect(Array.isArray(appliedStyle)).toBe(true);
-    expect((appliedStyle as any[]).length).toBe(3);
+    expect((appliedStyle as Style[]).length).toBe(3);
     expect(Array.isArray(feature.get("originalStyle"))).toBe(true);
   });
 
@@ -123,7 +124,7 @@ describe("pathToOLFeature", () => {
     const appliedStyle = feature.getStyle();
 
     expect(Array.isArray(appliedStyle)).toBe(true);
-    expect((appliedStyle as any[]).length).toBe(2);
+    expect((appliedStyle as Style[]).length).toBe(2);
   });
 
   it("supports svg marker type in direction", () => {
@@ -148,7 +149,7 @@ describe("pathToOLFeature", () => {
     const appliedStyle = feature.getStyle();
 
     expect(Array.isArray(appliedStyle)).toBe(true);
-    expect((appliedStyle as any[]).length).toBe(2);
+    expect((appliedStyle as Style[]).length).toBe(2);
   });
 
   it("sets a single style when no direction provided", () => {

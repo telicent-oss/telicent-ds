@@ -7,6 +7,7 @@ import { LayerConfig } from "../../types/layers";
 import { PathFeature } from "../../types/paths";
 import { Stroke, Style } from "ol/style";
 import { FeatureLike } from "ol/Feature";
+import { PATH_LAYER_ID } from "../../utils/layers";
 
 
 // Example base layers
@@ -488,7 +489,7 @@ const PathStyleFunctionDemo = () => {
 		setSelectedLabel(id ?? "none");
 		// Force OL to re-render styles
 		const pathLayer = mapRef.current?.layers.find(
-			(l) => l.get("id") === "path-layer"
+			(l) => l.get("id") === PATH_LAYER_ID
 		);
 		pathLayer?.changed();
 	};

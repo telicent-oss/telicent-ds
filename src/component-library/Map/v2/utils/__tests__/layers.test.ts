@@ -11,6 +11,10 @@ import VectorTileSource from "ol/source/VectorTile";
 import apply from "ol-mapbox-style";
 
 import {
+  BaseRasterLayerConfig,
+  BaseVectorTileLayerConfig,
+} from "../../types/layers";
+import {
   getOverlayVectorLayer,
   getBaseVectorTileLayer,
   getDefaultOverlayStyle,
@@ -97,7 +101,7 @@ describe("layers util", () => {
     });
 
     it("applies opacity when provided", () => {
-      const config = {
+      const config: BaseRasterLayerConfig = {
         id: "raster-opacity",
         kind: "base-raster",
         url: "https://example.com/{z}/{x}/{y}.png",
@@ -107,12 +111,12 @@ describe("layers util", () => {
         opacity: 0.4,
       };
 
-      const layer = getBaseRasterLayer(config as any);
+      const layer = getBaseRasterLayer(config);
       expect(layer.getOpacity()).toBe(0.4);
     });
 
     it("defaults to opacity 1 when not provided", () => {
-      const config = {
+      const config: BaseRasterLayerConfig = {
         id: "raster-default",
         kind: "base-raster",
         url: "https://example.com/{z}/{x}/{y}.png",
@@ -121,7 +125,7 @@ describe("layers util", () => {
         previewImage: "preview.png",
       };
 
-      const layer = getBaseRasterLayer(config as any);
+      const layer = getBaseRasterLayer(config);
       expect(layer.getOpacity()).toBe(1);
     });
 
@@ -154,7 +158,7 @@ describe("layers util", () => {
     });
 
     it("applies opacity to maptiler vector tile layer", async () => {
-      const config = {
+      const config: BaseVectorTileLayerConfig = {
         id: "vector-opacity",
         kind: "base-vector-tiles",
         provider: "maptiler",
@@ -166,7 +170,7 @@ describe("layers util", () => {
         opacity: 0.5,
       };
 
-      const layer = await getBaseVectorTileLayer(config as any);
+      const layer = await getBaseVectorTileLayer(config);
       expect(layer.getOpacity()).toBe(0.5);
     });
 
@@ -189,7 +193,7 @@ describe("layers util", () => {
     });
 
     it("applies opacity to arcgis vector tile layer", async () => {
-      const config = {
+      const config: BaseVectorTileLayerConfig = {
         id: "arcgis-opacity",
         kind: "base-vector-tiles",
         provider: "arcgis",
@@ -199,7 +203,7 @@ describe("layers util", () => {
         opacity: 0.3,
       };
 
-      const layer = await getBaseVectorTileLayer(config as any);
+      const layer = await getBaseVectorTileLayer(config);
       expect(layer.getOpacity()).toBe(0.3);
     });
 
