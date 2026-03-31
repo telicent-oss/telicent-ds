@@ -48,8 +48,8 @@ describe("pathToOLFeature", () => {
     expect(feature.getGeometry()).toBeInstanceOf(MultiLineString);
   });
 
-  it("applies custom style when provided", () => {
-    const path = {
+  it("applies stroke style matching config values", () => {
+    const path: PathFeature = {
       id: "p3",
       type: "LineString",
       name: "Styled Path",
@@ -58,12 +58,16 @@ describe("pathToOLFeature", () => {
         [2.3, 48.8],
       ],
       style: { color: "#FF0000", width: 4, lineDash: [5, 3] },
-    } as PathFeature;
+    };
 
     const feature = pathToOLFeature(path);
+    const style = feature.getStyle() as Style;
+    const stroke = style.props.stroke;
 
-    expect(feature.getStyle()).toBeDefined();
-    expect(feature.get("originalStyle")).toBeDefined();
+    expect(stroke.props.color).toBe("#FF0000");
+    expect(stroke.props.width).toBe(4);
+    expect(stroke.props.lineDash).toEqual([5, 3]);
+    expect(feature.get("originalStyle")).toBe(style);
   });
 
   it("does not set style when none provided", () => {
@@ -104,8 +108,8 @@ describe("pathToOLFeature", () => {
     expect(Array.isArray(feature.get("originalStyle"))).toBe(true);
   });
 
-  it("applies custom direction options with default triangle", () => {
-    const path = {
+  it("uses direction.color over style.color and creates RegularShape", () => {
+    const path: PathFeature = {
       id: "p7",
       type: "LineString",
       name: "Custom Direction",
@@ -117,17 +121,20 @@ describe("pathToOLFeature", () => {
         color: "#FF0000",
         direction: { color: "#00FF00", size: 20 },
       },
-    } as PathFeature;
+    };
 
     const feature = pathToOLFeature(path);
-    const appliedStyle = feature.getStyle();
+    const styles = feature.getStyle() as Style[];
+    const arrowStyle = styles[1];
+    const shape = arrowStyle.props.image;
 
-    expect(Array.isArray(appliedStyle)).toBe(true);
-    expect((appliedStyle as Style[]).length).toBe(2);
+    expect(shape.options.points).toBe(3);
+    expect(shape.options.radius).toBe(20);
+    expect(shape.options.fill.props.color).toBe("#00FF00");
   });
 
-  it("supports svg marker type in direction", () => {
-    const path = {
+  it("creates Icon with encoded SVG data URI for svg marker", () => {
+    const path: PathFeature = {
       id: "p9",
       type: "LineString",
       name: "SVG Direction",
@@ -138,17 +145,21 @@ describe("pathToOLFeature", () => {
       style: {
         color: "#FF0000",
         direction: {
-          size: 16,
+          size: 24,
           marker: { type: "svg", markup: "<svg></svg>" },
         },
       },
-    } as PathFeature;
+    };
 
     const feature = pathToOLFeature(path);
-    const appliedStyle = feature.getStyle();
+    const styles = feature.getStyle() as Style[];
+    const arrowStyle = styles[1];
+    const icon = arrowStyle.props.image;
 
-    expect(Array.isArray(appliedStyle)).toBe(true);
-    expect((appliedStyle as Style[]).length).toBe(2);
+    expect(icon.props.src).toContain("data:image/svg+xml;charset=utf-8,");
+    expect(icon.props.src).toContain(encodeURIComponent("<svg></svg>"));
+    expect(icon.props.scale).toBe(24 / 12);
+    expect(icon.props.rotateWithView).toBe(true);
   });
 
   it("sets a single style when no direction provided", () => {
@@ -166,6 +177,36 @@ describe("pathToOLFeature", () => {
     const feature = pathToOLFeature(path);
 
     expect(Array.isArray(feature.getStyle())).toBe(false);
+  });
+
+  it("generates direction arrows for MultiLineString", () => {
+    const path: PathFeature = {
+      id: "multi-dir",
+      type: "MultiLineString",
+      name: "Multi Directed",
+      coordinates: [
+        [
+          [-0.1, 51.5],
+          [2.3, 48.8],
+        ],
+        [
+          [13.4, 52.5],
+          [12.5, 41.9],
+        ],
+      ],
+      style: {
+        color: "#FF0000",
+        width: 3,
+        direction: { size: 10 },
+      },
+    };
+
+    const feature = pathToOLFeature(path);
+    const appliedStyle = feature.getStyle();
+
+    // 1 stroke + 1 arrow per segment (2 lines × 1 segment each = 2 arrows)
+    expect(Array.isArray(appliedStyle)).toBe(true);
+    expect((appliedStyle as Style[]).length).toBe(3);
   });
 
   it("spreads meta properties onto the feature", () => {

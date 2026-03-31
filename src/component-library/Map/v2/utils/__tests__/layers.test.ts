@@ -115,7 +115,7 @@ describe("layers util", () => {
       expect(layer.getOpacity()).toBe(0.4);
     });
 
-    it("defaults to opacity 1 when not provided", () => {
+    it("does not call setOpacity when opacity is omitted", () => {
       const config: BaseRasterLayerConfig = {
         id: "raster-default",
         kind: "base-raster",
@@ -125,8 +125,10 @@ describe("layers util", () => {
         previewImage: "preview.png",
       };
 
-      const layer = getBaseRasterLayer(config);
-      expect(layer.getOpacity()).toBe(1);
+      const spy = jest.spyOn(TileLayer.prototype, "setOpacity");
+      getBaseRasterLayer(config);
+      expect(spy).not.toHaveBeenCalled();
+      spy.mockRestore();
     });
 
     it("creates a mapbox/maptiler vector tile layer via apply", async () => {
@@ -205,6 +207,21 @@ describe("layers util", () => {
 
       const layer = await getBaseVectorTileLayer(config);
       expect(layer.getOpacity()).toBe(0.3);
+    });
+
+    it("applies opacity to custom vector tile layer", async () => {
+      const config: BaseVectorTileLayerConfig = {
+        id: "custom-opacity",
+        kind: "base-vector-tiles",
+        provider: "custom",
+        url: "https://tiles.com/style.json",
+        label: "Custom Dimmed",
+        previewImage: "img.png",
+        opacity: 0.7,
+      };
+
+      const layer = await getBaseVectorTileLayer(config);
+      expect(layer.getOpacity()).toBe(0.7);
     });
 
     it("throws for unknown provider", () => {

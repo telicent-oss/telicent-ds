@@ -31,6 +31,10 @@ export default class MockPolygon {
     return this;
   }
 
+  transform() {
+    return this;
+  }
+
   getExtent(): [number, number, number, number] {
     if (!this.coordinates.length) {
       return [0, 0, 0, 0];

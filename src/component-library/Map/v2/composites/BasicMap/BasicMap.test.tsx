@@ -13,11 +13,12 @@ jest.mock("../../utils/ensureLayers", () => ({
 	ensureLayers: jest.fn(() => Promise.resolve([])),
 }));
 
-import { render } from "@testing-library/react";
+import React from "react";
+import { render, act, waitFor } from "@testing-library/react";
 import { BasicMapV2 } from "./BasicMap";
 import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
 import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
-import { BasicMapProperties } from "../../types/map-types";
+import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig, OverlayVectorLayerConfig } from "../../types/layers";
 import { ensureLayers } from "../../utils/ensureLayers";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
@@ -129,5 +130,107 @@ describe("BasicMapV2 pathStyle", () => {
 		expect(pathLayerConfig).toBeDefined();
 		expect(pathLayerConfig!.style).toBeUndefined();
 		unmount();
+	});
+});
+
+const makeMockLayer = (id: string) => {
+	let opacity = 1;
+	const props: Record<string, unknown> = { id };
+	return {
+		get: (key: string) => props[key],
+		set: (key: string, val: unknown) => { props[key] = val; },
+		setOpacity: (v: number) => { opacity = v; },
+		getOpacity: () => opacity,
+		setVisible: jest.fn(),
+		getVisible: () => true,
+		setZIndex: jest.fn(),
+		getZIndex: () => 0,
+		setDeclutter: jest.fn(),
+		getSource: () => ({ clear: jest.fn(), addFeatures: jest.fn(), getFeatures: () => [] }),
+		changed: jest.fn(),
+	};
+};
+
+describe("BasicMapV2 setLayerOpacity", () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
+	it("sets opacity on a matching layer", async () => {
+		const mockLayer = makeMockLayer("osm");
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([mockLayer]));
+
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					ref={ref}
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[]}
+				/>
+			);
+		});
+
+		act(() => {
+			ref.current!.setLayerOpacity("osm", 0.4);
+		});
+
+		expect(mockLayer.getOpacity()).toBe(0.4);
+	});
+
+	it("no-ops when layer id does not match", async () => {
+		const mockLayer = makeMockLayer("osm");
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([mockLayer]));
+
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					ref={ref}
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[]}
+				/>
+			);
+		});
+
+		act(() => {
+			ref.current!.setLayerOpacity("nonexistent", 0.5);
+		});
+
+		expect(mockLayer.getOpacity()).toBe(1);
+	});
+
+	it("clamps opacity to 0–1 range", async () => {
+		const mockLayer = makeMockLayer("osm");
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([mockLayer]));
+
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					ref={ref}
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[]}
+				/>
+			);
+		});
+
+		act(() => { ref.current!.setLayerOpacity("osm", -0.5); });
+		expect(mockLayer.getOpacity()).toBe(0);
+
+		act(() => { ref.current!.setLayerOpacity("osm", 1.5); });
+		expect(mockLayer.getOpacity()).toBe(1);
 	});
 });
