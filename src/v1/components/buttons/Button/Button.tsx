@@ -9,21 +9,14 @@ import TertiaryButton from "./TertiaryButton";
 type LegacyVariant = "text" | "outlined" | "contained";
 type SupportedVariant = ButtonVariant | LegacyVariant;
 
-type BaseButtonProps = ButtonBaseProps & {
+export type ButtonProps = Omit<MUIButtonProps, "variant"> & {
+  variant?: SupportedVariant;
   /**
    * Legacy compatibility prop.
    * Kept because existing apps rely on style="base".
    */
-  style: "base";
-  variant?: SupportedVariant;
+  style?: MUIButtonProps["style"] | "base";
 };
-
-type DSButtonProps = Omit<MUIButtonProps, "variant"> & {
-  variant?: SupportedVariant;
-  style?: undefined;
-};
-
-export type ButtonProps = BaseButtonProps | DSButtonProps;
 
 const LEGACY_VARIANTS = ["text", "outlined", "contained"] as const;
 
@@ -33,7 +26,8 @@ const isLegacyVariant = (variant: SupportedVariant): variant is LegacyVariant =>
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   if (props.style === "base") {
     const { style, variant, ...buttonBaseProps } = props;
-    return <ButtonBase {...buttonBaseProps} ref={ref} />;
+
+    return <ButtonBase {...(buttonBaseProps as ButtonBaseProps)} ref={ref} />;
   }
 
   const { variant = "primary", ...buttonProps } = props;
@@ -55,7 +49,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     return <TertiaryButton {...buttonProps} ref={ref} />;
   }
 
-  // Fallback (should never really happen, but keeps TS happy and UI safe)
   return <PrimaryButton {...buttonProps} ref={ref} />;
 });
 
