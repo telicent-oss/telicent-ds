@@ -1,4 +1,4 @@
-import { ThemeOptions } from "@mui/material";
+import { alpha, ThemeOptions } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import THEME_COLORS, { UITheme } from "../theme-colors";
 import merge from "lodash.merge";
@@ -8,10 +8,10 @@ const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] =>
   merge(createLightPalette(uiTheme), {
     mode: "dark",
     primary: THEME_COLORS[uiTheme].primary,
-    secondary: {
-      main: "#8a8a8a",
-      light: "#A1A1A1",
-      dark: "#606060",
+    tertiary: {
+      main: "#6B6B6B",
+      dark: alpha("#6B6B6B", 0.7),
+      light: alpha("#6B6B6B", 0.5),
       contrastText: "#FFFFFF",
     },
     text: {

@@ -4,8 +4,15 @@ import THEME_COLORS, { UITheme } from "../theme-colors";
 const createLightPalette = (uiTheme: UITheme): ThemeOptions["palette"] => ({
   mode: "light",
   primary: THEME_COLORS[uiTheme].primary,
-  secondary: {
-    main: "#F9F9F9",
+  // secondary: {
+  //   main: "#F9F9F9",
+  // },
+
+  tertiary: {
+    main: "#8094A3",
+    dark: alpha("#8094A3", 0.7),
+    light: alpha("#8094A3", 0.5),
+    contrastText: "#252525",
   },
   text: {
     primary: "#000000",
@@ -13,7 +20,7 @@ const createLightPalette = (uiTheme: UITheme): ThemeOptions["palette"] => ({
     disabled: "#999999",
   },
   background: {
-    default: "#e3e3e3",
+    default: "#F9F9F9",
   },
 });
 
