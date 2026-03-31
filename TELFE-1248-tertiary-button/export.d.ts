@@ -244,15 +244,6 @@ declare type AutocompleteOption = {
 
 export declare const base64Codec: Codec;
 
-declare type BaseButtonProps = ButtonBaseProps & {
-    /**
-     * Legacy compatibility prop.
-     * Kept because existing apps rely on style="base".
-     */
-    style: "base";
-    variant?: SupportedVariant;
-};
-
 export declare type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;
 
 declare type BaseProps_2 = {
@@ -331,7 +322,7 @@ declare interface BrandProps extends default_2.AnchorHTMLAttributes<HTMLAnchorEl
 
 export declare function broadcastAuthEvent(event: AuthEvent): void;
 
-export declare const Button: default_2.ForwardRefExoticComponent<(Omit<BaseButtonProps, "ref"> | Omit<DSButtonProps, "ref">) & default_2.RefAttributes<HTMLButtonElement>>;
+export declare const Button: default_2.ForwardRefExoticComponent<Omit<ButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
 
 /**
  * Button variant tokens - framework agnostic
@@ -352,7 +343,14 @@ declare const BUTTON_VARIANTS: {
     };
 };
 
-export declare type ButtonProps = BaseButtonProps | DSButtonProps;
+export declare type ButtonProps = Omit<ButtonProps_2, "variant"> & {
+    variant?: SupportedVariant;
+    /**
+     * Legacy compatibility prop.
+     * Kept because existing apps rely on style="base".
+     */
+    style?: ButtonProps_2["style"] | "base";
+};
 
 declare type ButtonVariant = keyof typeof BUTTON_VARIANTS;
 
@@ -674,11 +672,6 @@ declare interface DropdownButtonProps {
     id: string;
     menuItems: DropDownButtonMenuItemProps[];
 }
-
-declare type DSButtonProps = Omit<ButtonProps_2, "variant"> & {
-    variant?: SupportedVariant;
-    style?: undefined;
-};
 
 export declare const DSProviders: React.FC<DSProvidersProps>;
 
