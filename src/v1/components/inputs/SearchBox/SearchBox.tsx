@@ -3,8 +3,9 @@ import Box from "@mui/material/Box";
 import InputBase, { InputBaseProps } from "@mui/material/InputBase";
 import PrimaryButton from "../../buttons/Button/PrimaryButton";
 import { SearchIcon } from "../../data-display";
+import { SxProps } from "@mui/material";
 
-export interface SearchBoxProps<Value = string> extends React.ComponentProps<typeof InputBase>{
+export interface SearchBoxProps<Value = string> extends React.ComponentProps<typeof InputBase> {
   /**
    * If true, the input element is focused during the first mount.
    */
@@ -45,6 +46,7 @@ export interface SearchBoxProps<Value = string> extends React.ComponentProps<typ
    */
   value?: Value;
   width?: number;
+  sx?: SxProps;
 }
 
 export const SearchBox: React.FC<SearchBoxProps> = ({
@@ -58,16 +60,10 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   onSearch,
   disabled,
   width = 600,
+  sx,
   ...rest
 }) => (
-  <Box
-    height={44}
-    width={width}
-    display="flex"
-    alignItems="center"
-    component="form"
-    onSubmit={onSearch}
-  >
+  <Box height={44} width={width} display="flex" alignItems="center" component="form" onSubmit={onSearch}>
     <InputBase
       data-test-handle="search-box-input"
       type="search"
@@ -80,6 +76,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         borderStyle: "solid",
         borderTopLeftRadius: 4,
         borderBottomLeftRadius: 4,
+        ...sx,
       }}
       inputProps={{ sx: { paddingInline: 1.5 } }}
       ref={inputRef}
