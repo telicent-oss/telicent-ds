@@ -99,7 +99,6 @@ describe("pathToOLFeature", () => {
     const feature = pathToOLFeature(path);
     const appliedStyle = feature.getStyle();
 
-    // Should be an array: 1 stroke style + 1 arrow per segment (2 segments)
     expect(Array.isArray(appliedStyle)).toBe(true);
     expect((appliedStyle as Style[]).length).toBe(3);
     expect(Array.isArray(feature.get("originalStyle"))).toBe(true);

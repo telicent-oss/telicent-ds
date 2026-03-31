@@ -10,7 +10,6 @@ import { FeatureLike } from "ol/Feature";
 import { PATH_LAYER_ID } from "../../utils/layers";
 
 
-// Example base layers
 const baseLayers: LayerConfig[] = [
 	{
 		id: "OpenStreetMap",
@@ -93,7 +92,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = {};
 
-// Story template
 export const Template: Story = {
 	args: {
 		layers: baseLayers
@@ -147,8 +145,7 @@ export const WithMarkersAndPaths: Story = {
 	},
 };
 
-// Movement trail: each segment is a separate PathFeature styled from
-// hot (red, fully opaque, thick) → cold (blue, faded, thin)
+// Edinburgh → London, hot (newest) → cold (oldest)
 const movementTrailCoordinates: [number, number][] = [
 	[-3.19, 55.95],   // Edinburgh
 	[-2.24, 55.86],   // somewhere east
@@ -166,8 +163,7 @@ const movementTrailCoordinates: [number, number][] = [
 function interpolateColor(
 	t: number
 ): { r: number; g: number; b: number } {
-	// hot (red/orange) → cold (blue)
-	// t=0 is oldest (cold), t=1 is newest (hot)
+	// t: 0 (cold/blue) → 1 (hot/red)
 	return {
 		r: Math.round(30 + 225 * t),      // 30 → 255
 		g: Math.round(80 * (1 - t)),       // 80 → 0
@@ -206,13 +202,7 @@ export const MovementTrail: Story = {
 	},
 };
 
-// ---------------------------------------------------------------------------
-// Direction arrows: triangle marker (default)
-//
-// Key config:
-//   direction: { marker: { type: "triangle" }, color, size }
-//   Omitting `marker` also defaults to triangle.
-// ---------------------------------------------------------------------------
+// Omitting `marker` defaults to triangle.
 const triangleDirectedPaths: PathFeature[] = [
 	{
 		id: "tri-1",
@@ -263,13 +253,7 @@ export const DirectionTriangle: Story = {
 	},
 };
 
-// ---------------------------------------------------------------------------
-// Direction arrows: custom SVG marker
-//
-// Key config:
-//   direction: { marker: { type: "svg", markup: "<svg>...</svg>" }, size }
-//   The SVG should point RIGHT (east) at rest; it is rotated automatically.
-// ---------------------------------------------------------------------------
+// SVG should point east at rest; OL rotates to match segment bearing.
 const chevronSvg = [
 	`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">`,
 	`<path d="M8 4 L16 12 L8 20" fill="none" stroke="#FF6600" stroke-width="3"`,
@@ -307,13 +291,6 @@ export const DirectionSvg: Story = {
 	},
 };
 
-// ---------------------------------------------------------------------------
-// Movement trail with direction: graduated hot→cold + triangle arrows
-//
-// Key config per segment:
-//   direction: { marker: { type: "triangle" }, color, size }
-//   colour/size/opacity all vary per segment to show age.
-// ---------------------------------------------------------------------------
 const directedTrailPaths: PathFeature[] = movementTrailCoordinates
 	.slice(0, -1)
 	.map((coord, i, arr) => {
@@ -351,12 +328,6 @@ export const MovementTrailWithDirection: Story = {
 	},
 };
 
-// ---------------------------------------------------------------------------
-// Layer opacity: config-driven
-//
-// The base raster layer is created with opacity: 0.4, so it renders dimmed
-// from mount. Useful for emphasising data overlays over the background.
-// ---------------------------------------------------------------------------
 const dimmedBaseLayers: LayerConfig[] = [
 	{
 		id: "osm-dimmed",
@@ -379,12 +350,6 @@ export const ConfigDrivenOpacity: Story = {
 	},
 };
 
-// ---------------------------------------------------------------------------
-// Layer opacity: runtime control via ref handle
-//
-// Demonstrates setLayerOpacity() on the imperative ref. Buttons let you
-// toggle between dimmed (0.3) and full (1.0) opacity at runtime.
-// ---------------------------------------------------------------------------
 const RuntimeOpacityDemo = () => {
 	const mapRef = useRef<BasicMapV2Handle>(null);
 
@@ -433,15 +398,7 @@ export const RuntimeOpacity: Story = {
 	render: () => <RuntimeOpacityDemo />,
 };
 
-// ---------------------------------------------------------------------------
-// Path style function: layer-level dynamic styling
-//
-// Demonstrates pathStyle — a StyleLike function set on the path layer.
-// A ref holds the currently "selected" path ID. The style function reads
-// the feature ID and returns a highlight stroke for the selected path,
-// or a muted stroke for others. Clicking a button changes the selection
-// without rebuilding the paths array, so fitToFeatures is NOT re-triggered.
-// ---------------------------------------------------------------------------
+// Selection changes via ref, not paths[] rebuild — no fitToFeatures re-trigger.
 const pathStylePaths: PathFeature[] = [
 	{
 		id: "path-a",
