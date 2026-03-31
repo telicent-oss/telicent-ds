@@ -6,6 +6,7 @@ import { MarkerFeature } from "./markers";
 import { Map } from "ol";
 import { PathFeature } from "./paths";
 import { PolygonFeature } from "./polygons";
+import { StyleLike } from "ol/style/Style";
 
 export type LegacyTileSet = {
   label: string;
@@ -78,6 +79,7 @@ export interface BasicMapProperties {
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
   paths?: PathFeature[];
+  pathStyle?: StyleLike;
   onFeatureClick?: (ids: string[]) => void;
   onLayersReady?: (isReady: boolean) => void;
 }

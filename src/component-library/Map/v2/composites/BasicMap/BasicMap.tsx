@@ -64,10 +64,11 @@ export const BasicMapV2 = React.forwardRef<
         id: PATH_LAYER_ID,
         data: [],
         visible: true,
+        style: props.pathStyle,
       },
     ];
     return [...baseLayers, ...overlayVectorLayers];
-  }, [props.layers]);
+  }, [props.layers, props.pathStyle]);
 
   useEffect(() => {
     let cancelled = false;

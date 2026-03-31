@@ -9,14 +9,19 @@ jest.mock("../../primitives/LayerSelector/LayerSelector", () => ({
 	LayerSelectorV2: jest.fn(() => <div id="layer-selector" />)
 }));
 
+jest.mock("../../utils/ensureLayers", () => ({
+	ensureLayers: jest.fn(() => Promise.resolve([])),
+}));
+
 import { render } from "@testing-library/react";
 import { BasicMapV2 } from "./BasicMap";
 import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
 import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
 import { BasicMapProperties } from "../../types/map-types";
-import { LayerConfig } from "../../types/layers";
+import { LayerConfig, OverlayVectorLayerConfig } from "../../types/layers";
 import { ensureLayers } from "../../utils/ensureLayers";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
+import { PATH_LAYER_ID } from "../../utils/layers";
 
 
 const makeProps = (overrides?: Partial<BasicMapProperties>): BasicMapProperties => ({
@@ -70,5 +75,57 @@ describe.skip("BasicMapV2", () => {
 		const props = makeProps({ mapStyleOptions: mapStyleOption })
 		render(<BasicMapV2 {...props} />);
 		expect(mapLegacyConfigToLayers).toHaveBeenCalled();
+	});
+});
+
+describe("BasicMapV2 pathStyle", () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
+	it("passes pathStyle to the path overlay-vector layer config", () => {
+		const pathStyleFn = jest.fn();
+
+		render(
+			<BasicMapV2
+				zoom={5}
+				center={[0, 0]}
+				markers={[]}
+				polygons={[]}
+				paths={[]}
+				pathStyle={pathStyleFn}
+			/>
+		);
+
+		expect(ensureLayers).toHaveBeenCalled();
+		const configs = (ensureLayers as jest.Mock).mock.calls[0][0] as LayerConfig[];
+		const pathLayerConfig = configs.find(
+			(c): c is OverlayVectorLayerConfig =>
+				c.kind === "overlay-vector" && c.id === PATH_LAYER_ID
+		);
+
+		expect(pathLayerConfig).toBeDefined();
+		expect(pathLayerConfig!.style).toBe(pathStyleFn);
+	});
+
+	it("does not set style on path layer when pathStyle is omitted", () => {
+		render(
+			<BasicMapV2
+				zoom={5}
+				center={[0, 0]}
+				markers={[]}
+				polygons={[]}
+				paths={[]}
+			/>
+		);
+
+		const configs = (ensureLayers as jest.Mock).mock.calls[0][0] as LayerConfig[];
+		const pathLayerConfig = configs.find(
+			(c): c is OverlayVectorLayerConfig =>
+				c.kind === "overlay-vector" && c.id === PATH_LAYER_ID
+		);
+
+		expect(pathLayerConfig).toBeDefined();
+		expect(pathLayerConfig!.style).toBeUndefined();
 	});
 });

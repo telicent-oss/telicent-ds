@@ -1,10 +1,12 @@
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react";
 import { BasicMapV2 } from "./BasicMap";
 import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { PathFeature } from "../../types/paths";
+import { Stroke, Style } from "ol/style";
+import { FeatureLike } from "ol/Feature";
 
 
 // Example base layers
@@ -428,4 +430,99 @@ const RuntimeOpacityDemo = () => {
 
 export const RuntimeOpacity: Story = {
 	render: () => <RuntimeOpacityDemo />,
+};
+
+// ---------------------------------------------------------------------------
+// Path style function: layer-level dynamic styling
+//
+// Demonstrates pathStyle — a StyleLike function set on the path layer.
+// A ref holds the currently "selected" path ID. The style function reads
+// the feature ID and returns a highlight stroke for the selected path,
+// or a muted stroke for others. Clicking a button changes the selection
+// without rebuilding the paths array, so fitToFeatures is NOT re-triggered.
+// ---------------------------------------------------------------------------
+const pathStylePaths: PathFeature[] = [
+	{
+		id: "path-a",
+		type: "LineString",
+		name: "Route A",
+		coordinates: [
+			[-0.1278, 51.5074],
+			[2.3522, 48.8566],
+			[13.405, 52.52],
+		],
+	},
+	{
+		id: "path-b",
+		type: "LineString",
+		name: "Route B",
+		coordinates: [
+			[-3.1883, 55.9533],
+			[-1.6178, 54.9783],
+			[-1.5491, 53.8008],
+		],
+	},
+];
+
+const PathStyleFunctionDemo = () => {
+	const selectedRef = useRef<string | null>(null);
+	const [selectedLabel, setSelectedLabel] = useState<string>("none");
+	const mapRef = useRef<BasicMapV2Handle>(null);
+
+	const pathStyle = useCallback(
+		(feature: FeatureLike) => {
+			const id = feature.getId?.() ?? feature.get?.("id");
+			const isSelected = id === selectedRef.current;
+			return new Style({
+				stroke: new Stroke({
+					color: isSelected ? "#FF6600" : "#999999",
+					width: isSelected ? 5 : 2,
+				}),
+			});
+		},
+		[]
+	);
+
+	const select = (id: string | null) => {
+		selectedRef.current = id;
+		setSelectedLabel(id ?? "none");
+		// Force OL to re-render styles
+		const pathLayer = mapRef.current?.layers.find(
+			(l) => l.get("id") === "path-layer"
+		);
+		pathLayer?.changed();
+	};
+
+	return (
+		<Box sx={{ width: "100%", height: "100%" }}>
+			<Stack direction="row" spacing={1} sx={{ p: 1, position: "absolute", zIndex: 10 }}>
+				<Button variant="contained" size="small" onClick={() => select("path-a")}>
+					Select Route A
+				</Button>
+				<Button variant="contained" size="small" onClick={() => select("path-b")}>
+					Select Route B
+				</Button>
+				<Button variant="outlined" size="small" onClick={() => select(null)}>
+					Clear selection
+				</Button>
+				<Box sx={{ alignSelf: "center", color: "#fff", pl: 1 }}>
+					Selected: {selectedLabel}
+				</Box>
+			</Stack>
+			<BasicMapV2
+				ref={mapRef}
+				zoom={5}
+				center={[2, 52]}
+				layers={baseLayers}
+				markers={[]}
+				polygons={[]}
+				paths={pathStylePaths}
+				pathStyle={pathStyle}
+			/>
+		</Box>
+	);
+};
+
+export const PathStyleFunction: Story = {
+	render: () => <PathStyleFunctionDemo />,
 };
