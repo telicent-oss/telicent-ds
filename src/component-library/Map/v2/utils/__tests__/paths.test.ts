@@ -5,6 +5,12 @@ import { MultiLineString } from "ol/geom";
 import { Style } from "ol/style";
 import { PathFeature } from "../../types/paths";
 
+// Mock classes store constructor args in .props or .options
+type MockStyle = Style & {
+  props: Record<string, MockStyle>;
+  options: Record<string, MockStyle>;
+};
+
 describe("pathToOLFeature", () => {
   it("creates a Feature with LineString geometry and id", () => {
     const path = {
@@ -61,7 +67,7 @@ describe("pathToOLFeature", () => {
     };
 
     const feature = pathToOLFeature(path);
-    const style = feature.getStyle() as Style;
+    const style = feature.getStyle() as MockStyle;
     const stroke = style.props.stroke;
 
     expect(stroke.props.color).toBe("#FF0000");
@@ -124,7 +130,7 @@ describe("pathToOLFeature", () => {
     };
 
     const feature = pathToOLFeature(path);
-    const styles = feature.getStyle() as Style[];
+    const styles = feature.getStyle() as MockStyle[];
     const arrowStyle = styles[1];
     const shape = arrowStyle.props.image;
 
@@ -152,7 +158,7 @@ describe("pathToOLFeature", () => {
     };
 
     const feature = pathToOLFeature(path);
-    const styles = feature.getStyle() as Style[];
+    const styles = feature.getStyle() as MockStyle[];
     const arrowStyle = styles[1];
     const icon = arrowStyle.props.image;
 
