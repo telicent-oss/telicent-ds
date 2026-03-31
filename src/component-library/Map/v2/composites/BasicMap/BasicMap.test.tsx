@@ -86,7 +86,7 @@ describe("BasicMapV2 pathStyle", () => {
 	it("passes pathStyle to the path overlay-vector layer config", () => {
 		const pathStyleFn = jest.fn();
 
-		render(
+		const { unmount } = render(
 			<BasicMapV2
 				zoom={5}
 				center={[0, 0]}
@@ -106,10 +106,11 @@ describe("BasicMapV2 pathStyle", () => {
 
 		expect(pathLayerConfig).toBeDefined();
 		expect(pathLayerConfig!.style).toBe(pathStyleFn);
+		unmount();
 	});
 
 	it("does not set style on path layer when pathStyle is omitted", () => {
-		render(
+		const { unmount } = render(
 			<BasicMapV2
 				zoom={5}
 				center={[0, 0]}
@@ -127,5 +128,6 @@ describe("BasicMapV2 pathStyle", () => {
 
 		expect(pathLayerConfig).toBeDefined();
 		expect(pathLayerConfig!.style).toBeUndefined();
+		unmount();
 	});
 });
