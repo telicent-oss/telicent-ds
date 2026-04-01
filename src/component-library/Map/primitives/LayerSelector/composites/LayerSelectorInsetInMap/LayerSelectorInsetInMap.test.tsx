@@ -81,8 +81,7 @@ describe("PresentationalButton snapshotdiff", () => {
         {...base}
         selectedIndex={1}
         anchorEl={{} as any}
-        color="primary"
-        variant="contained"
+        variant="primary"
         sx={{ m: 1 }}
       />
     ).asFragment();
@@ -92,17 +91,16 @@ describe("PresentationalButton snapshotdiff", () => {
       - First value
       + Second value
 
-      @@ -4,39 +4,42 @@
+      @@ -4,39 +4,41 @@
           >
             <div
               class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-1ps6pg7-MuiPaper-root"
             >
               <button
       +         aria-describedby="layer-selector-popover"
-      +         color="primary"
                 id="layer-selector"
                 sx="[object Object]"
-      +         variant="contained"
+      +         variant="primary"
               >
                 <div
                   class="MuiBox-root css-1f388k3"

@@ -73,7 +73,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
       }}
     >
       <Button
-        style="base"
+        variant="base"
         onClick={handleClick}
         aria-label={ariaLabel}
         sx={{ color: theme.palette.primary.main, padding: 0.5, borderRadius: 1, ...sx }}

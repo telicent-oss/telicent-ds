@@ -126,7 +126,7 @@ const AppBar: React.FC<AppBarProps> = ({
               component="span"
               variant="caption"
               sx={{
-                color: theme.palette.secondary.contrastText,
+                color: theme.palette.mode === "dark" ? "#fff" : "#000",
                 whiteSpace: "nowrap",
               }}
             >

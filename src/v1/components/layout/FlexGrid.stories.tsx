@@ -23,16 +23,12 @@ BasicColumns.args = {
     <>
       <FlexGridItem xs={6} style={{ backgroundColor: "#f77", padding: 20 }}>
         <Text>Left Column</Text>
-        <Button variant="contained" color="primary">
-          Action 1
-        </Button>
+        <Button variant="primary">Action 1</Button>
         <Text>More text underneath the button to show stacking.</Text>
       </FlexGridItem>
       <FlexGridItem xs={6} style={{ backgroundColor: "#77f", padding: 20 }}>
         <Text>Right Column</Text>
-        <Button variant="outlined" color="secondary">
-          Action 2
-        </Button>
+        <Button variant="secondary">Action 2</Button>
         <Text>Additional description for context.</Text>
       </FlexGridItem>
     </>
