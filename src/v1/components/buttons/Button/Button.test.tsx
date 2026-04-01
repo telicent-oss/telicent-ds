@@ -165,42 +165,21 @@ describe("Button", () => {
       + 
 
       @@ --- --- @@
-      - padding: 6px 16px;
-      + padding: 5px 15px;
-      @@ --- --- @@
-      - color: #fff;
       - background-color: #1976d2;
-      - box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
-      + border: 1px solid rgba(156, 39, 176, 0.5);
-      + color: #9c27b0;
+      + background-color: #9c27b0;
       @@ --- --- @@
       - background-color: #1565c0;
-      - box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
-      + background-color: rgba(156, 39, 176, 0.04);
-      + border: 1px solid #9c27b0;
+      + background-color: #7b1fa2;
       @@ --- --- @@
       - background-color: #1976d2;
-      - }
-      + background-color: transparent;
-      @@ --- --- @@
-      -
-      - .emotion-0:active {
-      - box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
-      - }
-      -
-      - .emotion-0.Mui-focusVisible {
-      - box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
-      @@ --- --- @@
-      - box-shadow: none;
-      - background-color: rgba(0, 0, 0, 0.12);
-      + border: 1px solid rgba(0, 0, 0, 0.12);
+      + background-color: #9c27b0;
       @@ --- --- @@
       - {Symbol(SameObject caches): [Object]}"
     `);
   });
 
   it("noStyle variant diff", () => {
-    const { container } = render(<Button {...props} style="base" />);
+    const { container } = render(<Button {...props} variant="base" />);
     expect(cleanSerializedDiff(baseEl, container.firstChild))
       .toMatchInlineSnapshot(`
       "- 

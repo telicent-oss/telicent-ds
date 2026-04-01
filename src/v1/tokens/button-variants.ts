@@ -16,6 +16,10 @@ export const BUTTON_VARIANTS = {
     label: "Tertiary",
     description: "Tertiary action button with neutral color",
   },
+  base: {
+    label: "Base",
+    description: "Unstyled button base",
+  },
 } as const;
 
 export type ButtonVariant = keyof typeof BUTTON_VARIANTS;

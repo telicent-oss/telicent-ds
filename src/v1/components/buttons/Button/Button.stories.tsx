@@ -23,55 +23,48 @@ A styled button component built on top of MUI's \`<Button>\`, using our design s
 
 ### Supported Variants
 
-**Standard MUI Variants:**
-- \`contained\`, \`outlined\`, \`text\` - standard MUI variants, work with \`color\` prop
-
-**Custom Design System Variants:**
-- \`primary\` - main action button (contained + primary color)
-- \`secondary\` - secondary action button (contained + secondary color)
-- \`tertiary\` - tertiary action button with neutral grey (outlined + custom tertiary color)
+- \`primary\` - main action button
+- \`secondary\` - secondary action button
+- \`tertiary\` - tertiary action button with neutral colour
+- \`base\` - unstyled button base
 
 ---
 
 ### Supported Props
 
-- **Variants:** \`contained\`, \`outlined\`, \`text\`, \`primary\`, \`secondary\`, \`tertiary\`
-- **Colors:** \`primary\`, \`secondary\`, \`error\`, \`info\`, \`success\`, \`warning\` (for standard MUI variants)
+- **Variants:** \`primary\`, \`secondary\`, \`tertiary\`, \`base\`
 - **Sizes:** \`small\`, \`medium\`, \`large\`
 - **Icons:** Use \`startIcon\` or \`endIcon\` to enhance buttons visually
-- **Style:** Use \`style="base"\` to render an unstyled button
 - **Full Width:** Use \`fullWidth\` for block-style buttons
+- **SX Overrides:** Use \`sx\` for small visual adjustments where needed
 
 ---
 
 ### Example
 
 \`\`\`tsx
-// Standard MUI
-<Button variant="contained" color="primary">Text</Button>
-
-// Custom variants
 <Button variant="primary">Primary</Button>
 <Button variant="secondary">Secondary</Button>
 <Button variant="tertiary">Tertiary</Button>
+<Button variant="base">Base</Button>
 \`\`\`
         `,
       },
     },
   },
   tags: ["autodocs"],
-  args: { children: "Button", onClick: fn(), color: "primary", variant: "contained" },
+  args: {
+    children: "Button",
+    onClick: fn(),
+    variant: "primary",
+  },
   argTypes: {
-    color: {
-      control: "select",
-      options: ["primary", "secondary", "error", "info", "success", "warning"],
-    },
     variant: {
       control: "select",
-      options: ["contained", "outlined", "text"],
+      options: ["primary", "secondary", "tertiary", "base"],
     },
   },
-  decorators: (Story) => <Box sx={{ button: { marginInline: 2 }, a: { marginInline: 2 } }}>{Story()}</Box>,
+  decorators: [(Story) => <Box sx={{ button: { marginInline: 2 }, a: { marginInline: 2 } }}>{Story()}</Box>],
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -84,7 +77,7 @@ export const Primary: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Primary button using custom variant `variant="primary"`',
+        story: 'Primary button using `variant="primary"`',
       },
     },
   },
@@ -97,7 +90,7 @@ export const Secondary: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Secondary button using custom variant `variant="secondary"`',
+        story: 'Secondary button using `variant="secondary"`',
       },
     },
   },
@@ -110,30 +103,20 @@ export const Tertiary: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Tertiary button using custom variant `variant="tertiary"` - uses neutral grey color',
+        story: 'Tertiary button using `variant="tertiary"`',
       },
     },
   },
 };
 
-export const StandardMUIVariants: Story = {
-  render: (args) => (
-    <>
-      <Button variant="contained" color="primary">
-        Contained Primary
-      </Button>
-      <Button variant="outlined" color="primary">
-        Outlined Primary
-      </Button>
-      <Button variant="text" color="primary">
-        Text Primary
-      </Button>
-    </>
-  ),
+export const Base: Story = {
+  args: {
+    variant: "base",
+  },
   parameters: {
     docs: {
       description: {
-        story: "Standard MUI variants (contained, outlined, text) with color prop",
+        story: 'Base button using `variant="base"`',
       },
     },
   },
@@ -163,7 +146,7 @@ export const Sizes: Story = {
 };
 
 export const StartIcon: Story = {
-  render: (args) => (
+  render: () => (
     <>
       <Button variant="primary" startIcon={<DataSetIcon />}>
         Primary Button
@@ -179,14 +162,14 @@ export const StartIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Use `startIcon={<IconComponent />}` to place an icon before the button label",
+        story: "Use `startIcon={<IconComponent />}` to place an icon before the button label.",
       },
     },
   },
 };
 
 export const EndIcon: Story = {
-  render: (args) => (
+  render: () => (
     <>
       <Button variant="primary" endIcon={<DataSetIcon />}>
         Primary Button
@@ -202,14 +185,14 @@ export const EndIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Use `endIcon={<IconComponent />}` to place an icon after the button label",
+        story: "Use `endIcon={<IconComponent />}` to place an icon after the button label.",
       },
     },
   },
 };
 
 export const FullWidth: Story = {
-  render: (args) => (
+  render: () => (
     <FlexBox direction="column" spacing={2}>
       <Button variant="primary" fullWidth>
         Primary Button
@@ -225,7 +208,31 @@ export const FullWidth: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Normally buttons will fill the container - including full width containers. All of these stories are surrounded by a <Box />, which constrains width. You can use \`fullWidth\` to push the box out.`,
+        story:
+          "Normally buttons will fill the container, including full width containers. These stories are surrounded by a constrained container, so `fullWidth` makes the button stretch to fill it.",
+      },
+    },
+  },
+};
+
+export const SXOverrides: Story = {
+  render: () => (
+    <>
+      <Button variant="primary" sx={{ minWidth: 220 }}>
+        Wider Primary Button
+      </Button>
+      <Button variant="secondary" sx={{ borderRadius: 8 }}>
+        Rounded Secondary Button
+      </Button>
+      <Button variant="tertiary" sx={{ px: 4 }}>
+        Padded Tertiary Button
+      </Button>
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Use `sx` for small visual adjustments without changing the core variant styling.",
       },
     },
   },
