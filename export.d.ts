@@ -324,9 +324,38 @@ export declare function broadcastAuthEvent(event: AuthEvent): void;
 
 export declare const Button: default_2.ForwardRefExoticComponent<Omit<ButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
 
-export declare type ButtonProps = ButtonProps_2 & {
-    style?: "base";
+/**
+ * Button variant tokens - framework agnostic
+ * These define our component contract, independent of MUI or any framework
+ */
+declare const BUTTON_VARIANTS: {
+    readonly primary: {
+        readonly label: "Primary";
+        readonly description: "Main action button";
+    };
+    readonly secondary: {
+        readonly label: "Secondary";
+        readonly description: "Secondary action button";
+    };
+    readonly tertiary: {
+        readonly label: "Tertiary";
+        readonly description: "Tertiary action button with neutral color";
+    };
+    readonly base: {
+        readonly label: "Base";
+        readonly description: "Unstyled button base";
+    };
+    readonly text: {
+        readonly label: "Text";
+        readonly description: "Text button with no background";
+    };
 };
+
+export declare type ButtonProps = Omit<ButtonProps_2, "variant"> & Omit<ButtonBaseProps, "style"> & {
+    variant?: SupportedVariant;
+};
+
+declare type ButtonVariant = keyof typeof BUTTON_VARIANTS;
 
 export declare const ButtonZoomIn: default_2.FC<{
     onClick?: () => void;
@@ -1602,6 +1631,7 @@ export declare interface SearchBoxProps<Value = string> extends default_2.Compon
      */
     value?: Value;
     width?: number;
+    sx?: SxProps_2;
 }
 
 export declare const SearchIcon: default_2.FC<SearchIconProps>;
@@ -1799,6 +1829,8 @@ declare interface StyleSelectorState {
         data: StyleOption[];
     };
 }
+
+declare type SupportedVariant = ButtonVariant;
 
 export declare const Switch: ForwardRefExoticComponent<Omit<SwitchProps, "ref"> & RefAttributes<HTMLButtonElement>>;
 
