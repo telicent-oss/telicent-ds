@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/telicent-oss/telicent-ds/compare/v1.7.6...v2.0.0) (2026-04-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* add tertiary button and update buttons api ([#476](https://github.com/telicent-oss/telicent-ds/issues/476))
+
+### Features
+
+* add tertiary button and update buttons api ([#476](https://github.com/telicent-oss/telicent-ds/issues/476)) ([d61bb7b](https://github.com/telicent-oss/telicent-ds/commit/d61bb7ba634e907f5a18844ffc2070656d71a571))
+
 ## [1.7.6](https://github.com/telicent-oss/telicent-ds/compare/v1.7.5...v1.7.6) (2026-03-13)
 
 
