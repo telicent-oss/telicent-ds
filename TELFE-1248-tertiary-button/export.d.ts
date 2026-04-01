@@ -341,15 +341,18 @@ declare const BUTTON_VARIANTS: {
         readonly label: "Tertiary";
         readonly description: "Tertiary action button with neutral color";
     };
+    readonly base: {
+        readonly label: "Base";
+        readonly description: "Unstyled button base";
+    };
+    readonly text: {
+        readonly label: "Text";
+        readonly description: "Text button with no background";
+    };
 };
 
-export declare type ButtonProps = Omit<ButtonProps_2, "variant"> & {
+export declare type ButtonProps = Omit<ButtonProps_2, "variant"> & Omit<ButtonBaseProps, "style"> & {
     variant?: SupportedVariant;
-    /**
-     * Legacy compatibility prop.
-     * Kept because existing apps rely on style="base".
-     */
-    style?: ButtonProps_2["style"] | "base";
 };
 
 declare type ButtonVariant = keyof typeof BUTTON_VARIANTS;
@@ -880,8 +883,6 @@ export declare type LegacyTileSet = {
     image: string;
     attribution?: string;
 };
-
-declare type LegacyVariant = "text" | "outlined" | "contained";
 
 export declare type LegacyVectorStyle = {
     label: string;
@@ -1829,7 +1830,7 @@ declare interface StyleSelectorState {
     };
 }
 
-declare type SupportedVariant = ButtonVariant | LegacyVariant;
+declare type SupportedVariant = ButtonVariant;
 
 export declare const Switch: ForwardRefExoticComponent<Omit<SwitchProps, "ref"> & RefAttributes<HTMLButtonElement>>;
 
