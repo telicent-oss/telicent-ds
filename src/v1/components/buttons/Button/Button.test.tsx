@@ -2,7 +2,10 @@ import React from "react";
 import { render, cleanup } from "@testing-library/react";
 
 import Button, { ButtonProps } from "./Button";
-import { cleanHtmlDiff, cleanSerializedDiff } from "../../../../candidate-packages/clean-diff";
+import {
+  cleanHtmlDiff,
+  cleanSerializedDiff,
+} from "../../../../candidate-packages/clean-diff";
 
 describe("Button", () => {
   let props: ButtonProps;
@@ -140,7 +143,8 @@ describe("Button", () => {
 
   it("primary variant diff", () => {
     const { container } = render(<Button {...props} variant="primary" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -151,19 +155,41 @@ describe("Button", () => {
 
   it("secondary variant diff", () => {
     const { container } = render(<Button {...props} variant="secondary" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
       "- 
       + 
 
       @@ --- --- @@
+      - padding: 6px 16px;
+      + padding: 5px 15px;
+      @@ --- --- @@
+      - color: #fff;
       - background-color: #1976d2;
-      + background-color: #9c27b0;
+      - box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+      + border: 1px solid rgba(25, 118, 210, 0.5);
+      + color: #1976d2;
       @@ --- --- @@
       - background-color: #1565c0;
-      + background-color: #7b1fa2;
+      - box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+      + background-color: rgba(25, 118, 210, 0.04);
+      + border: 1px solid #1976d2;
       @@ --- --- @@
       - background-color: #1976d2;
-      + background-color: #9c27b0;
+      - }
+      + background-color: transparent;
+      @@ --- --- @@
+      -
+      - .emotion-0:active {
+      - box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+      - }
+      -
+      - .emotion-0.Mui-focusVisible {
+      - box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+      @@ --- --- @@
+      - box-shadow: none;
+      - background-color: rgba(0, 0, 0, 0.12);
+      + border: 1px solid rgba(0, 0, 0, 0.12);
       @@ --- --- @@
       - {Symbol(SameObject caches): [Object]}"
     `);
@@ -171,7 +197,8 @@ describe("Button", () => {
 
   it("noStyle variant diff", () => {
     const { container } = render(<Button {...props} variant="base" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -225,8 +252,11 @@ describe("Button", () => {
   });
 
   it("unknown variant falls back to text diff", () => {
-    const { container } = render(<Button {...(props as any)} variant="unknown" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
+    const { container } = render(
+      <Button {...(props as any)} variant="unknown" />
+    );
+    expect(cleanSerializedDiff(baseEl, container.firstChild))
+      .toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -237,7 +267,9 @@ describe("Button", () => {
 
   it("forwards ref and props", () => {
     const ref = React.createRef<HTMLButtonElement>();
-    const { getByText } = render(<Button {...props} size="small" disabled ref={ref} data-test="foo" />);
+    const { getByText } = render(
+      <Button {...props} size="small" disabled ref={ref} data-test="foo" />
+    );
     expect(getByText("Test Button")).toHaveAttribute("data-test", "foo");
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });
