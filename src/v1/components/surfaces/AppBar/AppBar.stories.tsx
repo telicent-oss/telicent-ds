@@ -33,7 +33,7 @@ It supports a centered brand area, optional application name, version label, and
   href="/"
   startChild={<AppSwitch apps={appList} />}
   endChild={
-    <Button color="primary" variant="contained">
+    <Button variant="primary">
       Sign Out
     </Button>
   }
@@ -117,8 +117,7 @@ const UserProfileExample = (
     <Box sx={{ pt: 1 }}>
       <Button
         onClick={() => console.log("Sign Out clicked")}
-        color="primary"
-        variant="contained"
+        variant="primary"
         startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}
         data-testid="signOut"
       >
@@ -136,7 +135,7 @@ export const WithSignOutButton: Story = {
   args: {
     appName: "Catalogue",
     endChild: (
-      <Button color="primary" variant="contained" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
+      <Button variant="primary" startIcon={<i className="fa-solid fa-arrow-right-from-bracket" />}>
         Sign Out
       </Button>
     ),

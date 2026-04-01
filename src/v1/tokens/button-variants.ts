@@ -20,6 +20,10 @@ export const BUTTON_VARIANTS = {
     label: "Base",
     description: "Unstyled button base",
   },
+  text: {
+    label: "Text",
+    description: "Text button with no background",
+  },
 } as const;
 
 export type ButtonVariant = keyof typeof BUTTON_VARIANTS;

@@ -2,10 +2,7 @@ import React from "react";
 import { render, cleanup } from "@testing-library/react";
 
 import Button, { ButtonProps } from "./Button";
-import {
-  cleanHtmlDiff,
-  cleanSerializedDiff,
-} from "../../../../candidate-packages/clean-diff";
+import { cleanHtmlDiff, cleanSerializedDiff } from "../../../../candidate-packages/clean-diff";
 
 describe("Button", () => {
   let props: ButtonProps;
@@ -142,11 +139,8 @@ describe("Button", () => {
   });
 
   it("primary variant diff", () => {
-    const { container } = render(
-      <Button {...props} color="primary" variant="contained" />
-    );
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    const { container } = render(<Button {...props} variant="primary" />);
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -156,11 +150,8 @@ describe("Button", () => {
   });
 
   it("secondary variant diff", () => {
-    const { container } = render(
-      <Button {...props} color="secondary" variant="outlined" />
-    );
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    const { container } = render(<Button {...props} variant="secondary" />);
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -180,8 +171,7 @@ describe("Button", () => {
 
   it("noStyle variant diff", () => {
     const { container } = render(<Button {...props} variant="base" />);
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -235,11 +225,8 @@ describe("Button", () => {
   });
 
   it("unknown variant falls back to text diff", () => {
-    const { container } = render(
-      <Button {...(props as any)} variant="unknown" />
-    );
-    expect(cleanSerializedDiff(baseEl, container.firstChild))
-      .toMatchInlineSnapshot(`
+    const { container } = render(<Button {...(props as any)} variant="unknown" />);
+    expect(cleanSerializedDiff(baseEl, container.firstChild)).toMatchInlineSnapshot(`
       "- 
       + 
 
@@ -250,9 +237,7 @@ describe("Button", () => {
 
   it("forwards ref and props", () => {
     const ref = React.createRef<HTMLButtonElement>();
-    const { getByText } = render(
-      <Button {...props} size="small" disabled ref={ref} data-test="foo" />
-    );
+    const { getByText } = render(<Button {...props} size="small" disabled ref={ref} data-test="foo" />);
     expect(getByText("Test Button")).toHaveAttribute("data-test", "foo");
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });

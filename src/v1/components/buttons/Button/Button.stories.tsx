@@ -109,6 +109,19 @@ export const Tertiary: Story = {
   },
 };
 
+export const Text: Story = {
+  args: {
+    variant: "text",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tertiary button using `variant="tertiary"`',
+      },
+    },
+  },
+};
+
 export const Base: Story = {
   args: {
     variant: "base",

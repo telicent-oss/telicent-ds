@@ -5,8 +5,9 @@ import { ButtonVariant } from "../../../tokens/button-variants";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import TertiaryButton from "./TertiaryButton";
+import TextButton from "./TextButton";
 
-type SupportedVariant = ButtonVariant | "base";
+type SupportedVariant = ButtonVariant;
 
 export type ButtonProps = Omit<MUIButtonProps, "variant"> &
   Omit<ButtonBaseProps, "style"> & {
@@ -30,6 +31,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 
   if (variant === "tertiary") {
     return <TertiaryButton {...buttonProps} ref={ref} />;
+  }
+
+  if (variant === "text") {
+    return <TextButton {...buttonProps} ref={ref} />;
   }
 
   return <PrimaryButton {...buttonProps} ref={ref} />;
