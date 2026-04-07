@@ -4,7 +4,9 @@ import { OverlayFeatureConfig } from "./overlays";
 import { LayerConfig } from "./layers";
 import { MarkerFeature } from "./markers";
 import { Map } from "ol";
+import { PathFeature } from "./paths";
 import { PolygonFeature } from "./polygons";
+import { StyleLike } from "ol/style/Style";
 
 export type LegacyTileSet = {
   label: string;
@@ -51,6 +53,7 @@ export type BasicMapV2Handle = {
   zoomOut: () => void;
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
+  setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
   // zoomInAsync: () => Promise<void>;
   // zoomOutAsync: () => Promise<void>;
@@ -75,6 +78,8 @@ export interface BasicMapProperties {
   mapStyleOptions?: LegacyMapConfig;
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
+  paths?: PathFeature[];
+  pathStyle?: StyleLike;
   onFeatureClick?: (ids: string[]) => void;
   onLayersReady?: (isReady: boolean) => void;
 }
