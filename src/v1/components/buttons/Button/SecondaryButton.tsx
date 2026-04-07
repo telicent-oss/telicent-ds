@@ -11,7 +11,7 @@ export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProp
        * HOW change "primary" to "secondary"; Check usage
        * WHEN https://telicent.atlassian.net/browse/TELFE-1250
        * WHO anyone
-       * 
+       *
        */
       <MUIButton variant="outlined" color="primary" {...buttonProps} ref={ref}>
         {buttonProps.children}
@@ -19,7 +19,7 @@ export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProp
     );
   }
   return (
-    <MUIButton variant="outlined" color="inherit" {...buttonProps} ref={ref}>
+    <MUIButton variant="outlined" color="primary" {...buttonProps} ref={ref}>
       {buttonProps.children}
     </MUIButton>
   );

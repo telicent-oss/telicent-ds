@@ -63,7 +63,7 @@ export const WithActions: Story = {
           </FlexBox>
         ))}
         <FlexBox direction="row" columnGap={2} justifyContent="end">
-          <Button variant="outlined" color="primary" disableElevation>
+          <Button variant="secondary" disableElevation>
             Action
           </Button>
           <Button disableElevation>Action</Button>

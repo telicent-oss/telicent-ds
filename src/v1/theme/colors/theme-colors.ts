@@ -23,6 +23,12 @@ const THEME_COLORS: Record<
       light?: string;
       contrastText?: string;
     };
+    tertiary?: {
+      main?: string;
+      dark?: string;
+      light?: string;
+      contrastText?: string;
+    };
   }
 > = {
   DataNavy,

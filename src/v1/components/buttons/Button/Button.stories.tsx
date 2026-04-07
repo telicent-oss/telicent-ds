@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import Box from "@mui/material/Box";
 
-import Button from "./Button";
+import Button, { ButtonProps } from "./Button";
 import DataSetIcon from "../../data-display/Icons/DataSetIcon";
 import { figmaDesign } from "../../../../../.storybook/figmaDesign";
+import { FlexBox } from "../../layout";
 
 const meta = {
   title: "Buttons/Button",
@@ -16,59 +17,67 @@ const meta = {
     docs: {
       description: {
         component: `
-A styled button component built on top of MUI’s \`<Button>\`, using our design system overrides. It supports standard variants (contained, outlined, text) as well as a custom \`style="base"\` variant.
+A styled button component built on top of MUI's \`<Button>\`, using our design system overrides.
+
+---
+
+### Supported Variants
+
+- \`primary\` - main action button
+- \`secondary\` - secondary action button
+- \`tertiary\` - tertiary action button with neutral colour
+- \`base\` - unstyled button base
 
 ---
 
 ### Supported Props
 
-- **Variants:** \`contained\`, \`outlined\`, \`text\`
-- **Styles:** Our \`style="base"\` prop render a base button with no styles at all.
+- **Variants:** \`primary\`, \`secondary\`, \`tertiary\`, \`base\`
 - **Sizes:** \`small\`, \`medium\`, \`large\`
-- **Icons:** Use \`startIcon\` or \`endIcon\` to enhance buttons visually.
-- **Disable Elevation:** Optional \`disableElevation\` removes box-shadow.
-- **Full Width:** Use \`fullWidth\` for block-style buttons.
+- **Icons:** Use \`startIcon\` or \`endIcon\` to enhance buttons visually
+- **Full Width:** Use \`fullWidth\` for block-style buttons
+- **SX Overrides:** Use \`sx\` for small visual adjustments where needed
 
 ---
 
 ### Example
 
 \`\`\`tsx
-<Button variant="contained" color="primary">
-  Text
-</Button>
+<Button variant="primary">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="tertiary">Tertiary</Button>
+<Button variant="base">Base</Button>
 \`\`\`
         `,
       },
     },
   },
   tags: ["autodocs"],
-  args: { children: "Button", onClick: fn(), color: "primary", variant: "contained" },
+  args: {
+    children: "Button",
+    onClick: fn(),
+    variant: "primary",
+  },
   argTypes: {
-    color: {
-      control: "select",
-      options: ["primary", "secondary", "error", "info", "success", "warning"],
-    },
     variant: {
       control: "select",
-      options: ["contained", "outlined", "text"],
+      options: ["primary", "secondary", "tertiary", "base"],
     },
   },
-  decorators: (Story) => <Box sx={{ button: { marginInline: 2 }, a: { marginInline: 2 } }}>{Story()}</Box>,
+  decorators: [(Story) => <Box sx={{ button: { marginInline: 2 }, a: { marginInline: 2 } }}>{Story()}</Box>],
 } satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<ButtonProps>;
 
 export const Primary: Story = {
   args: {
-    color: "primary",
-    variant: "contained",
+    variant: "primary",
   },
   parameters: {
     docs: {
       description: {
-        story: "To match Primary style in the design use `color=primary ` and `variant=contained`",
+        story: 'Primary button using `variant="primary"`',
       },
     },
   },
@@ -76,39 +85,66 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    color: "primary",
-    variant: "outlined",
+    variant: "secondary",
   },
   parameters: {
     docs: {
       description: {
-        story: "To match Secondary style in the design use `color=primary ` and `variant=outlined`",
+        story: 'Secondary button using `variant="secondary"`',
+      },
+    },
+  },
+};
+
+export const Tertiary: Story = {
+  args: {
+    variant: "tertiary",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tertiary button using `variant="tertiary"`',
       },
     },
   },
 };
 
 export const Text: Story = {
-  render: (args) => (
-    <>
-      <Button variant="text">{args.children}</Button>
-      <Button variant="text" disabled>
-        {args.children}
-      </Button>
-    </>
-  ),
+  args: {
+    variant: "text",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tertiary button using `variant="tertiary"`',
+      },
+    },
+  },
+};
+
+export const Base: Story = {
+  args: {
+    variant: "base",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Base button using `variant="base"`',
+      },
+    },
+  },
 };
 
 export const Sizes: Story = {
   render: (args) => (
     <>
-      <Button size="large" variant="contained">
+      <Button size="large" variant="primary">
         {args.children}
       </Button>
-      <Button size="medium" variant="contained">
+      <Button size="medium" variant="primary">
         {args.children}
       </Button>
-      <Button size="small" variant="contained">
+      <Button size="small" variant="primary">
         {args.children}
       </Button>
     </>
@@ -123,44 +159,93 @@ export const Sizes: Story = {
 };
 
 export const StartIcon: Story = {
-  args: {
-    color: "primary",
-    variant: "contained",
-    startIcon: <DataSetIcon />,
-  },
+  render: () => (
+    <>
+      <Button variant="primary" startIcon={<DataSetIcon />}>
+        Primary Button
+      </Button>
+      <Button variant="secondary" startIcon={<DataSetIcon />}>
+        Secondary Button
+      </Button>
+      <Button variant="tertiary" startIcon={<DataSetIcon />}>
+        Tertiary Button
+      </Button>
+    </>
+  ),
   parameters: {
     docs: {
       description: {
-        story: "Use `startIcon={<IconComponent />}` to place an icon before the button label",
+        story: "Use `startIcon={<IconComponent />}` to place an icon before the button label.",
       },
     },
   },
 };
 
 export const EndIcon: Story = {
-  args: {
-    color: "primary",
-    variant: "contained",
-    endIcon: <DataSetIcon />,
-  },
+  render: () => (
+    <>
+      <Button variant="primary" endIcon={<DataSetIcon />}>
+        Primary Button
+      </Button>
+      <Button variant="secondary" endIcon={<DataSetIcon />}>
+        Secondary Button
+      </Button>
+      <Button variant="tertiary" endIcon={<DataSetIcon />}>
+        Tertiary Button
+      </Button>
+    </>
+  ),
   parameters: {
     docs: {
       description: {
-        story: "Use `endIcon={<IconComponent />}` to place it after the label",
+        story: "Use `endIcon={<IconComponent />}` to place an icon after the button label.",
       },
     },
   },
 };
 
 export const FullWidth: Story = {
-  args: {
-    fullWidth: true,
-    variant: "contained",
-  },
+  render: () => (
+    <FlexBox direction="column" spacing={2}>
+      <Button variant="primary" fullWidth>
+        Primary Button
+      </Button>
+      <Button variant="secondary" fullWidth>
+        Secondary Button
+      </Button>
+      <Button variant="tertiary" fullWidth>
+        Tertiary Button
+      </Button>
+    </FlexBox>
+  ),
   parameters: {
     docs: {
       description: {
-        story: `Normally buttons will fill the container - including full width containers. All of these stories are surrounded by a <Box />, which constrains width. You can use \`fullWidth\` to push the box out.`,
+        story:
+          "Normally buttons will fill the container, including full width containers. These stories are surrounded by a constrained container, so `fullWidth` makes the button stretch to fill it.",
+      },
+    },
+  },
+};
+
+export const SXOverrides: Story = {
+  render: () => (
+    <>
+      <Button variant="primary" sx={{ minWidth: 220 }}>
+        Wider Primary Button
+      </Button>
+      <Button variant="secondary" sx={{ borderRadius: 8 }}>
+        Rounded Secondary Button
+      </Button>
+      <Button variant="tertiary" sx={{ px: 4 }}>
+        Padded Tertiary Button
+      </Button>
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Use `sx` for small visual adjustments without changing the core variant styling.",
       },
     },
   },
