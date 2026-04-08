@@ -5,7 +5,6 @@ import dts from "vite-plugin-dts";
 import { defineConfig } from "vite";
 import pkg from "./package.json";
 
-
 export default defineConfig({
   server: {
     port: 3003,
@@ -64,7 +63,7 @@ export default defineConfig({
   plugins: [
     dts({
       insertTypesEntry: true,
-      rollupTypes: true,
+      rollupTypes: false,
     }),
     react({
       jsxImportSource: "@emotion/react",
