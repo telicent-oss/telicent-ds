@@ -1,0 +1,10 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { default as EditableTextField } from './EditableTextField';
+declare const meta: Meta<typeof EditableTextField>;
+export default meta;
+type Story = StoryObj<typeof EditableTextField>;
+export declare const Basic: Story;
+export declare const FullWidth: Story;
+export declare const CustomWidth: Story;
+export declare const WithErrorText: Story;
+export declare const NoInitialValue: Story;

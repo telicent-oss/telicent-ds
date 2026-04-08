@@ -1,0 +1,16 @@
+import { default as BaseLayer } from 'ol/layer/Base';
+import { BaseRasterLayerConfig, BaseVectorTileLayerConfig, LayerMeta, OverlayVectorLayerConfig } from '../types/layers';
+import { default as VectorLayer } from 'ol/layer/Vector';
+import { StyleLike } from 'ol/style/Style';
+import { default as TileLayer } from 'ol/layer/Tile';
+import { XYZ } from 'ol/source';
+import { Collection } from 'ol';
+export declare const getDefaultOverlayStyle: () => StyleLike;
+export declare const getOverlayVectorLayer: (config: OverlayVectorLayerConfig) => VectorLayer;
+export declare const getBaseVectorTileLayer: (layerConfig: BaseVectorTileLayerConfig) => Promise<BaseLayer>;
+export declare const getBaseRasterLayer: (layerConfig: BaseRasterLayerConfig) => TileLayer<XYZ>;
+export declare const attachMeta: <T extends BaseLayer>(layer: T, meta: LayerMeta) => T;
+export declare const getMeta: (layer: BaseLayer) => LayerMeta;
+export declare const MARKER_LAYER_ID = "marker-layer";
+export declare const POLYGON_LAYER_ID = "polygon-layer";
+export declare const attachTileLoadErrorLogging: (layers: Collection<BaseLayer>, onError?: (e: Error) => void) => (() => void);
