@@ -18,12 +18,11 @@ import "./telidialog.css";
  * Dialogs are purposefully interruptive, so they should be used sparingly.
  * More information about how this component can be used can be found [here](https://mui.com/material-ui/react-dialog/#scrolling-long-content)
  */
-const TeliDialog: FC<DialogProps> = ({
-  open,
-  onClose,
-  children,
-  ...otherProps
-}) => {
+/**
+ * @deprecated TeliDialog is deprecated and will be removed in a future release.
+ */
+const TeliDialog: FC<DialogProps> = ({ open, onClose, children, ...otherProps }) => {
+  console.warn("TeliDialog is deprecated and will be removed in a future release.");
   return (
     <Dialog open={open} onClose={onClose} {...otherProps}>
       {children}

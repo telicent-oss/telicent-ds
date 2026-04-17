@@ -10,14 +10,16 @@ export interface TeliHeaderProps extends React.HTMLAttributes<HTMLHeadElement> {
   navProps?: NavProps;
 }
 
-const TeliHeader: React.FC<TeliHeaderProps> = ({
-  navProps,
-  children,
-  ...headerProps
-}: TeliHeaderProps) => (
-  <header {...headerProps}>
-    <nav {...navProps}>{children}</nav>
-  </header>
-);
+/**
+ * @deprecated TeliHeader is deprecated and will be removed in a future release.
+ */
+const TeliHeader: React.FC<TeliHeaderProps> = ({ navProps, children, ...headerProps }: TeliHeaderProps) => {
+  console.warn("TeliHeader is deprecated and will be removed in a future release.");
+  return (
+    <header {...headerProps}>
+      <nav {...navProps}>{children}</nav>
+    </header>
+  );
+};
 
 export default TeliHeader;

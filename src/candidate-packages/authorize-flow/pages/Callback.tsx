@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { TeliSpinner } from "../../../export";
+import { Spinner } from "../../../export";
 
 interface CallbackProps {
   clientId: string;
@@ -10,11 +10,11 @@ export const Callback: FC<CallbackProps> = ({ clientId }) => {
       const event = new CustomEvent("oauth-callback", {
         detail: {
           callbackUrl: window.location.href,
-          clientId: clientId
+          clientId: clientId,
         },
       });
       window.dispatchEvent(event);
-    }, 0)
+    }, 0);
   }, [clientId]);
 
   return (
@@ -28,9 +28,8 @@ export const Callback: FC<CallbackProps> = ({ clientId }) => {
         gap: "0.5rem",
       }}
     >
-      <TeliSpinner size={64} style={{ color: "rgba(255,255,255,0.5)" }} />
+      <Spinner size={64} style={{ color: "rgba(255,255,255,0.5)" }} />
       <p>Logging you in. You'll be redirected shortly.</p>
     </div>
   );
-
-}
+};

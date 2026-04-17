@@ -17,22 +17,17 @@ export type TeliListProps = React.HTMLAttributes<HTMLUListElement> &
     subheader: ListProps["subheader"];
   }>;
 
-const TeliList: FC<TeliListProps> = ({
-  dense,
-  disablePadding,
-  subheader,
-  children,
-  ...ulProps
-}) => (
-  <List
-    dense={dense}
-    disablePadding={disablePadding}
-    subheader={subheader}
-    {...ulProps}
-  >
-    {children}
-  </List>
-);
+/**
+ * @deprecated TeliList is deprecated and will be removed in a future release.
+ */
+const TeliList: FC<TeliListProps> = ({ dense, disablePadding, subheader, children, ...ulProps }) => {
+  console.warn("TeliList is deprecated and will be removed in a future release.");
+  return (
+    <List dense={dense} disablePadding={disablePadding} subheader={subheader} {...ulProps}>
+      {children}
+    </List>
+  );
+};
 
 type TeliListItemButtonProps = React.HTMLAttributes<HTMLButtonElement> &
   Partial<{
@@ -44,17 +39,8 @@ type TeliListItemButtonProps = React.HTMLAttributes<HTMLButtonElement> &
     divider: ListItemButtonProps["divider"];
     selected: ListItemButtonProps["selected"];
   }>;
-const TeliListItemButton: FC<TeliListItemButtonProps> = ({
-  className,
-  children,
-  ...props
-}) => (
-  <ListItemButton
-    component="button"
-    disableRipple
-    className={classNames("flex gap-x-3", className)}
-    {...props}
-  >
+const TeliListItemButton: FC<TeliListItemButtonProps> = ({ className, children, ...props }) => (
+  <ListItemButton component="button" disableRipple className={classNames("flex gap-x-3", className)} {...props}>
     {children}
   </ListItemButton>
 );
@@ -69,8 +55,6 @@ type TeliListItemProps = React.HTMLAttributes<HTMLLIElement> &
     divider: ListItemProps["divider"];
     secondaryAction: ListItemProps["secondaryAction"];
   }>;
-const TeliListItem: FC<TeliListItemProps> = ({ children, ...props }) => (
-  <ListItem {...props}>{children}</ListItem>
-);
+const TeliListItem: FC<TeliListItemProps> = ({ children, ...props }) => <ListItem {...props}>{children}</ListItem>;
 
 export { TeliList, TeliListItemButton, TeliListItem };

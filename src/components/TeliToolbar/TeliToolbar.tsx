@@ -25,6 +25,9 @@ export interface TeliToolbarProps extends HTMLAttributes<HTMLUListElement> {
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated TeliToolbar is deprecated and will be removed in a future release.
+ */
 const TeliToolbar: React.FC<TeliToolbarProps> = ({
   position = "bottom-start",
   defaultControls = true,
@@ -34,13 +37,10 @@ const TeliToolbar: React.FC<TeliToolbarProps> = ({
   onZoomOut,
   children,
 }) => {
+  console.warn("TeliToolbar is deprecated and will be removed in a future release.");
   const isTertiary = variant === "tertiary";
   const tooltipPlacement: PopperPlacementType =
-    position.startsWith("bottom") && !vertical
-      ? "top"
-      : position.startsWith("bottom") && vertical
-      ? "left"
-      : "bottom";
+    position.startsWith("bottom") && !vertical ? "top" : position.startsWith("bottom") && vertical ? "left" : "bottom";
   const buttonVariant = isTertiary ? "basic" : "tertiary";
 
   const DefaultControls = () => (

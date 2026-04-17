@@ -9,14 +9,15 @@ export interface TeliTabsProps extends Omit<TabsProps, "value"> {
    */
   selectedTabIndex: number;
 }
-const TeliTabs: React.FC<TeliTabsProps> = ({ selectedTabIndex, ...other }) => (
-  <Tabs
-    className="gap-x-3"
-    textColor="secondary"
-    indicatorColor="secondary"
-    value={selectedTabIndex}
-    {...other}
-  />
-);
+
+/**
+ * @deprecated TeliTabs is deprecated and will be removed in a future release.
+ */
+const TeliTabs: React.FC<TeliTabsProps> = ({ selectedTabIndex, ...other }) => {
+  console.warn("TeliTabs is deprecated and will be removed in a future release.");
+  return (
+    <Tabs className="gap-x-3" textColor="secondary" indicatorColor="secondary" value={selectedTabIndex} {...other} />
+  );
+};
 
 export default TeliTabs;

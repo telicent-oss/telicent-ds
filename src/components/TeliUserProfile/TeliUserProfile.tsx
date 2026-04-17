@@ -2,21 +2,23 @@ import React from "react";
 
 import { TeliUserAvatarProps } from "../TeliAvatar/TeliUserAvatar";
 import TeliUserProfileButton from "./TeliUserProfileButton";
-import TeliUserProfileMenu, {
-  TeliUserProfileMenuProps,
-} from "./TeliUserProfileMenu";
+import TeliUserProfileMenu, { TeliUserProfileMenuProps } from "./TeliUserProfileMenu";
 import "./user-profile.css";
 
 export interface TeliUserProfileProps extends Partial<TeliUserAvatarProps> {
   onSettingsClick: TeliUserProfileMenuProps["onSettingsClick"];
 }
 
+/**
+ * @deprecated TeliUserProfile is deprecated and will be removed in a future release.
+ */
 const TeliUserProfile: React.FC<Partial<TeliUserProfileProps>> = ({
   firstName,
   lastName,
   onSettingsClick,
   ...userAvatarProps
 }) => {
+  console.warn("TeliUserProfile is deprecated and will be removed in a future release.");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 

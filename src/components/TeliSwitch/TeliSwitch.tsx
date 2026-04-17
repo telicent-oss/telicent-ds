@@ -73,7 +73,11 @@ export interface TeliSwitchProps {
  * refer to [Checkbox vs Toggle
  * Switch](https://uxplanet.org/checkbox-vs-toggle-switch-7fc6e83f10b8)
  */
+/**
+ * @deprecated TeliSwitch is deprecated and will be removed in a future release.
+ */
 const TeliSwitch: FC<TeliSwitchProps> = ({ label, labelPlacement = "end", size = "small", ...switchProps }) => {
+  console.warn("TeliSwitch is deprecated and will be removed in a future release.");
   const switchControl = (
     <span className="teli-switch">
       <Switch size={size} {...switchProps} />
