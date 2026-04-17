@@ -27,8 +27,13 @@ export interface TeliButtonProps extends TeliButtonBaseProps {
     | "top-start"
     | "top";
 }
+
+/**
+ * @deprecated TeliButton is deprecated and will be removed in a future release.
+ */
 const TeliButton = forwardRef<HTMLButtonElement, TeliButtonProps>(
   ({ tooltip, tooltipPlacement = "bottom", ...btnProps }, ref) => {
+    console.warn("TeliButton is deprecated and will be removed in a future release.");
     if (tooltip) {
       return (
         <Tooltip
@@ -53,7 +58,7 @@ const TeliButton = forwardRef<HTMLButtonElement, TeliButtonProps>(
     }
 
     return <TeliButtonBase ref={ref} {...btnProps} />;
-  }
+  },
 );
 
 export default TeliButton;

@@ -1,6 +1,5 @@
 import React from "react";
 import { Tab, TabProps } from "@mui/material";
-import classNames from "classnames";
 
 import "./telitabs.css";
 
@@ -8,11 +7,13 @@ interface TeliTabProps extends Omit<TabProps, "value"> {
   tabIndex: number;
 }
 
-const TeliTab: React.FC<TeliTabProps> = ({
-  tabIndex,
-  className: tabClassNames,
-  ...other
-}) => <Tab className={tabClassNames} {...a11yProps(tabIndex)} {...other} />;
+/**
+ * @deprecated TeliTab is deprecated and will be removed in a future release.
+ */
+const TeliTab: React.FC<TeliTabProps> = ({ tabIndex, className: tabClassNames, ...other }) => {
+  console.warn("TeliTab is deprecated and will be removed in a future release.");
+  return <Tab className={tabClassNames} {...a11yProps(tabIndex)} {...other} />;
+};
 
 export default TeliTab;
 

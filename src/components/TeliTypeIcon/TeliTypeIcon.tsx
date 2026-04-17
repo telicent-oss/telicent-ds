@@ -1,15 +1,8 @@
 import React from "react";
 import { Avatar } from "@mui/material";
 
-import {
-  getDisabledStyles,
-  getSizeProps,
-  TeliTypeIconSizeProp,
-} from "./type-icon-utils";
-import {
-  FlattenedStyleType,
-  FlattenedStyleTypeForFindIcon,
-} from "@telicent-oss/ontologyservice";
+import { getDisabledStyles, getSizeProps, TeliTypeIconSizeProp } from "./type-icon-utils";
+import { FlattenedStyleType, FlattenedStyleTypeForFindIcon } from "@telicent-oss/ontologyservice";
 
 export type TeliTypeIconProps = {
   icon: FlattenedStyleTypeForFindIcon | FlattenedStyleType;
@@ -33,12 +26,11 @@ export type TeliTypeIconProps = {
  * ontology. If the styles cannot be found, the initials will be rendered as a
  * fallback as demonstrated in the stories.
  */
-const TeliTypeIcon: React.FC<TeliTypeIconProps> = ({
-  icon,
-  borderColor,
-  disabled = false,
-  size = "base",
-}) => {
+/**
+ * @deprecated TeliTypeIcon is deprecated and will be removed in a future release.
+ */
+const TeliTypeIcon: React.FC<TeliTypeIconProps> = ({ icon, borderColor, disabled = false, size = "base" }) => {
+  console.warn("TeliTypeIcon is deprecated and will be removed in a future release.");
   const hasIcon = "faIcon" in icon && Boolean(icon.faIcon);
 
   return (
@@ -55,11 +47,7 @@ const TeliTypeIcon: React.FC<TeliTypeIconProps> = ({
         ...getSizeProps(size),
       }}
     >
-      {hasIcon ? (
-        <i className={icon.faIcon} title={`${icon.alt}-icon`} />
-      ) : (
-        <p>{icon.iconFallbackText}</p>
-      )}
+      {hasIcon ? <i className={icon.faIcon} title={`${icon.alt}-icon`} /> : <p>{icon.iconFallbackText}</p>}
     </Avatar>
   );
 };

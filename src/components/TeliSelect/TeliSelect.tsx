@@ -139,6 +139,9 @@ export interface TeliSelectProps {
   value?: any;
 }
 
+/**
+ * @deprecated TeliSelect is deprecated and will be removed in a future release.
+ */
 const TeliSelect: React.FC<TeliSelectProps> = ({
   id,
   selectId,
@@ -163,6 +166,7 @@ const TeliSelect: React.FC<TeliSelectProps> = ({
   onClose,
   onOpen,
 }) => {
+  console.warn("TeliSelect is deprecated and will be removed in a future release.");
   const getLabelProps = () => {
     if (hiddenLabel) {
       return { displayEmpty: true };
@@ -219,10 +223,7 @@ const TeliSelect: React.FC<TeliSelectProps> = ({
         renderValue={renderValue}
       >
         {options.map((option) => (
-          <MenuItem
-            key={option?.id || option.label}
-            value={option?.value || option.label}
-          >
+          <MenuItem key={option?.id || option.label} value={option?.value || option.label}>
             {option.label}
           </MenuItem>
         ))}

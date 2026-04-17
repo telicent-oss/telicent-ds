@@ -18,20 +18,13 @@ export interface TeliTableProps extends TableProps {
   name?: string;
 }
 
-const TeliTable: React.FC<TeliTableProps> = ({
-  compact = false,
-  minWidth,
-  name,
-  children,
-  ...otherProps
-}) => {
+/**
+ * @deprecated TeliTable is deprecated and will be removed in a future release.
+ */
+const TeliTable: React.FC<TeliTableProps> = ({ compact = false, minWidth, name, children, ...otherProps }) => {
+  console.warn("TeliTable is deprecated and will be removed in a future release.");
   return (
-    <Table
-      sx={{ minWidth }}
-      size={compact ? "small" : "medium"}
-      aria-label={name}
-      {...otherProps}
-    >
+    <Table sx={{ minWidth }} size={compact ? "small" : "medium"} aria-label={name} {...otherProps}>
       {children}
     </Table>
   );

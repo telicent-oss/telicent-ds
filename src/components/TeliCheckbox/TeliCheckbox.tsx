@@ -11,16 +11,14 @@ export interface TeliCheckboxProps extends CheckboxProps {
  * If you have a single option, avoid using a checkbox and use an on/off switch instead.
  * More information about this component can be found [here](https://mui.com/material-ui/react-checkbox/)
  */
+/**
+ * @deprecated TeliCheckbox is deprecated and will be removed in a future release.
+ */
 const TeliCheckbox: FC<TeliCheckboxProps> = ({ label, ...checkboxProps }) => {
+  console.warn("TeliCheckbox is deprecated and will be removed in a future release.");
   if (!label) return <Checkbox {...checkboxProps} />;
 
-  return (
-    <FormControlLabel
-      control={<Checkbox {...checkboxProps} />}
-      label={label}
-      className="m-0"
-    />
-  );
+  return <FormControlLabel control={<Checkbox {...checkboxProps} />} label={label} className="m-0" />;
 };
 
 export default TeliCheckbox;

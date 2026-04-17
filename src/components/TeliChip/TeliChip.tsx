@@ -11,12 +11,11 @@ export interface TeliChipProps extends MUIChipProps {
   variant?: "primary" | "secondary" | "tertiary" | "basic";
 }
 
-const TeliChip: React.FC<TeliChipProps> = ({
-  label,
-  variant = "primary",
-  className: chipClassName,
-  ...chipProps
-}) => {
+/**
+ * @deprecated TeliChip is deprecated and will be removed in a future release.
+ */
+const TeliChip: React.FC<TeliChipProps> = ({ label, variant = "primary", className: chipClassName, ...chipProps }) => {
+  console.warn("TeliChip is deprecated and will be removed in a future release.");
   const isPrimary = variant === "primary";
   const isTertiary = variant === "tertiary";
   const isFilled = isPrimary || isTertiary;
@@ -31,7 +30,7 @@ const TeliChip: React.FC<TeliChipProps> = ({
           "teli-chip--secondary": variant === "secondary",
           "teli-chip--tertiary": isTertiary,
         },
-        chipClassName
+        chipClassName,
       )}
       deleteIcon={<TeliDeleteIcon aria-label={`Delete ${label}`} />}
       {...chipProps}

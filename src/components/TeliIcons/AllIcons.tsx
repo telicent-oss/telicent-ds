@@ -16,17 +16,23 @@ const Icon: React.FC<{
   </div>
 );
 
-const AllIcons = () => (
-  <div className="grid grid-cols-12">
-    <Icon icon={<TeliAddIcon />} label="Add" />
-    <Icon icon={<TeliCloseIcon />} label="Close" />
-    <Icon icon={<TeliDeleteIcon />} label="Delete" />
-    <Icon icon={<TeliEditIcon />} label="Edit" />
-    <Icon icon={<TeliSearchIcon />} label="Search" />
-    <Icon icon={<TeliSortAZIcon />} label="Sort AZ" />
-    <Icon icon={<TeliSortZAIcon />} label="Sort ZA" />
-    <Icon icon={<ClockRotateLeft />} label="Clock rotate left" />
-  </div>
-);
+/**
+ * @deprecated AllIcons is deprecated and will be removed in a future release.
+ */
+const AllIcons = () => {
+  console.warn("AllIcons is deprecated and will be removed in a future release.");
+  return (
+    <div className="grid grid-cols-12">
+      <Icon icon={<TeliAddIcon />} label="Add" />
+      <Icon icon={<TeliCloseIcon />} label="Close" />
+      <Icon icon={<TeliDeleteIcon />} label="Delete" />
+      <Icon icon={<TeliEditIcon />} label="Edit" />
+      <Icon icon={<TeliSearchIcon />} label="Search" />
+      <Icon icon={<TeliSortAZIcon />} label="Sort AZ" />
+      <Icon icon={<TeliSortZAIcon />} label="Sort ZA" />
+      <Icon icon={<ClockRotateLeft />} label="Clock rotate left" />
+    </div>
+  );
+};
 
 export default AllIcons;
