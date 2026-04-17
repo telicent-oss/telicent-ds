@@ -2026,6 +2026,9 @@ declare interface TeliBrandProps extends StandardLayoutProps, default_2.HTMLAttr
     rel?: string;
 }
 
+/**
+ * @deprecated TeliButton is deprecated and will be removed in a future release.
+ */
 export declare const TeliButton: default_2.ForwardRefExoticComponent<Omit<TeliButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
 
 declare interface TeliButtonBaseProps extends MUIButtonBaseProps {
@@ -2081,10 +2084,7 @@ declare interface TelicentMarkProps extends SvgIconProps {
 }
 
 /**
- * Checkboxes can be used to turn one or more options on or off.
- * If you have multiple options appearing in a list, you can preserve space by using checkboxes instead of on/off switches.
- * If you have a single option, avoid using a checkbox and use an on/off switch instead.
- * More information about this component can be found [here](https://mui.com/material-ui/react-checkbox/)
+ * @deprecated TeliCheckbox is deprecated and will be removed in a future release.
  */
 export declare const TeliCheckbox: FC<TeliCheckboxProps>;
 
@@ -2092,6 +2092,9 @@ declare interface TeliCheckboxProps extends CheckboxProps {
     label?: string;
 }
 
+/**
+ * @deprecated TeliChip is deprecated and will be removed in a future release.
+ */
 export declare const TeliChip: default_2.FC<TeliChipProps>;
 
 declare interface TeliChipProps extends MUIChipProps {
@@ -2104,11 +2107,7 @@ export declare const TeliCloseIcon: default_2.FC<Partial<TeliIconProps>>;
 export declare const TeliDeleteIcon: default_2.FC<Partial<TeliIconProps>>;
 
 /**
- * A Dialog is a type of modal window that appears in front of app content to provide critical information or ask for a decision.
- * They can also be used to inform users about a task and can contain critical information, require decisions, or involve multiple tasks.
- * Dialogs disable all app functionality when they appear, and remain on screen until confirmed, dismissed, or a required action has been taken.
- * Dialogs are purposefully interruptive, so they should be used sparingly.
- * More information about how this component can be used can be found [here](https://mui.com/material-ui/react-dialog/#scrolling-long-content)
+ * @deprecated TeliDialog is deprecated and will be removed in a future release.
  */
 export declare const TeliDialog: FC<DialogProps_2>;
 
@@ -2120,6 +2119,9 @@ export declare const TeliDialogTitle: FC<DialogTitleProps>;
 
 export declare const TeliEditIcon: default_2.FC<Partial<TeliIconProps>>;
 
+/**
+ * @deprecated TeliHeader is deprecated and will be removed in a future release.
+ */
 export declare const TeliHeader: default_2.FC<TeliHeaderProps>;
 
 declare interface TeliHeaderProps extends default_2.HTMLAttributes<HTMLHeadElement> {
@@ -2144,6 +2146,9 @@ declare type TeliInputProps = Omit<InputProps, "classes" | "color" | "components
     textAlign: default_2.CSSProperties["textAlign"];
 }>;
 
+/**
+ * @deprecated TeliList is deprecated and will be removed in a future release.
+ */
 export declare const TeliList: FC<TeliListProps>;
 
 export declare const TeliListItem: FC<TeliListItemProps>;
@@ -2176,12 +2181,18 @@ export declare type TeliListProps = default_2.HTMLAttributes<HTMLUListElement> &
     subheader: ListProps_2["subheader"];
 }>;
 
+/**
+ * @deprecated TeliMenu is deprecated and will be removed in a future release.
+ */
 export declare const TeliMenu: FC<MenuProps>;
 
 export declare const TeliMenuItem: FC<MenuItemProps>;
 
 export declare const TeliSearchIcon: default_2.FC<Partial<TeliIconProps>>;
 
+/**
+ * @deprecated TeliSelect is deprecated and will be removed in a future release.
+ */
 export declare const TeliSelect: default_2.FC<TeliSelectProps>;
 
 declare type TeliSelectOption = {
@@ -2312,6 +2323,9 @@ export declare const TeliSortAZIcon: default_2.FC<Partial<TeliIconProps>>;
 
 export declare const TeliSortZAIcon: default_2.FC<Partial<TeliIconProps>>;
 
+/**
+ * @deprecated TeliSpinner is deprecated and will be removed in a future release.
+ */
 export declare const TeliSpinner: FC<CircularProgressProps_2>;
 
 export declare const TeliStandardLayout: default_2.FC<TeliStandardLayoutProps>;
@@ -2339,11 +2353,7 @@ declare interface TeliStandardLayoutHeaderProps {
 declare type TeliStandardLayoutProps = TeliStandardLayoutHeaderProps & MainProps;
 
 /**
- * Switches toggle the state of a single setting on or off. The option that the
- * switch controls, as well as the state it's in, should be made clear from the
- * corresponding inline label. If unsure when to use toggle switch or checkbox,
- * refer to [Checkbox vs Toggle
- * Switch](https://uxplanet.org/checkbox-vs-toggle-switch-7fc6e83f10b8)
+ * @deprecated TeliSwitch is deprecated and will be removed in a future release.
  */
 export declare const TeliSwitch: FC<TeliSwitchProps>;
 
@@ -2411,8 +2421,14 @@ declare interface TeliSwitchProps {
     value?: any;
 }
 
+/**
+ * @deprecated TeliTab is deprecated and will be removed in a future release.
+ */
 export declare const TeliTab: default_2.FC<TeliTabProps>;
 
+/**
+ * @deprecated TeliTable is deprecated and will be removed in a future release.
+ */
 export declare const TeliTable: default_2.FC<TeliTableProps>;
 
 export declare const TeliTableBody: default_2.FC<TeliTableBody_2_2>;
@@ -2474,6 +2490,9 @@ declare interface TeliTableRowProps extends TableRowProps {
     addBorderToLastRow?: boolean;
 }
 
+/**
+ * @deprecated TeliTabPanel is deprecated and will be removed in a future release.
+ */
 export declare const TeliTabPanel: default_2.FC<TeliTabPanelProps>;
 
 declare interface TeliTabPanelProps {
@@ -2486,6 +2505,9 @@ declare interface TeliTabProps extends Omit<TabProps, "value"> {
     tabIndex: number;
 }
 
+/**
+ * @deprecated TeliTabs is deprecated and will be removed in a future release.
+ */
 export declare const TeliTabs: default_2.FC<TeliTabsProps>;
 
 declare interface TeliTabsProps extends Omit<TabsProps, "value"> {
@@ -2496,8 +2518,7 @@ declare interface TeliTabsProps extends Omit<TabsProps, "value"> {
 }
 
 /**
- * Text Fields let users enter and edit text. They typically appear in forms and dialogs.
- * More information about this component can be used can be found [here](https://mui.com/material-ui/react-text-field/)
+ * @deprecated TeliTextField is deprecated and will be removed in a future release.
  */
 export declare const TeliTextField: FC<TeliTextFieldProps>;
 
@@ -2573,6 +2594,9 @@ declare interface TeliTextFieldProps {
     value?: TextFieldProps["value"];
 }
 
+/**
+ * @deprecated TeliToolbar is deprecated and will be removed in a future release.
+ */
 export declare const TeliToolbar: default_2.FC<TeliToolbarProps>;
 
 declare interface TeliToolbarProps extends HTMLAttributes<HTMLUListElement> {
@@ -2591,6 +2615,9 @@ declare interface TeliToolbarProps extends HTMLAttributes<HTMLUListElement> {
     children?: default_2.ReactNode;
 }
 
+/**
+ * @deprecated TeliTypeahead is deprecated and will be removed in a future release.
+ */
 export declare function TeliTypeahead<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false>({ errorMessage, helperText, queryParamKey, url, noOptionsText, onTransform, ...otherProps }: TeliTypeaheadProps<Value, Multiple, DisableClearable, FreeSolo>): JSX_2.Element;
 
 declare interface TeliTypeaheadProps<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false> extends Omit<TeliAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo>, "options"> {
@@ -2601,9 +2628,7 @@ declare interface TeliTypeaheadProps<Value, Multiple extends boolean = false, Di
 }
 
 /**
- * This component can be used to display type/class iconography defined in the
- * ontology. If the styles cannot be found, the initials will be rendered as a
- * fallback as demonstrated in the stories.
+ * @deprecated TeliTypeIcon is deprecated and will be removed in a future release.
  */
 export declare const TeliTypeIcon: default_2.FC<TeliTypeIconProps>;
 
@@ -2645,6 +2670,9 @@ declare interface TeliUserAvatarProps {
     src: AvatarProps["src"];
 }
 
+/**
+ * @deprecated TeliUserProfile is deprecated and will be removed in a future release.
+ */
 export declare const TeliUserProfile: default_2.FC<Partial<TeliUserProfileProps>>;
 
 declare interface TeliUserProfileMenuProps {
