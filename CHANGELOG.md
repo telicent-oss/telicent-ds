@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/telicent-oss/telicent-ds/compare/v2.0.0...v2.0.1) (2026-04-17)
+
+
+### Bug Fixes
+
+* depracate old components ([#485](https://github.com/telicent-oss/telicent-ds/issues/485)) ([800a3f9](https://github.com/telicent-oss/telicent-ds/commit/800a3f911cc58d88d7ff9bf653a6b11cb014904f))
+
 ## [2.0.0](https://github.com/telicent-oss/telicent-ds/compare/v1.7.6...v2.0.0) (2026-04-01)
 
 
