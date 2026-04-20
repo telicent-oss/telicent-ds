@@ -3860,13 +3860,10 @@
   dependencies:
     zod "^3.22.4"
 
-"@telicent-oss/react-lib@^0.5.0":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@telicent-oss/react-lib/-/react-lib-0.5.1.tgz#9f65170ab7e02785fb1fe244ef96ee2d03ca54c9"
-  integrity sha512-567ytFDrOnuYTPlKoSrdWlVeyAJ9LD6l5GCpCXHmq61p9XYnlOHOsOYiNsRmrBLCPk+rF8H3F8dPqWoA3+WsTA==
-  dependencies:
-    react "18.2.0"
-    react-dom "18.2.0"
+"@telicent-oss/react-lib@^0.5.3":
+  version "0.5.3"
+  resolved "http://localhost:4873/@telicent-oss/react-lib/-/react-lib-0.5.3.tgz#170f6ce5349dfad00dce9d9ed1a8d51a3f462617"
+  integrity sha512-zvpGm9BUiw/PdLT8ttF0PTR4OFAWxdDsYf5RXDXD3MpCiOMEupYPOSbGrjdRVgpFEfpnnyv7Eu4sUJ5qXq2Nbw==
 
 "@telicent-oss/telicent-frontend-cli@^1.5.0":
   version "1.5.0"
@@ -13901,14 +13898,6 @@ react-docgen@^7.0.0:
     resolve "^1.22.1"
     strip-indent "^4.0.0"
 
-react-dom@18.2.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
-  integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
-  dependencies:
-    loose-envify "^1.1.0"
-    scheduler "^0.23.0"
-
 "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", react-dom@^18.2.0:
   version "18.3.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.3.1.tgz#c2265d79511b57d479b3dd3fdfa51536494c5cb4"
@@ -14063,13 +14052,6 @@ react-transition-group@^4.4.5:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
-
-react@18.2.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
-  integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
-  dependencies:
-    loose-envify "^1.1.0"
 
 "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0:
   version "18.3.1"
@@ -14669,7 +14651,7 @@ saxes@^6.0.0:
   dependencies:
     xmlchars "^2.2.0"
 
-scheduler@^0.23.0, scheduler@^0.23.2:
+scheduler@^0.23.2:
   version "0.23.2"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.23.2.tgz#414ba64a3b282892e944cf2108ecc078d115cdc3"
   integrity sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==

@@ -3,8 +3,6 @@ import path from "path";
 import copy from "rollup-plugin-copy";
 import dts from "vite-plugin-dts";
 import { defineConfig } from "vite";
-import pkg from "./package.json";
-
 
 export default defineConfig({
   server: {
@@ -17,10 +15,16 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/export.ts"),
       name: "@telicent-oss/ds",
-      fileName: "ds",
+      formats: ["es", "cjs"],
+      fileName: (format) => `ds.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+      ],
       output: {
         globals: {
           react: "React",
