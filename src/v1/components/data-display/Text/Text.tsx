@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import Typography, { TypographyProps } from "@mui/material/Typography";
+import { TypographyVariant } from "../../../tokens";
 
 export type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;
 
@@ -20,7 +21,7 @@ export type TextProps = BaseProps &
     /**
      * The type of text style to use.
      */
-    variant: "subtitle1" | "subtitle2" | "body1" | "body2" | "overline" | "caption";
+    variant: TypographyVariant | "subtitle2" | "overline" | "caption";
   }>;
 
 const Text: React.FC<TextProps> = ({ variant = "body1", component = "p", ...textProps }) => (
