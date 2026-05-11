@@ -4,7 +4,7 @@ import generateComponentOverrides from "./style-overrides/components";
 import TYPOGRAPHY_STYLE_OVERRIDES from "./style-overrides/typography";
 import createLightPalette from "./colors/palette/createLightPalette";
 import createDarkPalette from "./colors/palette/createDarkPalette";
-import { MUI_BREAKPOINTS } from "../tokens/breakpoints";
+import { MUI_BREAKPOINTS } from "../tokens";
 
 export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
 

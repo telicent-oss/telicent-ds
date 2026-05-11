@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { ButtonBase, ButtonBaseProps } from "@mui/material";
 import { ButtonProps as MUIButtonProps } from "@mui/material/Button";
-import { ButtonVariant } from "../../../tokens/button-variants";
+import { ButtonVariant } from "../../../tokens";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import TertiaryButton from "./TertiaryButton";

@@ -1,4 +1,5 @@
 import { ThemeOptions } from "@mui/material";
+import { TYPOGRAPHY_TOKENS } from "../../tokens";
 import SpaceGroteskRegularWoff2 from "../../../assets/fonts/space-grotesk/space-grotesk-regular.woff2";
 import SpaceGroteskMediumWoff2 from "../../../assets/fonts/space-grotesk/space-grotesk-medium.woff2";
 import FigtreeRegularWoff2 from "../../../assets/fonts/figtree/figtree-regular.woff2";
@@ -12,15 +13,9 @@ const fonts = {
 
 const TYPOGRAPHY_STYLE_OVERRIDES = {
   fontFamily: fonts.body,
-  h1: {
-    fontFamily: fonts.heading,
-  },
-  h2: {
-    fontFamily: fonts.heading,
-  },
-  h3: {
-    fontFamily: fonts.heading,
-  },
+  h1: TYPOGRAPHY_TOKENS.h1,
+  h2: TYPOGRAPHY_TOKENS.h2,
+  h3: TYPOGRAPHY_TOKENS.h3,
   h4: {
     fontFamily: fonts.heading,
     fontWeight: 500,
@@ -35,12 +30,9 @@ const TYPOGRAPHY_STYLE_OVERRIDES = {
   button: {
     textTransform: "none",
   },
-  body1: {
-    fontWeight: 500,
-  },
-  subtitle1: {
-    fontWeight: 700,
-  },
+  body1: TYPOGRAPHY_TOKENS.body1,
+  body2: TYPOGRAPHY_TOKENS.body2,
+  subtitle1: TYPOGRAPHY_TOKENS.subtitle1,
 } satisfies ThemeOptions["typography"];
 
 export const FONT_FACES_CSS = `
