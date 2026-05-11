@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/telicent-oss/telicent-ds/compare/v2.0.1...v2.1.0) (2026-05-11)
+
+
+### Features
+
+* add typography to tokens, updated the export and theme ([#489](https://github.com/telicent-oss/telicent-ds/issues/489)) ([9c74fe7](https://github.com/telicent-oss/telicent-ds/commit/9c74fe7e20fda3f3c387f034165032181a22539f))
+
 ## [2.0.1](https://github.com/telicent-oss/telicent-ds/compare/v2.0.0...v2.0.1) (2026-04-17)
 
 
