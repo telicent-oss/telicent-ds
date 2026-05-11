@@ -2712,7 +2712,7 @@ export declare type TextProps = BaseProps & Partial<{
     /**
      * The type of text style to use.
      */
-    variant: "subtitle1" | "subtitle2" | "body1" | "body2" | "overline" | "caption";
+    variant: TypographyVariant | "subtitle2" | "overline" | "caption";
 }>;
 
 export declare const TitleAndContent: FC<TitleAndContentProps>;
@@ -2861,6 +2861,59 @@ export declare interface TypeIconProps {
 }
 
 declare type TypeIconSizeProp = "xs" | "sm" | "base" | "lg";
+
+declare const TYPOGRAPHY_TOKENS: {
+    readonly h1: {
+        readonly fontFamily: "\"Space Grotesk\"";
+        readonly fontSize: "32px";
+        readonly fontStyle: "normal";
+        readonly fontWeight: 500;
+        readonly lineHeight: "110%";
+        readonly letterSpacing: "0.1px";
+    };
+    readonly h2: {
+        readonly fontFamily: "\"Space Grotesk\"";
+        readonly fontSize: "24px";
+        readonly fontStyle: "normal";
+        readonly fontWeight: 500;
+        readonly lineHeight: "120%";
+        readonly letterSpacing: 0;
+    };
+    readonly h3: {
+        readonly fontFamily: "\"Space Grotesk\"";
+        readonly fontSize: "20px";
+        readonly fontStyle: "normal";
+        readonly fontWeight: 500;
+        readonly lineHeight: "116%";
+        readonly letterSpacing: 0;
+    };
+    readonly body1: {
+        readonly fontFamily: "Figtree";
+        readonly fontSize: "16px";
+        readonly fontStyle: "normal";
+        readonly fontWeight: 400;
+        readonly lineHeight: "150%";
+        readonly letterSpacing: "0.16px";
+    };
+    readonly body2: {
+        readonly fontFamily: "Figtree";
+        readonly fontSize: "14px";
+        readonly fontStyle: "normal";
+        readonly fontWeight: 400;
+        readonly lineHeight: "143%";
+        readonly letterSpacing: "0.17px";
+    };
+    readonly subtitle1: {
+        readonly fontFamily: "Figtree";
+        readonly fontSize: "16px";
+        readonly fontStyle: "normal";
+        readonly fontWeight: 700;
+        readonly lineHeight: "130%";
+        readonly letterSpacing: "0.15px";
+    };
+};
+
+declare type TypographyVariant = keyof typeof TYPOGRAPHY_TOKENS;
 
 export declare type UITheme = default_3.infer<typeof UIThemeSchema>;
 
