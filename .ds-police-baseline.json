@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "axes": {
+    "framework_fit": { "CRITICAL": 0, "HIGH": 0, "MODERATE": 0, "LOW": 0 },
+    "api_surface": { "CRITICAL": 0, "HIGH": 0, "MODERATE": 0, "LOW": 0 },
+    "composability": { "CRITICAL": 0, "HIGH": 0, "MODERATE": 0, "LOW": 0 },
+    "theming": { "CRITICAL": 0, "HIGH": 0, "MODERATE": 0, "LOW": 0 },
+    "types": { "CRITICAL": 0, "HIGH": 0, "MODERATE": 0, "LOW": 0 },
+    "docs": { "CRITICAL": 0, "HIGH": 0, "MODERATE": 0, "LOW": 0 },
+    "necessity": { "CRITICAL": 0, "HIGH": 0, "MODERATE": 0, "LOW": 0 }
+  },
+  "blocked": 0,
+  "failed": 0,
+  "updated_at": "2026-05-05T00:00:00.000Z"
+}

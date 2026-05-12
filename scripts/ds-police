@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# ds-police — design system scoring CLI
+# Thin wrapper that runs the TypeScript entrypoint via tsx.
+
+set -e
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$DIR/.." && pwd)"
+
+exec node --import tsx "$DIR/ds-police-src/index.mts" "$@"

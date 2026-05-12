@@ -1,0 +1,11 @@
+```json
+{
+  "framework_fit":  { "score": "9/10",  "findings": [] },
+  "api_surface":    { "score": "9/10",  "findings": [] },
+  "composability":  { "score": "10/10", "findings": [] },
+  "theming":        { "score": "9/10",  "findings": [] },
+  "types":          { "score": "9/10",  "findings": [] },
+  "docs":           { "score": "8/10",  "findings": [] },
+  "necessity":      { "score": "10/10", "findings": [] }
+}
+```

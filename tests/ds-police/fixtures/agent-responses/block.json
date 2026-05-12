@@ -1,0 +1,11 @@
+```json
+{
+  "framework_fit":  { "score": "3/10", "findings": [{ "severity": "HIGH", "message": "clipboard side-effect in presentational component", "line": 12, "rule_id": "framework-fit/no-side-effects" }] },
+  "api_surface":    { "score": "4/10", "findings": [{ "severity": "CRITICAL", "message": "narrows MUIButtonProps; does not spread rest props", "line": 5, "rule_id": "api/no-narrow" }] },
+  "composability":  { "score": "2/10", "findings": [{ "severity": "CRITICAL", "message": "no forwardRef on root element", "line": 4, "rule_id": "composability/forward-ref" }] },
+  "theming":        { "score": "n/a",  "findings": [] },
+  "types":          { "score": "8/10", "findings": [] },
+  "docs":           { "score": "5/10", "findings": [{ "severity": "LOW", "message": "Storybook covers happy path only", "rule_id": "docs/story-coverage" }] },
+  "necessity":      { "score": "6/10", "findings": [] }
+}
+```

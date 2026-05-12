@@ -1,0 +1,12 @@
+sections:
+  api_surface: 1.0
+  composability: 1.0
+  theming: 1.0
+  types: 0.5
+thresholds:
+  severity: HIGH
+  numeric: 6.0
+gate:
+  # ratchet: only block on regressions (no backsliding); ratchet down on improvements.
+  # strict:  block whenever any sidecar holds BLOCK or FAILED. Use after team has cleared the backlog.
+  mode: ratchet
