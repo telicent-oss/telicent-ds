@@ -79,7 +79,11 @@
     "postlocal-publish": "./scripts/update-deps.mjs --file ./updateDeps.gitignored.json",
     "git-checks": " ./.husky/pre-commit && ./.husky/pre-push",
     "git-hooks": "yarn git-checks",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "ds:add": "./scripts/ds-police add",
+    "ds:score": "./scripts/ds-police score",
+    "ds:status": "./scripts/ds-police status",
+    "ds:test": "vitest run --config scripts/ds-police-src/vitest.config.mts"
   },
   "peerDependencies": {
     "@tanstack/react-query": "*",

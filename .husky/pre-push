@@ -9,3 +9,4 @@ fi
 
 yarn tsc --noEmit
 yarn test --watchAll=false
+./scripts/ds-police score
