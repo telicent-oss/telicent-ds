@@ -8,11 +8,21 @@ import { MUI_BREAKPOINTS } from "../tokens";
 
 export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
 
+const WIREFRAME_BACKGROUNDS = {
+  dark: { default: "#111111", paper: "#1a1a1a" },
+  light: { default: "#ffffff", paper: "#ffffff" },
+} as const;
+
 export const createThemePure = (uiTheme: UITheme, palette: ThemeOptions["palette"]) => {
+  const finalPalette =
+    uiTheme === "Wireframe"
+      ? { ...palette, background: WIREFRAME_BACKGROUNDS[palette?.mode === "dark" ? "dark" : "light"] }
+      : palette;
+
   return createMUITheme({
     breakpoints: MUI_BREAKPOINTS,
     components: generateComponentOverrides(uiTheme),
-    palette,
+    palette: finalPalette,
     typography: TYPOGRAPHY_STYLE_OVERRIDES,
   });
 };

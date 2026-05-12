@@ -4,8 +4,9 @@ import DocumentPink from "./DocumentPink";
 import GraphOrange from "./GraphOrange";
 import AdminBlue from "./AdminBlue";
 import Blank from "./BlankTheme";
+import Wireframe from "./Wireframe";
 
-export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"]);
+export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank", "Wireframe"]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 
 const THEME_COLORS: Record<
@@ -36,6 +37,7 @@ const THEME_COLORS: Record<
   GraphOrange,
   AdminBlue,
   Blank,
+  Wireframe,
 };
 
 export default THEME_COLORS;

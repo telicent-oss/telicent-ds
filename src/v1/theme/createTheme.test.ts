@@ -534,6 +534,446 @@ test("tmp theme diffs via unified patches", () => {
        },
        "typography": {
          "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
+
+
+    Index: 9
+    ===================================================================
+    --- 9	DataNavy (light)
+    +++ 9	Wireframe (light)
+    @@ -8,99 +8,136 @@
+           "xl": 1536
+         }
+       },
+       "components": {
+    -    "MuiAvatar": {
+    -      "variants": [
+    -        {
+    -          "props": {
+    -            "variant": "circular-outlined"
+    -          }
+    +    "MuiTypography": {
+    +      "styleOverrides": {
+    +        "root": {
+    +          "fontFamily": "\\"SF Mono\\", \\"Cascadia Code\\", \\"Fira Code\\", Consolas, \\"DejaVu Sans Mono\\", monospace"
+             }
+    -      ]
+    +      }
+         },
+         "MuiButton": {
+    +      "defaultProps": {
+    +        "disableElevation": true,
+    +        "disableRipple": true
+    +      },
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiIconButton": {
+    +      "defaultProps": {
+    +        "disableRipple": true
+    +      },
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiCard": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiPaper": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiAppBar": {
+           "styleOverrides": {
+    -        "startIcon": {
+    -          ">*:nth-last-of-type(1)": {
+    -            "fontSize": "inherit"
+    -          }
+    -        },
+    -        "endIcon": {
+    -          ">*:nth-last-of-type(1)": {
+    -            "fontSize": "inherit"
+    -          }
+    +        "root": {
+    +          "height": 64,
+    +          "boxShadow": "none",
+    +          "borderRadius": 0,
+    +          "backgroundImage": "none",
+    +          "borderBottom": "2px solid currentColor"
+             }
+           }
+         },
+    -    "MuiIconButton": {
+    +    "MuiTextField": {
+    +      "defaultProps": {
+    +        "variant": "outlined"
+    +      }
+    +    },
+    +    "MuiOutlinedInput": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiInputLabel": {
+           "styleOverrides": {
+             "root": {
+    -          "borderRadius": 4
+    +          "fontFamily": "\\"SF Mono\\", \\"Cascadia Code\\", \\"Fira Code\\", Consolas, \\"DejaVu Sans Mono\\", monospace"
+             }
+           }
+         },
+    -    "MuiCard": {
+    -      "variants": [
+    -        {
+    -          "props": {
+    -            "variant": "outlined"
+    -          },
+    -          "style": {
+    -            "borderWidth": 1,
+    -            "borderStyle": "solid",
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
+    -          }
+    -        }
+    -      ],
+    +    "MuiChip": {
+           "styleOverrides": {}
+         },
+    -    "MuiCardContent": {
+    +    "MuiDivider": {
+           "styleOverrides": {}
+         },
+    -    "MuiCardActions": {
+    +    "MuiTooltip": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiAutocomplete": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiMenuItem": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiTableCell": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiAvatar": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiTabs": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiTab": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiLink": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiAlert": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiDialog": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiLinearProgress": {
+           "styleOverrides": {
+    -        "root": {
+    -          "padding": 0,
+    -          "flexDirection": "row-reverse",
+    -          "width": "100%"
+    +        "bar": {
+    +          "borderRadius": 0
+             }
+           }
+         },
+    -    "MuiPaper": {
+    +    "MuiSkeleton": {
+           "styleOverrides": {
+             "root": {
+    -          "backgroundImage": "none"
+    +          "borderRadius": 0
+             }
+           }
+         },
+    -    "MuiMenuItem": {
+    -      "styleOverrides": {}
+    -    },
+    -    "MuiAutocomplete": {
+    +    "MuiSwitch": {
+           "styleOverrides": {
+    -        "tag": {
+    -          "marginTop": 0,
+    -          "marginBottom": 0
+    +        "track": {
+    +          "borderRadius": 0
+    +        },
+    +        "thumb": {
+    +          "borderRadius": 0
+             }
+           }
+         },
+    -    "MuiAppBar": {
+    +    "MuiCheckbox": {
+           "styleOverrides": {
+             "root": {
+    -          "height": 64
+    +          "borderRadius": 0
+             }
+           }
+         },
+         "MuiCssBaseline": {}
+       },
+       "palette": {
+         "mode": "dark",
+         "primary": {
+    -      "main": "#2F44CA",
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
+    +      "main": "#eeeeee",
+    +      "dark": "#cccccc",
+    +      "light": "#eeeeee",
+    +      "contrastText": "#111111"
+         },
+         "secondary": {
+           "main": "#8a8a8a",
+           "light": "#A1A1A1",
+    @@ -112,10 +149,10 @@
+           "secondary": "rgba(255, 255, 255, 0.7)",
+           "disabled": "#999999"
+         },
+         "background": {
+    -      "default": "#1D1D1D",
+    -      "paper": "#252525"
+    +      "default": "#111111",
+    +      "paper": "#1a1a1a"
+         },
+         "grey": {
+           "50": "#fafafa",
+           "100": "#f5f5f5",
+
+
+    Index: 10
+    ===================================================================
+    --- 10	DataNavy (light)
+    +++ 10	Wireframe (dark)
+    @@ -8,130 +8,148 @@
+           "xl": 1536
+         }
+       },
+       "components": {
+    -    "MuiAvatar": {
+    -      "variants": [
+    -        {
+    -          "props": {
+    -            "variant": "circular-outlined"
+    -          }
+    +    "MuiTypography": {
+    +      "styleOverrides": {
+    +        "root": {
+    +          "fontFamily": "\\"SF Mono\\", \\"Cascadia Code\\", \\"Fira Code\\", Consolas, \\"DejaVu Sans Mono\\", monospace"
+             }
+    -      ]
+    +      }
+         },
+         "MuiButton": {
+    +      "defaultProps": {
+    +        "disableElevation": true,
+    +        "disableRipple": true
+    +      },
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiIconButton": {
+    +      "defaultProps": {
+    +        "disableRipple": true
+    +      },
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiCard": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiPaper": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiAppBar": {
+           "styleOverrides": {
+    -        "startIcon": {
+    -          ">*:nth-last-of-type(1)": {
+    -            "fontSize": "inherit"
+    -          }
+    -        },
+    -        "endIcon": {
+    -          ">*:nth-last-of-type(1)": {
+    -            "fontSize": "inherit"
+    -          }
+    +        "root": {
+    +          "height": 64,
+    +          "boxShadow": "none",
+    +          "borderRadius": 0,
+    +          "backgroundImage": "none",
+    +          "borderBottom": "2px solid currentColor"
+             }
+           }
+         },
+    -    "MuiIconButton": {
+    +    "MuiTextField": {
+    +      "defaultProps": {
+    +        "variant": "outlined"
+    +      }
+    +    },
+    +    "MuiOutlinedInput": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiInputLabel": {
+           "styleOverrides": {
+             "root": {
+    -          "borderRadius": 4
+    +          "fontFamily": "\\"SF Mono\\", \\"Cascadia Code\\", \\"Fira Code\\", Consolas, \\"DejaVu Sans Mono\\", monospace"
+             }
+           }
+         },
+    -    "MuiCard": {
+    -      "variants": [
+    -        {
+    -          "props": {
+    -            "variant": "outlined"
+    -          },
+    -          "style": {
+    -            "borderWidth": 1,
+    -            "borderStyle": "solid",
+    -            "borderColor": "rgba(47, 68, 202, 0.4)"
+    -          }
+    -        }
+    -      ],
+    +    "MuiChip": {
+           "styleOverrides": {}
+         },
+    -    "MuiCardContent": {
+    +    "MuiDivider": {
+           "styleOverrides": {}
+         },
+    -    "MuiCardActions": {
+    +    "MuiTooltip": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiAutocomplete": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiMenuItem": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiTableCell": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiAvatar": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiTabs": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiTab": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiLink": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiAlert": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiDialog": {
+    +      "styleOverrides": {}
+    +    },
+    +    "MuiLinearProgress": {
+           "styleOverrides": {
+    -        "root": {
+    -          "padding": 0,
+    -          "flexDirection": "row-reverse",
+    -          "width": "100%"
+    +        "bar": {
+    +          "borderRadius": 0
+             }
+           }
+         },
+    -    "MuiPaper": {
+    +    "MuiSkeleton": {
+           "styleOverrides": {
+             "root": {
+    -          "backgroundImage": "none"
+    +          "borderRadius": 0
+             }
+           }
+         },
+    -    "MuiMenuItem": {
+    -      "styleOverrides": {}
+    -    },
+    -    "MuiAutocomplete": {
+    +    "MuiSwitch": {
+           "styleOverrides": {
+    -        "tag": {
+    -          "marginTop": 0,
+    -          "marginBottom": 0
+    +        "track": {
+    +          "borderRadius": 0
+    +        },
+    +        "thumb": {
+    +          "borderRadius": 0
+             }
+           }
+         },
+    -    "MuiAppBar": {
+    +    "MuiCheckbox": {
+           "styleOverrides": {
+             "root": {
+    -          "height": 64
+    +          "borderRadius": 0
+             }
+           }
+         },
+         "MuiCssBaseline": {}
+       },
+       "palette": {
+    -    "mode": "dark",
+    +    "mode": "light",
+         "primary": {
+    -      "main": "#2F44CA",
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
+    +      "main": "#eeeeee",
+    +      "dark": "#cccccc",
+    +      "light": "#eeeeee",
+    +      "contrastText": "#111111"
+         },
+         "secondary": {
+    -      "main": "#8a8a8a",
+    -      "light": "#A1A1A1",
+    -      "dark": "#606060",
+    -      "contrastText": "#FFFFFF"
+    +      "main": "#F9F9F9"
+         },
+         "text": {
+    -      "primary": "#ececec",
+    -      "secondary": "rgba(255, 255, 255, 0.7)",
+    +      "primary": "#000000",
+    +      "secondary": "#000000",
+           "disabled": "#999999"
+         },
+         "background": {
+    -      "default": "#1D1D1D",
+    -      "paper": "#252525"
+    -    },
+    -    "grey": {
+    -      "50": "#fafafa",
+    -      "100": "#f5f5f5",
+    -      "200": "#eeeeee",
+    -      "300": "#e0e0e0",
+    -      "400": "#bdbdbd",
+    -      "500": "#9e9e9e",
+    -      "600": "#757575",
+    -      "700": "#616161",
+    -      "800": "#424242",
+    -      "900": "#212121",
+    -      "A100": "#f5f5f5",
+    -      "A200": "#eeeeee",
+    -      "A400": "#bdbdbd",
+    -      "A700": "#616161"
+    +      "default": "#ffffff",
+    +      "paper": "#ffffff"
+         }
+       },
+       "typography": {
+         "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
     "
   `);
 });
