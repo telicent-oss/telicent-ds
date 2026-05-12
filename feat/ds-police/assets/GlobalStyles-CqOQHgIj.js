@@ -1,0 +1,1 @@
+import{_ as e,T as o,d as s}from"./identifier-ubkqThfq.js";import"./index-CTjT7uj6.js";import{j as r}from"./jsx-runtime-CB_V9I5Y.js";import{G as m}from"./GlobalStyles-DulCgQ73.js";function f(t){return r.jsx(m,e({},t,{defaultTheme:s,themeId:o}))}export{f as G};
