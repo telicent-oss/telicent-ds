@@ -726,9 +726,9 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "#eeeeee",
     +      "contrastText": "#111111"
          },
-         "secondary": {
-           "main": "#8a8a8a",
-           "light": "#A1A1A1",
+         "tertiary": {
+           "main": "#6B6B6B",
+           "dark": "rgba(107, 107, 107, 0.7)",
     @@ -112,10 +149,10 @@
            "secondary": "rgba(255, 255, 255, 0.7)",
            "disabled": "#999999"
@@ -748,7 +748,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 10	DataNavy (light)
     +++ 10	Wireframe (dark)
-    @@ -8,130 +8,148 @@
+    @@ -8,130 +8,151 @@
            "xl": 1536
          }
        },
@@ -935,12 +935,15 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "#eeeeee",
     +      "contrastText": "#111111"
          },
-         "secondary": {
-    -      "main": "#8a8a8a",
-    -      "light": "#A1A1A1",
-    -      "dark": "#606060",
+         "tertiary": {
+    -      "main": "#6B6B6B",
+    -      "dark": "rgba(107, 107, 107, 0.7)",
+    -      "light": "rgba(107, 107, 107, 0.5)",
     -      "contrastText": "#FFFFFF"
-    +      "main": "#F9F9F9"
+    +      "main": "#8094A3",
+    +      "dark": "rgba(128, 148, 163, 0.7)",
+    +      "light": "rgba(128, 148, 163, 0.5)",
+    +      "contrastText": "#252525"
          },
          "text": {
     -      "primary": "#ececec",
