@@ -2,9 +2,6 @@ import { IconButton, Button, Box } from "@mui/material";
 export const mui = { IconButton, Button, Box };
 import "./main.css";
 
-export { default as TeliStandardLayout } from "./layouts/TeliStandardLayout/TeliStandardLayout";
-export { default as TeliBasicLayout } from "./layouts/TeliBasicLayout/TeliBasicLayout";
-export { default as DSProviders } from "./providers/LayoutProviders/DSProviders";
 export * from "./components";
 export { default as useDebounce } from "./hooks/useDebounce";
 export { default as useExtendedTheme } from "./hooks/useExtendedTheme";
@@ -31,8 +28,7 @@ export * from "./component-library/Map/v2/utils";
 
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/exports";
-import * as authorizeFlowDeprecated from "./candidate-packages/authorize-flow-deprecated/exports";
-export { authorizeFlowDeprecated };
+
 export * from "./candidate-packages/preferred-label-lib";
 
 // PROPOSED @telicent-oss/utils-lib
