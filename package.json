@@ -22,7 +22,7 @@
     "@react-spring/web": "9.7.3",
     "@telicent-oss/fe-auth-lib": "1.0.3",
     "@telicent-oss/mui-icons-material": "^1.0.0",
-    "@telicent-oss/react-lib": "^0.5.0",
+    "@telicent-oss/react-lib": "^0.5.3",
     "@telicent-oss/telicent-frontend-cli": "^1.5.0",
     "@types/lodash.debounce": "^4.0.9",
     "classnames": "^2.3.1",
@@ -193,46 +193,19 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/ds.umd.cjs",
-  "module": "./dist/ds.js",
+  "main": "./dist/ds.cjs.js",
+  "module": "./dist/ds.es.js",
   "types": "./dist/export.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/ds.js",
-      "require": "./dist/ds.umd.cjs",
+      "import": "./dist/ds.es.js",
+      "require": "./dist/ds.cjs.js",
       "types": "./dist/export.d.ts"
     },
-    "./dist/style.css": {
-      "import": "./dist/style.css",
-      "require": "./dist/style.css",
-      "style": "./dist/style.css"
-    },
-    "./dist/fontawesome.css": {
-      "import": "./dist/fontawesome.css",
-      "require": "./dist/fontawesome.css",
-      "style": "./dist/fontawesome.css"
-    },
-    "./dist/fontawesome.css.map": "./dist/fontawesome.css.map",
-    "./dist/styles/typography.css": {
-      "import": "./dist/styles/typography.css",
-      "require": "./dist/styles/typography.css",
-      "style": "./dist/styles/typography.css"
-    },
-    "./dist/styles/fonts.css": {
-      "import": "./dist/styles/fonts.css",
-      "require": "./dist/styles/fonts.css",
-      "style": "./dist/styles/fonts.css"
-    },
-    "./dist/typography.css": {
-      "import": "./dist/styles/typography.css",
-      "require": "./dist/styles/typography.css",
-      "style": "./dist/styles/typography.css"
-    },
-    "./dist/fonts.css": {
-      "import": "./dist/styles/fonts.css",
-      "require": "./dist/styles/fonts.css",
-      "style": "./dist/styles/fonts.css"
-    }
+    "./dist/style.css": "./dist/style.css",
+    "./dist/fontawesome.css": "./dist/fontawesome.css",
+    "./dist/styles/typography.css": "./dist/styles/typography.css",
+    "./dist/styles/fonts.css": "./dist/styles/fonts.css"
   },
   "jest": {
     "transform": {
