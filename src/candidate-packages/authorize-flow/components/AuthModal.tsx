@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { H3, Text } from "../../../v1/components/data-display/Text/Text";
+import { H3, Text } from "../../../components/data-display/Text/Text";
 import { FlexBox, Button, Modal } from "../../../export";
 import { AuthEvent, onAuthEvent } from "../services/broadcastChannelService";
 import { useAuth } from "../context/useAuth";

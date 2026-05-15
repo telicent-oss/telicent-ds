@@ -1,8 +1,8 @@
 import React from "react";
 import type { Preview } from "@storybook/react";
-import UIThemeProvider from "../src/v1/theme/UIThemeProvider";
-import { UIThemeSchema } from "../src/v1/theme/colors/theme-colors";
-import "../src/assets/fonts/fontawesome/css/all.min.css";
+import UIThemeProvider from "../src/theme/UIThemeProvider";
+import { UIThemeSchema } from "../src/theme/colors/theme-colors";
+// import "../src/assets/fonts/fontawesome/css/all.min.css";
 import { addons } from "@storybook/manager-api";
 import { themes } from "@storybook/theming";
 

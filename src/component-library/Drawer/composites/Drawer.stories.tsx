@@ -4,7 +4,7 @@ import { Box, Button } from "@mui/material";
 import { Drawer, DrawerProps } from "./Drawer";
 import { DrawerPresentational } from "../primitives/DrawerPresentational";
 import { useDrawer, DrawerController } from "../primitives/useDrawer";
-import PrimaryButton from "../../../v1/components/buttons/Button/PrimaryButton";
+import PrimaryButton from "../../../components/buttons/Button/PrimaryButton";
 
 const meta: Meta<typeof Drawer> = {
   title: "Component Library/Drawer",

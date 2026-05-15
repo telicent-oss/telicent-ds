@@ -8,7 +8,7 @@ import { Image } from "../../../primitives/LayerSelector/primitives/Image";
 import type { LayerSelectorProps } from "../../types/map-types";
 import { getMeta } from "../../utils/layers";
 
-import { Menu, type MenuOption } from "../../../../../v1/components/Navigation/Menu/Menu";
+import { Menu, type MenuOption } from "../../../../../components/Navigation/Menu/Menu";
 
 const resolveVisibleBaseLayerIndex = (layers: BaseLayer[]): number => {
   const storedLabel = localStorage.getItem("map.baselayer");

@@ -2,20 +2,20 @@ import { IconButton, Button, Box } from "@mui/material";
 export const mui = { IconButton, Button, Box };
 import "./main.css";
 
-export * from "./components";
+// export * from "./components";
 export { default as useDebounce } from "./hooks/useDebounce";
 export { default as useExtendedTheme } from "./hooks/useExtendedTheme";
 
 // V1
-export * from "./v1/components/data-display";
-export * from "./v1/components/feedback";
-export * from "./v1/components/inputs";
-export * from "./v1/components/buttons";
-export * from "./v1/components/layout";
-export * from "./v1/components/surfaces";
-export * from "./v1/theme";
-export * from "./v1/components/utils/index";
-export * from "./v1/components/Brand/index";
+export * from "./components/data-display";
+export * from "./components/feedback";
+export * from "./components/inputs";
+export * from "./components/buttons";
+export * from "./components/layout";
+export * from "./components/surfaces";
+export * from "./theme";
+export * from "./components/utils/index";
+export * from "./components/Brand/index";
 
 // Component library
 export * from "./component-library/Map";
