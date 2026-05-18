@@ -3,7 +3,7 @@ import { Autocomplete, AutocompleteProps, FormControl, FormHelperText, TextField
 
 import Spinner from "../feedback/Spinner/Spinner";
 import { SearchIcon, CloseIcon } from "../data-display";
-import "./TeliAutocomplete.css";
+import "./TeliAutoComplete.css";
 
 type DefaultOption = { label: string };
 type MUIAutocompleteProps<Option> = AutocompleteProps<Option, false, false, true>;
