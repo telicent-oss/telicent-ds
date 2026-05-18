@@ -49,9 +49,7 @@ export const PreferredLabelCache = (function () {
     if (!val) return "";
 
     if (!cache) {
-      console.warn(
-        "The cache has not been popuplated. Please run `preferredLabels.init(<ontologyservice> first"
-      );
+      console.warn("The cache has not been popuplated. Please run `preferredLabels.init(<ontologyservice> first");
       return "";
     }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { render, cleanup } from "@testing-library/react";
 
 import Button, { ButtonProps } from "./Button";
-import { cleanHtmlDiff, cleanSerializedDiff } from "../../../candidate-packages/clean-diff";
+import { cleanHtmlDiff, cleanSerializedDiff } from "../../../utils/clean-diff";
 
 describe("Button", () => {
   let props: ButtonProps;

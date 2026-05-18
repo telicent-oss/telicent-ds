@@ -19,9 +19,7 @@ describe("preferredLabels", () => {
   });
 
   it("should initialise and return the correct value", () => {
-    const got = PreferredLabelCache.get(
-      "http://ies.data.gov.uk/ontology/ies4#Person"
-    );
+    const got = PreferredLabelCache.get("http://ies.data.gov.uk/ontology/ies4#Person");
     expect(got).toBe("Person");
   });
 
@@ -29,9 +27,7 @@ describe("preferredLabels", () => {
   // thing manually in the browser it works as expected.
   // Leaving this test in to show the intent. Skipping for now.
   it.skip("should get the human-friendly type from the uri if there is no label available", () => {
-    const got = PreferredLabelCache.get(
-      "http://ies.data.gov.uk/ontology/ies4#RegionOfSpace"
-    );
+    const got = PreferredLabelCache.get("http://ies.data.gov.uk/ontology/ies4#RegionOfSpace");
     expect(got).toBe("Region Of Space");
   });
 

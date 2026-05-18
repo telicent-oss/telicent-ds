@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { TabButton } from "./TabButton";
-import { cleanDiff } from "../../../candidate-packages/clean-diff";
+import { cleanDiff } from "../../../utils/clean-diff";
 
 describe("renders", () => {
   let base: DocumentFragment;
@@ -8,7 +8,7 @@ describe("renders", () => {
     base = render(
       <TabButton id="base-id" BoxSx={{}} onClick={jest.fn()}>
         min props
-      </TabButton>
+      </TabButton>,
     ).asFragment();
     expect(base).toMatchInlineSnapshot(`
       <DocumentFragment>
@@ -152,13 +152,9 @@ describe("renders", () => {
   });
   it("withProps", () => {
     const withProps = render(
-      <TabButton
-        id="with-props-id"
-        BoxSx={{ color: "custom-color" }}
-        onClick={jest.fn()}
-      >
+      <TabButton id="with-props-id" BoxSx={{ color: "custom-color" }} onClick={jest.fn()}>
         with props
-      </TabButton>
+      </TabButton>,
     ).asFragment();
 
     expect(cleanDiff(base, withProps)).toMatchInlineSnapshot(`

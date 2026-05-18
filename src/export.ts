@@ -29,9 +29,9 @@ export * from "./feature-components/Map/v2/types";
 export * from "./feature-components/Map/v2/utils";
 
 // Candidate Packages
-export * from "./candidate-packages/authorize-flow/exports";
+export * from "./utils/authorize-flow/exports";
 
-export * from "./candidate-packages/preferred-label-lib";
+export * from "./utils/preferred-label-lib";
 
 // PROPOSED @telicent-oss/utils-lib
 export {
@@ -52,7 +52,7 @@ export {
   type LoggerLevel,
   loggerLevelOrder,
   Logger,
-} from "./candidate-packages/utils-lib/src/index";
+} from "./utils/utils-lib/src/index";
 
-export { renderErrorToHtml } from "./candidate-packages/renderErrorToHtml/renderErrorToHtml";
-export { parseOrThrowWithInput } from "./candidate-packages/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
+export { renderErrorToHtml } from "./utils/renderErrorToHtml/renderErrorToHtml";
+export { parseOrThrowWithInput } from "./utils/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
