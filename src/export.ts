@@ -16,15 +16,17 @@ export * from "./components/surfaces";
 export * from "./theme";
 export * from "./components/utils/index";
 export * from "./components/Brand/index";
+export * from "./components/SearchAutocompleteDialog";
+export { default as TeliTypeIcon } from "./components/TypeIcon/TypeIcon";
 
 // Component library
-export * from "./component-library/Map";
-export * from "./component-library/InsetInMap";
-export * from "./component-library/Map/v2/primitives/MapCanvas/MapCanvas";
-export * from "./component-library/Map/v2/primitives/LayerSelector/LayerSelector";
-export * from "./component-library/Map/v2/composites/BasicMap/BasicMap";
-export * from "./component-library/Map/v2/types";
-export * from "./component-library/Map/v2/utils";
+export * from "./feature-components/Map";
+export * from "./feature-components/InsetInMap";
+export * from "./feature-components/Map/v2/primitives/MapCanvas/MapCanvas";
+export * from "./feature-components/Map/v2/primitives/LayerSelector/LayerSelector";
+export * from "./feature-components/Map/v2/composites/BasicMap/BasicMap";
+export * from "./feature-components/Map/v2/types";
+export * from "./feature-components/Map/v2/utils";
 
 // Candidate Packages
 export * from "./candidate-packages/authorize-flow/exports";

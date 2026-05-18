@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { PopOver, FlexGrid, FlexGridItem, Button, Text, useExtendedTheme, ButtonProps } from "../../../../../export";
-import { Image } from "../primitives/Image";
+import { Image } from "./Image";
 import { PopOverProps } from "../../../../../components/surfaces/PopOver/Popover";
 
 // ignore story-coverage.test.ts

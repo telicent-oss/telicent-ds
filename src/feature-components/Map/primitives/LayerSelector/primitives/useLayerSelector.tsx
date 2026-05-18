@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
-import { LayerOption } from '../primitives/LayerSelectorPresentational';
+import React, { useState } from "react";
+import { LayerOption } from "./LayerSelectorPresentational";
 // ignore story-coverage.test.ts
 
-export const useLayerSelector = ({ data, onChange }: { data: LayerOption[]; onChange: (layer: LayerOption) => void }) => {
+export const useLayerSelector = ({
+  data,
+  onChange,
+}: {
+  data: LayerOption[];
+  onChange: (layer: LayerOption) => void;
+}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   React.useEffect(() => {

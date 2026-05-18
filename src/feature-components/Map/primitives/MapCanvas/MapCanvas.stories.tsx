@@ -1,23 +1,23 @@
 // src/components/MapCanvas/MapCanvas.stories.tsx
-import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
-import { MapCanvas, MapCanvasProps } from './MapCanvas';
-import { MapCanvasProvider } from './MapCanvasProvider';
-import { MapProvider } from 'react-map-gl/maplibre';
-import { DEFAULT_VIEW, DEFAULT_GEO_POLYGONS } from '../../constants';
-import type { FeatureCollection } from 'geojson';
-import { calculateBounds } from '../../utils/helper/helper';
-import { ResultMarker } from '../ResultsMarkers/ResultsMarkers';
-import { ARGA_ATTACK, BOULAY_ATTACK } from '../../utils/sampleData/markers';
-import { AUSTRIA, MOLDOVA } from '../../utils/sampleData';
-import { SUPER_OBVIOUS_POLYGON_LAYERS } from '../../primitives/MapCanvas/storyconfig';
-import type { MapRef } from 'react-map-gl/maplibre';
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+import { MapCanvas, MapCanvasProps } from "./MapCanvas";
+import { MapCanvasProvider } from "./MapCanvasProvider";
+import { MapProvider } from "react-map-gl/maplibre";
+import { DEFAULT_VIEW, DEFAULT_GEO_POLYGONS } from "../../constants";
+import type { FeatureCollection } from "geojson";
+import { calculateBounds } from "../../utils/helper/helper";
+import { ResultMarker } from "../ResultsMarkers/ResultsMarkers";
+import { ARGA_ATTACK, BOULAY_ATTACK } from "../../utils/sampleData/markers";
+import { AUSTRIA, MOLDOVA } from "../../utils/sampleData";
+import { SUPER_OBVIOUS_POLYGON_LAYERS } from "./storyconfig";
+import type { MapRef } from "react-map-gl/maplibre";
 
-const DEFAULT_STYLE = 'https://demotiles.maplibre.org/style.json';
+const DEFAULT_STYLE = "https://demotiles.maplibre.org/style.json";
 const sampleMarkers: ResultMarker[] = [ARGA_ATTACK, BOULAY_ATTACK];
 
 const samplePolygons: FeatureCollection = {
-  type: 'FeatureCollection',
+  type: "FeatureCollection",
   features: [AUSTRIA, MOLDOVA],
 };
 
@@ -25,9 +25,9 @@ const samplePolygons: FeatureCollection = {
 const initialBounds = calculateBounds(sampleMarkers, samplePolygons.features);
 
 const meta: Meta<MapCanvasProps> = {
-  title: 'Component Library/Map/primitives/MapCanvas',
+  title: "Component Library/Map/primitives/MapCanvas",
   component: MapCanvas,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <MapCanvasProvider initialMapStyleConfig={{ tileSets: [], vectorStyles: [] }}>
@@ -40,9 +40,9 @@ const meta: Meta<MapCanvasProps> = {
     ),
   ],
   argTypes: {
-    markers: { control: 'object' },
-    geoPolygons: { control: 'object' },
-    selected: { control: 'object' },
+    markers: { control: "object" },
+    geoPolygons: { control: "object" },
+    selected: { control: "object" },
   },
 };
 export default meta;
@@ -56,15 +56,15 @@ const baseArgs: Partial<MapCanvasProps> = {
   defaultStyle: DEFAULT_STYLE,
   attributionControl: true,
   findByClassUri: () => ({
-    backgroundColor: 'white',
-    color: 'black',
-    classUri: '',
-    alt: '',
-    iconFallbackText: '',
+    backgroundColor: "white",
+    color: "black",
+    classUri: "",
+    alt: "",
+    iconFallbackText: "",
   }),
   onClickMarker: () => {},
-  cursor: 'auto',
-  onDragStart: () => {},     // no‐ops so you can drag freely
+  cursor: "auto",
+  onDragStart: () => {}, // no‐ops so you can drag freely
   onDragEnd: () => {},
   onMouseEnter: () => {},
   onMouseLeave: () => {},
