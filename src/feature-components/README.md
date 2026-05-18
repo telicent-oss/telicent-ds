@@ -1,5 +1,5 @@
-# Component library
+# feature components
 
-Re-usable components - beyond the Design system.
+Those components are beyond the Design system.
 
-Will be moved to its own package soon.
+They Will be moved to its own package soon.
