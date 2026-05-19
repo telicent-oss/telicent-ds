@@ -1,8 +1,7 @@
 import { AppBarProps as AppBarProps_2 } from '@mui/material/AppBar';
 import { AuthServerOAuth2ClientConfig } from '@telicent-oss/fe-auth-lib';
-import { AutocompleteProps } from '@mui/material';
-import { AutocompleteProps as AutocompleteProps_2 } from '@mui/material/Autocomplete';
-import { AvatarProps } from '@mui/material/Avatar';
+import { AutocompleteProps } from '@mui/material/Autocomplete';
+import { AutocompleteProps as AutocompleteProps_2 } from '@mui/material';
 import { AxiosInstance } from 'axios';
 import { BaseSelectProps } from '@mui/material';
 import { BoxProps } from '@mui/material';
@@ -14,7 +13,6 @@ import { CardHeaderProps } from '@mui/material/CardHeader';
 import { CardProps as CardProps_2 } from '@mui/material/Card';
 import { CheckboxProps } from '@mui/material';
 import { ChipProps as ChipProps_2 } from '@mui/material/Chip';
-import { ChipProps as ChipProps_3 } from '@mui/material';
 import { CircularProgressProps } from '@mui/material/CircularProgress';
 import { CircularProgressProps as CircularProgressProps_2 } from '@mui/material';
 import { Context } from 'react';
@@ -37,7 +35,7 @@ import { DialogTitleProps } from '@mui/material';
 import { DividerProps as DividerProps_2 } from '@mui/material/Divider';
 import { DrawerProps as DrawerProps_2 } from '@mui/material/Drawer';
 import { ExtendButtonBase } from '@mui/material';
-import { ExtendedTheme } from '../v1/theme/theme-type';
+import { ExtendedTheme } from '../theme/theme-type';
 import { FC } from 'react';
 import { FilledSelectProps } from '@mui/material';
 import { FilledTextFieldProps } from '@mui/material';
@@ -53,24 +51,18 @@ import { IconButtonTypeMap } from '@mui/material';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { InputBaseProps } from '@mui/material/InputBase';
-import { InputProps } from '@mui/material';
 import { JSX as JSX_2 } from '@emotion/react/jsx-runtime';
 import { LinearProgressProps } from '@mui/material/LinearProgress';
 import { List as ListIcon } from '@telicent-oss/mui-icons-material';
 import { ListItemButtonProps } from '@mui/material/ListItemButton';
-import { ListItemButtonProps as ListItemButtonProps_2 } from '@mui/material';
 import { ListItemIconProps } from '@mui/material/ListItemIcon';
 import { ListItemProps } from '@mui/material/ListItem';
-import { ListItemProps as ListItemProps_2 } from '@mui/material';
 import { ListItemTextProps as ListItemTextProps_2 } from '@mui/material/ListItemText';
 import { ListProps } from '@mui/material/List';
-import { ListProps as ListProps_2 } from '@mui/material';
 import { LocationOn as LocationOnIcon } from '@telicent-oss/mui-icons-material';
 import { Map as Map_2 } from 'ol';
 import { MapProvider } from 'react-map-gl/maplibre';
 import { MapRef } from 'react-map-gl/maplibre';
-import { MenuItemProps } from '@mui/material';
-import { MenuProps } from '@mui/material';
 import { ModalProps as ModalProps_2 } from '@mui/material/Modal';
 import { OntologyService } from '@telicent-oss/ontologyservice';
 import { OutlinedSelectProps } from '@mui/material';
@@ -82,16 +74,13 @@ import { PopoverOrigin } from '@mui/material/Popover';
 import { PopoverPosition } from '@mui/material/Popover';
 import { PopoverProps } from '@mui/material/Popover';
 import { PopoverReference } from '@mui/material/Popover';
-import { PopperPlacementType } from '@mui/base';
 import { PropsWithChildren } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 import { QueryKey } from '@tanstack/react-query';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { RefObject } from 'react';
-import { SelectChangeEvent } from '@mui/material';
 import { SelectProps as SelectProps_2 } from '@mui/material';
-import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { SkeletonTypeMap } from '@mui/material/Skeleton';
 import { StackProps } from '@mui/material/Stack';
 import { StandardSelectProps } from '@mui/material';
@@ -102,14 +91,6 @@ import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
 import { SwitchProps as SwitchProps_2 } from '@mui/material/Switch';
 import { SxProps } from '@mui/material/styles';
 import { SxProps as SxProps_2 } from '@mui/material';
-import { TableBodyProps } from '@mui/material';
-import { TableCellProps as TableCellProps_2 } from '@mui/material';
-import { TableContainerProps as TableContainerProps_2 } from '@mui/material';
-import { TableHeadProps } from '@mui/material';
-import { TableProps as TableProps_2 } from '@mui/material';
-import { TableRowProps as TableRowProps_2 } from '@mui/material';
-import { TabProps } from '@mui/material';
-import { TabsProps } from '@mui/material';
 import { TextFieldProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Theme as Theme_2 } from '@mui/material';
@@ -159,26 +140,16 @@ export declare const AppSwitchLibrarySchema: default_3.ZodObject<{
 }, "strip", default_3.ZodTypeAny, {
     id: string;
     url: string;
-    name: string;
     icon: string;
+    name: string;
 }, {
     id: string;
     url: string;
-    name: string;
     icon: string;
+    name: string;
 }>;
 
 export declare type AppSwitchLibraryType = default_3.infer<typeof AppSwitchLibrarySchema>[];
-
-declare interface AppSwitchProps extends default_2.HTMLAttributes<HTMLButtonElement> {
-    /**
-     * The list of applications to include in the app switcher
-     * @default []
-     */
-    apps?: IApps[];
-    isLeftAligned?: boolean;
-    className?: string;
-}
 
 export declare const AuthContext: Context<AuthContextProps | null>;
 
@@ -199,22 +170,7 @@ export declare enum AuthEvent {
     UNAUTHORIZED = "unauthorized"
 }
 
-export declare const AuthModal: React.FC<AuthRedirectModalProps_2>;
-
-export declare namespace authorizeFlowDeprecated {
-        {
-        AuthModal_2 as AuthModal,
-        registerAuthSync,
-        useAuthSync,
-        onAuthEvent_2 as onAuthEvent,
-        broadcastAuthEvent_2 as broadcastAuthEvent,
-        AuthEvent_2 as AuthEvent,
-        createApi_2 as createApi,
-        SessionHandlingConfig,
-        AuthConfig,
-        ApiFactory
-    }
-}
+export declare const AuthModal: React.FC<AuthRedirectModalProps>;
 
 export declare const AuthProvider: default_2.FC<AuthProviderProps>;
 
@@ -225,7 +181,7 @@ declare interface AuthProviderProps {
     children: default_2.ReactNode;
 }
 
-declare interface AuthRedirectModalProps_2 {
+declare interface AuthRedirectModalProps {
     debounceMs?: number;
 }
 
@@ -389,8 +345,6 @@ declare type CardProps = Omit<CardProps_2, "classes" | "raised"> & Partial<{
 
 export declare const Checkbox: default_2.FC<CustomCheckboxProps>;
 
-export declare const checkOntology: (iconType: string, findIcon: (classUri: string) => FlattenedStyleType) => FlattenedStyleType;
-
 export declare const Chip: default_2.FC<ChipProps>;
 
 export declare type ChipProps = Omit<ChipProps_2, "avatar" | "children" | "classes" | "clickable" | "component" | "deleteIcon" | "icon" | "skipFocusWhenDisabled">;
@@ -400,8 +354,6 @@ export declare const ClockIcon: default_2.FC<ClockIconProps>;
 declare type ClockIconProps = Omit<FontAwesomeIconProps, "icon"> & {
     color?: "primary" | "inherit";
 };
-
-export declare const ClockRotateLeft: default_2.FC<Partial<TeliIconProps>>;
 
 export declare const CloseIcon: default_2.FC<SvgIconProps>;
 
@@ -538,15 +490,6 @@ declare type DefaultOption = {
     label: string;
 };
 
-export declare interface DependenciesTable {
-    dependencies: {
-        [key: string]: string;
-    };
-    className?: string;
-}
-
-export declare const DependenciesTable: default_2.FC<DependenciesTable>;
-
 export declare const Dialog: FC<DialogProps>;
 
 export { DialogActions }
@@ -676,13 +619,6 @@ declare interface DropdownButtonProps {
     menuItems: DropDownButtonMenuItemProps[];
 }
 
-export declare const DSProviders: React.FC<DSProvidersProps>;
-
-declare type DSProvidersProps = Partial<{
-    children: React.ReactNode;
-    ontologyService: OntologyService;
-}>;
-
 export declare const EditableTextField: default_2.FC<InputText>;
 
 export declare const ENCODE_SEARCH_PARAMS_MODES_Schema: z.ZodUnion<[z.ZodLiteral<"as base64">, z.ZodLiteral<"as uri component">]>;
@@ -797,14 +733,7 @@ export declare type HeadingProps = BaseProps & Partial<{
     variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }>;
 
-declare interface IApps {
-    name: string;
-    url: string;
-}
-
 export declare const IconButton: default_2.ForwardRefExoticComponent<Omit<IconButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
-
-declare type IconStyle = FlattenedStyleType | FlattenedStyleTypeForFindIcon;
 
 export declare const IESType: default_2.FC<IESTypeProps>;
 
@@ -890,31 +819,6 @@ export declare type LegacyVectorStyle = {
     image: string;
 };
 
-export declare const License: default_2.FC<LicenseProps>;
-
-declare interface LicenseProps {
-    /**
-     * Telicent application name
-     */
-    appName: string;
-    /**
-     * Telicent application version (should be the same as the one found in package.json)
-     */
-    appVersion: string;
-    /**
-     * License expiration date
-     */
-    expiryDate?: Date | string;
-    /**
-     * License copyright text
-     */
-    licenseCopy: ReactNode;
-    /**
-     * Handler for when acknowledge button is pressed
-     */
-    onAcknowledge?: () => void;
-}
-
 export declare const LinearProgress: default_2.FC<LinearProgressProps>;
 
 export declare const Link: default_2.ForwardRefExoticComponent<Omit<LinkButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
@@ -999,8 +903,6 @@ export declare type LoggerLevel = LoggerLevelString | number;
 export declare const loggerLevelOrder: Record<LoggerLevelString, number>;
 
 export declare type LoggerLevelString = "debug" | "info" | "warn" | "error";
-
-declare type MainProps = JSX.IntrinsicElements["main"];
 
 declare type MapBoxSource = z.infer<typeof MapBoxSourceSchema>;
 
@@ -1122,14 +1024,6 @@ export declare interface MarkerStyle {
 
 export declare type MarkerType = "pin" | "circle" | "icon" | string;
 
-declare interface MenuItem {
-    id: string;
-    onClick?: (event?: Event | default_2.SyntheticEvent) => void;
-    label?: string | default_2.ReactNode;
-    startIcon?: default_2.ReactNode;
-    endIcon?: default_2.ReactNode;
-}
-
 export declare const MiniSearchAutocomplete: <Value extends AutocompleteOption = AutocompleteOption, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false>(props: MiniSearchAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo> & {
     ref?: default_2.Ref<HTMLDivElement>;
 }) => default_2.ReactElement | null;
@@ -1231,15 +1125,11 @@ export declare const mui: {
     Box: OverridableComponent<BoxTypeMap<    {}, "div", Theme_2>>;
 };
 
-declare type MUIAutocompleteProps<Option> = AutocompleteProps<Option, false, false, true>;
+declare type MUIAutocompleteProps<Option> = AutocompleteProps_2<Option, false, false, true>;
 
-declare type MUIButtonBaseProps = Omit<ButtonBaseProps, "centerRipple" | "classes" | "action" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "sx">;
+declare type MuiMultiplePassthrough = Omit<AutocompleteProps<Option_2, true, false, false>, "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size">;
 
-declare type MUIChipProps = Omit<ChipProps_3, "variant" | "color" | "avatar" | "classes">;
-
-declare type MuiMultiplePassthrough = Omit<AutocompleteProps_2<Option_2, true, false, false>, "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size">;
-
-declare type MuiSinglePassthrough = Omit<AutocompleteProps_2<Option_2, false, false, false>, "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size">;
+declare type MuiSinglePassthrough = Omit<AutocompleteProps<Option_2, false, false, false>, "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size">;
 
 declare type MultipleAutoCompleteProps = MultipleProps & MuiMultiplePassthrough;
 
@@ -1249,32 +1139,7 @@ declare type MultipleProps = BaseProps_2 & {
     onChange: (value: Option_2[]) => void;
 };
 
-declare type NavProps = JSX.IntrinsicElements["nav"];
-
 export declare function onAuthEvent(callback: (event: AuthEvent) => void): () => void;
-
-export declare const OntologyHierarchy: default_2.FC<OntologyHierarchyProps>;
-
-declare interface OntologyHierarchyProps {
-    instanceId: string;
-    data: OntologyInputHierarchy;
-    descendantCount?: boolean;
-    isDraggable?: boolean;
-    dragEvent?: (event: default_2.DragEvent<HTMLElement>, nodeType: string) => void;
-    isClickable?: boolean;
-    clickEvent?: (nodeId: string) => void;
-    baseKey?: string;
-    filterIds?: string[];
-    expandAll?: boolean;
-    expandElement?: boolean;
-}
-
-export declare interface OntologyInputHierarchy {
-    name: string;
-    id: string;
-    ontology: IconStyle;
-    children?: OntologyInputHierarchy[];
-}
 
 declare type Option_2 = {
     label: string;
@@ -1494,7 +1359,7 @@ export declare const renderErrorToHtml: (error: unknown, context?: string) => vo
 
 declare interface RequestApi {
     instance: AxiosInstance;
-    withSessionHandling: (config: SessionHandlingConfig_2) => RequestApi;
+    withSessionHandling: (config: SessionHandlingConfig) => RequestApi;
     build: () => {
         instance: AxiosInstance;
     };
@@ -1521,8 +1386,6 @@ declare type ResultMarker = {
 declare type RootPropsType = Omit<BoxProps, 'children' | 'content'>;
 
 export declare type Scrollable = HTMLDivElement | (Window & typeof globalThis);
-
-export declare const SearchAutocomplete: <Option>({ autoFocus, autoHighlight, error, fullWidth, getOptionKey, getOptionLabel, helperText, id, inputValue, isOptionEqualToValue, label, listboxMaxHeight, loading, loadingText, name, onChange, onInputChange, openOnFocus, options, placeholder, width, }: SearchAutocompleteProps<Option>) => JSX_2.Element;
 
 export declare const SearchAutocompleteDialog: default_2.FC<SearchAutocompleteDialogProps>;
 
@@ -1764,15 +1627,13 @@ export declare const Select: default_2.ForwardRefExoticComponent<(Omit<FilledSel
     helperText?: default_2.ReactNode;
 }, "ref">) & default_2.RefAttributes<HTMLInputElement>>;
 
-export { SelectChangeEvent }
-
 export declare type SelectProps = SelectProps_2 & {
     options: Options[];
     width?: number | string;
     helperText?: default_2.ReactNode;
 };
 
-declare interface SessionHandlingConfig_2 {
+declare interface SessionHandlingConfig {
     queryClient?: QueryClient;
     keysToInvalidate?: QueryKey[];
 }
@@ -1794,18 +1655,6 @@ export declare interface SourceWithEvents {
 }
 
 export declare const Spinner: FC<CircularProgressProps_2>;
-
-declare interface StandardLayoutProps {
-    /**
-     * The telicent application name
-     */
-    appName: string;
-    /**
-     * Has the application moved into its second phase of testing and is ready for external use by customers or clients?
-     * @default false
-     */
-    beta?: boolean;
-}
 
 export declare type StyleConfig = Partial<{
     fillColor: string;
@@ -1839,242 +1688,6 @@ declare type SwitchProps = Omit<SwitchProps_2, "color"> & {
     labelPlacement?: "end" | "start" | "top" | "bottom";
 };
 
-declare type TableCellProps = Omit<TableCellProps_2, "sx" | "classes">;
-
-declare type TableContainerProps = Omit<TableContainerProps_2, "sx" | "classes">;
-
-declare type TableProps = Omit<TableProps_2, "sx" | "classes" | "size">;
-
-declare type TableRowProps = Omit<TableRowProps_2, "sx" | "classes">;
-
-export declare const TeliAddIcon: default_2.FC<Partial<TeliIconProps>>;
-
-export declare const TeliAppSwitch: FC<AppSwitchProps>;
-
-export declare function TeliAutocomplete<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false>({ error, fullWidth, helperText, label, loading, maxHeight, mode, placeholder, startAdornment, width, getChipIcon, getOptionLabel, ...other }: TeliAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo>): JSX_2.Element;
-
-declare interface TeliAutocompleteProps<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false> extends Omit<AutocompleteProps<Value, Multiple, DisableClearable, FreeSolo>, "renderInput" | "ChipProps" | "clearIcon" | "classes" | "clearText" | "closeText" | "componentsProps" | "ListboxProps" | "ListboxComponent" | "openText" | "PaperComponent" | "PopperComponent" | "popupIcon" | "size" | "slotProps" | "sx"> {
-    /** If true, the component will be rendered in an error state */
-    error?: boolean;
-    /** Used to determine the icon elment of a given option */
-    getChipIcon?: (option: Value) => any;
-    /** The label content. */
-    helperText?: string;
-    /** The label content. */
-    label?: string | default_2.ReactNode;
-    /** Maximum height of the menu component */
-    maxHeight?: number;
-    /** The autocomplete mode with predefined defaults */
-    mode?: "search";
-    placeholder?: string;
-    /** Element placed before the input element */
-    startAdornment?: default_2.ReactNode;
-    /** Width of the component. */
-    width?: number;
-}
-
-export declare const TeliBasicLayout: default_2.FC<TeliBasicLayoutProps>;
-
-declare type TeliBasicLayoutProps = Partial<{
-    children: ReactNode;
-}>;
-
-export declare const TeliBasicMenu: default_2.FC<TeliBasicMenuProps>;
-
-declare interface TeliBasicMenuProps {
-    /**
-     * The id of the Button element.
-     */
-    buttonId?: string;
-    /**
-     * The menu contents.
-     */
-    children?: default_2.ReactNode;
-    /**
-     * If true, the component is initially open. Use when the component open state
-     * is not controlled (i.e. the open prop is not defined).
-     */
-    defaultOpen?: boolean;
-    /** If true, the component will be displayed in a disabled state */
-    disabled?: boolean;
-    /**
-     * The message to be displayed when menu items are empty.
-     */
-    emptyMessage?: string;
-    /**
-     * Element placed after the children.
-     */
-    endIcon?: default_2.ReactNode;
-    /**
-     * The id of the MenuList component.
-     */
-    listId?: string;
-    /**
-     * The content of the Button component.
-     */
-    label: string | default_2.ReactNode;
-    /**
-     * Menu content items.
-     */
-    menuItems?: MenuItem[];
-    /**
-     * If true, the menu component will be shown.
-     */
-    open?: boolean;
-    /**
-     * Callback fired when the component requests to be opened. Use it for
-     * controlled mode.
-     */
-    onOpen?: default_2.MouseEventHandler<HTMLButtonElement>;
-    /**
-     * Callback fired when the component requests to be closed. Use it for
-     * controlled mode.
-     */
-    onClose?: (event: MouseEvent | TouchEvent) => void;
-    /**
-     * Element placed before the children.
-     */
-    startIcon?: default_2.ReactNode;
-    /**
-     * Tooltip contents refer to [Button component](/?path=/docs/components-telibutton--docs).
-     */
-    tooltip?: string;
-    /**
-     * The variant to use.
-     */
-    variant?: "tertiary" | "basic";
-    /**
-     * Width of the menu component.
-     */
-    width?: number;
-    /**
-     * Vertical menu placement.
-     */
-    xPlacement?: PopperPlacementType;
-    /**
-     * Horizontal menu placement.
-     */
-    yPlacement?: PopperPlacementType;
-}
-
-export declare const TeliBasicTable: default_2.FC<TeliBasicTableProps>;
-
-declare interface TeliBasicTableProps {
-    /**
-     * Table column headers
-     */
-    columns?: Array<string | Record<string, string>>;
-    /**
-     * Table body rows
-     */
-    rows?: Array<Array<string>>;
-    name?: TeliTableProps["name"];
-    addBorderToLastRow?: TeliTableRowProps["addBorderToLastRow"];
-    align?: TeliTableCellProps["align"];
-    bordered?: TeliTableContainerProps["bordered"];
-    /**
-     * A short heading for the table content
-     */
-    caption?: string;
-    compact?: TeliTableProps["compact"];
-    maxHeight?: TeliTableContainerProps["maxHeight"];
-    minWidth?: TeliTableProps["minWidth"];
-    /**
-     * If true, a column of numbered rows will be added at the start of table
-     */
-    numberRows?: boolean;
-    /**
-     * The heading for the numbered rows column
-     */
-    numberColumnHeading?: string;
-    /**
-     * Render column cell
-     * @param column Column data
-     * @param index
-     * @returns JSX.Element
-     */
-    renderColumnCell?: (column: any, index?: number) => JSX.Element;
-    stickyHeader?: TeliTableProps["stickyHeader"];
-    /**
-     * If true, the first column will be rendered as a table header
-     */
-    verticalHeader?: boolean;
-}
-
-/**
- * Note: The application color is taken from index.css
- */
-export declare const TeliBrand: default_2.FC<TeliBrandProps>;
-
-declare interface TeliBrandProps extends StandardLayoutProps, default_2.HTMLAttributes<HTMLAnchorElement> {
-    /**
-     * How big should the brand component be?
-     * @default base
-     */
-    size?: "base" | "jumbo";
-    /**
-     * URL
-     */
-    href?: string;
-    /**
-     * Where to display the linked URL, as the name for a browsing context (a tab, window, or <iframe>).
-     */
-    target?: string;
-    /**
-     * The relationship of the linked URL as space-separated link types
-     */
-    rel?: string;
-}
-
-/**
- * @deprecated TeliButton is deprecated and will be removed in a future release.
- */
-export declare const TeliButton: default_2.ForwardRefExoticComponent<Omit<TeliButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
-
-declare interface TeliButtonBaseProps extends MUIButtonBaseProps {
-    /**
-     * The variant to use.**Note**: Use primary instead of contained, secondary
-     * instead of outline and tertiary instead of text. These variants will be
-     * removed in the next version
-     * @default primary
-     */
-    variant?: "primary" | "secondary" | "tertiary" | "link" | "basic";
-    linePosition?: "left" | "right" | "center";
-    /**
-     * The color of the component.
-     */
-    color?: "danger";
-    /**
-     * The URL to link to when the button is clicked. If defined, an a element
-     * will be used as the root node.
-     */
-    href?: string;
-    /**
-     * Element placed before the children.
-     */
-    startIcon?: default_2.ReactNode;
-    /**
-     * Element placed after the children.
-     */
-    endIcon?: default_2.ReactNode;
-    /**
-     * The size of the component.
-     */
-    size?: "small" | "medium" | "large";
-}
-
-declare interface TeliButtonProps extends TeliButtonBaseProps {
-    /**
-     * Tooltip contents
-     */
-    tooltip?: string;
-    /**
-     * Tooltip placement.
-     * @default bottom
-     */
-    tooltipPlacement?: "bottom-end" | "bottom-start" | "bottom" | "left-end" | "left-start" | "left" | "right-end" | "right-start" | "right" | "top-end" | "top-start" | "top";
-}
-
 export declare const TelicentHorizontalSVG: default_2.FC<SvgIconProps>;
 
 export declare const TelicentMark: default_2.FC<TelicentMarkProps>;
@@ -2083,615 +1696,9 @@ declare interface TelicentMarkProps extends SvgIconProps {
     transparentBg?: boolean;
 }
 
-/**
- * @deprecated TeliCheckbox is deprecated and will be removed in a future release.
- */
-export declare const TeliCheckbox: FC<TeliCheckboxProps>;
-
-declare interface TeliCheckboxProps extends CheckboxProps {
-    label?: string;
-}
-
-/**
- * @deprecated TeliChip is deprecated and will be removed in a future release.
- */
-export declare const TeliChip: default_2.FC<TeliChipProps>;
-
-declare interface TeliChipProps extends MUIChipProps {
-    href?: string;
-    variant?: "primary" | "secondary" | "tertiary" | "basic";
-}
-
-export declare const TeliCloseIcon: default_2.FC<Partial<TeliIconProps>>;
-
-export declare const TeliDeleteIcon: default_2.FC<Partial<TeliIconProps>>;
-
-/**
- * @deprecated TeliDialog is deprecated and will be removed in a future release.
- */
-export declare const TeliDialog: FC<DialogProps_2>;
-
-export declare const TeliDialogActions: FC<DialogActionsProps>;
-
-export declare const TeliDialogContent: FC<DialogContentProps>;
-
-export declare const TeliDialogTitle: FC<DialogTitleProps>;
-
-export declare const TeliEditIcon: default_2.FC<Partial<TeliIconProps>>;
-
-/**
- * @deprecated TeliHeader is deprecated and will be removed in a future release.
- */
-export declare const TeliHeader: default_2.FC<TeliHeaderProps>;
-
-declare interface TeliHeaderProps extends default_2.HTMLAttributes<HTMLHeadElement> {
-    children?: default_2.ReactNode;
-    /**
-     * Attributes to add to the nav component
-     */
-    navProps?: NavProps;
-}
-
-declare type TeliIconProps = default_2.HTMLAttributes<SVGElement> & {
-    /**
-     * Can be used to control the size of the icon
-     */
-    size: SizeProp;
-};
-
-export declare const TeliInput: default_2.FC<TeliInputProps>;
-
-declare type TeliInputProps = Omit<InputProps, "classes" | "color" | "components" | "componentsProps" | "disableUnderline" | "inputComponent" | "inputProps" | "slotProps" | "slots" | "sx"> & Partial<{
-    cursor: default_2.CSSProperties["cursor"];
-    textAlign: default_2.CSSProperties["textAlign"];
-}>;
-
-/**
- * @deprecated TeliList is deprecated and will be removed in a future release.
- */
-export declare const TeliList: FC<TeliListProps>;
-
-export declare const TeliListItem: FC<TeliListItemProps>;
-
-export declare const TeliListItemButton: FC<TeliListItemButtonProps>;
-
-declare type TeliListItemButtonProps = default_2.HTMLAttributes<HTMLButtonElement> & Partial<{
-    alignItems: ListItemButtonProps_2["alignItems"];
-    autoFocus: ListItemButtonProps_2["autoFocus"];
-    dense: ListItemButtonProps_2["dense"];
-    disabled: ListItemButtonProps_2["disabled"];
-    disableGutters: ListItemButtonProps_2["disableGutters"];
-    divider: ListItemButtonProps_2["divider"];
-    selected: ListItemButtonProps_2["selected"];
-}>;
-
-declare type TeliListItemProps = default_2.HTMLAttributes<HTMLLIElement> & Partial<{
-    alignItems: ListItemProps_2["alignItems"];
-    children: ListItemProps_2["children"];
-    dense: ListItemProps_2["dense"];
-    disableGutters: ListItemProps_2["disableGutters"];
-    disablePadding: ListItemProps_2["disablePadding"];
-    divider: ListItemProps_2["divider"];
-    secondaryAction: ListItemProps_2["secondaryAction"];
-}>;
-
-export declare type TeliListProps = default_2.HTMLAttributes<HTMLUListElement> & Partial<{
-    dense: ListProps_2["dense"];
-    disablePadding: ListProps_2["disablePadding"];
-    subheader: ListProps_2["subheader"];
-}>;
-
-/**
- * @deprecated TeliMenu is deprecated and will be removed in a future release.
- */
-export declare const TeliMenu: FC<MenuProps>;
-
-export declare const TeliMenuItem: FC<MenuItemProps>;
-
-export declare const TeliSearchIcon: default_2.FC<Partial<TeliIconProps>>;
-
-/**
- * @deprecated TeliSelect is deprecated and will be removed in a future release.
- */
-export declare const TeliSelect: default_2.FC<TeliSelectProps>;
-
-declare type TeliSelectOption = {
-    id?: any;
-    value?: any;
-    label: default_2.ReactNode | string;
-};
-
-declare interface TeliSelectProps {
-    /**
-     * If true, the component is initially open. Use when the component open state
-     * is not controlled (i.e. the open prop is not defined). You can only use it
-     * when the native prop is false (default).
-     * @default false
-     */
-    defaultOpen?: boolean;
-    /**
-     * The default value. Use when the component is not controlled.
-     */
-    defaultValue?: any;
-    /**
-     * If true, the label, input and helper text should be displayed in a disabled
-     * state.
-     */
-    disabled?: boolean;
-    /**
-     * If true, the label is displayed in an error state.
-     */
-    error?: boolean;
-    /**
-     * If true, the component is displayed in focused state.
-     */
-    focused?: boolean;
-    /**
-     * If true, the component will take up the full width of its container.
-     */
-    fullWidth?: boolean;
-    /**
-     * If true, the label is hidden. Be sure to add aria-label to the input
-     * element.
-     */
-    hiddenLabel?: boolean;
-    /**
-     * The id of the input element.
-     */
-    id?: string;
-    /**
-     * The label of the input.
-     */
-    label?: string;
-    /**
-     * Text which will be displayed below the component. If ' ' is provided, the
-     * component reserves one line height for displaying a future message.
-     */
-    helperText?: string;
-    /**
-     * If true, value must be an array and the menu will support multiple
-     * selections.
-     */
-    multiple?: boolean;
-    /**
-     * Callback fired when a menu item is selected.
-     * @param event The event source of the callback. You can pull out the new
-     * value by accessing event.target.value (any). Warning: This is a generic
-     * event, not a change event, unless the change event is caused by browser
-     * autofill.
-     * @returns void
-     */
-    onChange?: (event: SelectChangeEvent) => void;
-    /**
-     * Callback fired when the component requests to be closed. Use it in either
-     * controlled (see the open prop), or uncontrolled mode (to detect when the
-     * Select collapses).
-     * @param event The event source of the callback.
-     * @returns void
-     */
-    onClose?: (event: object) => void;
-    /**
-     * Callback fired when the component requests to be opened. Use it in either
-     * controlled (see the open prop), or uncontrolled mode (to detect when the
-     * Select expands).
-     * @param event The event source of the callback.
-     * @returns void
-     */
-    onOpen?: (event: object) => void;
-    /**
-     * If true, the component is shown.
-     */
-    open?: boolean;
-    /**
-     * The option elements to populate the select with
-     * type TeliSelectOption = {
-     id?: any;
-     value?: any;
-     label: React.ReactNode | string;
-     };
-     */
-    options?: TeliSelectOption[];
-    renderValue?: SelectProps_2["renderValue"];
-    /**
-     * If true, the selected option(s) cannot be changed
-     */
-    readOnly?: boolean;
-    /**
-     * If true, the label will indicate that the input is required.
-     */
-    required?: boolean;
-    /**
-     * The id of the select wrapper element
-     */
-    selectId?: string;
-    /**
-     * The width of the component
-     */
-    width?: number;
-    /**
-     * The input value. Providing an empty string will select no options. Set to
-     * an empty string '' if you don't want any of the available options to be
-     * selected. If the value is an object it must have reference equality with
-     * the option in order to be selected. If the value is not an object, the
-     * string representation must match with the string representation of the
-     * option in order to be selected.
-     */
-    value?: any;
-}
-
-export declare const TeliSortAZIcon: default_2.FC<Partial<TeliIconProps>>;
-
-export declare const TeliSortZAIcon: default_2.FC<Partial<TeliIconProps>>;
-
-/**
- * @deprecated TeliSpinner is deprecated and will be removed in a future release.
- */
-export declare const TeliSpinner: FC<CircularProgressProps_2>;
-
-export declare const TeliStandardLayout: default_2.FC<TeliStandardLayoutProps>;
-
-declare interface TeliStandardLayoutHeaderProps {
-    /**
-     * The list of applications to include in the app switcher
-     */
-    apps?: AppSwitchProps["apps"];
-    /**
-     * The telicent application name
-     */
-    appName: TeliBrandProps["appName"];
-    /**
-     * Has the application moved into its second phase of testing and is ready for external use by customers or clients?
-     * @default false
-     */
-    beta?: TeliBrandProps["beta"];
-    /**
-     * TeliUserProfile component
-     */
-    userProfile?: default_2.ReactNode;
-}
-
-declare type TeliStandardLayoutProps = TeliStandardLayoutHeaderProps & MainProps;
-
-/**
- * @deprecated TeliSwitch is deprecated and will be removed in a future release.
- */
-export declare const TeliSwitch: FC<TeliSwitchProps>;
-
-declare interface TeliSwitchProps {
-    /**
-     * If true, the component is checked.
-     */
-    checked?: boolean;
-    /**
-     * The default checked state. Use when the component is not controlled.
-     */
-    defaultChecked?: boolean;
-    /**
-     * If true, the component is disabled.
-     */
-    disabled?: boolean;
-    /**
-     * If given, uses a negative margin to counteract the padding on one side
-     * (this is often helpful for aligning the left or right side of the icon with
-     * content above or below, without ruining the border size and shape).
-     */
-    edge?: "end" | "start";
-    /**
-     * The id of the input element.
-     */
-    id?: string;
-    /**
-     * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attributes)
-     * applied to the input element.
-     */
-    inputProps?: HTMLAttributes<HTMLInputElement>;
-    /**
-     * Pass a ref to the input element.
-     */
-    inputRef?: default_2.RefObject<HTMLInputElement> | null;
-    /**
-     * Text to be used in an enclosing label element.
-     */
-    label?: string;
-    /**
-     * The position of the label.
-     * @default end
-     */
-    labelPlacement?: "start" | "end";
-    /**
-     * Callback fired when the state is changed. <code>event</code> The event
-     * source of the callback. You can pull out the new value by accessing
-     * event.target.value (string). You can pull out the new checked state by
-     * accessing event.target.checked (boolean)
-     */
-    onChange?: (event: default_2.ChangeEvent) => void;
-    /**
-     * If true, the input element is required.
-     */
-    required?: boolean;
-    /**
-     * The size of the component. small is equivalent to the dense switch styling.
-     * @default small
-     */
-    size?: "small" | "medium";
-    /**
-     * The value of the component. The DOM API casts this to a string. The browser
-     * uses "on" as the default value.
-     */
-    value?: any;
-}
-
-/**
- * @deprecated TeliTab is deprecated and will be removed in a future release.
- */
-export declare const TeliTab: default_2.FC<TeliTabProps>;
-
-/**
- * @deprecated TeliTable is deprecated and will be removed in a future release.
- */
-export declare const TeliTable: default_2.FC<TeliTableProps>;
-
-export declare const TeliTableBody: default_2.FC<TeliTableBody_2_2>;
-
-export declare type TeliTableBody_2 = Omit<TableBodyProps, "sx" | "classes">;
-
-declare type TeliTableBody_2 = Omit<TableBodyProps, "sx" | "classes">;
-
-declare type TeliTableBody_2_2 = Omit<TableBodyProps, "sx" | "classes">;
-
-export declare const TeliTableCell: default_2.FC<TeliTableCellProps>;
-
-declare interface TeliTableCellProps extends TableCellProps {
-    /**
-     * Minimum width of the table
-     */
-    minWidth?: number;
-}
-
-export declare const TeliTableContainer: default_2.FC<TeliTableContainerProps>;
-
-declare interface TeliTableContainerProps extends TableContainerProps {
-    /**
-     * If true, the table element will be bordered
-     */
-    bordered?: boolean;
-    /**
-     * Maximum height of the component
-     */
-    maxHeight?: number;
-}
-
-export declare const TeliTableHead: default_2.FC<TeliTableHeadProps>;
-
-declare type TeliTableHeadProps = Omit<TableHeadProps, "sx" | "classes">;
-
-declare interface TeliTableProps extends TableProps {
-    /**
-     * If true, the table will be compact (smaller)
-     */
-    compact?: boolean;
-    /**
-     * Minimum width of the table
-     */
-    minWidth?: number;
-    /**
-     * The name of the table element
-     */
-    name?: string;
-}
-
-export declare const TeliTableRow: default_2.FC<TeliTableRowProps>;
-
-declare interface TeliTableRowProps extends TableRowProps {
-    /**
-     * If true, the last table row will have a bottom border added to the table
-     * cell element
-     */
-    addBorderToLastRow?: boolean;
-}
-
-/**
- * @deprecated TeliTabPanel is deprecated and will be removed in a future release.
- */
-export declare const TeliTabPanel: default_2.FC<TeliTabPanelProps>;
-
-declare interface TeliTabPanelProps {
-    tabIndex: number;
-    selectedTabIndex: number;
-    children?: default_2.ReactNode;
-}
-
-declare interface TeliTabProps extends Omit<TabProps, "value"> {
-    tabIndex: number;
-}
-
-/**
- * @deprecated TeliTabs is deprecated and will be removed in a future release.
- */
-export declare const TeliTabs: default_2.FC<TeliTabsProps>;
-
-declare interface TeliTabsProps extends Omit<TabsProps, "value"> {
-    /**
-     * The value of the currently selected `Tab`.
-     */
-    selectedTabIndex: number;
-}
-
-/**
- * @deprecated TeliTextField is deprecated and will be removed in a future release.
- */
-export declare const TeliTextField: FC<TeliTextFieldProps>;
-
-declare interface TeliTextFieldProps {
-    ariaLabel?: string;
-    /** This prop helps users to fill forms faster, especially on mobile devices.
-     * The name can be confusing, as it's more like an autofill. You can learn
-     * more about it [following the
-     * specification](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill).
-     * */
-    autoComplete?: TextFieldProps["autoComplete"];
-    /** If true, the input element is focused during the first mount.
-     * @default false
-     */
-    autoFocus?: TextFieldProps["autoFocus"];
-    /** The default value. Use when the component is not controlled. */
-    defaultValue?: TextFieldProps["defaultValue"];
-    /** If true, the component is disabled.
-     *  @default false
-     */
-    disabled?: TextFieldProps["disabled"];
-    /** If true, the label is displayed in an error state.
-     *  @default false
-     */
-    error?: TextFieldProps["error"];
-    /** End InputAdornment for this component. */
-    endAdornment?: React.ReactNode | string;
-    /** If true, the input will take up the full width of its container.
-     * @default false
-     */
-    fullWidth?: TextFieldProps["fullWidth"];
-    /** The helper text content. */
-    helperText?: TextFieldProps["helperText"];
-    /** The id of the input element. Use this prop to make label and helperText
-     * accessible for screen readers. */
-    id?: TextFieldProps["id"];
-    /** Pass a ref to the input element. */
-    inputRef?: TextFieldProps["inputRef"];
-    /** The label content. */
-    label?: TextFieldProps["label"];
-    /** Maximum number of rows to display when multiline option is set to true. */
-    maxRows?: TextFieldProps["maxRows"];
-    /** Minimum number of rows to display when multiline option is set to true. */
-    minRows?: TextFieldProps["minRows"];
-    /** If true, a textarea element is rendered instead of an input. */
-    multiline?: TextFieldProps["multiline"];
-    /** Name attribute of the input element. */
-    name?: TextFieldProps["name"];
-    /** Callback fired when the value is changed.
-     * (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-     * @param event The event source of the callback. You can pull out the new
-     * value by accessing event.target.value (string).
-     * @returns void
-     */
-    onChange?: TextFieldProps["onChange"];
-    /** The short hint displayed in the input before the user enters a value. */
-    placeholder?: TextFieldProps["placeholder"];
-    /** If true, the label is displayed as required and the input element is required. */
-    required?: TextFieldProps["required"];
-    /** Number of rows to display when multiline option is set to true. */
-    rows?: TextFieldProps["rows"];
-    /** Start InputAdornment for this component. */
-    startAdornment?: React.ReactNode | string;
-    /** If true, pointer events like onClick are enabled */
-    pointerEvents?: boolean;
-    /** If true, the input value cannot be changed */
-    readOnly?: boolean;
-    /** Type of the input element. It should be a [valid HTML5 input
-     * type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types).
-     * */
-    type?: TextFieldProps["type"];
-    /** The value of the input element, required for a controlled component. */
-    value?: TextFieldProps["value"];
-}
-
-/**
- * @deprecated TeliToolbar is deprecated and will be removed in a future release.
- */
-export declare const TeliToolbar: default_2.FC<TeliToolbarProps>;
-
-declare interface TeliToolbarProps extends HTMLAttributes<HTMLUListElement> {
-    /**
-     * @default true
-     */
-    defaultControls?: boolean;
-    /**
-     * @default false
-     */
-    vertical?: boolean;
-    position?: "bottom-start" | "bottom-end" | "top-start" | "top-end";
-    variant?: "tertiary" | "basic";
-    onZoomIn?: () => void;
-    onZoomOut?: () => void;
-    children?: default_2.ReactNode;
-}
-
-/**
- * @deprecated TeliTypeahead is deprecated and will be removed in a future release.
- */
-export declare function TeliTypeahead<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false>({ errorMessage, helperText, queryParamKey, url, noOptionsText, onTransform, ...otherProps }: TeliTypeaheadProps<Value, Multiple, DisableClearable, FreeSolo>): JSX_2.Element;
-
-declare interface TeliTypeaheadProps<Value, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false> extends Omit<TeliAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo>, "options"> {
-    errorMessage?: string;
-    queryParamKey: string;
-    url: string;
-    onTransform?: (data: any) => any;
-}
-
-/**
- * @deprecated TeliTypeIcon is deprecated and will be removed in a future release.
- */
-export declare const TeliTypeIcon: default_2.FC<TeliTypeIconProps>;
-
-export declare type TeliTypeIconProps = {
-    icon: FlattenedStyleTypeForFindIcon | FlattenedStyleType;
-} & Partial<{
-    /**
-     * Can be used to override the border color defined in the ontology
-     */
-    borderColor: string;
-    /**
-     * If true, the component will be rendered in a disabled state
-     */
-    disabled: boolean;
-    /**
-     * Used to control the size of the component
-     */
-    size: TeliTypeIconSizeProp;
-}>;
+export declare const TeliTypeIcon: default_2.FC<TypeIconProps>;
 
 declare type TeliTypeIconSizeProp = "xs" | "sm" | "base" | "lg";
-
-declare interface TeliUserAvatarProps {
-    /**
-     * Provides an alt attribute for the rendered img element.
-     */
-    alt: AvatarProps["alt"];
-    /**
-     * User's first name
-     */
-    firstName: string;
-    /**
-     * User's last name
-     */
-    lastName: string;
-    /**
-     * The src attribute for the img element.
-     */
-    src: AvatarProps["src"];
-}
-
-/**
- * @deprecated TeliUserProfile is deprecated and will be removed in a future release.
- */
-export declare const TeliUserProfile: default_2.FC<Partial<TeliUserProfileProps>>;
-
-declare interface TeliUserProfileMenuProps {
-    anchorEl: MenuProps["anchorEl"];
-    firstName?: string;
-    lastName?: string;
-    open: boolean;
-    onClose: () => void;
-    /**
-     * Callback fired when the settings menu item is clicked
-     * @param event
-     * @returns
-     */
-    onSettingsClick?: (event: default_2.SyntheticEvent) => void;
-}
-
-declare interface TeliUserProfileProps extends Partial<TeliUserAvatarProps> {
-    onSettingsClick: TeliUserProfileMenuProps["onSettingsClick"];
-}
 
 declare const Text_2: default_2.FC<TextProps>;
 export { Text_2 as Text }
@@ -2839,28 +1846,22 @@ export declare type TreeViewProps<Item extends object = TreeViewBaseItem> = {
     sx: SxProps_2;
 }>;
 
-export declare const TypeIcon: default_2.FC<TypeIconProps>;
-
-export declare interface TypeIconProps {
-    /** Text for screen readers and tooltips */
-    alt: string;
-    /** Initials or text to show if no icon node is provided */
-    fallbackText?: string;
-    /** Primary color for the icon/text */
-    color?: string;
-    /** Background color for the avatar */
-    backgroundColor?: string;
-    /** Overrides the default border color */
-    borderColor?: string;
-    /** Accepts ANY valid React element (SVG, Material Icon, FontAwesome wrapper, etc.) */
-    iconNode?: ReactNode;
-    /** If true, the component will be rendered in a disabled state */
-    disabled?: boolean;
-    /** Controls the size of the component */
-    size?: TypeIconSizeProp;
-}
-
-declare type TypeIconSizeProp = "xs" | "sm" | "base" | "lg";
+declare type TypeIconProps = {
+    icon: FlattenedStyleTypeForFindIcon | FlattenedStyleType;
+} & Partial<{
+    /**
+     * Can be used to override the border color defined in the ontology
+     */
+    borderColor: string;
+    /**
+     * If true, the component will be rendered in a disabled state
+     */
+    disabled: boolean;
+    /**
+     * Used to control the size of the component
+     */
+    size: TeliTypeIconSizeProp;
+}>;
 
 declare const TYPOGRAPHY_TOKENS: {
     readonly h1: {
