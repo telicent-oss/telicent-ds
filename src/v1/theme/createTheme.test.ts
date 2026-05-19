@@ -742,13 +742,24 @@ test("tmp theme diffs via unified patches", () => {
          "grey": {
            "50": "#fafafa",
            "100": "#f5f5f5",
+    @@ -133,9 +170,9 @@
+           "A700": "#616161"
+         }
+       },
+       "typography": {
+    -    "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
+    +    "fontFamily": "\\"SF Mono\\", \\"Cascadia Code\\", \\"Fira Code\\", Consolas, \\"DejaVu Sans Mono\\", monospace",
+         "h1": {
+           "fontFamily": "\\"Space Grotesk\\"",
+           "fontSize": "32px",
+           "fontStyle": "normal",
 
 
     Index: 10
     ===================================================================
     --- 10	DataNavy (light)
     +++ 10	Wireframe (dark)
-    @@ -8,130 +8,151 @@
+    @@ -8,134 +8,155 @@
            "xl": 1536
          }
        },
@@ -976,7 +987,12 @@ test("tmp theme diffs via unified patches", () => {
          }
        },
        "typography": {
-         "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
+    -    "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
+    +    "fontFamily": "\\"SF Mono\\", \\"Cascadia Code\\", \\"Fira Code\\", Consolas, \\"DejaVu Sans Mono\\", monospace",
+         "h1": {
+           "fontFamily": "\\"Space Grotesk\\"",
+           "fontSize": "32px",
+           "fontStyle": "normal",
     "
   `);
 });
