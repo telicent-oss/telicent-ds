@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/telicent-oss/telicent-ds/compare/v2.1.0...v2.1.1) (2026-05-19)
+
+
+### Bug Fixes
+
+* purge old components ([#495](https://github.com/telicent-oss/telicent-ds/issues/495)) ([bcbf801](https://github.com/telicent-oss/telicent-ds/commit/bcbf8018d91561ebc25ba8045a84d3400eb141f9))
+
 ## [2.1.0](https://github.com/telicent-oss/telicent-ds/compare/v2.0.1...v2.1.0) (2026-05-11)
 
 
