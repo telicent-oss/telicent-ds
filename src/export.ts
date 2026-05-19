@@ -2,38 +2,35 @@ import { IconButton, Button, Box } from "@mui/material";
 export const mui = { IconButton, Button, Box };
 import "./main.css";
 
-export { default as TeliStandardLayout } from "./layouts/TeliStandardLayout/TeliStandardLayout";
-export { default as TeliBasicLayout } from "./layouts/TeliBasicLayout/TeliBasicLayout";
-export { default as DSProviders } from "./providers/LayoutProviders/DSProviders";
-export * from "./components";
 export { default as useDebounce } from "./hooks/useDebounce";
 export { default as useExtendedTheme } from "./hooks/useExtendedTheme";
 
 // V1
-export * from "./v1/components/data-display";
-export * from "./v1/components/feedback";
-export * from "./v1/components/inputs";
-export * from "./v1/components/buttons";
-export * from "./v1/components/layout";
-export * from "./v1/components/surfaces";
-export * from "./v1/theme";
-export * from "./v1/components/utils/index";
-export * from "./v1/components/Brand/index";
+export * from "./components/data-display";
+export * from "./components/feedback";
+export * from "./components/inputs";
+export * from "./components/buttons";
+export * from "./components/layout";
+export * from "./components/surfaces";
+export * from "./theme";
+export * from "./components/utils/index";
+export * from "./components/Brand/index";
+export * from "./components/SearchAutocompleteDialog";
+export { default as TeliTypeIcon } from "./components/TypeIcon/TypeIcon";
 
 // Component library
-export * from "./component-library/Map";
-export * from "./component-library/InsetInMap";
-export * from "./component-library/Map/v2/primitives/MapCanvas/MapCanvas";
-export * from "./component-library/Map/v2/primitives/LayerSelector/LayerSelector";
-export * from "./component-library/Map/v2/composites/BasicMap/BasicMap";
-export * from "./component-library/Map/v2/types";
-export * from "./component-library/Map/v2/utils";
+export * from "./feature-components/Map";
+export * from "./feature-components/InsetInMap";
+export * from "./feature-components/Map/v2/primitives/MapCanvas/MapCanvas";
+export * from "./feature-components/Map/v2/primitives/LayerSelector/LayerSelector";
+export * from "./feature-components/Map/v2/composites/BasicMap/BasicMap";
+export * from "./feature-components/Map/v2/types";
+export * from "./feature-components/Map/v2/utils";
 
 // Candidate Packages
-export * from "./candidate-packages/authorize-flow/exports";
-import * as authorizeFlowDeprecated from "./candidate-packages/authorize-flow-deprecated/exports";
-export { authorizeFlowDeprecated };
-export * from "./candidate-packages/preferred-label-lib";
+export * from "./utils/authorize-flow/exports";
+
+export * from "./utils/preferred-label-lib";
 
 // PROPOSED @telicent-oss/utils-lib
 export {
@@ -54,7 +51,7 @@ export {
   type LoggerLevel,
   loggerLevelOrder,
   Logger,
-} from "./candidate-packages/utils-lib/src/index";
+} from "./utils/utils-lib/src/index";
 
-export { renderErrorToHtml } from "./candidate-packages/renderErrorToHtml/renderErrorToHtml";
-export { parseOrThrowWithInput } from "./candidate-packages/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
+export { renderErrorToHtml } from "./utils/renderErrorToHtml/renderErrorToHtml";
+export { parseOrThrowWithInput } from "./utils/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";

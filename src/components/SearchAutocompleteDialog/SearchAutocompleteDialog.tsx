@@ -1,10 +1,7 @@
 import React from "react";
 import { Dialog, DialogProps } from "@mui/material";
 
-import SearchAutocomplete, {
-  SearchAutocompleteProps,
-} from "../SearchAutocomplete/SearchAutocomplete";
-import "../TeliDialog/telidialog.css";
+import SearchAutocomplete, { SearchAutocompleteProps } from "../SearchAutocomplete/SearchAutocomplete";
 
 type SearchAutocompleteDialogProps<SearchOption = { label: string }> = Omit<
   SearchAutocompleteProps<SearchOption>,
@@ -35,11 +32,7 @@ const SearchAutocompleteDialog: React.FC<SearchAutocompleteDialogProps> = ({
       className: "space-y-5",
     }}
   >
-    <SearchAutocomplete
-      fullWidth
-      listboxMaxHeight={220}
-      {...searchAutocompleteProps}
-    />
+    <SearchAutocomplete fullWidth listboxMaxHeight={220} {...searchAutocompleteProps} />
     {children}
   </Dialog>
 );

@@ -1,23 +1,12 @@
 import React from "react";
-import {
-  Autocomplete,
-  AutocompleteProps,
-  FormControl,
-  FormHelperText,
-  TextField,
-} from "@mui/material";
+import { Autocomplete, AutocompleteProps, FormControl, FormHelperText, TextField } from "@mui/material";
 
-import TeliSpinner from "../TeliSpinner/TeliSpinner";
-import { TeliCloseIcon, TeliSearchIcon } from "../TeliIcons";
-import "../TeliAutocomplete/TeliAutocomplete.css";
+import Spinner from "../feedback/Spinner/Spinner";
+import { SearchIcon, CloseIcon } from "../data-display";
+import "./TeliAutoComplete.css";
 
 type DefaultOption = { label: string };
-type MUIAutocompleteProps<Option> = AutocompleteProps<
-  Option,
-  false,
-  false,
-  true
->;
+type MUIAutocompleteProps<Option> = AutocompleteProps<Option, false, false, true>;
 
 export type SearchAutocompleteProps<Option = DefaultOption> = {
   /**
@@ -56,7 +45,7 @@ export type SearchAutocompleteProps<Option = DefaultOption> = {
   loading: MUIAutocompleteProps<Option>["loading"];
   loadingText: MUIAutocompleteProps<Option>["loadingText"];
   openOnFocus: MUIAutocompleteProps<Option>["openOnFocus"];
- name: string;
+  name: string;
   /**
    * 	The short hint displayed in the input before the user enters a value.
    */
@@ -106,7 +95,7 @@ const SearchAutocomplete = <Option,>({
         autoHighlight={autoHighlight}
         openOnFocus={openOnFocus}
         loadingText={loadingText}
-        clearIcon={<TeliCloseIcon size="sm" />}
+        clearIcon={<CloseIcon />}
         className="error"
         size="small"
         loading={loading}
@@ -127,10 +116,10 @@ const SearchAutocomplete = <Option,>({
             name={name}
             InputProps={{
               ...params.InputProps,
-              startAdornment: <TeliSearchIcon size="sm" className="pl-2" />,
+              startAdornment: <SearchIcon size="sm" className="pl-2" />,
               endAdornment: (
                 <>
-                  {loading ? <TeliSpinner color="inherit" size={14} /> : null}
+                  {loading ? <Spinner color="inherit" size={14} /> : null}
                   {params.InputProps.endAdornment}
                 </>
               ),
