@@ -1,6 +1,6 @@
 import { ThemeOptions } from "@mui/material";
 
-const WIREFRAME_FONT_FAMILY = '"SF Mono", "Cascadia Code", "Fira Code", Consolas, "DejaVu Sans Mono", monospace';
+export const WIREFRAME_FONT_FAMILY = '"SF Mono", "Cascadia Code", "Fira Code", Consolas, "DejaVu Sans Mono", monospace';
 
 const generateWireframeOverrides = () =>
   ({
