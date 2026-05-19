@@ -2,7 +2,6 @@ import { IconButton, Button, Box } from "@mui/material";
 export const mui = { IconButton, Button, Box };
 import "./main.css";
 
-// export * from "./components";
 export { default as useDebounce } from "./hooks/useDebounce";
 export { default as useExtendedTheme } from "./hooks/useExtendedTheme";
 

@@ -2,7 +2,6 @@ import React from "react";
 import { Dialog, DialogProps } from "@mui/material";
 
 import SearchAutocomplete, { SearchAutocompleteProps } from "../SearchAutocomplete/SearchAutocomplete";
-// import "../TeliDialog/telidialog.css";
 
 type SearchAutocompleteDialogProps<SearchOption = { label: string }> = Omit<
   SearchAutocompleteProps<SearchOption>,
