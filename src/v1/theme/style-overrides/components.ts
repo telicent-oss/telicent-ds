@@ -1,8 +1,53 @@
-import { alpha, ThemeOptions } from "@mui/material";
+import { ThemeOptions } from "@mui/material";
 import { UITheme } from "../colors/theme-colors";
 import * as componentOverrides from "./component-overrides";
 import { FONT_FACES_CSS } from "./typography";
-const generateComponentOverrides = (uiTheme: UITheme) =>
+const generateComponentOverrides = (uiTheme: UITheme) => {
+  if (uiTheme === "Wireframe") {
+    return generateWireframeComponentOverrides();
+  }
+
+  return generateBaseComponentOverrides(uiTheme);
+};
+
+const generateWireframeComponentOverrides = () =>
+  ({
+    ...componentOverrides.generateWireframeOverrides(),
+    MuiCssBaseline: {
+      styleOverrides: (theme) => `
+     ${FONT_FACES_CSS}
+
+    .docs-story:not(#_):not(#_) {
+      background: ${theme.palette.background.default} !important;
+    }
+
+    #storybook-root * {
+      scrollbar-width: thin;
+      scrollbar-color: ${theme.palette.divider} transparent;
+    }
+    #storybook-root *::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    #storybook-root *::-webkit-scrollbar-thumb {
+      background-color: ${theme.palette.divider};
+      border-radius: 0px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    #storybook-root *::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #storybook-root * {
+      font-family: "SF Mono", "Cascadia Code", "Fira Code", Consolas, "DejaVu Sans Mono", monospace !important;
+      font-weight: 500;
+    }
+  `,
+    },
+  } satisfies ThemeOptions["components"]);
+
+const generateBaseComponentOverrides = (uiTheme: UITheme) =>
   ({
     ...componentOverrides.AVATAR_OVERRIDES,
     ...componentOverrides.generateButtonOverrides(uiTheme),
@@ -105,6 +150,10 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     MuiCssBaseline: {
       styleOverrides: (theme) => `
      ${FONT_FACES_CSS}
+
+    .docs-story:not(#_):not(#_) {
+      background: ${theme.palette.background.default} !important;
+    }
 
      /* ✅ Universal scrollbar styling */
     * {
