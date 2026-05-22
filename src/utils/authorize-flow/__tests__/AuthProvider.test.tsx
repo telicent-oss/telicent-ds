@@ -11,12 +11,42 @@ import { AuthRedirectUri } from "../pages/AuthRedirectUri";
 import { AuthEvent, broadcastAuthEvent } from "../services/broadcastChannelService";
 
 // ----- MOCKS -----
+// fe-auth-lib's real OAuth2 client schedules async work (a microtask that
+// reads window.location) which can fire after jsdom has torn the test window
+// down — crashing the Jest worker. Mock the module so the client is inert.
 const mockAuthClient = {
-  finishPopupFlow: jest.fn(),
+  config: {
+    redirectUri: "http://app.redirect.localhost",
+    popupRedirectUri: "http://app.popupredirect.localhost",
+    authServerUrl: "http://auth.telicent.localhost",
+    clientId: "mockClient",
+    scope: "offline",
+  },
+  isAuthenticated: jest.fn().mockResolvedValue(true),
+  getUserInfo: jest.fn().mockReturnValue({ name: "Test User", email: "test@example.com" }),
+  login: jest.fn(),
   loginWithPopup: jest.fn(),
   logout: jest.fn(),
-  getUserInfo: jest.fn().mockResolvedValue({ name: "Test User", email: "test@example.com" }),
+  finishPopupFlow: jest.fn(),
+  makeAuthenticatedRequest: jest.fn(),
 } as any;
+
+jest.mock("@telicent-oss/fe-auth-lib", () => {
+  class MockAuthClient {
+    constructor() {
+      // A constructor that returns an object makes `new` yield that object,
+      // so every `new AuthServerOAuth2Client()` resolves to mockAuthClient.
+      return mockAuthClient;
+    }
+  }
+  return {
+    __esModule: true,
+    default: MockAuthClient,
+    AuthServerOAuth2Client: MockAuthClient,
+    OAUTH_SUCCESS: "oauth-success",
+    OAUTH_ERROR: "oauth-error",
+  };
+});
 
 const mockConfig = {
   redirectUri: "http://app.redirect.localhost",
