@@ -30,7 +30,13 @@ describe("DropdownButton", () => {
       selected: false,
     }));
 
-    const { container } = render(<DropdownButton id="button-example" ariaLabel="select-menu" menuItems={LAYOUTS} />);
+    const { container } = render(
+      <DropdownButton
+        id="button-example"
+        ariaLabel="select-menu"
+        menuItems={LAYOUTS}
+      />
+    );
 
     expect(container).toMatchInlineSnapshot(`
       .emotion-0 {
@@ -137,6 +143,10 @@ describe("DropdownButton", () => {
       }
 
       .emotion-2 {
+        color: inherit;
+      }
+
+      .emotion-3 {
         overflow: hidden;
         pointer-events: none;
         position: absolute;
@@ -178,8 +188,7 @@ describe("DropdownButton", () => {
             </svg>
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-angle-down fa-sm "
-              css="[object Object]"
+              class="svg-inline--fa fa-angle-down fa-sm emotion-2"
               data-icon="angle-down"
               data-prefix="fas"
               focusable="false"
@@ -193,7 +202,7 @@ describe("DropdownButton", () => {
               />
             </svg>
             <span
-              class="MuiTouchRipple-root emotion-2"
+              class="MuiTouchRipple-root emotion-3"
             />
           </button>
         </div>
@@ -225,7 +234,13 @@ describe("DropdownButton", () => {
       selected: false,
     }));
 
-    const { container } = render(<DropdownButton id="button-example" ariaLabel="select-menu" menuItems={LAYOUTS} />);
+    const { container } = render(
+      <DropdownButton
+        id="button-example"
+        ariaLabel="select-menu"
+        menuItems={LAYOUTS}
+      />
+    );
 
     expect(container).toMatchInlineSnapshot(`
       .emotion-0 {
@@ -349,6 +364,10 @@ describe("DropdownButton", () => {
       }
 
       .emotion-3 {
+        color: inherit;
+      }
+
+      .emotion-4 {
         overflow: hidden;
         pointer-events: none;
         position: absolute;
@@ -387,8 +406,7 @@ describe("DropdownButton", () => {
             </svg>
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-angle-down fa-sm "
-              css="[object Object]"
+              class="svg-inline--fa fa-angle-down fa-sm emotion-3"
               data-icon="angle-down"
               data-prefix="fas"
               focusable="false"
@@ -402,7 +420,7 @@ describe("DropdownButton", () => {
               />
             </svg>
             <span
-              class="MuiTouchRipple-root emotion-3"
+              class="MuiTouchRipple-root emotion-4"
             />
           </button>
         </div>
@@ -435,7 +453,11 @@ describe("DropdownButton", () => {
     }));
 
     const { user, container } = setup(
-      <DropdownButton id="button-example" ariaLabel="select-menu" menuItems={LAYOUTS} />,
+      <DropdownButton
+        id="button-example"
+        ariaLabel="select-menu"
+        menuItems={LAYOUTS}
+      />
     );
 
     const catalogButton = screen.getByTestId("CatalogIcon");
