@@ -1,1 +1,0 @@
-import{_ as e,T as o,d as s}from"./defaultTheme-Cd36Xqui.js";import"./index-CTjT7uj6.js";import{j as r}from"./jsx-runtime-CB_V9I5Y.js";import{G as m}from"./GlobalStyles-Cv-yeoYN.js";function f(t){return r.jsx(m,e({},t,{defaultTheme:s,themeId:o}))}export{f as G};

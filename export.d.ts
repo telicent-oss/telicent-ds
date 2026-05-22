@@ -51,7 +51,7 @@ import { IconButtonTypeMap } from '@mui/material';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { InputBaseProps } from '@mui/material/InputBase';
-import { JSX as JSX_2 } from '@emotion/react/jsx-runtime';
+import { JSX } from '@emotion/react/jsx-runtime';
 import { LinearProgressProps } from '@mui/material/LinearProgress';
 import { List as ListIcon } from '@telicent-oss/mui-icons-material';
 import { ListItemButtonProps } from '@mui/material/ListItemButton';
@@ -510,7 +510,7 @@ export { DialogTitle }
 
 export { DialogTitleProps }
 
-export declare const Divider: (props: DividerProps) => JSX_2.Element;
+export declare const Divider: (props: DividerProps) => JSX.Element;
 
 declare interface DividerProps extends DividerProps_2 {
     component?: React.ElementType;
@@ -585,7 +585,7 @@ export declare interface DrawerController {
     getContainer(): HTMLDivElement | null;
 }
 
-declare interface DrawerPresentationalProps extends Omit<DrawerProps_2, "PaperProps">, default_2.HTMLAttributes<HTMLDivElement> {
+declare interface DrawerPresentationalProps extends Omit<DrawerProps_2, "PaperProps" | "onToggle">, Omit<default_2.HTMLAttributes<HTMLDivElement>, "onToggle"> {
     PaperProps?: DrawerProps_2["PaperProps"];
     PaperSx?: SxProps<Theme>;
     drawerWidth?: number;
@@ -928,7 +928,7 @@ declare type MapCanvasConfig = {
 };
 
 export declare interface MapCanvasProps {
-    mapRef: default_2.RefObject<MapRef>;
+    mapRef: default_2.RefObject<MapRef | null>;
     initialViewState: {
         latitude: number;
         longitude: number;
@@ -1085,7 +1085,7 @@ export declare interface MiniSearchAutocompleteProps<Value extends AutocompleteO
     onKeyDown?: default_2.KeyboardEventHandler<HTMLInputElement>;
 }
 
-export declare const MiniSearchBox: (props: MiniSearchBoxProps) => JSX_2.Element;
+export declare const MiniSearchBox: (props: MiniSearchBoxProps) => JSX.Element;
 
 export declare interface MiniSearchBoxProps extends SearchInputBaseProps {
     /**
@@ -1267,7 +1267,7 @@ export declare type PolygonType = "Polygon" | "MultiPolygon";
  * Things to know when using the PopOver component:
  * - The component is built on top of the Modal component.
  */
-export declare const PopOver: (props: PopOverProps) => JSX_2.Element;
+export declare const PopOver: (props: PopOverProps) => JSX.Element;
 
 declare interface PopOverProps extends Omit<ModalProps, "children"> {
     /**
@@ -1480,7 +1480,7 @@ export declare interface SearchBoxProps<Value = string> extends default_2.Compon
      * @param event
      * @returns
      */
-    onSearch?: (event: default_2.MouseEvent<HTMLFormElement>) => void;
+    onSearch?: (event: default_2.SubmitEvent<HTMLFormElement>) => void;
     /**
      * Name attribute of the input element.
      */
@@ -1951,9 +1951,9 @@ export declare function useDrawer(args: {
     openDrawer: () => void;
     closeDrawer: () => void;
     toggleDrawer: () => void;
-    ref: RefObject<HTMLDivElement>;
+    ref: RefObject<HTMLDivElement | null>;
     drawerProps: {
-        ref: RefObject<HTMLDivElement>;
+        ref: RefObject<HTMLDivElement | null>;
         onToggle: () => void;
         onClose: () => void;
         open: boolean;
