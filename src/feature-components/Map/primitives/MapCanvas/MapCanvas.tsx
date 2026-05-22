@@ -16,7 +16,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
 
 export interface MapCanvasProps {
-  mapRef: React.RefObject<MapRef>;
+  mapRef: React.RefObject<MapRef | null>;
   initialViewState: {
     latitude: number;
     longitude: number;

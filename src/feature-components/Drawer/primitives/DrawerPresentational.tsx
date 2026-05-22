@@ -12,8 +12,8 @@ import { STYLES } from "./constants";
 export const NAME = "drawer-presentational";
 
 export interface DrawerPresentationalProps
-  extends Omit<MuiMuiDrawerProps, "PaperProps">,
-  React.HTMLAttributes<HTMLDivElement> {
+  extends Omit<MuiMuiDrawerProps, "PaperProps" | "onToggle">,
+  Omit<React.HTMLAttributes<HTMLDivElement>, "onToggle"> {
   PaperProps?: MuiMuiDrawerProps["PaperProps"];
   // IDEA Alternative to PaperSx is a theme
   PaperSx?: SxProps<Theme>;

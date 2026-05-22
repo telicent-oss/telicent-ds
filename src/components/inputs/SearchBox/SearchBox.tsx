@@ -32,7 +32,7 @@ export interface SearchBoxProps<Value = string> extends React.ComponentProps<typ
    * @param event
    * @returns
    */
-  onSearch?: (event: React.MouseEvent<HTMLFormElement>) => void;
+  onSearch?: (event: React.SubmitEvent<HTMLFormElement>) => void;
   /**
    * Name attribute of the input element.
    */
