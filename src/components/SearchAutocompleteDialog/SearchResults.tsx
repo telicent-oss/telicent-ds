@@ -14,9 +14,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   if (!children) {
     return (
       <div>
-        <p className="grid place-content-center mt-28 text-whiteSmoke-300">
-          {nothingFoundText}
-        </p>
+        <p className="grid place-content-center mt-28 text-whiteSmoke-300">{nothingFoundText}</p>
       </div>
     );
   }

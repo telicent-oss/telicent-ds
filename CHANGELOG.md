@@ -1,5 +1,37 @@
 # Changelog
 
+## [3.0.0](https://github.com/telicent-oss/telicent-ds/compare/v2.1.1...v3.0.0) (2026-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* @telicent-oss/ds now requires React 19; React 18 is no longer supported.
+
+### Features
+
+* require React 19 ([#498](https://github.com/telicent-oss/telicent-ds/issues/498)) ([0b47859](https://github.com/telicent-oss/telicent-ds/commit/0b478599e28594e9122734b848d0618c7cddac29))
+
+## [2.1.1](https://github.com/telicent-oss/telicent-ds/compare/v2.1.0...v2.1.1) (2026-05-19)
+
+
+### Bug Fixes
+
+* purge old components ([#495](https://github.com/telicent-oss/telicent-ds/issues/495)) ([bcbf801](https://github.com/telicent-oss/telicent-ds/commit/bcbf8018d91561ebc25ba8045a84d3400eb141f9))
+
+## [2.1.0](https://github.com/telicent-oss/telicent-ds/compare/v2.0.1...v2.1.0) (2026-05-11)
+
+
+### Features
+
+* add typography to tokens, updated the export and theme ([#489](https://github.com/telicent-oss/telicent-ds/issues/489)) ([9c74fe7](https://github.com/telicent-oss/telicent-ds/commit/9c74fe7e20fda3f3c387f034165032181a22539f))
+
+## [2.0.1](https://github.com/telicent-oss/telicent-ds/compare/v2.0.0...v2.0.1) (2026-04-17)
+
+
+### Bug Fixes
+
+* depracate old components ([#485](https://github.com/telicent-oss/telicent-ds/issues/485)) ([800a3f9](https://github.com/telicent-oss/telicent-ds/commit/800a3f911cc58d88d7ff9bf653a6b11cb014904f))
+
 ## [2.0.0](https://github.com/telicent-oss/telicent-ds/compare/v1.7.6...v2.0.0) (2026-04-01)
 
 

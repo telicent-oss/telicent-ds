@@ -1,0 +1,30 @@
+import { screen } from "@testing-library/react";
+
+import { setup as renderWithUser } from "../../../../test-utils";
+import { FloatingPanelProvider } from "../FloatingPanelProvider";
+import * as floatingPanelContext from "../useFloatingPanelContext";
+import DraggableFloatingPanel from "../DraggableFloatingPanel";
+
+const renderComponent = (count?: number) => {
+  return renderWithUser(<DraggableFloatingPanel title="Geo locations" targetId="map" count={count} />, {
+    wrapper: (props) => <FloatingPanelProvider {...props} />,
+  });
+};
+
+describe("Draggable floating panel component", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test("renders total count when number is greater than 0", () => {
+    jest.spyOn(floatingPanelContext, "useFloatingPanelContext").mockReturnValue({
+      toggleVisibility: jest.fn(),
+      get: jest.fn(),
+      panels: { map: { visible: true, minimised: false } },
+    });
+    renderComponent(2);
+
+    expect(screen.getByText("Geo locations")).toBeVisible();
+    expect(screen.getByText("(2)")).toBeVisible();
+  });
+});

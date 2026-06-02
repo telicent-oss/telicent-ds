@@ -1,58 +1,44 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Avatar } from "@mui/material";
 
-// Note: You might want to rename TeliTypeIconSizeProp to TypeIconSizeProp in your utils eventually!
-import {
-  getDisabledStyles,
-  getSizeProps,
-  TypeIconSizeProp,
-} from "./type-icon-utils";
+import { getDisabledStyles, getSizeProps, TeliTypeIconSizeProp } from "./type-icon-utils";
+import { FlattenedStyleType, FlattenedStyleTypeForFindIcon } from "@telicent-oss/ontologyservice";
 
-export interface TypeIconProps {
-  /** Text for screen readers and tooltips */
-  alt: string;
-  /** Initials or text to show if no icon node is provided */
-  fallbackText?: string;
-  /** Primary color for the icon/text */
-  color?: string;
-  /** Background color for the avatar */
-  backgroundColor?: string;
-  /** Overrides the default border color */
-  borderColor?: string;
-  /** Accepts ANY valid React element (SVG, Material Icon, FontAwesome wrapper, etc.) */
-  iconNode?: ReactNode;
-  /** If true, the component will be rendered in a disabled state */
-  disabled?: boolean;
-  /** Controls the size of the component */
-  size?: TypeIconSizeProp;
-}
+export type TypeIconProps = {
+  icon: FlattenedStyleTypeForFindIcon | FlattenedStyleType;
+} & Partial<{
+  /**
+   * Can be used to override the border color defined in the ontology
+   */
+  borderColor: string;
+  /**
+   * If true, the component will be rendered in a disabled state
+   */
+  disabled: boolean;
+  /**
+   * Used to control the size of the component
+   */
+  size: TeliTypeIconSizeProp;
+}>;
 
-const TypeIcon: React.FC<TypeIconProps> = ({
-  alt,
-  fallbackText = "",
-  color,
-  backgroundColor,
-  borderColor,
-  iconNode,
-  disabled = false,
-  size = "base",
-}) => {
+const TypeIcon: React.FC<TypeIconProps> = ({ icon, borderColor, disabled = false, size = "base" }) => {
+  const hasIcon = "faIcon" in icon && Boolean(icon.faIcon);
+
   return (
     <Avatar
-      alt={alt}
-      aria-label={alt}
+      alt={icon.alt}
+      aria-label={icon.alt}
       sx={{
         borderWidth: 2,
-        borderStyle: "solid",
-        borderColor: borderColor ?? color,
-        color: color,
-        backgroundColor: backgroundColor,
+        bordericon: "solid",
+        borderColor: borderColor ?? icon.color,
+        color: icon.color,
+        backgroundColor: icon.backgroundColor,
         ...getDisabledStyles(disabled),
         ...getSizeProps(size),
       }}
     >
-      {/* It just renders whatever you give it, or falls back to text */}
-      {iconNode ? iconNode : <p>{fallbackText}</p>}
+      {hasIcon ? <i className={icon.faIcon} title={`${icon.alt}-icon`} /> : <p>{icon.iconFallbackText}</p>}
     </Avatar>
   );
 };
