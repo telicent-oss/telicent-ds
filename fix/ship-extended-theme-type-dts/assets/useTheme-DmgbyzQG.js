@@ -1,0 +1,1 @@
+import{r}from"./index-7LYIoTbn.js";import{T as n}from"./emotion-react-jsx-runtime.browser.esm-OTCsP_zj.js";import{g as o}from"./defaultTheme-ACnAOKMv.js";function s(e){return Object.keys(e).length===0}function m(e=null){const t=r.useContext(n);return!t||s(t)?e:t}const u=o();function h(e=u){return m(e)}export{m as a,h as u};

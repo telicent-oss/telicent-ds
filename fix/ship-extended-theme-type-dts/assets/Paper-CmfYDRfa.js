@@ -1,0 +1,1 @@
+import{j as a}from"./emotion-react-jsx-runtime.browser.esm-OTCsP_zj.js";import{r as e}from"./index-7LYIoTbn.js";import{P as p}from"./Paper-3rHlC0dZ.js";const t=e.forwardRef(function(r,o){return a(p,{ref:o,...r})});t.__docgenInfo={description:"",methods:[],displayName:"Paper"};export{t as P};
