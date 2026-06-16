@@ -87,4 +87,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
           destination_dir: ./
+          # keep llms.txt / llms-full.txt (deployed to root by deploy-llms.yml) from being wiped
+          keep_files: true
  

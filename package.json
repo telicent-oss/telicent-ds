@@ -53,6 +53,7 @@
     "clean": "rimraf dist storybook-static",
     "check": "./.husky/pre-commit",
     "start": "vite",
+    "build:llms": "node scripts/build-llms.mjs",
     "prebuild": "yarn clean",
     "build": "vite build",
     "preview": "vite preview",
