@@ -52,10 +52,10 @@ bump_prerelease() {
 publish_prerelease() {
   if $DRY_RUN; then
     echo "Would run: yarn build"
-    echo "Would run: npm publish --registry http://localhost:4873 --prepatch"
+    echo "Would run: npm publish --registry http://localhost:4873 --tag prerelease"
   else
     yarn build
-    npm publish --registry http://localhost:4873 --prepatch
+    npm publish --registry http://localhost:4873 --tag prerelease
   fi
 }
 
