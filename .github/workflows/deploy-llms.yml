@@ -1,14 +1,17 @@
 name: deploy-llms.yml
 
-# Publishes llms.txt to the GitHub Pages root, independently of Storybook.
-# keep_files:true here (and on the Storybook deploy) lets both coexist at the
-# root without wiping each other.
+# Publishes llms.txt to the GitHub Pages site.
+#   main           -> site root        (https://telicent-oss.github.io/telicent-ds/llms.txt)
+#   other branches -> per-branch preview (https://telicent-oss.github.io/telicent-ds/<branch>/llms.txt)
+# keep_files:true lets llms.txt coexist with Storybook (which owns the same
+# paths) without either deploy wiping the other. llms has no build step, so it
+# deploys well before the matching Storybook job and the pushes do not overlap.
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - '**'
     paths:
       - docs/COMPONENTS.md
       - scripts/build-llms.mjs
@@ -34,9 +37,19 @@ jobs:
         run: node scripts/build-llms.mjs
 
       - name: Deploy llms.txt to Pages root
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./llms
           destination_dir: ./
+          keep_files: true
+
+      - name: Deploy llms.txt to per-branch preview
+        if: github.ref != 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./llms
+          destination_dir: ${{ github.ref_name }}
           keep_files: true
