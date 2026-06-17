@@ -69,17 +69,66 @@ const isOwn = (sym) =>
     (d) => !d.getSourceFile().fileName.includes("node_modules")
   );
 
+// MUI emits `T & T` for some handlers (a bivariance hack); the duplicate member
+// is noise. Drop exact-duplicate members split on top-level `&` only. `<`/`>`
+// track generics; the `>` in a `=>` arrow is not a closing bracket.
+const dedupeIntersection = (s) => {
+  const members = [];
+  let depth = 0;
+  let start = 0;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === "(" || c === "[" || c === "{" || c === "<") depth++;
+    else if (c === ")" || c === "]" || c === "}") depth--;
+    else if (c === ">" && s[i - 1] !== "=") depth--;
+    else if (depth === 0 && c === "&" && s[i - 1] === " " && s[i + 1] === " ") {
+      members.push(s.slice(start, i).trim());
+      start = i + 1;
+    }
+  }
+  members.push(s.slice(start).trim());
+  if (members.length < 2) return s;
+  const seen = new Set();
+  const unique = [];
+  for (const m of members) {
+    if (seen.has(m)) continue;
+    seen.add(m);
+    unique.push(m);
+  }
+  // MUI's bivariance hack yields `(sig) & (widerSig)` — distinct call signatures
+  // for one handler. Keep the most complete (longest) rather than show both.
+  if (unique.length >= 2 && unique.every((m) => m.includes("=>"))) {
+    return unique.reduce((a, b) => (b.length > a.length ? b : a));
+  }
+  return unique.join(" & ");
+};
+
+// Cut at a token boundary so a clipped type is never malformed mid-identifier.
+const truncateType = (s, max) => {
+  if (s.length <= max) return s;
+  const head = s.slice(0, max);
+  const cut = Math.max(
+    head.lastIndexOf(", "),
+    head.lastIndexOf(" | "),
+    head.lastIndexOf(" & "),
+    head.lastIndexOf(" ")
+  );
+  return `${cut > 0 ? head.slice(0, cut) : head} ...`;
+};
+
 const renderType = (sym) => {
   const decl = sym.valueDeclaration ?? (sym.getDeclarations() ?? [])[0];
   const t = checker.getTypeOfSymbolAtLocation(sym, decl);
-  let s = checker.typeToString(t, decl, ts.TypeFormatFlags.NoTruncation);
-  s = s.replace(/\s+/g, " ").trim();
+  let s = checker.typeToString(t, decl, ts.TypeFormatFlags.NoTruncation).replace(/\s+/g, " ").trim();
+  // dayjs uses `export =`, so its `Dayjs` named import resolves to `any` in this
+  // declaration-only program. The declared (syntactic) type is correct — use it.
+  if (s === "any" && decl?.type) s = decl.type.getText().replace(/\s+/g, " ").trim();
   s = cleanAliases(s);
   // typeToString emits absolute `import("/abs/path").Member` for unnameable
   // types; strip the qualifier so no local filesystem path leaks into output.
   s = s.replace(/import\("[^"]*"\)\./g, "");
-  if (s.length > 120) s = s.slice(0, 117) + "...";
-  return s;
+  s = dedupeIntersection(s);
+  return truncateType(s, 120);
 };
 
 const collectComponents = () => {
