@@ -118,7 +118,7 @@ Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/but
 
 Demonstrated states:
 - Default — text="this is a default example string", ariaLabel="Copy to clipboard button"
-- CustomSuccessMessage — text="Hooray!", successMsg="Hooaray!!"
+- CustomSuccessMessage — text="Hooray!", successMsg="Hooray!!"
 - CustomStyle — text="Text for clipboard via WithCustomStyle", ariaLabel="Copy to clipboard button with white color", sx={…}
 - Error — testFailure=true, text="This will fail"
 * **`Link`**: Use for navigation links. (There is no `LinkButton`; for a link that should read as a link, use `Link`; for a link-styled action, use `Button variant="text"`.)
@@ -195,7 +195,7 @@ PopOver:
   anchorReference: {type: 'PopoverReference', required: false}
   children: {type: 'React.ReactNode', required: false}
   hideCloseButton: {type: 'boolean', required: false}
-  onClose: {type: '((event: {}, reason: "backdropClick" | "escapeKeyDown") => void) & ((event: {}, reason: "backdropClick" | "escapeKeyD...', required: true}
+  onClose: {type: '((event: {}, reason: "backdropClick" | "escapeKeyDown" | "closeButtonClick") => void)', required: true}
   open: {type: 'boolean', required: true}
   transformOrigin: {type: 'PopoverOrigin', required: false}
   width: {type: 'number', required: false}
@@ -288,7 +288,7 @@ Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inp
 
 Demonstrated states:
 - Default — label="Full Name", placeholder="Enter your name", error=false, errorText="This field is required"
-- MultiLine — label="Miltiline Input", placeholder="type anything that needs a lot of space in here", error=false, multiline=true, rows=10
+- MultiLine — label="Multiline Input", placeholder="type anything that needs a lot of space in here", error=false, multiline=true, rows=10
 - HelperText
 - ErrorMessage — label="Title", error=true, errorText="Something went wrong, please try again."
 * **`EditableTextField`**: Use for inline-editing scenarios (e.g., clicking a title to rename it).
@@ -400,7 +400,7 @@ SearchAutocompleteDialog:
   loading: {type: 'boolean', required: false}
   loadingText: {type: 'React.ReactNode', required: false}
   name: {type: 'string', required: false}
-  onChange: {type: '(event: React.SyntheticEvent, value: string | SearchOption, reason: AutocompleteChangeReason, details?: AutocompleteC...', required: false}
+  onChange: {type: '(event: React.SyntheticEvent, value: string | SearchOption, reason: AutocompleteChangeReason, details?: ...', required: false}
   onClose: {type: '(event: {}, reason: "backdropClick" | "escapeKeyDown") => void', required: false}
   onInputChange: {type: '(event: React.SyntheticEvent, value: string, reason: AutocompleteInputChangeReason) => void', required: false}
   open: {type: 'boolean', required: true}
@@ -460,10 +460,10 @@ DatePicker:
   fullWidth: {type: 'boolean', required: false}
   helperText: {type: 'string', required: false}
   label: {type: 'ReactNode & string', required: false}
-  maxDate: {type: 'any', required: false}
-  minDate: {type: 'any', required: false}
+  maxDate: {type: 'PickerValidDate', required: false}
+  minDate: {type: 'PickerValidDate', required: false}
   textFieldProps: {type: 'TextFieldProps', required: false}
-  value: {type: 'any', required: true}
+  value: {type: 'Dayjs | null', required: true}
 ```
 ```yaml
 DateTimePicker:
@@ -471,8 +471,8 @@ DateTimePicker:
   errorMsg: {type: 'string', required: false}
   fullWidth: {type: 'boolean', required: false}
   helperText: {type: 'string', required: false}
-  maxDateTime: {type: 'any', required: false}
-  minDateTime: {type: 'any', required: false}
+  maxDateTime: {type: 'PickerValidDate', required: false}
+  minDateTime: {type: 'PickerValidDate', required: false}
   textFieldProps: {type: 'TextFieldProps', required: false}
 ```
 Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-datepicker--docs
@@ -627,7 +627,7 @@ Demonstrated states:
 ```yaml
 Modal:
   hideCloseButton: {type: 'boolean', required: false}
-  onClose: {type: '((event: {}, reason: "backdropClick" | "escapeKeyDown") => void) & ((event: {}, reason: "backdropClick" | "escapeKeyD...', required: true}
+  onClose: {type: '((event: {}, reason: "backdropClick" | "escapeKeyDown" | "closeButtonClick") => void)', required: true}
 ```
 Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/utils-modal--docs
 Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/utils/Modal/Modal.stories.tsx
