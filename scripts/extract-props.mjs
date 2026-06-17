@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 // Type-only prop extractor prototype for @telicent-oss/ds.
 // Reads the rolled-up declaration (dist/export.d.ts), and for every `*Props`
-// type renders a markdown table of the props THIS repo declares — prop name,
-// type (incl. literal unions like variant="primary"|...), and required/optional.
+// type returns the props THIS repo declares — prop name, type (incl. literal
+// unions like variant="primary"|...), and required/optional. build-llms.mjs
+// renders them as YAML in llms.txt.
 // Inherited MUI/React/DOM props are dropped via each property's declaration
 // file: anything declared under node_modules is inherited, not ours.
 //
 // No dependence on JSDoc/doc comments and no new npm dependency — uses the
 // `typescript` compiler API already in the toolchain. Run `yarn build` first
 // so dist/export.d.ts exists.
-import { writeFileSync, mkdirSync } from "node:fs";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import { dirname, resolve, basename } from "node:path";
 import ts from "typescript";
 
@@ -188,31 +188,3 @@ export const getValueExportNames = () => {
   });
   return names;
 };
-
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const components = collectComponents();
-
-  const lines = ["# @telicent-oss/ds — props (type-derived)", ""];
-  for (const c of components) {
-    lines.push(`## ${c.component}`, "");
-    if (c.props.length === 0) {
-      lines.push("_No own props — all props inherited from the underlying MUI/DOM element._", "");
-      continue;
-    }
-    lines.push("| Prop | Type | Required |", "| --- | --- | --- |");
-    for (const p of c.props) {
-      lines.push(`| \`${p.name}\` | \`${p.type.replace(/\|/g, "\\|")}\` | ${p.required ? "yes" : "no"} |`);
-    }
-    lines.push("");
-  }
-
-  const outDir = resolve(root, "llms");
-  mkdirSync(outDir, { recursive: true });
-  const outPath = resolve(outDir, "props.md");
-  writeFileSync(outPath, lines.join("\n"));
-
-  const own = components.filter((c) => c.props.length > 0).length;
-  console.log(
-    `extract-props: ${components.length} *Props types, ${own} with own props -> llms/props.md`
-  );
-}
