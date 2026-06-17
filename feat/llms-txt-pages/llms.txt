@@ -1,11 +1,54 @@
 # Telicent DS Component Manifest
 
+> `@telicent-oss/ds` is Telicent's MUI-based React component library. This file is the complete, self-contained reference: setup, theming, every exported component, and copy-paste recipes. An agent that fetches it has what it needs to build a Telicent app UI without reading the source.
+
 **AGENT INSTRUCTION:** This is your source of truth for UI components. Before writing any custom JSX or Tailwind classes for a visual element, you MUST find the closest match in this document.
 - All components are imported directly from `@telicent-oss/ds`. (e.g., `import { Button, Card } from "@telicent-oss/ds";`)
 - **Do not** write raw HTML (`<button>`, `<div>` for cards, `<input>`) if a component exists here.
-- **Do not** use Tailwind for colors, borders, or shadows on these components; the theme handles it. Use Tailwind primarily for spacing (`gap-X`, `mt-X`) and sizing.
+- **Do not** use Tailwind for colors, borders, or shadows on these components; the theme controls them. Set colour through the theme palette (see Setup & Theming). Use Tailwind primarily for spacing (`gap-X`, `mt-X`) and sizing.
 
-> Verified against `@telicent-oss/ds` v3.0.0 source (`src/export.ts`, `src/components/*`). Upstream source: `Telicent-io/claude-context` commit `0f5645d`. Every component name below resolves to a real package export. Where the upstream draft named a component that is not exported, this manifest gives the actual API instead (see "Buttons" and "Typography").
+> Verified against `@telicent-oss/ds` source (`src/export.ts`, `src/components/*`, `src/theme/*`). Every component named below is a real package export; setup, prop, and theming details are taken from the source and from how Telicent apps (telicent-search, telicent-graph, catalog) wire the library.
+
+---
+
+## Setup & Theming
+
+Install:
+```sh
+npm install @telicent-oss/ds
+```
+
+Peer dependencies the consuming app must also install: `react@^19`, `react-dom@^19`, `@tanstack/react-query`, `@telicent-oss/ontologyservice@^1`, `axios`.
+
+Import the styles once at the app entry. FontAwesome icons render only if the second file is loaded:
+```ts
+import "@telicent-oss/ds/dist/style.css";
+import "@telicent-oss/ds/dist/fontawesome.css";
+```
+
+Wrap the app in `UIThemeProvider`. It supplies the MUI theme and `CssBaseline` internally — do not add your own `ThemeProvider` or `CssBaseline`.
+```tsx
+import { UIThemeProvider } from "@telicent-oss/ds";
+
+<UIThemeProvider theme="DataNavy" dark={false}>
+  <App />
+</UIThemeProvider>
+```
+- `theme` (required): one of `"DataNavy"`, `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"Blank"`.
+- `dark` (optional, default `false`): set it for the dark palette. Dark mode is this prop only — there is no runtime toggle or CSS class.
+
+Read theme colours and tokens in app code with the `useExtendedTheme` hook. This is the sanctioned way to set a colour — use it instead of a Tailwind colour class:
+```tsx
+import { useExtendedTheme } from "@telicent-oss/ds";
+
+const theme = useExtendedTheme();
+// theme.palette.primary.main, theme.palette.tertiary.main, theme.palette.background.default
+```
+Palette keys include `primary`, `tertiary`, `text`, and `background`.
+
+> Auth (`useAuth`, `AuthProvider`, `AuthContext`, `AuthRedirectUri`, `Callback`, and the `authorize-flow` utilities) is exported from `@telicent-oss/ds` and used by most Telicent apps, but it is out of scope for this UI component reference. See `src/utils/authorize-flow` in the source.
+
+> Geospatial map components (`BasicMap`, `BasicMapV2`, `FeatureMap`, `MapCanvas`, `MapCanvasV2`, `LayerSelector`, `MapCanvasProvider`, and the `useMap` hook) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map` in the source.
 
 ---
 
@@ -17,72 +60,721 @@
   * `variant="tertiary"` — low-emphasis, neutral-colour actions.
   * `variant="text"` — text-only clickable actions (no background).
   * `variant="base"` — unstyled button base.
-  * Size via `size="small" | "medium" | "large"`.
+  * Size via `size="small" | "medium" | "large"` (default `medium`).
+  * `onClick`, `type`, `disabled`, `startIcon`, `endIcon` pass through to MUI Button. There is **no `loading` prop** — show a pending state with `disabled` plus a label change, or an inline `<Spinner size={16} />` (see Recipes).
+```yaml
+Button:
+  variant: {type: '"base" | "text" | "primary" | "secondary" | "tertiary"', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/buttons-button--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/buttons/Button/Button.stories.tsx
+Default args: children="Button", onClick=fn(), variant="primary"
+
+Demonstrated states:
+- Primary — variant="primary"
+- Secondary — variant="secondary"
+- Tertiary — variant="tertiary"
+- Text — variant="text"
+- Base — variant="base"
+- Sizes
+- StartIcon
+- EndIcon
+- FullWidth
+- SXOverrides
 * **`IconButton`**: Use when a button only contains an Icon. Should include an `aria-label`.
 * **`DropdownButton`**: Use for buttons that trigger a menu of options. (This is also the menu primitive — there is no standalone `Menu` export.)
+```yaml
+DropdownButton:
+  ariaLabel: {type: 'string', required: true}
+  id: {type: 'string', required: true}
+  menuItems: {type: 'DropDownButtonMenuItemProps[]', required: true}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/navigation-menu--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/Navigation/Menu/Menu.stories.tsx
+
+Demonstrated states:
+- Default — "aria-label"="menu", menuId="menu-default", options=[…], button=fn
+- WithIconsAndDisabled — "aria-label"="menu with icons", menuId="menu-icons", options=[…], button=fn
+- LinkNavigation — "aria-label"="navigation menu", menuId="menu-links", options=[…], button=fn
+- WithDividerAndOnSelect — "aria-label"="menu with divider", menuId="menu-divider", options=[…], onSelect=fn, button=fn
+- WithSelected — "aria-label"="menu with selected item", menuId="menu-selected", options=[…], button=fn
 * **`TooltipToggleButton`**: Toggle actions that require hover context.
+```yaml
+TooltipToggleButton:
+  tooltip: {type: 'string', required: false}
+```
 * **`CopyToClipboard`**: Utility component specifically for copy-to-clipboard actions.
+```yaml
+CopyToClipboard:
+  ariaLabel: {type: 'string', required: false}
+  style: {type: 'React.CSSProperties & String', required: false}
+  successMsg: {type: 'string', required: false}
+  testFailure: {type: 'boolean', required: false}
+  text: {type: 'string', required: true}
+  variant: {type: '"base" | "text" | "primary" | "secondary" | "tertiary"', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/buttons-copytoclipboard--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/buttons/CopyToClipboard/CopyToClipboard.stories.tsx
+
+Demonstrated states:
+- Default — text="this is a default example string", ariaLabel="Copy to clipboard button"
+- CustomSuccessMessage — text="Hooray!", successMsg="Hooaray!!"
+- CustomStyle — text="Text for clipboard via WithCustomStyle", ariaLabel="Copy to clipboard button with white color", sx={…}
+- Error — testFailure=true, text="This will fail"
 * **`Link`**: Use for navigation links. (There is no `LinkButton`; for a link that should read as a link, use `Link`; for a link-styled action, use `Button variant="text"`.)
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/buttons-link--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/buttons/Link/Link.stories.tsx
+
+Demonstrated states:
+- Default
+- Disabled
 
 ## 2. Layout & Surfaces
 *Use these to group content. Avoid writing custom `div` structures with manual padding/borders.*
-* **`FlexBox` / `FlexGrid` / `FlexGridItem`**: Use for standard alignment and grid layouts. `FlexGridItem` is the child slot component for `FlexGrid`.
+* **`FlexBox`**: The main layout primitive (wraps MUI `Stack`), used more than any other component. Props: `direction="row" | "column"`, `spacing`, `gap` / `columnGap` / `rowGap`, `justifyContent`, `alignItems`, plus any MUI sx system prop.
+* **`FlexGrid` / `FlexGridItem`**: 12-column grid (wrap MUI `Grid`). `FlexGrid` is the container, `FlexGridItem` the child slot; props pass through to MUI Grid (`spacing`, `columns`, breakpoint sizes).
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/component-library-flexgrid--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/layout/FlexGrid.stories.tsx
+
+Demonstrated states:
+- BasicColumns
+- Rows
+- MainDetailLayout
 * **`Container`**: Use to wrap page content and restrict maximum width.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/layout-container--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/layout/Container/Container.stories.tsx
+
+Demonstrated states:
+- Basic
 * **`Brand`**: Telicent brand mark component for use in headers and identity contexts.
+```yaml
+Brand:
+  appName: {type: 'string', required: false}
+  beta: {type: 'boolean', required: false}
+  size: {type: '"base" | "jumbo"', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/brand-brand--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/Brand/Brand.stories.tsx
+Default args: appName="Graph", beta=false, size="base"
+
+Demonstrated states:
+- Default
+- WithBeta — beta=true
+- Jumbo — size="jumbo", beta=true
+- WithoutAppName
+- AsLink — href="https://telicent.io", target="_blank", rel="noreferrer", beta=true
+- OnDarkBackground — appName="Admin", beta=true
 * **`Card`**: The primary container for distinct data entities.
-  * *Composition:* Usually composed with `CardContent` (for data) and `CardActions` (for buttons). There is no `CardHeader` export.
+  * *Composition:* Usually composed with `CardContent` (for data) and `CardActions` (for buttons). A `CardHeader` export also exists (passes through to MUI CardHeader), though most apps omit it and put the title inside `CardContent`.
+  * *Props:* `maxWidth` is a DS-specific prop; other props pass through to MUI Card (e.g. `variant="outlined"`).
+```yaml
+Card:
+  maxWidth: {type: 'Property.MaxWidth<string | number>', required: false}
+```
+```yaml
+CardContent:
+  sx: {type: 'SxProps<Theme>', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-card--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/Card/Card.stories.tsx
+
+Demonstrated states:
+- OutlinedCard — variant="outlined"
 * **`Paper`**: A basic elevated surface background without the strict structure of a Card.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-paper--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/Paper/Paper.stories.tsx
+
+Demonstrated states:
+- Demo
 * **`PopOver`**: Use for tooltip-style overlays and contextual pop-up content.
+```yaml
+PopOver:
+  anchorEl: {type: 'Element | (() => Element) | PopoverVirtualElement | (() => PopoverVirtualElement)', required: false}
+  anchorOrigin: {type: 'PopoverOrigin', required: false}
+  anchorPosition: {type: 'PopoverPosition', required: false}
+  anchorReference: {type: 'PopoverReference', required: false}
+  children: {type: 'React.ReactNode', required: false}
+  hideCloseButton: {type: 'boolean', required: false}
+  onClose: {type: '((event: {}, reason: "backdropClick" | "escapeKeyDown") => void) & ((event: {}, reason: "backdropClick" | "escapeKeyD...', required: true}
+  open: {type: 'boolean', required: true}
+  transformOrigin: {type: 'PopoverOrigin', required: false}
+  width: {type: 'number', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-popover--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/PopOver/PopOver.stories.tsx
+Default args: onClose=fn()
+
+Demonstrated states:
+- Demo — open=false
 * **`FixedPanel` / `FloatingPanel`**: Use for sidebars, property panels, or tool windows.
   * `FloatingPanel` exposes three sub-components: `FloatingPanel.DraggablePanel`, `FloatingPanel.Provider`, and `FloatingPanel.ToggleButton`.
-  * `DraggableFloatingPanel` is also available as a named export for direct use.
-* **`AppBar` / `Toolbar` / `AppChrome`**: Use strictly for top-level application navigation and headers.
+  * `DraggableFloatingPanel` is the same component as `FloatingPanel.DraggablePanel`, exported directly. Use the named export for a standalone draggable panel; use the `FloatingPanel.*` namespace when you also need `.Provider` / `.ToggleButton` (also exported flat as `FloatingPanelProvider` and `FloatingPanelToggleButton`).
+```yaml
+DraggableFloatingPanel:
+  bounds: {type: 'string | Element', required: false}
+  children: {type: 'React.ReactNode', required: false}
+  count: {type: 'number', required: false}
+  defaultPosition: {type: '{ x: number; y: number; }', required: false}
+  dragHandleClassName: {type: 'string', required: false}
+  iconBeforeTitle: {type: 'React.ReactNode', required: false}
+  menu: {type: 'any', required: false}
+  targetId: {type: 'string', required: true}
+  title: {type: 'string', required: true}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-fixedpanel--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/FixedPanel/FixedPanel.stories.tsx
+
+Demonstrated states:
+- Demo — count=3, iconBeforeTitle=<jsx>, title="Nodes with geo data", targetId="map"
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-floatingpanel-floatingpanel-draggablepanel--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/FloatingPanel/DraggableFloatingPanel.stories.tsx
+
+Demonstrated states:
+- ResizeBaseline — bounds="parent", title="Resize baseline", targetId="map", iconBeforeTitle=<jsx>
+* **`Drawer`**: Collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+```yaml
+Drawer:
+  children: {type: 'React.ReactNode', required: true}
+  drawerWidth: {type: 'number', required: false}
+  id: {type: 'string', required: false}
+  initialOpen: {type: 'boolean', required: false}
+  onToggle: {type: 'React.MouseEventHandler<HTMLButtonElement>', required: false}
+  onVisibilityChange: {type: '(open: boolean) => void', required: false}
+  PaperProps: {type: 'Partial<PaperProps<React.ElementType<any, keyof React.JSX.IntrinsicElements>>>', required: false}
+  PaperSx: {type: 'SxProps<Theme>', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/component-library-drawer--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/feature-components/Drawer/composites/Drawer.stories.tsx
+
+Demonstrated states:
+- Default — children=<jsx>
+- CustomWidth — drawerWidth=200, PaperSx={…}
+- PresentationalAndHook
+- ImperativeApi
+* **`AppBar` / `Toolbar` / `AppChrome`**: Use strictly for top-level application navigation and headers. `AppChrome` is the app shell; pair it with `AppSwitch` for cross-app navigation.
+```yaml
+AppBar:
+  appName: {type: 'string', required: false}
+  beta: {type: 'boolean', required: false}
+  disableBrand: {type: 'boolean', required: false}
+  endChild: {type: 'React.ReactNode', required: false}
+  href: {type: 'string', required: false}
+  isElevated: {type: 'boolean', required: false}
+  position: {type: '"fixed" | "absolute" | "sticky" | "static" | "relative"', required: false}
+  startChild: {type: 'React.ReactNode', required: false}
+  target: {type: 'React.HTMLAttributeAnchorTarget', required: false}
+  version: {type: 'string', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-appbar--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/AppBar/AppBar.stories.tsx
+
+Demonstrated states:
+- Default
+- WithSignOutButton — appName="Catalogue"
+- WithNoBrand — disableBrand=true, startChild=<jsx>, endChild=UserProfileExample
+- ClickableBrand — appName="Catalogue", href="https://telicent.io", target="_blank"
+- UsageExample — appName="Catalogue", isElevated=true, startChild=<jsx>, endChild=UserProfileExample
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-toolbar--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/Toolbar/Toolbar.stories.tsx
+
+Demonstrated states:
+- Example
 
 ## 3. Inputs & Forms
 *Use these instead of standard `<input>`, `<select>`, or `<textarea>` tags. Ensure accessibility labels are passed.*
-* **`TextField`**: Standard text input.
+* **`TextField`**: Standard text input (wraps MUI TextField). Set the caption with `label`; use `value`/`onChange` as usual; DS adds `errorText` for an inline error message. Other props pass through to MUI TextField.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-textfield--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/TextField/TextField.stories.tsx
+
+Demonstrated states:
+- Default — label="Full Name", placeholder="Enter your name", error=false, errorText="This field is required"
+- MultiLine — label="Miltiline Input", placeholder="type anything that needs a lot of space in here", error=false, multiline=true, rows=10
+- HelperText
+- ErrorMessage — label="Title", error=true, errorText="Something went wrong, please try again."
 * **`EditableTextField`**: Use for inline-editing scenarios (e.g., clicking a title to rename it).
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-editable-textfield--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/EditableTextField/EditableTextField.stories.tsx
+
+Demonstrated states:
+- Basic
+- FullWidth
+- CustomWidth
+- WithErrorText
+- NoInitialValue
 * **`SearchBox` / `MiniSearchBox`**: Use specifically for search inputs.
+```yaml
+SearchBox:
+  autoFocus: {type: 'boolean', required: false}
+  inputRef: {type: 'React.ForwardedRef<HTMLInputElement>', required: false}
+  name: {type: 'string', required: false}
+  onBlur: {type: '(event: React.FocusEvent<HTMLInputElement>) => void', required: false}
+  onChange: {type: '(event: React.ChangeEvent<HTMLInputElement>) => void', required: false}
+  onSearch: {type: '(event: React.SubmitEvent<HTMLFormElement>) => void', required: false}
+  placeholder: {type: 'string', required: false}
+  sx: {type: 'SxProps', required: false}
+  value: {type: 'Value', required: false}
+  width: {type: 'number', required: false}
+```
+```yaml
+MiniSearchBox:
+  autoFocus: {type: 'boolean', required: false}
+  disabled: {type: 'boolean', required: false}
+  endIcon: {type: 'React.ReactNode', required: false}
+  error: {type: 'boolean', required: false}
+  fullWidth: {type: 'boolean', required: false}
+  helperText: {type: 'string', required: false}
+  id: {type: 'string', required: false}
+  inputRef: {type: 'React.Ref<any>', required: false}
+  loading: {type: 'boolean', required: false}
+  maxRows: {type: 'string | number', required: false}
+  minRows: {type: 'string | number', required: false}
+  multiline: {type: 'boolean', required: false}
+  name: {type: 'string', required: false}
+  onBlur: {type: 'React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>', required: false}
+  onChange: {type: 'React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement, Element>', required: false}
+  onFocus: {type: 'React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>', required: false}
+  onInvalid: {type: 'React.FormEventHandler<HTMLInputElement | HTMLTextAreaElement>', required: false}
+  onKeyDown: {type: 'React.KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>', required: false}
+  onKeyUp: {type: 'React.KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>', required: false}
+  onSearch: {type: 'React.MouseEventHandler<HTMLButtonElement>', required: false}
+  onTogglePopOver: {type: 'React.MouseEventHandler<HTMLButtonElement>', required: false}
+  placeholder: {type: 'string', required: false}
+  progressProps: {type: 'ProgressProps', required: false}
+  rows: {type: 'string | number', required: false}
+  value: {type: 'unknown', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-search-minisearchbox--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/SearchBox/MiniSearchBox.stories.tsx
+Default args: onSearch=fn(), onTogglePopOver=fn()
+
+Demonstrated states:
+- Demo — placeholder="Search"
+- WithDownArrow — placeholder="Search"
+- Loading — placeholder="Loading", loading=true
 * **`Autocomplete` / `MiniSearchAutocomplete`**: Use when search requires type-ahead dropdown suggestions.
+```yaml
+MiniSearchAutocomplete:
+  disabled: {type: 'boolean', required: false}
+  endIcon: {type: 'React.ReactNode', required: false}
+  error: {type: 'boolean', required: false}
+  id: {type: 'string', required: false}
+  loading: {type: 'boolean', required: false}
+  name: {type: 'string', required: false}
+  onKeyDown: {type: 'React.KeyboardEventHandler<HTMLInputElement>', required: false}
+  onSearch: {type: 'React.MouseEventHandler<HTMLElement>', required: false}
+  placeholder: {type: 'string', required: false}
+  progressProps: {type: 'ProgressProps', required: false}
+  renderOption: {type: '(props: React.HTMLAttributes<HTMLLIElement> & { key: any; }, option: Value) => React.ReactNode', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-autocomplete--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/Autocomplete/Autocomplete.stories.tsx
+
+Demonstrated states:
+- Basic
+- Preselected
+- WithHelperText
+- Disabled
+- AsyncLoading
+- StoresIdInFormState
+- MultiSelectWithLimit
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-search-minisearchautocomplete--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/SearchBox/MiniSearchAutocomplete.stories.tsx
+
+Demonstrated states:
+- RecentSearches — options=[…], placeholder="Search"
+- SearchResults — options=[…]
 * **`SearchAutocompleteDialog`**: Full-screen dialog combining search input with autocomplete. Composes with `RecentSearches` (renders recent search history) and `SearchResults` (renders the results list).
-* **`Select`**: Standard dropdown selection.
-* **`Checkbox`**: For boolean selections or multi-select lists.
-* **`Switch`**: For toggling states (On/Off).
+```yaml
+SearchAutocompleteDialog:
+  autoFocus: {type: 'boolean', required: false}
+  autoHighlight: {type: 'boolean', required: false}
+  children: {type: 'React.ReactNode', required: true}
+  error: {type: 'boolean', required: false}
+  getOptionKey: {type: '(option: string | SearchOption) => string | number', required: false}
+  getOptionLabel: {type: '(option: string | SearchOption) => string', required: false}
+  helperText: {type: 'string', required: false}
+  id: {type: 'string', required: false}
+  inputValue: {type: 'string', required: false}
+  isOptionEqualToValue: {type: '(option: SearchOption, value: SearchOption) => boolean', required: false}
+  label: {type: 'string', required: false}
+  loading: {type: 'boolean', required: false}
+  loadingText: {type: 'React.ReactNode', required: false}
+  name: {type: 'string', required: false}
+  onChange: {type: '(event: React.SyntheticEvent, value: string | SearchOption, reason: AutocompleteChangeReason, details?: AutocompleteC...', required: false}
+  onClose: {type: '(event: {}, reason: "backdropClick" | "escapeKeyDown") => void', required: false}
+  onInputChange: {type: '(event: React.SyntheticEvent, value: string, reason: AutocompleteInputChangeReason) => void', required: false}
+  open: {type: 'boolean', required: true}
+  openOnFocus: {type: 'boolean', required: false}
+  options: {type: 'readonly SearchOption[]', required: true}
+  placeholder: {type: 'string', required: false}
+  width: {type: 'number', required: false}
+```
+* **`Select`**: Standard dropdown (wraps MUI Select). Supply choices via the `options` prop — an array of `{ value, label }`, **not** `<MenuItem>` children. Use `value`/`onChange`/`label` as usual; optional `width`, `helperText`.
+```yaml
+Select:
+  helperText: {type: 'React.ReactNode', required: false}
+  options: {type: 'Options[]', required: true}
+  width: {type: 'string | number', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-select--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/Select/Select.stories.tsx
+
+Demonstrated states:
+- Default — label="Select an option", value="option1", id="select-disabled", options=OPTIONS, width=300, onChange=fn
+- Disabled — label="Select an option", value="none", id="select-disabled", options=OPTIONS, width=300, onChange=fn, disabled=true
+- WithCustomWidth — label="Select an option", value="option2", id="select-disabled", options=OPTIONS, width=500, onChange=fn
+- WithNoLabel — value="option2", id="select-disabled", options=OPTIONS, onChange=fn
+- ExampleWithOnChange — width=250, disabled=false
+* **`Checkbox`**: Boolean or multi-select input (wraps MUI Checkbox). `label` renders the caption; `checked`/`onChange` control state.
+```yaml
+Checkbox:
+  label: {type: 'string', required: false}
+  required: {type: 'boolean', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-checkbox--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/Checkbox/Checkbox.stories.tsx
+
+Demonstrated states:
+- Default — checked=true, id="checkbox-default", onChange=fn
+- Disabled — checked=false, id="checkbox-disabled", disabled=true, onChange=fn
+- WithCustomLabel — checked=true, id="checkbox-custom-label", label="Custom Label", onChange=fn
+- WithRequired — checked=false, id="checkbox-custom-label", label="Required", required=true, onChange=fn
+- WithNoLabel — checked=true, id="checkbox-custom-label", required=true, onChange=fn
+- ExampleWithOnChange — disabled=false
+* **`Switch`**: On/Off toggle (wraps MUI Switch). `label`, `labelPlacement="end" | "start" | "top" | "bottom"` (default `end`), `checked`/`onChange`.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-switch--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/Switch/Switch.stories.tsx
+
+Demonstrated states:
+- Default — checked=true, id="switch-default", onChange=fn
+- Disabled — checked=false, id="switch-disabled", disabled=true, onChange=fn
+- WithLabel — checked=true, id="switch-with-label", label="Enable feature", onChange=fn
+- Required — checked=false, id="switch-required", label="Required setting", required=true, onChange=fn
+- NoLabel — checked=true, id="switch-no-label", onChange=fn
+- ExampleWithOnChange — disabled=false
 * **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs.
+```yaml
+DatePicker:
+  error: {type: 'boolean', required: false}
+  errorMsg: {type: 'String', required: false}
+  fullWidth: {type: 'boolean', required: false}
+  helperText: {type: 'string', required: false}
+  label: {type: 'ReactNode & string', required: false}
+  maxDate: {type: 'any', required: false}
+  minDate: {type: 'any', required: false}
+  textFieldProps: {type: 'TextFieldProps', required: false}
+  value: {type: 'any', required: true}
+```
+```yaml
+DateTimePicker:
+  error: {type: 'boolean', required: false}
+  errorMsg: {type: 'string', required: false}
+  fullWidth: {type: 'boolean', required: false}
+  helperText: {type: 'string', required: false}
+  maxDateTime: {type: 'any', required: false}
+  minDateTime: {type: 'any', required: false}
+  textFieldProps: {type: 'TextFieldProps', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-datepicker--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/DatePicker/DatePicker.stories.tsx
+
+Demonstrated states:
+- Default — label="Pick a date"
+- ErrorState — label="Required", errorMsg="Oops, something went wrong with the validation", helperText="Please select a valid date"
+- WithDateRestrictions — label="Restricted range", minDate=dayjs().subtract(), maxDate=dayjs().add(), helperText="You can only select dates within ±5 days"
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-datetimepicker--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/DateAndTimePicker/DayTimePicker.stories.tsx
+
+Demonstrated states:
+- Default — label="Pick date & time"
+- ErrorState — label="Required field", error=true, errorMsg="Something went wrong", helperText="Date and time are required"
+- WithDateRestrictions — label="Restricted time range", minDateTime=dayjs().startOf(), maxDateTime=dayjs().add(2, "day").endOf(), helperText="Only available within the next 48 hours"
 
 ## 4. Data Display & Typography
 *Use these to render text and structured data.*
-* **`Text`**: Use for all body typography instead of `<p>` or `<span>`. Style via `variant` (`body1`, `body2`, `subtitle1`, `subtitle2`, `caption`, `overline`, …).
+* **`Text`**: Use for all body typography instead of `<p>` or `<span>`. Style via `variant`: `body1` (default), `body2`, `subtitle1`, `subtitle2`, `caption`, `overline`, `h1`, `h2`, `h3`. (`h4`–`h6` are not valid `Text` variants — use the `H4`–`H6` components for those.)
+```yaml
+Text:
+  paragraph: {type: 'boolean', required: false}
+  variant: {type: '"caption" | "h1" | "h2" | "h3" | "overline" | "body1" | "body2" | "subtitle1" | "subtitle2"', required: false}
+```
 * **`H1` / `H2` / `H3` / `H4` / `H5` / `H6`**: Use for headings instead of `<h1>`–`<h6>`; each renders the matching semantic element. (There is no `Heading` component. `<Text variant="h2">` styles text as a heading but renders a `<p>` — use `H1`–`H6` when the semantic element matters.)
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-headings--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/Text/Heading.stories.tsx
+Default args: align="inherit"
+
+Demonstrated states:
+- Heading1 — children="Heading Style 1"
+- Heading2 — variant="h2", children="Heading Style 2"
+- Heading3 — variant="h3", children="Heading Style 3"
+- Heading4 — variant="h4", children="Heading Style 4"
+- Heading5 — variant="h5", children="Heading Style 5"
+- Heading6 — variant="h6", children="Heading Style 6"
 * **`TitleAndContent`**: Use for standard "Label: Value" data pairings.
+```yaml
+TitleAndContent:
+  content: {type: 'string', required: false}
+  title: {type: 'string', required: false}
+```
 * **`List`**: Standard list rendering.
 * **`TreeView`**: Use for hierarchical or nested data structures.
+```yaml
+TreeView:
+  alwaysExpandedIds: {type: 'string[]', required: false}
+  defaultExpandedItems: {type: 'string[]', required: false}
+  defaultSelectedItems: {type: 'string | string[]', required: false}
+  expandedItems: {type: 'string[]', required: false}
+  getItemId: {type: '(item: Item) => string', required: false}
+  getItemLabel: {type: '(item: Item) => string', required: false}
+  id: {type: 'string', required: false}
+  isItemDisabled: {type: '(item: Item) => boolean', required: false}
+  items: {type: 'Item[]', required: true}
+  multiSelect: {type: 'boolean', required: false}
+  onExpandedItemsChange: {type: '(event: React.SyntheticEvent, itemIds: string[]) => void', required: false}
+  onItemExpansionToggle: {type: '(event: React.SyntheticEvent, itemId: string, isExpanded: boolean) => void', required: false}
+  onItemFocus: {type: '(event: React.SyntheticEvent | null, itemId: string) => void', required: false}
+  onItemSelectionToggle: {type: '(event: React.SyntheticEvent, itemId: string, isSelected: boolean) => void', required: false}
+  onSelectedItemsChange: {type: '(event: React.SyntheticEvent, itemIds: string[] | string | null) => void', required: false}
+  selectedItems: {type: 'string | string[]', required: false}
+  sx: {type: 'SxProps', required: false}
+```
 * **`Chip`**: Use for tags, statuses, or small attributes.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-chip--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/Chip/Chip.stories.tsx
+Default args: label="Chip"
+
+Demonstrated states:
+- Filled
+- Outlined — variant="outlined"
+- ClickableChips
+- DeletableChips
 * **`Divider`**: Use to separate content sections instead of `<hr>`.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-divider--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/Divider/Divider.stories.tsx
+
+Demonstrated states:
+- Example
+- Orientation — orientation="vertical", flexItem=true
+- FlexItem
 * **`UserProfile` / `UserProfileContent` / `UserStatus`**: Components for rendering user avatars, profile details, and active states. `UserProfileContent` renders the expanded profile detail; `UserStatus` renders the online/status indicator.
+```yaml
+UserProfile:
+  fullName: {type: 'string', required: true}
+```
+```yaml
+UserStatus:
+  fullName: {type: 'string', required: true}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-user-profile--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/UserProfile/UserProfile.stories.tsx
+
+Demonstrated states:
+- Basic — fullName="Satoru Gojo"
 * **`AppSwitch`**: Specific component for switching between different applications.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-app-switch--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/AppSwitch/AppSwitch.stories.tsx
+Default args: apps=appList
+
+Demonstrated states:
+- AppSwitchExample — apps=appList
 * **`IESType`**: Specific component for rendering IES data types.
+```yaml
+IESType:
+  backgroundColor: {type: 'string', required: true}
+  borderColor: {type: 'string', required: true}
+  color: {type: 'string', required: true}
+  iconClass: {type: 'string', required: true}
+```
 
 ## 5. Feedback & States
 *Use these to communicate system status to the user.*
-* **`Spinner`**: Circular loading indicator for localized loading (e.g., inside a button or small card).
+* **`Spinner`**: Circular loading indicator (wraps MUI CircularProgress; props `size`, `color`). Use for localized loading — inside a button or a small card.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/feedback-spinner--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/feedback/Spinner/Spinner.stories.tsx
+Default args: size=40, color="primary"
+
+Demonstrated states:
+- Default
+- Small — size=24
+- Large — size=64
+- Determinate — variant="determinate", value=65
+- InContainer
 * **`LinearProgress`**: Horizontal loading bar for page-level or wide-component loading.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/feedback-linear-progress--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/feedback/LinearProgress/LinearProgress.stories.tsx
+
+Demonstrated states:
+- Basic
 * **`Skeleton`**: Use to render placeholder UI while `useQuery` is in an `isLoading` state.
-* **`Dialog` / `Modal`**: Use to interrupt the user for confirmation (e.g., "Are you sure you want to delete?") or complex sub-forms.
-* **`ErrorFallback`** (and `ErrorFallbackWrapper`): Render as the fallback of a React error boundary to display crash states gracefully. (The boundary itself is not a DS export; the DS provides the fallback UI.)
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/feedback-skeleton--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/feedback/Skeleton/Skeleton.stories.tsx
+
+Demonstrated states:
+- Basic
+* **`Dialog`**: Interrupt the user for confirmation or sub-forms (wraps MUI Dialog). Required `open` and `onClose`; compose with `DialogTitle` / `DialogContent` / `DialogActions`.
+```yaml
+Dialog:
+  children: {type: 'React.ReactNode', required: true}
+  onClose: {type: '() => void', required: true}
+  open: {type: 'boolean', required: true}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/feedback-dialog--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/feedback/Dialog/Dialog.stories.tsx
+
+Demonstrated states:
+- Basic
+* **`Modal`**: Lower-level overlay with its own close button (`onClose(event, reason)`, optional `hideCloseButton`).
+```yaml
+Modal:
+  hideCloseButton: {type: 'boolean', required: false}
+  onClose: {type: '((event: {}, reason: "backdropClick" | "escapeKeyDown") => void) & ((event: {}, reason: "backdropClick" | "escapeKeyD...', required: true}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/utils-modal--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/utils/Modal/Modal.stories.tsx
+
+Demonstrated states:
+- Example
+- WithNoCloseButton
+* **`ErrorFallback`** (and `ErrorFallbackWrapper`, `ErrorFallbackText`): Render as the fallback of a React error boundary to display crash states gracefully. `ErrorFallbackText` is the text-only variant (no surrounding box). (The boundary itself is not a DS export; the DS provides the fallback UI.)
+```yaml
+ErrorFallback:
+  height: {type: 'string | number', required: false}
+  message: {type: 'string', required: false}
+  name: {type: 'string', required: false}
+  sx: {type: 'SxProps<Theme>', required: false}
+```
+```yaml
+ErrorFallbackWrapper:
+  children: {type: 'React.ReactNode', required: true}
+  height: {type: 'string | number', required: false}
+  sx: {type: 'SxProps<Theme>', required: false}
+```
+```yaml
+ErrorFallbackText:
+  message: {type: 'string', required: false}
+  name: {type: 'string', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/utils-errorfallback--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/utils/ErrorFallback/ErrorFallback.stories.tsx
+Default args: name="ExampleComponent", height=256
+
+Demonstrated states:
+- DefaultError — name="ExampleComponent"
+- CustomMessage — name="DataWidget", message="Unable to load user data."
+- CustomNameAndStyle — name="ChartComponent", sx={…}
+- ExplicitHeight — name="ProfileCard", height=150
 
 ## 6. Icons
 *The DS includes two icon sets. Import them directly from `@telicent-oss/ds`.*
 * **SVG Icons** (custom Telicent icons): `BinIcon`, `CloseIcon`, `DataServiceIcon`, `DataSetIcon`, `DragHandleIcon`, `FloppyDiskIcon`, `GridIcon`, `ListIcon`, `LocationOnIcon`, `MapIcon`, `MinusCircleIcon`, `PlayIcon`, `PlusCircleIcon`, `TelicentMark`, `TelicentHorizontalSVG`, `UserIcon`, `XIcon`.
 * **FontAwesome Icons** (wrapped FA icons): `ClockIcon`, `DownArrowIcon`, `DownloadIcon`, `SearchIcon`.
 * **`TeliTypeIcon`**: Renders a type indicator icon for IES/ontology types.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-icons--docs
+Source: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/Icons/index.stories.tsx
+
+Demonstrated states:
+- AllIcons
+
+---
+
+## Recipes
+
+*Real shapes from Telicent apps. Copy and adapt.*
+
+**Themed app root** — styles, then the provider (which supplies the MUI theme + CssBaseline):
+```tsx
+import "@telicent-oss/ds/dist/style.css";
+import "@telicent-oss/ds/dist/fontawesome.css";
+import { UIThemeProvider } from "@telicent-oss/ds";
+
+export function Root() {
+  return (
+    <UIThemeProvider theme="DataNavy" dark={false}>
+      <App />
+    </UIThemeProvider>
+  );
+}
+```
+
+**A form** — note `Select` takes an `options` array, not `<MenuItem>` children:
+```tsx
+import { FlexBox, TextField, Select, Checkbox, Button } from "@telicent-oss/ds";
+
+<FlexBox direction="column" gap={2}>
+  <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} />
+  <Select
+    label="Colour"
+    value={colour}
+    onChange={(e) => setColour(e.target.value)}
+    options={[{ value: "r", label: "Red" }, { value: "b", label: "Blue" }]}
+  />
+  <Checkbox label="I agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
+  <Button variant="primary" onClick={submit}>Save</Button>
+</FlexBox>
+```
+
+**A react-hook-form form** — the common shape in Telicent apps: uncontrolled inputs (`TextField`) take `register`; controlled inputs (`Select`, `Autocomplete`) go through `Controller` and spread `field`:
+```tsx
+import { useForm, Controller } from "react-hook-form";
+import { FlexBox, TextField, Select, Autocomplete, Button } from "@telicent-oss/ds";
+
+const { register, control, handleSubmit, formState: { isValid } } = useForm<FormValues>();
+
+<FlexBox direction="column" gap={2} component="form" onSubmit={handleSubmit(onSave)}>
+  <TextField label="Name" {...register("name")} />
+  <Controller
+    name="classification"
+    control={control}
+    render={({ field }) => (
+      <Select label="Classification" options={CLASSIFICATION_OPTIONS} {...field} fullWidth />
+    )}
+  />
+  <Controller
+    name="nationality"
+    control={control}
+    render={({ field }) => <Autocomplete label="Nationality" options={countryOptions} {...field} />}
+  />
+  <Button variant="primary" type="submit" disabled={!isValid}>Save</Button>
+</FlexBox>
+```
+
+**A loading button** — there is no `loading` prop; gate on `disabled` and swap the label:
+```tsx
+import { Button, Spinner } from "@telicent-oss/ds";
+
+<Button
+  variant="primary"
+  disabled={isPending}
+  startIcon={isPending ? <Spinner size={16} color="inherit" /> : undefined}
+>
+  {isPending ? "Saving..." : "Save"}
+</Button>
+```
+
+**A card with content and actions** — compose `CardContent` and `CardActions`:
+```tsx
+import { Card, CardContent, CardActions, Text, Button } from "@telicent-oss/ds";
+
+<Card maxWidth={400}>
+  <CardContent>
+    <Text variant="h3">Dataset</Text>
+    <Text>1,240 records</Text>
+  </CardContent>
+  <CardActions>
+    <Button variant="secondary">Cancel</Button>
+    <Button variant="primary">Open</Button>
+  </CardActions>
+</Card>
+```
 
 ---
 **Agent Rule Checklist Before Generating JSX:**
-1. Did I use `Card` instead of a custom styled `div`?
-2. Are all texts wrapped in `H1`–`H6` or `Text`?
-3. Did I use `Button` with the right `variant` instead of styling a raw `<button>`?
-4. Are loading states handled by `Skeleton` or `Spinner`?
+1. Did I import `style.css` + `fontawesome.css` and wrap the app in `UIThemeProvider`?
+2. Did I use `Card` instead of a custom styled `div`?
+3. Are all texts wrapped in `H1`–`H6` or `Text`?
+4. Did I use `Button` with the right `variant` instead of styling a raw `<button>`?
+5. Are loading states handled by `Skeleton`, `Spinner`, or a `disabled` button?
+6. Did I set colours via the theme palette (`useExtendedTheme`) rather than Tailwind colour classes?
 
 ---
 
