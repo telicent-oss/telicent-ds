@@ -55,7 +55,7 @@ export const Default: Story = {
 
 export const MultiLine: Story = {
   args: {
-    label: "Miltiline Input",
+    label: "Multiline Input",
     placeholder: "type anything that needs a lot of space in here",
     error: false,
     multiline: true,
