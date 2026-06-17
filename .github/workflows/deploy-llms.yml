@@ -1,8 +1,8 @@
 name: deploy-llms.yml
 
-# Publishes llms.txt + llms-full.txt to the GitHub Pages root, independently of
-# Storybook. keep_files:true here (and on the Storybook deploy) lets both
-# coexist at the root without wiping each other.
+# Publishes llms.txt to the GitHub Pages root, independently of Storybook.
+# keep_files:true here (and on the Storybook deploy) lets both coexist at the
+# root without wiping each other.
 
 on:
   workflow_dispatch:
@@ -30,10 +30,10 @@ jobs:
           node-version: 20.19
 
       # build-llms.mjs is zero-dependency (node: builtins only), so no install step.
-      - name: Generate llms files
+      - name: Generate llms.txt
         run: node scripts/build-llms.mjs
 
-      - name: Deploy llms files to Pages root
+      - name: Deploy llms.txt to Pages root
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
