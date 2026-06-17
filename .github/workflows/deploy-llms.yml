@@ -4,8 +4,7 @@ name: deploy-llms.yml
 #   main           -> site root        (https://telicent-oss.github.io/telicent-ds/llms.txt)
 #   other branches -> per-branch preview (https://telicent-oss.github.io/telicent-ds/<branch>/llms.txt)
 # keep_files:true lets llms.txt coexist with Storybook (which owns the same
-# paths) without either deploy wiping the other. llms has no build step, so it
-# deploys well before the matching Storybook job and the pushes do not overlap.
+# paths) without either deploy wiping the other.
 
 on:
   workflow_dispatch:
@@ -32,7 +31,13 @@ jobs:
         with:
           node-version: 20.19
 
-      # build-llms.mjs is zero-dependency (node: builtins only), so no install step.
+      - name: Install dependencies
+        run: LOCAL_MACHINE=false yarn install --frozen-lockfile
+
+      # build-llms reads the TypeScript types, so deps + dist/export.d.ts must exist first.
+      - name: Build package
+        run: yarn build
+
       - name: Generate llms.txt
         run: node scripts/build-llms.mjs
 
