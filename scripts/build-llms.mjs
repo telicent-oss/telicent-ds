@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // Generates the LLM-discovery files served from the GitHub Pages root:
-//   llms/llms.txt      — short link index (the llms.txt convention).
-//   llms/llms-full.txt — the full @telicent-oss/ds component manifest, self-contained.
-// Canonical source: docs/COMPONENTS.md (edited by hand). An agent that fetches
-// /llms-full.txt gets the entire component reference in one request; /llms.txt
-// points at it.
+//   llms/llms.txt      — the full @telicent-oss/ds component manifest, self-contained.
+//   llms/llms-full.txt — identical bytes, under the name some agents fetch by convention.
+// Canonical source: docs/COMPONENTS.md (edited by hand). The manifest is small
+// (~10k tokens), so both files carry it whole; an agent gets the entire
+// component reference in one request whichever name it fetches.
 // The deploy-llms workflow publishes llms/ to the gh-pages root.
 // Run locally via `yarn build:llms`.
 // Requires dist/export.d.ts (run `yarn build` first) — extract-props reads it.
@@ -64,7 +64,7 @@ const renderPropsBlock = (label, lookupKey) => {
 
 const renderStoriesBlock = (title) => {
   const c = storiesByTitle.get(title);
-  const lines = [`Live: ${c.docsUrl}`, `Source: ${c.sourceUrl}`];
+  const lines = [`Live: ${c.docsUrl}`, `Usage: ${c.sourceUrl}`];
   if (c.defaultArgs.length) lines.push(`Default args: ${c.defaultArgs.join(", ")}`);
   lines.push("", "Demonstrated states:");
   for (const s of c.stories) {
@@ -167,20 +167,10 @@ const llmsFull = `${manifest}${otherExports}
 This reference documents @telicent-oss/ds v${version}.
 `;
 
-// /llms.txt is the short link index the convention expects; the full
-// concatenated manifest is served alongside it at /llms-full.txt.
-const llmsIndex = `# Telicent Design System (@telicent-oss/ds)
-
-> MUI-based React component library for Telicent applications (v${version}). The full reference is a single file an agent can fetch in one request.
-
-## Docs
-
-- [Full component reference](${PAGES}/llms-full.txt): every exported component, when to use it, variants, props, and demonstrated states.
-- [Storybook](${PAGES}/): live, interactive examples.
-- [Source and issues](${GITHUB})
-- [npm](${NPM}): \`yarn add @telicent-oss/ds\`
-`;
-
+// The manifest is ~10k tokens, small enough that an index pointing at a
+// separate file would only add a fetch hop. So /llms.txt carries the manifest
+// whole; /llms-full.txt is the same bytes under the name some tools fetch by
+// convention (Cursor, Windsurf, Copilot, Cline, Aider).
+writeFileSync(resolve(outDir, "llms.txt"), llmsFull);
 writeFileSync(resolve(outDir, "llms-full.txt"), llmsFull);
-writeFileSync(resolve(outDir, "llms.txt"), llmsIndex);
-console.log(`build-llms: wrote llms/llms.txt (index) + llms/llms-full.txt (v${version})`);
+console.log(`build-llms: wrote llms/llms.txt + llms/llms-full.txt (identical, v${version})`);
