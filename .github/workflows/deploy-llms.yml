@@ -1,10 +1,11 @@
 name: deploy-llms.yml
 
-# Publishes llms.txt to the GitHub Pages site.
-#   main           -> site root        (https://telicent-oss.github.io/telicent-ds/llms.txt)
-#   other branches -> per-branch preview (https://telicent-oss.github.io/telicent-ds/<branch>/llms.txt)
-# keep_files:true lets llms.txt coexist with Storybook (which owns the same
-# paths) without either deploy wiping the other.
+# Publishes the llms.txt index + llms-full.txt to the GitHub Pages site.
+#   main           -> site root        (.../llms.txt, .../llms-full.txt)
+#   other branches -> per-branch preview (.../<branch>/llms.txt, .../<branch>/llms-full.txt)
+# keep_files:true lets these coexist with Storybook (which owns the same paths)
+# without either deploy wiping the other. A shared github-pages concurrency
+# group serialises the gh-pages pushes so the two deploys cannot race.
 
 on:
   workflow_dispatch:
@@ -17,9 +18,17 @@ on:
       - scripts/extract-props.mjs
       - scripts/extract-stories.mjs
       - .github/workflows/deploy-llms.yml
+      - src/**
+      - package.json
 
 permissions:
   contents: write
+
+# Serialised against upload-storybook.yml's Pages deploys: both push to the same
+# gh-pages branch, so a shared group stops concurrent non-fast-forward pushes.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
 
 jobs:
   deploy-llms:
@@ -41,7 +50,7 @@ jobs:
         run: yarn build
 
       - name: Generate llms.txt
-        run: node scripts/build-llms.mjs
+        run: yarn generate:llms
 
       - name: Deploy llms.txt to Pages root
         if: github.ref == 'refs/heads/main'

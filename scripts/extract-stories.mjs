@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Story-signal extractor prototype for @telicent-oss/ds.
+// Story-signal extractor for @telicent-oss/ds.
 // Walks every *.stories.tsx and, per component, records: the Storybook title,
 // each story EXPORT NAME (the maintainer-curated set of real states —
 // Primary, Disabled, Sizes, WithIcon...), the concrete `args` each story uses,
@@ -9,29 +9,35 @@
 // Story names recover the editorially-important props the type-only own-props
 // filter drops: a `Sizes` story proves `size` is a real dimension even though
 // `size` is inherited from MUI and absent from the own-props table.
-import { writeFileSync, mkdirSync, readdirSync, statSync } from "node:fs";
-import { fileURLToPath, pathToFileURL } from "node:url";
+//
+// loadStories(srcDir) does the directory walk; parseStoryFile(text, ...) is the
+// pure per-file core, so importing this module is side-effect free and unit
+// tests can feed story source straight in.
+import { readdirSync, statSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { dirname, resolve, join, relative, basename, sep } from "node:path";
 import ts from "typescript";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const root = resolve(here, "..");
-const srcDir = resolve(root, "src");
-const STORYBOOK = "https://telicent-oss.github.io/telicent-ds";
-const GH_BLOB = "https://github.com/telicent-oss/telicent-ds/blob/main";
+const defaultRoot = resolve(here, "..");
+const defaultSrcDir = resolve(defaultRoot, "src");
 
-const storyFiles = [];
-const walk = (dir) => {
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-    if (statSync(full).isDirectory()) walk(full);
-    else if (entry.endsWith(".stories.tsx")) storyFiles.push(full);
-  }
-};
-walk(srcDir);
+const PAGES = "https://telicent-oss.github.io/telicent-ds";
+const REPO = "https://github.com/telicent-oss/telicent-ds";
+
+// The published file is generated per branch: the main deploy serves the site
+// root and links to main; a branch preview lives under /<branch> and links to
+// that branch. GITHUB_REF_NAME is the pushed branch in CI; default to main.
+export const resolveLinkBases = (
+  branch = process.env.GITHUB_REF_NAME || "main"
+) => ({
+  branch,
+  storybookBase: branch === "main" ? PAGES : `${PAGES}/${branch}`,
+  ghBlobBase: `${REPO}/blob/${branch}`,
+});
 
 // Storybook's id slug: lowercase, non-alphanumerics -> "-", trim repeats.
-const slug = (s) =>
+export const slug = (s) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 // Returns a terse, readable value or null to drop the arg (undefined, or code
@@ -44,8 +50,12 @@ const literal = (node) => {
   if (node.kind === ts.SyntaxKind.FalseKeyword) return "false";
   if (node.kind === ts.SyntaxKind.NullKeyword) return "null";
   if (ts.isIdentifier(node)) return node.text === "undefined" ? null : node.text;
-  if (ts.isArrowFunction(node) || ts.isFunctionExpression(node)) return "fn";
-  if (ts.isCallExpression(node)) return node.expression.getText() + "()";
+  // Function-valued args are plumbing, not usage signals: inline handlers and
+  // Storybook spies (`onClick: fn()` from @storybook/test) tell an agent nothing
+  // about what to pass, and `fn()` reads like real code it might copy. Drop them
+  // — the props block already shows the handler prop exists.
+  if (ts.isArrowFunction(node) || ts.isFunctionExpression(node)) return null;
+  if (ts.isCallExpression(node)) return null;
   if (ts.isArrayLiteralExpression(node)) return "[…]";
   if (ts.isObjectLiteralExpression(node)) return "{…}";
   if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node) || ts.isJsxFragment(node)) return "<jsx>";
@@ -84,7 +94,7 @@ const argsOf = (initializer) => {
     .filter(Boolean);
 };
 
-const fallbackTitle = (componentObj, file) => {
+const fallbackTitle = (componentObj, file, srcDir) => {
   const componentProp = propOf(componentObj, "component");
   if (componentProp && ts.isIdentifier(componentProp.initializer)) {
     return `Component Library/${componentProp.initializer.text}`;
@@ -95,10 +105,17 @@ const fallbackTitle = (componentObj, file) => {
   return `Component Library/${name}`;
 };
 
-const components = [];
-for (const file of storyFiles) {
-  const text = ts.sys.readFile(file) ?? "";
-  const sf = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+// Parse one story file's source into a component entry, or null when it exports
+// no stories. Pure: source text in, data out, no file IO.
+export const parseStoryFile = (text, fileName, opts = {}) => {
+  const {
+    root = defaultRoot,
+    srcDir = defaultSrcDir,
+    storybookBase = PAGES,
+    ghBlobBase = `${REPO}/blob/main`,
+  } = opts;
+
+  const sf = ts.createSourceFile(fileName, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
 
   let title = null;
   let defaultArgs = [];
@@ -122,46 +139,48 @@ for (const file of storyFiles) {
     }
   });
 
-  if (stories.length === 0) continue;
-  if (!title) title = fallbackTitle(metaObj, file);
-  components.push({
+  if (stories.length === 0) return null;
+  if (!title) title = fallbackTitle(metaObj, fileName, srcDir);
+
+  return {
     title,
-    file: relative(root, file),
-    docsUrl: `${STORYBOOK}/?path=/docs/${slug(title)}--docs`,
-    sourceUrl: `${GH_BLOB}/${relative(root, file)}`,
+    file: relative(root, fileName),
+    docsUrl: `${storybookBase}/?path=/docs/${slug(title)}--docs`,
+    sourceUrl: `${ghBlobBase}/${relative(root, fileName)}`,
     defaultArgs,
     stories: stories.map((s) => ({
       ...s,
-      url: `${STORYBOOK}/?path=/story/${slug(title)}--${slug(s.name)}`,
+      url: `${storybookBase}/?path=/story/${slug(title)}--${slug(s.name)}`,
     })),
-  });
-}
-components.sort((a, b) => a.title.localeCompare(b.title));
-
-export const getStoriesByTitle = () => {
-  return new Map(components.map((c) => [c.title, c]));
+  };
 };
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const lines = ["# @telicent-oss/ds — demonstrated states (from stories)", ""];
-  for (const c of components) {
-    lines.push(`## ${c.title}`, "");
-    lines.push(`Live: ${c.docsUrl}`);
-    lines.push(`Source: ${c.sourceUrl}`);
-    if (c.defaultArgs.length) lines.push(`Default args: ${c.defaultArgs.join(", ")}`);
-    lines.push("", "Demonstrated states:");
-    for (const s of c.stories) {
-      const a = s.args.length ? ` — ${s.args.join(", ")}` : "";
-      lines.push(`- ${s.name}${a}`);
-    }
-    lines.push("");
-  }
+// Walks srcDir for *.stories.tsx and parses each. All file IO is here, so
+// importing the module stays pure and tests can call parseStoryFile directly.
+export const loadStories = (srcDir = defaultSrcDir, opts = {}) => {
+  const { root = defaultRoot, branch } = opts;
+  const { storybookBase, ghBlobBase } = resolveLinkBases(branch);
 
-  const outDir = resolve(root, "llms");
-  mkdirSync(outDir, { recursive: true });
-  writeFileSync(resolve(outDir, "stories.md"), lines.join("\n"));
-  console.log(
-    `extract-stories: ${components.length} components, ` +
-      `${components.reduce((n, c) => n + c.stories.length, 0)} stories -> llms/stories.md`
-  );
-}
+  const storyFiles = [];
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir)) {
+      const full = join(dir, entry);
+      if (statSync(full).isDirectory()) walk(full);
+      else if (entry.endsWith(".stories.tsx")) storyFiles.push(full);
+    }
+  };
+  walk(srcDir);
+
+  const components = [];
+  for (const file of storyFiles) {
+    const text = ts.sys.readFile(file) ?? "";
+    const c = parseStoryFile(text, file, { root, srcDir, storybookBase, ghBlobBase });
+    if (c) components.push(c);
+  }
+  components.sort((a, b) => a.title.localeCompare(b.title));
+
+  return {
+    components,
+    getStoriesByTitle: () => new Map(components.map((c) => [c.title, c])),
+  };
+};

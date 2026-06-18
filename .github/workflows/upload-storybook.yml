@@ -37,6 +37,10 @@ jobs:
     needs: build
     if: github.ref != 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    # Shared with deploy-llms.yml: both push to gh-pages, so serialise the writes.
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
     steps:
       - name: Download Storybook artifact
         uses: actions/download-artifact@v4
@@ -76,6 +80,10 @@ jobs:
     needs: build
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
+    # Shared with deploy-llms.yml: both push to gh-pages, so serialise the writes.
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
     steps:
       - name: Download Storybook artifact
         uses: actions/download-artifact@v4

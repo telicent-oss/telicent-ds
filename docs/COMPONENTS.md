@@ -7,7 +7,7 @@
 - **Do not** write raw HTML (`<button>`, `<div>` for cards, `<input>`) if a component exists here.
 - **Do not** use Tailwind for colors, borders, or shadows on these components; the theme controls them. Set colour through the theme palette (see Setup & Theming). Use Tailwind primarily for spacing (`gap-X`, `mt-X`) and sizing.
 
-> Verified against `@telicent-oss/ds` source (`src/export.ts`, `src/components/*`, `src/theme/*`). Every component named below is a real package export; setup, prop, and theming details are taken from the source and from how Telicent apps (telicent-search, telicent-graph, catalog) wire the library.
+> Component names, props, and demonstrated states are generated from the `@telicent-oss/ds` type surface and stories, so they track the source. Setup, theming, and usage guidance are maintained by hand: reviewed against the source for v3.0.0, but not auto-checked on every build.
 
 ---
 

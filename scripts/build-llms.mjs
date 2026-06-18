@@ -1,16 +1,18 @@
 #!/usr/bin/env node
-// Generates the LLM-discovery file served from the GitHub Pages root:
-//   llms/llms.txt — the full @telicent-oss/ds component manifest, self-contained.
+// Generates the LLM-discovery files served from the GitHub Pages root:
+//   llms/llms.txt      — short link index (the llms.txt convention).
+//   llms/llms-full.txt — the full @telicent-oss/ds component manifest, self-contained.
 // Canonical source: docs/COMPONENTS.md (edited by hand). An agent that fetches
-// /llms.txt gets the entire component reference in one request.
+// /llms-full.txt gets the entire component reference in one request; /llms.txt
+// points at it.
 // The deploy-llms workflow publishes llms/ to the gh-pages root.
 // Run locally via `yarn build:llms`.
 // Requires dist/export.d.ts (run `yarn build` first) — extract-props reads it.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
-import { getPropsByComponent, getValueExportNames } from "./extract-props.mjs";
-import { getStoriesByTitle } from "./extract-stories.mjs";
+import { loadProps } from "./extract-props.mjs";
+import { loadStories } from "./extract-stories.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
@@ -27,6 +29,16 @@ const rawManifest = readFileSync(
   resolve(root, "docs/COMPONENTS.md"),
   "utf8"
 ).trim();
+
+let getPropsByComponent;
+let getValueExportNames;
+try {
+  ({ getPropsByComponent, getValueExportNames } = loadProps());
+} catch (err) {
+  console.error(err.message);
+  process.exit(1);
+}
+const { getStoriesByTitle } = loadStories();
 
 const propsByComponent = getPropsByComponent();
 const storiesByTitle = getStoriesByTitle();
@@ -116,9 +128,18 @@ for (const c of [...propsByComponent.keys()].filter((c) => !referencedComponents
   else gaps.push(c);
 }
 
+// Undocumented real exports are auto-listed in an "Other exports" appendix
+// (name + props) so the published reference stays complete by construction: a
+// new export shows up here until a maintainer gives it a section above.
+const otherExports = gaps.length
+  ? `\n\n---\n\n## Other exports\n\nExported by \`@telicent-oss/ds\` but not yet given a section above. Auto-listed from the type surface (props only); a maintainer should fold these into the manifest.\n\n${gaps
+      .map((c) => `* \`${c}\`:\n${renderPropsBlock(c, c)}`)
+      .join("\n\n")}`
+  : "";
+
 if (gaps.length > 0) {
   console.warn(
-    `build-llms: ${gaps.length} component export(s) missing from docs/COMPONENTS.md:\n  ${gaps.join(
+    `build-llms: ${gaps.length} undocumented export(s) auto-listed under "Other exports":\n  ${gaps.join(
       ", "
     )}`
   );
@@ -132,7 +153,7 @@ if (propless.length > 0 || phantom.length > 0) {
 const outDir = resolve(root, "llms");
 mkdirSync(outDir, { recursive: true });
 
-const llms = `${manifest}
+const llmsFull = `${manifest}${otherExports}
 
 ---
 
@@ -146,5 +167,20 @@ const llms = `${manifest}
 This reference documents @telicent-oss/ds v${version}.
 `;
 
-writeFileSync(resolve(outDir, "llms.txt"), llms);
-console.log(`build-llms: wrote llms/llms.txt (v${version})`);
+// /llms.txt is the short link index the convention expects; the full
+// concatenated manifest is served alongside it at /llms-full.txt.
+const llmsIndex = `# Telicent Design System (@telicent-oss/ds)
+
+> MUI-based React component library for Telicent applications (v${version}). The full reference is a single file an agent can fetch in one request.
+
+## Docs
+
+- [Full component reference](${PAGES}/llms-full.txt): every exported component, when to use it, variants, props, and demonstrated states.
+- [Storybook](${PAGES}/): live, interactive examples.
+- [Source and issues](${GITHUB})
+- [npm](${NPM}): \`yarn add @telicent-oss/ds\`
+`;
+
+writeFileSync(resolve(outDir, "llms-full.txt"), llmsFull);
+writeFileSync(resolve(outDir, "llms.txt"), llmsIndex);
+console.log(`build-llms: wrote llms/llms.txt (index) + llms/llms-full.txt (v${version})`);
