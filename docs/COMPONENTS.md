@@ -113,15 +113,13 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
   ```tsx
   <AppBar
     appName={config.appNameForHumans}                          // title, from config — never hardcode
-    href="/<app-root>/"                                         // brand links home
-    target="_self"
-    startChild={<AppSwitch apps={config.APP_SWITCH_LIBRARY} />} // cross-app switcher
-    endChild={<UserProfile />}                                  // signed-in user menu + sign-out
     isElevated                                                  // shadow under the bar
+    startChild={<AppSwitch apps={config.APP_SWITCH_LIBRARY} />} // cross-app switcher
+    endChild={<UserProfile />}                                  // user menu + sign-out (common fill)
   />
   ```
 
-  Required: `appName` (read from config, never hardcoded), `startChild` holding `AppSwitch`, `endChild` holding `UserProfile`, `isElevated`, and a brand `href` to the app root. Optional: `beta` / `version` annotate the title; `disableBrand` drops the Telicent logo only when an app supplies its own brand via `startChild`; `position` defaults to page flow, set `sticky` only when the bar must stay visible on scroll. Anti-pattern: `<AppBar appName="X" />` — a title-only bar has no app-switcher and no profile, renders flat, and makes the app feel detached from the suite. The `UsageExample` story (surfaces/AppBar) shows this exact shape.
+  Required: `appName` (read from config, never hardcoded), `isElevated`, and both chrome slots filled — `startChild` with `AppSwitch` for cross-app navigation, `endChild` with a user affordance. `endChild` accepts any `ReactNode` within reason; `<UserProfile />` (user menu + sign-out) is the common choice, demonstrated by the `UsageExample` story (Surfaces/AppBar). Optional: `href` / `target` make the centered brand a link to the app root (see the `ClickableBrand` story); `beta` / `version` annotate the title; `disableBrand` drops the Telicent logo only when an app supplies its own brand via `startChild`; `position` defaults to page flow, set `sticky` only when the bar must stay visible on scroll. Anti-pattern: `<AppBar appName="X" />` — a title-only bar has no app-switcher and no user affordance, renders flat, and makes the app feel detached from the suite (this is the `Default` story).
 <!-- props:AppBar -->
 <!-- stories:Surfaces/AppBar -->
 <!-- stories:Surfaces/Toolbar -->
