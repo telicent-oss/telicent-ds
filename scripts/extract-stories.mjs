@@ -79,12 +79,20 @@ const objectOf = (initializer) => {
 const propOf = (obj, key) =>
   obj?.properties.find((p) => ts.isPropertyAssignment(p) && p.name.getText() === key);
 
-const argsOf = (initializer) => {
+// `label` (file + story) tags a warning when an args object spreads from
+// another object (`...Base.args`): those values are not inlined, so the story
+// under-reports its args. Surface that instead of dropping the spread silently.
+const argsOf = (initializer, label) => {
   const obj = objectOf(initializer);
   if (!obj) return [];
   const argsProp = propOf(obj, "args");
   const argsObj = argsProp && objectOf(argsProp.initializer);
   if (!argsObj) return [];
+  if (label && argsObj.properties.some((p) => ts.isSpreadAssignment(p))) {
+    console.warn(
+      `extract-stories: ${label} spreads args from another object; only its inline args are shown.`
+    );
+  }
   return argsObj.properties
     .filter(ts.isPropertyAssignment)
     .map((p) => {
@@ -114,6 +122,7 @@ export const parseStoryFile = (text, fileName, opts = {}) => {
     storybookBase = PAGES,
     ghBlobBase = `${REPO}/blob/main`,
   } = opts;
+  const relFile = relative(root, fileName);
 
   const sf = ts.createSourceFile(fileName, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
 
@@ -131,9 +140,9 @@ export const parseStoryFile = (text, fileName, opts = {}) => {
           metaObj = objectOf(decl.initializer);
           const t = propOf(metaObj, "title");
           if (t && ts.isStringLiteral(t.initializer)) title = t.initializer.text;
-          defaultArgs = argsOf(decl.initializer);
+          defaultArgs = argsOf(decl.initializer, `meta in ${relFile}`);
         } else if (isExported && /^[A-Z]/.test(name)) {
-          stories.push({ name, args: argsOf(decl.initializer) });
+          stories.push({ name, args: argsOf(decl.initializer, `${name} in ${relFile}`) });
         }
       }
     }
@@ -144,9 +153,9 @@ export const parseStoryFile = (text, fileName, opts = {}) => {
 
   return {
     title,
-    file: relative(root, fileName),
+    file: relFile,
     docsUrl: `${storybookBase}/?path=/docs/${slug(title)}--docs`,
-    sourceUrl: `${ghBlobBase}/${relative(root, fileName)}`,
+    sourceUrl: `${ghBlobBase}/${relFile}`,
     defaultArgs,
     stories: stories.map((s) => ({
       ...s,
@@ -181,6 +190,19 @@ export const loadStories = (srcDir = defaultSrcDir, opts = {}) => {
 
   return {
     components,
-    getStoriesByTitle: () => new Map(components.map((c) => [c.title, c])),
+    // Titles should be unique; if two files collide, last wins in the Map and
+    // the earlier component's signals vanish — warn so the collision is visible.
+    getStoriesByTitle: () => {
+      const map = new Map();
+      for (const c of components) {
+        if (map.has(c.title)) {
+          console.warn(
+            `extract-stories: duplicate Storybook title "${c.title}" (${c.file}); only the last is documented.`
+          );
+        }
+        map.set(c.title, c);
+      }
+      return map;
+    },
   };
 };

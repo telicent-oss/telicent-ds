@@ -225,24 +225,30 @@ describe("slug", () => {
 // ── 12. spread in args ────────────────────────────────────────────────────
 
 describe("spread in args", () => {
-  it("only captures PropertyAssignment entries; spread elements are silently dropped", () => {
-    // argsOf filters with ts.isPropertyAssignment — spreads are SpreadAssignment
-    // nodes, not PropertyAssignment, so they are silently ignored.
+  it("keeps inline args and warns (no longer silent) when a story spreads args", () => {
+    // argsOf captures only PropertyAssignment entries; spread values are not
+    // inlined, so the story under-reports its args. That is now surfaced via a
+    // warning rather than dropped silently.
+    const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
     const c = parse([
       `const Base = { args: { variant: "base" } };`,
       `const meta = { title: "Ui/Widget" };`,
       `export default meta;`,
       `export const Extended = { args: { ...Base.args, variant: "x" } };`,
     ]);
-    // Only the non-spread PropertyAssignment survives.
+    // The non-spread PropertyAssignment still survives.
     expect(c?.stories[0].args).toEqual([`variant="x"`]);
+    // The dropped spread is surfaced, not silent.
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining("spreads args"));
+    warn.mockRestore();
   });
 });
 
 // ── 13. duplicate titles in loadStories ───────────────────────────────────
 
 describe("loadStories — duplicate title collision", () => {
-  it("last-write wins in the Map: second file with same title overwrites the first", () => {
+  it("warns and keeps the last entry when two files share a title", () => {
+    const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "ds-stories-"));
 
     const storyA = [
@@ -271,5 +277,10 @@ describe("loadStories — duplicate title collision", () => {
     // components array (sorted alphabetically) wins.
     expect(map.size).toBe(1);
     expect(map.has("Shared/Title")).toBe(true);
+    // The collision is surfaced, not silent.
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining("duplicate Storybook title")
+    );
+    warn.mockRestore();
   });
 });
