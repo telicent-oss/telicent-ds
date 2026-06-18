@@ -107,6 +107,21 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:Drawer -->
 <!-- stories:Component Library/Drawer -->
 * **`AppBar` / `Toolbar` / `AppChrome`**: Use strictly for top-level application navigation and headers. `AppChrome` is the app shell; pair it with `AppSwitch` for cross-app navigation.
+
+  Application header — blessed method. Render the top-level chrome of a standalone app with `AppBar` and fill every chrome slot; do not ship the title-only form. Canonical composition:
+
+  ```tsx
+  <AppBar
+    appName={config.appNameForHumans}                          // title, from config — never hardcode
+    href="/<app-root>/"                                         // brand links home
+    target="_self"
+    startChild={<AppSwitch apps={config.APP_SWITCH_LIBRARY} />} // cross-app switcher
+    endChild={<UserProfile />}                                  // signed-in user menu + sign-out
+    isElevated                                                  // shadow under the bar
+  />
+  ```
+
+  Required: `appName` (read from config, never hardcoded), `startChild` holding `AppSwitch`, `endChild` holding `UserProfile`, `isElevated`, and a brand `href` to the app root. Optional: `beta` / `version` annotate the title; `disableBrand` drops the Telicent logo only when an app supplies its own brand via `startChild`; `position` defaults to page flow, set `sticky` only when the bar must stay visible on scroll. Anti-pattern: `<AppBar appName="X" />` — a title-only bar has no app-switcher and no profile, renders flat, and makes the app feel detached from the suite. The `UsageExample` story (surfaces/AppBar) shows this exact shape.
 <!-- props:AppBar -->
 <!-- stories:Surfaces/AppBar -->
 <!-- stories:Surfaces/Toolbar -->
