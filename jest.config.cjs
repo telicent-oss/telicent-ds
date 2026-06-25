@@ -1,6 +1,8 @@
+const path = require("node:path");
+
 /** @type {import('jest').Config} */
 module.exports = {
-  roots: ["<rootDir>/src"],
+  roots: ["<rootDir>/src", "<rootDir>/scripts"],
   testEnvironment: "jsdom",
   resetMocks: true,
   setupFiles: ["<rootDir>/jest.polyfills.cjs"],
@@ -8,9 +10,11 @@ module.exports = {
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}",
+    "<rootDir>/scripts/**/__tests__/**/*.{js,mjs,ts,tsx}",
+    "<rootDir>/scripts/**/*.{spec,test}.{js,mjs,ts,tsx}",
   ],
   transform: {
-    "^.+\\.(t|j)sx?$": [
+    "^.+\\.m?[tj]sx?$": [
       "babel-jest",
       {
         presets: [
@@ -21,7 +25,11 @@ module.exports = {
           ],
           "@babel/preset-typescript",
         ],
-        plugins: ["@emotion/babel-plugin"],
+        plugins: [
+          "@emotion/babel-plugin",
+          // Lets babel-jest load the .mjs build scripts (scripts/*.mjs) as CJS.
+          path.join(__dirname, "scripts/babel-plugin-import-meta.cjs"),
+        ],
       },
     ],
     "^.+\\.css$": "jest-transform-stub",

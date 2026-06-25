@@ -58,13 +58,13 @@ export const Default: Story = {
 export const CustomSuccessMessage: Story = {
   args: {
     text: "Hooray!",
-    successMsg: "Hooaray!!",
+    successMsg: "Hooray!!",
   },
   parameters: {
     docs: {
       description: {
         story:
-          "You can customise the tooltip to display a different message when the copy to clipboard is successfull just pass a string to  `successMsg`",
+          "You can customise the tooltip to display a different message when the copy to clipboard is successful just pass a string to `successMsg`",
       },
     },
   },

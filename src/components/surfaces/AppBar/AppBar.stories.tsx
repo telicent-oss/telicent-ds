@@ -24,7 +24,7 @@ It supports a centered brand area, optional application name, version label, and
 - **Application headers:** Use at the top of a product or platform page.
 - **Branding + navigation:** Ideal when you need consistent Telicent branding with contextual actions.
 - **Flexible layouts:** Use \`startChild\` for left-side content such as an app switcher, and \`endChild\` for right-side content such as a user profile or action buttons.
-- **Clickable:** Pass \`href\` to make this component clickabout, out of the box it opens in a blank tab.
+- **Clickable:** Pass \`href\` to make this component clickable, out of the box it opens in a blank tab.
 
 \`\`\`jsx
 <AppBar

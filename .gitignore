@@ -13,6 +13,9 @@ results.json
 /build
 /dist
 
+# generated llms.txt site (built in CI by deploy-llms workflow)
+/llms
+
 # misc
 .DS_Store
 .env.local
