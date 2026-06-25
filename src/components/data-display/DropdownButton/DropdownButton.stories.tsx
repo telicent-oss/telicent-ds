@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import DropdownButton from "./DropdownButton";
 import { Box } from '@mui/material';
 import { TestCatalogIcon, TestGraphIcon } from "./assets/TestIcons";

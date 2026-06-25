@@ -1,6 +1,6 @@
 // FlexGrid.stories.tsx
 import React from "react";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { Text } from "../data-display/Text/Text";
 import { Button } from "../buttons";
 import { FlexGrid, FlexGridItem } from "./FlexGrid";

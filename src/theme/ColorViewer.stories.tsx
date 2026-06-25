@@ -1,6 +1,6 @@
 // Theme/ColorsGrouped.stories.tsx
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useTheme, Box, Typography, Divider } from "@mui/material";
 
 type Entry = { name: string; color: string };

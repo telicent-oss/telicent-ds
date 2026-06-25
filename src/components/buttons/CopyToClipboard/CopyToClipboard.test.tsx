@@ -1,8 +1,7 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CopyToClipboard from "./CopyToClipboard";
-import { waitForElementToBeRemoved } from "@storybook/test";
 
 describe("CopyToClipboard", () => {
   const textToCopy = "Hello, world!";

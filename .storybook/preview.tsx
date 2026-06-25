@@ -1,9 +1,9 @@
 import React from "react";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import UIThemeProvider from "../src/theme/UIThemeProvider";
 import { UIThemeSchema } from "../src/theme/colors/theme-colors";
-import { addons } from "@storybook/manager-api";
-import { themes } from "@storybook/theming";
+import { addons } from "storybook/manager-api";
+import { themes } from "storybook/theming";
 
 addons.setConfig({
   theme: themes.dark,
@@ -47,6 +47,10 @@ const preview: Preview = {
   initialGlobals: {
     mode: "dark",
     theme: "GraphOrange",
+
+    backgrounds: {
+      value: "dark"
+    }
   },
   parameters: {
     controls: {
@@ -56,17 +60,17 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: "dark",
-      values: [
-        {
+      options: {
+        light: {
           name: "light",
           value: "#F5F5F5",
         },
-        {
+
+        dark: {
           name: "dark",
           value: "#1D1D1D",
-        },
-      ],
+        }
+      }
     },
   },
 };

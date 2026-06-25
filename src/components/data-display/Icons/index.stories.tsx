@@ -1,6 +1,6 @@
 // src/components/Icons/Icons.stories.tsx
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, BoxProps, Typography } from "@mui/material";
 import * as Icons from "./index";
 

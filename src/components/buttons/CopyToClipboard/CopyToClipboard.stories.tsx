@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import CopyToClipboard from "./CopyToClipboard";
 import { Box, Paper, Typography } from "@mui/material";
 import { useState } from "react";

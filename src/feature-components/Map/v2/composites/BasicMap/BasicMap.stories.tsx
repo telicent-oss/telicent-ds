@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Box } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { BasicMapV2 } from "./BasicMap";
 import { BasicMapProperties } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";

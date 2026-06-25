@@ -1,6 +1,6 @@
 // src/components/BasicMap/BasicMap.stories.tsx
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { BasicMap, BasicMapProps } from "./BasicMap";
 import { Box } from "@mui/material";
 import { ARGA_ATTACK, BOULAY_ATTACK } from "../../utils/sampleData/markers";
