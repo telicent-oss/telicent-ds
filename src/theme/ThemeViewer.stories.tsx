@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import ThemeViewer from "./ThemeViewer";
 import UIThemeProvider from "./UIThemeProvider";
 import { useExtendedTheme } from "../export";

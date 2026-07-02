@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import MUIBox from "@mui/material/Box";
 
 import { FlexBox } from "../../layout";

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import UserProfile from "./UserProfile";
 import FlexBox from "../../layout/FlexBox";
 import { Text } from "../Text/Text";
