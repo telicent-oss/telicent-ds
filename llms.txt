@@ -807,4 +807,4 @@ ListItemText: {} # no own props; all inherited from the underlying MUI/DOM eleme
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds v3.0.1.
+This reference documents @telicent-oss/ds v3.0.2-0.
