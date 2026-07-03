@@ -1,8 +1,12 @@
 name: deploy-llms.yml
 
 # Publishes the llms.txt index + llms-full.txt to the GitHub Pages site.
-#   main           -> site root        (.../llms.txt, .../llms-full.txt)
+#   main           -> site root          (.../llms.txt, .../llms-full.txt)  = the latest major
+#   main           -> per-major path     (.../v<major>/llms.txt)            = pinned per major, kept forever
 #   other branches -> per-branch preview (.../<branch>/llms.txt, .../<branch>/llms-full.txt)
+# The per-major copy lets an app stuck on an old major still fetch the manifest
+# for the version it runs. keep_files:true means a new major's deploy never wipes
+# an older major's folder, so each major persists once published.
 # keep_files:true lets these coexist with Storybook (which owns the same paths)
 # without either deploy wiping the other. A shared github-pages concurrency
 # group serialises the gh-pages pushes so the two deploys cannot race.
@@ -59,6 +63,20 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./llms
           destination_dir: ./
+          keep_files: true
+
+      - name: Read major version
+        if: github.ref == 'refs/heads/main'
+        id: major
+        run: echo "major=$(node -p 'require("./package.json").version.split(".")[0]')" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy llms.txt to per-major path
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./llms
+          destination_dir: ./v${{ steps.major.outputs.major }}
           keep_files: true
 
       - name: Deploy llms.txt to per-branch preview
