@@ -1,29 +1,14 @@
-import { alpha, ThemeOptions } from "@mui/material";
-import { grey } from "@mui/material/colors";
-import THEME_COLORS, { UITheme } from "../theme-colors";
+import { ThemeOptions } from "@mui/material/styles";
 import merge from "lodash.merge";
-import createLightPalette from "./createLightPalette";
+import THEME_COLORS, { UITheme } from "../theme-colors";
+import { baseDarkPalette } from "./basePalette";
 
-const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] =>
-  merge(createLightPalette(uiTheme), {
-    mode: "dark",
-    primary: THEME_COLORS[uiTheme].dark ?? THEME_COLORS[uiTheme].light,
-    tertiary: {
-      main: "#6B6B6B",
-      dark: alpha("#6B6B6B", 0.7),
-      light: alpha("#6B6B6B", 0.5),
-      contrastText: "#FFFFFF",
-    },
-    text: {
-      primary: "#ececec",
-      secondary: "rgba(255, 255, 255, 0.7)",
-      disabled: "#999999",
-    },
-    background: {
-      default: "#1D1D1D",
-      paper: "#252525",
-    },
-    grey,
-  });
+const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] => {
+  const themePalette = THEME_COLORS[uiTheme].dark ?? THEME_COLORS[uiTheme].light;
+  // Order matters: seed establishes mode + primary, the shared base fills the
+  // remaining tokens, then the theme's own palette merges last so any per-theme
+  // overrides (tertiary, text, background) win over the base defaults.
+  return merge({ mode: "dark" as const, primary: themePalette?.primary }, baseDarkPalette, themePalette);
+};
 
 export default createDarkPalette;

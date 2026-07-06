@@ -6,16 +6,20 @@ const lightMain = "#2F44CA";
 
 const AdminBlue = {
   dark: {
-    main: darkMain,
-    dark: alpha(darkMain, 0.7),
-    light: alpha(darkMain, 0.5),
-    contrastText: common.black,
+    primary: {
+      main: darkMain,
+      dark: alpha(darkMain, 0.7),
+      light: alpha(darkMain, 0.5),
+      contrastText: common.black,
+    },
   },
   light: {
-    main: lightMain,
-    dark: alpha(lightMain, 0.7),
-    light: alpha(lightMain, 0.5),
-    contrastText: "#FFFFFF",
+    primary: {
+      main: lightMain,
+      dark: alpha(lightMain, 0.7),
+      light: alpha(lightMain, 0.5),
+      contrastText: "#FFFFFF",
+    },
   },
 };
 

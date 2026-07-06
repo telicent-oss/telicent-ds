@@ -309,14 +309,10 @@ test("tmp theme diffs via unified patches", () => {
     -    "mode": "dark",
     +    "mode": "light",
          "primary": {
-    -      "main": "#2F44CA",
-    -      "dark": "rgba(47, 68, 202, 0.7)",
-    -      "light": "rgba(47, 68, 202, 0.5)",
-    -      "contrastText": "#FFFFFF"
-    +      "main": "#20BCFA",
-    +      "dark": "rgba(32, 188, 250, 0.7)",
-    +      "light": "rgba(32, 188, 250, 0.5)",
-    +      "contrastText": "#000"
+           "main": "#2F44CA",
+           "dark": "rgba(47, 68, 202, 0.7)",
+           "light": "rgba(47, 68, 202, 0.5)",
+           "contrastText": "#FFFFFF"
          },
          "tertiary": {
     -      "main": "#6B6B6B",

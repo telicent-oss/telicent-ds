@@ -5,10 +5,12 @@ const main = "#000000";
 
 const Blank = {
   light: {
-    main,
-    dark: alpha(main, 0.7),
-    light: alpha(main, 0.5),
-    contrastText: common.white,
+    primary: {
+      main,
+      dark: alpha(main, 0.7),
+      light: alpha(main, 0.5),
+      contrastText: common.white,
+    },
   },
 };
 

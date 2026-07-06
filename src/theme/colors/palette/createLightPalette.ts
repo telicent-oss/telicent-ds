@@ -1,23 +1,14 @@
-import { alpha, ThemeOptions } from "@mui/material/styles";
+import { ThemeOptions } from "@mui/material/styles";
+import merge from "lodash.merge";
 import THEME_COLORS, { UITheme } from "../theme-colors";
+import { baseLightPalette } from "./basePalette";
 
-const createLightPalette = (uiTheme: UITheme): ThemeOptions["palette"] => ({
-  mode: "light",
-  primary: THEME_COLORS[uiTheme].light ?? THEME_COLORS[uiTheme].dark,
-  tertiary: {
-    main: "#8094A3",
-    dark: alpha("#8094A3", 0.7),
-    light: alpha("#8094A3", 0.5),
-    contrastText: "#252525",
-  },
-  text: {
-    primary: "#000000",
-    secondary: "#000000",
-    disabled: "#999999",
-  },
-  background: {
-    default: "#F9F9F9",
-  },
-});
+const createLightPalette = (uiTheme: UITheme): ThemeOptions["palette"] => {
+  const themePalette = THEME_COLORS[uiTheme].light ?? THEME_COLORS[uiTheme].dark;
+  // Order matters: seed establishes mode + primary, the shared base fills the
+  // remaining tokens, then the theme's own palette merges last so any per-theme
+  // overrides (tertiary, text, background) win over the base defaults.
+  return merge({ mode: "light" as const, primary: themePalette?.primary }, baseLightPalette, themePalette);
+};
 
 export default createLightPalette;
