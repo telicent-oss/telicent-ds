@@ -7,7 +7,7 @@ import createLightPalette from "./createLightPalette";
 const createDarkPalette = (uiTheme: UITheme): ThemeOptions["palette"] =>
   merge(createLightPalette(uiTheme), {
     mode: "dark",
-    primary: THEME_COLORS[uiTheme].primary,
+    primary: THEME_COLORS[uiTheme].dark ?? THEME_COLORS[uiTheme].light,
     tertiary: {
       main: "#6B6B6B",
       dark: alpha("#6B6B6B", 0.7),

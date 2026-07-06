@@ -1,17 +1,17 @@
 import { alpha, ThemeOptions } from "@mui/material";
-import THEME_COLORS, { UITheme } from "../../colors/theme-colors";
+import { UITheme } from "../../colors/theme-colors";
 
-const generateCardOverrides = (uiTheme: UITheme) =>
+const generateCardOverrides = (_uiTheme: UITheme) =>
   ({
     MuiCard: {
       variants: [
         {
           props: { variant: "outlined" },
-          style: {
+          style: ({ theme }) => ({
             borderWidth: 1,
             borderStyle: "solid",
-            borderColor: alpha(THEME_COLORS[uiTheme].primary.main, 0.4),
-          },
+            borderColor: alpha(theme.palette.primary.main, 0.4),
+          }),
         },
       ],
       styleOverrides: {

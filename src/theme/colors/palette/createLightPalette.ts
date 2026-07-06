@@ -3,7 +3,7 @@ import THEME_COLORS, { UITheme } from "../theme-colors";
 
 const createLightPalette = (uiTheme: UITheme): ThemeOptions["palette"] => ({
   mode: "light",
-  primary: THEME_COLORS[uiTheme].primary,
+  primary: THEME_COLORS[uiTheme].light ?? THEME_COLORS[uiTheme].dark,
   tertiary: {
     main: "#8094A3",
     dark: alpha("#8094A3", 0.7),

@@ -8,27 +8,18 @@ import Blank from "./BlankTheme";
 export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 
+type PaletteColor = {
+  main: string;
+  dark: string;
+  light: string;
+  contrastText: string;
+};
+
 const THEME_COLORS: Record<
   UITheme,
   {
-    primary: {
-      main: string;
-      dark: string;
-      light: string;
-      contrastText: string;
-    };
-    secondary?: {
-      main?: string;
-      dark?: string;
-      light?: string;
-      contrastText?: string;
-    };
-    tertiary?: {
-      main?: string;
-      dark?: string;
-      light?: string;
-      contrastText?: string;
-    };
+    dark?: PaletteColor;
+    light?: PaletteColor;
   }
 > = {
   DataNavy,
