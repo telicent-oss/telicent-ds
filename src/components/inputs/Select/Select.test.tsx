@@ -55,6 +55,28 @@ describe("Select footer slot", () => {
     ).toBeTruthy();
   });
 
+  it("renders the footer with no divider when there are no options", async () => {
+    const { user } = setup(
+      <Select
+        label="Owner"
+        value=""
+        onChange={() => {}}
+        options={[]}
+        footer={<button type="button">Create new owner</button>}
+      />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    const listbox = await screen.findByRole("listbox");
+    // Footer is present even with an empty option list...
+    expect(
+      screen.getByRole("button", { name: "Create new owner" }),
+    ).toBeInTheDocument();
+    // ...but the divider is suppressed since there are no options above it.
+    expect(listbox.querySelector(".MuiDivider-root")).toBeNull();
+  });
+
   it("clicking the footer does not change the value", async () => {
     const onChange = jest.fn();
     const { user } = setup(
