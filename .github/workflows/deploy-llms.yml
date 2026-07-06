@@ -3,13 +3,16 @@ name: deploy-llms.yml
 # Publishes llms.txt and llms-full.txt to the GitHub Pages site. Every deploy below
 # uses publish_dir ./llms, so each of these paths gets both files.
 #
-# ref     published at
-# main    /                and /v<major>/
-# branch  /<branch>/
+# Where each ref lands is in the table at "Resolve publish target", the only step
+# that reads the ref; every step after it reads that step's outputs.
 #
 # The per-major copy lets an app stuck on an old major still fetch the manifest for
 # the version it runs. keep_files:true stops a deploy wiping paths it did not write:
 # older majors, and Storybook, which owns the same paths.
+#
+# When the manifest changes, the run also publishes llms.diff.html: a diff2html
+# render of the new manifest against the site-root one. Two commit statuses link the
+# manifest and the report, so a reviewer sees what a branch changed.
 
 on:
   workflow_dispatch:
@@ -27,6 +30,7 @@ on:
 
 permissions:
   contents: write
+  statuses: write
 
 # Serialised against upload-storybook.yml's Pages deploys: both push to the same
 # gh-pages branch, so a shared group stops concurrent non-fast-forward pushes.
@@ -37,6 +41,9 @@ concurrency:
 jobs:
   deploy-llms:
     runs-on: ubuntu-latest
+    env:
+      SITE: https://telicent-oss.github.io/telicent-ds
+      REPO: https://github.com/telicent-oss/telicent-ds
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -45,6 +52,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.22
+
+      # The one place the ref decides where things go. Everything downstream reads
+      # these outputs, so main/branch is stated here and nowhere else.
+      #   main   -> dir '.'        urlpath ''            major set  (adds the v<major> copy)
+      #   branch -> dir '<branch>' urlpath '<branch>/'   major unset
+      - name: Resolve publish target
+        id: target
+        run: |
+          ref="${{ github.ref_name }}"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            {
+              echo "dir=."
+              echo "urlpath="
+              echo "major=$(node -p 'require("./package.json").version.split(".")[0]')"
+            } >> "$GITHUB_OUTPUT"
+          else
+            {
+              echo "dir=$ref"
+              echo "urlpath=$ref/"
+            } >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
@@ -56,38 +85,72 @@ jobs:
       - name: Generate llms.txt
         run: yarn generate:llms
 
-      - name: Deploy llms.txt to Pages root
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./llms
-          destination_dir: ./
-          keep_files: true
-
-      # A failed read would leave major empty and publish to /v/, so fail here instead.
-      - name: Read major version
-        if: github.ref == 'refs/heads/main'
-        id: major
+      # Fetch the currently-live manifest BEFORE any deploy step overwrites it,
+      # diff the freshly-built one against it, and render the diff to HTML. The
+      # report rides along in ./llms so the deploy steps publish it too.
+      #
+      # Every manifest URL carries the branch: Storybook links as /<branch>/ and
+      # source links as blob/<branch>/, so a raw diff churns on that prefix and
+      # buries real changes. Collapse both prefixes to ../ on each side and name
+      # the branch once, at the top; the published manifests keep their real URLs.
+      # The baseline is the live root, always built from main (blob/main/).
+      - name: Build llms.txt diff report
+        id: diff
+        env:
+          URLPATH: ${{ steps.target.outputs.urlpath }}
+          BRANCH: ${{ steps.target.outputs.ref }}
         run: |
-          major="$(node -p 'require("./package.json").version.split(".")[0]')"
-          : "${major:?could not read the major from package.json}"
-          echo "major=$major" >> "$GITHUB_OUTPUT"
+          mkdir -p _diff
+          code=$(curl -sSL -o _diff/a.raw -w '%{http_code}' "$SITE/llms.txt" || echo 000)
+          if [ "$code" != "200" ]; then
+            echo "baseline fetch returned HTTP $code — treating as a new file"
+            : > _diff/a.raw
+          fi
+          cp llms/llms.txt _diff/b.raw
+          { echo "Branch: /";             sed "s#$SITE/#$SITE/../#g; s#$REPO/blob/main/#$REPO/blob/../#g"           _diff/a.raw; } > _diff/a
+          { echo "Branch: ${URLPATH:-/}"; sed "s#$SITE/$URLPATH#$SITE/../#g; s#$REPO/blob/$BRANCH/#$REPO/blob/../#g" _diff/b.raw; } > _diff/b
+          if diff -q _diff/a _diff/b >/dev/null; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "manifest is identical to the published one — no report"
+            exit 0
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          diff -u --label a/llms.txt --label b/llms.txt _diff/a _diff/b > _diff/llms.diff || true
+          npx --yes diff2html-cli@5.2.15 -i file -F llms/llms.diff.html --style side -- _diff/llms.diff
 
-      - name: Deploy llms.txt to per-major path
-        if: github.ref == 'refs/heads/main'
+      # main -> site root; any other branch -> its preview folder. Same step either way.
+      - name: Deploy llms.txt
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./llms
-          destination_dir: ./v${{ steps.major.outputs.major }}
+          destination_dir: ${{ steps.target.outputs.dir }}
           keep_files: true
 
-      - name: Deploy llms.txt to per-branch preview
-        if: github.ref != 'refs/heads/main'
+      # Only main sets major, so this pinned copy runs only on main.
+      - name: Deploy per-major copy
+        if: steps.target.outputs.major != ''
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./llms
-          destination_dir: ${{ github.ref_name }}
+          destination_dir: ./v${{ steps.target.outputs.major }}
           keep_files: true
+
+      # Two clickable links on the commit's checks: the live manifest, and the
+      # rendered diff for this change. Runs after deploy so the report URL resolves.
+      - name: Post llms.txt links to commit status
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+            -f state=success \
+            -f context="llms.txt / diff report" \
+            -f description="Rendered diff vs the published manifest" \
+            -f target_url="$SITE/${{ steps.target.outputs.urlpath }}llms.diff.html"
+          gh api "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+            -f state=success \
+            -f context="llms.txt / published manifest" \
+            -f description="The currently-live llms.txt" \
+            -f target_url="$SITE/llms.txt"
