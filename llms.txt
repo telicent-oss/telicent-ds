@@ -423,6 +423,7 @@ SearchAutocompleteDialog:
 * **`Select`**: Standard dropdown (wraps MUI Select). Supply choices via the `options` prop — an array of `{ value, label }`, **not** `<MenuItem>` children. Use `value`/`onChange`/`label` as usual; optional `width`, `helperText`.
 ```yaml
 Select:
+  footer: {type: 'React.ReactNode | ((args: SelectFooterArgs) => React.ReactNode)', required: false}
   helperText: {type: 'React.ReactNode', required: false}
   options: {type: 'Options[]', required: true}
   width: {type: 'string | number', required: false}
@@ -436,6 +437,7 @@ Demonstrated states:
 - WithCustomWidth — label="Select an option", value="option2", id="select-disabled", options=OPTIONS, width=500
 - WithNoLabel — value="option2", id="select-disabled", options=OPTIONS
 - ExampleWithOnChange — width=250, disabled=false
+- WithFooter — label="Owner", value="mcga", width=300, options=OWNER_OPTIONS
 * **`Checkbox`**: Boolean or multi-select input (wraps MUI Checkbox). `label` renders the caption; `checked`/`onChange` control state.
 ```yaml
 Checkbox:
@@ -570,7 +572,7 @@ Demonstrated states:
 * **`UserProfile` / `UserProfileContent` / `UserStatus`**: Components for rendering user avatars, profile details, and active states. `UserProfileContent` renders the expanded profile detail; `UserStatus` renders the online/status indicator.
 ```yaml
 UserProfile:
-  fullName: {type: 'string', required: true}
+  fullName: {type: 'string', required: false}
 ```
 ```yaml
 UserStatus:
@@ -807,4 +809,4 @@ ListItemText: {} # no own props; all inherited from the underlying MUI/DOM eleme
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds v3.0.2-0.
+This reference documents @telicent-oss/ds v3.0.1.
