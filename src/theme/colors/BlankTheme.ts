@@ -4,11 +4,13 @@ import { alpha } from "@mui/material/styles";
 const main = "#000000";
 
 const Blank = {
-  primary: {
-    main: main,
-    dark: alpha(main, 0.7),
-    light: alpha(main, 0.5),
-    contrastText: common.white,
+  light: {
+    primary: {
+      main,
+      dark: alpha(main, 0.7),
+      light: alpha(main, 0.5),
+      contrastText: common.white,
+    },
   },
 };
 

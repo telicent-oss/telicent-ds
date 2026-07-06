@@ -9,7 +9,7 @@ import UserIcon from "../Icons/UserIcon";
 import DownArrowIcon from "../FontAwesomeIcons/DownArrowIcon";
 
 export type UserProfileProps = PropsWithChildren & {
-  fullName: string;
+  fullName?: string;
 };
 
 const UserProfile: React.FC<UserProfileProps> = ({ fullName, children }) => {

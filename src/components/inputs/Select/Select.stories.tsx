@@ -2,6 +2,8 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import Select, { Options } from "./Select";
 import { Box, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
+import Button from "../../buttons/Button/Button";
+import PlusCircleIcon from "../../data-display/Icons/PlusCircleIcon";
 
 const OPTIONS: Options[] = [
   { value: "option1", label: "Option 1" },
@@ -32,6 +34,8 @@ A lightweight dropdown component built on Mui's \`<Select>\` with our design-sys
  - **Label is optional:** only renders the label if you pass the \`label\` prop. You can choose to omit the prop for a cleaner label-free form.
  
  - **Min Width:** It has a min width by default that can be customized by using the \`width\` prop.
+
+ - **Footer slot:** pass the optional \`footer\` prop to render an action below the options (e.g. a "+ Create new …" button), separated by a divider. The footer is **not** selectable as a value. Use the render-function form \`footer={({ closeMenu }) => …}\` to dismiss the dropdown from your handler (see the **WithFooter** story), or pass a plain node when you don't need to close the menu yourself.
 
 
 \`\`\`jsx
@@ -133,5 +137,47 @@ export const ExampleWithOnChange: Story = {
   args: {
     width: 250,
     disabled: false,
+  },
+};
+
+const OWNER_OPTIONS: Options[] = [
+  { value: "mcga", label: "Maritime Coastguard Agency" },
+  { value: "ukho", label: "UK Hydrographic Office" },
+  { value: "imo", label: "IMO" },
+];
+
+/**
+ * The `footer` prop renders an action below the option list, separated by a
+ * divider — typically a "+ Create new …" button. The footer is **not**
+ * selectable as a value; clicking it will not fire `onChange`.
+ *
+ * There are two forms:
+ *
+ * - **Render function** — `footer={({ closeMenu }) => …}` receives `closeMenu`,
+ *   so your click handler can dismiss the dropdown before acting (e.g. before
+ *   opening a "create" modal). This is the common case, shown below.
+ * - **Plain node** — `footer={<MyAction />}` when you don't need to close the
+ *   menu yourself (the menu stays open until the user clicks away).
+ */
+export const WithFooter: Story = {
+  args: {
+    label: "Owner",
+    value: "mcga",
+    width: 300,
+    onChange: () => {},
+    options: OWNER_OPTIONS,
+    footer: ({ closeMenu }) => (
+      <Button
+        variant="text"
+        startIcon={<PlusCircleIcon />}
+        onClick={() => {
+          closeMenu();
+          // A host app would open its "create new owner" modal here.
+        }}
+        sx={{ width: "100%", justifyContent: "flex-start", textTransform: "none" }}
+      >
+        Create new owner
+      </Button>
+    ),
   },
 };
