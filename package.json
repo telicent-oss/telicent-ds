@@ -68,7 +68,7 @@
     "bump:prerelease": "yarn version --prerelease && git push && git push --tags",
     "bump:pre": "yarn bump:prerelease",
     "link-to-local-packages": "./scripts/link-to-local-packages.sh",
-    "postinstall": "[ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
+    "postinstall": "node scripts/skill-install.mjs || true; [ \"$LOCAL_MACHINE\" = \"false\" ] && echo 'Skipping tefe hook-postinstall' || tefe hook-postinstall",
     "local-publish": "./scripts/local-publish.sh",
     "lp": "yarn local-publish",
     "local-install": "yarn install --registry http://localhost:4873",
@@ -197,8 +197,13 @@
     "registry": "https://www.npmjs.com/"
   },
   "files": [
-    "dist"
+    "dist",
+    ".claude/skills/telicent-ds",
+    "scripts/skill-install.mjs"
   ],
+  "bin": {
+    "telicent-ds-install-skill": "scripts/skill-install.mjs"
+  },
   "main": "./dist/ds.umd.cjs",
   "module": "./dist/ds.js",
   "types": "./dist/export.d.ts",
