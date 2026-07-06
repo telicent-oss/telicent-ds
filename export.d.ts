@@ -1617,20 +1617,76 @@ export declare const Select: default_2.ForwardRefExoticComponent<(Omit<FilledSel
     options: Options[];
     width?: number | string;
     helperText?: default_2.ReactNode;
+    /**
+     * Optional content rendered below the option list, separated by a
+     * divider. Use this for inline actions like "+ Create new …".
+     *
+     * Pass a render function to receive `closeMenu`, so your click handler
+     * can dismiss the dropdown after acting (e.g. before opening a modal).
+     * Pass a plain ReactNode if you don't need to close the menu yourself.
+     *
+     * The footer is NOT selectable as a value — clicking it will not fire
+     * `onChange`.
+     */
+    footer?: default_2.ReactNode | ((args: SelectFooterArgs) => default_2.ReactNode);
 }, "ref"> | Omit<StandardSelectProps & BaseSelectProps<unknown> & {
     options: Options[];
     width?: number | string;
     helperText?: default_2.ReactNode;
+    /**
+     * Optional content rendered below the option list, separated by a
+     * divider. Use this for inline actions like "+ Create new …".
+     *
+     * Pass a render function to receive `closeMenu`, so your click handler
+     * can dismiss the dropdown after acting (e.g. before opening a modal).
+     * Pass a plain ReactNode if you don't need to close the menu yourself.
+     *
+     * The footer is NOT selectable as a value — clicking it will not fire
+     * `onChange`.
+     */
+    footer?: default_2.ReactNode | ((args: SelectFooterArgs) => default_2.ReactNode);
 }, "ref"> | Omit<OutlinedSelectProps & BaseSelectProps<unknown> & {
     options: Options[];
     width?: number | string;
     helperText?: default_2.ReactNode;
+    /**
+     * Optional content rendered below the option list, separated by a
+     * divider. Use this for inline actions like "+ Create new …".
+     *
+     * Pass a render function to receive `closeMenu`, so your click handler
+     * can dismiss the dropdown after acting (e.g. before opening a modal).
+     * Pass a plain ReactNode if you don't need to close the menu yourself.
+     *
+     * The footer is NOT selectable as a value — clicking it will not fire
+     * `onChange`.
+     */
+    footer?: default_2.ReactNode | ((args: SelectFooterArgs) => default_2.ReactNode);
 }, "ref">) & default_2.RefAttributes<HTMLInputElement>>;
+
+/**
+ * Arguments passed to the `footer` render function.
+ */
+export declare type SelectFooterArgs = {
+    /** Closes the dropdown — call this before opening a modal, for example. */
+    closeMenu: () => void;
+};
 
 export declare type SelectProps = SelectProps_2 & {
     options: Options[];
     width?: number | string;
     helperText?: default_2.ReactNode;
+    /**
+     * Optional content rendered below the option list, separated by a
+     * divider. Use this for inline actions like "+ Create new …".
+     *
+     * Pass a render function to receive `closeMenu`, so your click handler
+     * can dismiss the dropdown after acting (e.g. before opening a modal).
+     * Pass a plain ReactNode if you don't need to close the menu yourself.
+     *
+     * The footer is NOT selectable as a value — clicking it will not fire
+     * `onChange`.
+     */
+    footer?: default_2.ReactNode | ((args: SelectFooterArgs) => default_2.ReactNode);
 };
 
 declare interface SessionHandlingConfig {
@@ -1977,7 +2033,7 @@ export declare const UserProfile: default_2.FC<UserProfileProps>;
 export declare const UserProfileContent: default_2.FC<PropsWithChildren>;
 
 export declare type UserProfileProps = PropsWithChildren & {
-    fullName: string;
+    fullName?: string;
 };
 
 export declare const UserStatus: default_2.FC<UserStatusProps>;
