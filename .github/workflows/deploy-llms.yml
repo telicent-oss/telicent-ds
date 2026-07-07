@@ -116,7 +116,7 @@ jobs:
           fi
           echo "changed=true" >> "$GITHUB_OUTPUT"
           diff -u --label a/llms.txt --label b/llms.txt _diff/a _diff/b > _diff/llms.diff || true
-          npx --yes diff2html-cli@5.2.15 -i file -F llms/llms.diff.html --style side -- _diff/llms.diff
+          node_modules/.bin/diff2html -i file -F llms/llms.diff.html --style side -- _diff/llms.diff
 
       # main -> site root; any other branch -> its preview folder. Same step either way.
       - name: Deploy llms.txt
