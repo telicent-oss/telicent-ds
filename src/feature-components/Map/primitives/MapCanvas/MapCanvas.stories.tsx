@@ -1,6 +1,6 @@
 // src/components/MapCanvas/MapCanvas.stories.tsx
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { MapCanvas, MapCanvasProps } from "./MapCanvas";
 import { MapCanvasProvider } from "./MapCanvasProvider";
 import { MapProvider } from "react-map-gl/maplibre";

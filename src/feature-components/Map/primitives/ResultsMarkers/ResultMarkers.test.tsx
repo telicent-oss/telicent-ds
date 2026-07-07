@@ -57,7 +57,7 @@ describe("Result Markers component", () => {
     });
 
     test("renders marker without icons when ontology styles are not matched", () => {
-      expect(screen.queryByText("Mad")).toBeVisible();
+      expect(screen.queryByText("mad")).toBeVisible();
       expect(qs('[data-name="Non event. Not important"] [data-icon]')).not.toBeTruthy();
       expect(
         qs('[data-name="Non event. Not important"]')?.childNodes[0].firstChild

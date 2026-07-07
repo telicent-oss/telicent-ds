@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback } from "react";
 import { Box, Button, Stack } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { BasicMapV2 } from "./BasicMap";
 import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";

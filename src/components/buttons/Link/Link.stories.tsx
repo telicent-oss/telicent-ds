@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import Link from "./LinkButton";
 import { Box } from "@mui/material";
 import { figmaDesign } from "../../../../.storybook/figmaDesign";

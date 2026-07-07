@@ -1,6 +1,6 @@
 import React from "react";
 import FeatureMap from "./FeatureMap";
-import { Meta, StoryObj } from "@storybook/react/*";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box } from "@mui/material";
 import { ResultMarker } from "../../primitives/ResultsMarkers/ResultsMarkers";
 import { initialMapStyleConfig, SUPER_OBVIOUS_POLYGON_LAYERS } from "../../primitives/MapCanvas/storyconfig";

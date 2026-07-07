@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
 import { Button, Typography } from "@mui/material";
 import Dialog, { DialogTitle, DialogContent, DialogActions } from "./Dialog";

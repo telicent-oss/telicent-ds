@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { H1, H2, H3, H4, H5, H6 } from "./Text";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export

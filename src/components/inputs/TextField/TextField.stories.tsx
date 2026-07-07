@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Box } from "@mui/material";
 import TextField from "./TextField";
@@ -55,7 +55,7 @@ export const Default: Story = {
 
 export const MultiLine: Story = {
   args: {
-    label: "Miltiline Input",
+    label: "Multiline Input",
     placeholder: "type anything that needs a lot of space in here",
     error: false,
     multiline: true,

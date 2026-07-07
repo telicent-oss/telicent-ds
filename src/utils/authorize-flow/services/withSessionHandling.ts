@@ -58,14 +58,18 @@ export function withSessionHandling(
         : `${config.baseURL || ""}${config.url || ""}`;
 
       try {
-        const headers = new AxiosHeaders(config.headers).toJSON();
+        const sendOnce = () =>
+          authClient.makeAuthenticatedRequest(fullUrl, {
+            body: formatPayload(config.headers, config.data),
+            headers: new AxiosHeaders(config.headers).toJSON() as Record<
+              string,
+              string
+            >,
+            method: config.method,
+            skipAutoLogout: true,
+          });
 
-        const response = await authClient.makeAuthenticatedRequest(fullUrl, {
-          body: formatPayload(config.headers, config.data),
-          headers: headers as Record<string, string>,
-          method: config.method,
-          skipAutoLogout: true,
-        });
+        const response = await sendOnce();
 
         if (response.status === 401) {
           if (!fullUrl.includes("/session/check")) {
@@ -76,11 +80,7 @@ export function withSessionHandling(
             let unsubscribe: (() => void) | null = null;
 
             const retryAfterAuth = () => {
-              authClient
-                .makeAuthenticatedRequest(fullUrl, {
-                  method: config.method,
-                  skipAutoLogout: true,
-                })
+              sendOnce()
                 .then((retryResponse: Response) => {
                   return retryResponse.text().then((retryText: string) => {
                     const retryData = retryText ? JSON.parse(retryText) : null;

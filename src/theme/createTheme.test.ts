@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -93,45 +93,28 @@
+    @@ -88,45 +88,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -104,18 +104,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 1	DataNavy (light)
     +++ 1	DocumentPink (light)
-    @@ -47,9 +47,9 @@
-               },
-               "style": {
-                 "borderWidth": 1,
-                 "borderStyle": "solid",
-    -            "borderColor": "rgba(47, 68, 202, 0.4)"
-    +            "borderColor": "rgba(245, 106, 170, 0.4)"
-               }
-             }
-           ],
-           "styleOverrides": {}
-    @@ -95,12 +95,12 @@
+    @@ -90,12 +90,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -138,18 +127,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 2	DataNavy (light)
     +++ 2	DocumentPink (dark)
-    @@ -47,9 +47,9 @@
-               },
-               "style": {
-                 "borderWidth": 1,
-                 "borderStyle": "solid",
-    -            "borderColor": "rgba(47, 68, 202, 0.4)"
-    +            "borderColor": "rgba(245, 106, 170, 0.4)"
-               }
-             }
-           ],
-           "styleOverrides": {}
-    @@ -93,45 +93,28 @@
+    @@ -88,45 +88,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -213,18 +191,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 3	DataNavy (light)
     +++ 3	GraphOrange (light)
-    @@ -47,9 +47,9 @@
-               },
-               "style": {
-                 "borderWidth": 1,
-                 "borderStyle": "solid",
-    -            "borderColor": "rgba(47, 68, 202, 0.4)"
-    +            "borderColor": "rgba(242, 166, 75, 0.4)"
-               }
-             }
-           ],
-           "styleOverrides": {}
-    @@ -95,12 +95,12 @@
+    @@ -90,12 +90,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -247,18 +214,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 4	DataNavy (light)
     +++ 4	GraphOrange (dark)
-    @@ -47,9 +47,9 @@
-               },
-               "style": {
-                 "borderWidth": 1,
-                 "borderStyle": "solid",
-    -            "borderColor": "rgba(47, 68, 202, 0.4)"
-    +            "borderColor": "rgba(242, 166, 75, 0.4)"
-               }
-             }
-           ],
-           "styleOverrides": {}
-    @@ -93,45 +93,28 @@
+    @@ -88,45 +88,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -322,18 +278,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 5	DataNavy (light)
     +++ 5	AdminBlue (light)
-    @@ -47,9 +47,9 @@
-               },
-               "style": {
-                 "borderWidth": 1,
-                 "borderStyle": "solid",
-    -            "borderColor": "rgba(47, 68, 202, 0.4)"
-    +            "borderColor": "rgba(32, 188, 250, 0.4)"
-               }
-             }
-           ],
-           "styleOverrides": {}
-    @@ -95,12 +95,12 @@
+    @@ -90,12 +90,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -356,18 +301,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 6	DataNavy (light)
     +++ 6	AdminBlue (dark)
-    @@ -47,9 +47,9 @@
-               },
-               "style": {
-                 "borderWidth": 1,
-                 "borderStyle": "solid",
-    -            "borderColor": "rgba(47, 68, 202, 0.4)"
-    +            "borderColor": "rgba(32, 188, 250, 0.4)"
-               }
-             }
-           ],
-           "styleOverrides": {}
-    @@ -93,45 +93,28 @@
+    @@ -88,45 +88,28 @@
          },
          "MuiCssBaseline": {}
        },
@@ -375,14 +309,10 @@ test("tmp theme diffs via unified patches", () => {
     -    "mode": "dark",
     +    "mode": "light",
          "primary": {
-    -      "main": "#2F44CA",
-    -      "dark": "rgba(47, 68, 202, 0.7)",
-    -      "light": "rgba(47, 68, 202, 0.5)",
-    -      "contrastText": "#FFFFFF"
-    +      "main": "#20BCFA",
-    +      "dark": "rgba(32, 188, 250, 0.7)",
-    +      "light": "rgba(32, 188, 250, 0.5)",
-    +      "contrastText": "#000"
+           "main": "#2F44CA",
+           "dark": "rgba(47, 68, 202, 0.7)",
+           "light": "rgba(47, 68, 202, 0.5)",
+           "contrastText": "#FFFFFF"
          },
          "tertiary": {
     -      "main": "#6B6B6B",
@@ -431,18 +361,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 7	DataNavy (light)
     +++ 7	Blank (light)
-    @@ -47,9 +47,9 @@
-               },
-               "style": {
-                 "borderWidth": 1,
-                 "borderStyle": "solid",
-    -            "borderColor": "rgba(47, 68, 202, 0.4)"
-    +            "borderColor": "rgba(0, 0, 0, 0.4)"
-               }
-             }
-           ],
-           "styleOverrides": {}
-    @@ -95,12 +95,12 @@
+    @@ -90,12 +90,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -465,18 +384,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 8	DataNavy (light)
     +++ 8	Blank (dark)
-    @@ -47,9 +47,9 @@
-               },
-               "style": {
-                 "borderWidth": 1,
-                 "borderStyle": "solid",
-    -            "borderColor": "rgba(47, 68, 202, 0.4)"
-    +            "borderColor": "rgba(0, 0, 0, 0.4)"
-               }
-             }
-           ],
-           "styleOverrides": {}
-    @@ -93,45 +93,28 @@
+    @@ -88,45 +88,28 @@
          },
          "MuiCssBaseline": {}
        },

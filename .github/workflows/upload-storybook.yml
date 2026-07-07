@@ -37,6 +37,10 @@ jobs:
     needs: build
     if: github.ref != 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    # Shared with deploy-llms.yml: both push to gh-pages, so serialise the writes.
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
     steps:
       - name: Download Storybook artifact
         uses: actions/download-artifact@v4
@@ -50,6 +54,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
           destination_dir: ${{ github.ref_name }}
+          # keep llms.txt (deployed to <branch> by deploy-llms.yml) from being wiped
+          keep_files: true
 
       - name: Create Deployment Status
         uses: actions/github-script@v6
@@ -74,6 +80,10 @@ jobs:
     needs: build
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
+    # Shared with deploy-llms.yml: both push to gh-pages, so serialise the writes.
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
     steps:
       - name: Download Storybook artifact
         uses: actions/download-artifact@v4
@@ -87,4 +97,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
           destination_dir: ./
+          # keep llms.txt (deployed to root by deploy-llms.yml) from being wiped
+          keep_files: true
  

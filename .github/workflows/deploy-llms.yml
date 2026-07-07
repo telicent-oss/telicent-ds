@@ -1,0 +1,71 @@
+name: deploy-llms.yml
+
+# Publishes the llms.txt index + llms-full.txt to the GitHub Pages site.
+#   main           -> site root        (.../llms.txt, .../llms-full.txt)
+#   other branches -> per-branch preview (.../<branch>/llms.txt, .../<branch>/llms-full.txt)
+# keep_files:true lets these coexist with Storybook (which owns the same paths)
+# without either deploy wiping the other. A shared github-pages concurrency
+# group serialises the gh-pages pushes so the two deploys cannot race.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '**'
+    paths:
+      - docs/COMPONENTS.md
+      - scripts/build-llms.mjs
+      - scripts/extract-props.mjs
+      - scripts/extract-stories.mjs
+      - .github/workflows/deploy-llms.yml
+      - src/**
+      - package.json
+
+permissions:
+  contents: write
+
+# Serialised against upload-storybook.yml's Pages deploys: both push to the same
+# gh-pages branch, so a shared group stops concurrent non-fast-forward pushes.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy-llms:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19
+
+      - name: Install dependencies
+        run: LOCAL_MACHINE=false yarn install --frozen-lockfile
+
+      # build-llms reads the TypeScript types, so deps + dist/export.d.ts must exist first.
+      - name: Build package
+        run: yarn build
+
+      - name: Generate llms.txt
+        run: yarn generate:llms
+
+      - name: Deploy llms.txt to Pages root
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./llms
+          destination_dir: ./
+          keep_files: true
+
+      - name: Deploy llms.txt to per-branch preview
+        if: github.ref != 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./llms
+          destination_dir: ${{ github.ref_name }}
+          keep_files: true

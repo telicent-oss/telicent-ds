@@ -1,6 +1,6 @@
 // src/components/MapCanvas/MapCanvas.stories.tsx
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { ButtonZoomIn } from './ButtonZoomIn';
 import { ButtonZoomOut } from './ButtonZoomOut';
 import { MapToggleButtonPresentational } from './MapToggleButtonPresentational';

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import Divider from "./Divider";
 import Card from "../../surfaces/Card/Card";
 import { H4, H5, Text } from "../Text/Text";

@@ -1,6 +1,6 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { fn, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { fn, userEvent, within } from "storybook/test";
 
 import Button from "../../buttons/Button/Button";
 import { Text } from "../../data-display/Text/Text";

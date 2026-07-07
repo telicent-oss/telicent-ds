@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.1.0](https://github.com/telicent-oss/telicent-ds/compare/v3.0.1...v3.1.0) (2026-07-06)
+
+
+### Features
+
+* theme colour refactor, Select footer slot, optional UserProfile fullName ([#506](https://github.com/telicent-oss/telicent-ds/issues/506)) ([fede070](https://github.com/telicent-oss/telicent-ds/commit/fede070f63da10d034198dd0b4a4e5b3335f9aac))
+
+## [3.0.1](https://github.com/telicent-oss/telicent-ds/compare/v3.0.0...v3.0.1) (2026-06-16)
+
+
+### Bug Fixes
+
+* preserve body and headers on 401 retry in withSessionHandling ([#502](https://github.com/telicent-oss/telicent-ds/issues/502)) ([f902545](https://github.com/telicent-oss/telicent-ds/commit/f902545c312599859a459a19f370e5d4df517156))
+
 ## [3.0.0](https://github.com/telicent-oss/telicent-ds/compare/v2.1.1...v3.0.0) (2026-05-22)
 
 

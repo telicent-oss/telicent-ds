@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const GoToToolbar = () => (
   <div style={{ padding: 16, fontFamily: "sans-serif" }}>

@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactNode } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Button } from "@mui/material";
 import { Drawer, DrawerProps } from "./Drawer";
 import { DrawerPresentational } from "../primitives/DrawerPresentational";

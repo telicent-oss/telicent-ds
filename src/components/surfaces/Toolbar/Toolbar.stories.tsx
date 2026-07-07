@@ -1,7 +1,7 @@
 // src/components/Toolbar/Toolbar.stories.tsx
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { fn } from "storybook/test";
 
 import Toolbar from "./Toolbar";
 import MiniSearchBox from "../../inputs/SearchBox/MiniSearchBox";
