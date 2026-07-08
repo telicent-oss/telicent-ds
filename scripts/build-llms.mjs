@@ -150,15 +150,16 @@ if (propless.length > 0 || phantom.length > 0) {
   );
 }
 
-// Long-form component guidance lives in <Component>.docs.md next to each story.
-// The story imports it (?raw) so Storybook shows it; here every doc is joined
-// into one guidance.md and linked below, keeping llms.txt terse.
+// Long-form component guidance lives in a <Component>.docs.<field>.md file next
+// to each story (e.g. Button.docs.description.component.md, named for the meta
+// field it fills). The story imports it (?raw) so Storybook shows it; here every
+// doc is joined into one guidance.md and linked below, keeping llms.txt terse.
 const docsFiles = [];
 const walkDocs = (dir) => {
   for (const entry of readdirSync(dir)) {
     const full = resolve(dir, entry);
     if (statSync(full).isDirectory()) walkDocs(full);
-    else if (entry.endsWith(".docs.md")) docsFiles.push(full);
+    else if (entry.includes(".docs.") && entry.endsWith(".md")) docsFiles.push(full);
   }
 };
 walkDocs(resolve(root, "src"));

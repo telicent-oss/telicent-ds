@@ -3,7 +3,7 @@ import { fn } from "storybook/test";
 import Box from "@mui/material/Box";
 
 import Button, { ButtonProps } from "./Button";
-import buttonDocs from "./Button.docs.md?raw";
+import buttonDocs from "./Button.docs.description.component.md?raw";
 import DataSetIcon from "../../data-display/Icons/DataSetIcon";
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
 import { FlexBox } from "../../layout";
