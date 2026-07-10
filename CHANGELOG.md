@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/telicent-oss/telicent-ds/compare/v3.1.0...v3.2.0) (2026-07-10)
+
+
+### Features
+
+* select changes & mui reexports ([#511](https://github.com/telicent-oss/telicent-ds/issues/511)) ([eb4f8b4](https://github.com/telicent-oss/telicent-ds/commit/eb4f8b44f25dad40f9c5834d84f749d07e290132))
+
 ## [3.1.0](https://github.com/telicent-oss/telicent-ds/compare/v3.0.1...v3.1.0) (2026-07-06)
 
 
