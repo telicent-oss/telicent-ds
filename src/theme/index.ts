@@ -3,3 +3,5 @@ export type { UITheme };
 export { UIThemeSchema };
 
 export { default as UIThemeProvider } from "./UIThemeProvider";
+
+export { alpha } from "@mui/material/styles";
