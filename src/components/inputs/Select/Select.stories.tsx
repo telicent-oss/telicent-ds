@@ -159,6 +159,88 @@ const OWNER_OPTIONS: Options[] = [
  * - **Plain node** — `footer={<MyAction />}` when you don't need to close the
  *   menu yourself (the menu stays open until the user clicks away).
  */
+const RESOURCE_TYPE_OPTIONS: Options[] = [
+  { value: "dataset", label: "Dataset" },
+  { value: "model", label: "Model" },
+  { value: "pipeline", label: "Pipeline" },
+  { value: "notebook", label: "Notebook" },
+];
+
+const RESOURCE_TYPE_META: Record<
+  string,
+  { description: string; available: boolean }
+> = {
+  dataset: { description: "A curated collection of records.", available: true },
+  model: { description: "A trained ML model or checkpoint.", available: true },
+  pipeline: { description: "A scheduled data-processing job.", available: false },
+  notebook: { description: "An interactive analysis document.", available: false },
+};
+
+/**
+ * The `renderOption` prop lets you render rich content inside each menu
+ * item — e.g. a title + description block, with an inline chip on
+ * unavailable options. `option.label` stays the source of truth for
+ * filtering, ARIA, and the closed-trigger value; only the visual
+ * option-item is customised.
+ *
+ * Pair with MUI's `renderValue` if you also want to customise the
+ * closed trigger (not shown here).
+ */
+export const WithRenderOption: Story = {
+  args: {
+    label: "Resource type",
+    value: "dataset",
+    width: 320,
+    onChange: () => {},
+    options: RESOURCE_TYPE_OPTIONS,
+    renderOption: (option) => {
+      const meta = RESOURCE_TYPE_META[option.value as string];
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 0.25,
+            py: 0.5,
+            width: "100%",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box component="span" sx={{ fontWeight: 500 }}>
+              {option.label}
+            </Box>
+            {meta && !meta.available && (
+              <Box
+                component="span"
+                sx={{
+                  fontSize: 10,
+                  lineHeight: 1,
+                  px: 0.75,
+                  py: 0.25,
+                  borderRadius: 0.5,
+                  bgcolor: "action.selected",
+                  color: "text.secondary",
+                  letterSpacing: 0.5,
+                }}
+              >
+                SOON
+              </Box>
+            )}
+          </Box>
+          {meta && (
+            <Box
+              component="span"
+              sx={{ fontSize: 12, color: "text.secondary" }}
+            >
+              {meta.description}
+            </Box>
+          )}
+        </Box>
+      );
+    },
+  },
+};
+
 export const WithFooter: Story = {
   args: {
     label: "Owner",
