@@ -426,6 +426,7 @@ Select:
   footer: {type: 'React.ReactNode | ((args: SelectFooterArgs) => React.ReactNode)', required: false}
   helperText: {type: 'React.ReactNode', required: false}
   options: {type: 'Options[]', required: true}
+  renderOption: {type: '(option: Options) => React.ReactNode', required: false}
   width: {type: 'string | number', required: false}
 ```
 Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-select--docs
@@ -437,6 +438,7 @@ Demonstrated states:
 - WithCustomWidth — label="Select an option", value="option2", id="select-disabled", options=OPTIONS, width=500
 - WithNoLabel — value="option2", id="select-disabled", options=OPTIONS
 - ExampleWithOnChange — width=250, disabled=false
+- WithRenderOption — label="Resource type", value="dataset", width=320, options=RESOURCE_TYPE_OPTIONS
 - WithFooter — label="Owner", value="mcga", width=300, options=OWNER_OPTIONS
 * **`Checkbox`**: Boolean or multi-select input (wraps MUI Checkbox). `label` renders the caption; `checked`/`onChange` control state.
 ```yaml
