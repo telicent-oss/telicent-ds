@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 
-const meta = {
+const meta: Meta<typeof DateTimePicker> = {
   title: "Inputs/DateTimePicker",
   component: DateTimePicker,
   tags: ["autodocs"],
@@ -43,7 +43,7 @@ const [value, setValue] = useState(dayjs());
     },
   },
   decorators: [(Story) => <Box sx={{ width: "100%", mx: "auto" }}>{Story()}</Box>],
-} satisfies Meta<typeof DateTimePicker>;
+};
 
 export default meta;
 type Story = StoryObj<typeof DateTimePicker>;
