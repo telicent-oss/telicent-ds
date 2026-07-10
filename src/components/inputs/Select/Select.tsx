@@ -96,9 +96,15 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
     };
     const closeMenu = React.useCallback(() => setOpenInternal(false), []);
 
+    const consumerSx = Array.isArray(sx) ? sx : sx ? [sx] : [];
+    const composedSx = [
+      { minWidth: 88, ...(width && { width }), ...(fullWidth && { width: "100%" }) },
+      ...consumerSx,
+    ];
+
     return (
       <FormControl
-        sx={{ minWidth: 88, ...(width && { width }), ...(fullWidth && { width: "100%" }), ...sx }}
+        sx={composedSx}
         size="small"
         error={error}
         required={required}
