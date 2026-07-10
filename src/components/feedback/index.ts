@@ -3,3 +3,4 @@ export { default as Spinner } from "./Spinner/Spinner";
 export { default as Dialog } from "./Dialog/Dialog";
 export * from "./Dialog/Dialog";
 export { Skeleton } from "./Skeleton/Skeleton";
+export { Alert, type AlertColor } from "./Alert/Alert";
