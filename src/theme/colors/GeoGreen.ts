@@ -6,7 +6,10 @@ import { alpha } from "@mui/material/styles";
 // foreground (text, icons, borders) on light surfaces; the bright fill is
 // restored only for the contained button via a theme-scoped override in
 // ./style-overrides/component-overrides/button-overrides.ts.
-const darkMain = "#9DDD31";
+// The bright brand green. Primary in dark mode; also the contained-button fill
+// restored in light mode (see button-overrides.ts).
+export const GEO_GREEN_BRIGHT = "#9DDD31";
+const darkMain = GEO_GREEN_BRIGHT;
 const lightMain = "#3E5B0B";
 
 const GeoGreen = {
