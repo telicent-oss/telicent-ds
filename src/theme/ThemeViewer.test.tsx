@@ -83,4 +83,9 @@ describe("ThemeViewer", () => {
     const { container } = render(<ThemeViewer theme={{}} />);
     expect(container.firstChild).toMatchInlineSnapshot(`<div />`);
   });
+
+  test("renders a null value without crashing", () => {
+    const { getByText } = render(<ThemeViewer theme={{ vars: null }} />);
+    expect(getByText(/vars/)).toBeInTheDocument();
+  });
 });
