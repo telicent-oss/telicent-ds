@@ -4,7 +4,12 @@ import Button, { ButtonProps } from "./Button";
 import { Text, H5 } from "../../data-display";
 import { FlexBox } from "../../layout";
 import useExtendedTheme from "../../../hooks/useExtendedTheme";
-import { parseRgb, toHex, contrastRatio } from "../../../utils/color-contrast/color-contrast";
+import {
+  parseRgb,
+  toHex,
+  contrastRatio,
+  formatContrastRatio,
+} from "../../../utils/color-contrast/color-contrast";
 
 // Reference tables mirroring the GeoGreen design spec: a per-variant colour +
 // contrast table, and a state x variant matrix. Both read from the live theme,
@@ -71,7 +76,7 @@ const SpecColumn: React.FC<{ variant: Variant; label: string; themeName: string 
       </FlexBox>
       <FlexBox direction="column">
         <Text sx={monoLine}>{themeName}</Text>
-        <Text sx={monoLine}>{spec ? `${spec.ratio.toFixed(2)}:1` : "—"}</Text>
+        <Text sx={monoLine}>{spec ? `${formatContrastRatio(spec.ratio)}:1` : "—"}</Text>
         <Text sx={monoLine}>{spec && spec.ratio >= 4.5 ? "Pass AA" : "Fail AA"}</Text>
         <Text sx={monoLine}>{spec && spec.ratio >= 7 ? "Pass AAA" : "Fail AAA"}</Text>
       </FlexBox>

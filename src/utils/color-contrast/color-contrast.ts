@@ -33,3 +33,9 @@ export const contrastRatio = (foreground: string, background: string): number =>
   const l2 = relativeLuminance(background);
   return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 };
+
+// Floors to 2 decimals rather than rounding, to match the Figma spec sheet and
+// to never report a higher ratio than actually achieved (e.g. 12.22677 -> 12.22,
+// not 12.23).
+export const formatContrastRatio = (ratio: number): string =>
+  (Math.floor(ratio * 100) / 100).toFixed(2);

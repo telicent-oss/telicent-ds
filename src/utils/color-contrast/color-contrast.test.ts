@@ -1,4 +1,10 @@
-import { parseRgb, toHex, relativeLuminance, contrastRatio } from "./color-contrast";
+import {
+  parseRgb,
+  toHex,
+  relativeLuminance,
+  contrastRatio,
+  formatContrastRatio,
+} from "./color-contrast";
 
 describe("parseRgb", () => {
   test("parses rgb into channels with a default alpha of 1", () => {
@@ -45,5 +51,15 @@ describe("contrastRatio", () => {
     const forward = contrastRatio("rgb(0, 0, 0)", "rgb(157, 221, 49)");
     const reverse = contrastRatio("rgb(157, 221, 49)", "rgb(0, 0, 0)");
     expect(forward).toBeCloseTo(reverse, 10);
+  });
+});
+
+describe("formatContrastRatio", () => {
+  test("floors to two decimals rather than rounding", () => {
+    expect(formatContrastRatio(12.22677)).toBe("12.22");
+    expect(formatContrastRatio(20.02738)).toBe("20.02");
+  });
+  test("pads whole numbers to two decimals", () => {
+    expect(formatContrastRatio(21)).toBe("21.00");
   });
 });
