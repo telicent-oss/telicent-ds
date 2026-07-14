@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node.js with NPM registry
         uses: actions/setup-node@v4
         with:
-          node-version: 20.19
+          node-version: 22.11
           registry-url: 'https://registry.npmjs.org'
           scope: 'telicent-oss'
 
@@ -55,8 +55,8 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node20-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node20-
+          key: ${{ runner.os }}-node22-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node22-
 
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
@@ -101,7 +101,7 @@ jobs:
       - name: Setup Node.js with NPM registry
         uses: actions/setup-node@v4
         with:
-          node-version: 20.19
+          node-version: 22.11
           registry-url: 'https://registry.npmjs.org'
           scope: 'telicent-oss'
 
@@ -119,8 +119,8 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node20-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node20-
+          key: ${{ runner.os }}-node22-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node22-
 
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
