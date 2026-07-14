@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node.js with NPM registry
         uses: actions/setup-node@v4
         with:
-          node-version: 22.11
+          node-version: 22.22
           registry-url: 'https://registry.npmjs.org'
           scope: 'telicent-oss'
 
@@ -101,7 +101,7 @@ jobs:
       - name: Setup Node.js with NPM registry
         uses: actions/setup-node@v4
         with:
-          node-version: 22.11
+          node-version: 22.22
           registry-url: 'https://registry.npmjs.org'
           scope: 'telicent-oss'
 
