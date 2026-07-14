@@ -378,6 +378,17 @@ test("tmp theme diffs via unified patches", () => {
          "tertiary": {
            "main": "#6B6B6B",
            "dark": "rgba(107, 107, 107, 0.7)",
+    @@ -107,9 +107,9 @@
+           "secondary": "rgba(255, 255, 255, 0.7)",
+           "disabled": "#999999"
+         },
+         "background": {
+    -      "default": "#1D1D1D",
+    +      "default": "#080808",
+           "paper": "#252525"
+         },
+         "grey": {
+           "50": "#fafafa",
 
 
     Index: 8

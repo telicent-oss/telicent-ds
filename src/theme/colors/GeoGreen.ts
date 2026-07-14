@@ -20,6 +20,11 @@ const GeoGreen = {
       light: alpha(darkMain, 0.5),
       contrastText: common.black,
     },
+    // Near-black page surface per the GeoGreen spec; paper stays at the base
+    // #252525 for elevation contrast.
+    background: {
+      default: "#080808",
+    },
   },
   light: {
     primary: {
