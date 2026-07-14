@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import Button, { ButtonProps } from "./Button";
 import { Text, H5 } from "../../data-display";
 import { FlexBox } from "../../layout";
+import { figmaDesign } from "../../../../.storybook/figmaDesign";
 import useExtendedTheme from "../../../hooks/useExtendedTheme";
 import {
   parseRgb,
@@ -11,9 +12,10 @@ import {
   formatContrastRatio,
 } from "../../../utils/color-contrast/color-contrast";
 
-// Reference tables mirroring the GeoGreen design spec: a per-variant colour +
+// Reference tables mirroring the Figma design spec: a per-variant colour +
 // contrast table, and a state x variant matrix. Both read from the live theme,
-// so switch the toolbar theme/mode (e.g. GeoGreen dark) to see it update.
+// so switch the toolbar theme/mode (e.g. GeoGreen dark) to see it update. The
+// Figma source is linked via the addon-designs "Design" tab (see meta below).
 
 type Variant = Extract<ButtonProps["variant"], "primary" | "secondary" | "tertiary">;
 
@@ -26,6 +28,9 @@ const VARIANTS: { variant: Variant; label: string }[] = [
 type Spec = { txt: string; bg: string; bd: string; ratio: number };
 
 const monoLine = { fontFamily: "monospace" } as const;
+// Disables the colour transition so getComputedStyle reads the settled colour
+// on the first frame after a theme switch, not a mid-transition value.
+const noTransition = { transition: "none" } as const;
 
 const SpecColumn: React.FC<{ variant: Variant; label: string; themeName: string }> = ({
   variant,
@@ -37,28 +42,36 @@ const SpecColumn: React.FC<{ variant: Variant; label: string; themeName: string 
   const [spec, setSpec] = useState<Spec | null>(null);
 
   useEffect(() => {
-    if (!ref.current) return;
-    const style = getComputedStyle(ref.current);
-    // An outlined button is transparent; the contrast is measured against the
-    // real surface it sits on, found by walking up to the first opaque
-    // background (getComputedStyle returns rgb, which toHex parses).
-    let node: HTMLElement | null = ref.current;
-    let effectiveBg = "";
-    while (node) {
-      const bg = getComputedStyle(node).backgroundColor;
-      if (parseRgb(bg)[3] !== 0) {
-        effectiveBg = bg;
-        break;
+    const el = ref.current;
+    if (!el) return undefined;
+
+    const read = (): Spec => {
+      const style = getComputedStyle(el);
+      // An outlined button is transparent; the contrast is measured against the
+      // real surface it sits on, found by walking up to the first opaque
+      // background (getComputedStyle returns rgb, which toHex parses).
+      let node: HTMLElement | null = el;
+      let effectiveBg = "";
+      while (node) {
+        const bg = getComputedStyle(node).backgroundColor;
+        if (parseRgb(bg)[3] !== 0) {
+          effectiveBg = bg;
+          break;
+        }
+        node = node.parentElement;
       }
-      node = node.parentElement;
-    }
-    const hasBorder = style.borderTopStyle !== "none" && style.borderTopWidth !== "0px";
-    setSpec({
-      txt: toHex(style.color),
-      bg: toHex(effectiveBg),
-      bd: hasBorder ? toHex(style.borderTopColor) : "None",
-      ratio: contrastRatio(style.color, effectiveBg),
-    });
+      const hasBorder = style.borderTopStyle !== "none" && style.borderTopWidth !== "0px";
+      return {
+        txt: toHex(style.color),
+        bg: toHex(effectiveBg),
+        bd: hasBorder ? toHex(style.borderTopColor) : "None",
+        ratio: contrastRatio(style.color, effectiveBg),
+      };
+    };
+
+    // A single read suffices because the button carries `noTransition` (sx
+    // below): no animation means getComputedStyle already holds the final colour.
+    setSpec(read());
   }, [theme]);
 
   return (
@@ -70,7 +83,7 @@ const SpecColumn: React.FC<{ variant: Variant; label: string; themeName: string 
         <Text sx={monoLine}>BD {spec?.bd ?? "—"}</Text>
       </FlexBox>
       <FlexBox direction="row">
-        <Button ref={ref} variant={variant}>
+        <Button ref={ref} variant={variant} sx={noTransition}>
           Label
         </Button>
       </FlexBox>
@@ -110,9 +123,14 @@ const StateCell: React.FC<{ variant: Variant; state: State }> = ({ variant, stat
 );
 
 const meta: Meta<typeof Button> = {
-  title: "Buttons/Button Tables",
+  title: "Buttons/Button/Tables",
   component: Button,
-  parameters: { layout: "padded" },
+  parameters: {
+    layout: "padded",
+    ...figmaDesign(
+      "https://www.figma.com/design/DTHPiGn1VDLvUpiuxSqC0h/MUI-for-Figma-Material-UI-v5.16.0?node-id=6522-21508&m=dev",
+    ),
+  },
 };
 export default meta;
 type Story = StoryObj<typeof meta>;
