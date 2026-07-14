@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "dsVersion": ">=3.0.0",
+  "organization": "Telicent",
+  "abstract": "Points the agent at the versioned @telicent-oss/ds component manifest (llms.txt) for the installed major and keeps generated UI inside the documented component/prop/variant API. Version-adaptive with a latest-manifest fallback.",
+  "references": [
+    "https://telicent-oss.github.io/telicent-ds/llms.txt",
+    "https://telicent-oss.github.io/telicent-ds/v3/llms.txt"
+  ]
+}

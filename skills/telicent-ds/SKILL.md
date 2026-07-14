@@ -1,7 +1,11 @@
 ---
 name: telicent-ds
 description: Fetches the live @telicent-oss/ds component manifest for the version this project runs and follows it as the source of truth for Telicent UI. Use when building, adding, or changing any Telicent app screen, page, form, dialog, or component; when the user names @telicent-oss/ds or the Telicent design system; or when editing a file that imports from @telicent-oss/ds. Pulls component names, props, and variants from the manifest instead of training memory.
+license: Apache-2.0
 allowed-tools: WebFetch(domain:telicent-oss.github.io)
+metadata:
+  author: telicent-oss
+  version: '1.0.0'
 ---
 
 # Telicent Design System (@telicent-oss/ds)
