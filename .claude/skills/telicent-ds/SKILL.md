@@ -1,6 +1,6 @@
 ---
 name: telicent-ds
-description: Fetches the live @telicent-oss/ds component manifest for the version this project runs and follows it as the source of truth for Telicent UI. Use when building, adding, or changing any Telicent app screen, page, form, dialog, or component; when the user names @telicent-oss/ds or the Telicent design system; or when editing a file that imports from @telicent-oss/ds. Pulls component names, props, and variants from the manifest instead of training memory, and avoids raw HTML/MUI/Tailwind where a DS component exists.
+description: Fetches the live @telicent-oss/ds component manifest for the version this project runs and follows it as the source of truth for Telicent UI. Use when building, adding, or changing any Telicent app screen, page, form, dialog, or component; when the user names @telicent-oss/ds or the Telicent design system; or when editing a file that imports from @telicent-oss/ds. Pulls component names, props, and variants from the manifest instead of training memory.
 allowed-tools: WebFetch(domain:telicent-oss.github.io)
 ---
 
