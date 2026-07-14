@@ -4,6 +4,7 @@ import Button, { ButtonProps } from "./Button";
 import { Text, H5 } from "../../data-display";
 import { FlexBox } from "../../layout";
 import useExtendedTheme from "../../../hooks/useExtendedTheme";
+import { parseRgb, toHex, contrastRatio } from "../../../utils/color-contrast/color-contrast";
 
 // Reference tables mirroring the GeoGreen design spec: a per-variant colour +
 // contrast table, and a state x variant matrix. Both read from the live theme,
@@ -16,33 +17,6 @@ const VARIANTS: { variant: Variant; label: string }[] = [
   { variant: "secondary", label: "Secondary" },
   { variant: "tertiary", label: "Tertiary" },
 ];
-
-const parseRgb = (value: string): [number, number, number, number] => {
-  const [r = 0, g = 0, b = 0, a = 1] = value.match(/[\d.]+/g)?.map(Number) ?? [];
-  return [r, g, b, a];
-};
-
-const toHex = (value: string): string => {
-  const [r, g, b, a] = parseRgb(value);
-  if (a === 0) return "transparent";
-  const hex = (n: number) => Math.round(n).toString(16).padStart(2, "0").toUpperCase();
-  return `#${hex(r)}${hex(g)}${hex(b)}`;
-};
-
-const relativeLuminance = (color: string) => {
-  const [r, g, b] = parseRgb(color);
-  const [rl, gl, bl] = [r, g, b].map((v) => {
-    const s = v / 255;
-    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
-  });
-  return 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
-};
-
-const contrastRatio = (foreground: string, background: string) => {
-  const l1 = relativeLuminance(foreground);
-  const l2 = relativeLuminance(background);
-  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
-};
 
 type Spec = { txt: string; bg: string; bd: string; ratio: number };
 
