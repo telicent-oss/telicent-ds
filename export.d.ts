@@ -761,6 +761,8 @@ export declare interface IESTypeProps extends default_2.HTMLAttributes<HTMLEleme
     iconClass: string;
 }
 
+export declare const InfoIcon: default_2.FC<SvgIconProps>;
+
 declare type InputText = TextFieldProps & {
     value: string;
     onSave: (value: string) => void;

@@ -1,0 +1,63 @@
+import{j as y}from"./iframe-4Z2LxEjH.js";import{C as f}from"./DropdownButton-m4oAkgLO.js";import{B as x}from"./Box-CtDO-7ut.js";import"./preload-helper-C1FmrZbK.js";import"./UserIcon-Dn7bcAci.js";import"./createSvgIcon-CNnlh6Ap.js";import"./generateUtilityClass-BPbgVUOY.js";import"./styled-D9Oi1aUK.js";import"./generateUtilityClasses-CQ1C1DNv.js";import"./useTheme-qiXM2BR_.js";import"./Box-CWnL0-kx.js";import"./Container-BF2V3YgM.js";import"./styled-PljUaw1G.js";import"./createStyled-CgJyWD5K.js";import"./useThemeProps-Bm6W4Oay.js";import"./Stack-BPHOMmkF.js";import"./Typography-D7AEpGZI.js";import"./Paper-BKXMHiEm.js";import"./useThemeProps-D7Mz9mye.js";import"./Text-CmblpdDq.js";import"./AdapterDayjs-DKLAX8dA.js";import"./Modal-DtYiCPOd.js";import"./utils-DxmHp4p9.js";import"./TransitionGroupContext-BmRflWZM.js";import"./index-DN9JsOxD.js";import"./resolveComponentProps-DTqENjZa.js";import"./TextField-B-7n_i8J.js";import"./useFormControl-CIKuegYi.js";import"./IconButton-OboHhmdt.js";import"./ButtonBase-DC7GiLki.js";import"./DialogContent-CLTsR7Gc.js";import"./Button-D1loNkwl.js";import"./Chip-BnoHHAuC.js";import"./DateTimePicker-Dx8k1Xf_.js";import"./Divider-BgwjSeCu.js";import"./Chip-MK6JrQ5D.js";import"./Divider-DdjI0t4o.js";import"./TreeView-CpcN6HG5.js";import"./Close-TIUP1fcW.js";import"./LinearProgress-Co82gXpN.js";import"./Spinner-D0mTe2p1.js";import"./Dialog-CkoHwcao.js";import"./MapToggleButtonPresentational-C1a0Grpw.js";import"./Remove-xKXD2RcH.js";import"./TextField-CEsLErf5.js";import"./Switch-D1PyAAj4.js";import"./DatePicker-CrHvTLpZ.js";import"./LinkButton-DnFoZC7q.js";import"./Paper-NROpS9Qg.js";import"./ErrorFallback-BI44wUWi.js";import"./ErrorFallbackText-4v6ASHsj.js";import"./ErrorFallbackWrapper-Bdvw_u7e.js";import"./Brand-rjeL-2ua.js";import"./constants-DNsUScy4.js";import"./Edit-3N5tUp50.js";const So={title:"Buttons/CopyToClipboard",component:f,tags:["autodocs"],parameters:{docs:{description:{component:`
+A versatile 'Copy to Clipboard' button component built on top of Mui's \`Button\` and FontAwesome icons. It allows users to copy text to their clipboard and provides immediate visual feedback by changing the icon from a 'copy' icon to a 'check' icon.
+
+By default, the icon inherits the app's primary color. However, this color can easily be customized by passing a different color through the \`sx\` prop.
+
+## The component supports the following use cases:
+- **Controlled mode:** Use the \`text\` props to define the content that will be copied to the clipboard.
+- **Icon Feedback:** The button dynamically changes the icon from a copy icon to a checkmark once the content is successfully copied to the clipboard.
+- **Failure State:** This include a failure state that can be done by passing \`testFailure\` as a prop. 
+- **Custom Success Message:** use \`successMsg\` prop to define a custom messsage that will be displayed on the tooltip on success.
+
+---
+
+### When & How to use it
+- **Copying Links or Text:** Use this button in scenarios where users need to copy text or links to their clipboard (e.g., sharing URLs, copying ids).
+
+Example usage:
+
+\`\`\`jsx
+<CopyToClipboard 
+  text="http://example.com"
+  ariaLabel="Copy URL button"
+/>
+\`\`\`
+`}},id:"copy-to-clipboard-default",ariaLabel:"copy uri"},decorators:g=>y(x,{sx:{margin:"auto"},children:g()})},o={args:{text:"this is a default example string",ariaLabel:"Copy to clipboard button"}},t={args:{text:"Hooray!",successMsg:"Hooray!!"},parameters:{docs:{description:{story:"You can customise the tooltip to display a different message when the copy to clipboard is successful just pass a string to `successMsg`"}}}},e={args:{text:"Text for clipboard via WithCustomStyle",ariaLabel:"Copy to clipboard button with white color",sx:{color:"fuchsia",backgroundColor:"darkslategrey"}}},r={args:{testFailure:!0,text:"This will fail"},parameters:{docs:{description:{story:"You can see below how the tooltip would render in case of an error."}}}};var s,a,i;o.parameters={...o.parameters,docs:{...(s=o.parameters)==null?void 0:s.docs,source:{originalSource:`{
+  args: {
+    text: "this is a default example string",
+    ariaLabel: "Copy to clipboard button"
+  }
+}`,...(i=(a=o.parameters)==null?void 0:a.docs)==null?void 0:i.source}}};var p,c,n;t.parameters={...t.parameters,docs:{...(p=t.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    text: "Hooray!",
+    successMsg: "Hooray!!"
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "You can customise the tooltip to display a different message when the copy to clipboard is successful just pass a string to \`successMsg\`"
+      }
+    }
+  }
+}`,...(n=(c=t.parameters)==null?void 0:c.docs)==null?void 0:n.source}}};var m,l,u;e.parameters={...e.parameters,docs:{...(m=e.parameters)==null?void 0:m.docs,source:{originalSource:`{
+  args: {
+    text: "Text for clipboard via WithCustomStyle",
+    ariaLabel: "Copy to clipboard button with white color",
+    sx: {
+      color: "fuchsia",
+      backgroundColor: "darkslategrey"
+    }
+  }
+}`,...(u=(l=e.parameters)==null?void 0:l.docs)==null?void 0:u.source}}};var d,h,b;r.parameters={...r.parameters,docs:{...(d=r.parameters)==null?void 0:d.docs,source:{originalSource:`{
+  args: {
+    testFailure: true,
+    text: "This will fail"
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "You can see below how the tooltip would render in case of an error."
+      }
+    }
+  }
+}`,...(b=(h=r.parameters)==null?void 0:h.docs)==null?void 0:b.source}}};const ko=["Default","CustomSuccessMessage","CustomStyle","Error"];export{e as CustomStyle,t as CustomSuccessMessage,o as Default,r as Error,ko as __namedExportsOrder,So as default};
