@@ -6,6 +6,7 @@ export { default as DataSetIcon } from "./DataSetIcon";
 export { default as DragHandleIcon } from "./DragHandleIcon";
 export { default as FloppyDiskIcon } from "./FloppyDiskIcon";
 export { default as GridIcon } from "./GridIcon";
+export { default as InfoIcon } from "./InfoIcon";
 export { default as MapIcon } from "./MapIcon";
 export { default as MinusCircleIcon } from "./MinusCircleIcon";
 export { default as PlayIcon } from "./PlayIcon";

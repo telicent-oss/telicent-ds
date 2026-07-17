@@ -181,6 +181,7 @@ describe("Modal Component", () => {
           width: 1em;
           height: 1em;
           display: inline-block;
+          fill: currentColor;
           -webkit-flex-shrink: 0;
           -ms-flex-negative: 0;
           flex-shrink: 0;
@@ -237,10 +238,8 @@ describe("Modal Component", () => {
                   <svg
                     aria-hidden="true"
                     class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-5"
-                    fill="none"
                     focusable="false"
                     viewBox="0 0 12 13"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M11.9997 1.84102L10.8247 0.666016L6.16634 5.32435L1.50801 0.666016L0.333008 1.84102L4.99134 6.49935L0.333008 11.1577L1.50801 12.3327L6.16634 7.67435L10.8247 12.3327L11.9997 11.1577L7.34134 6.49935L11.9997 1.84102Z"
