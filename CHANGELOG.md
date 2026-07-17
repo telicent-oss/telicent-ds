@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/telicent-oss/telicent-ds/compare/v3.2.0...v3.3.0) (2026-07-17)
+
+
+### Features
+
+* icon size color stories ([#515](https://github.com/telicent-oss/telicent-ds/issues/515)) ([b0fcfbe](https://github.com/telicent-oss/telicent-ds/commit/b0fcfbe9984d06aa042c6d59deb115b1f4a8c29a))
+
 ## [3.2.0](https://github.com/telicent-oss/telicent-ds/compare/v3.1.0...v3.2.0) (2026-07-10)
 
 
