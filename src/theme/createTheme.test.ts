@@ -407,10 +407,10 @@ test("tmp theme diffs via unified patches", () => {
     -      "dark": "rgba(47, 68, 202, 0.7)",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
-    +      "main": "#3E5B0B",
-    +      "dark": "rgba(62, 91, 11, 0.7)",
-    +      "light": "rgba(62, 91, 11, 0.5)",
-    +      "contrastText": "#fff"
+    +      "main": "#9DDD31",
+    +      "dark": "rgba(157, 221, 49, 0.7)",
+    +      "light": "rgba(157, 221, 49, 0.5)",
+    +      "contrastText": "#000"
          },
          "tertiary": {
     -      "main": "#6B6B6B",
@@ -448,7 +448,7 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F9F9F9"
+    +      "default": "#080808"
          }
        },
        "typography": {
