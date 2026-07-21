@@ -360,7 +360,105 @@ test("tmp theme diffs via unified patches", () => {
     Index: 7
     ===================================================================
     --- 7	DataNavy (light)
-    +++ 7	Blank (light)
+    +++ 7	GeoGreen (light)
+    @@ -90,12 +90,12 @@
+       },
+       "palette": {
+         "mode": "dark",
+         "primary": {
+    -      "main": "#2F44CA",
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
+    +      "main": "#9DDD31",
+    +      "dark": "rgba(157, 221, 49, 0.7)",
+    +      "light": "rgba(157, 221, 49, 0.5)",
+    +      "contrastText": "#000"
+         },
+         "tertiary": {
+           "main": "#6B6B6B",
+           "dark": "rgba(107, 107, 107, 0.7)",
+    @@ -107,9 +107,9 @@
+           "secondary": "rgba(255, 255, 255, 0.7)",
+           "disabled": "#999999"
+         },
+         "background": {
+    -      "default": "#1D1D1D",
+    +      "default": "#080808",
+           "paper": "#252525"
+         },
+         "grey": {
+           "50": "#fafafa",
+
+
+    Index: 8
+    ===================================================================
+    --- 8	DataNavy (light)
+    +++ 8	GeoGreen (dark)
+    @@ -88,45 +88,28 @@
+         },
+         "MuiCssBaseline": {}
+       },
+       "palette": {
+    -    "mode": "dark",
+    +    "mode": "light",
+         "primary": {
+    -      "main": "#2F44CA",
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    -      "contrastText": "#FFFFFF"
+    +      "main": "#9DDD31",
+    +      "dark": "rgba(157, 221, 49, 0.7)",
+    +      "light": "rgba(157, 221, 49, 0.5)",
+    +      "contrastText": "#000"
+         },
+         "tertiary": {
+    -      "main": "#6B6B6B",
+    -      "dark": "rgba(107, 107, 107, 0.7)",
+    -      "light": "rgba(107, 107, 107, 0.5)",
+    -      "contrastText": "#FFFFFF"
+    +      "main": "#8094A3",
+    +      "dark": "rgba(128, 148, 163, 0.7)",
+    +      "light": "rgba(128, 148, 163, 0.5)",
+    +      "contrastText": "#252525"
+         },
+         "text": {
+    -      "primary": "#ececec",
+    -      "secondary": "rgba(255, 255, 255, 0.7)",
+    +      "primary": "#000000",
+    +      "secondary": "#000000",
+           "disabled": "#999999"
+         },
+         "background": {
+    -      "default": "#1D1D1D",
+    -      "paper": "#252525"
+    -    },
+    -    "grey": {
+    -      "50": "#fafafa",
+    -      "100": "#f5f5f5",
+    -      "200": "#eeeeee",
+    -      "300": "#e0e0e0",
+    -      "400": "#bdbdbd",
+    -      "500": "#9e9e9e",
+    -      "600": "#757575",
+    -      "700": "#616161",
+    -      "800": "#424242",
+    -      "900": "#212121",
+    -      "A100": "#f5f5f5",
+    -      "A200": "#eeeeee",
+    -      "A400": "#bdbdbd",
+    -      "A700": "#616161"
+    +      "default": "#080808"
+         }
+       },
+       "typography": {
+         "fontFamily": "Figtree, Helvetica, Arial, sans-serif",
+
+
+    Index: 9
+    ===================================================================
+    --- 9	DataNavy (light)
+    +++ 9	Blank (light)
     @@ -90,12 +90,12 @@
        },
        "palette": {
@@ -380,10 +478,10 @@ test("tmp theme diffs via unified patches", () => {
            "dark": "rgba(107, 107, 107, 0.7)",
 
 
-    Index: 8
+    Index: 10
     ===================================================================
-    --- 8	DataNavy (light)
-    +++ 8	Blank (dark)
+    --- 10	DataNavy (light)
+    +++ 10	Blank (dark)
     @@ -88,45 +88,28 @@
          },
          "MuiCssBaseline": {}

@@ -1,7 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import ThemeViewer from "./ThemeViewer";
-import UIThemeProvider from "./UIThemeProvider";
 import { useExtendedTheme } from "../export";
 
 const meta: Meta<typeof ThemeViewer> = {
@@ -10,11 +9,9 @@ const meta: Meta<typeof ThemeViewer> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <UIThemeProvider dark theme="GraphOrange">
-        <div style={{ padding: 16, backgroundColor: "#222" }}>
-          <Story />
-        </div>
-      </UIThemeProvider>
+      <div style={{ padding: 16 }}>
+        <Story />
+      </div>
     ),
   ],
 };

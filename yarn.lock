@@ -12558,6 +12558,11 @@ stop-iteration-iterator@^1.0.0, stop-iteration-iterator@^1.1.0:
     es-errors "^1.3.0"
     internal-slot "^1.1.0"
 
+storybook-addon-pseudo-states@10.4.6:
+  version "10.4.6"
+  resolved "https://registry.yarnpkg.com/storybook-addon-pseudo-states/-/storybook-addon-pseudo-states-10.4.6.tgz#141ebaca9ec9e4e15aebdc597528991e9254a231"
+  integrity sha512-yP6GgUTj2uju34ZLKzrFJz9uS+9Nn6uH3Wprei5x/KS6CSbLOuXf3pBhAfi+ur2y4Qm3l/thGyHYVcoACCbgIg==
+
 storybook-dark-mode@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/storybook-dark-mode/-/storybook-dark-mode-5.0.0.tgz#2a47959ba11a3699887649e14e7ba4231836ff46"
