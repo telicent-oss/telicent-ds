@@ -2044,7 +2044,7 @@ declare type UIThemeProviderProps = default_2.PropsWithChildren & {
     dark?: boolean;
 };
 
-export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"]>;
+export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
 
 export declare const uriComponentCodec: Codec;
 

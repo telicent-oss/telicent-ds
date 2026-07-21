@@ -1,0 +1,35 @@
+import{j as i}from"./iframe-CzCkUhLB.js";import{M as a}from"./UserIcon-D2XJ4u-D.js";import{N as p,K as s,j as m}from"./DropdownButton-pqytKPlf.js";import"./Text-CrtF-KKD.js";import"./Chip-CiH2_6GH.js";import"./Divider-CY_WcVt5.js";import"./TreeView-DImXIC-1.js";import{B as l}from"./Box-BGVnL9Ww.js";import"./preload-helper-C1FmrZbK.js";import"./createSvgIcon-C5AbB3qG.js";import"./generateUtilityClass-BJmbtkIz.js";import"./styled-BAICCbW2.js";import"./generateUtilityClasses-DcHQ8wPZ.js";import"./useTheme-D8VtF-T3.js";import"./Box-ChoQNki_.js";import"./Container-CevBIhIW.js";import"./styled-BxT8txyJ.js";import"./createStyled-CnaTqEJw.js";import"./useThemeProps-BolcGYv-.js";import"./Stack-BQ9Nq0wB.js";import"./Typography-C4jf0x9_.js";import"./Paper-BitHaSdO.js";import"./useThemeProps-DU8Uvr2K.js";import"./AdapterDayjs-BpTj0bJ_.js";import"./Modal-DIeDBBDO.js";import"./utils-DKTt1Dtk.js";import"./TransitionGroupContext-DMmZE5A7.js";import"./index-DsxJ_3S5.js";import"./resolveComponentProps-Cbl6fkow.js";import"./TextField-D7nA1rxz.js";import"./useFormControl-DtEaYh3d.js";import"./IconButton-DxOsamAP.js";import"./ButtonBase-C1jEsrEk.js";import"./DialogContent-ChmWl_kd.js";import"./Button-nVc9Q04c.js";import"./Chip-Bpfp1uo7.js";import"./DateTimePicker-CvUf-KCh.js";import"./Divider-Dhatnav_.js";import"./Close-ufy7FO6S.js";import"./LinearProgress-Bi56K1d1.js";import"./Spinner-DnNrdg_H.js";import"./Dialog-D71AnQMa.js";import"./MapToggleButtonPresentational-CKn0zbRc.js";import"./Remove-D-VYR3BE.js";import"./TextField-DWYxHpkX.js";import"./Switch-DeHO8LDM.js";import"./DatePicker-D79epJYE.js";import"./LinkButton-BEZRiMwC.js";import"./Paper-WtLvzPxM.js";import"./ErrorFallback-Biy0HDIH.js";import"./ErrorFallbackText-BbEDFHSR.js";import"./ErrorFallbackWrapper-BH2ujPyJ.js";import"./Brand-rCLVFpN1.js";import"./constants-SYLv77sP.js";import"./Edit-CNP1jkFH.js";const c={DraggablePanel:p},gi={title:"Surfaces/FloatingPanel/FloatingPanel.DraggablePanel",component:c.DraggablePanel,tags:["autodocs"],decorators:n=>i(s.Provider,{value:{panels:{map:{visible:!0,minimised:!1}},toggleVisibility:()=>{},get:()=>!1},children:i(l,{sx:{position:"relative",width:"100%",height:"100vh",overflow:"hidden",bgcolor:"background.default",border:"1px dashed",borderColor:"divider"},children:i(n,{})})})},r={args:{bounds:"parent",title:"Resize baseline",targetId:"map",iconBeforeTitle:i(a,{color:"primary",fontSize:"inherit"}),menu:i(m,{apps:[{icon:"./src/assets/icons/graph.svg",id:"telicent-graph",name:"graph",url:"https://graph.io"},{icon:"./src/assets/icons/search.svg",id:"telicent-search",name:"search",url:"https://search.io"}]}),children:i("div",{style:{height:"100%",display:"flex",flexDirection:"column",minHeight:0},children:i("div",{style:{flex:1,minHeight:0,overflow:"auto",padding:8,backgroundColor:"#C9C9C9"},children:"Resizable content (flex:1). Click on bottom right corner to resize."})})}};var t,o,e;r.parameters={...r.parameters,docs:{...(t=r.parameters)==null?void 0:t.docs,source:{originalSource:`{
+  args: {
+    bounds: "parent",
+    title: "Resize baseline",
+    targetId: "map",
+    iconBeforeTitle: <MapIcon color="primary" fontSize="inherit" />,
+    menu: <AppSwitch apps={[{
+      icon: "./src/assets/icons/graph.svg",
+      id: "telicent-graph",
+      name: "graph",
+      url: "https://graph.io"
+    }, {
+      icon: "./src/assets/icons/search.svg",
+      id: "telicent-search",
+      name: "search",
+      url: "https://search.io"
+    }]} />,
+    children: <div style={{
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      minHeight: 0
+    }}>
+        <div style={{
+        flex: 1,
+        minHeight: 0,
+        overflow: "auto",
+        padding: 8,
+        backgroundColor: "#C9C9C9"
+      }}>
+          Resizable content (flex:1). Click on bottom right corner to resize.
+        </div>
+      </div>
+  }
+}`,...(e=(o=r.parameters)==null?void 0:o.docs)==null?void 0:e.source}}};const hi=["ResizeBaseline"];export{r as ResizeBaseline,hi as __namedExportsOrder,gi as default};
