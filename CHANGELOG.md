@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.4.0](https://github.com/telicent-oss/telicent-ds/compare/v3.3.0...v3.4.0) (2026-07-23)
+
+
+### Features
+
+* **theme:** add GeoGreen theme ([#513](https://github.com/telicent-oss/telicent-ds/issues/513)) ([95a866a](https://github.com/telicent-oss/telicent-ds/commit/95a866a2957a0ad8edffa05daa64e0fda3d68a14))
+
+
+### Bug Fixes
+
+* **auth:** uppercase HTTP method to fix broken PATCH + add CogIcon ([#519](https://github.com/telicent-oss/telicent-ds/issues/519)) ([a03fe11](https://github.com/telicent-oss/telicent-ds/commit/a03fe113352dbcaa2b000827fc3d875c79d3d3e2))
+
 ## [3.3.0](https://github.com/telicent-oss/telicent-ds/compare/v3.2.0...v3.3.0) (2026-07-17)
 
 
