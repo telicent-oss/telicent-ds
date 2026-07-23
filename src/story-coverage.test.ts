@@ -73,6 +73,7 @@ it("looks for components that appear to be missing a story - snapshots these com
       "./src/components/data-display/FontAwesomeIcons/SearchIcon.tsx",
       "./src/components/data-display/Icons/BinIcon.tsx",
       "./src/components/data-display/Icons/CloseIcon.tsx",
+      "./src/components/data-display/Icons/CogIcon.tsx",
       "./src/components/data-display/Icons/DataServiceIcon.tsx",
       "./src/components/data-display/Icons/DataSetIcon.tsx",
       "./src/components/data-display/Icons/DragHandleIcon.tsx",

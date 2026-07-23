@@ -65,7 +65,7 @@ export function withSessionHandling(
               string,
               string
             >,
-            method: config.method,
+            method: config.method?.toUpperCase(),
             skipAutoLogout: true,
           });
 
