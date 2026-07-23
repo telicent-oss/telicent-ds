@@ -396,6 +396,8 @@ export declare type Codec = {
     decode: (str: string) => string;
 };
 
+export declare const CogIcon: default_2.FC<SvgIconProps>;
+
 export declare const Container: default_2.FC<ContainerProps>;
 
 declare interface ContainerProps extends default_2.HTMLAttributes<HTMLDivElement>, PropsWithChildren {
