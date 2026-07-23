@@ -1,5 +1,6 @@
 export { default as BinIcon } from "./BinIcon";
 export { default as CloseIcon } from "./CloseIcon";
+export { default as CogIcon } from "./CogIcon";
 export { default as XIcon } from "./XIcon";
 export { default as DataServiceIcon } from "./DataServiceIcon";
 export { default as DataSetIcon } from "./DataSetIcon";
