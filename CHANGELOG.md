@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.1](https://github.com/telicent-oss/telicent-ds/compare/v3.4.0...v3.4.1) (2026-07-24)
+
+
+### Bug Fixes
+
+* **select:** support per-option disabled flag ([#520](https://github.com/telicent-oss/telicent-ds/issues/520)) ([7146ded](https://github.com/telicent-oss/telicent-ds/commit/7146ded2036f0b80b0e1402c6b29bdc68b569344))
+
 ## [3.4.0](https://github.com/telicent-oss/telicent-ds/compare/v3.3.0...v3.4.0) (2026-07-23)
 
 
