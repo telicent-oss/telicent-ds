@@ -1175,6 +1175,7 @@ declare type Optionalized = Partial<Optional>;
 export declare interface Options {
     value: string | number;
     label: string;
+    disabled?: boolean;
 }
 
 export declare interface OverlayConfig {
