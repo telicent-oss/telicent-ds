@@ -158,3 +158,78 @@ describe("Select footer slot", () => {
     expect(combobox).not.toHaveTextContent("Create new owner");
   });
 });
+
+describe("Select per-option disabled", () => {
+  afterEach(cleanup);
+
+  const DISABLED_OPTIONS: Options[] = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2", disabled: true },
+    { value: "option3", label: "Option 3" },
+  ];
+
+  it("applies .Mui-disabled and aria-disabled=true to an option with disabled: true", async () => {
+    const { user } = setup(
+      <Select label="Owner" value="" onChange={() => {}} options={DISABLED_OPTIONS} />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    const disabledOption = await screen.findByRole("option", { name: "Option 2" });
+    expect(disabledOption).toHaveClass("Mui-disabled");
+    expect(disabledOption).toHaveAttribute("aria-disabled", "true");
+
+    // Sibling options remain enabled.
+    const enabledOption = screen.getByRole("option", { name: "Option 1" });
+    expect(enabledOption).not.toHaveClass("Mui-disabled");
+    expect(enabledOption).not.toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("clicking a disabled option does not fire onChange", async () => {
+    const onChange = jest.fn();
+    const { user } = setup(
+      <Select label="Owner" value="" onChange={onChange} options={DISABLED_OPTIONS} />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    const disabledOption = await screen.findByRole("option", { name: "Option 2" });
+
+    // MUI gates the click at the CSS layer via pointer-events: none on
+    // .Mui-disabled. user-event honours that and refuses the interaction,
+    // which matches real browser behaviour.
+    await expect(user.click(disabledOption)).rejects.toThrow(/pointer-events/);
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it("keyboard arrow navigation skips a disabled option", async () => {
+    const onChange = jest.fn();
+    const { user } = setup(
+      <Select label="Owner" value="" onChange={onChange} options={DISABLED_OPTIONS} />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await screen.findByRole("listbox");
+
+    // On open, MUI highlights the first enabled option (Option 1). A single
+    // ArrowDown must skip disabled Option 2 and land on Option 3; Enter then
+    // commits that selection.
+    await user.keyboard("{ArrowDown}{Enter}");
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0].target.value).toBe("option3");
+  });
+
+  it("omitting disabled leaves the option enabled (backwards compatible)", async () => {
+    const onChange = jest.fn();
+    const { user } = setup(
+      <Select label="Owner" value="" onChange={onChange} options={OPTIONS} />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.click(await screen.findByRole("option", { name: "Option 2" }));
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0].target.value).toBe("option2");
+  });
+});
