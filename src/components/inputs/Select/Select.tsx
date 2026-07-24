@@ -13,6 +13,7 @@ import React, { useId } from "react";
 export interface Options {
   value: string | number;
   label: string;
+  disabled?: boolean;
 }
 
 /**
@@ -138,6 +139,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
               value={option.value}
               aria-label={renderOption ? option.label : undefined}
               disableRipple
+              disabled={option.disabled}
             >
               {renderOption ? renderOption(option) : option.label}
             </MenuItem>

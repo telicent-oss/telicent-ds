@@ -159,13 +159,6 @@ const OWNER_OPTIONS: Options[] = [
  * - **Plain node** — `footer={<MyAction />}` when you don't need to close the
  *   menu yourself (the menu stays open until the user clicks away).
  */
-const RESOURCE_TYPE_OPTIONS: Options[] = [
-  { value: "dataset", label: "Dataset" },
-  { value: "model", label: "Model" },
-  { value: "pipeline", label: "Pipeline" },
-  { value: "notebook", label: "Notebook" },
-];
-
 const RESOURCE_TYPE_META: Record<
   string,
   { description: string; available: boolean }
@@ -176,11 +169,26 @@ const RESOURCE_TYPE_META: Record<
   notebook: { description: "An interactive analysis document.", available: false },
 };
 
+// Unavailable resource types get both the "SOON" pill (visual) and
+// `disabled: true` (interaction), so the visual state and the ability
+// to select stay in lockstep.
+const RESOURCE_TYPE_OPTIONS: Options[] = [
+  { value: "dataset", label: "Dataset" },
+  { value: "model", label: "Model" },
+  { value: "pipeline", label: "Pipeline" },
+  { value: "notebook", label: "Notebook" },
+].map((option) => ({
+  ...option,
+  disabled: !RESOURCE_TYPE_META[option.value].available,
+}));
+
 /**
  * The `renderOption` prop lets you render rich content inside each menu
- * item — e.g. a title + description block, with an inline chip on
- * unavailable options. `option.label` stays the source of truth for
- * filtering, ARIA, and the closed-trigger value; only the visual
+ * item — e.g. a title + description block, with an inline "SOON" chip on
+ * unavailable options. Those same options are marked `disabled: true` so
+ * MUI dims them, blocks selection, sets `aria-disabled`, and skips them
+ * during keyboard navigation. `option.label` stays the source of truth
+ * for filtering, ARIA, and the closed-trigger value; only the visual
  * option-item is customised.
  *
  * Pair with MUI's `renderValue` if you also want to customise the
