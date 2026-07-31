@@ -12,18 +12,11 @@ interface ExtraTheme extends Theme {
   components: ComponentOverrides;
 }
 
-export interface ExtendedTheme extends ExtraTheme {
-  components: ComponentOverrides;
-  palette: ExtendedPalette;
-}
-
-interface ExtraPalette extends Palette {
-  // Add palette fields here.
-}
-
-interface ExtendedPalette extends ExtraPalette {
-  components: ComponentOverrides;
-}
+// `ExtendedTheme` and `ExtendedPalette` used to be declared here too. They moved
+// to the compiled module `./extended-theme` so the dts rollup can inline them
+// into `dist/export.d.ts`; see the comment at the top of that file. This file
+// stays a `.d.ts` and keeps only the augmentation below, which is what makes
+// `Theme["components"]` required across the package.
 
 /**
  * Adding extra theme properties
