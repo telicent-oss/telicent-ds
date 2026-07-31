@@ -5,9 +5,12 @@ import { AccordionDetailsProps } from '@mui/material';
 import { AccordionProps } from '@mui/material';
 import { AccordionSummaryClasses } from '@mui/material';
 import { AccordionSummaryProps } from '@mui/material';
+import { default as Alert } from '@mui/material/Alert';
 import { AlertClasses } from '@mui/material';
+import { AlertColor } from '@mui/material/Alert';
 import { AlertProps } from '@mui/material';
 import { AlertTitleProps } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { AppBarProps as AppBarProps_2 } from '@mui/material/AppBar';
 import { AuthServerOAuth2ClientConfig } from '@telicent-oss/fe-auth-lib';
 import { AutocompleteProps } from '@mui/material/Autocomplete';
@@ -190,8 +193,8 @@ import { OutlinedInputClasses } from '@mui/material';
 import { OutlinedInputProps } from '@mui/material';
 import { OutlinedSelectProps } from '@mui/material';
 import { OutlinedTextFieldProps } from '@mui/material';
-import { OverridableComponent } from '@mui/types';
-import { OverridableComponent as OverridableComponent_2 } from '@mui/material/OverridableComponent';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { OverridableComponent as OverridableComponent_2 } from '@mui/types';
 import { OverridesStyleRules } from '@mui/material/styles/overrides';
 import { PaginationClasses } from '@mui/material';
 import { PaginationItemClasses } from '@mui/material';
@@ -303,6 +306,12 @@ import { useMap } from 'react-map-gl/maplibre';
 import { UserInfo } from '@telicent-oss/fe-auth-lib';
 import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
+
+export { Alert }
+
+export { AlertColor }
+
+export { alpha }
 
 export declare const anchorMap: Record<MarkerType, MarkerAnchor>;
 
@@ -467,6 +476,14 @@ export declare type BasicMapV2Handle = {
 
 export declare const BinIcon: default_2.FC<SvgIconProps>;
 
+export declare const Box: OverridableComponent<BoxTypeMap<BoxAdditionalProps, "div", Theme>>;
+
+declare type BoxAdditionalProps = {
+    variant?: BoxVariant;
+};
+
+declare type BoxVariant = "outlined";
+
 export declare const Brand: default_2.FC<BrandProps>;
 
 declare interface BrandProps extends default_2.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -577,6 +594,8 @@ export declare type Codec = {
     encode: (str: string) => string;
     decode: (str: string) => string;
 };
+
+export declare const CogIcon: default_2.FC<SvgIconProps>;
 
 declare type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
 
@@ -2463,6 +2482,8 @@ export declare interface IESTypeProps extends default_2.HTMLAttributes<HTMLEleme
     iconClass: string;
 }
 
+export declare const InfoIcon: default_2.FC<SvgIconProps>;
+
 declare type InputText = TextFieldProps & {
     value: string;
     onSave: (value: string) => void;
@@ -2841,7 +2862,7 @@ export declare type ModalProps = Omit<ModalProps_2, "slots" | "slotProps" | "Bac
 export declare const mui: {
     IconButton: ExtendButtonBase<IconButtonTypeMap<    {}, "button">>;
     Button: ExtendButtonBase<ButtonTypeMap<    {}, "button">>;
-    Box: OverridableComponent<BoxTypeMap<    {}, "div", Theme_2>>;
+    Box: OverridableComponent_2<BoxTypeMap<    {}, "div", Theme_2>>;
 };
 
 declare type MUIAutocompleteProps<Option> = AutocompleteProps_2<Option, false, false, true>;
@@ -2873,6 +2894,7 @@ declare type Optionalized = Partial<Optional>;
 export declare interface Options {
     value: string | number;
     label: string;
+    disabled?: boolean;
 }
 
 export declare interface OverlayConfig {
@@ -3348,6 +3370,17 @@ export declare const Select: default_2.ForwardRefExoticComponent<(Omit<FilledSel
      * `onChange`.
      */
     footer?: default_2.ReactNode | ((args: SelectFooterArgs) => default_2.ReactNode);
+    /**
+     * Optional custom renderer for each menu item's contents. When provided,
+     * the return value is rendered inside the `<MenuItem>` in place of
+     * `option.label`.
+     *
+     * `option.label` remains the source of truth for the string used by
+     * filtering, ARIA, and the closed-trigger value — it is not replaced.
+     * Pair with `renderValue` if you also need to customise the closed
+     * trigger.
+     */
+    renderOption?: (option: Options) => default_2.ReactNode;
 }, "ref"> | Omit<StandardSelectProps & BaseSelectProps<unknown> & {
     options: Options[];
     width?: number | string;
@@ -3364,6 +3397,17 @@ export declare const Select: default_2.ForwardRefExoticComponent<(Omit<FilledSel
      * `onChange`.
      */
     footer?: default_2.ReactNode | ((args: SelectFooterArgs) => default_2.ReactNode);
+    /**
+     * Optional custom renderer for each menu item's contents. When provided,
+     * the return value is rendered inside the `<MenuItem>` in place of
+     * `option.label`.
+     *
+     * `option.label` remains the source of truth for the string used by
+     * filtering, ARIA, and the closed-trigger value — it is not replaced.
+     * Pair with `renderValue` if you also need to customise the closed
+     * trigger.
+     */
+    renderOption?: (option: Options) => default_2.ReactNode;
 }, "ref"> | Omit<OutlinedSelectProps & BaseSelectProps<unknown> & {
     options: Options[];
     width?: number | string;
@@ -3380,6 +3424,17 @@ export declare const Select: default_2.ForwardRefExoticComponent<(Omit<FilledSel
      * `onChange`.
      */
     footer?: default_2.ReactNode | ((args: SelectFooterArgs) => default_2.ReactNode);
+    /**
+     * Optional custom renderer for each menu item's contents. When provided,
+     * the return value is rendered inside the `<MenuItem>` in place of
+     * `option.label`.
+     *
+     * `option.label` remains the source of truth for the string used by
+     * filtering, ARIA, and the closed-trigger value — it is not replaced.
+     * Pair with `renderValue` if you also need to customise the closed
+     * trigger.
+     */
+    renderOption?: (option: Options) => default_2.ReactNode;
 }, "ref">) & default_2.RefAttributes<HTMLInputElement>>;
 
 /**
@@ -3406,6 +3461,17 @@ export declare type SelectProps = SelectProps_2 & {
      * `onChange`.
      */
     footer?: default_2.ReactNode | ((args: SelectFooterArgs) => default_2.ReactNode);
+    /**
+     * Optional custom renderer for each menu item's contents. When provided,
+     * the return value is rendered inside the `<MenuItem>` in place of
+     * `option.label`.
+     *
+     * `option.label` remains the source of truth for the string used by
+     * filtering, ARIA, and the closed-trigger value — it is not replaced.
+     * Pair with `renderValue` if you also need to customise the closed
+     * trigger.
+     */
+    renderOption?: (option: Options) => default_2.ReactNode;
 };
 
 declare interface SessionHandlingConfig {
@@ -3423,7 +3489,7 @@ declare type SingleProps = BaseProps_2 & {
     onChange: (value: Option_2 | null) => void;
 };
 
-export declare const Skeleton: OverridableComponent_2<SkeletonTypeMap<    {}, "span">>;
+export declare const Skeleton: OverridableComponent<SkeletonTypeMap<    {}, "span">>;
 
 export declare interface SourceWithEvents {
     on(type: string, listener: (e: unknown) => void): void;
@@ -3700,7 +3766,7 @@ declare type UIThemeProviderProps = default_2.PropsWithChildren & {
     dark?: boolean;
 };
 
-export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"]>;
+export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
 
 export declare const uriComponentCodec: Codec;
 
