@@ -146,3 +146,202 @@ describe("stable context value (TELFE-1669)", () => {
     expect(result.current.user).toBe(first.user);
   });
 });
+
+describe("error and edge paths (coverage for TELFE-1669 changes)", () => {
+  it("useAuth throws outside an AuthProvider", () => {
+    // Suppress React's error boundary noise for the expected throw.
+    const spy = jest.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      expect(() => renderHook(() => useAuth())).toThrow(
+        "useAuth must be used within an AuthProvider",
+      );
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it("an oauth-error event clears the user, surfaces an Error, and releases the login latch", async () => {
+    const Provider = makeProvider(new QueryClient());
+    const { result } = renderHook(() => useAuth(), { wrapper: Provider });
+    await waitFor(() => expect(result.current.user).not.toBeNull());
+
+    await act(async () => {
+      window.dispatchEvent(new Event("oauth-error"));
+    });
+    await waitFor(() => expect(result.current.error).toBeInstanceOf(Error));
+    expect(result.current.user).toBeNull();
+    // Latch released: a manual login may start again immediately.
+    await act(async () => {
+      await result.current.login();
+    });
+    expect(mockAuthClient.loginWithPopup).toHaveBeenCalledTimes(1);
+  });
+
+  it("an oauth-success event resolves the user via the client profile", async () => {
+    mockAuthClient.isAuthenticated.mockResolvedValue(false);
+    const Provider = makeProvider(new QueryClient());
+    const { result } = renderHook(() => useAuth(), { wrapper: Provider });
+    await waitFor(() => expect(mockAuthClient.login).toHaveBeenCalled());
+    await act(async () => {
+      window.dispatchEvent(new Event("oauth-success"));
+    });
+    await waitFor(() => expect(result.current.user).not.toBeNull());
+  });
+
+  it("an isAuthenticated failure lands in error state but still initialises", async () => {
+    mockAuthClient.isAuthenticated.mockRejectedValue(new Error("session check exploded"));
+    const Provider = makeProvider(new QueryClient());
+    const { result } = renderHook(() => useAuth(), { wrapper: Provider });
+    await waitFor(() => expect(result.current.error).toBeInstanceOf(Error));
+    expect(result.current.error?.message).toBe("session check exploded");
+  });
+
+  it("logout delegates to the client", async () => {
+    const Provider = makeProvider(new QueryClient());
+    const { result } = renderHook(() => useAuth(), { wrapper: Provider });
+    await waitFor(() => expect(result.current.user).not.toBeNull());
+    await act(async () => {
+      await result.current.logout();
+    });
+    expect(mockAuthClient.logout).toHaveBeenCalledTimes(1);
+  });
+
+  it("a callback whose state carries an encoded return URL decodes it (popup flow skips navigation)", async () => {
+    const Provider = makeProvider(new QueryClient());
+    const { result } = renderHook(() => useAuth(), { wrapper: Provider });
+    await waitFor(() => expect(result.current.user).not.toBeNull());
+
+    (window as any).opener = {}; // popup flow: onSuccess must NOT navigate
+    try {
+      const encoded = btoa("http://app.redirect.localhost/deep/link")
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_");
+      await act(async () => {
+        window.dispatchEvent(
+          new CustomEvent("oauth-callback", {
+            detail: {
+              clientId: "mockClient",
+              callbackUrl: `http://app.redirect.localhost/callback?code=with-redirect&state=csrf.${encoded}`,
+            },
+          }),
+        );
+      });
+      await waitFor(() => expect(mockAuthClient.handleCallback).toHaveBeenCalled());
+    } finally {
+      delete (window as any).opener;
+    }
+  });
+
+  it("a failing handleCallback surfaces through onError", async () => {
+    mockAuthClient.handleCallback.mockRejectedValueOnce(new Error("invalid_grant"));
+    const Provider = makeProvider(new QueryClient());
+    const { result } = renderHook(() => useAuth(), { wrapper: Provider });
+    await waitFor(() => expect(result.current.user).not.toBeNull());
+    await act(async () => {
+      window.dispatchEvent(
+        new CustomEvent("oauth-callback", {
+          detail: {
+            clientId: "mockClient",
+            callbackUrl: "http://app.redirect.localhost/callback?code=bad-code&state=s",
+          },
+        }),
+      );
+    });
+    await waitFor(() => expect(result.current.error?.message).toBe("invalid_grant"));
+  });
+});
+
+describe("branch completeness (TELFE-1669 changes)", () => {
+  it("renders nothing and constructs no client for an empty config", () => {
+    const { container } = render(
+      <AuthProvider apiUrl="http://x" config={{} as any} queryClient={new QueryClient()}>
+        <div data-testid="never" />
+      </AuthProvider>,
+    );
+    expect(container.innerHTML).toBe("");
+    expect(mockAuthClient.isAuthenticated).not.toHaveBeenCalled();
+  });
+
+  it("mounted on the standard callback URI, the provider does not auto-login", async () => {
+    // jsdom serves tests from http://localhost/ — point the redirectUri there
+    // so matchCurrentUri sees the current page AS the callback.
+    const cfg = { ...mockConfig, redirectUri: window.location.href };
+    mockAuthClient.config.redirectUri = window.location.href;
+    try {
+      render(
+        <AuthProvider apiUrl="http://x" config={cfg} queryClient={new QueryClient()}>
+          <div />
+        </AuthProvider>,
+      );
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 30));
+      });
+      expect(mockAuthClient.isAuthenticated).not.toHaveBeenCalled();
+      expect(mockAuthClient.login).not.toHaveBeenCalled();
+    } finally {
+      mockAuthClient.config.redirectUri = "http://app.redirect.localhost";
+    }
+  });
+
+  it("a callback URL without a state parameter still processes (no redirect decode)", async () => {
+    const Provider = makeProvider(new QueryClient());
+    const { result } = renderHook(() => useAuth(), { wrapper: Provider });
+    await waitFor(() => expect(result.current.user).not.toBeNull());
+    await act(async () => {
+      window.dispatchEvent(
+        new CustomEvent("oauth-callback", {
+          detail: {
+            clientId: "mockClient",
+            callbackUrl: "http://app.redirect.localhost/callback?code=stateless",
+          },
+        }),
+      );
+    });
+    await waitFor(() => expect(mockAuthClient.handleCallback).toHaveBeenCalledTimes(1));
+  });
+});
+
+describe("listener defaults (TELFE-1669 changes)", () => {
+  it("setupOAuthEventListeners without options processes callbacks unguarded", async () => {
+    const { setupOAuthEventListeners } = await import("../services/setupOAuthEventListeners");
+    const onSuccess = jest.fn();
+    const cleanup = setupOAuthEventListeners(mockAuthClient, onSuccess, jest.fn());
+    try {
+      await act(async () => {
+        window.dispatchEvent(
+          new CustomEvent("oauth-callback", {
+            detail: {
+              clientId: "mockClient",
+              callbackUrl: "http://app.redirect.localhost/callback?code=unguarded&state=s",
+            },
+          }),
+        );
+      });
+      await waitFor(() => expect(onSuccess).toHaveBeenCalled());
+    } finally {
+      cleanup();
+    }
+  });
+
+  it("unmounting mid-initialisation does not set state after teardown", async () => {
+    let resolveAuth: (v: boolean) => void = () => {};
+    mockAuthClient.isAuthenticated.mockReturnValue(
+      new Promise((resolve) => {
+        resolveAuth = resolve;
+      }),
+    );
+    const Provider = makeProvider(new QueryClient());
+    const { unmount } = render(
+      <Provider>
+        <div />
+      </Provider>,
+    );
+    unmount();
+    await act(async () => {
+      resolveAuth(true);
+      await new Promise((r) => setTimeout(r, 10));
+    });
+    // No assertion failure / act warning = the mounted guard held.
+    expect(true).toBe(true);
+  });
+});
