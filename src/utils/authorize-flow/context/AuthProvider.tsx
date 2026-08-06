@@ -1,9 +1,11 @@
-import AuthServerOAuth2Client, { AuthServerOAuth2ClientConfig, UserInfo } from "@telicent-oss/fe-auth-lib";
-import React, { useEffect, useMemo, useState } from "react"
-import { AuthContext } from "./AuthContext";
+import AuthServerOAuth2Client, { AuthServerOAuth2ClientConfig } from "@telicent-oss/fe-auth-lib";
+import React, { useEffect, useMemo, useState } from "react";
+import { QueryClient } from "@tanstack/react-query";
+import { useStore } from "zustand";
+import { AuthContext, AuthContextValue } from "./AuthContext";
+import { createAuthStore } from "./authStore";
 import { setupOAuthEventListeners } from "../services/setupOAuthEventListeners";
 import { registerAuthSync } from "../utils";
-import { QueryClient } from "@tanstack/react-query";
 import { createApi } from "../index";
 import { AuthEvent, broadcastAuthEvent } from "../exports";
 import { matchCurrentUri } from "../utils/matchCurrentUrl";
@@ -14,30 +16,6 @@ interface AuthProviderProps {
   queryClient: QueryClient;
   children: React.ReactNode;
 }
-
-const createAuthHandlers = (
-  client: AuthServerOAuth2Client,
-  setUser: Function,
-  setError: Function,
-  locationPath: string
-) => {
-
-  const onError = (err: unknown) => {
-    setUser(null);
-    setError(err instanceof Error ? err : new Error(String(err)));
-  };
-
-  const onSuccess = async (redirect?: URL) => {
-    const profile = client.getUserInfo();
-    setUser(profile);
-    setError(null);
-    broadcastAuthEvent(AuthEvent.AUTHENTICATED)
-    const isPopupFlow = !!window.opener
-    if (!isPopupFlow && redirect) window.location.replace(redirect)
-  };
-
-  return { onError, onSuccess };
-};
 
 const runAsync = (asyncFn: () => Promise<void>, setLoading: (b: boolean) => void) => {
   let mounted = true;
@@ -59,11 +37,12 @@ const runAsync = (asyncFn: () => Promise<void>, setLoading: (b: boolean) => void
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, queryClient, children }) => {
-  const [user, setUser] = useState<UserInfo | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState(false);
+  // All reactive auth state lives in the store (see authStore.ts). The store
+  // instance is stable for the provider's lifetime, so nothing about a
+  // provider re-render can repaint consumers or restart flows.
+  const [store] = useState(createAuthStore);
   const [client, setClient] = useState<AuthServerOAuth2Client | null>(null);
-  const [initialised, setInitialised] = useState(false);
+  const initialised = useStore(store, (s) => s.initialised);
 
   useEffect(() => {
     if (!config || Object.values(config).length === 0) return;
@@ -72,9 +51,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
 
   useEffect(() => {
     if (!client) return;
+    const { setUser, setError, setLoading, setInitialised, beginLogin, endLogin } =
+      store.getState();
 
-    const { onError, onSuccess } = createAuthHandlers(client, setUser, setError, location.pathname);
-    const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError);
+    const onError = (err: unknown) => {
+      setUser(null);
+      setError(err instanceof Error ? err : new Error(String(err)));
+      endLogin();
+    };
+
+    const onSuccess = async (redirect?: URL) => {
+      const profile = client.getUserInfo();
+      setUser(profile);
+      setError(null);
+      endLogin();
+      broadcastAuthEvent(AuthEvent.AUTHENTICATED);
+      const isPopupFlow = !!window.opener;
+      if (!isPopupFlow && redirect) window.location.replace(redirect);
+    };
+
+    const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError, {
+      // Consume-once: double-dispatched callbacks (StrictMode double effects,
+      // duplicated events) must not exchange the same code twice.
+      shouldProcessCallback: (code) => store.getState().consumeCallbackCode(code),
+    });
     const cleanupSync = registerAuthSync(queryClient);
 
     const cleanupCheck = runAsync(async () => {
@@ -82,20 +82,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
         const isStandardCallback = matchCurrentUri(client.config.redirectUri);
         const isPopupCallback = matchCurrentUri(client.config.popupRedirectUri);
 
-        // In popup callback windows, rely on finishPopupFlow to complete auth; avoid isAuthenticated/login
+        // In callback windows, rely on the callback/popup completion to
+        // finish auth; never isAuthenticated/login from here.
         if (!isPopupCallback && !isStandardCallback) {
-        const authenticated = await client.isAuthenticated();
-        if (!authenticated) client.login();
-
-        const profile = client.getUserInfo();
-        setUser(profile);
-        setError(null);
-      }
+          const authenticated = await client.isAuthenticated();
+          if (!authenticated) {
+            // Single-flight: no matter how many times this effect runs
+            // (re-renders, StrictMode double-invocation), only ONE login flow
+            // may start. A second concurrent flow overwrites the first's
+            // OAuth `state` in sessionStorage and every callback then fails
+            // with "Invalid state parameter".
+            if (beginLogin()) client.login();
+            return;
+          }
+          setUser(client.getUserInfo());
+          setError(null);
+        }
       } catch (err) {
         console.error("[AuthProvider] Auth check failed", err);
         setError(err instanceof Error ? err : new Error(String(err)));
       } finally {
-      setInitialised(true);
+        setInitialised();
       }
     }, setLoading);
 
@@ -104,7 +111,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
       cleanupSync();
       cleanupCheck();
     };
-  }, [client, queryClient, location.pathname]);
+    // location.pathname is deliberately NOT a dependency (it was before): it
+    // isn't reactive, so it only ever "changed" when a provider re-render
+    // happened to coincide with a navigation — restarting this effect
+    // mid-login and launching a second flow. Session expiry during use is
+    // handled by the 401 session-handling on the api instance, not by
+    // re-running this check per navigation.
+  }, [client, queryClient, store]);
 
   const api = useMemo(() => {
     if (!client) return;
@@ -116,18 +129,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     return factory.build().instance;
   }, [client, queryClient, apiUrl]);
 
-  // Block until client is fully configured + initialised
-  if (!client || !initialised || !api) return null;
+  // The context value is memoised and contains only stable references —
+  // consumers subscribe to reactive state via the store (see useAuth).
+  const value = useMemo<AuthContextValue | null>(() => {
+    if (!client || !api) return null;
+    return {
+      store,
+      authClient: client,
+      api,
+      login: async () => {
+        // Same single-flight latch as the automatic login above.
+        if (!store.getState().beginLogin()) return;
+        await client.loginWithPopup(client.config.popupRedirectUri);
+      },
+      logout: () => client.logout(),
+    };
+  }, [client, api, store]);
 
-  const value = {
-    user,
-    error,
-    loading,
-    api,
-    authClient: client,
-    login: () => client.loginWithPopup(client.config.popupRedirectUri),
-    logout: () => client.logout(),
-  };
+  // Block until client is fully configured + initialised
+  if (!value || !initialised) return null;
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
