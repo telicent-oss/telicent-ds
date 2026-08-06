@@ -46,6 +46,7 @@ export const TabButton: React.FC<TabButtonProps> = ({ id: dataTestId, BoxSx, Pap
     >
       <IconButton
         id={`${dataTestId}-IconButton`}
+        aria-label="Toggle drawer"
         color="inherit"
         onClick={onClick}
         disableRipple
