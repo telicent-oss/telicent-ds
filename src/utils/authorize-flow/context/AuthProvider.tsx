@@ -140,7 +140,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
       login: async () => {
         // Same single-flight latch as the automatic login above.
         if (!store.getState().beginLogin()) return;
-        await client.loginWithPopup(client.config.popupRedirectUri);
+  try { 
+     await client.loginWithPopup(client.config.popupRedirectUri) 
+  } catch (e) { 
+     store.getState().endLogin(); 
+     throw e; 
+  }
       },
       logout: () => client.logout(),
     };
