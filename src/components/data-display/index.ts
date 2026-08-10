@@ -21,6 +21,12 @@ export type { TreeViewProps, TreeViewBaseItem } from "./TreeView/TreeView";
 export { default as UserProfile } from "./UserProfile/UserProfile";
 export type { UserProfileProps } from "./UserProfile/UserProfile";
 
+export { default as AppInfo } from "./AppInfo/AppInfo";
+export type { AppInfoProps } from "./AppInfo/AppInfo";
+
+export { default as AppInfoRow } from "./AppInfo/AppInfoRow";
+export type { AppInfoRowProps } from "./AppInfo/AppInfoRow";
+
 export { default as UserProfileContent } from "./UserProfile/UserProfileContent/UserProfileContent";
 export { default as TitleAndContent } from "./Text/TitleAndContent/TitleAndContent";
 
