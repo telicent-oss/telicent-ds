@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box } from "@mui/material";
 
 import AppBar from "./AppBar";
-import { AppSwitch, Divider, TitleAndContent, UserProfile } from "../../data-display";
+import { AppInfo, AppInfoRow, AppSwitch, Divider, TitleAndContent, UserProfile } from "../../data-display";
 import { Button } from "../../buttons";
+import FlexBox from "../../layout/FlexBox";
 import { appList } from "../../data-display/AppSwitch/AppSwitch.stories";
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
 
@@ -108,13 +109,13 @@ export default meta;
 type Story = StoryObj<typeof AppBar>;
 
 const UserProfileExample = (
-  <UserProfile fullName="JohnDoe@company.co.uk">
+  <UserProfile>
     <TitleAndContent title="Username" content="John Doe" />
     <TitleAndContent title="Email" content="JohnDoe@company.co.uk" />
     <TitleAndContent title="Deployed Organisation" content="Company UK" />
-    <TitleAndContent title="Version number" content="1.2.3" />
-    <Divider />
-    <Box sx={{ pt: 1 }}>
+
+    <Divider sx={{ py: 1 }} />
+    <Box sx={{ pt: 2 }}>
       <Button
         onClick={() => console.log("Sign Out clicked")}
         variant="primary"
@@ -158,18 +159,27 @@ export const ClickableBrand: Story = {
   },
 };
 
-export const UsageExample: Story = {
+export const StandardHeader: Story = {
   args: {
     appName: "Catalogue",
     isElevated: true,
     startChild: <AppSwitch apps={appList} />,
-    endChild: UserProfileExample,
+    endChild: (
+      <FlexBox direction="row" alignItems="center" spacing={0.5}>
+        <AppInfo>
+          <AppInfoRow label="Version" value="1.16.0" />
+          <AppInfoRow label="Build" value="a1b2c3d" />
+          <AppInfoRow label="Environment" value="production" />
+        </AppInfo>
+        {UserProfileExample}
+      </FlexBox>
+    ),
   },
   parameters: {
     docs: {
       description: {
         story:
-          "Recommended application-header setup with branding, app navigation on the left, and a primary action on the right.",
+          "The full Telicent app-header composition: `AppSwitch` on the left, `AppInfo` and `UserProfile` on the right. This is the shape every Telicent app should assemble — the DS provides the pieces, apps compose them in the AppBar slots. `AppInfo` sits next to `UserProfile` so version/build/environment metadata is one click away without cluttering the profile dropdown.",
       },
     },
   },
