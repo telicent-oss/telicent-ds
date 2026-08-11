@@ -88,6 +88,7 @@ import { SkeletonTypeMap } from '@mui/material/Skeleton';
 import { StackProps } from '@mui/material/Stack';
 import { StandardSelectProps } from '@mui/material';
 import { StandardTextFieldProps } from '@mui/material';
+import { StoreApi } from 'zustand/vanilla';
 import { StyleLike } from 'ol/style/Style';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
@@ -175,12 +176,31 @@ export declare const AppSwitchLibrarySchema: default_3.ZodObject<{
 
 export declare type AppSwitchLibraryType = default_3.infer<typeof AppSwitchLibrarySchema>[];
 
-export declare const AuthContext: Context<AuthContextProps | null>;
+export declare const AuthContext: Context<AuthContextValue | null>;
 
+/**
+ * Shape returned by useAuth() — the public API, unchanged. Reactive fields
+ * (user/error/loading) are selected from the auth store per consumer, so a
+ * consumer re-renders only when those values actually change.
+ */
 export declare interface AuthContextProps {
     user: UserInfo | null;
     error: Error | null;
     loading: boolean;
+    authClient: default_4;
+    api: AxiosInstance;
+    login: () => Promise<void>;
+    logout: () => Promise<void>;
+}
+
+/**
+ * Internal context value. Everything here is referentially STABLE for the
+ * lifetime of the provider: reactive state lives in the zustand store, not in
+ * the context, so provider re-renders no longer repaint every useAuth
+ * consumer (the cascade that re-fired login effects across the app).
+ */
+export declare interface AuthContextValue {
+    store: AuthStore;
     authClient: default_4;
     api: AxiosInstance;
     login: () => Promise<void>;
@@ -214,6 +234,41 @@ export declare const AuthRedirectUri: FC<AuthRedirectUriProps>;
 declare interface AuthRedirectUriProps {
     config: AuthServerOAuth2ClientConfig;
 }
+
+declare interface AuthState {
+    user: UserInfo | null;
+    error: Error | null;
+    loading: boolean;
+    initialised: boolean;
+    /** Epoch ms of the login attempt currently in flight, or null. */
+    loginStartedAt: number | null;
+    /** OAuth authorization codes already handed to handleCallback. */
+    consumedCallbackCodes: ReadonlySet<string>;
+    setUser: (user: UserInfo | null) => void;
+    setError: (error: Error | null) => void;
+    setLoading: (loading: boolean) => void;
+    setInitialised: () => void;
+    /**
+     * Single-flight latch for login attempts. Returns true when the caller may
+     * proceed (and marks the attempt in flight); false when another attempt is
+     * already running. Two concurrent flows each write their own OAuth `state`
+     * to sessionStorage, so whichever callback returns no longer matches —
+     * "Invalid state parameter". This latch makes that impossible.
+     */
+    beginLogin: () => boolean;
+    /** Clears the in-flight latch (login succeeded, failed, or was abandoned). */
+    endLogin: () => void;
+    /**
+     * Consume-once guard for callback processing. Returns true the first time a
+     * given authorization code is seen; false on any repeat. Double-mounted
+     * effects (e.g. React StrictMode) can dispatch the same callback twice —
+     * exchanging one code twice races two token requests and the loser
+     * invalidates the winner.
+     */
+    consumeCallbackCode: (code: string) => boolean;
+}
+
+declare type AuthStore = ReturnType<typeof createAuthStore>;
 
 export declare const Autocomplete: ForwardRefExoticComponent<(Omit<SingleAutoCompleteProps, "ref"> | Omit<MultipleAutoCompleteProps, "ref">) & RefAttributes<HTMLDivElement>>;
 
@@ -468,6 +523,8 @@ declare type CopyToClipboardProps = ButtonProps & {
 };
 
 export declare const createApi: (baseURL?: string, authClient?: default_4) => RequestApi;
+
+declare const createAuthStore: () => StoreApi<AuthState>;
 
 export declare const createRequestApi: (baseURL?: string, authClient?: default_4) => RequestApi;
 
@@ -1201,6 +1258,17 @@ declare type MultipleProps = BaseProps_2 & {
     onChange: (value: Option_2[]) => void;
 };
 
+declare interface OAuthListenerOptions {
+    /**
+     * Consume-once guard for callback processing: return true to process the
+     * given authorization code, false to skip (already consumed). Without this,
+     * a double-dispatched callback event (React StrictMode double effects,
+     * duplicated CustomEvents) exchanges the same code twice — the requests
+     * race and the loser invalidates the session the winner just created.
+     */
+    shouldProcessCallback?: (code: string) => boolean;
+}
+
 export declare function onAuthEvent(callback: (event: AuthEvent) => void): () => void;
 
 declare type Option_2 = {
@@ -1801,7 +1869,7 @@ declare interface SessionHandlingConfig {
     keysToInvalidate?: QueryKey[];
 }
 
-export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: (redirect?: URL) => void, onAuthError?: (error?: Error) => void) => (() => void);
+export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: (redirect?: URL) => void, onAuthError?: (error?: Error) => void, options?: OAuthListenerOptions) => (() => void);
 
 declare type SingleAutoCompleteProps = SingleProps & MuiSinglePassthrough;
 
