@@ -92,7 +92,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
             // may start. A second concurrent flow overwrites the first's
             // OAuth `state` in sessionStorage and every callback then fails
             // with "Invalid state parameter".
-            if (beginLogin()) client.login();
+            if (beginLogin()) {
+              try {
+                // login() can reject before it ever navigates (crypto.subtle
+                // unavailable in non-secure contexts, sessionStorage blocked
+                // in sandboxed iframes) — release the latch so the user isn't
+                // locked out of retrying until it expires.
+                await client.login();
+              } catch (err) {
+                endLogin();
+                throw err; // outer catch surfaces the error via setError
+              }
+            }
             return;
           }
           setUser(client.getUserInfo());
@@ -140,12 +151,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
       login: async () => {
         // Same single-flight latch as the automatic login above.
         if (!store.getState().beginLogin()) return;
-  try { 
-     await client.loginWithPopup(client.config.popupRedirectUri) 
-  } catch (e) { 
-     store.getState().endLogin(); 
-     throw e; 
-  }
+        try {
+          await client.loginWithPopup(client.config.popupRedirectUri);
+        } catch (e) {
+          const { endLogin, setError } = store.getState();
+          endLogin();
+          // Surface the failure — callers don't necessarily catch, and an
+          // unhandled rejection leaves the user with no visible error.
+          setError(e instanceof Error ? e : new Error(String(e)));
+          throw e;
+        }
       },
       logout: () => client.logout(),
     };
