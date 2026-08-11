@@ -137,6 +137,21 @@ export declare const AppChrome: default_2.FC<AppChromeProps>;
 
 declare type AppChromeProps = AppBarProps & PropsWithChildren;
 
+export declare const AppInfo: default_2.FC<AppInfoProps>;
+
+export declare type AppInfoProps = PropsWithChildren<{
+    id?: string;
+    ariaLabel?: string;
+}>;
+
+export declare const AppInfoRow: default_2.FC<AppInfoRowProps>;
+
+export declare interface AppInfoRowProps {
+    label: string;
+    value: ReactNode;
+    id?: string;
+}
+
 export declare const AppSwitch: default_2.FC<{
     apps: AppSwitchLibraryType;
 }>;
@@ -397,6 +412,32 @@ export declare type Codec = {
 };
 
 export declare const CogIcon: default_2.FC<SvgIconProps>;
+
+export declare const ConfirmDialog: default_2.FC<ConfirmDialogProps>;
+
+declare type ConfirmDialogAlert = {
+    severity: AlertColor;
+    message: string;
+};
+
+export declare interface ConfirmDialogProps {
+    open: boolean;
+    title: string;
+    body: ReactNode;
+    onConfirm: () => void;
+    onClose: () => void;
+    confirmLabel?: string;
+    cancelLabel?: string;
+    pendingLabel?: string;
+    icon?: ReactNode;
+    isPending?: boolean;
+    alert?: ConfirmDialogAlert;
+    variant?: ConfirmDialogVariant;
+    id?: string;
+    ariaLabel?: string;
+}
+
+declare type ConfirmDialogVariant = "destructive" | "warning";
 
 export declare const Container: default_2.FC<ContainerProps>;
 
@@ -2107,6 +2148,8 @@ export declare const UserStatus: default_2.FC<UserStatusProps>;
 export declare type UserStatusProps = PropsWithChildren & {
     fullName: string;
 };
+
+export declare const WarningIcon: default_2.FC<SvgIconProps>;
 
 export declare const XIcon: default_2.FC<SvgIconProps>;
 
