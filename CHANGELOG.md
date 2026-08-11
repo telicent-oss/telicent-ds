@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.5.0](https://github.com/telicent-oss/telicent-ds/compare/v3.4.1...v3.5.0) (2026-08-11)
+
+
+### Features
+
+* **a11y:** add Storybook a11y addon with WCAG 2.2 AA policy ([#522](https://github.com/telicent-oss/telicent-ds/issues/522)) ([a0dbfaa](https://github.com/telicent-oss/telicent-ds/commit/a0dbfaa7edca5606a8ed5b6871724b9d20240c1c))
+* add AppInfo and ConfirmDialog components ([#528](https://github.com/telicent-oss/telicent-ds/issues/528)) ([b1a02aa](https://github.com/telicent-oss/telicent-ds/commit/b1a02aa77b7355def4242e30d1bf3f3873962f4b))
+
+
+### Bug Fixes
+
+* **auth:** move auth state to zustand; single-flight login; consume-once callbacks ([121c5f0](https://github.com/telicent-oss/telicent-ds/commit/121c5f060947e0e0b8a197edd284f0661b51f08c))
+
 ## [3.4.1](https://github.com/telicent-oss/telicent-ds/compare/v3.4.0...v3.4.1) (2026-07-24)
 
 
