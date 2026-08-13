@@ -6,7 +6,7 @@ import { Remove as RemoveIcon } from "@telicent-oss/mui-icons-material";
 export const ButtonZoomOut: React.FC<{ onClick?: () => void }> = ({
   onClick,
 }) => (
-  <IconButton onClick={onClick} size="small">
+  <IconButton onClick={onClick} size="small" aria-label="Zoom out">
     <RemoveIcon />
   </IconButton>
 );

@@ -1,5 +1,51 @@
 # Changelog
 
+## [3.5.0](https://github.com/telicent-oss/telicent-ds/compare/v3.4.1...v3.5.0) (2026-08-11)
+
+
+### Features
+
+* **a11y:** add Storybook a11y addon with WCAG 2.2 AA policy ([#522](https://github.com/telicent-oss/telicent-ds/issues/522)) ([a0dbfaa](https://github.com/telicent-oss/telicent-ds/commit/a0dbfaa7edca5606a8ed5b6871724b9d20240c1c))
+* add AppInfo and ConfirmDialog components ([#528](https://github.com/telicent-oss/telicent-ds/issues/528)) ([b1a02aa](https://github.com/telicent-oss/telicent-ds/commit/b1a02aa77b7355def4242e30d1bf3f3873962f4b))
+
+
+### Bug Fixes
+
+* **auth:** move auth state to zustand; single-flight login; consume-once callbacks ([121c5f0](https://github.com/telicent-oss/telicent-ds/commit/121c5f060947e0e0b8a197edd284f0661b51f08c))
+
+## [3.4.1](https://github.com/telicent-oss/telicent-ds/compare/v3.4.0...v3.4.1) (2026-07-24)
+
+
+### Bug Fixes
+
+* **select:** support per-option disabled flag ([#520](https://github.com/telicent-oss/telicent-ds/issues/520)) ([7146ded](https://github.com/telicent-oss/telicent-ds/commit/7146ded2036f0b80b0e1402c6b29bdc68b569344))
+
+## [3.4.0](https://github.com/telicent-oss/telicent-ds/compare/v3.3.0...v3.4.0) (2026-07-23)
+
+
+### Features
+
+* **theme:** add GeoGreen theme ([#513](https://github.com/telicent-oss/telicent-ds/issues/513)) ([95a866a](https://github.com/telicent-oss/telicent-ds/commit/95a866a2957a0ad8edffa05daa64e0fda3d68a14))
+
+
+### Bug Fixes
+
+* **auth:** uppercase HTTP method to fix broken PATCH + add CogIcon ([#519](https://github.com/telicent-oss/telicent-ds/issues/519)) ([a03fe11](https://github.com/telicent-oss/telicent-ds/commit/a03fe113352dbcaa2b000827fc3d875c79d3d3e2))
+
+## [3.3.0](https://github.com/telicent-oss/telicent-ds/compare/v3.2.0...v3.3.0) (2026-07-17)
+
+
+### Features
+
+* icon size color stories ([#515](https://github.com/telicent-oss/telicent-ds/issues/515)) ([b0fcfbe](https://github.com/telicent-oss/telicent-ds/commit/b0fcfbe9984d06aa042c6d59deb115b1f4a8c29a))
+
+## [3.2.0](https://github.com/telicent-oss/telicent-ds/compare/v3.1.0...v3.2.0) (2026-07-10)
+
+
+### Features
+
+* select changes & mui reexports ([#511](https://github.com/telicent-oss/telicent-ds/issues/511)) ([eb4f8b4](https://github.com/telicent-oss/telicent-ds/commit/eb4f8b44f25dad40f9c5834d84f749d07e290132))
+
 ## [3.1.0](https://github.com/telicent-oss/telicent-ds/compare/v3.0.1...v3.1.0) (2026-07-06)
 
 

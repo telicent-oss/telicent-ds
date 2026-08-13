@@ -51,10 +51,10 @@ const EditableTextField: React.FC<InputText> = ({
             fullWidth={fullWidth}
             {...props}
           />
-          <IconButton onClick={handleSave} size="small">
+          <IconButton onClick={handleSave} size="small" aria-label="Save">
             <CheckIcon sx={{ color: theme.palette.primary.main, lineHeight: "inherit" }} />
           </IconButton>
-          <IconButton onClick={handleCancel} size="small">
+          <IconButton onClick={handleCancel} size="small" aria-label="Cancel">
             <ClearIcon sx={{ color: theme.palette.primary.main, lineHeight: "inherit" }} />
           </IconButton>
         </FlexBox>
@@ -63,7 +63,7 @@ const EditableTextField: React.FC<InputText> = ({
           {label && <Text sx={{ fontWeight: "bold" }}>{label}:</Text>}
           <FlexBox direction="row" alignItems="center" gap={1}>
             <Typography>{value}</Typography>
-            <IconButton onClick={handleEdit} size="small">
+            <IconButton onClick={handleEdit} size="small" aria-label="Edit">
               <EditIcon fontSize="inherit" />
             </IconButton>
           </FlexBox>

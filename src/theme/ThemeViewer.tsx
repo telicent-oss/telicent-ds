@@ -15,7 +15,7 @@ const ThemeViewer: React.FC<ThemeViewerProps> = ({ theme }) => {
   const renderObject = (obj: Record<string, any>, indent = 0) => {
     return Object.entries(obj).map(([key, value]) => {
       const paddingLeft = indent * 4;
-      if (typeof value === "object" && !Array.isArray(value)) {
+      if (value !== null && typeof value === "object" && !Array.isArray(value)) {
         return (
           <div key={key} style={{ paddingLeft }}>
             <strong>{key}:</strong>

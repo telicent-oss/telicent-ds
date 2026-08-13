@@ -1,7 +1,7 @@
 import { ThemeOptions } from "@mui/material";
-import THEME_COLORS, { UITheme } from "../../colors/theme-colors";
+import { UITheme } from "../../colors/theme-colors";
 
-const generateButtonOverrides = (uiTheme: UITheme) =>
+const generateButtonOverrides = (_uiTheme: UITheme) =>
   ({
     MuiButton: {
       styleOverrides: {

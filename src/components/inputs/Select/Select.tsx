@@ -13,6 +13,7 @@ import React, { useId } from "react";
 export interface Options {
   value: string | number;
   label: string;
+  disabled?: boolean;
 }
 
 /**
@@ -39,6 +40,18 @@ export type SelectProps = MuiSelectProps & {
    * `onChange`.
    */
   footer?: React.ReactNode | ((args: SelectFooterArgs) => React.ReactNode);
+
+  /**
+   * Optional custom renderer for each menu item's contents. When provided,
+   * the return value is rendered inside the `<MenuItem>` in place of
+   * `option.label`.
+   *
+   * `option.label` remains the source of truth for the string used by
+   * filtering, ARIA, and the closed-trigger value — it is not replaced.
+   * Pair with `renderValue` if you also need to customise the closed
+   * trigger.
+   */
+  renderOption?: (option: Options) => React.ReactNode;
 };
 
 const Select = React.forwardRef<HTMLInputElement, SelectProps>(
@@ -57,6 +70,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
       required = false,
       fullWidth = false,
       footer,
+      renderOption,
       ...rest
     },
     ref,
@@ -83,9 +97,15 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
     };
     const closeMenu = React.useCallback(() => setOpenInternal(false), []);
 
+    const consumerSx = Array.isArray(sx) ? sx : sx ? [sx] : [];
+    const composedSx = [
+      { minWidth: 88, ...(width && { width }), ...(fullWidth && { width: "100%" }) },
+      ...consumerSx,
+    ];
+
     return (
       <FormControl
-        sx={{ minWidth: 88, ...(width && { width }), ...(fullWidth && { width: "100%" }), ...sx }}
+        sx={composedSx}
         size="small"
         error={error}
         required={required}
@@ -114,17 +134,18 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
           aria-describedby={helperText ? helperTextId : undefined}
         >
           {options.map((option) => (
-            <MenuItem key={option.value} value={option.value} disableRipple>
-              {option.label}
+            <MenuItem
+              key={option.value}
+              value={option.value}
+              aria-label={renderOption ? option.label : undefined}
+              disableRipple
+              disabled={option.disabled}
+            >
+              {renderOption ? renderOption(option) : option.label}
             </MenuItem>
           ))}
           {footer && options.length > 0 && (
-            <Divider
-              key="__ds-select-footer-divider"
-              component="li"
-              role="separator"
-              sx={{ my: 0.5 }}
-            />
+            <Divider key="__ds-select-footer-divider" component="li" role="separator" sx={{ my: 0.5 }} />
           )}
           {footer && (
             <Box

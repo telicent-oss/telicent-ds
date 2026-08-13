@@ -3,9 +3,10 @@ import DataNavy from "./DataNavy";
 import DocumentPink from "./DocumentPink";
 import GraphOrange from "./GraphOrange";
 import AdminBlue from "./AdminBlue";
+import GeoGreen from "./GeoGreen";
 import Blank from "./BlankTheme";
 
-export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"]);
+export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 
 export type PaletteColor = {
@@ -47,6 +48,7 @@ const THEME_COLORS: Record<UITheme, ThemeColor> = {
   DocumentPink,
   GraphOrange,
   AdminBlue,
+  GeoGreen,
   Blank,
 };
 

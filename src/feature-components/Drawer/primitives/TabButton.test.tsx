@@ -8,7 +8,7 @@ describe("renders", () => {
     base = render(
       <TabButton id="base-id" BoxSx={{}} onClick={jest.fn()}>
         min props
-      </TabButton>,
+      </TabButton>
     ).asFragment();
     expect(base).toMatchInlineSnapshot(`
       <DocumentFragment>
@@ -138,6 +138,7 @@ describe("renders", () => {
             id="base-id-Paper"
           >
             <button
+              aria-label="Toggle drawer"
               class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium emotion-2"
               id="base-id-IconButton"
               tabindex="0"
@@ -152,9 +153,13 @@ describe("renders", () => {
   });
   it("withProps", () => {
     const withProps = render(
-      <TabButton id="with-props-id" BoxSx={{ color: "custom-color" }} onClick={jest.fn()}>
+      <TabButton
+        id="with-props-id"
+        BoxSx={{ color: "custom-color" }}
+        onClick={jest.fn()}
+      >
         with props
-      </TabButton>,
+      </TabButton>
     ).asFragment();
 
     expect(cleanDiff(base, withProps)).toMatchInlineSnapshot(`
