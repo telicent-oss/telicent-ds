@@ -285,7 +285,7 @@ Demonstrated states:
 - WithSignOutButton — appName="Catalogue"
 - WithNoBrand — disableBrand=true, startChild=<jsx>, endChild=UserProfileExample
 - ClickableBrand — appName="Catalogue", href="https://telicent.io", target="_blank"
-- UsageExample — appName="Catalogue", isElevated=true, startChild=<jsx>, endChild=UserProfileExample
+- StandardHeader — appName="Catalogue", isElevated=true, startChild=<jsx>
 Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/surfaces-toolbar--docs
 Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/surfaces/Toolbar/Toolbar.stories.tsx
 
@@ -426,6 +426,7 @@ Select:
   footer: {type: 'React.ReactNode | ((args: SelectFooterArgs) => React.ReactNode)', required: false}
   helperText: {type: 'React.ReactNode', required: false}
   options: {type: 'Options[]', required: true}
+  renderOption: {type: '(option: Options) => React.ReactNode', required: false}
   width: {type: 'string | number', required: false}
 ```
 Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/inputs-select--docs
@@ -437,6 +438,7 @@ Demonstrated states:
 - WithCustomWidth — label="Select an option", value="option2", id="select-disabled", options=OPTIONS, width=500
 - WithNoLabel — value="option2", id="select-disabled", options=OPTIONS
 - ExampleWithOnChange — width=250, disabled=false
+- WithRenderOption — label="Resource type", value="dataset", width=320, options=RESOURCE_TYPE_OPTIONS
 - WithFooter — label="Owner", value="mcga", width=300, options=OWNER_OPTIONS
 * **`Checkbox`**: Boolean or multi-select input (wraps MUI Checkbox). `label` renders the caption; `checked`/`onChange` control state.
 ```yaml
@@ -684,9 +686,13 @@ Demonstrated states:
 * **`TeliTypeIcon`**: Renders a type indicator icon for IES/ontology types.
 Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/data-display-icons--docs
 Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/data-display/Icons/index.stories.tsx
+Default args: color="inherit", fontSize="large", background="surface", filter=""
 
 Demonstrated states:
 - AllIcons
+- ColorMatrixStory — fontSize="large", background="surface"
+- SizeMatrixStory — color="inherit", background="surface"
+- ColorOverridesStory
 
 ---
 
@@ -795,6 +801,40 @@ import { Card, CardContent, CardActions, Text, Button } from "@telicent-oss/ds";
 
 Exported by `@telicent-oss/ds` but not yet given a section above. Auto-listed from the type surface (props only); a maintainer should fold these into the manifest.
 
+* `AppInfo`:
+```yaml
+AppInfo:
+  ariaLabel: {type: 'string', required: false}
+  id: {type: 'string', required: false}
+```
+
+* `AppInfoRow`:
+```yaml
+AppInfoRow:
+  id: {type: 'string', required: false}
+  label: {type: 'string', required: true}
+  value: {type: 'React.ReactNode', required: true}
+```
+
+* `ConfirmDialog`:
+```yaml
+ConfirmDialog:
+  alert: {type: 'ConfirmDialogAlert', required: false}
+  ariaLabel: {type: 'string', required: false}
+  body: {type: 'React.ReactNode', required: true}
+  cancelLabel: {type: 'string', required: false}
+  confirmLabel: {type: 'string', required: false}
+  icon: {type: 'React.ReactNode', required: false}
+  id: {type: 'string', required: false}
+  isPending: {type: 'boolean', required: false}
+  onClose: {type: '() => void', required: true}
+  onConfirm: {type: '() => void', required: true}
+  open: {type: 'boolean', required: true}
+  pendingLabel: {type: 'string', required: false}
+  title: {type: 'string', required: true}
+  variant: {type: 'ConfirmDialogVariant', required: false}
+```
+
 * `ListItemText`:
 ```yaml
 ListItemText: {} # no own props; all inherited from the underlying MUI/DOM element
@@ -809,4 +849,4 @@ ListItemText: {} # no own props; all inherited from the underlying MUI/DOM eleme
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds v3.1.0.
+This reference documents @telicent-oss/ds v3.5.0.
