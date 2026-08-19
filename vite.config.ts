@@ -20,7 +20,25 @@ export default defineConfig({
       fileName: "ds",
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      // Externalise MUI + Emotion so consumers share a single instance (fixes
+      // dual-package ThemeContext hazard). Regex entries cover deep imports
+      // like @mui/material/styles, @mui/material/TableCell, etc.
+      external: [
+        "react",
+        "react-dom",
+        "@mui/material",
+        /^@mui\/material\/.*/,
+        "@mui/system",
+        /^@mui\/system\/.*/,
+        "@mui/lab",
+        /^@mui\/lab\/.*/,
+        "@mui/x-date-pickers",
+        /^@mui\/x-date-pickers\/.*/,
+        "@mui/private-theming",
+        "@mui/styled-engine",
+        "@emotion/react",
+        "@emotion/styled",
+      ],
       output: {
         globals: {
           react: "React",
