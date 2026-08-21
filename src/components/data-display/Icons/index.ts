@@ -12,6 +12,7 @@ export { default as MapIcon } from "./MapIcon";
 export { default as MinusCircleIcon } from "./MinusCircleIcon";
 export { default as PlayIcon } from "./PlayIcon";
 export { default as PlusCircleIcon } from "./PlusCircleIcon";
+export { default as QuestionIcon } from "./QuestionIcon";
 export { default as WarningIcon } from "./WarningIcon";
 export { default as TelicentMark } from "./TelicentMark";
 export { default as TelicentHorizontalSVG } from "./TelicentHorizontalSVG";
