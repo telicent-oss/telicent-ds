@@ -331,7 +331,8 @@ export declare interface BasicMapProperties {
     mapStyleOptions?: LegacyMapConfig;
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
-    onFeatureClick?: (ids: string[]) => void;
+    onFeatureClick?: OnFeatureClick;
+    onFeatureHover?: OnFeatureHover;
     onLayersReady?: (isReady: boolean) => void;
 }
 
@@ -768,6 +769,10 @@ export declare type ErrorFallbackWrapperProps = {
 
 declare type FaIconLoader = (faIcon: string) => Promise<IconDefinition | undefined>;
 
+export declare type FeatureEvent = {
+    pixel: [number, number];
+};
+
 export declare const FeatureMap: default_2.FC<FeatureMapProps>;
 
 declare interface FeatureMapProps extends RequiredRest, // everything except initialViewState & geoPolygons
@@ -1087,7 +1092,8 @@ export declare const MapCanvasV2: default_2.FC<MapCanvasV2Props>;
 export declare type MapCanvasV2Props = {
     layers: default_5[];
     mapInstanceRef: MapInstanceRef;
-    onFeatureClick?: (ids: string[]) => void;
+    onFeatureClick?: OnFeatureClick;
+    onFeatureHover?: OnFeatureHover;
     zoom: number;
     center: Coordinate;
     controls?: Partial<MapControlsConfig>;
@@ -1270,6 +1276,10 @@ declare interface OAuthListenerOptions {
 }
 
 export declare function onAuthEvent(callback: (event: AuthEvent) => void): () => void;
+
+export declare type OnFeatureClick = (ids: string[], event?: FeatureEvent) => void;
+
+export declare type OnFeatureHover = (id: string | null, event?: FeatureEvent) => void;
 
 declare type Option_2 = {
     label: string;
@@ -1472,6 +1482,8 @@ declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant"
 
 declare interface ProgressProps extends Omit<CircularProgressProps, "classes" | "color" | "size" | "sx" | "thickness"> {
 }
+
+export declare const QuestionIcon: default_2.FC<SvgIconProps>;
 
 export declare const RecentSearches: default_2.FC<RecentSearchProps>;
 
