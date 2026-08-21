@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import Feature from "ol/Feature";
 import View from "ol/View";
-import { MapCanvasV2Props } from "../../types/map-types";
+import { FeatureEvent, MapCanvasV2Props } from "../../types/map-types";
 import { fitToFeature, fitToFeatures } from "../../composites/BasicMap/interactions/addPanToFeature";
 import { addSelectInteraction } from "../../composites/BasicMap/interactions/addSelectInteraction";
+import { addHoverInteraction } from "../../composites/BasicMap/interactions/addHoverInteraction";
 import { findVectorLayerById } from "../../utils/feature";
 import { attachTileLoadErrorLogging, MARKER_LAYER_ID } from "../../utils/layers";
 import { ensureView } from "../../utils/ensureView";
@@ -16,6 +17,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	zoom,
 	center,
 	onFeatureClick,
+	onFeatureHover,
 	layers,
 	mapInstanceRef,
 	controls
@@ -79,7 +81,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		const select = addSelectInteraction({
 			map,
 			layer: markerLayer,
-			onSelect: (features: Feature[]) => {
+			onSelect: (features: Feature[], event?: FeatureEvent) => {
 				const ids = features
 					.map(f => f.getId?.())
 					.filter((id): id is string => typeof id === "string");
@@ -90,15 +92,24 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 				}
 
 				if (onFeatureClick) {
-					onFeatureClick(ids);
+					onFeatureClick(ids, event);
 				}
 			},
 		});
 
+		const detachHover = onFeatureHover
+			? addHoverInteraction({
+				map,
+				layer: markerLayer,
+				onHover: onFeatureHover,
+			})
+			: undefined;
+
 		return () => {
 			mapInstanceRef.current?.removeInteraction(select);
+			detachHover?.();
 		};
-	}, [layers]);
+	}, [layers, onFeatureHover, onFeatureClick]);
 
 	return <div id="TelicentMap" className="map-container" style={{
 		width: "100%", height: "100%", background: "#f8f4f0"
