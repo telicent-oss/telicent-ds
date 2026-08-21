@@ -1,0 +1,30 @@
+import{i as c}from"./DropdownButton-C4xttH7Y.js";import"./iframe-C9OzQXg_.js";import"./preload-helper-C1FmrZbK.js";import"./UserIcon-B0X7YR88.js";import"./SvgIcon-B9jV-vVV.js";import"./generateUtilityClass-nmhkov4J.js";import"./styled-B4qHs92x.js";import"./generateUtilityClasses-B-IRdbhl.js";import"./useTheme-BoFB3y9E.js";import"./Box-DVA2EOpM.js";import"./Box-B6_welVH.js";import"./Container-Dd_avWFZ.js";import"./styled-tQz00g93.js";import"./createStyled-aUbpq_KF.js";import"./useThemeProps-C59Agyjh.js";import"./FlexBox-BhSKdKN3.js";import"./Stack-CVFIDsG6.js";import"./Typography-R7t904JM.js";import"./Paper-K-rVIpDQ.js";import"./useThemeProps-D6gL08vt.js";import"./Text-DJBgtXcr.js";import"./AdapterDayjs-zE6fXVsl.js";import"./Modal-DeCTlAE4.js";import"./utils-5nTvwYBN.js";import"./TransitionGroupContext-B0kHEjtr.js";import"./index-aDITQ5Y9.js";import"./resolveComponentProps-DLoKn3XJ.js";import"./Popover-oHEbtlOD.js";import"./TextField-C2OAhByY.js";import"./useFormControl-DULJhOwb.js";import"./createSvgIcon-CNR6JU_j.js";import"./IconButton-D27QAIgA.js";import"./ButtonBase-D7zqtzaV.js";import"./DialogContent-Bqyrw-Dw.js";import"./Button-C_IckAB6.js";import"./Chip-2NNPtnVz.js";import"./DateTimePicker-CsFwsMPz.js";import"./Divider-o04g-Szi.js";import"./AppInfoRow-zLITu-6A.js";import"./Chip-By1rLTon.js";import"./Divider-DaR7zBo2.js";import"./TreeView-CXCZxfYx.js";import"./Alert-BFVxOiq7.js";import"./LinearProgress-DX9Q_02A.js";import"./Spinner-DtzXi4x2.js";import"./Dialog-D61FGst9.js";import"./MapToggleButtonPresentational-C417ZVG5.js";import"./Remove-DBRMIEBC.js";import"./LinkButton-BDmrpSVS.js";import"./TextField-DfFTX4IJ.js";import"./Switch-CFkCea9A.js";import"./DatePicker-PqR1hban.js";import"./Paper-BC8jjBQR.js";import"./ErrorFallback-4ND5IQwj.js";import"./ErrorFallbackText-DxDVeSdA.js";import"./ErrorFallbackWrapper-BnyZ3rrn.js";import"./Brand-CobJZEjG.js";import"./constants-BRNzpaAh.js";import"./Edit-DhYGh0Lv.js";const t=[{id:"telicent-graph",name:"graph",url:"https://graph.io",icon:"./src/assets/icons/graph.svg"},{id:"telicent-search",name:"search",url:"https://search.io",icon:"./src/assets/icons/search.svg"},{id:"telicent-catalog",name:"catalog",url:"https://data-catalog.io",icon:"./src/assets/icons/catalog.svg"},{id:"telicent-user-portal",name:"portal",url:"https://data-user-portal.io",icon:"./src/assets/icons/user-portal-light.svg"},{id:"telicent-user-portal",name:"portal",url:"https://data-user-portal.io",icon:"./src/assets/icons/user-portal-dark.svg"}],dt={title:"Data display/App Switch",component:c,tags:["autodocs"],args:{apps:t},parameters:{docs:{description:{component:"ApppSwitch component accepts apps, an array of objects, with id, name, url and icon."}},layout:"fullscreen"}},r={args:{apps:t}};var o,p,s;t.parameters={...t.parameters,docs:{...(o=t.parameters)==null?void 0:o.docs,source:{originalSource:`[{
+  id: "telicent-graph",
+  name: "graph",
+  url: "https://graph.io",
+  icon: "./src/assets/icons/graph.svg"
+}, {
+  id: "telicent-search",
+  name: "search",
+  url: "https://search.io",
+  icon: "./src/assets/icons/search.svg"
+}, {
+  id: "telicent-catalog",
+  name: "catalog",
+  url: "https://data-catalog.io",
+  icon: "./src/assets/icons/catalog.svg"
+}, {
+  id: "telicent-user-portal",
+  name: "portal",
+  url: "https://data-user-portal.io",
+  icon: "./src/assets/icons/user-portal-light.svg"
+}, {
+  id: "telicent-user-portal",
+  name: "portal",
+  url: "https://data-user-portal.io",
+  icon: "./src/assets/icons/user-portal-dark.svg"
+}]`,...(s=(p=t.parameters)==null?void 0:p.docs)==null?void 0:s.source}}};var a,i,e;r.parameters={...r.parameters,docs:{...(a=r.parameters)==null?void 0:a.docs,source:{originalSource:`{
+  args: {
+    apps: appList
+  }
+}`,...(e=(i=r.parameters)==null?void 0:i.docs)==null?void 0:e.source}}};const ut=["appList","AppSwitchExample"];export{r as AppSwitchExample,ut as __namedExportsOrder,t as appList,dt as default};
