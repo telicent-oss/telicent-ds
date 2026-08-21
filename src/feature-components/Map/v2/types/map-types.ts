@@ -37,10 +37,22 @@ export type StyleConfig =
 export type LayersRef = React.MutableRefObject<BaseLayer[] | null>;
 export type MapInstanceRef = React.MutableRefObject<Map | null>;
 
+export type FeatureEvent = {
+  pixel: [number, number];
+};
+
+export type OnFeatureClick = (ids: string[], event?: FeatureEvent) => void;
+
+export type OnFeatureHover = (
+  id: string | null,
+  event?: FeatureEvent
+) => void;
+
 export type MapCanvasV2Props = {
   layers: BaseLayer[];
   mapInstanceRef: MapInstanceRef;
-  onFeatureClick?: (ids: string[]) => void;
+  onFeatureClick?: OnFeatureClick;
+  onFeatureHover?: OnFeatureHover;
   zoom: number;
   center: Coordinate;
   controls?: Partial<MapControlsConfig>;
@@ -75,7 +87,8 @@ export interface BasicMapProperties {
   mapStyleOptions?: LegacyMapConfig;
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
-  onFeatureClick?: (ids: string[]) => void;
+  onFeatureClick?: OnFeatureClick;
+  onFeatureHover?: OnFeatureHover;
   onLayersReady?: (isReady: boolean) => void;
 }
 
