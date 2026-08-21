@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.6.0](https://github.com/telicent-oss/telicent-ds/compare/v3.5.0...v3.6.0) (2026-08-21)
+
+
+### Features
+
+* add QuestionIcon to data-display icons ([#535](https://github.com/telicent-oss/telicent-ds/issues/535)) ([e8cb48f](https://github.com/telicent-oss/telicent-ds/commit/e8cb48f266d05583c85d7c5de10d3348a479b935))
+* **map:** add feature hover events to BasicMap + Menu Fragment warning fix ([#536](https://github.com/telicent-oss/telicent-ds/issues/536)) ([8477b45](https://github.com/telicent-oss/telicent-ds/commit/8477b45d8dd2c5508403f3b3fb30e59d3dee72a9))
+
+
+### Bug Fixes
+
+* externalise MUI and Emotion to peerDependencies ([#532](https://github.com/telicent-oss/telicent-ds/issues/532)) ([7b484bb](https://github.com/telicent-oss/telicent-ds/commit/7b484bbb2e5e397cb37fdfae5506da3b50b3e42a))
+
 ## [3.5.0](https://github.com/telicent-oss/telicent-ds/compare/v3.4.1...v3.5.0) (2026-08-11)
 
 
