@@ -88,6 +88,7 @@ import { SkeletonTypeMap } from '@mui/material/Skeleton';
 import { StackProps } from '@mui/material/Stack';
 import { StandardSelectProps } from '@mui/material';
 import { StandardTextFieldProps } from '@mui/material';
+import { StoreApi } from 'zustand/vanilla';
 import { StyleLike } from 'ol/style/Style';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
@@ -137,6 +138,21 @@ export declare const AppChrome: default_2.FC<AppChromeProps>;
 
 declare type AppChromeProps = AppBarProps & PropsWithChildren;
 
+export declare const AppInfo: default_2.FC<AppInfoProps>;
+
+export declare type AppInfoProps = PropsWithChildren<{
+    id?: string;
+    ariaLabel?: string;
+}>;
+
+export declare const AppInfoRow: default_2.FC<AppInfoRowProps>;
+
+export declare interface AppInfoRowProps {
+    label: string;
+    value: ReactNode;
+    id?: string;
+}
+
 export declare const AppSwitch: default_2.FC<{
     apps: AppSwitchLibraryType;
 }>;
@@ -160,12 +176,31 @@ export declare const AppSwitchLibrarySchema: default_3.ZodObject<{
 
 export declare type AppSwitchLibraryType = default_3.infer<typeof AppSwitchLibrarySchema>[];
 
-export declare const AuthContext: Context<AuthContextProps | null>;
+export declare const AuthContext: Context<AuthContextValue | null>;
 
+/**
+ * Shape returned by useAuth() — the public API, unchanged. Reactive fields
+ * (user/error/loading) are selected from the auth store per consumer, so a
+ * consumer re-renders only when those values actually change.
+ */
 export declare interface AuthContextProps {
     user: UserInfo | null;
     error: Error | null;
     loading: boolean;
+    authClient: default_4;
+    api: AxiosInstance;
+    login: () => Promise<void>;
+    logout: () => Promise<void>;
+}
+
+/**
+ * Internal context value. Everything here is referentially STABLE for the
+ * lifetime of the provider: reactive state lives in the zustand store, not in
+ * the context, so provider re-renders no longer repaint every useAuth
+ * consumer (the cascade that re-fired login effects across the app).
+ */
+export declare interface AuthContextValue {
+    store: AuthStore;
     authClient: default_4;
     api: AxiosInstance;
     login: () => Promise<void>;
@@ -199,6 +234,41 @@ export declare const AuthRedirectUri: FC<AuthRedirectUriProps>;
 declare interface AuthRedirectUriProps {
     config: AuthServerOAuth2ClientConfig;
 }
+
+declare interface AuthState {
+    user: UserInfo | null;
+    error: Error | null;
+    loading: boolean;
+    initialised: boolean;
+    /** Epoch ms of the login attempt currently in flight, or null. */
+    loginStartedAt: number | null;
+    /** OAuth authorization codes already handed to handleCallback. */
+    consumedCallbackCodes: ReadonlySet<string>;
+    setUser: (user: UserInfo | null) => void;
+    setError: (error: Error | null) => void;
+    setLoading: (loading: boolean) => void;
+    setInitialised: () => void;
+    /**
+     * Single-flight latch for login attempts. Returns true when the caller may
+     * proceed (and marks the attempt in flight); false when another attempt is
+     * already running. Two concurrent flows each write their own OAuth `state`
+     * to sessionStorage, so whichever callback returns no longer matches —
+     * "Invalid state parameter". This latch makes that impossible.
+     */
+    beginLogin: () => boolean;
+    /** Clears the in-flight latch (login succeeded, failed, or was abandoned). */
+    endLogin: () => void;
+    /**
+     * Consume-once guard for callback processing. Returns true the first time a
+     * given authorization code is seen; false on any repeat. Double-mounted
+     * effects (e.g. React StrictMode) can dispatch the same callback twice —
+     * exchanging one code twice races two token requests and the loser
+     * invalidates the winner.
+     */
+    consumeCallbackCode: (code: string) => boolean;
+}
+
+declare type AuthStore = ReturnType<typeof createAuthStore>;
 
 export declare const Autocomplete: ForwardRefExoticComponent<(Omit<SingleAutoCompleteProps, "ref"> | Omit<MultipleAutoCompleteProps, "ref">) & RefAttributes<HTMLDivElement>>;
 
@@ -261,7 +331,8 @@ export declare interface BasicMapProperties {
     mapStyleOptions?: LegacyMapConfig;
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
-    onFeatureClick?: (ids: string[]) => void;
+    onFeatureClick?: OnFeatureClick;
+    onFeatureHover?: OnFeatureHover;
     onLayersReady?: (isReady: boolean) => void;
 }
 
@@ -396,6 +467,34 @@ export declare type Codec = {
     decode: (str: string) => string;
 };
 
+export declare const CogIcon: default_2.FC<SvgIconProps>;
+
+export declare const ConfirmDialog: default_2.FC<ConfirmDialogProps>;
+
+declare type ConfirmDialogAlert = {
+    severity: AlertColor;
+    message: string;
+};
+
+export declare interface ConfirmDialogProps {
+    open: boolean;
+    title: string;
+    body: ReactNode;
+    onConfirm: () => void;
+    onClose: () => void;
+    confirmLabel?: string;
+    cancelLabel?: string;
+    pendingLabel?: string;
+    icon?: ReactNode;
+    isPending?: boolean;
+    alert?: ConfirmDialogAlert;
+    variant?: ConfirmDialogVariant;
+    id?: string;
+    ariaLabel?: string;
+}
+
+declare type ConfirmDialogVariant = "destructive" | "warning";
+
 export declare const Container: default_2.FC<ContainerProps>;
 
 declare interface ContainerProps extends default_2.HTMLAttributes<HTMLDivElement>, PropsWithChildren {
@@ -425,6 +524,8 @@ declare type CopyToClipboardProps = ButtonProps & {
 };
 
 export declare const createApi: (baseURL?: string, authClient?: default_4) => RequestApi;
+
+declare const createAuthStore: () => StoreApi<AuthState>;
 
 export declare const createRequestApi: (baseURL?: string, authClient?: default_4) => RequestApi;
 
@@ -668,6 +769,10 @@ export declare type ErrorFallbackWrapperProps = {
 
 declare type FaIconLoader = (faIcon: string) => Promise<IconDefinition | undefined>;
 
+export declare type FeatureEvent = {
+    pixel: [number, number];
+};
+
 export declare const FeatureMap: default_2.FC<FeatureMapProps>;
 
 declare interface FeatureMapProps extends RequiredRest, // everything except initialViewState & geoPolygons
@@ -760,6 +865,8 @@ export declare interface IESTypeProps extends default_2.HTMLAttributes<HTMLEleme
     color: string;
     iconClass: string;
 }
+
+export declare const InfoIcon: default_2.FC<SvgIconProps>;
 
 declare type InputText = TextFieldProps & {
     value: string;
@@ -985,7 +1092,8 @@ export declare const MapCanvasV2: default_2.FC<MapCanvasV2Props>;
 export declare type MapCanvasV2Props = {
     layers: default_5[];
     mapInstanceRef: MapInstanceRef;
-    onFeatureClick?: (ids: string[]) => void;
+    onFeatureClick?: OnFeatureClick;
+    onFeatureHover?: OnFeatureHover;
     zoom: number;
     center: Coordinate;
     controls?: Partial<MapControlsConfig>;
@@ -1156,7 +1264,22 @@ declare type MultipleProps = BaseProps_2 & {
     onChange: (value: Option_2[]) => void;
 };
 
+declare interface OAuthListenerOptions {
+    /**
+     * Consume-once guard for callback processing: return true to process the
+     * given authorization code, false to skip (already consumed). Without this,
+     * a double-dispatched callback event (React StrictMode double effects,
+     * duplicated CustomEvents) exchanges the same code twice — the requests
+     * race and the loser invalidates the session the winner just created.
+     */
+    shouldProcessCallback?: (code: string) => boolean;
+}
+
 export declare function onAuthEvent(callback: (event: AuthEvent) => void): () => void;
+
+export declare type OnFeatureClick = (ids: string[], event?: FeatureEvent) => void;
+
+export declare type OnFeatureHover = (id: string | null, event?: FeatureEvent) => void;
 
 declare type Option_2 = {
     label: string;
@@ -1171,6 +1294,7 @@ declare type Optionalized = Partial<Optional>;
 export declare interface Options {
     value: string | number;
     label: string;
+    disabled?: boolean;
 }
 
 export declare interface OverlayConfig {
@@ -1358,6 +1482,8 @@ declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant"
 
 declare interface ProgressProps extends Omit<CircularProgressProps, "classes" | "color" | "size" | "sx" | "thickness"> {
 }
+
+export declare const QuestionIcon: default_2.FC<SvgIconProps>;
 
 export declare const RecentSearches: default_2.FC<RecentSearchProps>;
 
@@ -1755,7 +1881,7 @@ declare interface SessionHandlingConfig {
     keysToInvalidate?: QueryKey[];
 }
 
-export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: (redirect?: URL) => void, onAuthError?: (error?: Error) => void) => (() => void);
+export declare const setupOAuthEventListeners: (OAuth2Client: default_4, onAuthSuccess?: (redirect?: URL) => void, onAuthError?: (error?: Error) => void, options?: OAuthListenerOptions) => (() => void);
 
 declare type SingleAutoCompleteProps = SingleProps & MuiSinglePassthrough;
 
@@ -2042,7 +2168,7 @@ declare type UIThemeProviderProps = default_2.PropsWithChildren & {
     dark?: boolean;
 };
 
-export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "Blank"]>;
+export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
 
 export declare const uriComponentCodec: Codec;
 
@@ -2102,6 +2228,8 @@ export declare const UserStatus: default_2.FC<UserStatusProps>;
 export declare type UserStatusProps = PropsWithChildren & {
     fullName: string;
 };
+
+export declare const WarningIcon: default_2.FC<SvgIconProps>;
 
 export declare const XIcon: default_2.FC<SvgIconProps>;
 
