@@ -12,12 +12,13 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { loadProps } from "./extract-props.mjs";
-import { loadStories } from "./extract-stories.mjs";
+import { loadStories, resolveLinkBases } from "./extract-stories.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 
-const PAGES = "https://telicent-oss.github.io/telicent-ds";
+// A branch preview must link to its own Storybook, not main's.
+const { storybookBase } = resolveLinkBases();
 const NPM = "https://www.npmjs.com/package/@telicent-oss/ds";
 const GITHUB = "https://github.com/telicent-oss/telicent-ds";
 
@@ -161,7 +162,7 @@ const llmsFull = `${manifest}${otherExports}
 
 - Install with \`yarn add @telicent-oss/ds\`
 - npm: ${NPM}
-- Live examples (Storybook): ${PAGES}/
+- Live examples (Storybook): ${storybookBase}/
 - Source and issues: ${GITHUB}
 
 This reference documents @telicent-oss/ds v${version}.
