@@ -11,6 +11,13 @@ The design system ships a versioned manifest (`llms.txt`) describing every expor
 - `metadata.json` — machine-readable version range and manifest URLs.
 - `README.md` — this overview.
 
+## Not shipped in the package
+
+This directory is repo-only. `package.json` sets `files: ["dist"]`, so the published
+`@telicent-oss/ds` tarball contains `dist/`, `README.md`, `LICENSE` and `package.json` and
+nothing else — installing the design system never writes a skill into a consumer's project.
+Loading the skill is a separate, explicit opt-in: `npx skills add telicent-oss/telicent-ds`.
+
 ## Manifest
 
 - Per major: `https://telicent-oss.github.io/telicent-ds/v<major>/llms.txt`
