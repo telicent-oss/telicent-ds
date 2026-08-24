@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.1](https://github.com/telicent-oss/telicent-ds/compare/v3.6.0...v3.6.1) (2026-08-24)
+
+
+### Bug Fixes
+
+* emit CJS interop for externalised MUI defaults in UMD build ([#538](https://github.com/telicent-oss/telicent-ds/issues/538)) ([aed77cc](https://github.com/telicent-oss/telicent-ds/commit/aed77cc0f1e432818c9a07a1a4bd1282c1e938ce))
+
 ## [3.6.0](https://github.com/telicent-oss/telicent-ds/compare/v3.5.0...v3.6.0) (2026-08-21)
 
 
