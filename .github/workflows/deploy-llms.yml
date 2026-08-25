@@ -57,19 +57,25 @@ jobs:
       # branch  '<branch>'  '<branch>/'  unset      /<branch>/llms.txt
       - name: Resolve publish target
         id: target
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          REF: ${{ github.ref }}
         run: |
-          ref="${{ github.ref_name }}"
-          echo "ref=$ref" >> "$GITHUB_OUTPUT"
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          set -o pipefail
+          echo "ref=$REF_NAME" >> "$GITHUB_OUTPUT"
+          if [ "$REF" = "refs/heads/main" ]; then
+            # An empty major would publish to /v/, so fail here instead.
+            major="$(node -p 'require("./package.json").version.split(".")[0]')"
+            : "${major:?could not read the major from package.json}"
             {
-              echo "dir=."
+              echo "dir=./"
               echo "urlpath="
-              echo "major=$(node -p 'require("./package.json").version.split(".")[0]')"
+              echo "major=$major"
             } >> "$GITHUB_OUTPUT"
           else
             {
-              echo "dir=$ref"
-              echo "urlpath=$ref/"
+              echo "dir=./$REF_NAME"
+              echo "urlpath=$REF_NAME/"
             } >> "$GITHUB_OUTPUT"
           fi
 
@@ -94,24 +100,26 @@ jobs:
         env:
           URLPATH: ${{ steps.target.outputs.urlpath }}
           BRANCH: ${{ steps.target.outputs.ref }}
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          mkdir -p _diff
-          code=$(curl -sSL -o _diff/a.raw -w '%{http_code}' "$SITE/llms.txt" || echo 000)
-          if [ "$code" != "200" ]; then
-            echo "baseline fetch returned HTTP $code — treating as a new file"
-            : > _diff/a.raw
-          fi
-          cp llms/llms.txt _diff/b.raw
-          { echo "Branch: /";             sed "s#$SITE/#$SITE/../#g; s#$REPO/blob/main/#$REPO/blob/../#g"           _diff/a.raw; } > _diff/a
-          { echo "Branch: ${URLPATH:-/}"; sed "s#$SITE/$URLPATH#$SITE/../#g; s#$REPO/blob/$BRANCH/#$REPO/blob/../#g" _diff/b.raw; } > _diff/b
-          if diff -q _diff/a _diff/b >/dev/null; then
+          set -o pipefail
+          d="$(mktemp -d "$RUNNER_TEMP/llms-diff.XXXXXX")"
+          # Read the baseline from gh-pages, not over HTTP: the Pages CDN serves a stale
+          # copy for minutes after a deploy, which would diff against the wrong file.
+          git fetch --depth=1 --no-tags origin gh-pages || echo "no gh-pages yet"
+          git show origin/gh-pages:llms.txt > "$d/a.raw" 2>/dev/null \
+            || { echo "no published manifest, treating it as a new file"; : > "$d/a.raw"; }
+          cp llms/llms.txt "$d/b.raw"
+          { echo "Branch: /";             sed "s#$SITE/#$SITE/../#g; s#$REPO/blob/main/#$REPO/blob/../#g"           "$d/a.raw"; } > "$d/a"
+          { echo "Branch: ${URLPATH:-/}"; sed "s#$SITE/$URLPATH#$SITE/../#g; s#$REPO/blob/$BRANCH/#$REPO/blob/../#g" "$d/b.raw"; } > "$d/b"
+          if diff -q "$d/a" "$d/b" >/dev/null; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "manifest is identical to the published one — no report"
+            echo "manifest is identical to the published one, so no report"
             exit 0
           fi
           echo "changed=true" >> "$GITHUB_OUTPUT"
-          diff -u --label a/llms.txt --label b/llms.txt _diff/a _diff/b > _diff/llms.diff || true
-          node_modules/.bin/diff2html -i file -F llms/llms.diff.html --style side -- _diff/llms.diff
+          diff -u --label a/llms.txt --label b/llms.txt "$d/a" "$d/b" > "$d/llms.diff" || true
+          node_modules/.bin/diff2html -i file -F llms/llms.diff.html --style side -- "$d/llms.diff"
 
       - name: Deploy llms.txt
         uses: peaceiris/actions-gh-pages@v3
@@ -135,14 +143,17 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_SLUG: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+          URLPATH: ${{ steps.target.outputs.urlpath }}
         run: |
-          gh api "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+          gh api "repos/$REPO_SLUG/statuses/$SHA" \
             -f state=success \
             -f context="llms.txt / diff report" \
             -f description="Rendered diff vs the published manifest" \
-            -f target_url="$SITE/${{ steps.target.outputs.urlpath }}llms.diff.html"
-          gh api "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+            -f target_url="$SITE/${URLPATH}llms.diff.html"
+          gh api "repos/$REPO_SLUG/statuses/$SHA" \
             -f state=success \
             -f context="llms.txt / published manifest" \
             -f description="The llms.txt this ref publishes" \
-            -f target_url="$SITE/${{ steps.target.outputs.urlpath }}llms.txt"
+            -f target_url="$SITE/${URLPATH}llms.txt"
