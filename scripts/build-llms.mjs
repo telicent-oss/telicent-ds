@@ -8,9 +8,9 @@
 // The deploy-llms workflow publishes llms/ to the gh-pages root.
 // Run locally via `yarn build:llms`.
 // Requires dist/export.d.ts (run `yarn build` first) — extract-props reads it.
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
+import { basename, dirname, resolve } from "node:path";
 import { loadProps } from "./extract-props.mjs";
 import { loadStories } from "./extract-stories.mjs";
 
@@ -150,10 +150,40 @@ if (propless.length > 0 || phantom.length > 0) {
   );
 }
 
+// Long-form component guidance lives in a <Component>.docs.<field>.md file next
+// to each story (e.g. Button.docs.description.component.md, named for the meta
+// field it fills). The story imports it (?raw) so Storybook shows it; here every
+// doc is joined into one guidance.md and linked below, keeping llms.txt terse.
+const docsFiles = [];
+const walkDocs = (dir) => {
+  for (const entry of readdirSync(dir)) {
+    const full = resolve(dir, entry);
+    if (statSync(full).isDirectory()) walkDocs(full);
+    else if (entry.includes(".docs.") && entry.endsWith(".md")) docsFiles.push(full);
+  }
+};
+walkDocs(resolve(root, "src"));
+docsFiles.sort();
+
+const guidance = docsFiles.length
+  ? `# @telicent-oss/ds component guidance
+
+Long-form guidance per component. The terse reference is llms.txt.
+
+${docsFiles
+      .map((f) => `## ${basename(dirname(f))}\n\n${readFileSync(f, "utf8").trim()}`)
+      .join("\n\n---\n\n")}
+`
+  : "";
+
+const guidanceLink = docsFiles.length
+  ? `\n\n---\n\n## Component guidance\n\nLong-form per-component guidance: ${PAGES}/guidance.md`
+  : "";
+
 const outDir = resolve(root, "llms");
 mkdirSync(outDir, { recursive: true });
 
-const llmsFull = `${manifest}${otherExports}
+const llmsFull = `${manifest}${otherExports}${guidanceLink}
 
 ---
 
@@ -173,4 +203,9 @@ This reference documents @telicent-oss/ds v${version}.
 // convention (Cursor, Windsurf, Copilot, Cline, Aider).
 writeFileSync(resolve(outDir, "llms.txt"), llmsFull);
 writeFileSync(resolve(outDir, "llms-full.txt"), llmsFull);
-console.log(`build-llms: wrote llms/llms.txt + llms/llms-full.txt (identical, v${version})`);
+if (guidance) writeFileSync(resolve(outDir, "guidance.md"), guidance);
+console.log(
+  `build-llms: wrote llms/llms.txt + llms/llms-full.txt (identical, v${version})${
+    guidance ? ` + guidance.md (${docsFiles.length} doc${docsFiles.length === 1 ? "" : "s"})` : ""
+  }`
+);
