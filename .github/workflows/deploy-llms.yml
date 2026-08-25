@@ -65,10 +65,14 @@ jobs:
           destination_dir: ./
           keep_files: true
 
+      # A failed read would leave major empty and publish to /v/, so fail here instead.
       - name: Read major version
         if: github.ref == 'refs/heads/main'
         id: major
-        run: echo "major=$(node -p 'require("./package.json").version.split(".")[0]')" >> "$GITHUB_OUTPUT"
+        run: |
+          major="$(node -p 'require("./package.json").version.split(".")[0]')"
+          : "${major:?could not read the major from package.json}"
+          echo "major=$major" >> "$GITHUB_OUTPUT"
 
       - name: Deploy llms.txt to per-major path
         if: github.ref == 'refs/heads/main'
