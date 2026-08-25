@@ -24,6 +24,7 @@ on:
       - scripts/extract-props.mjs
       - scripts/extract-stories.mjs
       - .github/workflows/deploy-llms.yml
+      - scripts/workflows/deploy-llms/**
       - src/**
       - package.json
 
@@ -52,32 +53,12 @@ jobs:
         with:
           node-version: 22.22
 
-      # ref     dir         urlpath      major      published at
-      # main    '.'         ''           <major>    /llms.txt and /v<major>/llms.txt
-      # branch  '<branch>'  '<branch>/'  unset      /<branch>/llms.txt
       - name: Resolve publish target
         id: target
         env:
           REF_NAME: ${{ github.ref_name }}
           REF: ${{ github.ref }}
-        run: |
-          set -o pipefail
-          echo "ref=$REF_NAME" >> "$GITHUB_OUTPUT"
-          if [ "$REF" = "refs/heads/main" ]; then
-            # An empty major would publish to /v/, so fail here instead.
-            major="$(node -p 'require("./package.json").version.split(".")[0]')"
-            : "${major:?could not read the major from package.json}"
-            {
-              echo "dir=./"
-              echo "urlpath="
-              echo "major=$major"
-            } >> "$GITHUB_OUTPUT"
-          else
-            {
-              echo "dir=./$REF_NAME"
-              echo "urlpath=$REF_NAME/"
-            } >> "$GITHUB_OUTPUT"
-          fi
+        run: scripts/workflows/deploy-llms/resolve-publish-target.sh
 
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
@@ -89,37 +70,13 @@ jobs:
       - name: Generate llms.txt
         run: yarn generate:llms
 
-      # Runs before the deploys, which overwrite the manifest it diffs against, and
-      # writes the report into ./llms so they publish it.
-      #
-      # Both sides collapse the branch out of URLs (/<branch>/, blob/<branch>/) to ../,
-      # so the diff shows content rather than the prefix. Only these copies are
-      # rewritten; a "Branch:" line names each side.
       - name: Build llms.txt diff report
         id: diff
         env:
           URLPATH: ${{ steps.target.outputs.urlpath }}
           BRANCH: ${{ steps.target.outputs.ref }}
           RUNNER_TEMP: ${{ runner.temp }}
-        run: |
-          set -o pipefail
-          d="$(mktemp -d "$RUNNER_TEMP/llms-diff.XXXXXX")"
-          # Read the baseline from gh-pages, not over HTTP: the Pages CDN serves a stale
-          # copy for minutes after a deploy, which would diff against the wrong file.
-          git fetch --depth=1 --no-tags origin gh-pages || echo "no gh-pages yet"
-          git show origin/gh-pages:llms.txt > "$d/a.raw" 2>/dev/null \
-            || { echo "no published manifest, treating it as a new file"; : > "$d/a.raw"; }
-          cp llms/llms.txt "$d/b.raw"
-          { echo "Branch: /";             sed "s#$SITE/#$SITE/../#g; s#$REPO/blob/main/#$REPO/blob/../#g"           "$d/a.raw"; } > "$d/a"
-          { echo "Branch: ${URLPATH:-/}"; sed "s#$SITE/$URLPATH#$SITE/../#g; s#$REPO/blob/$BRANCH/#$REPO/blob/../#g" "$d/b.raw"; } > "$d/b"
-          if diff -q "$d/a" "$d/b" >/dev/null; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "manifest is identical to the published one, so no report"
-            exit 0
-          fi
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-          diff -u --label a/llms.txt --label b/llms.txt "$d/a" "$d/b" > "$d/llms.diff" || true
-          node_modules/.bin/diff2html -i file -F llms/llms.diff.html --style side -- "$d/llms.diff"
+        run: scripts/workflows/deploy-llms/build-diff-report.sh
 
       - name: Deploy llms.txt
         uses: peaceiris/actions-gh-pages@v3
