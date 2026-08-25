@@ -3,16 +3,15 @@ name: deploy-llms.yml
 # Publishes llms.txt and llms-full.txt to the GitHub Pages site. Every deploy below
 # uses publish_dir ./llms, so each of these paths gets both files.
 #
-# Where each ref lands is in the table at "Resolve publish target", the only step
-# that reads the ref; every step after it reads that step's outputs.
+# "Resolve publish target" is the only step that reads the ref; the rest read its
+# outputs. Its table says where each ref lands.
 #
 # The per-major copy lets an app stuck on an old major still fetch the manifest for
 # the version it runs. keep_files:true stops a deploy wiping paths it did not write:
 # older majors, and Storybook, which owns the same paths.
 #
-# When the manifest changes, the run also publishes llms.diff.html: a diff2html
-# render of the new manifest against the site-root one. Two commit statuses link the
-# manifest and the report, so a reviewer sees what a branch changed.
+# When the manifest changes, the run also publishes llms.diff.html, a diff2html
+# render against the site-root manifest, and links both from commit statuses.
 
 on:
   workflow_dispatch:
@@ -84,14 +83,12 @@ jobs:
       - name: Generate llms.txt
         run: yarn generate:llms
 
-      # Runs before the deploy steps, which overwrite the manifest it diffs against.
-      # Writes the report into ./llms so those steps publish it.
+      # Runs before the deploys, which overwrite the manifest it diffs against, and
+      # writes the report into ./llms so they publish it.
       #
-      # Manifest URLs carry the branch: /<branch>/ for Storybook, blob/<branch>/ for
-      # source. A raw diff would mark every one of those lines changed, so both sides
-      # collapse the prefix to ../ and a "Branch:" line at the top says which side is
-      # which. The published manifests keep their real URLs. The site-root manifest is
-      # always built from main.
+      # Both sides collapse the branch out of URLs (/<branch>/, blob/<branch>/) to ../,
+      # so the diff shows content rather than the prefix. Only these copies are
+      # rewritten; a "Branch:" line names each side.
       - name: Build llms.txt diff report
         id: diff
         env:
