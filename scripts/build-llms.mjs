@@ -17,7 +17,7 @@ import { loadStories, resolveLinkBases } from "./extract-stories.mjs";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 
-// A branch preview must link to its own Storybook, not main's.
+// A branch preview links to the Storybook built from that branch.
 const { storybookBase } = resolveLinkBases();
 const NPM = "https://www.npmjs.com/package/@telicent-oss/ds";
 const GITHUB = "https://github.com/telicent-oss/telicent-ds";

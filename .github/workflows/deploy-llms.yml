@@ -53,10 +53,9 @@ jobs:
         with:
           node-version: 22.22
 
-      # The one place the ref decides where things go. Everything downstream reads
-      # these outputs, so main/branch is stated here and nowhere else.
-      #   main   -> dir '.'        urlpath ''            major set  (adds the v<major> copy)
-      #   branch -> dir '<branch>' urlpath '<branch>/'   major unset
+      # ref     dir         urlpath      major      published at
+      # main    '.'         ''           <major>    /llms.txt and /v<major>/llms.txt
+      # branch  '<branch>'  '<branch>/'  unset      /<branch>/llms.txt
       - name: Resolve publish target
         id: target
         run: |
@@ -85,15 +84,14 @@ jobs:
       - name: Generate llms.txt
         run: yarn generate:llms
 
-      # Fetch the currently-live manifest BEFORE any deploy step overwrites it,
-      # diff the freshly-built one against it, and render the diff to HTML. The
-      # report rides along in ./llms so the deploy steps publish it too.
+      # Runs before the deploy steps, which overwrite the manifest it diffs against.
+      # Writes the report into ./llms so those steps publish it.
       #
-      # Every manifest URL carries the branch: Storybook links as /<branch>/ and
-      # source links as blob/<branch>/, so a raw diff churns on that prefix and
-      # buries real changes. Collapse both prefixes to ../ on each side and name
-      # the branch once, at the top; the published manifests keep their real URLs.
-      # The baseline is the live root, always built from main (blob/main/).
+      # Manifest URLs carry the branch: /<branch>/ for Storybook, blob/<branch>/ for
+      # source. A raw diff would mark every one of those lines changed, so both sides
+      # collapse the prefix to ../ and a "Branch:" line at the top says which side is
+      # which. The published manifests keep their real URLs. The site-root manifest is
+      # always built from main.
       - name: Build llms.txt diff report
         id: diff
         env:
@@ -118,7 +116,6 @@ jobs:
           diff -u --label a/llms.txt --label b/llms.txt _diff/a _diff/b > _diff/llms.diff || true
           node_modules/.bin/diff2html -i file -F llms/llms.diff.html --style side -- _diff/llms.diff
 
-      # main -> site root; any other branch -> its preview folder. Same step either way.
       - name: Deploy llms.txt
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -127,7 +124,6 @@ jobs:
           destination_dir: ${{ steps.target.outputs.dir }}
           keep_files: true
 
-      # Only main sets major, so this pinned copy runs only on main.
       - name: Deploy per-major copy
         if: steps.target.outputs.major != ''
         uses: peaceiris/actions-gh-pages@v3
@@ -137,10 +133,7 @@ jobs:
           destination_dir: ./v${{ steps.target.outputs.major }}
           keep_files: true
 
-      # Two clickable links on the commit's checks: the manifest this ref just
-      # published, and the rendered diff for this change. Both read urlpath, so on
-      # main they point at the site root and on a branch at its preview folder.
-      # Runs after deploy so both URLs resolve.
+      # Runs after the deploys so both URLs resolve.
       - name: Post llms.txt links to commit status
         if: steps.diff.outputs.changed == 'true'
         env:
