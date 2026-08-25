@@ -137,8 +137,10 @@ jobs:
           destination_dir: ./v${{ steps.target.outputs.major }}
           keep_files: true
 
-      # Two clickable links on the commit's checks: the live manifest, and the
-      # rendered diff for this change. Runs after deploy so the report URL resolves.
+      # Two clickable links on the commit's checks: the manifest this ref just
+      # published, and the rendered diff for this change. Both read urlpath, so on
+      # main they point at the site root and on a branch at its preview folder.
+      # Runs after deploy so both URLs resolve.
       - name: Post llms.txt links to commit status
         if: steps.diff.outputs.changed == 'true'
         env:
@@ -152,5 +154,5 @@ jobs:
           gh api "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
             -f state=success \
             -f context="llms.txt / published manifest" \
-            -f description="The currently-live llms.txt" \
-            -f target_url="$SITE/llms.txt"
+            -f description="The llms.txt this ref publishes" \
+            -f target_url="$SITE/${{ steps.target.outputs.urlpath }}llms.txt"
