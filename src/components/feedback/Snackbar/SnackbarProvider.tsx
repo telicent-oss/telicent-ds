@@ -19,8 +19,11 @@ const DEFAULT_AUTO_HIDE_DURATION_MS = 7000;
 // duplicates can pass `preventDuplicate: false` at enqueue time.
 const DEFAULT_PREVENT_DUPLICATE = true;
 
+// Notistack's `default` variant is intentionally omitted — the DS's public
+// `snackbar()` verb only accepts the four severities. Any callsite that
+// enqueues without a variant will fall through to notistack's built-in
+// unstyled content, which is the honest signal that a `type` is required.
 const DEFAULT_COMPONENTS: NonNullable<NotistackSnackbarProviderProps["Components"]> = {
-  default: Snackbar,
   success: Snackbar,
   error: Snackbar,
   warning: Snackbar,
@@ -31,9 +34,9 @@ export type SnackbarProviderProps = NotistackSnackbarProviderProps;
 
 // Wraps notistack's SnackbarProvider with DS defaults: top-right anchor,
 // max 3 stacked, 7s auto-hide, duplicate suppression on, and the DS
-// Snackbar mounted for every variant. `Components` overrides merge onto
-// the DS defaults so callers customising one variant don't silently
-// regress the others to notistack's unstyled built-ins.
+// Snackbar mounted for every DS type. `Components` overrides merge onto
+// the DS defaults so callers customising one type don't silently regress
+// the others to notistack's unstyled built-ins.
 const SnackbarProvider: FC<SnackbarProviderProps> = ({
   anchorOrigin = DEFAULT_ANCHOR_ORIGIN,
   maxSnack = DEFAULT_MAX_SNACK,

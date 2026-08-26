@@ -3,11 +3,11 @@ status: accepted
 date: 2026-08-26
 ---
 
-# Wrap notistack's SnackbarProvider and re-export the callsite verbs from the DS
+# Wrap notistack's SnackbarProvider and own the `snackbar()` verb from the DS
 
-`@telicent-oss/ds` ships a wrapped `SnackbarProvider` that composes `notistack`'s provider with the DS's standard configuration and a private DS-owned content component, and re-exports the callsite verbs (`enqueueSnackbar`, `closeSnackbar`, `useSnackbar` and the types apps use) so consuming apps import everything snackbar-adjacent from `@telicent-oss/ds` — never directly from `notistack`.
+`@telicent-oss/ds` ships a wrapped `SnackbarProvider` that composes `notistack`'s provider with the DS's standard configuration and a private DS-owned content component, plus a `snackbar()` function that accepts a DS-owned `type` union (`success | error | warning | info`) and delegates to `notistack` internally. Consuming apps import `snackbar`, `SnackbarProvider`, and the callsite helpers (`useSnackbar`, `closeSnackbar`, types) from `@telicent-oss/ds` — never directly from `notistack`.
 
-`notistack` sits in `peerDependencies` (optional). Apps that don't use snackbars install neither and pay nothing.
+`notistack` sits in `dependencies` (not `peerDependencies`). Apps install `@telicent-oss/ds` and get the snackbar system as part of the DS runtime.
 
 ## Why the DS owns this
 
@@ -24,16 +24,16 @@ A third factor, provider ordering: theme must sit outside snackbar so the DS-own
 ## Decisions
 
 **1. Content component is private, not exported.**
-Apps consume `SnackbarProvider` and call `enqueueSnackbar` — they never touch the template. Exporting the template would invite apps to re-compose their own provider and reintroduce the drift this ADR exists to end. If a real escape-hatch use case emerges, we add the export then.
+Apps consume `SnackbarProvider` and call `snackbar()` — they never touch the template. Exporting the template would invite apps to re-compose their own provider and reintroduce the drift this ADR exists to end. If a real escape-hatch use case emerges, we add the export then.
 
 **2. Dismiss is an explicit X button, composed into the Alert's `action` slot.**
-Replaces the previous "click anywhere on the toast body" behaviour across every variant. The X carries `aria-label="Dismiss notification"` and composes with any callsite-supplied `action` (callsite action renders left of the X). Explicit affordances are more discoverable and accessibility-cleaner than whole-toast click targets.
+Replaces the previous "click anywhere on the toast body" behaviour across every type. The X carries `aria-label="Dismiss notification"` and composes with any `action` passed at `snackbar()` time (the `action` renders left of the X). Explicit affordances are more discoverable and accessibility-cleaner than whole-toast click targets.
 
 **3. Uniform auto-hide, 7 seconds.**
-All variants auto-hide after `autoHideDuration` (default `7000` ms). Chosen over notistack's own `5000` because the DS X provides explicit dismissal — a longer default reads comfortably without stranding forgotten toasts. `notistack` v3 does not support per-variant `persist` at the provider level (`persist` is a per-`enqueueSnackbar`-call option), so per-severity persistence is opt-in per call.
+All types auto-hide after `autoHideDuration` (default `7000` ms). Chosen over notistack's own `5000` because the DS X provides explicit dismissal — a longer default reads comfortably without stranding forgotten toasts. `notistack` v3 does not support per-variant `persist` at the provider level (`persist` is a per-call option), so per-severity persistence is opt-in per `snackbar()` invocation.
 
 **4. `preventDuplicate: true` is a provider-level DS default.**
-Pollers, retry loops, and event handlers commonly emit identical enqueue calls; the DS's opinion is that identical toasts should be suppressed unless a callsite explicitly opts out via `enqueueSnackbar({ preventDuplicate: false })`.
+Pollers, retry loops, and event handlers commonly emit identical enqueue calls; the DS's opinion is that identical toasts should be suppressed unless a callsite explicitly opts out via `snackbar({ preventDuplicate: false, ... })`.
 
 **5. Curated severity palette.**
 DS themes previously inherited MUI's defaults unchanged, which produced two problems in filled Alert rendering:
@@ -46,17 +46,22 @@ The DS's severity palette now sets `contrastThreshold: 4.5` on both base palette
 **6. Snackbar content is capped at 320px maxWidth.**
 Long messages wrap rather than stretch across the viewport. Matches the previous per-app convention (graph's `NotificationTemplate` had used the same value); prevents `err.message` from producing viewport-wide toasts.
 
-**7. Curated notistack re-exports from `@telicent-oss/ds`.**
-Prod apps import everything snackbar-adjacent — provider, verbs, types — from `@telicent-oss/ds`. Never from `notistack` directly. This is the same shape as the MUI curated-growth direction the DS is moving toward: not a blanket re-export of the underlying library, but a deliberate list of what apps actually need.
+**7. DS owns the enqueue vocabulary via `snackbar({ type, message, ...opts })`.**
+Callsites use the DS-owned verb; `notistack`'s `enqueueSnackbar` is not re-exported.
 
-Re-exported today: `SnackbarProvider` (wrapped), `enqueueSnackbar`, `closeSnackbar`, `useSnackbar`, plus types `SnackbarKey`, `SnackbarAction`, `SnackbarOptions` (aliasing notistack's `OptionsObject`), `SnackbarVariant` (aliasing `VariantType`). Anything outside this list stays notistack-side. `import { enqueueSnackbar } from "notistack"` still resolves for genuine escape-hatch scenarios (Storybook, tests, one-off custom composition).
+- `type` is a DS-owned union: `"success" | "error" | "warning" | "info"`. Notistack's fifth `"default"` variant is deliberately excluded — every DS snackbar must declare an intent so nothing ships silently rendered as info.
+- `snackbar()` delegates to `notistack.enqueueSnackbar` internally, translating `type` → `variant` and forwarding all other options unchanged.
+- `SnackbarProvider`'s `Components` map registers the DS Snackbar for `success`/`error`/`warning`/`info` only. If a callsite bypasses `snackbar()` and calls notistack directly with `variant: "default"`, notistack falls back to its unstyled built-in — an honest signal that a `type` is required.
+
+Curated re-exports from `notistack` remain for the vocabulary-neutral helpers apps still need: `useSnackbar`, `closeSnackbar`, and the types `SnackbarKey` and `SnackbarAction`. Anything else stays notistack-side.
 
 ## Consequences
 
 - The DS gains an opinionated toast primitive. `@telicent-oss/ds` continues its GOV UK-style "curated, not passthrough" positioning ([[ds-philosophy-no-mui-passthrough]]) — this is wrapped-with-defaults, not a bare re-export of the whole notistack surface.
 - Five apps lose ~30 lines each of composition boilerplate; per-app `ClickDismiss` implementations are gone. Existing dismiss UX changes from click-anywhere to X-only across the fleet — deliberate product-level change, flagged in the release notes.
-- `notistack` is now a peerDependency (optional). Apps must install it themselves in `package.json`; pnpm surfaces missing peers as install-time warnings. Apps that don't use snackbars install neither and pay nothing.
+- `notistack` moves to `dependencies`. Apps install `@telicent-oss/ds` and receive the snackbar system as part of the DS runtime — no separate install ask.
 - Filled Alert's rendering changes across the DS themes: info and warning in light mode flip from white-on-bright to dark-on-bright (previously failing AA normal, now passing); dark-mode success renders white text on a darker green; dark-mode error preserves red-with-white-text identity via the `error.main` override.
+- The silent `default → info` promotion is impossible at the type level; every snackbar declares an explicit intent.
 - The DS test-utils should wrap in the new provider on next touch (small one-time follow-up).
 
 ## Considered alternatives
@@ -69,9 +74,11 @@ Re-exported today: `SnackbarProvider` (wrapped), `enqueueSnackbar`, `closeSnackb
 
 **Blanket re-export of the whole `notistack` API from the DS** — expose every symbol notistack ships. Rejected: same reason blanket MUI re-export is rejected ([[ds-philosophy-no-mui-passthrough]]). The curated set in decision 7 is what apps actually need.
 
-**Keep `enqueueSnackbar` imports on `notistack` directly** — DS only exports the provider; callsites import verbs from `notistack`. Rejected once the direction of prod apps importing everything from `@telicent-oss/ds` (the same shape being applied to MUI) was locked in. Consistency across the DS's public boundary matters.
+**Thin `enqueueSnackbar` re-export instead of a DS-owned `snackbar()`** — pass notistack's verb through unchanged so callsites speak notistack's vocabulary. Rejected: forces the DS to carry two vocabularies (`variant` at the callsite, `severity` inside the content component), requires a `variantToSeverity` translation, and allows notistack's ambiguous `"default"` variant to reach a toast silently as `info`. Owning the verb costs ~15 lines and eliminates all three problems.
+
+**`notistack` as a `peerDependency` (optional)** — force apps to install it themselves. Rejected: the DS owns the API, so making consumers declare notistack in their `package.json` is a leaky abstraction. As a regular `dependency` (still externalised at build time), the package manager auto-installs and apps never learn notistack exists.
 
 ## Follow-up work
 
 - **`DSProvider`** — compose `UIThemeProvider` + this wrapped `SnackbarProvider` into a single DS mount. Depends on this ADR shipping first. Separate proposal when the work is picked up.
-- **`AppInfoPopover` / DS's `test-utils` wrap** — small hygiene items tracked separately.
+- **`sideEffects: false` in DS's `package.json`** — enable reliable tree-shaking so apps that never call `snackbar()` don't ship notistack in their bundle. Currently every DS consumer pays the notistack bundle cost (~15kb gzipped) regardless. Tracked as a broader DS-hardening pass, not gated by this ADR.

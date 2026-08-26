@@ -1,7 +1,7 @@
 import React from "react";
 import { screen, waitFor } from "@testing-library/react";
-import { useSnackbar } from "notistack";
 import SnackbarProvider from "../SnackbarProvider";
+import { snackbar } from "../Snackbar";
 import { setup } from "../../../../test-utils";
 
 const Trigger: React.FC<{ onClick: () => void; label?: string }> = ({
@@ -15,10 +15,9 @@ const Trigger: React.FC<{ onClick: () => void; label?: string }> = ({
 
 describe("SnackbarProvider", () => {
   test("renders enqueued snackbar via DS content component (with dismiss X)", async () => {
-    const Emitter: React.FC = () => {
-      const { enqueueSnackbar } = useSnackbar();
-      return <Trigger onClick={() => enqueueSnackbar({ message: "Hello", variant: "info" })} />;
-    };
+    const Emitter: React.FC = () => (
+      <Trigger onClick={() => snackbar({ type: "info", message: "Hello" })} />
+    );
 
     const { user } = setup(
       <SnackbarProvider>
@@ -33,10 +32,9 @@ describe("SnackbarProvider", () => {
   });
 
   test("X dismisses the snackbar", async () => {
-    const Emitter: React.FC = () => {
-      const { enqueueSnackbar } = useSnackbar();
-      return <Trigger onClick={() => enqueueSnackbar({ message: "Bye", variant: "info" })} />;
-    };
+    const Emitter: React.FC = () => (
+      <Trigger onClick={() => snackbar({ type: "info", message: "Bye" })} />
+    );
 
     const { user } = setup(
       <SnackbarProvider>
@@ -51,21 +49,18 @@ describe("SnackbarProvider", () => {
     await waitFor(() => expect(screen.queryByText("Bye")).not.toBeInTheDocument());
   });
 
-  test("callsite-supplied action composes alongside the X (both rendered)", async () => {
-    const Emitter: React.FC = () => {
-      const { enqueueSnackbar } = useSnackbar();
-      return (
-        <Trigger
-          onClick={() =>
-            enqueueSnackbar({
-              message: "Failed",
-              variant: "error",
-              action: <button type="button">Retry</button>,
-            })
-          }
-        />
-      );
-    };
+  test("action composes alongside the X (both rendered)", async () => {
+    const Emitter: React.FC = () => (
+      <Trigger
+        onClick={() =>
+          snackbar({
+            type: "error",
+            message: "Failed",
+            action: <button type="button">Retry</button>,
+          })
+        }
+      />
+    );
 
     const { user } = setup(
       <SnackbarProvider>
@@ -79,7 +74,7 @@ describe("SnackbarProvider", () => {
     expect(screen.getByRole("button", { name: "Dismiss notification" })).toBeInTheDocument();
   });
 
-  test("Components override merges onto DS defaults (untouched variants keep DS content)", async () => {
+  test("Components override merges onto DS defaults (untouched types keep DS content)", async () => {
     const CustomError = React.forwardRef<HTMLDivElement, { message: React.ReactNode }>(
       ({ message }, ref) => (
         <div ref={ref} id="custom-error">
@@ -89,21 +84,18 @@ describe("SnackbarProvider", () => {
     );
     CustomError.displayName = "CustomError";
 
-    const Emitter: React.FC = () => {
-      const { enqueueSnackbar } = useSnackbar();
-      return (
-        <>
-          <Trigger
-            label="err"
-            onClick={() => enqueueSnackbar({ message: "boom", variant: "error" })}
-          />
-          <Trigger
-            label="ok"
-            onClick={() => enqueueSnackbar({ message: "yay", variant: "success" })}
-          />
-        </>
-      );
-    };
+    const Emitter: React.FC = () => (
+      <>
+        <Trigger
+          label="err"
+          onClick={() => snackbar({ type: "error", message: "boom" })}
+        />
+        <Trigger
+          label="ok"
+          onClick={() => snackbar({ type: "success", message: "yay" })}
+        />
+      </>
+    );
 
     const { user } = setup(
       <SnackbarProvider Components={{ error: CustomError }}>
@@ -124,13 +116,10 @@ describe("SnackbarProvider", () => {
     );
   });
 
-  test("auto-hide fires uniformly for every variant", async () => {
-    const Emitter: React.FC = () => {
-      const { enqueueSnackbar } = useSnackbar();
-      return (
-        <Trigger onClick={() => enqueueSnackbar({ message: "will fade", variant: "error" })} />
-      );
-    };
+  test("auto-hide fires uniformly for every type", async () => {
+    const Emitter: React.FC = () => (
+      <Trigger onClick={() => snackbar({ type: "error", message: "will fade" })} />
+    );
 
     const { user } = setup(
       <SnackbarProvider autoHideDuration={50}>
