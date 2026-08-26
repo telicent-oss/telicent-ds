@@ -38,6 +38,7 @@ export default defineConfig({
         "@mui/styled-engine",
         "@emotion/react",
         "@emotion/styled",
+        "notistack",
       ],
       output: {
         interop: "auto",
