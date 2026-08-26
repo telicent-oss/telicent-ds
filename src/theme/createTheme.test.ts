@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -88,45 +88,28 @@
+    @@ -88,52 +88,29 @@
          },
          "MuiCssBaseline": {}
        },
@@ -57,6 +57,7 @@ test("tmp theme diffs via unified patches", () => {
            "light": "rgba(47, 68, 202, 0.5)",
            "contrastText": "#FFFFFF"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
     -      "main": "#6B6B6B",
     -      "dark": "rgba(107, 107, 107, 0.7)",
@@ -77,6 +78,12 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
+    -    },
+    -    "success": {
+    -      "main": "#2e7d32"
+    -    },
+    -    "error": {
+    -      "main": "#d32f2f"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -118,16 +125,16 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(245, 106, 170, 0.5)",
     +      "contrastText": "#000"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
            "main": "#6B6B6B",
-           "dark": "rgba(107, 107, 107, 0.7)",
 
 
     Index: 2
     ===================================================================
     --- 2	DataNavy (light)
     +++ 2	DocumentPink (dark)
-    @@ -88,45 +88,28 @@
+    @@ -88,52 +88,29 @@
          },
          "MuiCssBaseline": {}
        },
@@ -144,6 +151,7 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(245, 106, 170, 0.5)",
     +      "contrastText": "#000"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
     -      "main": "#6B6B6B",
     -      "dark": "rgba(107, 107, 107, 0.7)",
@@ -164,6 +172,12 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
+    -    },
+    -    "success": {
+    -      "main": "#2e7d32"
+    -    },
+    -    "error": {
+    -      "main": "#d32f2f"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -205,16 +219,16 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(242, 166, 75, 0.5)",
     +      "contrastText": "#000"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
            "main": "#6B6B6B",
-           "dark": "rgba(107, 107, 107, 0.7)",
 
 
     Index: 4
     ===================================================================
     --- 4	DataNavy (light)
     +++ 4	GraphOrange (dark)
-    @@ -88,45 +88,28 @@
+    @@ -88,52 +88,29 @@
          },
          "MuiCssBaseline": {}
        },
@@ -231,6 +245,7 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(242, 166, 75, 0.5)",
     +      "contrastText": "#000"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
     -      "main": "#6B6B6B",
     -      "dark": "rgba(107, 107, 107, 0.7)",
@@ -251,6 +266,12 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
+    -    },
+    -    "success": {
+    -      "main": "#2e7d32"
+    -    },
+    -    "error": {
+    -      "main": "#d32f2f"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -292,16 +313,16 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(32, 188, 250, 0.5)",
     +      "contrastText": "#000"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
            "main": "#6B6B6B",
-           "dark": "rgba(107, 107, 107, 0.7)",
 
 
     Index: 6
     ===================================================================
     --- 6	DataNavy (light)
     +++ 6	AdminBlue (dark)
-    @@ -88,45 +88,28 @@
+    @@ -88,52 +88,29 @@
          },
          "MuiCssBaseline": {}
        },
@@ -314,6 +335,7 @@ test("tmp theme diffs via unified patches", () => {
            "light": "rgba(47, 68, 202, 0.5)",
            "contrastText": "#FFFFFF"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
     -      "main": "#6B6B6B",
     -      "dark": "rgba(107, 107, 107, 0.7)",
@@ -334,6 +356,12 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
+    -    },
+    -    "success": {
+    -      "main": "#2e7d32"
+    -    },
+    -    "error": {
+    -      "main": "#d32f2f"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -375,10 +403,10 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(157, 221, 49, 0.5)",
     +      "contrastText": "#000"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
            "main": "#6B6B6B",
-           "dark": "rgba(107, 107, 107, 0.7)",
-    @@ -107,9 +107,9 @@
+    @@ -108,9 +108,9 @@
            "secondary": "rgba(255, 255, 255, 0.7)",
            "disabled": "#999999"
          },
@@ -387,15 +415,15 @@ test("tmp theme diffs via unified patches", () => {
     +      "default": "#080808",
            "paper": "#252525"
          },
-         "grey": {
-           "50": "#fafafa",
+         "success": {
+           "main": "#2e7d32"
 
 
     Index: 8
     ===================================================================
     --- 8	DataNavy (light)
     +++ 8	GeoGreen (dark)
-    @@ -88,45 +88,28 @@
+    @@ -88,52 +88,29 @@
          },
          "MuiCssBaseline": {}
        },
@@ -412,6 +440,7 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(157, 221, 49, 0.5)",
     +      "contrastText": "#000"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
     -      "main": "#6B6B6B",
     -      "dark": "rgba(107, 107, 107, 0.7)",
@@ -432,6 +461,12 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
+    -    },
+    -    "success": {
+    -      "main": "#2e7d32"
+    -    },
+    -    "error": {
+    -      "main": "#d32f2f"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -473,16 +508,16 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(0, 0, 0, 0.5)",
     +      "contrastText": "#fff"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
            "main": "#6B6B6B",
-           "dark": "rgba(107, 107, 107, 0.7)",
 
 
     Index: 10
     ===================================================================
     --- 10	DataNavy (light)
     +++ 10	Blank (dark)
-    @@ -88,45 +88,28 @@
+    @@ -88,52 +88,29 @@
          },
          "MuiCssBaseline": {}
        },
@@ -499,6 +534,7 @@ test("tmp theme diffs via unified patches", () => {
     +      "light": "rgba(0, 0, 0, 0.5)",
     +      "contrastText": "#fff"
          },
+         "contrastThreshold": 4.5,
          "tertiary": {
     -      "main": "#6B6B6B",
     -      "dark": "rgba(107, 107, 107, 0.7)",
@@ -519,6 +555,12 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
+    -    },
+    -    "success": {
+    -      "main": "#2e7d32"
+    -    },
+    -    "error": {
+    -      "main": "#d32f2f"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
