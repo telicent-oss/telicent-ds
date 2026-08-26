@@ -520,8 +520,24 @@
   }
 </script>
 <link rel="stylesheet" href="/src/assets/fonts/fontawesome/css/all.min.css" />
+<style>
+  /*
+   * Hide MUI's touch-ripple overlay in Storybook so axe-core's color-contrast
+   * check can determine the button background reliably. The ripple root
+   * (`.MuiTouchRipple-root`) is an absolutely positioned overlay inside every
+   * MuiButtonBase. document.elementsFromPoint() returns it as layered above
+   * the button text, which makes axe return "Inconclusive: overlapped by
+   * another element" instead of a real pass/fail.
+   *
+   * Ripples are click-time visual feedback only — hiding the container in
+   * Storybook has no effect on production, no effect on visual snapshots
+   * (baselines are captured idle), and no effect on the components' real
+   * runtime behaviour.
+   */
+  .MuiTouchRipple-root { display: none !important; }
+</style>
 
-    <script type="module" crossorigin src="./assets/iframe-BoGmtiqi.js"></script>
+    <script type="module" crossorigin src="./assets/iframe-DBgioWeW.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/preload-helper-C1FmrZbK.js">
   </head>
 
