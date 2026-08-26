@@ -285,7 +285,7 @@ Demonstrated states:
 - WithSignOutButton — appName="Catalogue"
 - WithNoBrand — disableBrand=true, startChild=<jsx>, endChild=UserProfileExample
 - ClickableBrand — appName="Catalogue", href="https://telicent.io", target="_blank"
-- UsageExample — appName="Catalogue", isElevated=true, startChild=<jsx>, endChild=UserProfileExample
+- StandardHeader — appName="Catalogue", isElevated=true, startChild=<jsx>
 Live: https://telicent-oss.github.io/telicent-ds/LAB-88/ship-extended-theme-type/?path=/docs/surfaces-toolbar--docs
 Usage: https://github.com/telicent-oss/telicent-ds/blob/LAB-88/ship-extended-theme-type/src/components/surfaces/Toolbar/Toolbar.stories.tsx
 
@@ -797,6 +797,46 @@ import { Card, CardContent, CardActions, Text, Button } from "@telicent-oss/ds";
 
 ---
 
+## Other exports
+
+Exported by `@telicent-oss/ds` but not yet given a section above. Auto-listed from the type surface (props only); a maintainer should fold these into the manifest.
+
+* `AppInfo`:
+```yaml
+AppInfo:
+  ariaLabel: {type: 'string', required: false}
+  id: {type: 'string', required: false}
+```
+
+* `AppInfoRow`:
+```yaml
+AppInfoRow:
+  id: {type: 'string', required: false}
+  label: {type: 'string', required: true}
+  value: {type: 'React.ReactNode', required: true}
+```
+
+* `ConfirmDialog`:
+```yaml
+ConfirmDialog:
+  alert: {type: 'ConfirmDialogAlert', required: false}
+  ariaLabel: {type: 'string', required: false}
+  body: {type: 'React.ReactNode', required: true}
+  cancelLabel: {type: 'string', required: false}
+  confirmLabel: {type: 'string', required: false}
+  icon: {type: 'React.ReactNode', required: false}
+  id: {type: 'string', required: false}
+  isPending: {type: 'boolean', required: false}
+  onClose: {type: '() => void', required: true}
+  onConfirm: {type: '() => void', required: true}
+  open: {type: 'boolean', required: true}
+  pendingLabel: {type: 'string', required: false}
+  title: {type: 'string', required: true}
+  variant: {type: 'ConfirmDialogVariant', required: false}
+```
+
+---
+
 ## Package and install
 
 - Install with `yarn add @telicent-oss/ds`
@@ -804,4 +844,4 @@ import { Card, CardContent, CardActions, Text, Button } from "@telicent-oss/ds";
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds v3.4.1.
+This reference documents @telicent-oss/ds v3.6.1.
