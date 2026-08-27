@@ -3,13 +3,15 @@ name: deploy-llms.yml
 # Publishes llms.txt and llms-full.txt to the GitHub Pages site. Every deploy below
 # uses publish_dir ./llms, so each of these paths gets both files.
 #
-# ref     published at
-# main    /                and /v<major>/
-# branch  /<branch>/
+# "Resolve publish target" is the only step that reads the ref; the rest read its
+# outputs. Its table says where each ref lands.
 #
 # The per-major copy lets an app stuck on an old major still fetch the manifest for
 # the version it runs. keep_files:true stops a deploy wiping paths it did not write:
 # older majors, and Storybook, which owns the same paths.
+#
+# When the manifest changes, the run also publishes llms.diff.html, a diff2html
+# render against the site-root manifest, and links both from commit statuses.
 
 on:
   workflow_dispatch:
@@ -22,11 +24,13 @@ on:
       - scripts/extract-props.mjs
       - scripts/extract-stories.mjs
       - .github/workflows/deploy-llms.yml
+      - scripts/workflows/deploy-llms/**
       - src/**
       - package.json
 
 permissions:
   contents: write
+  statuses: write
 
 # Serialised against upload-storybook.yml's Pages deploys: both push to the same
 # gh-pages branch, so a shared group stops concurrent non-fast-forward pushes.
@@ -37,6 +41,9 @@ concurrency:
 jobs:
   deploy-llms:
     runs-on: ubuntu-latest
+    env:
+      SITE: https://telicent-oss.github.io/telicent-ds
+      REPO: https://github.com/telicent-oss/telicent-ds
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -45,6 +52,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.22
+
+      - name: Resolve publish target
+        id: target
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          REF: ${{ github.ref }}
+        run: scripts/workflows/deploy-llms/resolve-publish-target.sh
 
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
@@ -56,38 +70,47 @@ jobs:
       - name: Generate llms.txt
         run: yarn generate:llms
 
-      - name: Deploy llms.txt to Pages root
-        if: github.ref == 'refs/heads/main'
+      - name: Build llms.txt diff report
+        id: diff
+        env:
+          URLPATH: ${{ steps.target.outputs.urlpath }}
+          BRANCH: ${{ steps.target.outputs.ref }}
+          RUNNER_TEMP: ${{ runner.temp }}
+        run: scripts/workflows/deploy-llms/build-diff-report.sh
+
+      - name: Deploy llms.txt
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./llms
-          destination_dir: ./
+          destination_dir: ${{ steps.target.outputs.dir }}
           keep_files: true
 
-      # A failed read would leave major empty and publish to /v/, so fail here instead.
-      - name: Read major version
-        if: github.ref == 'refs/heads/main'
-        id: major
+      - name: Deploy per-major copy
+        if: steps.target.outputs.major != ''
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./llms
+          destination_dir: ./v${{ steps.target.outputs.major }}
+          keep_files: true
+
+      # Runs after the deploys so both URLs resolve.
+      - name: Post llms.txt links to commit status
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_SLUG: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+          URLPATH: ${{ steps.target.outputs.urlpath }}
         run: |
-          major="$(node -p 'require("./package.json").version.split(".")[0]')"
-          : "${major:?could not read the major from package.json}"
-          echo "major=$major" >> "$GITHUB_OUTPUT"
-
-      - name: Deploy llms.txt to per-major path
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./llms
-          destination_dir: ./v${{ steps.major.outputs.major }}
-          keep_files: true
-
-      - name: Deploy llms.txt to per-branch preview
-        if: github.ref != 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./llms
-          destination_dir: ${{ github.ref_name }}
-          keep_files: true
+          gh api "repos/$REPO_SLUG/statuses/$SHA" \
+            -f state=success \
+            -f context="llms.txt / diff report" \
+            -f description="Rendered diff vs the published manifest" \
+            -f target_url="$SITE/${URLPATH}llms.diff.html"
+          gh api "repos/$REPO_SLUG/statuses/$SHA" \
+            -f state=success \
+            -f context="llms.txt / published manifest" \
+            -f description="The llms.txt this ref publishes" \
+            -f target_url="$SITE/${URLPATH}llms.txt"

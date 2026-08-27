@@ -151,6 +151,7 @@
     "cssnano": "^5.0.14",
     "cz-conventional-changelog": "^3.3.0",
     "diff": "^8.0.2",
+    "diff2html-cli": "5.2.15",
     "eslint": "^9.15.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
