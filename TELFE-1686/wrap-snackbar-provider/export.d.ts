@@ -111,7 +111,6 @@ import { URLSearchParamsInit } from 'react-router-dom';
 import { UseAutocompleteProps } from '@mui/material/useAutocomplete';
 import { useMap } from 'react-map-gl/maplibre';
 import { UserInfo } from '@telicent-oss/fe-auth-lib';
-import { useSnackbar } from 'notistack';
 import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
 
@@ -2254,7 +2253,10 @@ export declare type UserStatusProps = PropsWithChildren & {
     fullName: string;
 };
 
-export { useSnackbar }
+export declare const useSnackbar: () => {
+    snackbar: (args: SnackbarArgs) => SnackbarKey;
+    closeSnackbar: (key?: SnackbarKey) => void;
+};
 
 export declare const WarningIcon: default_2.FC<SvgIconProps>;
 
