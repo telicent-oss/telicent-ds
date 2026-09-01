@@ -1,9 +1,8 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useSnackbar } from "notistack";
 import Button from "../../buttons/Button/Button";
 import SnackbarProvider from "./SnackbarProvider";
-import { snackbar, type SnackbarType } from "./Snackbar";
+import { useSnackbar, type SnackbarType } from "./Snackbar";
 
 const meta = {
   title: "Feedback/Snackbar",
@@ -19,6 +18,17 @@ Every prop is overridable. The \`Components\` prop merges onto the DS defaults s
 
 ---
 
+### When to use each type
+
+- **\`success\`** — an action completed and the user cares (dataset saved, resource created, config applied).
+- **\`error\`** — an action failed. Mutation errors, network failures, anything the user should know went wrong.
+- **\`warning\`** — a partial success or proceed-with-caution notice (e.g. "Loaded 4 of 6; 2 could not be loaded"). Use for reversible degradations, not hard failures.
+- **\`info\`** — neutral update the user might want to see (background job progressed, session refreshed).
+
+Snackbars are **non-blocking**. If the user must acknowledge before continuing, use \`ConfirmDialog\` or a dedicated dialog instead.
+
+---
+
 ### Defaults
 
 - \`anchorOrigin\`: \`{ vertical: "top", horizontal: "right" }\`
@@ -26,6 +36,20 @@ Every prop is overridable. The \`Components\` prop merges onto the DS defaults s
 - \`autoHideDuration\`: \`7000\`ms — uniform across types; the X provides earlier manual dismissal.
 - \`preventDuplicate\`: \`true\` — identical enqueue calls are suppressed. Override per call with \`preventDuplicate: false\`.
 - \`Components\`: DS Snackbar mounted for \`success\`, \`error\`, \`warning\`, \`info\`. No \`default\` — a \`type\` is required.
+
+---
+
+### Per-call options
+
+Every provider default can be overridden per \`snackbar()\` call. Common overrides:
+
+- **\`action\`** — a \`ReactNode\` or \`(id) => ReactNode\`. Composes to the left of the DS X. Use for retry/undo affordances.
+- **\`autoHideDuration\`** — override the 7s default for a single toast. Pass \`null\` to make it persistent.
+- **\`persist\`** — shortcut for \`autoHideDuration: null\`. The toast stays until X is clicked or \`closeSnackbar(id)\` is called.
+- **\`preventDuplicate\`** — set to \`false\` for a single toast if duplicates are genuinely wanted.
+- **\`key\`** — supply a stable key to reference the toast later for programmatic dismiss or duplicate-suppression grouping.
+
+Full \`notistack\` \`OptionsObject\` shape is accepted; see the notistack docs for the complete list.
 
 ---
 
@@ -75,6 +99,34 @@ snackbar({
   ),
 });
 \`\`\`
+
+\`message\` accepts any \`ReactNode\`, not just strings:
+
+\`\`\`tsx
+snackbar({
+  type: "warning",
+  message: (
+    <>
+      <strong>Partial import.</strong> 4 of 6 records loaded; check the log for failures.
+    </>
+  ),
+});
+\`\`\`
+
+Keep it short — the 320px width cap wraps anything longer than a sentence or two.
+
+---
+
+### Where to call \`snackbar()\`
+
+\`snackbar()\` is a plain module-level function — no hook, no context required. Call it from:
+
+- Event handlers (button \`onClick\`, form \`onSubmit\`)
+- React Query callbacks (\`onSuccess\`, \`onError\`)
+- Module-scope handlers (auth interceptors, WebSocket listeners)
+- Effect closures
+
+\`useSnackbar()\` is only needed inside a React component when you need \`closeSnackbar\` for programmatic dismiss.
 `,
       },
     },
@@ -87,19 +139,27 @@ type Story = StoryObj<typeof meta>;
 
 const TYPES: readonly SnackbarType[] = ["success", "error", "warning", "info"];
 
-const TypeTriggers: React.FC = () => (
-  <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
-    {TYPES.map((type) => (
-      <Button
-        key={type}
-        variant="primary"
-        onClick={() => snackbar({ type, message: `This is a ${type} snackbar.` })}
-      >
-        Show {type}
-      </Button>
-    ))}
-  </div>
-);
+// Story helpers use the hook form `useSnackbar()` so each story binds to its own
+// SnackbarProvider via React context (rather than the module-level `snackbar()`
+// which shares one notistack singleton across the whole autodocs page).
+// The Example section above teaches the module-level form for real consumer
+// code; both forms are valid DS API paths.
+const TypeTriggers: React.FC = () => {
+  const { snackbar } = useSnackbar();
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
+      {TYPES.map((type) => (
+        <Button
+          key={type}
+          variant="primary"
+          onClick={() => snackbar({ type, message: `This is a ${type} snackbar.` })}
+        >
+          Show {type}
+        </Button>
+      ))}
+    </div>
+  );
+};
 
 export const AllTypes: Story = {
   parameters: {
@@ -111,14 +171,14 @@ export const AllTypes: Story = {
     },
   },
   render: () => (
-    <SnackbarProvider maxSnack={5} autoHideDuration={null}>
+    <SnackbarProvider>
       <TypeTriggers />
     </SnackbarProvider>
   ),
 };
 
 const ActionComposition: React.FC = () => {
-  const { closeSnackbar } = useSnackbar();
+  const { snackbar, closeSnackbar } = useSnackbar();
   return (
     <Button
       variant="primary"
@@ -163,16 +223,19 @@ export const WithAction: Story = {
   ),
 };
 
-const StackDemo: React.FC = () => (
-  <Button
-    variant="primary"
-    onClick={() => {
-      TYPES.forEach((type, i) => snackbar({ type, message: `Stacked ${type} #${i + 1}` }));
-    }}
-  >
-    Fire 4 toasts at once
-  </Button>
-);
+const StackDemo: React.FC = () => {
+  const { snackbar } = useSnackbar();
+  return (
+    <Button
+      variant="primary"
+      onClick={() => {
+        TYPES.forEach((type, i) => snackbar({ type, message: `Stacked ${type} #${i + 1}` }));
+      }}
+    >
+      Fire 4 toasts at once
+    </Button>
+  );
+};
 
 export const MaxStack: Story = {
   parameters: {

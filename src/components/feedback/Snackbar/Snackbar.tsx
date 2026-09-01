@@ -1,6 +1,6 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useCallback } from "react";
 import {
-  useSnackbar,
+  useSnackbar as useNotistackSnackbar,
   enqueueSnackbar as notistackEnqueue,
   type CustomContentProps,
   type SnackbarKey,
@@ -27,6 +27,24 @@ export type SnackbarArgs = Omit<OptionsObject, "variant"> & {
 export const snackbar = ({ type, message, ...options }: SnackbarArgs): SnackbarKey =>
   notistackEnqueue({ ...options, variant: type, message });
 
+// Hook version of `snackbar()` bound to the local `SnackbarProvider` via React
+// context. Prefer the module-level `snackbar()` for most callsites — call it
+// from anywhere. Reach for `useSnackbar()` when you need `closeSnackbar` for
+// programmatic dismiss, or when a component must bind to a specific provider
+// (e.g. tests, nested providers, Storybook demos).
+export const useSnackbar = (): {
+  snackbar: (args: SnackbarArgs) => SnackbarKey;
+  closeSnackbar: (key?: SnackbarKey) => void;
+} => {
+  const { enqueueSnackbar, closeSnackbar } = useNotistackSnackbar();
+  const localSnackbar = useCallback(
+    ({ type, message, ...options }: SnackbarArgs) =>
+      enqueueSnackbar({ ...options, variant: type, message }),
+    [enqueueSnackbar],
+  );
+  return { snackbar: localSnackbar, closeSnackbar };
+};
+
 // Private content component mounted by SnackbarProvider for every DS type.
 // Not exported from the barrel — apps consume the wrapped provider and the
 // `snackbar()` verb, not this template.
@@ -39,7 +57,7 @@ type SnackbarContentProps = Omit<CustomContentProps, "action" | "variant"> & {
 
 const Snackbar = forwardRef<HTMLDivElement, SnackbarContentProps>(
   ({ id, message, variant, action, className, style }, ref) => {
-    const { closeSnackbar } = useSnackbar();
+    const { closeSnackbar } = useNotistackSnackbar();
     const actionNode = typeof action === "function" ? action(id) : action;
 
     return (
