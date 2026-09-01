@@ -38,7 +38,6 @@ import { DialogTitle } from '@mui/material';
 import { DialogTitleProps } from '@mui/material';
 import { DividerProps as DividerProps_2 } from '@mui/material/Divider';
 import { DrawerProps as DrawerProps_2 } from '@mui/material/Drawer';
-import { enqueueSnackbar } from 'notistack';
 import { ExtendButtonBase } from '@mui/material';
 import { ExtendedTheme } from '../theme/theme-type';
 import { FC } from 'react';
@@ -70,6 +69,7 @@ import { MapProvider } from 'react-map-gl/maplibre';
 import { MapRef } from 'react-map-gl/maplibre';
 import { ModalProps as ModalProps_2 } from '@mui/material/Modal';
 import { OntologyService } from '@telicent-oss/ontologyservice';
+import { OptionsObject } from 'notistack';
 import { OutlinedSelectProps } from '@mui/material';
 import { OutlinedTextFieldProps } from '@mui/material';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
@@ -89,9 +89,7 @@ import { SelectProps as SelectProps_2 } from '@mui/material';
 import { SkeletonTypeMap } from '@mui/material/Skeleton';
 import { SnackbarAction } from 'notistack';
 import { SnackbarKey } from 'notistack';
-import { OptionsObject as SnackbarOptions } from 'notistack';
 import { SnackbarProviderProps as SnackbarProviderProps_2 } from 'notistack';
-import { VariantType as SnackbarVariant } from 'notistack';
 import { StackProps } from '@mui/material/Stack';
 import { StandardSelectProps } from '@mui/material';
 import { StandardTextFieldProps } from '@mui/material';
@@ -752,8 +750,6 @@ export declare const EditableTextField: default_2.FC<InputText>;
 export declare const ENCODE_SEARCH_PARAMS_MODES_Schema: z.ZodUnion<[z.ZodLiteral<"as base64">, z.ZodLiteral<"as uri component">]>;
 
 export declare type ENCODE_SEARCH_PARAMS_MODES_Type = z.infer<typeof ENCODE_SEARCH_PARAMS_MODES_Schema>;
-
-export { enqueueSnackbar }
 
 /**
  * Ensure an icon is loaded using the loader chain.
@@ -1905,17 +1901,22 @@ declare type SingleProps = BaseProps_2 & {
 
 export declare const Skeleton: OverridableComponent<SkeletonTypeMap<    {}, "span">>;
 
+export declare const snackbar: ({ type, message, ...options }: SnackbarArgs) => SnackbarKey;
+
 export { SnackbarAction }
 
-export { SnackbarKey }
+export declare type SnackbarArgs = Omit<OptionsObject, "variant"> & {
+    type: SnackbarType;
+    message: default_2.ReactNode;
+};
 
-export { SnackbarOptions }
+export { SnackbarKey }
 
 export declare const SnackbarProvider: FC<SnackbarProviderProps>;
 
 export declare type SnackbarProviderProps = SnackbarProviderProps_2;
 
-export { SnackbarVariant }
+export declare type SnackbarType = "success" | "error" | "warning" | "info";
 
 export declare interface SourceWithEvents {
     on(type: string, listener: (e: unknown) => void): void;
