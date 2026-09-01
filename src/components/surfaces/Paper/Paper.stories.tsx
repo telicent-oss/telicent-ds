@@ -32,3 +32,27 @@ export const Demo: Story = {
     );
   },
 };
+
+/**
+ * PROPOSAL. The `padding` prop, next to what the estate writes by hand today.
+ *
+ * Every value below is one a real app currently passes as `sx`. telicent-admin
+ * writes `padding: 1` in seven separate components; graph uses 2.5; search uses
+ * an asymmetric `px: 3, py: 2`, which this prop deliberately does NOT cover —
+ * asymmetric padding stays `sx`.
+ */
+export const ProposedPaddingProp: Story = {
+  args: {},
+  render: () => (
+    <Box display="flex" gap={2} flexWrap="wrap">
+      {[1, 2, 2.5].map((value) => (
+        <Paper key={value} elevation={2} padding={value}>
+          <Text>padding={value}</Text>
+        </Paper>
+      ))}
+      <Paper elevation={2} sx={{ px: 3, py: 2 }}>
+        <Text>asymmetric, still sx</Text>
+      </Paper>
+    </Box>
+  ),
+};
