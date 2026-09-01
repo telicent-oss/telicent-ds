@@ -72,3 +72,26 @@ export const WithActions: Story = {
     ),
   },
 };
+
+/**
+ * PROPOSAL. The same actions, through the `actions` slot instead of `children`.
+ *
+ * Compare against `WithActions` above, which is what the component allows
+ * today: no divider, right-aligned, actions indistinguishable from content.
+ * This story is what graph, search, catalog and telicent-admin each build by
+ * hand around the component - divider, `pt: 1`, full-width button - and what
+ * the slot renders for them instead.
+ */
+export const ProposedActionsSlot: Story = {
+  args: {
+    children: items.slice(0, 3).map((item) => (
+      <FlexBox key={item.heading}>
+        <Text>
+          <b>{item.heading}</b>
+        </Text>
+        <Text>{item.value}</Text>
+      </FlexBox>
+    )),
+    actions: <Button variant="primary">Sign Out</Button>,
+  },
+};
