@@ -3,6 +3,7 @@ import Polygon from "ol/geom/Polygon";
 import { PolygonFeature } from "../types/polygons";
 import { MultiPolygon } from "ol/geom";
 import { is3D, is4D } from "./coordinate-guards";
+import { MalformedFeatureError } from "./errors";
 
 export const polygonToOLFeature = (
   polygon: PolygonFeature
@@ -14,14 +15,16 @@ export const polygonToOLFeature = (
   let geometry: Polygon | MultiPolygon;
   if (type === "MultiPolygon") {
     if (!is4D(coordinates)) {
-      throw new Error(
+      throw new MalformedFeatureError(
+        id,
         `PolygonFeature "${id}": type "MultiPolygon" expects number[][][][] coordinates.`
       );
     }
     geometry = new MultiPolygon(coordinates);
   } else {
     if (!is3D(coordinates)) {
-      throw new Error(
+      throw new MalformedFeatureError(
+        id,
         `PolygonFeature "${id}": type "Polygon" expects number[][][] coordinates.`
       );
     }

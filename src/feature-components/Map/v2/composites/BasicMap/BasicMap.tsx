@@ -28,7 +28,7 @@ import { pathToOLFeature } from "../../utils/paths";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
 
-const BasicMapV2Inner = React.forwardRef<
+export const BasicMapV2 = React.forwardRef<
   BasicMapV2Handle,
   BasicMapProperties
 >((props, ref) => {
@@ -282,45 +282,3 @@ const BasicMapV2Inner = React.forwardRef<
     </>
   );
 });
-
-interface MapErrorBoundaryProps {
-  onError?: (error: Error) => void;
-  children: React.ReactNode;
-}
-
-/**
- * Reports a render-time failure to `onError` and then lets it keep
- * propagating, so a config mistake still fails hard.
- *
- * The report and the rethrow both live in componentDidCatch: it runs in the
- * commit phase, so throwing from render instead would skip it and `onError`
- * would never fire.
- */
-class MapErrorBoundary extends React.Component<
-  MapErrorBoundaryProps,
-  { error: Error | null }
-> {
-  state: { error: Error | null } = { error: null };
-
-  static getDerivedStateFromError(error: Error) {
-    return { error };
-  }
-
-  componentDidCatch(error: Error) {
-    this.props.onError?.(error);
-    throw error;
-  }
-
-  render() {
-    return this.state.error ? null : this.props.children;
-  }
-}
-
-export const BasicMapV2 = React.forwardRef<
-  BasicMapV2Handle,
-  BasicMapProperties
->((props, ref) => (
-  <MapErrorBoundary onError={props.onError}>
-    <BasicMapV2Inner ref={ref} {...props} />
-  </MapErrorBoundary>
-));

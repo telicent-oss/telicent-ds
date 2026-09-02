@@ -96,13 +96,14 @@ export interface BasicMapProperties {
   onFeatureHover?: OnFeatureHover;
   onLayersReady?: (isReady: boolean) => void;
   /**
-   * Called on any failure the map detects.
+   * Called on an async failure the map survives: layer setup or marker icon
+   * loading. The previous render stays on screen, and without a handler the
+   * error is only logged.
    *
-   * Layer setup and marker icon loading are async and recoverable: the
-   * previous render stays on screen and, without a handler, the error is only
-   * logged. Malformed feature coordinates are a config mistake: onError fires
-   * and the error then keeps propagating, so wrap the map in an error boundary
-   * if the rest of the app should survive it.
+   * Malformed feature coordinates do not come through here. They are a config
+   * mistake, so they throw during render as a `MalformedFeatureError` for the
+   * nearest error boundary to handle — routing a render throw into a callback
+   * would make React report the same error more than once.
    */
   onError?: (error: Error) => void;
 }

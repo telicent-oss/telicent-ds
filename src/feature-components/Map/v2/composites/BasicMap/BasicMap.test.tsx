@@ -24,6 +24,7 @@ import { ensureLayers } from "../../utils/ensureLayers";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { MARKER_LAYER_ID, PATH_LAYER_ID } from "../../utils/layers";
 import { PathFeature } from "../../types/paths";
+import { MalformedFeatureError } from "../../utils/errors";
 
 
 const makeProps = (overrides?: Partial<BasicMapProperties>): BasicMapProperties => ({
@@ -266,11 +267,10 @@ describe("BasicMapV2 error handling", () => {
 		coordinates: [0, 0],
 	} as unknown as PathFeature;
 
-	it("throws during render when a path is malformed", () => {
+	it("throws a MalformedFeatureError during render when a path is malformed", () => {
 		const consoleError = jest
 			.spyOn(console, "error")
 			.mockImplementation(() => undefined);
-		const onError = jest.fn();
 
 		expect(() =>
 			render(
@@ -280,14 +280,35 @@ describe("BasicMapV2 error handling", () => {
 					markers={[]}
 					polygons={[]}
 					paths={[malformedPath]}
-					onError={onError}
 				/>
 			)
-		).toThrow(/bad-path/);
+		).toThrow(MalformedFeatureError);
 
-		// The config mistake is reported as well as thrown.
-		expect(onError).toHaveBeenCalledTimes(1);
-		expect(onError.mock.calls[0][0].message).toContain("bad-path");
+		consoleError.mockRestore();
+	});
+
+	it("names the offending feature on the thrown error", () => {
+		const consoleError = jest
+			.spyOn(console, "error")
+			.mockImplementation(() => undefined);
+
+		let caught: unknown;
+		try {
+			render(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[malformedPath]}
+				/>
+			);
+		} catch (error) {
+			caught = error;
+		}
+
+		expect(caught).toBeInstanceOf(MalformedFeatureError);
+		expect((caught as MalformedFeatureError).featureId).toBe("bad-path");
 
 		consoleError.mockRestore();
 	});

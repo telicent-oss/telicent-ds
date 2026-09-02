@@ -5,6 +5,7 @@ import { Fill, Icon, Stroke, Style } from "ol/style";
 import RegularShape from "ol/style/RegularShape";
 import { DirectionMarker, PathFeature, PathStyle } from "../types/paths";
 import { is2D, is3D } from "./coordinate-guards";
+import { MalformedFeatureError } from "./errors";
 
 const buildDirectionImage = (
   marker: DirectionMarker | undefined,
@@ -81,14 +82,16 @@ export const pathToOLFeature = (
   let geometry: LineString | MultiLineString;
   if (type === "MultiLineString") {
     if (!is3D(coordinates)) {
-      throw new Error(
+      throw new MalformedFeatureError(
+        id,
         `PathFeature "${id}": type "MultiLineString" expects number[][][] coordinates.`
       );
     }
     geometry = new MultiLineString(coordinates);
   } else {
     if (!is2D(coordinates)) {
-      throw new Error(
+      throw new MalformedFeatureError(
+        id,
         `PathFeature "${id}": type "LineString" expects number[][] coordinates.`
       );
     }
