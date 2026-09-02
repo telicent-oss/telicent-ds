@@ -10,6 +10,7 @@ import React, {
 } from "react";
 
 import { Map } from "ol";
+import Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
 import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
@@ -46,6 +47,22 @@ export const BasicMapV2 = React.forwardRef<
     }
     console.error(`BasicMapV2: ${context}`, error);
   }, []);
+
+  // Built during render, not in the effect below, so that coordinates which
+  // don't match their declared type fail fast and hard: polygonToOLFeature and
+  // pathToOLFeature throw synchronously here and the throw reaches the nearest
+  // error boundary, instead of surfacing as an async rejection after the map
+  // sources have already been cleared. Malformed coordinates are a config
+  // mistake, so this is deliberately not recoverable.
+  const polygonFeatures = useMemo(
+    () => props.polygons.map(polygonToOLFeature),
+    [props.polygons]
+  );
+
+  const pathFeatures = useMemo(
+    () => (props.paths ?? []).map(pathToOLFeature),
+    [props.paths]
+  );
 
   const showLayerSelector = props.controls?.showLayerSelector ?? true;
 
@@ -138,49 +155,44 @@ export const BasicMapV2 = React.forwardRef<
     let cancelled = false;
 
     (async () => {
+      let markerFeatures: Feature[];
       try {
+        // Icon preload is a network fetch, so a failure here is a runtime
+        // problem rather than a config mistake: report it and leave the
+        // previous render in place instead of dying as an unhandled rejection.
         await ensureMarkerIconsLoaded(props.markers);
-
         if (cancelled) return;
-
-        // Build every feature before touching a source. The *ToOLFeature
-        // converters throw on coordinates that don't match the declared type,
-        // and clearing first would leave the map blank on that throw.
-        const markerFeatures = props.markers.map(markerToOLFeature);
-        const polygonFeatures = props.polygons.map(polygonToOLFeature);
-        const pathFeatures = (props.paths ?? []).map(pathToOLFeature);
-
-        markerSource.clear();
-        polygonSource?.clear();
-        pathSource?.clear();
-
-        markerSource.addFeatures(markerFeatures);
-        polygonSource?.addFeatures(polygonFeatures);
-        pathSource?.addFeatures(pathFeatures);
-
-        const features = [
-          ...markerFeatures,
-          ...polygonFeatures,
-          ...pathFeatures,
-        ];
-
-        if (features.length === 1) {
-          fitToFeature(mapInstance.current!, features[0]);
-        } else {
-          fitToFeatures(mapInstance.current!, features);
-        }
+        markerFeatures = props.markers.map(markerToOLFeature);
       } catch (error) {
-        // Nothing has been cleared yet, so the previous render stays on screen
-        // rather than the effect dying as an unhandled rejection. The consumer
-        // is told via onError, so this is reported rather than swallowed.
-        reportError("could not render features", error);
+        reportError("could not load marker icons", error);
+        return;
+      }
+
+      markerSource.clear();
+      polygonSource?.clear();
+      pathSource?.clear();
+
+      markerSource.addFeatures(markerFeatures);
+      polygonSource?.addFeatures(polygonFeatures);
+      pathSource?.addFeatures(pathFeatures);
+
+      const features = [
+        ...markerFeatures,
+        ...polygonFeatures,
+        ...pathFeatures,
+      ];
+
+      if (features.length === 1) {
+        fitToFeature(mapInstance.current!, features[0]);
+      } else {
+        fitToFeatures(mapInstance.current!, features);
       }
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [props.markers, props.polygons, props.paths, layers, reportError]);
+  }, [props.markers, polygonFeatures, pathFeatures, layers, reportError]);
 
   useEffect(() => {
     const map = mapInstance.current;
