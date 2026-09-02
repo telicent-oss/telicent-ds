@@ -4,11 +4,12 @@ import { Feature, Map as OlMap } from "ol";
 import type VectorLayer from "ol/layer/Vector";
 import { Stroke, Style } from "ol/style";
 import type { StyleFunction } from "ol/style/Style";
+import { FeatureEvent } from "../../../types/map-types";
 
 interface AddSelectInteractionOptions {
   map: OlMap;
   layer: VectorLayer;
-  onSelect?: (features: Feature[]) => void;
+  onSelect?: (features: Feature[], event?: FeatureEvent) => void;
 }
 
 export const addSelectInteraction = ({
@@ -36,7 +37,12 @@ export const addSelectInteraction = ({
   if (onSelect) {
     select.on("select", (evt) => {
       const selected = evt.selected as Feature[];
-      onSelect(selected);
+      const pixel = evt.mapBrowserEvent?.pixel;
+      const event: FeatureEvent | undefined =
+        pixel && pixel.length === 2
+          ? { pixel: [pixel[0], pixel[1]] }
+          : undefined;
+      onSelect(selected, event);
     });
   }
 

@@ -4,6 +4,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { BasicMapV2 } from "./BasicMap";
 import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
+import { MarkerFeature } from "../../types/markers";
 import { PathFeature } from "../../types/paths";
 import { Stroke, Style } from "ol/style";
 import { FeatureLike } from "ol/Feature";
@@ -129,6 +130,96 @@ const samplePaths: PathFeature[] = [
 		},
 	},
 ];
+
+const eventMarkers: MarkerFeature[] = [
+	{
+		id: "marker-a",
+		geohash: "gcpvj0",
+		name: "Marker A (London)",
+		style: { markerType: "pin", color: "#ff6600" },
+	},
+	{
+		id: "marker-b",
+		geohash: "u09tvw",
+		name: "Marker B (Paris)",
+		style: { markerType: "pin", color: "#0066ff" },
+	},
+];
+
+/**
+ * Both `onFeatureHover` and `onFeatureClick` are wired to a debug panel that
+ * shows the raw id + pixel the DS emits. Callback contract:
+ *
+ * - `onFeatureHover(id, { pixel })` fires when the pointer enters a marker.
+ * - `onFeatureHover(null)` fires when the pointer leaves the last-hovered
+ *   marker (no pixel is included).
+ * - Moving the pointer **within** the same marker does not re-fire.
+ * - Moving directly from marker A to marker B fires once, with B's id and
+ *   pixel — the id change implicitly signals A is no longer hovered.
+ *
+ * The DS emits events only. The consuming app owns any popover / cursor /
+ * highlight / throttling behaviour built on top of these events.
+ */
+export const FeatureEvents: Story = {
+	args: {
+		zoom: 5,
+		center: [2, 49],
+		layers: baseLayers.map((l) => ({ ...l, visible: true })),
+		markers: eventMarkers,
+		polygons: [],
+	},
+	render: (args) => {
+		const [log, setLog] = useState<string[]>([]);
+		const push = (line: string) =>
+			setLog((prev) => [line, ...prev].slice(0, 12));
+
+		return (
+			<Box sx={{ position: "relative", width: "100%", height: "100%" }}>
+				<BasicMapV2
+					{...args}
+					onFeatureHover={(id, event) => {
+						const line = id === null
+							? "hover: null"
+							: `hover: ${id} @ [${event?.pixel[0]}, ${event?.pixel[1]}]`;
+						console.log(line);
+						push(line);
+					}}
+					onFeatureClick={(ids, event) => {
+						const line = `click: [${ids.join(", ")}]` +
+							(event ? ` @ [${event.pixel[0]}, ${event.pixel[1]}]` : "");
+						console.log(line);
+						push(line);
+					}}
+				/>
+				<Box
+					sx={{
+						position: "absolute",
+						top: 8,
+						right: 8,
+						minWidth: 260,
+						maxHeight: 220,
+						overflow: "auto",
+						padding: 1,
+						background: "rgba(0,0,0,0.75)",
+						color: "#fff",
+						font: "12px/1.4 monospace",
+						borderRadius: 1,
+						zIndex: 10,
+						pointerEvents: "none",
+					}}
+				>
+					<div style={{ fontWeight: 600, marginBottom: 4 }}>
+						Feature events (newest first)
+					</div>
+					{log.length === 0 && <div>Hover or click a marker…</div>}
+					{log.map((line, i) => (
+						<div key={i}>{line}</div>
+					))}
+				</Box>
+			</Box>
+		);
+	},
+};
 
 export const WithPaths: Story = {
 	args: {

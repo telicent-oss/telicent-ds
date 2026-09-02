@@ -90,7 +90,7 @@ describe("addSelectInteraction", () => {
     expect(result).toEqual([]);
   });
 
-  it("invokes onSelect callback with selected features", () => {
+  it("invokes onSelect callback with selected features and pixel event", () => {
     const onSelect = jest.fn();
 
     const selected = [{ id: 1 }, { id: 2 }] as unknown as Feature[];
@@ -107,9 +107,27 @@ describe("addSelectInteraction", () => {
 
     addSelectInteraction({ map, layer, onSelect });
 
-    // Simulate select event
+    selectHandler?.({ selected, mapBrowserEvent: { pixel: [120, 240] } });
+
+    expect(onSelect).toHaveBeenCalledWith(selected, { pixel: [120, 240] });
+  });
+
+  it("passes undefined event when mapBrowserEvent lacks pixel", () => {
+    const onSelect = jest.fn();
+    const selected = [] as unknown as Feature[];
+
+    let selectHandler: Function | undefined;
+
+    (Select as jest.Mock).mockImplementation(() => ({
+      on: jest.fn((event, handler) => {
+        if (event === "select") selectHandler = handler;
+      }),
+    }));
+
+    addSelectInteraction({ map, layer, onSelect });
+
     selectHandler?.({ selected });
 
-    expect(onSelect).toHaveBeenCalledWith(selected);
+    expect(onSelect).toHaveBeenCalledWith(selected, undefined);
   });
 });

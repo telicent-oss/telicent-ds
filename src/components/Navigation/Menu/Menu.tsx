@@ -95,10 +95,10 @@ export const Menu: React.FC<MenuProps> = ({
         }}
         sx={sx}
       >
-        {options.map((opt, idx) => (
-          <React.Fragment key={opt.id}>
-            {opt.dividerAbove && <MUIDivider />}
+        {options.flatMap((opt, idx) => {
+          const item = (
             <MUIMenuItem
+              key={opt.id}
               disabled={opt.disabled}
               selected={Boolean(opt.selected)}
               autoFocus={autoFocusSelected && idx === selectedIndex}
@@ -114,8 +114,19 @@ export const Menu: React.FC<MenuProps> = ({
               {opt.icon ? <MUIListItemIcon>{opt.icon}</MUIListItemIcon> : null}
               <MUIListItemText>{opt.label}</MUIListItemText>
             </MUIMenuItem>
-          </React.Fragment>
-        ))}
+          );
+
+          return opt.dividerAbove
+            ? [
+                <MUIDivider
+                  key={`${opt.id}-divider`}
+                  component="li"
+                  role="separator"
+                />,
+                item,
+              ]
+            : [item];
+        })}
       </MUIMenu>
     </>
   );

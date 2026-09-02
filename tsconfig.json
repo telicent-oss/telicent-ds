@@ -11,7 +11,7 @@
         }
       }
     ],
-    "types": ["vite/client", "./src/theme/theme-type.d.ts", "node"],
+    "types": ["vite/client", "node"],
     "target": "ES2015",
     "lib": ["dom", "dom.iterable", "esnext"],
     "declaration": true,

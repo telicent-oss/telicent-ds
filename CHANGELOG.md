@@ -1,5 +1,37 @@
 # Changelog
 
+## [3.7.0](https://github.com/telicent-oss/telicent-ds/compare/v3.6.1...v3.7.0) (2026-09-02)
+
+
+### Features
+
+* wrap notistack SnackbarProvider + opinionated severity palette (TELFE-1686) ([#540](https://github.com/telicent-oss/telicent-ds/issues/540)) ([0757200](https://github.com/telicent-oss/telicent-ds/commit/0757200830ba9137a36fe60cfd7a39c2bed8a0d7))
+
+
+### Bug Fixes
+
+* **theme:** fix ExtendedTheme type ([#525](https://github.com/telicent-oss/telicent-ds/issues/525)) ([5df0069](https://github.com/telicent-oss/telicent-ds/commit/5df00695a101a963db095fea14707237d60de513))
+
+## [3.6.1](https://github.com/telicent-oss/telicent-ds/compare/v3.6.0...v3.6.1) (2026-08-24)
+
+
+### Bug Fixes
+
+* emit CJS interop for externalised MUI defaults in UMD build ([#538](https://github.com/telicent-oss/telicent-ds/issues/538)) ([aed77cc](https://github.com/telicent-oss/telicent-ds/commit/aed77cc0f1e432818c9a07a1a4bd1282c1e938ce))
+
+## [3.6.0](https://github.com/telicent-oss/telicent-ds/compare/v3.5.0...v3.6.0) (2026-08-21)
+
+
+### Features
+
+* add QuestionIcon to data-display icons ([#535](https://github.com/telicent-oss/telicent-ds/issues/535)) ([e8cb48f](https://github.com/telicent-oss/telicent-ds/commit/e8cb48f266d05583c85d7c5de10d3348a479b935))
+* **map:** add feature hover events to BasicMap + Menu Fragment warning fix ([#536](https://github.com/telicent-oss/telicent-ds/issues/536)) ([8477b45](https://github.com/telicent-oss/telicent-ds/commit/8477b45d8dd2c5508403f3b3fb30e59d3dee72a9))
+
+
+### Bug Fixes
+
+* externalise MUI and Emotion to peerDependencies ([#532](https://github.com/telicent-oss/telicent-ds/issues/532)) ([7b484bb](https://github.com/telicent-oss/telicent-ds/commit/7b484bbb2e5e397cb37fdfae5506da3b50b3e42a))
+
 ## [3.5.0](https://github.com/telicent-oss/telicent-ds/compare/v3.4.1...v3.5.0) (2026-08-11)
 
 

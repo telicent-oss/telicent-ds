@@ -3,6 +3,7 @@ jest.mock("ol/control");
 import { render, cleanup } from "@testing-library/react";
 import { createMap } from "../../../utils/mapFactory";
 import { addSelectInteraction } from "../../../composites/BasicMap/interactions/addSelectInteraction";
+import { addHoverInteraction } from "../../../composites/BasicMap/interactions/addHoverInteraction";
 import { findVectorLayerById } from "../../../utils/feature";
 import { fitToFeature, fitToFeatures } from "../../../composites/BasicMap/interactions/addPanToFeature";
 import { MapCanvasV2 } from "../MapCanvas";
@@ -19,6 +20,10 @@ jest.mock("../../../utils/feature", () => ({
 
 jest.mock("../../../composites/BasicMap/interactions/addSelectInteraction", () => ({
 	addSelectInteraction: jest.fn(),
+}));
+
+jest.mock("../../../composites/BasicMap/interactions/addHoverInteraction", () => ({
+	addHoverInteraction: jest.fn(() => jest.fn()),
 }));
 
 jest.mock("../../../composites/BasicMap/interactions/addPanToFeature", () => ({
@@ -100,7 +105,69 @@ describe("MapCanvasV2", () => {
 		}));
 
 		expect(fitToFeature).toHaveBeenCalledWith(mockMapInstance, mockFeature);
-		expect(onFeatureClick).toHaveBeenCalledWith(["feature1"]);
+		expect(onFeatureClick).toHaveBeenCalledWith(["feature1"], undefined);
+	});
+
+	it("forwards pixel from Select event through to onFeatureClick", () => {
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
+		const onFeatureClick = jest.fn();
+
+		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+		(addSelectInteraction as jest.Mock).mockImplementation(({ onSelect }) => {
+			onSelect([mockFeature], { pixel: [42, 84] });
+			return "mockInteraction";
+		});
+
+		render(
+			<MapCanvasV2
+				layers={layers}
+				mapInstanceRef={{ current: null }}
+				onFeatureClick={onFeatureClick}
+				{...defaultProps}
+			/>
+		);
+
+		expect(onFeatureClick).toHaveBeenCalledWith(["feature1"], { pixel: [42, 84] });
+	});
+
+	it("wires onFeatureHover through addHoverInteraction when provided", () => {
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
+		const onFeatureHover = jest.fn();
+
+		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+
+		render(
+			<MapCanvasV2
+				layers={layers}
+				mapInstanceRef={{ current: null }}
+				onFeatureHover={onFeatureHover}
+				{...defaultProps}
+			/>
+		);
+
+		expect(addHoverInteraction).toHaveBeenCalledWith(
+			expect.objectContaining({
+				map: mockMapInstance,
+				layer: "mockMarkerLayer",
+				onHover: onFeatureHover,
+			})
+		);
+	});
+
+	it("does not attach hover interaction when onFeatureHover is omitted", () => {
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
+
+		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+
+		render(
+			<MapCanvasV2
+				layers={layers}
+				mapInstanceRef={{ current: null }}
+				{...defaultProps}
+			/>
+		);
+
+		expect(addHoverInteraction).not.toHaveBeenCalled();
 	});
 
 	it("handles multiple features correctly", () => {
@@ -124,7 +191,7 @@ describe("MapCanvasV2", () => {
 		);
 
 		expect(fitToFeatures).toHaveBeenCalledWith(mockMapInstance, [mockFeature, feature2]);
-		expect(onFeatureClick).toHaveBeenCalledWith(["feature1", "feature2"]);
+		expect(onFeatureClick).toHaveBeenCalledWith(["feature1", "feature2"], undefined);
 	});
 
 	it("removes select interaction on unmount", () => {
