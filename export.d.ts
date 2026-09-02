@@ -18,6 +18,7 @@ import { CheckboxProps } from '@mui/material';
 import { ChipProps as ChipProps_2 } from '@mui/material/Chip';
 import { CircularProgressProps } from '@mui/material/CircularProgress';
 import { CircularProgressProps as CircularProgressProps_2 } from '@mui/material';
+import { closeSnackbar } from 'notistack';
 import { Context } from 'react';
 import { Coordinate } from 'ol/coordinate';
 import { DatePickerProps as DatePickerProps_2 } from '@mui/x-date-pickers/DatePicker';
@@ -68,6 +69,7 @@ import { MapProvider } from 'react-map-gl/maplibre';
 import { MapRef } from 'react-map-gl/maplibre';
 import { ModalProps as ModalProps_2 } from '@mui/material/Modal';
 import { OntologyService } from '@telicent-oss/ontologyservice';
+import { OptionsObject } from 'notistack';
 import { OutlinedSelectProps } from '@mui/material';
 import { OutlinedTextFieldProps } from '@mui/material';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
@@ -85,6 +87,9 @@ import { RefAttributes } from 'react';
 import { RefObject } from 'react';
 import { SelectProps as SelectProps_2 } from '@mui/material';
 import { SkeletonTypeMap } from '@mui/material/Skeleton';
+import { SnackbarAction } from 'notistack';
+import { SnackbarKey } from 'notistack';
+import { SnackbarProviderProps as SnackbarProviderProps_2 } from 'notistack';
 import { StackProps } from '@mui/material/Stack';
 import { StandardSelectProps } from '@mui/material';
 import { StandardTextFieldProps } from '@mui/material';
@@ -444,6 +449,8 @@ declare type ClockIconProps = Omit<FontAwesomeIconProps, "icon"> & {
 };
 
 export declare const CloseIcon: default_2.FC<SvgIconProps>;
+
+export { closeSnackbar }
 
 /**
  * TODO make codec work on URLSearchParams - not just strings
@@ -1893,6 +1900,23 @@ declare type SingleProps = BaseProps_2 & {
 
 export declare const Skeleton: OverridableComponent<SkeletonTypeMap<    {}, "span">>;
 
+export declare const snackbar: ({ type, message, ...options }: SnackbarArgs) => SnackbarKey;
+
+export { SnackbarAction }
+
+export declare type SnackbarArgs = Omit<OptionsObject, "variant"> & {
+    type: SnackbarType;
+    message: default_2.ReactNode;
+};
+
+export { SnackbarKey }
+
+export declare const SnackbarProvider: FC<SnackbarProviderProps>;
+
+export declare type SnackbarProviderProps = SnackbarProviderProps_2;
+
+export declare type SnackbarType = "success" | "error" | "warning" | "info";
+
 export declare interface SourceWithEvents {
     on(type: string, listener: (e: unknown) => void): void;
 }
@@ -2227,6 +2251,11 @@ export declare const UserStatus: default_2.FC<UserStatusProps>;
 
 export declare type UserStatusProps = PropsWithChildren & {
     fullName: string;
+};
+
+export declare const useSnackbar: () => {
+    snackbar: (args: SnackbarArgs) => SnackbarKey;
+    closeSnackbar: (key?: SnackbarKey) => void;
 };
 
 export declare const WarningIcon: default_2.FC<SvgIconProps>;
