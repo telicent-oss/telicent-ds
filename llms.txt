@@ -840,6 +840,11 @@ ConfirmDialog:
 ListItemText: {} # no own props; all inherited from the underlying MUI/DOM element
 ```
 
+* `SnackbarProvider`:
+```yaml
+SnackbarProvider: {} # no own props; all inherited from the underlying MUI/DOM element
+```
+
 ---
 
 ## Package and install
