@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.7.0](https://github.com/telicent-oss/telicent-ds/compare/v3.6.1...v3.7.0) (2026-09-02)
+
+
+### Features
+
+* wrap notistack SnackbarProvider + opinionated severity palette (TELFE-1686) ([#540](https://github.com/telicent-oss/telicent-ds/issues/540)) ([0757200](https://github.com/telicent-oss/telicent-ds/commit/0757200830ba9137a36fe60cfd7a39c2bed8a0d7))
+
+
+### Bug Fixes
+
+* **theme:** fix ExtendedTheme type ([#525](https://github.com/telicent-oss/telicent-ds/issues/525)) ([5df0069](https://github.com/telicent-oss/telicent-ds/commit/5df00695a101a963db095fea14707237d60de513))
+
 ## [3.6.1](https://github.com/telicent-oss/telicent-ds/compare/v3.6.0...v3.6.1) (2026-08-24)
 
 
