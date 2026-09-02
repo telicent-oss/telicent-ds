@@ -543,13 +543,14 @@ export declare interface BasicMapProperties {
     onFeatureHover?: OnFeatureHover;
     onLayersReady?: (isReady: boolean) => void;
     /**
-     * Called on any failure the map detects.
+     * Called on an async failure the map survives: layer setup or marker icon
+     * loading. The previous render stays on screen, and without a handler the
+     * error is only logged.
      *
-     * Layer setup and marker icon loading are async and recoverable: the
-     * previous render stays on screen and, without a handler, the error is only
-     * logged. Malformed feature coordinates are a config mistake: onError fires
-     * and the error then keeps propagating, so wrap the map in an error boundary
-     * if the rest of the app should survive it.
+     * Malformed feature coordinates do not come through here. They are a config
+     * mistake, so they throw during render as a `MalformedFeatureError` for the
+     * nearest error boundary to handle — routing a render throw into a callback
+     * would make React report the same error more than once.
      */
     onError?: (error: Error) => void;
 }
@@ -2781,6 +2782,23 @@ export declare type LoggerLevel = LoggerLevelString | number;
 export declare const loggerLevelOrder: Record<LoggerLevelString, number>;
 
 export declare type LoggerLevelString = "debug" | "info" | "warn" | "error";
+
+/**
+ * Thrown when a feature's `coordinates` nesting doesn't match its declared
+ * `type` — a config mistake rather than a recoverable runtime condition.
+ *
+ * Thrown while the map builds its features during render, so it propagates to
+ * the nearest error boundary. Exported from the package so a consumer boundary
+ * can tell it apart from any other render failure:
+ *
+ * ```ts
+ * if (error instanceof MalformedFeatureError) { ... }
+ * ```
+ */
+export declare class MalformedFeatureError extends Error {
+    readonly featureId: string;
+    constructor(featureId: string, message: string);
+}
 
 declare type MapBoxSource = z.infer<typeof MapBoxSourceSchema>;
 
