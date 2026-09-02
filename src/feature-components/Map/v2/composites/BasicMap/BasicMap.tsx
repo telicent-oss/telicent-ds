@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
   useImperativeHandle,
+  useCallback,
 } from "react";
 
 import { Map } from "ol";
@@ -32,6 +33,19 @@ export const BasicMapV2 = React.forwardRef<
 >((props, ref) => {
   const [layers, setLayers] = useState<BaseLayer[]>([]);
   const mapInstance = useRef<Map | null>(null);
+
+  // Held in a ref so an inline onError lambda does not re-run the effects.
+  const onErrorRef = useRef(props.onError);
+  onErrorRef.current = props.onError;
+
+  const reportError = useCallback((context: string, cause: unknown) => {
+    const error = cause instanceof Error ? cause : new Error(String(cause));
+    if (onErrorRef.current) {
+      onErrorRef.current(error);
+      return;
+    }
+    console.error(`BasicMapV2: ${context}`, error);
+  }, []);
 
   const showLayerSelector = props.controls?.showLayerSelector ?? true;
 
@@ -80,7 +94,7 @@ export const BasicMapV2 = React.forwardRef<
           setLayers(layers);
         }
       } catch (e) {
-        console.error("ensureLayers failed", e);
+        reportError("could not set up layers", e);
         return;
       }
     })();
@@ -88,7 +102,7 @@ export const BasicMapV2 = React.forwardRef<
     return () => {
       cancelled = true;
     };
-  }, [effectiveLayers]);
+  }, [effectiveLayers, reportError]);
 
   useEffect(() => {
     if (layers.length < 1) return;
@@ -157,15 +171,16 @@ export const BasicMapV2 = React.forwardRef<
         }
       } catch (error) {
         // Nothing has been cleared yet, so the previous render stays on screen
-        // rather than the effect dying as an unhandled rejection.
-        console.error("BasicMapV2: could not render features", error);
+        // rather than the effect dying as an unhandled rejection. The consumer
+        // is told via onError, so this is reported rather than swallowed.
+        reportError("could not render features", error);
       }
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [props.markers, props.polygons, props.paths, layers]);
+  }, [props.markers, props.polygons, props.paths, layers, reportError]);
 
   useEffect(() => {
     const map = mapInstance.current;

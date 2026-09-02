@@ -308,4 +308,51 @@ describe("BasicMapV2 malformed feature handling", () => {
 
 		onError.mockRestore();
 	});
+
+	it("reports a malformed path to onError instead of logging it", async () => {
+		const marker = makeMockVectorLayer(MARKER_LAYER_ID);
+		const path = makeMockVectorLayer(PATH_LAYER_ID);
+		(ensureLayers as jest.Mock).mockReturnValue(
+			Promise.resolve([marker.layer, path.layer])
+		);
+		(MapCanvasV2 as jest.Mock).mockImplementation(
+			({ mapInstanceRef }: { mapInstanceRef: React.MutableRefObject<unknown> }) => {
+				mapInstanceRef.current = { getView: () => ({}) };
+				return <div id="map-canvas" />;
+			}
+		);
+		const consoleError = jest
+			.spyOn(console, "error")
+			.mockImplementation(() => undefined);
+		const onError = jest.fn();
+
+		const malformedPath = {
+			id: "bad-path",
+			type: "LineString",
+			name: "Bad",
+			coordinates: [0, 0],
+		} as unknown as PathFeature;
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[malformedPath]}
+					onError={onError}
+				/>
+			);
+		});
+
+		await act(async () => { await Promise.resolve(); });
+
+		expect(onError).toHaveBeenCalledTimes(1);
+		expect(onError.mock.calls[0][0]).toBeInstanceOf(Error);
+		expect(onError.mock.calls[0][0].message).toContain("bad-path");
+		expect(consoleError).not.toHaveBeenCalled();
+
+		consoleError.mockRestore();
+	});
 });
