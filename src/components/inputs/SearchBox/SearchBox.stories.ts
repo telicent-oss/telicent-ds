@@ -6,7 +6,7 @@ const meta = {
   title: "Inputs/Search/SearchBox",
   component: Searchbox,
   tags: ["autodocs"],
-  args: { onSearch: fn() },
+  args: { onSubmit: fn() },
 } satisfies Meta<typeof Searchbox>;
 
 export default meta;
