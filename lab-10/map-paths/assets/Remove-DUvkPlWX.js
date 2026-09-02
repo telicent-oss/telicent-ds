@@ -1,0 +1,1 @@
+import{b as h}from"./iframe-pRHhOQg2.js";import{c as o}from"./createSvgIcon-BDR8vdZT.js";const v=o(h.jsx("path",{d:"M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"}),"Add"),m=o(h.jsx("path",{d:"M3 13h2v-2H3zm0 4h2v-2H3zm0-8h2V7H3zm4 4h14v-2H7zm0 4h14v-2H7zM7 7v2h14V7z"}),"List"),a=o(h.jsx("path",{d:"M19 13H5v-2h14z"}),"Remove");export{v as A,m as L,a as R};

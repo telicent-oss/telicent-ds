@@ -543,9 +543,12 @@ export declare interface BasicMapProperties {
     onFeatureHover?: OnFeatureHover;
     onLayersReady?: (isReady: boolean) => void;
     /**
-     * Called when the map cannot build or load what it was given (malformed
-     * feature coordinates, layer setup failure). Without it the error is only
-     * logged, so pass this to surface failures in the consuming app.
+     * Called on a runtime failure the map can survive: layer setup or marker
+     * icon loading. Without it the error is only logged, so pass this to
+     * surface those failures in the consuming app.
+     *
+     * Malformed feature coordinates do NOT come through here — they are a
+     * config mistake and throw during render, for the nearest error boundary.
      */
     onError?: (error: Error) => void;
 }

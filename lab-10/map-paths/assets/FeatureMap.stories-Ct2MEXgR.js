@@ -1,0 +1,106 @@
+import{m as _,j as p}from"./iframe-pRHhOQg2.js";import{F as M}from"./DropdownButton-BhUulX2F.js";import{A as n,B as l,S as w,a as m,M as L,i as F}from"./storyconfig-DEIJDHKx.js";import"./UserIcon-B_ujPWv_.js";import"./FlexBox-CVJnzuz0.js";import"./Text-CyftVFXd.js";import"./Chip-gnzR_yJR.js";import"./Divider-CVsgqjKK.js";import"./TreeView-Kik_R-ES.js";import"./AppInfoRow-Bh0geM1J.js";import"./LinearProgress-C4VBChXn.js";import"./Spinner-C0vudGLr.js";import"./Dialog-Bcf-NoY1.js";import"./TextField-CBpcQn2c.js";import"./Switch-DhAT4IM_.js";import"./DatePicker-D9GXXepP.js";import"./DateTimePicker-Cn_CbG0g.js";import"./LinkButton-x6CuZkTL.js";import"./Box-BCY9iEzw.js";import"./Container-B6BSNzBA.js";import"./Paper-jV6pjJ0C.js";import"./ErrorFallback-CaX2CL1g.js";import"./ErrorFallbackText-C6J48uKa.js";import"./ErrorFallbackWrapper-y78ya1pb.js";import"./Brand-DOlsYGQL.js";import{D as O,a as t,M as E}from"./constants-C264WvBp.js";import"./MapToggleButtonPresentational-fmHFE_FL.js";import{B as D}from"./Box-DtDcNTqo.js";import"./preload-helper-C1FmrZbK.js";import"./useThemeProps-CGsmMNPE.js";import"./useThemeProps-iiZ4il65.js";import"./useTheme-Pj73We2K.js";import"./AdapterDayjs-v8geY8Yz.js";import"./generateUtilityClass-BCADfncv.js";import"./styled-BT5czdOb.js";import"./Typography-D0LmHXWH.js";import"./generateUtilityClasses-FW_hjQkZ.js";import"./Modal-DBc2l9M6.js";import"./utils-BcK75nLH.js";import"./TransitionGroupContext-BUjCANtX.js";import"./index-BZTrQaHy.js";import"./resolveComponentProps-Bmj0YTdO.js";import"./Popover-D8iN4GZw.js";import"./Paper-jmBz9zYy.js";import"./TextField-DHBYzqm_.js";import"./useFormControl-InOv9m2U.js";import"./createSvgIcon-BDR8vdZT.js";import"./SvgIcon-BETWM0sA.js";import"./createStyled-CUHy6POj.js";import"./IconButton-CvVfQwzZ.js";import"./ButtonBase-V2s46bUx.js";import"./DialogContent-CTQp3qrS.js";import"./Button-CPtCkVQU.js";import"./Chip-DDvACIff.js";import"./Stack-DQDETrC8.js";import"./styled-CPqvLnSt.js";import"./Alert-DecaHlaz.js";import"./Divider-D6agCD3x.js";import"./Edit-wsLz-jz3.js";import"./Remove-DUvkPlWX.js";const Re={title:"Component Library/Map/composites/FeatureMap",component:M,tags:["map","markers","polygons","autodocs"],parameters:{docs:{description:{component:`
+This map component automatically calculates optimal viewport bounds to ensure all specified markers and polygons are visible.
+
+It dynamically adjusts panning and zoom levels to focus on selected features, providing an intuitive and comprehensive view of the mapped data.
+
+> Note: Maps don't behave in the storybook quite as they would in an app. This is due to the variables being passed in not being controlled state.
+`}},theme:"DocumentPink",selected:[],attributionControl:!0,defaultStyle:"",geoPolygons:[],markers:[],initialViewState:{},onClickMarker:()=>{},findByClassUri:()=>{}},argTypes:{theme:{control:"select",options:_.options,description:`The layer picker has a border which derives it's colour from the theme. 
+
+(This will be deprecated once the uplift work is completed)`},selected:{control:"multi-select",options:[],description:"Select by populating a list of uri's. The markers and polygons will then be checked against the markers and geoPolygons"},attributionControl:{control:"radio",options:[!0,!1],description:"Show map attribution as per legal requirements. The ability to hide attribution was added because if you hide the map, it is still visible."},findByClassUri:{description:`Callback function used to obtain the icons for results. The icons will be shown on the map as a marker. 
+This is designed to be used with ontology-service`},onClickMarker:{description:"Callback function to add custom behaviour. Triggered when a user selects a marker that is displayed on the map."},polygonLayers:{description:"array of props to render `<Source>{polygonLayers.map(Layer)}</Source>`'s to provide styling"}},decorators:e=>p(D,{sx:{width:"50vw",height:"50vh",margin:"auto"},children:p(E,{initialMapStyleConfig:F,children:e()})})},o={args:{theme:"DocumentPink",attributionControl:!0,selected:[],markers:[n,l],defaultStyle:"https://demotiles.maplibre.org/style.json",findByClassUri:e=>({backgroundColor:"white",color:"black",classUri:e,alt:"sample alt",iconFallbackText:"1"}),initialViewState:t,geoPolygons:O}},r={args:{theme:"DocumentPink",geoPolygons:{type:"FeatureCollection",features:[m]},attributionControl:!0,selected:[],defaultStyle:"https://demotiles.maplibre.org/style.json",findByClassUri:e=>({backgroundColor:"white",color:"black",classUri:e,alt:"sample alt",iconFallbackText:"1"}),markers:[],polygonLayers:w,initialViewState:t}},a={args:{theme:"DocumentPink",attributionControl:!0,markers:[n,l],geoPolygons:{type:"FeatureCollection",features:[m,L]},selected:[],defaultStyle:"https://demotiles.maplibre.org/style.json",findByClassUri:e=>({backgroundColor:"white",color:"black",classUri:e,alt:"sample alt",iconFallbackText:"1"}),polygonLayers:w,initialViewState:t}},i={args:{theme:"DocumentPink",attributionControl:!0,markers:[n,l],geoPolygons:{type:"FeatureCollection",features:[m,L]},selected:[n.uri],defaultStyle:"https://demotiles.maplibre.org/style.json",findByClassUri:e=>({backgroundColor:"white",color:"black",classUri:e,alt:"sample alt",iconFallbackText:"1"}),initialViewState:t}},s={args:{theme:"DocumentPink",attributionControl:!0,selected:[],defaultStyle:"https://demotiles.maplibre.org/style.json",findByClassUri:e=>({backgroundColor:"white",color:"black",classUri:e,alt:"sample alt",iconFallbackText:"1"}),markers:[],initialViewState:t,geoPolygons:O}};var c,d,u;o.parameters={...o.parameters,docs:{...(c=o.parameters)==null?void 0:c.docs,source:{originalSource:`{
+  args: {
+    theme: "DocumentPink",
+    attributionControl: true,
+    selected: [],
+    markers: [ARGA_ATTACK, BOULAY_ATTACK],
+    defaultStyle: "https://demotiles.maplibre.org/style.json",
+    findByClassUri: (maybeClassUri: string) => ({
+      backgroundColor: "white",
+      color: "black",
+      classUri: maybeClassUri,
+      alt: "sample alt",
+      iconFallbackText: "1"
+    }),
+    initialViewState: DEFAULT_VIEW,
+    geoPolygons: DEFAULT_GEO_POLYGONS
+  }
+}`,...(u=(d=o.parameters)==null?void 0:d.docs)==null?void 0:u.source}}};var y,g,b;r.parameters={...r.parameters,docs:{...(y=r.parameters)==null?void 0:y.docs,source:{originalSource:`{
+  args: {
+    theme: "DocumentPink",
+    geoPolygons: {
+      type: "FeatureCollection",
+      features: [AUSTRIA]
+    },
+    attributionControl: true,
+    selected: [],
+    defaultStyle: "https://demotiles.maplibre.org/style.json",
+    findByClassUri: (maybeClassUri: string) => ({
+      backgroundColor: "white",
+      color: "black",
+      classUri: maybeClassUri,
+      alt: "sample alt",
+      iconFallbackText: "1"
+    }),
+    markers: [],
+    polygonLayers: SUPER_OBVIOUS_POLYGON_LAYERS,
+    initialViewState: DEFAULT_VIEW
+  }
+}`,...(b=(g=r.parameters)==null?void 0:g.docs)==null?void 0:b.source}}};var h,k,C;a.parameters={...a.parameters,docs:{...(h=a.parameters)==null?void 0:h.docs,source:{originalSource:`{
+  args: {
+    theme: "DocumentPink",
+    attributionControl: true,
+    markers: [ARGA_ATTACK, BOULAY_ATTACK],
+    geoPolygons: {
+      type: "FeatureCollection",
+      features: [AUSTRIA, MOLDOVA]
+    },
+    selected: [],
+    defaultStyle: "https://demotiles.maplibre.org/style.json",
+    findByClassUri: (maybeClassUri: string) => ({
+      backgroundColor: "white",
+      color: "black",
+      classUri: maybeClassUri,
+      alt: "sample alt",
+      iconFallbackText: "1"
+    }),
+    polygonLayers: SUPER_OBVIOUS_POLYGON_LAYERS,
+    initialViewState: DEFAULT_VIEW
+  }
+}`,...(C=(k=a.parameters)==null?void 0:k.docs)==null?void 0:C.source}}};var A,U,S;i.parameters={...i.parameters,docs:{...(A=i.parameters)==null?void 0:A.docs,source:{originalSource:`{
+  args: {
+    theme: "DocumentPink",
+    attributionControl: true,
+    markers: [ARGA_ATTACK, BOULAY_ATTACK],
+    geoPolygons: {
+      type: "FeatureCollection",
+      features: [AUSTRIA, MOLDOVA]
+    },
+    selected: [ARGA_ATTACK.uri],
+    defaultStyle: "https://demotiles.maplibre.org/style.json",
+    findByClassUri: (maybeClassUri: string) => ({
+      backgroundColor: "white",
+      color: "black",
+      classUri: maybeClassUri,
+      alt: "sample alt",
+      iconFallbackText: "1"
+    }),
+    initialViewState: DEFAULT_VIEW
+  }
+}`,...(S=(U=i.parameters)==null?void 0:U.docs)==null?void 0:S.source}}};var T,f,P;s.parameters={...s.parameters,docs:{...(T=s.parameters)==null?void 0:T.docs,source:{originalSource:`{
+  args: {
+    theme: "DocumentPink",
+    attributionControl: true,
+    selected: [],
+    defaultStyle: "https://demotiles.maplibre.org/style.json",
+    findByClassUri: (maybeClassUri: string) => ({
+      backgroundColor: "white",
+      color: "black",
+      classUri: maybeClassUri,
+      alt: "sample alt",
+      iconFallbackText: "1"
+    }),
+    markers: [],
+    initialViewState: DEFAULT_VIEW,
+    geoPolygons: DEFAULT_GEO_POLYGONS
+  }
+}`,...(P=(f=s.parameters)==null?void 0:f.docs)==null?void 0:P.source}}};const Ge=["MapWithMarkers","MapWithPolygons","MapWithMarkersAndPolygons","MapWithSelectedMarker","MapWithoutLayers"];export{o as MapWithMarkers,a as MapWithMarkersAndPolygons,r as MapWithPolygons,i as MapWithSelectedMarker,s as MapWithoutLayers,Ge as __namedExportsOrder,Re as default};
