@@ -22,7 +22,8 @@ import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig, OverlayVectorLayerConfig } from "../../types/layers";
 import { ensureLayers } from "../../utils/ensureLayers";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
-import { PATH_LAYER_ID } from "../../utils/layers";
+import { MARKER_LAYER_ID, PATH_LAYER_ID } from "../../utils/layers";
+import { PathFeature } from "../../types/paths";
 
 
 const makeProps = (overrides?: Partial<BasicMapProperties>): BasicMapProperties => ({
@@ -232,5 +233,79 @@ describe("BasicMapV2 setLayerOpacity", () => {
 
 		act(() => { ref.current!.setLayerOpacity("osm", 1.5); });
 		expect(mockLayer.getOpacity()).toBe(1);
+	});
+});
+
+const makeMockVectorLayer = (id: string) => {
+	const source = {
+		clear: jest.fn(),
+		addFeatures: jest.fn(),
+		getFeatures: () => [],
+	};
+	const props: Record<string, unknown> = { id };
+	return {
+		layer: {
+			get: (key: string) => props[key],
+			set: (key: string, val: unknown) => { props[key] = val; },
+			getSource: () => source,
+		},
+		source,
+	};
+};
+
+describe("BasicMapV2 malformed feature handling", () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
+	it("keeps the previous render and reports the error when a path is malformed", async () => {
+		const marker = makeMockVectorLayer(MARKER_LAYER_ID);
+		const path = makeMockVectorLayer(PATH_LAYER_ID);
+		(ensureLayers as jest.Mock).mockReturnValue(
+			Promise.resolve([marker.layer, path.layer])
+		);
+		(MapCanvasV2 as jest.Mock).mockImplementation(
+			({ mapInstanceRef }: { mapInstanceRef: React.MutableRefObject<unknown> }) => {
+				mapInstanceRef.current = { getView: () => ({}) };
+				return <div id="map-canvas" />;
+			}
+		);
+		const onError = jest.spyOn(console, "error").mockImplementation(() => undefined);
+		const onRejection = jest.fn();
+		process.on("unhandledRejection", onRejection);
+
+		// number[] where the declared LineString needs number[][]
+		const malformedPath = {
+			id: "bad-path",
+			type: "LineString",
+			name: "Bad",
+			coordinates: [0, 0],
+		} as unknown as PathFeature;
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[malformedPath]}
+				/>
+			);
+		});
+
+		await act(async () => { await Promise.resolve(); });
+		process.off("unhandledRejection", onRejection);
+
+		expect(onError).toHaveBeenCalledWith(
+			"BasicMapV2: could not render features",
+			expect.any(Error)
+		);
+		expect(marker.source.clear).not.toHaveBeenCalled();
+		expect(path.source.clear).not.toHaveBeenCalled();
+		expect(path.source.addFeatures).not.toHaveBeenCalled();
+		expect(onRejection).not.toHaveBeenCalled();
+
+		onError.mockRestore();
 	});
 });

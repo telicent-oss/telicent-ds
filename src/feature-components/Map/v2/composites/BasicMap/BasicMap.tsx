@@ -124,29 +124,41 @@ export const BasicMapV2 = React.forwardRef<
     let cancelled = false;
 
     (async () => {
-      await ensureMarkerIconsLoaded(props.markers);
+      try {
+        await ensureMarkerIconsLoaded(props.markers);
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      markerSource.clear();
-      polygonSource?.clear();
-      pathSource?.clear();
+        // Build every feature before touching a source. The *ToOLFeature
+        // converters throw on coordinates that don't match the declared type,
+        // and clearing first would leave the map blank on that throw.
+        const markerFeatures = props.markers.map(markerToOLFeature);
+        const polygonFeatures = props.polygons.map(polygonToOLFeature);
+        const pathFeatures = (props.paths ?? []).map(pathToOLFeature);
 
-      const markerFeatures = props.markers.map(markerToOLFeature);
-      markerSource.addFeatures(markerFeatures);
+        markerSource.clear();
+        polygonSource?.clear();
+        pathSource?.clear();
 
-      const polygonFeatures = props.polygons.map(polygonToOLFeature);
-      polygonSource?.addFeatures(polygonFeatures);
+        markerSource.addFeatures(markerFeatures);
+        polygonSource?.addFeatures(polygonFeatures);
+        pathSource?.addFeatures(pathFeatures);
 
-      const pathFeatures = (props.paths ?? []).map(pathToOLFeature);
-      pathSource?.addFeatures(pathFeatures);
+        const features = [
+          ...markerFeatures,
+          ...polygonFeatures,
+          ...pathFeatures,
+        ];
 
-      const features = [...markerFeatures, ...polygonFeatures, ...pathFeatures];
-
-      if (features.length === 1) {
-        fitToFeature(mapInstance.current!, features[0]);
-      } else {
-        fitToFeatures(mapInstance.current!, features);
+        if (features.length === 1) {
+          fitToFeature(mapInstance.current!, features[0]);
+        } else {
+          fitToFeatures(mapInstance.current!, features);
+        }
+      } catch (error) {
+        // Nothing has been cleared yet, so the previous render stays on screen
+        // rather than the effect dying as an unhandled rejection.
+        console.error("BasicMapV2: could not render features", error);
       }
     })();
 
