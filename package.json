@@ -27,6 +27,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
     "maplibre-gl": "^3.5.0",
+    "notistack": "^3.0.2",
     "ol": "^10.7.0",
     "ol-mapbox-style": "^12.6.1",
     "react-error-boundary": "^5.0.0",
