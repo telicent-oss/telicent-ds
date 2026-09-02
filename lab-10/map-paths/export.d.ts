@@ -542,6 +542,12 @@ export declare interface BasicMapProperties {
     onFeatureClick?: OnFeatureClick;
     onFeatureHover?: OnFeatureHover;
     onLayersReady?: (isReady: boolean) => void;
+    /**
+     * Called when the map cannot build or load what it was given (malformed
+     * feature coordinates, layer setup failure). Without it the error is only
+     * logged, so pass this to surface failures in the consuming app.
+     */
+    onError?: (error: Error) => void;
 }
 
 export declare const BasicMapV2: default_2.ForwardRefExoticComponent<BasicMapProperties & default_2.RefAttributes<BasicMapV2Handle>>;

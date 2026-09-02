@@ -1,0 +1,1 @@
+import{r as a,j as e}from"./iframe-B7cgaF-W.js";import{P as p}from"./Paper-BKCTlbQt.js";const s=a.forwardRef(function(r,o){return e(p,{ref:o,...r})});s.__docgenInfo={description:"",methods:[],displayName:"Paper"};export{s as P};
