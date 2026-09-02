@@ -285,8 +285,9 @@ describe("BasicMapV2 error handling", () => {
 			)
 		).toThrow(/bad-path/);
 
-		// A config mistake is not routed through onError.
-		expect(onError).not.toHaveBeenCalled();
+		// The config mistake is reported as well as thrown.
+		expect(onError).toHaveBeenCalledTimes(1);
+		expect(onError.mock.calls[0][0].message).toContain("bad-path");
 
 		consoleError.mockRestore();
 	});

@@ -96,12 +96,13 @@ export interface BasicMapProperties {
   onFeatureHover?: OnFeatureHover;
   onLayersReady?: (isReady: boolean) => void;
   /**
-   * Called on a runtime failure the map can survive: layer setup or marker
-   * icon loading. Without it the error is only logged, so pass this to
-   * surface those failures in the consuming app.
+   * Called on any failure the map detects.
    *
-   * Malformed feature coordinates do NOT come through here — they are a
-   * config mistake and throw during render, for the nearest error boundary.
+   * Layer setup and marker icon loading are async and recoverable: the
+   * previous render stays on screen and, without a handler, the error is only
+   * logged. Malformed feature coordinates are a config mistake: onError fires
+   * and the error then keeps propagating, so wrap the map in an error boundary
+   * if the rest of the app should survive it.
    */
   onError?: (error: Error) => void;
 }
