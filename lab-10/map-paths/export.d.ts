@@ -544,8 +544,10 @@ export declare interface BasicMapProperties {
     onLayersReady?: (isReady: boolean) => void;
     /**
      * Called on an async failure the map survives: layer setup or marker icon
-     * loading. The previous render stays on screen, and without a handler the
-     * error is only logged.
+     * loading. Nothing is cleared, so whatever was already drawn stays — an
+     * empty map if this was the first load, an out-of-date one otherwise.
+     * Without a handler the error is only logged, so pass this if the app needs
+     * to show that the map is stale.
      *
      * Malformed feature coordinates do not come through here. They are a config
      * mistake, so they throw during render as a `MalformedFeatureError` for the
