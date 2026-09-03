@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, Component, type ReactNode } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { BasicMapV2 } from "./BasicMap";
@@ -9,6 +9,7 @@ import { PathFeature } from "../../types/paths";
 import { Stroke, Style } from "ol/style";
 import { FeatureLike } from "ol/Feature";
 import { PATH_LAYER_ID } from "../../utils/layers";
+import { MalformedFeatureError } from "../../utils/errors";
 
 
 const baseLayers: LayerConfig[] = [
@@ -574,4 +575,126 @@ const PathStyleFunctionDemo = () => {
 
 export const PathStyleFunction: Story = {
 	render: () => <PathStyleFunctionDemo />,
+};
+
+/* ------------------------------------------------------------------ */
+/* Error behaviour                                                     */
+/* ------------------------------------------------------------------ */
+
+const errorPanelSx = {
+	padding: 2,
+	font: "13px/1.5 monospace",
+	background: "rgba(0,0,0,0.8)",
+	color: "#fff",
+	borderRadius: 1,
+	whiteSpace: "pre-wrap" as const,
+};
+
+/**
+ * The boundary a consuming app has to supply. `MalformedFeatureError` is
+ * exported from the package, so the app can tell a config mistake apart from
+ * any other render failure rather than matching on the message.
+ */
+class DemoErrorBoundary extends Component<
+	{ children: ReactNode },
+	{ error: Error | null }
+> {
+	state: { error: Error | null } = { error: null };
+
+	static getDerivedStateFromError(error: Error) {
+		return { error };
+	}
+
+	render() {
+		const { error } = this.state;
+		if (!error) return this.props.children;
+
+		return (
+			<Box sx={errorPanelSx}>
+				<strong>Error boundary caught the map</strong>
+				{"\n\n"}
+				instanceof MalformedFeatureError:{" "}
+				{String(error instanceof MalformedFeatureError)}
+				{"\n"}
+				featureId:{" "}
+				{error instanceof MalformedFeatureError ? error.featureId : "n/a"}
+				{"\n\n"}
+				{error.message}
+			</Box>
+		);
+	}
+}
+
+// number[] where the declared LineString needs number[][]
+const malformedPath = {
+	id: "bad-path",
+	type: "LineString",
+	name: "Malformed route",
+	coordinates: [-0.1278, 51.5074],
+} as unknown as PathFeature;
+
+/**
+ * Coordinates that contradict their declared `type` are a config mistake, so
+ * they throw `MalformedFeatureError` while the map builds its features during
+ * render. Nothing is drawn and nothing is cleared.
+ *
+ * Without a boundary above the map this takes down the React root, which is
+ * the intended fail-fast behaviour — wrap the map if the rest of the app
+ * should survive it.
+ */
+export const MalformedFeatureThrows: Story = {
+	render: () => (
+		<DemoErrorBoundary>
+			<BasicMapV2
+				zoom={5}
+				center={[0, 51]}
+				layers={baseLayers}
+				markers={[]}
+				polygons={[]}
+				paths={[malformedPath]}
+			/>
+		</DemoErrorBoundary>
+	),
+};
+
+const LayerSetupFailureDemo = () => {
+	const [reported, setReported] = useState<string[]>([]);
+	const onError = useCallback((error: Error) => {
+		setReported((prev) => [`${error.name}: ${error.message}`, ...prev]);
+	}, []);
+
+	return (
+		<Stack sx={{ width: "100%", height: "100%" }}>
+			<Box sx={errorPanelSx}>
+				<strong>onError calls</strong>
+				{"\n"}
+				{reported.length === 0
+					? "none yet"
+					: reported.map((line, i) => <div key={i}>{line}</div>)}
+			</Box>
+			<Box sx={{ flex: 1 }}>
+				<BasicMapV2
+					zoom={5}
+					center={[0, 51]}
+					// An unrecognised layer kind makes ensureLayers reject.
+					layers={[{ kind: "not-a-real-kind" } as unknown as LayerConfig]}
+					markers={[]}
+					polygons={[]}
+					paths={[]}
+					onError={onError}
+				/>
+			</Box>
+		</Stack>
+	);
+};
+
+/**
+ * Layer setup is async and survivable, so it does not throw: `onError` fires
+ * and nothing is cleared. Here it fails on first load, so the map is blank —
+ * on a later prop change the previous, now out-of-date, map would stay drawn.
+ *
+ * Drop the `onError` prop and the same failure only reaches the console.
+ */
+export const LayerSetupFailureReportsToOnError: Story = {
+	render: () => <LayerSetupFailureDemo />,
 };
