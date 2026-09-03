@@ -4,7 +4,9 @@ import { OverlayFeatureConfig } from "./overlays";
 import { LayerConfig } from "./layers";
 import { MarkerFeature } from "./markers";
 import { Map } from "ol";
+import { PathFeature } from "./paths";
 import { PolygonFeature } from "./polygons";
+import { StyleLike } from "ol/style/Style";
 
 export type LegacyTileSet = {
   label: string;
@@ -63,6 +65,7 @@ export type BasicMapV2Handle = {
   zoomOut: () => void;
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
+  setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
   // zoomInAsync: () => Promise<void>;
   // zoomOutAsync: () => Promise<void>;
@@ -87,9 +90,24 @@ export interface BasicMapProperties {
   mapStyleOptions?: LegacyMapConfig;
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
+  paths?: PathFeature[];
+  pathStyle?: StyleLike;
   onFeatureClick?: OnFeatureClick;
   onFeatureHover?: OnFeatureHover;
   onLayersReady?: (isReady: boolean) => void;
+  /**
+   * Called on an async failure the map survives: layer setup or marker icon
+   * loading. Nothing is cleared, so whatever was already drawn stays — an
+   * empty map if this was the first load, an out-of-date one otherwise.
+   * Without a handler the error is only logged, so pass this if the app needs
+   * to show that the map is stale.
+   *
+   * Malformed feature coordinates do not come through here. They are a config
+   * mistake, so they throw during render as a `MalformedFeatureError` for the
+   * nearest error boundary to handle — routing a render throw into a callback
+   * would make React report the same error more than once.
+   */
+  onError?: (error: Error) => void;
 }
 
 export interface LayerSelectorProps {
