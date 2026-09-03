@@ -10,6 +10,11 @@ import { Stroke, Style } from "ol/style";
 import { FeatureLike } from "ol/Feature";
 import { PATH_LAYER_ID } from "../../utils/layers";
 import { MalformedFeatureError } from "../../utils/errors";
+import {
+	ErrorFallback,
+	ErrorFallbackText,
+	ErrorFallbackWrapper,
+} from "../../../../../components/utils/ErrorFallback";
 
 
 const baseLayers: LayerConfig[] = [
@@ -581,19 +586,12 @@ export const PathStyleFunction: Story = {
 /* Error behaviour                                                     */
 /* ------------------------------------------------------------------ */
 
-const errorPanelSx = {
-	padding: 2,
-	font: "13px/1.5 monospace",
-	background: "rgba(0,0,0,0.8)",
-	color: "#fff",
-	borderRadius: 1,
-	whiteSpace: "pre-wrap" as const,
-};
-
 /**
  * The boundary a consuming app has to supply. `MalformedFeatureError` is
  * exported from the package, so the app can tell a config mistake apart from
  * any other render failure rather than matching on the message.
+ *
+ * The fallback itself is the DS's own `ErrorFallback*` set, not bespoke markup.
  */
 class DemoErrorBoundary extends Component<
 	{ children: ReactNode },
@@ -610,17 +608,19 @@ class DemoErrorBoundary extends Component<
 		if (!error) return this.props.children;
 
 		return (
-			<Box sx={errorPanelSx}>
-				<strong>Error boundary caught the map</strong>
-				{"\n\n"}
-				instanceof MalformedFeatureError:{" "}
-				{String(error instanceof MalformedFeatureError)}
-				{"\n"}
-				featureId:{" "}
-				{error instanceof MalformedFeatureError ? error.featureId : "n/a"}
-				{"\n\n"}
-				{error.message}
-			</Box>
+			<ErrorFallbackWrapper height="100%">
+				<Stack spacing={1} alignItems="center">
+					<ErrorFallbackText name="BasicMapV2" />
+					<ErrorFallbackText message={error.message} />
+					<ErrorFallbackText
+						message={
+							error instanceof MalformedFeatureError
+								? `MalformedFeatureError, featureId: ${error.featureId}`
+								: "not a MalformedFeatureError"
+						}
+					/>
+				</Stack>
+			</ErrorFallbackWrapper>
 		);
 	}
 }
@@ -658,20 +658,18 @@ export const MalformedFeatureThrows: Story = {
 };
 
 const LayerSetupFailureDemo = () => {
-	const [reported, setReported] = useState<string[]>([]);
-	const onError = useCallback((error: Error) => {
-		setReported((prev) => [`${error.name}: ${error.message}`, ...prev]);
-	}, []);
+	const [failure, setFailure] = useState<Error | null>(null);
+	const onError = useCallback((error: Error) => setFailure(error), []);
 
 	return (
 		<Stack sx={{ width: "100%", height: "100%" }}>
-			<Box sx={errorPanelSx}>
-				<strong>onError calls</strong>
-				{"\n"}
-				{reported.length === 0
-					? "none yet"
-					: reported.map((line, i) => <div key={i}>{line}</div>)}
-			</Box>
+			{failure && (
+				<ErrorFallback
+					name="BasicMapV2 layers"
+					message={`onError: ${failure.message}`}
+					height={96}
+				/>
+			)}
 			<Box sx={{ flex: 1 }}>
 				<BasicMapV2
 					zoom={5}

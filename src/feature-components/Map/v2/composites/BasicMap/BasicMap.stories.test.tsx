@@ -18,17 +18,18 @@ describe("error behaviour stories render", () => {
 
   it("MalformedFeatureThrows shows the boundary fallback", () => {
     renderStory(MalformedFeatureThrows);
-    expect(screen.getByText(/Error boundary caught the map/)).toBeTruthy();
+    // Rendered by the DS ErrorFallbackText, not bespoke story markup.
+    expect(screen.getByText(/BasicMapV2 failed to load/)).toBeTruthy();
     expect(document.body.textContent).toContain(
-      "instanceof MalformedFeatureError: true"
+      "MalformedFeatureError, featureId: bad-path"
     );
-    expect(document.body.textContent).toContain("featureId: bad-path");
+    expect(document.body.textContent).toContain("bad-path");
   });
 
   it("LayerSetupFailureReportsToOnError shows the onError call", async () => {
     renderStory(LayerSetupFailureReportsToOnError);
     await waitFor(() =>
-      expect(document.body.textContent).toContain("Unknown layer kind")
+      expect(document.body.textContent).toContain("onError: Unknown layer kind")
     );
   });
 });
