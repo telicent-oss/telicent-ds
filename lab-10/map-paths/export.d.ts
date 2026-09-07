@@ -564,7 +564,7 @@ export declare type BasicMapV2Handle = {
     zoomOut: () => void;
     panToFeature: (id: string) => void;
     panToFeatures: (ids: string[]) => void;
-    setLayerOpacity: (layerId: string, opacity: number) => void;
+    setLayerOpacity?: (layerId: string, opacity: number) => void;
     layers: default_5[];
 };
 
