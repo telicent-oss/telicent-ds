@@ -456,14 +456,14 @@ const RuntimeOpacityDemo = () => {
 				<Button
 					variant="contained"
 					size="small"
-					onClick={() => mapRef.current?.setLayerOpacity("osm", 0.3)}
+					onClick={() => mapRef.current?.setLayerOpacity?.("osm", 0.3)}
 				>
 					Dim base layer
 				</Button>
 				<Button
 					variant="contained"
 					size="small"
-					onClick={() => mapRef.current?.setLayerOpacity("osm", 1)}
+					onClick={() => mapRef.current?.setLayerOpacity?.("osm", 1)}
 				>
 					Restore base layer
 				</Button>

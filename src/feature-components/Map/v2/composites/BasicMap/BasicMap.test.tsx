@@ -178,7 +178,7 @@ describe("BasicMapV2 setLayerOpacity", () => {
 		});
 
 		act(() => {
-			ref.current!.setLayerOpacity("osm", 0.4);
+			ref.current!.setLayerOpacity?.("osm", 0.4);
 		});
 
 		expect(mockLayer.getOpacity()).toBe(0.4);
@@ -204,7 +204,7 @@ describe("BasicMapV2 setLayerOpacity", () => {
 		});
 
 		act(() => {
-			ref.current!.setLayerOpacity("nonexistent", 0.5);
+			ref.current!.setLayerOpacity?.("nonexistent", 0.5);
 		});
 
 		expect(mockLayer.getOpacity()).toBe(1);
@@ -229,10 +229,10 @@ describe("BasicMapV2 setLayerOpacity", () => {
 			);
 		});
 
-		act(() => { ref.current!.setLayerOpacity("osm", -0.5); });
+		act(() => { ref.current!.setLayerOpacity?.("osm", -0.5); });
 		expect(mockLayer.getOpacity()).toBe(0);
 
-		act(() => { ref.current!.setLayerOpacity("osm", 1.5); });
+		act(() => { ref.current!.setLayerOpacity?.("osm", 1.5); });
 		expect(mockLayer.getOpacity()).toBe(1);
 	});
 });
