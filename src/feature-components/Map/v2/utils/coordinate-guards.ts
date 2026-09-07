@@ -7,6 +7,9 @@
  *   3D  number[][][]    — MultiLineString / Polygon
  *   4D  number[][][][]  — MultiPolygon
  *
+ * An empty array passes at every depth: no coordinates is not a nesting
+ * mistake, so an empty feature draws nothing rather than throwing.
+ *
  * Use these to check a feature's `coordinates` against its declared `type`
  * before handing them to OpenLayers, rather than an unchecked `as` cast
  * (which can mask malformed input and surface as an opaque OL error later).
@@ -16,13 +19,13 @@ export function is1D(coords: unknown): coords is number[] {
 }
 
 export function is2D(coords: unknown): coords is number[][] {
-  return Array.isArray(coords) && coords.length > 0 && is1D(coords[0]);
+  return Array.isArray(coords) && (coords.length === 0 || is1D(coords[0]));
 }
 
 export function is3D(coords: unknown): coords is number[][][] {
-  return Array.isArray(coords) && coords.length > 0 && is2D(coords[0]);
+  return Array.isArray(coords) && (coords.length === 0 || is2D(coords[0]));
 }
 
 export function is4D(coords: unknown): coords is number[][][][] {
-  return Array.isArray(coords) && coords.length > 0 && is3D(coords[0]);
+  return Array.isArray(coords) && (coords.length === 0 || is3D(coords[0]));
 }

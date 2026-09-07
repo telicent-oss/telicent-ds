@@ -214,7 +214,7 @@ export const BasicMapV2 = React.forwardRef<
     } else {
       fitToFeatures(map, features);
     }
-  }, [props.markers, props.polygons, props.paths, layers]);
+  }, [props.markers, polygonFeatures, pathFeatures, layers]);
 
   useImperativeHandle(
     ref,

@@ -247,4 +247,15 @@ describe("pathToOLFeature", () => {
 
     expect(() => pathToOLFeature(bad)).toThrow(/LineString/);
   });
+
+  it("draws nothing for an empty LineString instead of throwing", () => {
+    expect(() =>
+      pathToOLFeature({
+        id: "empty",
+        type: "LineString",
+        name: "Empty",
+        coordinates: [],
+      })
+    ).not.toThrow();
+  });
 });
