@@ -13,6 +13,7 @@ export type BaseVectorTileLayerConfig = {
   previewImage: string;
   projection?: string;
   label: string;
+  opacity?: number;
 };
 
 export type BaseRasterLayerConfig = {
@@ -24,6 +25,7 @@ export type BaseRasterLayerConfig = {
   visible?: boolean;
   previewImage: string;
   label: string;
+  opacity?: number;
 };
 
 export type OverlayVectorLayerConfig = {
