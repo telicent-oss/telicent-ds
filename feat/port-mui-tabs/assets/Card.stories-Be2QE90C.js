@@ -1,0 +1,15 @@
+import{a as p,j as r}from"./iframe-2ae3jLtY.js";import{C as m}from"./Divider-M5RYGepX.js";import{B as n,o as e,p as s}from"./DropdownButton-BpmbuP-W.js";import{b as d,T as c}from"./Text-CtYPczsC.js";import"./preload-helper-C1FmrZbK.js";import"./generateUtilityClass-DBJjU6LW.js";import"./styled-Cj2-Y3sw.js";import"./generateUtilityClasses-VYWBwYVV.js";import"./Paper-D44EUSF6.js";import"./Divider-Cb5TCzV-.js";import"./UserIcon-C9xuM1bb.js";import"./SvgIcon-sVmN0tjE.js";import"./useTheme-D2IgbBvW.js";import"./Box-DcijUUVm.js";import"./Box-CxnaGThj.js";import"./Container-lpa-al36.js";import"./styled-BH3fMlC7.js";import"./createStyled-BadfWLO8.js";import"./useThemeProps-CjP8yKq7.js";import"./FlexBox-BAOPxaZ7.js";import"./Stack-AhKTZxfl.js";import"./Typography-CKX7xI1z.js";import"./useThemeProps-5tLqmsws.js";import"./AdapterDayjs-WX-3Svd1.js";import"./Modal-Ct5j1anh.js";import"./utils-BRBAF39N.js";import"./TransitionGroupContext-CBaIu8bW.js";import"./index-_aQ6azBP.js";import"./resolveComponentProps-Cd-xgkW-.js";import"./Popover-CVm97bWw.js";import"./TextField-CtUdVhYe.js";import"./useFormControl-CedqS7-r.js";import"./createSvgIcon-CPbPJc4P.js";import"./IconButton-DHZQ4I-9.js";import"./ButtonBase-BhlfSjKw.js";import"./DialogContent-QyBYExTq.js";import"./Button-w3dj99fq.js";import"./Chip-C9Sq19CS.js";import"./DateTimePicker-D7ooMU44.js";import"./AppInfoRow-B--uq7Sd.js";import"./Chip-BsvBzIp-.js";import"./TreeView-DdTK-PUs.js";import"./Alert-DnPepOi0.js";import"./LinearProgress-CsGPtdNT.js";import"./Spinner-Ce4Lduox.js";import"./Dialog-zSVX8tBH.js";import"./MapToggleButtonPresentational-DEZRespE.js";import"./Remove-DUc8tOl9.js";import"./LinkButton-DFUlFy7Z.js";import"./TextField-rZhfzkLQ.js";import"./Switch-B6fBRjkG.js";import"./DatePicker-DoQqJsHZ.js";import"./Paper-Cyq_1M7S.js";import"./ErrorFallback-DoY8WDiN.js";import"./ErrorFallbackText-D5Vin4ef.js";import"./ErrorFallbackWrapper-Bw7iQJps.js";import"./Brand-CpWuTQBH.js";import"./constants-DPt7sep6.js";import"./Edit-CdllxfNz.js";const gr={title:"Surfaces/Card",component:m,tags:["autodocs"]},t={args:{variant:"outlined",children:p(s,{children:[r(d,{children:"Capybara"}),r(c,{paragraph:!0,children:"Capybara are the biggest rodents in the world. Our capy family can be seen strutting their stuff in our South American paddock!"}),r(e,{children:r(n,{variant:"secondary",children:"Share"})})]})}};var o,i,a;t.parameters={...t.parameters,docs:{...(o=t.parameters)==null?void 0:o.docs,source:{originalSource:`{
+  args: {
+    variant: "outlined",
+    children: <CardContent>
+        <H1>Capybara</H1>
+        <Text paragraph>
+          Capybara are the biggest rodents in the world. Our capy family can be seen strutting their stuff in our South
+          American paddock!
+        </Text>
+        <CardActions>
+          <Button variant="secondary">Share</Button>
+        </CardActions>
+      </CardContent>
+  }
+}`,...(a=(i=t.parameters)==null?void 0:i.docs)==null?void 0:a.source}}};const yr=["OutlinedCard"];export{t as OutlinedCard,yr as __namedExportsOrder,gr as default};
