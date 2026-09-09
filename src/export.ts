@@ -23,6 +23,9 @@ export * from "./feature-components/InsetInMap";
 export * from "./feature-components/Map/v2/primitives/MapCanvas/MapCanvas";
 export * from "./feature-components/Map/v2/primitives/LayerSelector/LayerSelector";
 export * from "./feature-components/Map/v2/composites/BasicMap/BasicMap";
+export * from "./feature-components/Map/v2/primitives/controls/ButtonZoomIn";
+export * from "./feature-components/Map/v2/primitives/controls/ButtonZoomOut";
+export * from "./feature-components/Map/v2/primitives/controls/MapToggleButtonPresentational";
 export * from "./feature-components/Map/v2/types";
 export * from "./feature-components/Map/v2/utils";
 
