@@ -1,5 +1,6 @@
 import { Coordinate } from "ol/coordinate";
 import BaseLayer from "ol/layer/Base";
+import type * as GeoJSON from "geojson";
 import { OverlayFeatureConfig } from "./overlays";
 import { LayerConfig } from "./layers";
 import { MarkerFeature } from "./markers";

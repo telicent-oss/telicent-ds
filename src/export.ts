@@ -19,7 +19,6 @@ export * from "./components/SearchAutocompleteDialog";
 export { default as TeliTypeIcon } from "./components/TypeIcon/TypeIcon";
 
 // Component library
-export * from "./feature-components/Map";
 export * from "./feature-components/InsetInMap";
 export * from "./feature-components/Map/v2/primitives/MapCanvas/MapCanvas";
 export * from "./feature-components/Map/v2/primitives/LayerSelector/LayerSelector";
