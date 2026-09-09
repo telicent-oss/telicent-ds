@@ -10,7 +10,7 @@ import BaseLayer from "ol/layer/Base";
 import Text from "ol/style/Text";
 import VectorLayer from "ol/layer/Vector";
 import { MarkerFeature } from "../types/markers";
-import geohash from "../../utils/geohash/geohash";
+import geohash from "./geohash/geohash";
 import { OverlayFeatureConfig } from "../types/overlays";
 
 export const convertMarkerToFeature = (marker: MarkerFeature) => {

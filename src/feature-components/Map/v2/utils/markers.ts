@@ -1,4 +1,4 @@
-import geohash from "../../utils/geohash/geohash";
+import geohash from "./geohash/geohash";
 import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
 import { fromLonLat } from "ol/proj";
