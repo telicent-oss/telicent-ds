@@ -315,7 +315,9 @@ Usage: https://github.com/telicent-oss/telicent-ds/blob/feat/port-mui-tabs/src/c
 
 Demonstrated states:
 - Default
+- WithLabelledBy
 - Vertical
+- Scrollable
 - WithIcons
 - KeepMounted
 
