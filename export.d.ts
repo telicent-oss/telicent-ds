@@ -284,9 +284,10 @@ import { TableRowClasses } from '@mui/material';
 import { TableRowProps } from '@mui/material';
 import { TableSortLabelClasses } from '@mui/material';
 import { TableSortLabelProps } from '@mui/material';
-import { TabProps } from '@mui/material';
-import { TabsClasses } from '@mui/material';
-import { TabsProps } from '@mui/material';
+import { TabProps as TabProps_2 } from '@mui/material/Tab';
+import { TabProps as TabProps_3 } from '@mui/material';
+import { TabsOwnProps } from '@mui/material';
+import { TabsProps as TabsProps_2 } from '@mui/material/Tabs';
 import { TextFieldProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Theme as Theme_2 } from '@mui/material';
@@ -310,6 +311,14 @@ import { UseAutocompleteProps } from '@mui/material/useAutocomplete';
 import { UserInfo } from '@telicent-oss/fe-auth-lib';
 import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
+
+declare type AccessibleName = {
+    "aria-label": string;
+    "aria-labelledby"?: never;
+} | {
+    "aria-labelledby": string;
+    "aria-label"?: never;
+};
 
 export { Alert }
 
@@ -1144,6 +1153,25 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiCssBaseline: {
         styleOverrides: (theme: Omit<Theme_2, "components">) => string;
+    };
+    MuiTabs: {
+        styleOverrides: {
+            root: ({ theme }: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+                component?: ElementType;
+            } & Record<string, unknown> & {
+                ownerState: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+                    component?: ElementType;
+                } & Record<string, unknown>;
+            } & {
+                theme: Omit<Theme_2, "components">;
+            }) => {
+                borderBottom: string;
+                "&.MuiTabs-vertical": {
+                    borderBottom: string;
+                    borderInlineEnd: string;
+                };
+            };
+        };
     };
     MuiCard: {
         variants: {
@@ -2321,8 +2349,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTab"];
         styleOverrides?: Partial<OverridesStyleRules<keyof TabClasses, "MuiTab", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TabProps> | ((props: Partial<TabProps> & {
-                ownerState: Partial<TabProps>;
+            props: Partial<TabProps_3> | ((props: Partial<TabProps_3> & {
+                ownerState: Partial<TabProps_3>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2431,18 +2459,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<TableSortLabelProps> | ((props: Partial<TableSortLabelProps> & {
                 ownerState: Partial<TableSortLabelProps>;
-            }) => boolean);
-            style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiTabs?: {
-        defaultProps?: ComponentsProps["MuiTabs"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TabsClasses, "MuiTabs", Omit<Theme_2, "components">>> | undefined;
-        variants?: {
-            props: Partial<TabsProps> | ((props: Partial<TabsProps> & {
-                ownerState: Partial<TabsProps>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -3546,6 +3562,79 @@ declare type SwitchProps_2 = Omit<SwitchProps, "color"> & {
     label?: string;
     labelPlacement?: "end" | "start" | "top" | "bottom";
 };
+
+export declare const Tab: ({ value, ...props }: TabProps) => JSX.Element;
+
+export declare const TabPanel: default_2.ForwardRefExoticComponent<Omit<default_2.HTMLAttributes<HTMLDivElement>, "hidden"> & {
+    /** Matches the `idPrefix` on this group's `Tabs`. */
+    idPrefix: string;
+    /** This panel's own value. */
+    value: TabValue;
+    /** The tab set's selected value — the same state `Tabs` receives. */
+    activeValue: TabValue;
+    /**
+     * Keep this panel's children mounted while it is hidden. Off by default, so
+     * an inactive panel costs nothing; on when the panel holds form state worth
+     * preserving across tab switches.
+     */
+    keepMounted?: boolean;
+} & default_2.RefAttributes<HTMLDivElement>>;
+
+export declare type TabPanelProps = Omit<default_2.HTMLAttributes<HTMLDivElement>, "hidden"> & {
+    /** Matches the `idPrefix` on this group's `Tabs`. */
+    idPrefix: string;
+    /** This panel's own value. */
+    value: TabValue;
+    /** The tab set's selected value — the same state `Tabs` receives. */
+    activeValue: TabValue;
+    /**
+     * Keep this panel's children mounted while it is hidden. Off by default, so
+     * an inactive panel costs nothing; on when the panel holds form state worth
+     * preserving across tab switches.
+     */
+    keepMounted?: boolean;
+};
+
+export declare type TabProps = Omit<TabProps_2, "value"> & {
+    /**
+     * Required, where MUI falls back to the child's index, and narrowed to
+     * `string | number` because it becomes part of a DOM id.
+     */
+    value: TabValue;
+};
+
+export declare const Tabs: default_2.ForwardRefExoticComponent<(Omit<Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & {
+    "aria-label": string;
+    "aria-labelledby"?: never;
+} & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+}, "ref"> | Omit<Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & {
+    "aria-labelledby": string;
+    "aria-label"?: never;
+} & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+}, "ref">) & default_2.RefAttributes<HTMLDivElement>>;
+
+export declare type TabsProps = Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & AccessibleName & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+};
+
+declare type TabValue = string | number;
 
 export declare const TelicentHorizontalSVG: default_2.FC<SvgIconProps>;
 
