@@ -7,6 +7,7 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     ...componentOverrides.AVATAR_OVERRIDES,
     ...componentOverrides.generateButtonOverrides(uiTheme),
     ...componentOverrides.generateCardOverrides(uiTheme),
+    ...componentOverrides.generateTabsOverrides(uiTheme),
     MuiPaper: {
       styleOverrides: {
         root: {
