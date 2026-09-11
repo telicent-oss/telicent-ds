@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/telicent-oss/telicent-ds/compare/v4.0.0...v4.1.0) (2026-09-11)
+
+
+### Features
+
+* port MUI Tabs with derived accessibility ids ([#552](https://github.com/telicent-oss/telicent-ds/issues/552)) ([4228212](https://github.com/telicent-oss/telicent-ds/commit/42282128327f8d02304dae146d80f595daabfbc4))
+
 ## [4.0.0](https://github.com/telicent-oss/telicent-ds/compare/v3.7.0...v4.0.0) (2026-09-09)
 
 
