@@ -5,7 +5,7 @@ import PrimaryButton from "../../buttons/Button/PrimaryButton";
 import { SearchIcon } from "../../data-display";
 import { SxProps } from "@mui/material";
 
-export interface SearchBoxProps<Value = string> extends React.ComponentProps<typeof InputBase> {
+export interface SearchBoxProps extends Omit<React.ComponentProps<typeof InputBase>, "onSubmit"> {
   /**
    * If true, the input element is focused during the first mount.
    */
@@ -28,11 +28,12 @@ export interface SearchBoxProps<Value = string> extends React.ComponentProps<typ
    */
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
-   * Callback fired when the search button is clicked.
+   * Callback fired when the form is submitted, by pressing Enter or clicking the search button.
+   * Call event.preventDefault() to stop the browser navigating.
    * @param event
-   * @returns
+   * @returns void
    */
-  onSearch?: (event: React.SubmitEvent<HTMLFormElement>) => void;
+  onSubmit?: (event: React.SubmitEvent<HTMLFormElement>) => void;
   /**
    * Name attribute of the input element.
    */
@@ -44,7 +45,7 @@ export interface SearchBoxProps<Value = string> extends React.ComponentProps<typ
   /**
    * The value of the input element, required for a controlled component.
    */
-  value?: Value;
+  value?: string;
   width?: number;
   sx?: SxProps;
 }
@@ -57,13 +58,13 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   value,
   onBlur,
   onChange,
-  onSearch,
+  onSubmit,
   disabled,
   width = 600,
   sx,
   ...rest
 }) => (
-  <Box height={44} width={width} display="flex" alignItems="center" component="form" onSubmit={onSearch}>
+  <Box height={44} width={width} display="flex" alignItems="center" component="form" onSubmit={onSubmit}>
     <InputBase
       data-test-handle="search-box-input"
       type="search"
