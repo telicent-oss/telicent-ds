@@ -13,6 +13,12 @@ jest.mock("../../utils/ensureLayers", () => ({
 	ensureLayers: jest.fn(() => Promise.resolve([])),
 }));
 
+jest.mock("./interactions/addPanToFeature", () => ({
+	getFeaturesById: jest.fn(() => []),
+	fitToFeature: jest.fn(),
+	fitToFeatures: jest.fn(),
+}));
+
 import React from "react";
 import { render, act, waitFor } from "@testing-library/react";
 import { BasicMapV2 } from "./BasicMap";
@@ -21,6 +27,11 @@ import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
 import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig, OverlayVectorLayerConfig } from "../../types/layers";
 import { ensureLayers } from "../../utils/ensureLayers";
+import {
+	getFeaturesById,
+	fitToFeature,
+	fitToFeatures,
+} from "./interactions/addPanToFeature";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { MARKER_LAYER_ID, PATH_LAYER_ID } from "../../utils/layers";
 import { PathFeature } from "../../types/paths";
@@ -490,5 +501,86 @@ describe("BasicMapV2 error handling", () => {
 		);
 
 		consoleError.mockRestore();
+	});
+});
+
+describe("BasicMapV2 panToFeatures", () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([]));
+		// resetMocks: true in jest.config.cjs wipes the module factory, so the
+		// stand-in has to be re-installed here. It must populate mapInstanceRef
+		// or every handle method early-returns with "Map is not ready yet".
+		(MapCanvasV2 as unknown as jest.Mock).mockImplementation(
+			(props: { mapInstanceRef?: { current: unknown } }) => {
+				if (props?.mapInstanceRef) {
+					props.mapInstanceRef.current = props.mapInstanceRef.current ?? {};
+				}
+				return <div id="map-canvas" />;
+			}
+		);
+	});
+
+	it("frames every requested feature, not just the first", async () => {
+		// Regression: panToFeatures called the SINGULAR fitToFeature on
+		// features[0], so "show me these results" flew the analyst to one
+		// arbitrary result and left the rest off-screen.
+		const f1 = { id: "a" };
+		const f2 = { id: "b" };
+		const f3 = { id: "c" };
+		(getFeaturesById as jest.Mock).mockReturnValue([f1, f2, f3]);
+
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2 ref={ref} zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} />
+			);
+		});
+
+		act(() => {
+			ref.current!.panToFeatures(["a", "b", "c"]);
+		});
+
+		expect(fitToFeatures).toHaveBeenCalledTimes(1);
+		expect(fitToFeatures).toHaveBeenCalledWith(expect.anything(), [f1, f2, f3]);
+		expect(fitToFeature).not.toHaveBeenCalled();
+	});
+
+	it("does nothing when no features match", async () => {
+		(getFeaturesById as jest.Mock).mockReturnValue([]);
+
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2 ref={ref} zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} />
+			);
+		});
+
+		act(() => {
+			ref.current!.panToFeatures(["missing"]);
+		});
+
+		expect(fitToFeatures).not.toHaveBeenCalled();
+	});
+
+	it("panToFeature still uses the singular fit for one id", async () => {
+		const f1 = { id: "a" };
+		(getFeaturesById as jest.Mock).mockReturnValue([f1]);
+
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2 ref={ref} zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} />
+			);
+		});
+
+		act(() => {
+			ref.current!.panToFeature("a");
+		});
+
+		expect(fitToFeature).toHaveBeenCalledWith(expect.anything(), f1);
 	});
 });

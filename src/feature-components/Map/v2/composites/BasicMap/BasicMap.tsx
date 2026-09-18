@@ -279,7 +279,7 @@ export const BasicMapV2 = React.forwardRef<
 
         const features = getFeaturesById(layers, ids);
         if (features.length === 0) return;
-        fitToFeature(mapInstance.current, features[0]);
+        fitToFeatures(mapInstance.current, features);
       },
       setLayerOpacity: (layerId: string, opacity: number) => {
         const layer = layers.find((l) => l.get("id") === layerId);
