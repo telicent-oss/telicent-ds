@@ -11,6 +11,7 @@ export * from "./components/feedback";
 export * from "./components/inputs";
 export * from "./components/buttons";
 export * from "./components/layout";
+export * from "./components/Navigation";
 export * from "./components/surfaces";
 export * from "./theme";
 export * from "./components/utils/index";
@@ -19,11 +20,13 @@ export * from "./components/SearchAutocompleteDialog";
 export { default as TeliTypeIcon } from "./components/TypeIcon/TypeIcon";
 
 // Component library
-export * from "./feature-components/Map";
 export * from "./feature-components/InsetInMap";
 export * from "./feature-components/Map/v2/primitives/MapCanvas/MapCanvas";
 export * from "./feature-components/Map/v2/primitives/LayerSelector/LayerSelector";
 export * from "./feature-components/Map/v2/composites/BasicMap/BasicMap";
+export * from "./feature-components/Map/v2/primitives/controls/ButtonZoomIn";
+export * from "./feature-components/Map/v2/primitives/controls/ButtonZoomOut";
+export * from "./feature-components/Map/v2/primitives/controls/MapToggleButtonPresentational";
 export * from "./feature-components/Map/v2/types";
 export * from "./feature-components/Map/v2/utils";
 

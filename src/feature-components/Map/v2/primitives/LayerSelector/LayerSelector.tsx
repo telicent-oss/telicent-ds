@@ -4,7 +4,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import type BaseLayer from "ol/layer/Base";
 
 import { Button, Text, useExtendedTheme } from "../../../../../export";
-import { Image } from "../../../primitives/LayerSelector/primitives/Image";
+import { Image } from "./primitives/Image";
 import type { LayerSelectorProps } from "../../types/map-types";
 import { getMeta } from "../../utils/layers";
 
