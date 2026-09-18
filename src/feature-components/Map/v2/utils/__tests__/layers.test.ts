@@ -18,6 +18,7 @@ import {
   getOverlayVectorLayer,
   getBaseVectorTileLayer,
   getDefaultOverlayStyle,
+  getPathLayerDefaultStyle,
   getBaseRasterLayer,
   attachMeta,
   getMeta,
@@ -49,6 +50,39 @@ describe("layers util", () => {
       expect(style.props.image.options.radius).toBe(6);
       expect(style.props.image.options.fill.props).toBeDefined();
       expect(style.props.image.options.stroke.props).toBeDefined();
+    });
+  });
+
+  describe("getPathLayerDefaultStyle", () => {
+    it("returns the feature's own originalStyle when it has one", () => {
+      const own = { marker: "own-style" };
+      const feature = {
+        get: (key: string) => (key === "originalStyle" ? own : undefined),
+        getGeometry: () => ({ getType: () => "LineString" }),
+      };
+
+      const styleFn = getPathLayerDefaultStyle() as (
+        feature: any,
+        resolution: number
+      ) => any;
+
+      expect(styleFn(feature as any, 1)).toBe(own);
+    });
+
+    it("falls back to the default overlay style when it has none", () => {
+      const feature = {
+        get: () => undefined,
+        getGeometry: () => ({ getType: () => "LineString" }),
+      };
+
+      const styleFn = getPathLayerDefaultStyle() as (
+        feature: any,
+        resolution: number
+      ) => any;
+      const style = styleFn(feature as any, 1);
+
+      expect(style.props.stroke).toBeDefined();
+      expect(style.props.fill).toBeDefined();
     });
   });
 

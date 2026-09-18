@@ -25,5 +25,9 @@ export interface PathFeature {
   coordinates: number[][] | number[][][];
   name: string;
   meta?: Record<string, any>;
+  /**
+   * This path's own appearance. Ignored while BasicMapV2's layer-wide
+   * `pathStyle` prop is set, which wins outright.
+   */
   style?: PathStyle;
 }

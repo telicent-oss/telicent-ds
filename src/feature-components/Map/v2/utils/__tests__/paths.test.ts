@@ -67,13 +67,15 @@ describe("pathToOLFeature", () => {
     };
 
     const feature = pathToOLFeature(path);
-    const style = feature.getStyle() as MockStyle;
+    const style = feature.get("originalStyle") as MockStyle;
     const stroke = style.props.stroke;
 
     expect(stroke.props.color).toBe("#FF0000");
     expect(stroke.props.width).toBe(4);
     expect(stroke.props.lineDash).toEqual([5, 3]);
-    expect(feature.get("originalStyle")).toBe(style);
+    // Never applied as a feature style: that would override the layer style
+    // and make BasicMapV2's pathStyle prop dead for this path.
+    expect(feature.getStyle()).toBeNull();
   });
 
   it("does not set style when none provided", () => {
@@ -107,11 +109,11 @@ describe("pathToOLFeature", () => {
     } as PathFeature;
 
     const feature = pathToOLFeature(path);
-    const appliedStyle = feature.getStyle();
+    const styles = feature.get("originalStyle");
 
-    expect(Array.isArray(appliedStyle)).toBe(true);
-    expect((appliedStyle as Style[]).length).toBe(3);
-    expect(Array.isArray(feature.get("originalStyle"))).toBe(true);
+    expect(Array.isArray(styles)).toBe(true);
+    expect((styles as Style[]).length).toBe(3);
+    expect(feature.getStyle()).toBeNull();
   });
 
   it("uses direction.color over style.color and creates RegularShape", () => {
@@ -130,7 +132,7 @@ describe("pathToOLFeature", () => {
     };
 
     const feature = pathToOLFeature(path);
-    const styles = feature.getStyle() as MockStyle[];
+    const styles = feature.get("originalStyle") as MockStyle[];
     const arrowStyle = styles[1];
     const shape = arrowStyle.props.image;
 
@@ -158,7 +160,7 @@ describe("pathToOLFeature", () => {
     };
 
     const feature = pathToOLFeature(path);
-    const styles = feature.getStyle() as MockStyle[];
+    const styles = feature.get("originalStyle") as MockStyle[];
     const arrowStyle = styles[1];
     const icon = arrowStyle.props.image;
 
@@ -182,7 +184,7 @@ describe("pathToOLFeature", () => {
 
     const feature = pathToOLFeature(path);
 
-    expect(Array.isArray(feature.getStyle())).toBe(false);
+    expect(Array.isArray(feature.get("originalStyle"))).toBe(false);
   });
 
   it("generates direction arrows for MultiLineString", () => {
@@ -208,7 +210,7 @@ describe("pathToOLFeature", () => {
     };
 
     const feature = pathToOLFeature(path);
-    const appliedStyle = feature.getStyle();
+    const appliedStyle = feature.get("originalStyle");
 
     // 1 stroke + 1 arrow per segment (2 lines × 1 segment each = 2 arrows)
     expect(Array.isArray(appliedStyle)).toBe(true);

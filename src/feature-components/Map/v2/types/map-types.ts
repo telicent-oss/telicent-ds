@@ -95,14 +95,21 @@ export interface BasicMapProperties {
    * `feature.getId()` is what `pathStyle` receives and what `panToFeature`
    * matches on.
    *
-   * A path may carry its own `style`. That is a per-feature style and takes
-   * precedence over `pathStyle` below, which is the layer-wide style.
+   * A path may carry its own `style`. Supplying `pathStyle` below replaces it
+   * for every path -- see there.
    */
   paths?: PathFeature[];
   /**
    * Style for the whole path layer: a single style, or a function called per
-   * feature. Paths that set their own `style` ignore this. Omit it and the
-   * layer uses the default overlay style.
+   * feature.
+   *
+   * `pathStyle` wins outright. It applies to every path, including paths that
+   * set their own `style`, and those paths lose that appearance while it is
+   * set. To keep a path's own look and still respond to selection, branch on
+   * the id inside this function and return the style you want.
+   *
+   * Omit it and each path renders with its own `style`, or the default overlay
+   * style if it has none.
    *
    * For selection-driven restyling, just close over state and compare ids:
    *

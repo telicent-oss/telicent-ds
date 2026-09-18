@@ -156,7 +156,12 @@ describe("BasicMapV2 pathStyle", () => {
 				c.kind === "overlay-vector" && c.id === PATH_LAYER_ID
 		);
 		expect(pathLayerConfig).toBeDefined();
-		expect(pathLayerConfig!.style).toBeUndefined();
+		// The config carries the default path style so a styled path draws
+		// correctly on the first frame. What it must never carry is props.pathStyle
+		// itself, which would put a new function identity into the config on every
+		// render and rebuild every layer.
+		expect(pathLayerConfig!.style).toBeDefined();
+		expect(pathLayerConfig!.style).not.toBe(styleA);
 
 		const rebuildsBefore = (ensureLayers as jest.Mock).mock.calls.length;
 

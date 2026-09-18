@@ -648,7 +648,7 @@ const PathStyleFunctionDemo = () => {
 				<Button variant="contained" size="small" onClick={() => setSelected("path-b")}>
 					Select Route B
 				</Button>
-				<Button variant="outlined" size="small" onClick={() => setSelected(null)}>
+				<Button variant="contained" size="small" onClick={() => setSelected(null)}>
 					Clear selection
 				</Button>
 				<Box sx={{ alignSelf: "center", color: "#fff", pl: 1 }}>
@@ -670,6 +670,141 @@ const PathStyleFunctionDemo = () => {
 
 export const PathStyleFunction: Story = {
 	render: () => <PathStyleFunctionDemo />,
+};
+
+/**
+ * `pathStyle` wins outright over a path's own `style`.
+ *
+ * Route A is pink and Route B is blue, each set through its own `style`. The
+ * `pathStyle` function below paints in orange and grey, so the two sets of
+ * colours never collide and you can always tell which one is driving.
+ *
+ * The story opens with `pathStyle` set to `undefined`, so each route draws its
+ * own `style`: Route A pink, Route B blue. The buttons under the toggle are
+ * disabled, because there is no `pathStyle` to drive.
+ *
+ * Hit "Supply pathStyle" and both colours vanish at once -- every path turns
+ * grey, and whichever one you pick turns orange and thick. That is the rule:
+ * `pathStyle` applies to every path, including the ones that set their own
+ * `style`. Remove it again and pink and blue come straight back.
+ *
+ * This used to be broken: `createPathFeature` applied a path's own style with
+ * OpenLayers' `setStyle()`, which overrides the layer style, so `pathStyle`
+ * never ran for a styled path. The style is now held on the feature as
+ * `originalStyle` and only read back when no `pathStyle` is supplied.
+ */
+const mixedStylePaths: PathFeature[] = [
+	{
+		id: "path-a",
+		type: "LineString",
+		name: "Route A (pink)",
+		style: { color: "#FF2D95", width: 4 },
+		coordinates: [
+			[-0.1278, 51.5074],
+			[2.3522, 48.8566],
+			[13.405, 52.52],
+		],
+	},
+	{
+		id: "path-b",
+		type: "LineString",
+		name: "Route B (blue)",
+		style: { color: "#00AAFF", width: 4 },
+		coordinates: [
+			[-3.1883, 55.9533],
+			[-1.6178, 54.9783],
+			[-1.5491, 53.8008],
+		],
+	},
+];
+
+const PathStyleBeatsPerPathStyleDemo = () => {
+	const [orangePath, setOrangePath] = useState<string | null>(null);
+	const [pathStyleOn, setPathStyleOn] = useState(false);
+
+	const pathStyle = (feature: FeatureLike) =>
+		feature.getId() === orangePath ? SELECTED_PATH_STYLE : UNSELECTED_PATH_STYLE;
+
+	return (
+		<Box sx={{ width: "100%", height: "100%" }}>
+			<Stack
+				spacing={1}
+				sx={{
+					p: 1,
+					m: 1,
+					position: "absolute",
+					zIndex: 10,
+					color: "#fff",
+					// The map draws underneath, so the panel needs its own backdrop for
+					// the labels to stay readable over tiles of any colour.
+					backgroundColor: "rgba(0, 0, 0, 0.7)",
+					borderRadius: 1,
+				}}
+			>
+				<Stack direction="row" spacing={1} alignItems="center">
+					<Button
+						variant="contained"
+						size="small"
+						onClick={() => setPathStyleOn((on) => !on)}
+					>
+						{pathStyleOn ? "Remove pathStyle" : "Supply pathStyle"}
+					</Button>
+					<Box>
+						pathStyle ={" "}
+						{pathStyleOn
+							? "a function (pink and blue are both overridden)"
+							: "undefined (each path draws its own style)"}
+					</Box>
+				</Stack>
+
+				<Stack
+					direction="row"
+					spacing={1}
+					alignItems="center"
+					sx={{ pl: 3, borderLeft: "2px solid rgba(255,255,255,0.4)" }}
+				>
+					<Button
+						variant="contained"
+						size="small"
+						disabled={!pathStyleOn}
+						onClick={() => setOrangePath("path-a")}
+					>
+						Set pathStyle orange: Route A (pink)
+					</Button>
+					<Button
+						variant="contained"
+						size="small"
+						disabled={!pathStyleOn}
+						onClick={() => setOrangePath("path-b")}
+					>
+						Set pathStyle orange: Route B (blue)
+					</Button>
+					<Button
+						variant="contained"
+						size="small"
+						disabled={!pathStyleOn}
+						onClick={() => setOrangePath(null)}
+					>
+						All grey
+					</Button>
+					<Box>orange: {orangePath ?? "none"}</Box>
+				</Stack>
+			</Stack>
+			<BasicMapV2
+				zoom={5}
+				center={[2, 52]}
+				layers={baseLayers}
+				markers={[]}
+				polygons={[]}
+				paths={mixedStylePaths}
+				pathStyle={pathStyleOn ? pathStyle : undefined}
+			/>
+		</Box>
+	);
+};
+
+export const PathStyleBeatsPerPathStyle: Story = {
+	render: () => <PathStyleBeatsPerPathStyleDemo />,
 };
 
 /* ------------------------------------------------------------------ */

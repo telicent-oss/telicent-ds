@@ -118,13 +118,18 @@ export const pathToOLFeature = (
       }),
     });
 
+    // Stored on the feature, never applied with setStyle(). OpenLayers treats
+    // a feature style as an override of the layer style, so setting it here
+    // would make BasicMapV2's layer-level `pathStyle` prop dead for any path
+    // that carries its own `style`. getPathLayerDefaultStyle() reads this back
+    // when no pathStyle is supplied, so a path still looks the same.
     if (style.direction) {
-      const styles = [strokeStyle, ...getDirectionStyles(geometry, style)];
-      feature.set("originalStyle", styles);
-      feature.setStyle(styles);
+      feature.set("originalStyle", [
+        strokeStyle,
+        ...getDirectionStyles(geometry, style),
+      ]);
     } else {
       feature.set("originalStyle", strokeStyle);
-      feature.setStyle(strokeStyle);
     }
   }
 

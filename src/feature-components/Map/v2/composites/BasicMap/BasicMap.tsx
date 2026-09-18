@@ -22,7 +22,7 @@ import {
   MARKER_LAYER_ID,
   POLYGON_LAYER_ID,
   PATH_LAYER_ID,
-  getDefaultOverlayStyle,
+  getPathLayerDefaultStyle,
 } from "../../utils/layers";
 import { findVectorLayerById } from "../../utils/feature";
 import {
@@ -99,11 +99,15 @@ export const BasicMapV2 = React.forwardRef<
       // Path layer. pathStyle is applied in its own effect below, not here:
       // it is a presentational property of a live layer, and routing it through
       // effectiveLayers would rebuild (and refetch) every layer on each change.
+      // The default style is set here as well as in that effect so a styled
+      // path draws correctly on the first frame rather than flashing OpenLayers'
+      // built-in blue until the effect runs.
       {
         kind: "overlay-vector",
         id: PATH_LAYER_ID,
         data: [],
         visible: true,
+        style: getPathLayerDefaultStyle(),
       },
     ];
     const allLayers = [...baseLayers, ...overlayVectorLayers];
@@ -145,7 +149,10 @@ export const BasicMapV2 = React.forwardRef<
   useEffect(() => {
     const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
     if (!pathLayer) return;
-    pathLayer.setStyle(props.pathStyle ?? getDefaultOverlayStyle());
+    // pathStyle wins outright over a path's own `style`. A path's style is
+    // held as `originalStyle` and only read back by the default below, so
+    // supplying pathStyle replaces it for every path.
+    pathLayer.setStyle(props.pathStyle ?? getPathLayerDefaultStyle());
   }, [layers, props.pathStyle]);
 
   useEffect(() => {

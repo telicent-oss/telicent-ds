@@ -13,7 +13,7 @@ import { Point, Polygon } from "ol/geom";
 import { fromLonLat, get as getProjection } from "ol/proj";
 import Feature from "ol/Feature";
 import VectorLayer from "ol/layer/Vector";
-import { StyleLike } from "ol/style/Style";
+import { StyleFunction, StyleLike } from "ol/style/Style";
 import { Fill, Stroke, Style } from "ol/style";
 import CircleStyle from "ol/style/Circle";
 import LayerGroup from "ol/layer/Group";
@@ -40,6 +40,26 @@ export const getDefaultOverlayStyle = (): StyleLike => (feature) => {
     stroke: new Stroke({ color: "#FF6600", width: 2 }),
     fill: new Fill({ color: "rgba(255, 102, 0, 0.2)" }),
   });
+};
+
+/**
+ * The path layer's style when the consumer supplies no `pathStyle`.
+ *
+ * A path's own `style` is stored on the feature as `originalStyle` rather than
+ * applied with `setStyle()`, so that a layer-level `pathStyle` can override it.
+ * This reads it back, which is what keeps a styled path looking the same when
+ * no `pathStyle` is set.
+ */
+export const getPathLayerDefaultStyle = (): StyleLike => {
+  const fallback = getDefaultOverlayStyle() as StyleFunction;
+  return (feature, resolution) => {
+    const original = feature.get("originalStyle") as
+      | Style
+      | Style[]
+      | undefined;
+    if (original) return original;
+    return fallback(feature, resolution);
+  };
 };
 
 export const getOverlayVectorLayer = (
