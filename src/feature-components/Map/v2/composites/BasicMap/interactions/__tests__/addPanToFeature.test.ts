@@ -96,15 +96,44 @@ describe("panToFeature", () => {
     );
   });
 
-  it("does nothing if geometry.getExtent returns undefined", () => {
+  it("does nothing for an empty geometry instead of hanging", () => {
+    // Real OL reports [Infinity, Infinity, -Infinity, -Infinity] for an empty
+    // geometry. normalizeX used to subtract its way down from Infinity, which
+    // never terminates and freezes the tab. The old test here mocked
+    // getExtent() returning undefined, which real OL never does.
     const geometry = {
-      getExtent: () => undefined,
+      getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
     } as any;
 
     const feature = { getGeometry: () => geometry } as any;
 
     fitToFeature(map, feature);
     expect(fit).not.toHaveBeenCalled();
+  });
+
+  it("does nothing for a non-finite coordinate instead of hanging", () => {
+    // Passes isEmpty (maxX is not below minX) but still non-finite.
+    const geometry = {
+      getExtent: () => [Infinity, 0, Infinity, 0],
+    } as any;
+
+    const feature = { getGeometry: () => geometry } as any;
+
+    fitToFeature(map, feature);
+    expect(fit).not.toHaveBeenCalled();
+  });
+
+  it("normalizes a far-out longitude without looping", () => {
+    // The old subtract-until-in-range loop needed ~1e292 iterations here.
+    const geometry = {
+      getExtent: () => [1e300, 0, 1e300, 0],
+    } as any;
+
+    const feature = { getGeometry: () => geometry } as any;
+
+    const start = Date.now();
+    fitToFeature(map, feature);
+    expect(Date.now() - start).toBeLessThan(1000);
   });
 
   it("does nothing if geometry is missing", () => {
@@ -165,6 +194,49 @@ describe("panToFeatures", () => {
         duration: 600,
       })
     );
+  });
+
+  it("skips an empty geometry listed first, whatever the order", () => {
+    // Regression: an empty extent averaged to NaN, which became refCenterX and
+    // shifted every later feature out of existence, ending in OL throwing
+    // "Cannot fit empty extent". It only bit when the empty feature came
+    // first, so the failure was order-dependent.
+    const empty = {
+      getGeometry: () => ({
+        getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
+        clone() {
+          return this;
+        },
+        translate: () => undefined,
+      }),
+    } as any;
+    const real1 = { getGeometry: () => new MockPoint([0, 0]) } as any;
+    const real2 = { getGeometry: () => new MockPoint([20, 20]) } as any;
+
+    fitToFeatures(map, [empty, real1, real2]);
+
+    expect(fit).toHaveBeenCalledTimes(1);
+    const [extent] = fit.mock.calls[0];
+    // refCenterX must come from the first NON-EMPTY feature, so the resulting
+    // extent is finite rather than NaN-poisoned.
+    expect(extent.every((n: number) => Number.isFinite(n))).toBe(true);
+  });
+
+  it("does nothing when every feature is empty", () => {
+    const empty = () =>
+      ({
+        getGeometry: () => ({
+          getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
+          clone() {
+            return this;
+          },
+          translate: () => undefined,
+        }),
+      }) as any;
+
+    fitToFeatures(map, [empty(), empty()]);
+
+    expect(fit).not.toHaveBeenCalled();
   });
 
   it("respects maxZoom", () => {

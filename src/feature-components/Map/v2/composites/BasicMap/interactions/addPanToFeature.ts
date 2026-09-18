@@ -1,6 +1,6 @@
 import type { Map as OlMap } from "ol";
 import type Geometry from "ol/geom/Geometry";
-import { extend, Extent, getWidth } from "ol/extent";
+import { extend, Extent, getWidth, isEmpty } from "ol/extent";
 import type Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
 import Point from "ol/geom/Point";
@@ -42,11 +42,13 @@ export const fitToFeature = (
   const worldExtent = projection.getExtent();
   const worldWidth = getWidth(worldExtent);
 
-  // Normalizes a longitude (X) to the world extent
+  // Normalizes a longitude (X) to the world extent. Modular rather than a
+  // subtract-until-in-range loop: that loop never terminates for a non-finite
+  // X, and runs ~1e292 times for a large finite one.
   const normalizeX = (x: number) => {
-    while (x < worldExtent[0]) x += worldWidth;
-    while (x > worldExtent[2]) x -= worldWidth;
-    return x;
+    if (!Number.isFinite(x)) return x;
+    return ((((x - worldExtent[0]) % worldWidth) + worldWidth) % worldWidth) +
+      worldExtent[0];
   };
 
   // Determine extent
@@ -56,7 +58,10 @@ export const fitToFeature = (
     extent = [coords[0], coords[1], coords[0], coords[1]];
   } else {
     const geomExtent = geometry.getExtent();
-    if (!geomExtent) return;
+    // An empty geometry reports [Infinity, Infinity, -Infinity, -Infinity].
+    // There is nothing to fit to, and the values poison every calculation
+    // below. (`!geomExtent` never fired: an array is always truthy.)
+    if (isEmpty(geomExtent)) return;
 
     // Normalize X for antimeridian
     let x0 = normalizeX(geomExtent[0]);
@@ -70,6 +75,8 @@ export const fitToFeature = (
       x0 = centerX;
       x1 = centerX;
     }
+
+    if (!Number.isFinite(x0) || !Number.isFinite(x1)) return;
 
     extent = [x0, geomExtent[1], x1, geomExtent[3]];
   }
@@ -112,6 +119,10 @@ export const fitToFeatures = (
     if (!geom) continue;
 
     const extent = geom.getExtent();
+    // Skip empties: averaging Infinity and -Infinity gives NaN, which would
+    // make refCenterX NaN and shift every later feature out of existence.
+    if (isEmpty(extent)) continue;
+
     const centerX = (extent[0] + extent[2]) / 2;
 
     if (refCenterX === null) {

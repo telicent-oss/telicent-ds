@@ -54,3 +54,8 @@ export const containsCoordinate = (
 
 export const getWidth = ([minX, , maxX]: [number, number, number, number]) =>
   maxX - minX;
+
+// Mirrors real ol/extent: an extent is empty when its max is below its min,
+// which is what an empty geometry reports.
+export const isEmpty = ([minX, minY, maxX, maxY]: Extent): boolean =>
+  maxX < minX || maxY < minY;

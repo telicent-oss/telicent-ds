@@ -34,7 +34,10 @@ export default class MockLineString {
 
   getExtent(): [number, number, number, number] {
     if (!this.coordinates.length) {
-      return [0, 0, 0, 0];
+      // What real OpenLayers returns for an empty geometry. Returning
+      // [0, 0, 0, 0] here hid a non-terminating loop in normalizeX from the
+      // entire test suite.
+      return [Infinity, Infinity, -Infinity, -Infinity];
     }
 
     let minX = Infinity;
