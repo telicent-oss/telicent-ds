@@ -271,6 +271,45 @@ describe("BasicMapV2 setLayerOpacity", () => {
 		expect(mockLayer.getOpacity()).toBe(1);
 	});
 
+	it("rejects a bad opacity on the layers prop during render", () => {
+		const badLayer = {
+			id: "osm",
+			kind: "base-raster" as const,
+			previewImage: "",
+			label: "OSM",
+			// 50 reads as a percentage; OpenLayers wants a 0-1 fraction.
+			opacity: 50 as number,
+		};
+
+		const spy = jest.spyOn(console, "error").mockImplementation(() => undefined);
+		expect(() =>
+			render(
+				<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} layers={[badLayer]} />
+			)
+		).toThrow();
+		spy.mockRestore();
+	});
+
+	it("accepts a valid opacity on the layers prop", async () => {
+		const goodLayer = {
+			id: "osm",
+			kind: "base-raster" as const,
+			previewImage: "",
+			label: "OSM",
+			opacity: 0.4,
+		};
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([makeMockLayer("osm")]));
+
+		await act(async () => {
+			render(
+				<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} layers={[goodLayer]} />
+			);
+		});
+
+		const configs = (ensureLayers as jest.Mock).mock.calls[0][0] as LayerConfig[];
+		expect(configs[0]).toMatchObject({ id: "osm", opacity: 0.4 });
+	});
+
 	it("accepts the documented 0-1 range", async () => {
 		const mockLayer = makeMockLayer("osm");
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([mockLayer]));

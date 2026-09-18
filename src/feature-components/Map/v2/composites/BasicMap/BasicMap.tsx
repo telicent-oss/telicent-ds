@@ -106,7 +106,15 @@ export const BasicMapV2 = React.forwardRef<
         visible: true,
       },
     ];
-    return [...baseLayers, ...overlayVectorLayers];
+    const allLayers = [...baseLayers, ...overlayVectorLayers];
+    // Validated during render, like a malformed path, so a developer's bad
+    // opacity reaches the error boundary instead of being silently healed.
+    allLayers.forEach((layer) => {
+      if ("opacity" in layer && layer.opacity !== undefined) {
+        parseOrThrowWithInput(OpacitySchema, layer.opacity);
+      }
+    });
+    return allLayers;
   }, [props.layers]);
 
   useEffect(() => {
