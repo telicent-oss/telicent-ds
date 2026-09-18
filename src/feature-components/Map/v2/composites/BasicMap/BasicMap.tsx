@@ -43,9 +43,17 @@ export const BasicMapV2 = React.forwardRef<
   const [layers, setLayers] = useState<BaseLayer[]>([]);
   const mapInstance = useRef<Map | null>(null);
 
-  // Held in a ref so an inline onError lambda does not re-run the effects.
+  // Held in refs so an inline lambda does not re-run the effects, and so the
+  // unmount cleanup below calls the current handler rather than the one from
+  // the first render.
   const onErrorRef = useRef(props.onError);
   onErrorRef.current = props.onError;
+  const onLayersReadyRef = useRef(props.onLayersReady);
+  onLayersReadyRef.current = props.onLayersReady;
+
+  // Opacity set through the handle, by layer id, so it can be re-applied after
+  // a rebuild replaces the OpenLayers layer objects.
+  const imperativeOpacity = useRef<Record<string, number>>({});
 
   const reportError = useCallback((context: string, cause: unknown) => {
     const error = cause instanceof Error ? cause : new Error(String(cause));
@@ -150,6 +158,9 @@ export const BasicMapV2 = React.forwardRef<
         }
       } catch (e) {
         reportError("could not set up layers", e);
+        // Without this an app that spins until onLayersReady(true) spins
+        // forever: the failure only reached onError.
+        if (!cancelled) onLayersReadyRef.current?.(false);
         return;
       }
     })();
@@ -161,7 +172,10 @@ export const BasicMapV2 = React.forwardRef<
 
   useEffect(() => {
     if (layers.length < 1) return;
-    props?.onLayersReady?.(true);
+    for (const [layerId, opacity] of Object.entries(imperativeOpacity.current)) {
+      layers.find((l) => l.get("id") === layerId)?.setOpacity(opacity);
+    }
+    onLayersReadyRef.current?.(true);
   }, [layers]);
 
   useEffect(() => {
@@ -175,7 +189,7 @@ export const BasicMapV2 = React.forwardRef<
 
   useEffect(() => {
     return () => {
-      props.onLayersReady?.(false);
+      onLayersReadyRef.current?.(false);
     };
   }, []);
 
@@ -306,10 +320,25 @@ export const BasicMapV2 = React.forwardRef<
         fitToFeatures(mapInstance.current, features);
       },
       setLayerOpacity: (layerId: string, opacity: number) => {
+        const validated = parseOrThrowWithInput(OpacitySchema, opacity);
         const layer = layers.find((l) => l.get("id") === layerId);
-        if (layer) {
-          layer.setOpacity(parseOrThrowWithInput(OpacitySchema, opacity));
+        if (!layer) {
+          // Silently doing nothing here made a typo in the id indistinguishable
+          // from a layer that had not resolved yet.
+          reportError(
+            `no layer with id "${layerId}"`,
+            new Error(
+              `BasicMapV2: setLayerOpacity called with unknown layer id "${layerId}".`
+            )
+          );
+          return;
         }
+        // Remembered so the opacity survives a layer rebuild. ensureLayers
+        // builds fresh OpenLayers layers whenever props.layers changes
+        // identity, which a parent passing an array literal does on every
+        // render, and those new layers start at full opacity.
+        imperativeOpacity.current[layerId] = validated;
+        layer.setOpacity(validated);
       },
       layers,
     }),

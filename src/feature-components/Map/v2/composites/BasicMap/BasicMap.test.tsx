@@ -524,6 +524,67 @@ describe("BasicMapV2 error handling", () => {
 		expect(onError).toHaveBeenCalledTimes(1);
 	});
 
+	it("tells onLayersReady the map is not ready when layer setup fails", async () => {
+		// Without this an app that spins until onLayersReady(true) spins forever:
+		// the failure only reached onError.
+		(ensureLayers as jest.Mock).mockReturnValue(
+			Promise.reject(new Error("ensureLayers boom"))
+		);
+		const consoleError = jest
+			.spyOn(console, "error")
+			.mockImplementation(() => undefined);
+		const onLayersReady = jest.fn();
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[]}
+					onError={jest.fn()}
+					onLayersReady={onLayersReady}
+				/>
+			);
+		});
+
+		expect(onLayersReady).toHaveBeenCalledWith(false);
+		consoleError.mockRestore();
+	});
+
+	it("reports an unknown layer id from setLayerOpacity", async () => {
+		// A typo in the id used to do nothing at all, which was indistinguishable
+		// from layers that had not resolved yet.
+		const marker = makeMockVectorLayer(MARKER_LAYER_ID);
+		(ensureLayers as jest.Mock).mockReturnValue(
+			Promise.resolve([marker.layer])
+		);
+		const onError = jest.fn();
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					ref={ref}
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[]}
+					onError={onError}
+				/>
+			);
+		});
+
+		act(() => {
+			ref.current?.setLayerOpacity("no-such-layer", 0.5);
+		});
+
+		expect(onError).toHaveBeenCalledTimes(1);
+		expect(onError.mock.calls[0][0].message).toContain("no-such-layer");
+	});
+
 	it("reports a layer setup failure to onError", async () => {
 		const failure = new Error("ensureLayers boom");
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.reject(failure));
