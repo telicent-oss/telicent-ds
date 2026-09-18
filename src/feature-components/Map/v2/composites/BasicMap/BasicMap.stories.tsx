@@ -8,7 +8,6 @@ import { MarkerFeature } from "../../types/markers";
 import { PathFeature } from "../../types/paths";
 import { Stroke, Style } from "ol/style";
 import { FeatureLike } from "ol/Feature";
-import { PATH_LAYER_ID } from "../../utils/layers";
 import { MalformedFeatureError } from "../../utils/errors";
 import {
 	ErrorFallback,
@@ -598,7 +597,6 @@ export const RuntimeOpacity: Story = {
 	render: () => <RuntimeOpacityDemo />,
 };
 
-// Selection changes via ref, not paths[] rebuild — no fitToFeatures re-trigger.
 const pathStylePaths: PathFeature[] = [
 	{
 		id: "path-a",
@@ -622,53 +620,42 @@ const pathStylePaths: PathFeature[] = [
 	},
 ];
 
+// Hoisted: a style function runs per feature per frame, so allocating Style
+// objects inside it churns garbage for no benefit.
+const SELECTED_PATH_STYLE = new Style({
+	stroke: new Stroke({ color: "#FF6600", width: 5 }),
+});
+const UNSELECTED_PATH_STYLE = new Style({
+	stroke: new Stroke({ color: "#999999", width: 2 }),
+});
+
 const PathStyleFunctionDemo = () => {
-	const selectedRef = useRef<string | null>(null);
-	const [selectedLabel, setSelectedLabel] = useState<string>("none");
-	const mapRef = useRef<BasicMapV2Handle>(null);
+	const [selected, setSelected] = useState<string | null>(null);
 
-	const pathStyle = useCallback(
-		(feature: FeatureLike) => {
-			const id = feature.getId?.() ?? feature.get?.("id");
-			const isSelected = id === selectedRef.current;
-			return new Style({
-				stroke: new Stroke({
-					color: isSelected ? "#FF6600" : "#999999",
-					width: isSelected ? 5 : 2,
-				}),
-			});
-		},
-		[]
-	);
-
-	const select = (id: string | null) => {
-		selectedRef.current = id;
-		setSelectedLabel(id ?? "none");
-		// Force OL to re-render styles
-		const pathLayer = mapRef.current?.layers.find(
-			(l) => l.get("id") === PATH_LAYER_ID
-		);
-		pathLayer?.changed();
-	};
+	// A plain function closing over state. Each render makes a new identity,
+	// which re-applies via pathLayer.setStyle() -- and OL's setStyle calls
+	// changed() itself, so the layer redraws. No useCallback, no ref, no
+	// manual changed().
+	const pathStyle = (feature: FeatureLike) =>
+		feature.getId() === selected ? SELECTED_PATH_STYLE : UNSELECTED_PATH_STYLE;
 
 	return (
 		<Box sx={{ width: "100%", height: "100%" }}>
 			<Stack direction="row" spacing={1} sx={{ p: 1, position: "absolute", zIndex: 10 }}>
-				<Button variant="contained" size="small" onClick={() => select("path-a")}>
+				<Button variant="contained" size="small" onClick={() => setSelected("path-a")}>
 					Select Route A
 				</Button>
-				<Button variant="contained" size="small" onClick={() => select("path-b")}>
+				<Button variant="contained" size="small" onClick={() => setSelected("path-b")}>
 					Select Route B
 				</Button>
-				<Button variant="outlined" size="small" onClick={() => select(null)}>
+				<Button variant="outlined" size="small" onClick={() => setSelected(null)}>
 					Clear selection
 				</Button>
 				<Box sx={{ alignSelf: "center", color: "#fff", pl: 1 }}>
-					Selected: {selectedLabel}
+					Selected: {selected ?? "none"}
 				</Box>
 			</Stack>
 			<BasicMapV2
-				ref={mapRef}
 				zoom={5}
 				center={[2, 52]}
 				layers={baseLayers}
