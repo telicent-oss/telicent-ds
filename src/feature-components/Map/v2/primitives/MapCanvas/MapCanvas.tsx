@@ -101,10 +101,20 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 				const ids = features
 					.map(f => f.getId?.())
 					.filter((id): id is string => typeof id === "string");
-				if (features.length === 1) {
-					fitToFeature(mapInstanceRef.current!, features[0]);
-				} else {
-					fitToFeatures(mapInstanceRef.current!, features);
+
+				// Markers only. A marker is a point, so framing it on click is
+				// helpful; framing a clicked path zooms out far enough to hold a
+				// 500 km line, and a clicked country-sized polygon re-frames the
+				// country. Selecting those reports through onFeatureClick and
+				// leaves the viewport where the user put it.
+				const markerSource = markerLayer.getSource();
+				const markers = features.filter(
+					(f) => markerSource?.hasFeature?.(f) ?? false
+				);
+				if (markers.length === 1) {
+					fitToFeature(mapInstanceRef.current!, markers[0]);
+				} else if (markers.length > 1) {
+					fitToFeatures(mapInstanceRef.current!, markers);
 				}
 
 				if (onFeatureClick) {

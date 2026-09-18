@@ -36,6 +36,14 @@ const defaultProps = {
 	center: [0, 0]
 }
 
+// A layer stand-in with a source, because MapCanvas asks the marker layer
+// whether a selected feature belongs to it before framing the viewport.
+// A plain function, not jest.fn: resetMocks in jest.config.cjs wipes a mock's
+// implementation, so hasFeature would return undefined and the fit would look
+// correctly skipped when it was really never asked.
+const markerSource = { hasFeature: () => true };
+const mockMarkerLayer = { getSource: () => markerSource };
+
 describe("MapCanvasV2", () => {
 	let mockMapInstance: any;
 	let mockFeature: any;
@@ -136,7 +144,7 @@ describe("MapCanvasV2", () => {
 		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 		const onFeatureClick = jest.fn();
 
-		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+		(findVectorLayerById as jest.Mock).mockReturnValue(mockMarkerLayer);
 
 		// Mock addSelectInteraction to immediately call onSelect
 		(addSelectInteraction as jest.Mock).mockImplementation(({ onSelect }) => {
@@ -155,7 +163,7 @@ describe("MapCanvasV2", () => {
 
 		expect(addSelectInteraction).toHaveBeenCalledWith(expect.objectContaining({
 			map: mockMapInstance,
-			layers: expect.arrayContaining(["mockMarkerLayer"]),
+			layers: expect.arrayContaining([mockMarkerLayer]),
 			onSelect: expect.any(Function),
 		}));
 
@@ -163,11 +171,42 @@ describe("MapCanvasV2", () => {
 		expect(onFeatureClick).toHaveBeenCalledWith(["feature1"], undefined);
 	});
 
+	it("leaves the viewport alone when the clicked feature is not a marker", () => {
+		// Framing a clicked path zooms out to hold the whole line, and a clicked
+		// polygon re-frames an area its own size. Only a point marker is worth
+		// flying to.
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
+		const onFeatureClick = jest.fn();
+
+		(findVectorLayerById as jest.Mock).mockReturnValue({
+			getSource: () => ({ hasFeature: () => false }),
+		});
+
+		(addSelectInteraction as jest.Mock).mockImplementation(({ onSelect }) => {
+			onSelect([mockFeature]);
+			return "mockInteraction";
+		});
+
+		render(
+			<MapCanvasV2
+				layers={layers}
+				mapInstanceRef={{ current: null }}
+				onFeatureClick={onFeatureClick}
+				{...defaultProps}
+			/>
+		);
+
+		expect(fitToFeature).not.toHaveBeenCalled();
+		expect(fitToFeatures).not.toHaveBeenCalled();
+		// Still reported: the click is not swallowed, only the pan is.
+		expect(onFeatureClick).toHaveBeenCalledWith(["feature1"], undefined);
+	});
+
 	it("forwards pixel from Select event through to onFeatureClick", () => {
 		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 		const onFeatureClick = jest.fn();
 
-		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+		(findVectorLayerById as jest.Mock).mockReturnValue(mockMarkerLayer);
 		(addSelectInteraction as jest.Mock).mockImplementation(({ onSelect }) => {
 			onSelect([mockFeature], { pixel: [42, 84] });
 			return "mockInteraction";
@@ -189,7 +228,7 @@ describe("MapCanvasV2", () => {
 		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 		const onFeatureHover = jest.fn();
 
-		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+		(findVectorLayerById as jest.Mock).mockReturnValue(mockMarkerLayer);
 
 		render(
 			<MapCanvasV2
@@ -203,7 +242,7 @@ describe("MapCanvasV2", () => {
 		expect(addHoverInteraction).toHaveBeenCalledWith(
 			expect.objectContaining({
 				map: mockMapInstance,
-				layers: expect.arrayContaining(["mockMarkerLayer"]),
+				layers: expect.arrayContaining([mockMarkerLayer]),
 				onHover: onFeatureHover,
 			})
 		);
@@ -212,7 +251,7 @@ describe("MapCanvasV2", () => {
 	it("does not attach hover interaction when onFeatureHover is omitted", () => {
 		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 
-		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+		(findVectorLayerById as jest.Mock).mockReturnValue(mockMarkerLayer);
 
 		render(
 			<MapCanvasV2
@@ -230,7 +269,7 @@ describe("MapCanvasV2", () => {
 		const onFeatureClick = jest.fn();
 		const feature2 = { getId: jest.fn(() => "feature2") };
 
-		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+		(findVectorLayerById as jest.Mock).mockReturnValue(mockMarkerLayer);
 		(addSelectInteraction as jest.Mock).mockImplementation(({ onSelect }) => {
 			onSelect([mockFeature, feature2]);
 			return "mockInteraction";
@@ -252,7 +291,7 @@ describe("MapCanvasV2", () => {
 	it("removes select interaction on unmount", () => {
 		const layers = [{ id: MARKER_LAYER_ID }] as unknown as BaseLayer[];
 
-		(findVectorLayerById as jest.Mock).mockReturnValue("mockMarkerLayer");
+		(findVectorLayerById as jest.Mock).mockReturnValue(mockMarkerLayer);
 		(addSelectInteraction as jest.Mock).mockReturnValue("mockInteraction");
 
 		const { unmount } = render(
