@@ -2,6 +2,15 @@ export default class MockLineString {
   private coordinates: number[][];
 
   constructor(coords: number[][] = []) {
+    // Real OpenLayers reads coords[i][0] while flattening, so a null or
+    // non-array vertex throws a bare TypeError. A lenient mock here would let
+    // a bad API record look survivable in tests and take the map down in a
+    // browser.
+    for (const vertex of coords) {
+      if (!Array.isArray(vertex)) {
+        throw new TypeError("Cannot read properties of null (reading '0')");
+      }
+    }
     this.coordinates = coords;
   }
 

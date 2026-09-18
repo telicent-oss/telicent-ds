@@ -2,6 +2,18 @@ export default class MockPolygon {
   private coordinates: number[][][];
 
   constructor(coords: number[][][] = []) {
+    // Matches real OpenLayers, which throws a bare TypeError on a null ring or
+    // vertex. A lenient mock would hide the commonest bad API record.
+    for (const ring of coords) {
+      if (!Array.isArray(ring)) {
+        throw new TypeError("Cannot read properties of null (reading 'length')");
+      }
+      for (const vertex of ring) {
+        if (!Array.isArray(vertex)) {
+          throw new TypeError("Cannot read properties of null (reading '0')");
+        }
+      }
+    }
     this.coordinates = coords;
   }
 
