@@ -16,6 +16,7 @@ import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
+import { partitionFeatures } from "../../utils/partitionFeatures";
 import { OpacitySchema } from "../../types/opacity";
 import { parseOrThrowWithInput } from "../../../../../utils/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
 import {
@@ -55,21 +56,37 @@ export const BasicMapV2 = React.forwardRef<
     console.error(`BasicMapV2: ${context}`, error);
   }, []);
 
-  // Built during render, not in the effect below, so that coordinates which
-  // don't match their declared type fail fast and hard: polygonToOLFeature and
-  // pathToOLFeature throw synchronously here and the throw reaches the nearest
-  // error boundary, instead of surfacing as an async rejection after the map
-  // sources have already been cleared. Malformed coordinates are a config
-  // mistake, so this is deliberately not recoverable.
-  const polygonFeatures = useMemo(
-    () => props.polygons.map(polygonToOLFeature),
+  // Built during render rather than in the effect below, so the features are
+  // ready on the first frame instead of one paint later. A record whose
+  // coordinates don't match its declared type is skipped and reported through
+  // onError by the effect further down: coordinates arrive from an API at
+  // runtime, so one bad record out of five hundred should cost that record,
+  // not the map.
+  const { features: polygonFeatures, malformed: malformedPolygons } = useMemo(
+    () => partitionFeatures(props.polygons, polygonToOLFeature),
     [props.polygons]
   );
 
-  const pathFeatures = useMemo(
-    () => (props.paths ?? []).map(pathToOLFeature),
+  const { features: pathFeatures, malformed: malformedPaths } = useMemo(
+    () => partitionFeatures(props.paths ?? [], pathToOLFeature),
     [props.paths]
   );
+
+  // Reported from an effect, never from the memo above: calling a consumer
+  // callback during render fires it twice under StrictMode and again on every
+  // re-render that rebuilds the props array.
+  const reportedMalformed = useRef(new Set<string>());
+  useEffect(() => {
+    for (const error of [...malformedPolygons, ...malformedPaths]) {
+      // A record that breaks the same way twice is the same problem, so it is
+      // reported once. Breaking differently changes the message and reports
+      // again.
+      const key = `${error.featureId}\u0000${error.message}`;
+      if (reportedMalformed.current.has(key)) continue;
+      reportedMalformed.current.add(key);
+      reportError(`malformed feature "${error.featureId}"`, error);
+    }
+  }, [malformedPolygons, malformedPaths, reportError]);
 
   const showLayerSelector = props.controls?.showLayerSelector ?? true;
 
@@ -111,8 +128,9 @@ export const BasicMapV2 = React.forwardRef<
       },
     ];
     const allLayers = [...baseLayers, ...overlayVectorLayers];
-    // Validated during render, like a malformed path, so a developer's bad
-    // opacity reaches the error boundary instead of being silently healed.
+    // Throws rather than being silently healed. Unlike feature coordinates,
+    // which arrive from an API, opacity is written by a developer in a prop or
+    // a deployment config, so a bad value is a mistake to surface at once.
     allLayers.forEach((layer) => {
       if ("opacity" in layer && layer.opacity !== undefined) {
         parseOrThrowWithInput(OpacitySchema, layer.opacity);
@@ -186,8 +204,7 @@ export const BasicMapV2 = React.forwardRef<
     (async () => {
       let markerFeatures: Feature[];
       try {
-        // Icon preload is a network fetch, so a failure here is a runtime
-        // problem rather than a config mistake: report it and leave the
+        // Icon preload is a network fetch: report the failure and leave the
         // previous render in place instead of dying as an unhandled rejection.
         await ensureMarkerIconsLoaded(props.markers);
         if (cancelled) return;

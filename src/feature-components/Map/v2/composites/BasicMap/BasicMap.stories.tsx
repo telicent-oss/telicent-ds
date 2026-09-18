@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, Component, type ReactNode } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { BasicMapV2 } from "./BasicMap";
@@ -811,45 +811,6 @@ export const PathStyleBeatsPerPathStyle: Story = {
 /* Error behaviour                                                     */
 /* ------------------------------------------------------------------ */
 
-/**
- * The boundary a consuming app has to supply. `MalformedFeatureError` is
- * exported from the package, so the app can tell a config mistake apart from
- * any other render failure rather than matching on the message.
- *
- * The fallback itself is the DS's own `ErrorFallback*` set, not bespoke markup.
- */
-class DemoErrorBoundary extends Component<
-	{ children: ReactNode },
-	{ error: Error | null }
-> {
-	state: { error: Error | null } = { error: null };
-
-	static getDerivedStateFromError(error: Error) {
-		return { error };
-	}
-
-	render() {
-		const { error } = this.state;
-		if (!error) return this.props.children;
-
-		return (
-			<ErrorFallbackWrapper height="100%">
-				<Stack spacing={1} alignItems="center">
-					<ErrorFallbackText name="BasicMapV2" />
-					<ErrorFallbackText message={error.message} />
-					<ErrorFallbackText
-						message={
-							error instanceof MalformedFeatureError
-								? `MalformedFeatureError, featureId: ${error.featureId}`
-								: "not a MalformedFeatureError"
-						}
-					/>
-				</Stack>
-			</ErrorFallbackWrapper>
-		);
-	}
-}
-
 // number[] where the declared LineString needs number[][]
 const malformedPath = {
 	id: "bad-path",
@@ -858,28 +819,70 @@ const malformedPath = {
 	coordinates: [-0.1278, 51.5074],
 } as unknown as PathFeature;
 
+const goodPath: PathFeature = {
+	id: "good-path",
+	type: "LineString",
+	name: "Intact route",
+	style: { color: "#FF2D95", width: 4 },
+	coordinates: [
+		[-0.1278, 51.5074],
+		[2.3522, 48.8566],
+		[13.405, 52.52],
+	],
+};
+
 /**
- * Coordinates that contradict their declared `type` are a config mistake, so
- * they throw `MalformedFeatureError` while the map builds its features during
- * render. Nothing is drawn and nothing is cleared.
+ * A record whose `coordinates` contradict its declared `type` is skipped, and
+ * `onError` is called once with a `MalformedFeatureError` naming it.
  *
- * Without a boundary above the map this takes down the React root, which is
- * the intended fail-fast behaviour — wrap the map if the rest of the app
- * should survive it.
+ * Two paths go in. `bad-path` declares `LineString` but carries `number[]`, so
+ * it is dropped. `good-path` still draws, in pink. The panel lists every
+ * `onError` call the story received.
+ *
+ * Coordinates arrive from an API at runtime, so one bad record costs that
+ * record rather than the map. Pass no `onError` and the error is logged to the
+ * console instead, which is worth wiring up: a map missing one polygon looks
+ * exactly like a complete one.
  */
-export const MalformedFeatureThrows: Story = {
-	render: () => (
-		<DemoErrorBoundary>
-			<BasicMapV2
-				zoom={5}
-				center={[0, 51]}
-				layers={baseLayers}
-				markers={[]}
-				polygons={[]}
-				paths={[malformedPath]}
-			/>
-		</DemoErrorBoundary>
-	),
+const MalformedFeatureReportedDemo = () => {
+	const [errors, setErrors] = useState<MalformedFeatureError[]>([]);
+	const onError = useCallback((error: Error) => {
+		if (error instanceof MalformedFeatureError) {
+			setErrors((seen) => [...seen, error]);
+		}
+	}, []);
+
+	return (
+		<Stack sx={{ width: "100%", height: "100%" }}>
+			<ErrorFallbackWrapper height={110}>
+				<Stack spacing={0.5} alignItems="center">
+					<ErrorFallbackText name="BasicMapV2" />
+					<ErrorFallbackText message={`onError calls: ${errors.length}`} />
+					{errors.map((error, index) => (
+						<ErrorFallbackText
+							key={`${error.featureId}-${index}`}
+							message={`MalformedFeatureError, featureId: ${error.featureId}`}
+						/>
+					))}
+				</Stack>
+			</ErrorFallbackWrapper>
+			<Box sx={{ flex: 1 }}>
+				<BasicMapV2
+					zoom={5}
+					center={[2, 52]}
+					layers={baseLayers}
+					markers={[]}
+					polygons={[]}
+					paths={[malformedPath, goodPath]}
+					onError={onError}
+				/>
+			</Box>
+		</Stack>
+	);
+};
+
+export const MalformedFeatureReportedToOnError: Story = {
+	render: () => <MalformedFeatureReportedDemo />,
 };
 
 const LayerSetupFailureDemo = () => {

@@ -1,13 +1,16 @@
 /**
- * Thrown when a feature's `coordinates` nesting doesn't match its declared
- * `type` — a config mistake rather than a recoverable runtime condition.
+ * Names a feature whose `coordinates` could not be converted into geometry.
  *
- * Thrown while the map builds its features during render, so it propagates to
- * the nearest error boundary. Exported from the package so a consumer boundary
- * can tell it apart from any other render failure:
+ * `polygonToOLFeature` and `pathToOLFeature` throw this when the nesting
+ * contradicts the declared `type`, rather than handing broken geometry to
+ * OpenLayers. BasicMapV2 also wraps anything else a conversion throws in this
+ * class, so a null vertex that OpenLayers rejects arrives the same way -- with
+ * OpenLayers' own wording in the message. BasicMapV2 catches it per feature, skips that
+ * record and passes this error to `onError`, so a consumer can tell a bad
+ * record apart from any other failure and read which one it was:
  *
  * ```ts
- * if (error instanceof MalformedFeatureError) { ... }
+ * if (error instanceof MalformedFeatureError) { log(error.featureId); }
  * ```
  */
 export class MalformedFeatureError extends Error {

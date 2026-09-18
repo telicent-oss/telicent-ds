@@ -132,16 +132,23 @@ export interface BasicMapProperties {
   onFeatureHover?: OnFeatureHover;
   onLayersReady?: (isReady: boolean) => void;
   /**
-   * Called on an async failure the map survives: layer setup or marker icon
-   * loading. Nothing is cleared, so whatever was already drawn stays — an
-   * empty map if this was the first load, an out-of-date one otherwise.
-   * Without a handler the error is only logged, so pass this if the app needs
-   * to show that the map is stale.
+   * Called on a failure the map survives. Nothing is ever cleared, so whatever
+   * was already drawn stays — an empty map if this was the first load, an
+   * out-of-date one otherwise. Without a handler the error is only logged, so
+   * pass this if the app needs to show that the map is incomplete.
    *
-   * Malformed feature coordinates do not come through here. They are a config
-   * mistake, so they throw during render as a `MalformedFeatureError` for the
-   * nearest error boundary to handle — routing a render throw into a callback
-   * would make React report the same error more than once.
+   * Three cases reach it:
+   *
+   * - layer setup failed
+   * - marker icons failed to load
+   * - a `polygons` or `paths` record has `coordinates` that contradict its
+   *   `type`. That record is skipped and the rest of the map still draws. The
+   *   error is a `MalformedFeatureError` naming the `featureId`, so an app can
+   *   decide between a toast and a throw.
+   *
+   * A malformed record is reported once per mounted map. Remounting reports it
+   * again, so an app that survives a route or tab switch should key on
+   * `featureId` itself rather than count calls.
    */
   onError?: (error: Error) => void;
 }

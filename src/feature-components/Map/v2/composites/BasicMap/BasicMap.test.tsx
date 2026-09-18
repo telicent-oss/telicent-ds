@@ -361,6 +361,8 @@ const makeMockVectorLayer = (id: string) => {
 			get: (key: string) => props[key],
 			set: (key: string, val: unknown) => { props[key] = val; },
 			getSource: () => source,
+			setStyle: jest.fn(),
+			setOpacity: jest.fn(),
 		},
 		source,
 	};
@@ -369,6 +371,21 @@ const makeMockVectorLayer = (id: string) => {
 describe("BasicMapV2 error handling", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
+		// Default so a test that doesn't care about layers still gets past the
+		// layer effects; tests that assert on sources override it.
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([]));
+		// resetMocks: true in jest.config.cjs wipes the module factory, so the
+		// stand-in has to be re-installed here. It must populate mapInstanceRef
+		// or the effect that fills the sources early-returns.
+		(MapCanvasV2 as unknown as jest.Mock).mockImplementation(
+			(canvasProps: { mapInstanceRef?: { current: unknown } }) => {
+				if (canvasProps?.mapInstanceRef) {
+					canvasProps.mapInstanceRef.current =
+						canvasProps.mapInstanceRef.current ?? {};
+				}
+				return <div id="map-canvas" />;
+			}
+		);
 	});
 
 	const malformedPath = {
@@ -379,12 +396,20 @@ describe("BasicMapV2 error handling", () => {
 		coordinates: [0, 0],
 	} as unknown as PathFeature;
 
-	it("throws a MalformedFeatureError during render when a path is malformed", () => {
-		const consoleError = jest
-			.spyOn(console, "error")
-			.mockImplementation(() => undefined);
+	const goodPath: PathFeature = {
+		id: "good-path",
+		type: "LineString",
+		name: "Good",
+		coordinates: [
+			[0, 0],
+			[1, 1],
+		],
+	};
 
-		expect(() =>
+	it("reports a malformed path to onError instead of throwing", async () => {
+		const onError = jest.fn();
+
+		await act(async () => {
 			render(
 				<BasicMapV2
 					zoom={5}
@@ -392,65 +417,111 @@ describe("BasicMapV2 error handling", () => {
 					markers={[]}
 					polygons={[]}
 					paths={[malformedPath]}
-				/>
-			)
-		).toThrow(MalformedFeatureError);
-
-		consoleError.mockRestore();
-	});
-
-	it("names the offending feature on the thrown error", () => {
-		const consoleError = jest
-			.spyOn(console, "error")
-			.mockImplementation(() => undefined);
-
-		let caught: unknown;
-		try {
-			render(
-				<BasicMapV2
-					zoom={5}
-					center={[0, 0]}
-					markers={[]}
-					polygons={[]}
-					paths={[malformedPath]}
+					onError={onError}
 				/>
 			);
-		} catch (error) {
-			caught = error;
-		}
+		});
 
-		expect(caught).toBeInstanceOf(MalformedFeatureError);
-		expect((caught as MalformedFeatureError).featureId).toBe("bad-path");
-
-		consoleError.mockRestore();
+		expect(onError).toHaveBeenCalledTimes(1);
+		const reported = onError.mock.calls[0][0];
+		expect(reported).toBeInstanceOf(MalformedFeatureError);
+		expect((reported as MalformedFeatureError).featureId).toBe("bad-path");
 	});
 
-	it("leaves the map sources untouched when a path is malformed", () => {
+	it("reports a null vertex instead of taking the map down", async () => {
+		// The converters only check the nesting of the first coordinate. A null
+		// vertex further in makes OpenLayers throw a bare TypeError, which is the
+		// ordinary shape of a bad record from an API adapter.
+		const nullVertexPath = {
+			id: "null-vertex",
+			type: "LineString",
+			name: "Null vertex",
+			coordinates: [[0, 0], null],
+		} as unknown as PathFeature;
+		const onError = jest.fn();
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[nullVertexPath]}
+					onError={onError}
+				/>
+			);
+		});
+
+		expect(onError).toHaveBeenCalledTimes(1);
+		const reported = onError.mock.calls[0][0];
+		expect(reported).toBeInstanceOf(MalformedFeatureError);
+		expect((reported as MalformedFeatureError).featureId).toBe("null-vertex");
+	});
+
+	it("still adds the features that parsed", async () => {
 		const marker = makeMockVectorLayer(MARKER_LAYER_ID);
 		const path = makeMockVectorLayer(PATH_LAYER_ID);
 		(ensureLayers as jest.Mock).mockReturnValue(
 			Promise.resolve([marker.layer, path.layer])
 		);
-		const consoleError = jest
-			.spyOn(console, "error")
-			.mockImplementation(() => undefined);
+		const onError = jest.fn();
 
-		expect(() =>
+		await act(async () => {
 			render(
 				<BasicMapV2
 					zoom={5}
 					center={[0, 0]}
 					markers={[]}
 					polygons={[]}
-					paths={[malformedPath]}
+					paths={[malformedPath, goodPath]}
+					onError={onError}
 				/>
-			)
-		).toThrow();
+			);
+		});
 
-		expect(marker.source.clear).not.toHaveBeenCalled();
-		expect(path.source.clear).not.toHaveBeenCalled();
+		// One bad record out of two costs that record, not the map.
+		expect(onError).toHaveBeenCalledTimes(1);
+		const added = (path.source.addFeatures as jest.Mock).mock.calls[0][0];
+		expect(added).toHaveLength(1);
+	});
 
-		consoleError.mockRestore();
+	it("reports the same malformed feature only once across re-renders", async () => {
+		const onError = jest.fn();
+		const paths = [malformedPath];
+
+		let rerender: (ui: React.ReactElement) => void = () => undefined;
+		await act(async () => {
+			({ rerender } = render(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={paths}
+					onError={onError}
+				/>
+			));
+		});
+
+		expect(onError).toHaveBeenCalledTimes(1);
+
+		// A fresh array identity each render is what a parent building the list
+		// inline produces. The same broken record must not re-report forever.
+		await act(async () => {
+			rerender(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[malformedPath]}
+					onError={onError}
+				/>
+			);
+		});
+
+		expect(onError).toHaveBeenCalledTimes(1);
 	});
 
 	it("reports a layer setup failure to onError", async () => {
