@@ -72,9 +72,53 @@ BasicMapV2 is a React wrapper around OpenLayers that displays a map with selecta
 
 ### Quick usage
 \`\`\`tsx
-<BasicMapV2 zoom={5} center={[0,0]} />
-// LayerSelector is rendered automatically by BasicMapV2
+// markers and polygons are required; pass empty arrays for a bare map.
+// LayerSelector is rendered automatically.
+<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} />
 \`\`\`
+
+### Base layer shapes
+
+Raster:
+\`\`\`ts
+{
+  kind: "base-raster",
+  provider: "xyz",        // "osm" | "xyz" | "wmts"
+  url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+  label: "OpenStreetMap",
+  previewImage: "/images/street.png",
+  visible: true,
+}
+\`\`\`
+
+Vector tiles:
+\`\`\`ts
+{
+  kind: "base-vector-tiles",
+  provider: "mapbox",     // "mapbox" | "maptiler" | "arcgis" | "custom"
+  url: "https://.../VectorTileServer",
+  label: "ArcGIS Streets",
+  accessToken: ARC_GIS_API_TOKEN,
+  previewImage: "/images/satellite.png",
+  visible: false,
+}
+\`\`\`
+
+---
+
+### Things to know
+
+Feature ids are one namespace across \`markers\`, \`polygons\` and \`paths\`.
+\`panToFeature\` and \`onFeatureClick\` key on the id alone, and the marker layer
+is searched first, so an id reused across the three resolves to the marker.
+
+A record whose \`coordinates\` contradict its \`type\` is skipped and reported
+through \`onError\` as a \`MalformedFeatureError\` naming the \`featureId\`. The
+rest of the map draws, so wire \`onError\` up: a map missing one polygon looks
+like a complete one.
+
+Clicking a marker flies the view to it. Clicking a polygon or a path reports
+through \`onFeatureClick\` and leaves the viewport alone.
 
 This text documents the intended behaviour, the real limitations to watch for, and actionable workarounds so consumers of the component know exactly what to expect.
         `,
@@ -227,22 +271,19 @@ export const FeatureEvents: Story = {
 };
 
 /**
- * Demonstrates a regression introduced by splitting polygons into their own
- * OpenLayers layer.
+ * Markers and polygons both emit click and hover events, and only the marker
+ * moves the map.
  *
- * `MapCanvas` binds both the select and hover interactions to the MARKER layer
- * only (`MapCanvas.tsx:75`, passed as `layer: markerLayer` at :83 and :103).
- * `addSelectInteraction` filters with `new Select({ layers: [layer] })` and
- * `addHoverInteraction` with `layerFilter: (l) => l === layer`, both exhaustive.
+ * Polygons live in their own OpenLayers layer rather than the marker layer.
+ * Both layers are passed to the select and hover interactions, so both kinds
+ * report through `onFeatureClick` and `onFeatureHover`.
  *
- * Polygon features used to be added to the marker layer's source, so they were
- * inside that filter. They now go to `polygon-layer`, which no interaction
- * watches, so they emit nothing.
- *
- * Click and hover the orange MARKER pin: the log fills.
- * Click and hover the red POLYGON: nothing is logged. That is the bug.
+ * Click the orange MARKER pin: the log fills and the map flies to it, which is
+ * useful for a point. Click the POLYGON: the log fills and the viewport stays
+ * put -- framing a clicked polygon would re-frame an area the size of the
+ * polygon, which is rarely what an analyst wants mid-investigation.
  */
-export const PolygonInteractionRegression: Story = {
+export const MarkerAndPolygonInteraction: Story = {
 	args: {
 		zoom: 6,
 		center: [-1.5, 52.5],
@@ -315,9 +356,11 @@ export const PolygonInteractionRegression: Story = {
 					<div style={{ fontWeight: 600, marginBottom: 4 }}>
 						Feature events (newest first)
 					</div>
-					<div style={{ color: "#ff9a4d" }}>Marker (orange pin): works</div>
+					<div style={{ color: "#ff9a4d" }}>
+						Marker (orange pin): emits, and the map flies to it
+					</div>
 					<div style={{ color: "#ff6b6b", marginBottom: 6 }}>
-						Polygon (red box): emits nothing
+						Polygon: emits, and the viewport stays put
 					</div>
 					{log.length === 0 && <div>Click or hover each one...</div>}
 					{log.map((line, i) => (

@@ -66,6 +66,14 @@ export type BasicMapV2Handle = {
   zoomOut: () => void;
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
+  /**
+   * Sets one layer's opacity, 0 to 1. Throws on a value outside that range and
+   * reports an unknown `layerId` through `onError`.
+   *
+   * For the overlays use the exported `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and
+   * `PATH_LAYER_ID` rather than the literal strings. The value survives a
+   * layer rebuild; it is re-applied whenever the layers are replaced.
+   */
   setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
   // zoomInAsync: () => Promise<void>;
@@ -83,12 +91,28 @@ export interface MapControlsConfig {
 export interface BasicMapProperties {
   zoom: number;
   center: number[];
+  /**
+   * Base layers, drawn under the markers, polygons and paths. Wins over the
+   * deprecated `mapStyleOptions` when both are passed. Omit both and the map
+   * draws with no basemap.
+   *
+   * A layer's `opacity` must be a number from 0 to 1. Unlike a bad feature
+   * record, a bad opacity throws rather than reporting through `onError`: the
+   * value is written by a developer in a prop or a deployment config, so it is
+   * a mistake to surface at once rather than data to skip.
+   */
   layers?: LayerConfig[];
   controls?: Partial<MapControlsConfig>;
   /**
    * @deprecated Use `layers` instead. This prop will be removed in a future release.
    */
   mapStyleOptions?: LegacyMapConfig;
+  /**
+   * Feature ids share one namespace with `polygons` and `paths`. `panToFeature`
+   * and `onFeatureClick` key on the id alone, and a lookup takes the first
+   * match with the marker layer searched first, so an id reused across the
+   * three collections resolves to the marker.
+   */
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
   /**
@@ -131,6 +155,14 @@ export interface BasicMapProperties {
   pathStyle?: StyleLike;
   onFeatureClick?: OnFeatureClick;
   onFeatureHover?: OnFeatureHover;
+  /**
+   * `true` once the base layers have resolved, and again after any rebuild.
+   * `false` on unmount, and when layer setup fails -- in which case `onError`
+   * fires too.
+   *
+   * Ready means the layers exist. Markers, polygons and paths are added just
+   * after, so the map may still be empty on the first call.
+   */
   onLayersReady?: (isReady: boolean) => void;
   /**
    * Called on a failure the map survives. Nothing is ever cleared, so whatever
