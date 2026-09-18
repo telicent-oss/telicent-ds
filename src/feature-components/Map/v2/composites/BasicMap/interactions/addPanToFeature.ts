@@ -40,6 +40,10 @@ export const fitToFeature = (
 
   const projection = view.getProjection();
   const worldExtent = projection.getExtent();
+  // Some projections report no extent. fitToFeatures already guards this; this
+  // one went straight to getWidth and threw.
+  if (!worldExtent) return;
+
   const worldWidth = getWidth(worldExtent);
 
   // Normalizes a longitude (X) to the world extent. Modular rather than a

@@ -136,6 +136,20 @@ describe("panToFeature", () => {
     expect(Date.now() - start).toBeLessThan(1000);
   });
 
+  it("does nothing when the projection reports no world extent", () => {
+    // fitToFeatures guards this; fitToFeature went straight to getWidth.
+    const noExtentMap = {
+      getView: () => ({
+        getProjection: () => ({ getExtent: () => null }),
+        fit,
+      }),
+    } as any;
+    const feature = { getGeometry: () => new MockPoint([1, 1]) } as any;
+
+    expect(() => fitToFeature(noExtentMap, feature)).not.toThrow();
+    expect(fit).not.toHaveBeenCalled();
+  });
+
   it("does nothing if geometry is missing", () => {
     const feature = { getGeometry: () => undefined } as any;
     fitToFeature(map, feature);
