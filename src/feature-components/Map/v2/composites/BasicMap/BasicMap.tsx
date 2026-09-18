@@ -51,10 +51,6 @@ export const BasicMapV2 = React.forwardRef<
   const onLayersReadyRef = useRef(props.onLayersReady);
   onLayersReadyRef.current = props.onLayersReady;
 
-  // Opacity set through the handle, by layer id, so it can be re-applied after
-  // a rebuild replaces the OpenLayers layer objects.
-  const imperativeOpacity = useRef<Record<string, number>>({});
-
   const reportError = useCallback((context: string, cause: unknown) => {
     const error = cause instanceof Error ? cause : new Error(String(cause));
     if (onErrorRef.current) {
@@ -172,9 +168,6 @@ export const BasicMapV2 = React.forwardRef<
 
   useEffect(() => {
     if (layers.length < 1) return;
-    for (const [layerId, opacity] of Object.entries(imperativeOpacity.current)) {
-      layers.find((l) => l.get("id") === layerId)?.setOpacity(opacity);
-    }
     onLayersReadyRef.current?.(true);
   }, [layers]);
 
@@ -321,10 +314,14 @@ export const BasicMapV2 = React.forwardRef<
       },
       setLayerOpacity: (layerId: string, opacity: number) => {
         const validated = parseOrThrowWithInput(OpacitySchema, opacity);
+        // Before the layers resolve there is nothing to find, and a call that
+        // early is a timing mistake rather than a wrong id, so it stays quiet.
+        // onLayersReady(true) is the signal that this handle is usable.
+        if (layers.length < 1) return;
         const layer = layers.find((l) => l.get("id") === layerId);
         if (!layer) {
-          // Silently doing nothing here made a typo in the id indistinguishable
-          // from a layer that had not resolved yet.
+          // Silently doing nothing here made a typo in the id look identical to
+          // a layer that was never configured.
           reportError(
             `no layer with id "${layerId}"`,
             new Error(
@@ -333,11 +330,6 @@ export const BasicMapV2 = React.forwardRef<
           );
           return;
         }
-        // Remembered so the opacity survives a layer rebuild. ensureLayers
-        // builds fresh OpenLayers layers whenever props.layers changes
-        // identity, which a parent passing an array literal does on every
-        // render, and those new layers start at full opacity.
-        imperativeOpacity.current[layerId] = validated;
         layer.setOpacity(validated);
       },
       layers,
