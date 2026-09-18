@@ -214,7 +214,7 @@ describe("BasicMapV2 setLayerOpacity", () => {
 		});
 
 		act(() => {
-			ref.current!.setLayerOpacity?.("osm", 0.4);
+			ref.current!.setLayerOpacity("osm", 0.4);
 		});
 
 		expect(mockLayer.getOpacity()).toBe(0.4);
@@ -240,7 +240,7 @@ describe("BasicMapV2 setLayerOpacity", () => {
 		});
 
 		act(() => {
-			ref.current!.setLayerOpacity?.("nonexistent", 0.5);
+			ref.current!.setLayerOpacity("nonexistent", 0.5);
 		});
 
 		expect(mockLayer.getOpacity()).toBe(1);
@@ -260,8 +260,8 @@ describe("BasicMapV2 setLayerOpacity", () => {
 
 		// 50 is the percentage-for-fraction slip. Clamping it to 1 would leave a
 		// permanently wrong-looking map with no indication of why.
-		expect(() => ref.current!.setLayerOpacity?.("osm", 50)).toThrow();
-		expect(() => ref.current!.setLayerOpacity?.("osm", -0.5)).toThrow();
+		expect(() => ref.current!.setLayerOpacity("osm", 50)).toThrow();
+		expect(() => ref.current!.setLayerOpacity("osm", -0.5)).toThrow();
 		expect(mockLayer.getOpacity()).toBe(1);
 	});
 
@@ -277,8 +277,8 @@ describe("BasicMapV2 setLayerOpacity", () => {
 			);
 		});
 
-		expect(() => ref.current!.setLayerOpacity?.("osm", NaN)).toThrow();
-		expect(() => ref.current!.setLayerOpacity?.("osm", Infinity)).toThrow();
+		expect(() => ref.current!.setLayerOpacity("osm", NaN)).toThrow();
+		expect(() => ref.current!.setLayerOpacity("osm", Infinity)).toThrow();
 		expect(mockLayer.getOpacity()).toBe(1);
 	});
 
@@ -333,13 +333,13 @@ describe("BasicMapV2 setLayerOpacity", () => {
 			);
 		});
 
-		act(() => { ref.current!.setLayerOpacity?.("osm", 0); });
+		act(() => { ref.current!.setLayerOpacity("osm", 0); });
 		expect(mockLayer.getOpacity()).toBe(0);
 
-		act(() => { ref.current!.setLayerOpacity?.("osm", 0.3); });
+		act(() => { ref.current!.setLayerOpacity("osm", 0.3); });
 		expect(mockLayer.getOpacity()).toBe(0.3);
 
-		act(() => { ref.current!.setLayerOpacity?.("osm", 1); });
+		act(() => { ref.current!.setLayerOpacity("osm", 1); });
 		expect(mockLayer.getOpacity()).toBe(1);
 	});
 });
