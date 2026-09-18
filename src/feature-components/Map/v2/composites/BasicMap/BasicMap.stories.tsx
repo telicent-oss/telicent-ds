@@ -227,6 +227,109 @@ export const FeatureEvents: Story = {
 	},
 };
 
+/**
+ * Demonstrates a regression introduced by splitting polygons into their own
+ * OpenLayers layer.
+ *
+ * `MapCanvas` binds both the select and hover interactions to the MARKER layer
+ * only (`MapCanvas.tsx:75`, passed as `layer: markerLayer` at :83 and :103).
+ * `addSelectInteraction` filters with `new Select({ layers: [layer] })` and
+ * `addHoverInteraction` with `layerFilter: (l) => l === layer`, both exhaustive.
+ *
+ * Polygon features used to be added to the marker layer's source, so they were
+ * inside that filter. They now go to `polygon-layer`, which no interaction
+ * watches, so they emit nothing.
+ *
+ * Click and hover the orange MARKER pin: the log fills.
+ * Click and hover the red POLYGON: nothing is logged. That is the bug.
+ */
+export const PolygonInteractionRegression: Story = {
+	args: {
+		zoom: 6,
+		center: [-1.5, 52.5],
+		layers: baseLayers.map((l) => ({ ...l, visible: true })),
+		markers: [
+			{
+				id: "marker-a",
+				geohash: "gcpvj0",
+				name: "Marker A (London) - events WORK",
+				style: { markerType: "pin", color: "#ff6600" },
+			},
+		],
+		polygons: [
+			{
+				id: "polygon-a",
+				type: "Polygon",
+				name: "Polygon A (Midlands) - events BROKEN",
+				coordinates: [
+					[
+						[-2.8, 52.0],
+						[-0.4, 52.0],
+						[-0.4, 53.2],
+						[-2.8, 53.2],
+						[-2.8, 52.0],
+					],
+				],
+				style: { color: "#cc0000", backgroundColor: "rgba(204,0,0,0.35)" },
+			},
+		],
+		paths: [],
+	},
+	render: (args) => {
+		const [log, setLog] = useState<string[]>([]);
+		const push = (line: string) =>
+			setLog((prev) => [line, ...prev].slice(0, 12));
+
+		return (
+			<Box sx={{ position: "relative", width: "100%", height: "100%" }}>
+				<BasicMapV2
+					{...args}
+					onFeatureHover={(id, event) => {
+						const line = id === null
+							? "hover: null"
+							: `hover: ${id} @ [${event?.pixel[0]}, ${event?.pixel[1]}]`;
+						push(line);
+					}}
+					onFeatureClick={(ids, event) => {
+						const line = `click: [${ids.join(", ")}]` +
+							(event ? ` @ [${event.pixel[0]}, ${event.pixel[1]}]` : "");
+						push(line);
+					}}
+				/>
+				<Box
+					sx={{
+						position: "absolute",
+						top: 8,
+						right: 8,
+						minWidth: 300,
+						maxHeight: 260,
+						overflow: "auto",
+						padding: 1,
+						background: "rgba(0,0,0,0.75)",
+						color: "#fff",
+						font: "12px/1.4 monospace",
+						borderRadius: 1,
+						zIndex: 10,
+						pointerEvents: "none",
+					}}
+				>
+					<div style={{ fontWeight: 600, marginBottom: 4 }}>
+						Feature events (newest first)
+					</div>
+					<div style={{ color: "#ff9a4d" }}>Marker (orange pin): works</div>
+					<div style={{ color: "#ff6b6b", marginBottom: 6 }}>
+						Polygon (red box): emits nothing
+					</div>
+					{log.length === 0 && <div>Click or hover each one...</div>}
+					{log.map((line, i) => (
+						<div key={i}>{line}</div>
+					))}
+				</Box>
+			</Box>
+		);
+	},
+};
+
 export const WithPaths: Story = {
 	args: {
 		layers: baseLayers,

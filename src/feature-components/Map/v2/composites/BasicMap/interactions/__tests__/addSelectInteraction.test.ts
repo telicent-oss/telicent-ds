@@ -25,7 +25,7 @@ describe("addSelectInteraction", () => {
   });
 
   it("creates a Select interaction and adds it to the map", () => {
-    const select = addSelectInteraction({ map, layer });
+    const select = addSelectInteraction({ map, layers: [layer] });
 
     expect(Select).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -45,7 +45,7 @@ describe("addSelectInteraction", () => {
       get: jest.fn().mockReturnValue(style),
     } as unknown as Feature;
 
-    const select = addSelectInteraction({ map, layer });
+    const select = addSelectInteraction({ map, layers: [layer] });
 
     const styleFn = (Select as jest.Mock).mock.calls[0][0].style as (
       f: Feature
@@ -63,7 +63,7 @@ describe("addSelectInteraction", () => {
       get: jest.fn().mockReturnValue(styles),
     } as unknown as Feature;
 
-    addSelectInteraction({ map, layer });
+    addSelectInteraction({ map, layers: [layer] });
 
     const styleFn = (Select as jest.Mock).mock.calls[0][0].style as (
       f: Feature
@@ -74,20 +74,25 @@ describe("addSelectInteraction", () => {
     expect(result).toBe(styles);
   });
 
-  it("returns empty array when feature has no original style", () => {
+  it("falls back to the overlay default when a feature has no original style", () => {
+    // Polygons carry no per-feature style. Returning [] here would make a
+    // polygon vanish the instant it was selected.
     const feature = {
       get: jest.fn().mockReturnValue(undefined),
+      getGeometry: () => ({ getType: () => "Polygon" }),
     } as unknown as Feature;
 
-    addSelectInteraction({ map, layer });
+    addSelectInteraction({ map, layers: [layer] });
 
     const styleFn = (Select as jest.Mock).mock.calls[0][0].style as (
-      f: Feature
-    ) => Style[];
+      f: Feature,
+      r?: number
+    ) => Style | Style[] | undefined;
 
-    const result = styleFn(feature);
+    const result = styleFn(feature, 1);
 
-    expect(result).toEqual([]);
+    expect(result).toBeDefined();
+    expect(result).not.toEqual([]);
   });
 
   it("invokes onSelect callback with selected features and pixel event", () => {
@@ -105,7 +110,7 @@ describe("addSelectInteraction", () => {
       }),
     }));
 
-    addSelectInteraction({ map, layer, onSelect });
+    addSelectInteraction({ map, layers: [layer], onSelect });
 
     selectHandler?.({ selected, mapBrowserEvent: { pixel: [120, 240] } });
 
@@ -124,7 +129,7 @@ describe("addSelectInteraction", () => {
       }),
     }));
 
-    addSelectInteraction({ map, layer, onSelect });
+    addSelectInteraction({ map, layers: [layer], onSelect });
 
     selectHandler?.({ selected });
 

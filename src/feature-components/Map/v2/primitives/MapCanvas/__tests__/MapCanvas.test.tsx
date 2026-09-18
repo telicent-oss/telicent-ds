@@ -77,6 +77,61 @@ describe("MapCanvasV2", () => {
 		expect(mapRef.current).toBe(mockMapInstance);
 	});
 
+	it("binds select and hover to the polygon and path layers, not just markers", () => {
+		// Polygons and paths live in their own layers. Binding the interactions
+		// to the marker layer alone makes them silently unclickable.
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
+
+		(findVectorLayerById as jest.Mock).mockImplementation(
+			(_layers: unknown, id: string) => `mock:${id}`
+		);
+		(addSelectInteraction as jest.Mock).mockReturnValue("mockInteraction");
+
+		render(
+			<MapCanvasV2
+				layers={layers}
+				mapInstanceRef={{ current: null }}
+				onFeatureHover={jest.fn()}
+				{...defaultProps}
+			/>
+		);
+
+		const selectArgs = (addSelectInteraction as jest.Mock).mock.calls[0][0];
+		expect(selectArgs.layers).toEqual([
+			"mock:marker-layer",
+			"mock:polygon-layer",
+			"mock:path-layer",
+		]);
+
+		const hoverArgs = (addHoverInteraction as jest.Mock).mock.calls[0][0];
+		expect(hoverArgs.layers).toEqual([
+			"mock:marker-layer",
+			"mock:polygon-layer",
+			"mock:path-layer",
+		]);
+	});
+
+	it("omits an overlay layer that is not present", () => {
+		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
+
+		(findVectorLayerById as jest.Mock).mockImplementation(
+			(_layers: unknown, id: string) =>
+				id === "marker-layer" ? "mock:marker-layer" : undefined
+		);
+		(addSelectInteraction as jest.Mock).mockReturnValue("mockInteraction");
+
+		render(
+			<MapCanvasV2
+				layers={layers}
+				mapInstanceRef={{ current: null }}
+				{...defaultProps}
+			/>
+		);
+
+		const selectArgs = (addSelectInteraction as jest.Mock).mock.calls[0][0];
+		expect(selectArgs.layers).toEqual(["mock:marker-layer"]);
+	});
+
 	it("calls addSelectInteraction and feature click callbacks", () => {
 		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 		const onFeatureClick = jest.fn();
@@ -100,7 +155,7 @@ describe("MapCanvasV2", () => {
 
 		expect(addSelectInteraction).toHaveBeenCalledWith(expect.objectContaining({
 			map: mockMapInstance,
-			layer: "mockMarkerLayer",
+			layers: expect.arrayContaining(["mockMarkerLayer"]),
 			onSelect: expect.any(Function),
 		}));
 
@@ -148,7 +203,7 @@ describe("MapCanvasV2", () => {
 		expect(addHoverInteraction).toHaveBeenCalledWith(
 			expect.objectContaining({
 				map: mockMapInstance,
-				layer: "mockMarkerLayer",
+				layers: expect.arrayContaining(["mockMarkerLayer"]),
 				onHover: onFeatureHover,
 			})
 		);

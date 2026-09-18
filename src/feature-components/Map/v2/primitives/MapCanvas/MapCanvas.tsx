@@ -6,7 +6,12 @@ import { fitToFeature, fitToFeatures } from "../../composites/BasicMap/interacti
 import { addSelectInteraction } from "../../composites/BasicMap/interactions/addSelectInteraction";
 import { addHoverInteraction } from "../../composites/BasicMap/interactions/addHoverInteraction";
 import { findVectorLayerById } from "../../utils/feature";
-import { attachTileLoadErrorLogging, MARKER_LAYER_ID } from "../../utils/layers";
+import {
+	attachTileLoadErrorLogging,
+	MARKER_LAYER_ID,
+	POLYGON_LAYER_ID,
+	PATH_LAYER_ID,
+} from "../../utils/layers";
 import { ensureView } from "../../utils/ensureView";
 import "ol/ol.css";
 import { buildControls } from "../../utils/buildControls";
@@ -78,9 +83,20 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			return
 		}
 
+		// Every overlay that carries user features, not just markers. One
+		// interaction across all of them: separate interactions would fire one
+		// event per layer for a single click. Which feature wins an overlap is
+		// decided by layer z-order (ensureLayers assigns it by position), not
+		// by the order of this array.
+		const interactiveLayers = [
+			markerLayer,
+			findVectorLayerById(layers, POLYGON_LAYER_ID),
+			findVectorLayerById(layers, PATH_LAYER_ID),
+		].filter((l): l is NonNullable<typeof l> => Boolean(l));
+
 		const select = addSelectInteraction({
 			map,
-			layer: markerLayer,
+			layers: interactiveLayers,
 			onSelect: (features: Feature[], event?: FeatureEvent) => {
 				const ids = features
 					.map(f => f.getId?.())
@@ -100,7 +116,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		const detachHover = onFeatureHover
 			? addHoverInteraction({
 				map,
-				layer: markerLayer,
+				layers: interactiveLayers,
 				onHover: onFeatureHover,
 			})
 			: undefined;
