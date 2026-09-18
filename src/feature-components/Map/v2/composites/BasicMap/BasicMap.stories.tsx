@@ -112,13 +112,16 @@ Feature ids are one namespace across \`markers\`, \`polygons\` and \`paths\`.
 \`panToFeature\` and \`onFeatureClick\` key on the id alone, and the marker layer
 is searched first, so an id reused across the three resolves to the marker.
 
-A record whose \`coordinates\` contradict its \`type\` is skipped and reported
-through \`onError\` as a \`MalformedFeatureError\` naming the \`featureId\`. The
-rest of the map draws, so wire \`onError\` up: a map missing one polygon looks
-like a complete one.
+A \`polygons\` or \`paths\` record whose \`coordinates\` contradict its \`type\` is
+skipped and reported through \`onError\` as a \`MalformedFeatureError\` naming the
+\`featureId\`. The rest of the map draws, so wire \`onError\` up: a map missing one
+polygon looks like a complete one. Skipping does not cover \`markers\` -- a
+marker that cannot be converted aborts that whole update, taking the polygons
+and paths with it.
 
 Clicking a marker flies the view to it. Clicking a polygon or a path reports
-through \`onFeatureClick\` and leaves the viewport alone.
+through \`onFeatureClick\` without moving the view. Changing the \`markers\`,
+\`polygons\` or \`paths\` props still re-frames the view around everything drawn.
 
 This text documents the intended behaviour, the real limitations to watch for, and actionable workarounds so consumers of the component know exactly what to expect.
         `,

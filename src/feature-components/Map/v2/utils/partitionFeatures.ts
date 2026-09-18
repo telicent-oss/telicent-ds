@@ -15,9 +15,13 @@ export interface PartitionedFeatures {
  *
  * Every failure is collected, not only `MalformedFeatureError`. The converters
  * check the nesting of the first coordinate, but OpenLayers throws a plain
- * `TypeError` on a null or short vertex further in — the ordinary shape of a
- * bad API record. Catching only the checked case would let that one through to
- * render and take the map down.
+ * `TypeError` on a null or non-array vertex further in — the ordinary shape of
+ * a bad API record. Catching only the checked case would let that one through
+ * to render and take the map down.
+ *
+ * A failure that isn't a `MalformedFeatureError` says so in its message rather
+ * than blaming the record, because the cause may be a bug in the converter
+ * rather than bad data.
  */
 export const partitionFeatures = <T extends { id: string }>(
   items: T[],
@@ -38,7 +42,7 @@ export const partitionFeatures = <T extends { id: string }>(
       malformed.push(
         new MalformedFeatureError(
           item.id,
-          `Feature "${item.id}": could not be built. ${message}`
+          `Feature "${item.id}": conversion failed, which may be a defect in the map rather than a bad record. ${message}`
         )
       );
     }

@@ -71,8 +71,13 @@ export type BasicMapV2Handle = {
    * reports an unknown `layerId` through `onError`.
    *
    * For the overlays use the exported `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and
-   * `PATH_LAYER_ID` rather than the literal strings. The value survives a
-   * layer rebuild; it is re-applied whenever the layers are replaced.
+   * `PATH_LAYER_ID` rather than the literal strings.
+   *
+   * Call it after `onLayersReady(true)`; before that there are no layers to
+   * set and the call does nothing. The value lasts until the next layer
+   * rebuild, which happens whenever `layers` changes identity -- every render
+   * if the parent passes an array literal. For an opacity that persists, set
+   * it on the `layers` config instead.
    */
   setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
@@ -150,6 +155,19 @@ export interface BasicMapProperties {
    * matters. Hoist the `Style` objects themselves — the function runs per
    * feature per frame.
    *
+   * Supplying this replaces a path's own `style` outright, direction arrows
+   * included: the arrows are part of the style this prop overrides, so a path
+   * that drew arrows stops drawing them. To keep them, read the path's own
+   * style back off the feature and fall through to it. It is stored under the
+   * `originalStyle` key and `get` returns `unknown`, so it needs a cast:
+   *
+   * ```tsx
+   * const pathStyle = (feature: FeatureLike) =>
+   *   feature.getId() === selected
+   *     ? SELECTED
+   *     : (feature.get("originalStyle") as Style | Style[]);
+   * ```
+   *
    * Changing this does not rebuild the layers or move the viewport.
    */
   pathStyle?: StyleLike;
@@ -174,10 +192,16 @@ export interface BasicMapProperties {
    *
    * - layer setup failed
    * - marker icons failed to load
-   * - a `polygons` or `paths` record has `coordinates` that contradict its
-   *   `type`. That record is skipped and the rest of the map still draws. The
-   *   error is a `MalformedFeatureError` naming the `featureId`, so an app can
-   *   decide between a toast and a throw.
+   * - a `polygons` or `paths` record could not be turned into geometry, most
+   *   often because its `coordinates` contradict its `type`. That record is
+   *   skipped and the rest of the map still draws. The error is a
+   *   `MalformedFeatureError` naming the `featureId`, so an app can decide
+   *   between a toast and a throw.
+   *
+   * Skipping covers `polygons` and `paths` only. A `markers` record that
+   * cannot be converted aborts the whole update -- that render's polygons and
+   * paths are dropped with it, and the error reads "could not load marker
+   * icons".
    *
    * A malformed record is reported once per mounted map. Remounting reports it
    * again, so an app that survives a route or tab switch should key on
