@@ -31,68 +31,20 @@ describe("addSelectInteraction", () => {
       expect.objectContaining({
         layers: [layer],
         condition: click,
-        style: expect.any(Function),
+        style: null,
       })
     );
 
     expect(map.addInteraction).toHaveBeenCalledWith(select);
   });
 
-  it("returns original style when feature has a single Style", () => {
-    const style = new Style();
-
-    const feature = {
-      get: jest.fn().mockReturnValue(style),
-    } as unknown as Feature;
-
-    const select = addSelectInteraction({ map, layers: [layer] });
-
-    const styleFn = (Select as jest.Mock).mock.calls[0][0].style as (
-      f: Feature
-    ) => Style[];
-
-    const result = styleFn(feature);
-
-    expect(result).toEqual([style]);
-  });
-
-  it("returns original styles when feature has an array of Styles", () => {
-    const styles = [new Style(), new Style()];
-
-    const feature = {
-      get: jest.fn().mockReturnValue(styles),
-    } as unknown as Feature;
-
+  it("gives Select no style so a selected feature keeps its layer's", () => {
+    // OpenLayers applies a Select style by calling setStyle() on the feature,
+    // which overrides the layer style. A style here would beat BasicMapV2's
+    // pathStyle prop for any clicked path.
     addSelectInteraction({ map, layers: [layer] });
 
-    const styleFn = (Select as jest.Mock).mock.calls[0][0].style as (
-      f: Feature
-    ) => Style[];
-
-    const result = styleFn(feature);
-
-    expect(result).toBe(styles);
-  });
-
-  it("falls back to the overlay default when a feature has no original style", () => {
-    // Polygons carry no per-feature style. Returning [] here would make a
-    // polygon vanish the instant it was selected.
-    const feature = {
-      get: jest.fn().mockReturnValue(undefined),
-      getGeometry: () => ({ getType: () => "Polygon" }),
-    } as unknown as Feature;
-
-    addSelectInteraction({ map, layers: [layer] });
-
-    const styleFn = (Select as jest.Mock).mock.calls[0][0].style as (
-      f: Feature,
-      r?: number
-    ) => Style | Style[] | undefined;
-
-    const result = styleFn(feature, 1);
-
-    expect(result).toBeDefined();
-    expect(result).not.toEqual([]);
+    expect((Select as jest.Mock).mock.calls[0][0].style).toBeNull();
   });
 
   it("invokes onSelect callback with selected features and pixel event", () => {
