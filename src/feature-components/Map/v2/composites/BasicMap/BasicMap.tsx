@@ -16,7 +16,12 @@ import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
-import { MARKER_LAYER_ID, POLYGON_LAYER_ID, PATH_LAYER_ID } from "../../utils/layers";
+import {
+  MARKER_LAYER_ID,
+  POLYGON_LAYER_ID,
+  PATH_LAYER_ID,
+  getDefaultOverlayStyle,
+} from "../../utils/layers";
 import { findVectorLayerById } from "../../utils/feature";
 import {
   getFeaturesById,
@@ -89,17 +94,18 @@ export const BasicMapV2 = React.forwardRef<
         data: [],
         visible: true,
       },
-      // Path layer
+      // Path layer. pathStyle is applied in its own effect below, not here:
+      // it is a presentational property of a live layer, and routing it through
+      // effectiveLayers would rebuild (and refetch) every layer on each change.
       {
         kind: "overlay-vector",
         id: PATH_LAYER_ID,
         data: [],
         visible: true,
-        style: props.pathStyle,
       },
     ];
     return [...baseLayers, ...overlayVectorLayers];
-  }, [props.layers, props.pathStyle]);
+  }, [props.layers]);
 
   useEffect(() => {
     let cancelled = false;
@@ -125,6 +131,12 @@ export const BasicMapV2 = React.forwardRef<
     if (layers.length < 1) return;
     props?.onLayersReady?.(true);
   }, [layers]);
+
+  useEffect(() => {
+    const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
+    if (!pathLayer) return;
+    pathLayer.setStyle(props.pathStyle ?? getDefaultOverlayStyle());
+  }, [layers, props.pathStyle]);
 
   useEffect(() => {
     return () => {

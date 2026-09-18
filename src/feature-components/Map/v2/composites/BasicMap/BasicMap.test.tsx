@@ -86,52 +86,76 @@ describe("BasicMapV2 pathStyle", () => {
 		jest.clearAllMocks();
 	});
 
-	it("passes pathStyle to the path overlay-vector layer config", () => {
+	it("applies pathStyle to the live path layer", async () => {
 		const pathStyleFn = jest.fn();
+		const pathLayer = makeMockLayer(PATH_LAYER_ID);
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([pathLayer]));
 
-		const { unmount } = render(
-			<BasicMapV2
-				zoom={5}
-				center={[0, 0]}
-				markers={[]}
-				polygons={[]}
-				paths={[]}
-				pathStyle={pathStyleFn}
-			/>
-		);
+		await act(async () => {
+			render(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[]}
+					pathStyle={pathStyleFn}
+				/>
+			);
+		});
 
-		expect(ensureLayers).toHaveBeenCalled();
-		const configs = (ensureLayers as jest.Mock).mock.calls[0][0] as LayerConfig[];
-		const pathLayerConfig = configs.find(
-			(c): c is OverlayVectorLayerConfig =>
-				c.kind === "overlay-vector" && c.id === PATH_LAYER_ID
-		);
-
-		expect(pathLayerConfig).toBeDefined();
-		expect(pathLayerConfig!.style).toBe(pathStyleFn);
-		unmount();
+		expect(pathLayer.setStyle).toHaveBeenCalledWith(pathStyleFn);
 	});
 
-	it("does not set style on path layer when pathStyle is omitted", () => {
-		const { unmount } = render(
-			<BasicMapV2
-				zoom={5}
-				center={[0, 0]}
-				markers={[]}
-				polygons={[]}
-				paths={[]}
-			/>
+	it("falls back to the default overlay style when pathStyle is omitted", async () => {
+		const pathLayer = makeMockLayer(PATH_LAYER_ID);
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([pathLayer]));
+
+		await act(async () => {
+			render(
+				<BasicMapV2
+					zoom={5}
+					center={[0, 0]}
+					markers={[]}
+					polygons={[]}
+					paths={[]}
+				/>
+			);
+		});
+
+		expect(pathLayer.setStyle).toHaveBeenCalledTimes(1);
+		expect(pathLayer.setStyle).not.toHaveBeenCalledWith(undefined);
+	});
+
+	it("keeps pathStyle out of the layer configs so a new style identity does not rebuild layers", async () => {
+		const pathLayer = makeMockLayer(PATH_LAYER_ID);
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([pathLayer]));
+
+		const styleA = jest.fn();
+		const styleB = jest.fn();
+
+		const { rerender } = render(
+			<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} pathStyle={styleA} />
 		);
+		await waitFor(() => expect(pathLayer.setStyle).toHaveBeenCalledWith(styleA));
 
 		const configs = (ensureLayers as jest.Mock).mock.calls[0][0] as LayerConfig[];
 		const pathLayerConfig = configs.find(
 			(c): c is OverlayVectorLayerConfig =>
 				c.kind === "overlay-vector" && c.id === PATH_LAYER_ID
 		);
-
 		expect(pathLayerConfig).toBeDefined();
 		expect(pathLayerConfig!.style).toBeUndefined();
-		unmount();
+
+		const rebuildsBefore = (ensureLayers as jest.Mock).mock.calls.length;
+
+		// A fresh function identity each render is the case that used to spin.
+		rerender(
+			<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} pathStyle={styleB} />
+		);
+		await waitFor(() => expect(pathLayer.setStyle).toHaveBeenLastCalledWith(styleB));
+
+		expect((ensureLayers as jest.Mock).mock.calls.length).toBe(rebuildsBefore);
 	});
 });
 
@@ -148,6 +172,7 @@ const makeMockLayer = (id: string) => {
 		setZIndex: jest.fn(),
 		getZIndex: () => 0,
 		setDeclutter: jest.fn(),
+		setStyle: jest.fn(),
 		getSource: () => ({ clear: jest.fn(), addFeatures: jest.fn(), getFeatures: () => [] }),
 		changed: jest.fn(),
 	};
