@@ -507,7 +507,7 @@ export declare type BaseRasterLayerConfig = {
     visible?: boolean;
     previewImage: string;
     label: string;
-    opacity?: number;
+    opacity?: Opacity;
 };
 
 export declare type BaseVectorTileLayerConfig = {
@@ -521,7 +521,7 @@ export declare type BaseVectorTileLayerConfig = {
     previewImage: string;
     projection?: string;
     label: string;
-    opacity?: number;
+    opacity?: Opacity;
 };
 
 export declare const BasicMap: default_2.FC<FeatureMapProps>;
@@ -537,7 +537,36 @@ export declare interface BasicMapProperties {
     mapStyleOptions?: LegacyMapConfig;
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
+    /**
+     * Route lines. Each `PathFeature.id` becomes the OpenLayers feature id, so
+     * `feature.getId()` is what `pathStyle` receives and what `panToFeature`
+     * matches on.
+     *
+     * A path may carry its own `style`. That is a per-feature style and takes
+     * precedence over `pathStyle` below, which is the layer-wide style.
+     */
     paths?: PathFeature[];
+    /**
+     * Style for the whole path layer: a single style, or a function called per
+     * feature. Paths that set their own `style` ignore this. Omit it and the
+     * layer uses the default overlay style.
+     *
+     * For selection-driven restyling, just close over state and compare ids:
+     *
+     * ```tsx
+     * const [selected, setSelected] = useState<string | null>(null);
+     * const pathStyle = (feature: FeatureLike) =>
+     *   feature.getId() === selected ? SELECTED : UNSELECTED;
+     * ```
+     *
+     * A new function identity is re-applied to the layer, which redraws it, so
+     * no manual refresh is needed. The flip side is that a new identity on every
+     * render redraws on every render: memoise it on the state it reads if that
+     * matters. Hoist the `Style` objects themselves — the function runs per
+     * feature per frame.
+     *
+     * Changing this does not rebuild the layers or move the viewport.
+     */
     pathStyle?: StyleLike;
     onFeatureClick?: OnFeatureClick;
     onFeatureHover?: OnFeatureHover;
@@ -564,7 +593,7 @@ export declare type BasicMapV2Handle = {
     zoomOut: () => void;
     panToFeature: (id: string) => void;
     panToFeatures: (ids: string[]) => void;
-    setLayerOpacity?: (layerId: string, opacity: number) => void;
+    setLayerOpacity: (layerId: string, opacity: number) => void;
     layers: default_5[];
 };
 
@@ -3054,6 +3083,16 @@ export declare function onAuthEvent(callback: (event: AuthEvent) => void): () =>
 export declare type OnFeatureClick = (ids: string[], event?: FeatureEvent) => void;
 
 export declare type OnFeatureHover = (id: string | null, event?: FeatureEvent) => void;
+
+export declare type Opacity = z.infer<typeof OpacitySchema>;
+
+/**
+ * Layer opacity as OpenLayers defines it: a finite fraction from 0 to 1.
+ *
+ * TypeScript cannot exclude NaN from `number` or bound it to a range, so the
+ * schema carries what the type cannot.
+ */
+export declare const OpacitySchema: z.ZodNumber;
 
 declare type Option_2 = {
     label: string;
