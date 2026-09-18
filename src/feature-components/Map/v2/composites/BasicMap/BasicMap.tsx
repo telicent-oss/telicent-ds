@@ -16,6 +16,8 @@ import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { markerToOLFeature } from "../../utils/markers";
 import { ensureLayers } from "../../utils/ensureLayers";
+import { OpacitySchema } from "../../types/opacity";
+import { parseOrThrowWithInput } from "../../../../../utils/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
 import {
   MARKER_LAYER_ID,
   POLYGON_LAYER_ID,
@@ -274,7 +276,7 @@ export const BasicMapV2 = React.forwardRef<
       setLayerOpacity: (layerId: string, opacity: number) => {
         const layer = layers.find((l) => l.get("id") === layerId);
         if (layer) {
-          layer.setOpacity(Math.max(0, Math.min(1, opacity)));
+          layer.setOpacity(parseOrThrowWithInput(OpacitySchema, opacity));
         }
       },
       layers,

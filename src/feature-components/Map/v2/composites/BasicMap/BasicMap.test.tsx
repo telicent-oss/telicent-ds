@@ -235,7 +235,7 @@ describe("BasicMapV2 setLayerOpacity", () => {
 		expect(mockLayer.getOpacity()).toBe(1);
 	});
 
-	it("clamps opacity to 0–1 range", async () => {
+	it("rejects an out-of-range opacity instead of clamping it", async () => {
 		const mockLayer = makeMockLayer("osm");
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([mockLayer]));
 
@@ -243,21 +243,53 @@ describe("BasicMapV2 setLayerOpacity", () => {
 
 		await act(async () => {
 			render(
-				<BasicMapV2
-					ref={ref}
-					zoom={5}
-					center={[0, 0]}
-					markers={[]}
-					polygons={[]}
-					paths={[]}
-				/>
+				<BasicMapV2 ref={ref} zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} />
 			);
 		});
 
-		act(() => { ref.current!.setLayerOpacity?.("osm", -0.5); });
+		// 50 is the percentage-for-fraction slip. Clamping it to 1 would leave a
+		// permanently wrong-looking map with no indication of why.
+		expect(() => ref.current!.setLayerOpacity?.("osm", 50)).toThrow();
+		expect(() => ref.current!.setLayerOpacity?.("osm", -0.5)).toThrow();
+		expect(mockLayer.getOpacity()).toBe(1);
+	});
+
+	it("rejects NaN and Infinity, which TypeScript cannot exclude from number", async () => {
+		const mockLayer = makeMockLayer("osm");
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([mockLayer]));
+
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2 ref={ref} zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} />
+			);
+		});
+
+		expect(() => ref.current!.setLayerOpacity?.("osm", NaN)).toThrow();
+		expect(() => ref.current!.setLayerOpacity?.("osm", Infinity)).toThrow();
+		expect(mockLayer.getOpacity()).toBe(1);
+	});
+
+	it("accepts the documented 0-1 range", async () => {
+		const mockLayer = makeMockLayer("osm");
+		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([mockLayer]));
+
+		const ref = React.createRef<BasicMapV2Handle>();
+
+		await act(async () => {
+			render(
+				<BasicMapV2 ref={ref} zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} />
+			);
+		});
+
+		act(() => { ref.current!.setLayerOpacity?.("osm", 0); });
 		expect(mockLayer.getOpacity()).toBe(0);
 
-		act(() => { ref.current!.setLayerOpacity?.("osm", 1.5); });
+		act(() => { ref.current!.setLayerOpacity?.("osm", 0.3); });
+		expect(mockLayer.getOpacity()).toBe(0.3);
+
+		act(() => { ref.current!.setLayerOpacity?.("osm", 1); });
 		expect(mockLayer.getOpacity()).toBe(1);
 	});
 });

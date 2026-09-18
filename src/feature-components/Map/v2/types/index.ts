@@ -6,3 +6,4 @@ export * from "./map-types";
 export * from "./overlays";
 export * from "./layers";
 export * from "./common";
+export * from "./opacity";
