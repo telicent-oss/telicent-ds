@@ -72,6 +72,17 @@ jobs:
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           echo "Publishing with tag: $TAG"
 
+      # prepack generates dist/llms.txt. It skips when dist is missing, so assert
+      # the file is in the tarball rather than ship a package with no manifest.
+      - name: Verify the component manifest packs
+        run: |
+          # Listing the real tarball, not `--json`: the prepare script prints to
+          # stdout and corrupts that output.
+          npm pack --pack-destination /tmp/packcheck
+          tar tzf /tmp/packcheck/*.tgz | grep -qx 'package/dist/llms.txt' \
+            || { echo "dist/llms.txt is missing from the tarball"; exit 1; }
+          echo "dist/llms.txt packs"
+
       - name: Publish pre-release package
         run: npm publish --tag ${{ steps.prerelease-tag.outputs.tag }} --access public
         env:
@@ -127,6 +138,17 @@ jobs:
 
       - name: Build package
         run: yarn build
+
+      # prepack generates dist/llms.txt. It skips when dist is missing, so assert
+      # the file is in the tarball rather than ship a package with no manifest.
+      - name: Verify the component manifest packs
+        run: |
+          # Listing the real tarball, not `--json`: the prepare script prints to
+          # stdout and corrupts that output.
+          npm pack --pack-destination /tmp/packcheck
+          tar tzf /tmp/packcheck/*.tgz | grep -qx 'package/dist/llms.txt' \
+            || { echo "dist/llms.txt is missing from the tarball"; exit 1; }
+          echo "dist/llms.txt packs"
 
       - name: Publish stable package
         run: npm publish --access public

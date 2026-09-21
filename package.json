@@ -53,7 +53,7 @@
     "build:llms": "yarn build && yarn generate:llms",
     "generate:llms": "node scripts/build-llms.mjs",
     "prebuild": "yarn clean",
-    "build": "vite build",
+    "build": "vite build && node scripts/pack-llms.mjs",
     "preview": "vite preview",
     "test": "jest",
     "test:diff": "jest --watchAll=false --coverage=false --onlyChanged --bail",
@@ -209,6 +209,7 @@
       "import": "./dist/ds.js",
       "require": "./dist/ds.umd.cjs"
     },
+    "./llms.txt": "./dist/llms.txt",
     "./dist/style.css": {
       "style": "./dist/style.css",
       "import": "./dist/style.css",
