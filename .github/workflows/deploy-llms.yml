@@ -54,12 +54,18 @@ jobs:
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
 
-      # build-llms reads the TypeScript types, so deps + dist/export.d.ts must exist first.
+      # yarn build ends with scripts/pack-llms.mjs, which writes llms/ for the deploy
+      # steps below and dist/llms.txt for the npm tarball.
       - name: Build package
         run: yarn build
 
-      - name: Generate llms.txt
-        run: yarn generate:llms
+      # pack-llms skips when dist/export.d.ts is absent. The deploy steps use
+      # keep_files, so a skip would republish the old manifest with nothing to show
+      # for it. Fail here instead.
+      - name: Verify the manifest was generated
+        run: |
+          test -s llms/llms.txt || { echo "llms/llms.txt is missing or empty after yarn build"; exit 1; }
+          tail -1 llms/llms.txt
 
       - name: Deploy llms.txt to Pages root
         if: github.ref == 'refs/heads/main'
