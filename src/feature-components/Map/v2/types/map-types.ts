@@ -165,8 +165,12 @@ export interface BasicMapProperties {
    * const pathStyle = (feature: FeatureLike) =>
    *   feature.getId() === selected
    *     ? SELECTED
-   *     : (feature.get("originalStyle") as Style | Style[]);
+   *     : (feature.get("originalStyle") as Style | Style[] | undefined) ??
+   *       UNSELECTED;
    * ```
+   *
+   * It is `undefined` for a path that set no `style` of its own, so give that
+   * case a fallback rather than returning it straight.
    *
    * Changing this does not rebuild the layers or move the viewport.
    */

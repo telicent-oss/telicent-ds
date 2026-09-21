@@ -47,8 +47,9 @@ export const fitToFeature = (
   const worldWidth = getWidth(worldExtent);
 
   // Normalizes a longitude (X) to the world extent. Modular rather than a
-  // subtract-until-in-range loop: that loop never terminates for a non-finite
-  // X, and runs ~1e292 times for a large finite one.
+  // subtract-until-in-range loop, which never terminates: not for a non-finite
+  // X, and not for a very large finite one either, where subtracting the world
+  // width falls below the float precision of the value and leaves it unchanged.
   const normalizeX = (x: number) => {
     if (!Number.isFinite(x)) return x;
     return ((((x - worldExtent[0]) % worldWidth) + worldWidth) % worldWidth) +

@@ -7,8 +7,10 @@
  *   3D  number[][][]    — MultiLineString / Polygon
  *   4D  number[][][][]  — MultiPolygon
  *
- * An empty array passes at every depth: no coordinates is not a nesting
- * mistake, so an empty feature draws nothing rather than throwing.
+ * An empty array passes at every depth: no coordinates is not a nesting mistake.
+ * The resulting feature has nothing to draw, and OpenLayers reports its extent as
+ * [Infinity, Infinity, -Infinity, -Infinity] rather than an ordinary box, so
+ * fitToFeature and fitToFeatures skip it instead of trying to frame it.
  *
  * Use these to check a feature's `coordinates` against its declared `type`
  * before handing them to OpenLayers, rather than an unchecked `as` cast
