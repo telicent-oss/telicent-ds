@@ -2,7 +2,7 @@
 
 Agent and human guidance for building UI with [`@telicent-oss/ds`](https://www.npmjs.com/package/@telicent-oss/ds), Telicent's MUI-based React component library.
 
-The design system ships a versioned manifest (`llms.txt`) describing every exported component, its props, and its `variant`s. This skill points an agent at the manifest for the installed version and keeps generated UI inside the documented API instead of inventing components from stale memory.
+The design system ships a versioned manifest (`llms.txt`) describing every exported component, its props, and its `variant`s. The manifest ships inside the package, so it always matches the installed version. This skill points an agent at it and keeps generated UI inside the documented API instead of inventing components from stale memory.
 
 ## Files
 
@@ -25,4 +25,4 @@ Loading the skill is a separate, explicit opt-in: `npx skills add telicent-oss/t
 
 ## Versioning
 
-Version-adaptive: it reads the installed `@telicent-oss/ds` major and fetches that major's manifest, falling back to the latest when a per-major manifest is unavailable.
+Version-exact: it reads the manifest shipped in the installed package. Releases from before the manifest shipped fall back to the published site, which tracks main and can be ahead of the installed version.
