@@ -118,6 +118,7 @@ import { FormLabelClasses } from '@mui/material';
 import { FormLabelProps } from '@mui/material';
 import { ForwardedRef } from 'react';
 import { ForwardRefExoticComponent } from 'react';
+import type * as GeoJSON_2 from 'geojson';
 import { Grid2Props } from '@mui/material';
 import { GridClasses } from '@mui/material';
 import { GridProps } from '@mui/material/Grid';
@@ -176,8 +177,6 @@ import { ListSubheaderClasses } from '@mui/material';
 import { ListSubheaderProps } from '@mui/material';
 import { LocationOn as LocationOnIcon } from '@telicent-oss/mui-icons-material';
 import { Map as Map_2 } from 'ol';
-import { MapProvider } from 'react-map-gl/maplibre';
-import { MapRef } from 'react-map-gl/maplibre';
 import { MenuClasses } from '@mui/material';
 import { MenuItemOwnProps } from '@mui/material';
 import { MenuListProps } from '@mui/material';
@@ -285,9 +284,10 @@ import { TableRowClasses } from '@mui/material';
 import { TableRowProps } from '@mui/material';
 import { TableSortLabelClasses } from '@mui/material';
 import { TableSortLabelProps } from '@mui/material';
-import { TabProps } from '@mui/material';
-import { TabsClasses } from '@mui/material';
-import { TabsProps } from '@mui/material';
+import { TabProps as TabProps_2 } from '@mui/material/Tab';
+import { TabProps as TabProps_3 } from '@mui/material';
+import { TabsOwnProps } from '@mui/material';
+import { TabsProps as TabsProps_2 } from '@mui/material/Tabs';
 import { TextFieldProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Theme as Theme_2 } from '@mui/material';
@@ -308,10 +308,17 @@ import { TypographyProps } from '@mui/material/Typography';
 import { TypographyProps as TypographyProps_2 } from '@mui/material';
 import { URLSearchParamsInit } from 'react-router-dom';
 import { UseAutocompleteProps } from '@mui/material/useAutocomplete';
-import { useMap } from 'react-map-gl/maplibre';
 import { UserInfo } from '@telicent-oss/fe-auth-lib';
 import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
+
+declare type AccessibleName = {
+    "aria-label": string;
+    "aria-labelledby"?: never;
+} | {
+    "aria-labelledby": string;
+    "aria-label"?: never;
+};
 
 export { Alert }
 
@@ -524,17 +531,31 @@ export declare type BaseVectorTileLayerConfig = {
     opacity?: Opacity;
 };
 
-export declare const BasicMap: default_2.FC<FeatureMapProps>;
-
 export declare interface BasicMapProperties {
     zoom: number;
     center: number[];
+    /**
+     * Base layers, drawn under the markers, polygons and paths. Wins over the
+     * deprecated `mapStyleOptions` when both are passed. Omit both and the map
+     * draws with no basemap.
+     *
+     * A layer's `opacity` must be a number from 0 to 1. Unlike a bad feature
+     * record, a bad opacity throws rather than reporting through `onError`: the
+     * value is written by a developer in a prop or a deployment config, so it is
+     * a mistake to surface at once rather than data to skip.
+     */
     layers?: LayerConfig[];
     controls?: Partial<MapControlsConfig>;
     /**
      * @deprecated Use `layers` instead. This prop will be removed in a future release.
      */
     mapStyleOptions?: LegacyMapConfig;
+    /**
+     * Feature ids share one namespace with `polygons` and `paths`. `panToFeature`
+     * and `onFeatureClick` key on the id alone, and a lookup takes the first
+     * match with the marker layer searched first, so an id reused across the
+     * three collections resolves to the marker.
+     */
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
     /**
@@ -542,14 +563,21 @@ export declare interface BasicMapProperties {
      * `feature.getId()` is what `pathStyle` receives and what `panToFeature`
      * matches on.
      *
-     * A path may carry its own `style`. That is a per-feature style and takes
-     * precedence over `pathStyle` below, which is the layer-wide style.
+     * A path may carry its own `style`. Supplying `pathStyle` below replaces it
+     * for every path -- see there.
      */
     paths?: PathFeature[];
     /**
      * Style for the whole path layer: a single style, or a function called per
-     * feature. Paths that set their own `style` ignore this. Omit it and the
-     * layer uses the default overlay style.
+     * feature.
+     *
+     * `pathStyle` wins outright. It applies to every path, including paths that
+     * set their own `style`, and those paths lose that appearance while it is
+     * set. To keep a path's own look and still respond to selection, branch on
+     * the id inside this function and return the style you want.
+     *
+     * Omit it and each path renders with its own `style`, or the default overlay
+     * style if it has none.
      *
      * For selection-driven restyling, just close over state and compare ids:
      *
@@ -565,23 +593,57 @@ export declare interface BasicMapProperties {
      * matters. Hoist the `Style` objects themselves — the function runs per
      * feature per frame.
      *
+     * Supplying this replaces a path's own `style` outright, direction arrows
+     * included: the arrows are part of the style this prop overrides, so a path
+     * that drew arrows stops drawing them. To keep them, read the path's own
+     * style back off the feature and fall through to it. It is stored under the
+     * `originalStyle` key and `get` returns `unknown`, so it needs a cast:
+     *
+     * ```tsx
+     * const pathStyle = (feature: FeatureLike) =>
+     *   feature.getId() === selected
+     *     ? SELECTED
+     *     : (feature.get("originalStyle") as Style | Style[]);
+     * ```
+     *
      * Changing this does not rebuild the layers or move the viewport.
      */
     pathStyle?: StyleLike;
     onFeatureClick?: OnFeatureClick;
     onFeatureHover?: OnFeatureHover;
+    /**
+     * `true` once the base layers have resolved, and again after any rebuild.
+     * `false` on unmount, and when layer setup fails -- in which case `onError`
+     * fires too.
+     *
+     * Ready means the layers exist. Markers, polygons and paths are added just
+     * after, so the map may still be empty on the first call.
+     */
     onLayersReady?: (isReady: boolean) => void;
     /**
-     * Called on an async failure the map survives: layer setup or marker icon
-     * loading. Nothing is cleared, so whatever was already drawn stays — an
-     * empty map if this was the first load, an out-of-date one otherwise.
-     * Without a handler the error is only logged, so pass this if the app needs
-     * to show that the map is stale.
+     * Called on a failure the map survives. Nothing is ever cleared, so whatever
+     * was already drawn stays — an empty map if this was the first load, an
+     * out-of-date one otherwise. Without a handler the error is only logged, so
+     * pass this if the app needs to show that the map is incomplete.
      *
-     * Malformed feature coordinates do not come through here. They are a config
-     * mistake, so they throw during render as a `MalformedFeatureError` for the
-     * nearest error boundary to handle — routing a render throw into a callback
-     * would make React report the same error more than once.
+     * Three cases reach it:
+     *
+     * - layer setup failed
+     * - marker icons failed to load
+     * - a `polygons` or `paths` record could not be turned into geometry, most
+     *   often because its `coordinates` contradict its `type`. That record is
+     *   skipped and the rest of the map still draws. The error is a
+     *   `MalformedFeatureError` naming the `featureId`, so an app can decide
+     *   between a toast and a throw.
+     *
+     * Skipping covers `polygons` and `paths` only. A `markers` record that
+     * cannot be converted aborts the whole update -- that render's polygons and
+     * paths are dropped with it, and the error reads "could not load marker
+     * icons".
+     *
+     * A malformed record is reported once per mounted map. Remounting reports it
+     * again, so an app that survives a route or tab switch should key on
+     * `featureId` itself rather than count calls.
      */
     onError?: (error: Error) => void;
 }
@@ -593,6 +655,19 @@ export declare type BasicMapV2Handle = {
     zoomOut: () => void;
     panToFeature: (id: string) => void;
     panToFeatures: (ids: string[]) => void;
+    /**
+     * Sets one layer's opacity, 0 to 1. Throws on a value outside that range and
+     * reports an unknown `layerId` through `onError`.
+     *
+     * For the overlays use the exported `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and
+     * `PATH_LAYER_ID` rather than the literal strings.
+     *
+     * Call it after `onLayersReady(true)`; before that there are no layers to
+     * set and the call does nothing. The value lasts until the next layer
+     * rebuild, which happens whenever `layers` changes identity -- every render
+     * if the parent passes an array literal. For an opacity that persists, set
+     * it on the `layers` config instead.
+     */
     setLayerOpacity: (layerId: string, opacity: number) => void;
     layers: default_5[];
 };
@@ -1050,14 +1125,6 @@ export declare type FeatureEvent = {
     pixel: [number, number];
 };
 
-export declare const FeatureMap: default_2.FC<FeatureMapProps>;
-
-declare interface FeatureMapProps extends RequiredRest, // everything except initialViewState & geoPolygons
-Optionalized {
-    theme?: UITheme;
-    polygonLayers?: (mapboxgl.FillLayer | mapboxgl.LineLayer | mapboxgl.SymbolLayer)[];
-}
-
 export declare const FixedPanel: default_2.FC<PanelProps>;
 
 export declare const FlexBox: default_2.ForwardRefExoticComponent<Omit<StackProps, "ref"> & default_2.RefAttributes<HTMLDivElement>>;
@@ -1216,6 +1283,25 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiCssBaseline: {
         styleOverrides: (theme: Omit<Theme_2, "components">) => string;
+    };
+    MuiTabs: {
+        styleOverrides: {
+            root: ({ theme }: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+                component?: ElementType;
+            } & Record<string, unknown> & {
+                ownerState: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+                    component?: ElementType;
+                } & Record<string, unknown>;
+            } & {
+                theme: Omit<Theme_2, "components">;
+            }) => {
+                borderBottom: string;
+                "&.MuiTabs-vertical": {
+                    borderBottom: string;
+                    borderInlineEnd: string;
+                };
+            };
+        };
     };
     MuiCard: {
         variants: {
@@ -2393,8 +2479,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTab"];
         styleOverrides?: Partial<OverridesStyleRules<keyof TabClasses, "MuiTab", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TabProps> | ((props: Partial<TabProps> & {
-                ownerState: Partial<TabProps>;
+            props: Partial<TabProps_3> | ((props: Partial<TabProps_3> & {
+                ownerState: Partial<TabProps_3>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2503,18 +2589,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<TableSortLabelProps> | ((props: Partial<TableSortLabelProps> & {
                 ownerState: Partial<TableSortLabelProps>;
-            }) => boolean);
-            style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiTabs?: {
-        defaultProps?: ComponentsProps["MuiTabs"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TabsClasses, "MuiTabs", Omit<Theme_2, "components">>> | undefined;
-        variants?: {
-            props: Partial<TabsProps> | ((props: Partial<TabsProps> & {
-                ownerState: Partial<TabsProps>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2688,16 +2762,6 @@ export declare type LayerMeta = {
     visible: boolean;
 };
 
-export declare interface LayerOption {
-    uri: string;
-    image: string;
-    label: string;
-}
-
-export declare const LayerSelector: default_2.FC;
-
-export declare const LayerSelectorInsetInMap: default_2.FC<Pick<PresentationalProps, "color" | "sx" | "variant">>;
-
 export declare interface LayerSelectorProps {
     layers: default_5[];
     style?: React.CSSProperties;
@@ -2815,79 +2879,23 @@ export declare const loggerLevelOrder: Record<LoggerLevelString, number>;
 export declare type LoggerLevelString = "debug" | "info" | "warn" | "error";
 
 /**
- * Thrown when a feature's `coordinates` nesting doesn't match its declared
- * `type` — a config mistake rather than a recoverable runtime condition.
+ * Names a feature whose `coordinates` could not be converted into geometry.
  *
- * Thrown while the map builds its features during render, so it propagates to
- * the nearest error boundary. Exported from the package so a consumer boundary
- * can tell it apart from any other render failure:
+ * `polygonToOLFeature` and `pathToOLFeature` throw this when the nesting
+ * contradicts the declared `type`, rather than handing broken geometry to
+ * OpenLayers. BasicMapV2 also wraps anything else a conversion throws in this
+ * class, so a null vertex that OpenLayers rejects arrives the same way -- with
+ * OpenLayers' own wording in the message. BasicMapV2 catches it per feature, skips that
+ * record and passes this error to `onError`, so a consumer can tell a bad
+ * record apart from any other failure and read which one it was:
  *
  * ```ts
- * if (error instanceof MalformedFeatureError) { ... }
+ * if (error instanceof MalformedFeatureError) { log(error.featureId); }
  * ```
  */
 export declare class MalformedFeatureError extends Error {
     readonly featureId: string;
     constructor(featureId: string, message: string);
-}
-
-declare type MapBoxSource = z.infer<typeof MapBoxSourceSchema>;
-
-export declare const MapBoxSourceSchema: z.ZodObject<{
-    label: z.ZodString;
-    uri: z.ZodString;
-    image: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    label: string;
-    image: string;
-    uri: string;
-}, {
-    label: string;
-    image: string;
-    uri: string;
-}>;
-
-export declare const MapCanvas: default_2.FC<MapCanvasProps>;
-
-declare type MapCanvasConfig = {
-    tileSets: StyleOption[];
-    vectorStyles?: StyleOption | StyleOption[];
-};
-
-export declare interface MapCanvasProps {
-    mapRef: default_2.RefObject<MapRef | null>;
-    initialViewState: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-        maxZoom: number;
-    };
-    cursor?: string;
-    onDragStart: () => void;
-    onDragEnd: () => void;
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-    onLoad: () => void;
-    defaultStyle?: string;
-    attributionControl: boolean;
-    markers: ResultMarker[];
-    geoPolygons: GeoJSON.FeatureCollection;
-    selected: string[];
-    onClickMarker?: (m: ResultMarker) => void;
-    findByClassUri: (u: string) => any;
-    polygonLayers?: (mapboxgl.FillLayer | mapboxgl.LineLayer | mapboxgl.SymbolLayer)[];
-}
-
-/**
- * For state that is shared throughout the app
- */
-export declare const MapCanvasProvider: default_2.FC<{
-    initialMapStyleConfig: MapStyleConfig;
-    children: ReactNode;
-}>;
-
-export declare interface MapCanvasState {
-    styleSelector: StyleSelectorState;
 }
 
 export declare const MapCanvasV2: default_2.FC<MapCanvasV2Props>;
@@ -2913,14 +2921,9 @@ export declare const MapIcon: default_2.FC<SvgIconProps>;
 
 export declare type MapInstanceRef = React.MutableRefObject<Map_2 | null>;
 
-export { MapProvider }
-
-declare interface MapStyleConfig {
-    vectorStyles?: StyleOption | StyleOption[];
-    tileSets?: StyleOption[];
-}
-
 export declare const MapToggleButtonPresentational: default_2.FC<SecondaryButtonProps>;
+
+export declare const MARKER_LAYER_ID = "marker-layer";
 
 export declare enum MarkerAnchor {
     CENTER = "center",
@@ -3100,10 +3103,6 @@ declare type Option_2 = {
     icon?: React.ReactNode;
 };
 
-declare type Optional = Pick<Picked, "initialViewState" | "geoPolygons" | "attributionControl">;
-
-declare type Optionalized = Partial<Optional>;
-
 export declare interface Options {
     value: string | number;
     label: string;
@@ -3113,7 +3112,7 @@ export declare interface Options {
 export declare interface OverlayConfig {
     id: string;
     type: OverlayType;
-    source: string | GeoJSON.FeatureCollection;
+    source: string | GeoJSON_2.FeatureCollection;
     visible?: boolean;
     zIndex?: number;
     opacity?: number;
@@ -3193,12 +3192,18 @@ export declare const Paper: default_2.ForwardRefExoticComponent<Omit<PaperProps,
 
 export declare function parseOrThrowWithInput<TSchema extends ZodTypeAny>(schema: TSchema, data: unknown): z.output<TSchema>;
 
+export declare const PATH_LAYER_ID = "path-layer";
+
 export declare interface PathFeature {
     id: string;
     type: PathType;
     coordinates: number[][] | number[][][];
     name: string;
     meta?: Record<string, any>;
+    /**
+     * This path's own appearance. Ignored while BasicMapV2's layer-wide
+     * `pathStyle` prop is set, which wins outright.
+     */
     style?: PathStyle;
 }
 
@@ -3213,11 +3218,11 @@ export declare interface PathStyle {
 
 export declare type PathType = "LineString" | "MultiLineString";
 
-declare type Picked = Pick<MapCanvasProps, "initialViewState" | "defaultStyle" | "attributionControl" | "markers" | "geoPolygons" | "selected" | "onClickMarker" | "findByClassUri">;
-
 export declare const PlayIcon: default_2.FC<SvgIconProps>;
 
 export declare const PlusCircleIcon: default_2.FC<SvgIconProps>;
+
+export declare const POLYGON_LAYER_ID = "polygon-layer";
 
 export declare interface PolygonFeature {
     id: string;
@@ -3304,15 +3309,6 @@ export declare const PreferredLabelCache: {
     get: (val: string) => string;
 };
 
-declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    selectedIndex: number;
-    data: LayerOption[];
-    anchorEl: HTMLButtonElement | null;
-    onCloseDropdown: PopOverProps["onClose"];
-    onClickDropdown: ButtonProps["onClick"];
-    onListItemClick: (index: number) => void;
-}
-
 declare interface ProgressProps extends Omit<CircularProgressProps, "classes" | "color" | "size" | "sx" | "thickness"> {
 }
 
@@ -3341,8 +3337,6 @@ declare interface RequestApi {
     };
 }
 
-declare type RequiredRest = Omit<Picked, keyof Optional>;
-
 export declare const resolveFaIconPath: (faIcon?: string | IconDefinition) => ResolveResult;
 
 declare interface ResolveResult {
@@ -3351,13 +3345,6 @@ declare interface ResolveResult {
 }
 
 declare type ResolveStatus = "ready" | "missing" | "loading" | "invalid";
-
-declare type ResultMarker = {
-    geohash: string;
-    type: string;
-    uri: string;
-    name: string;
-};
 
 declare type RootPropsType = Omit<BoxProps, 'children' | 'content'>;
 
@@ -3757,21 +3744,6 @@ export declare type StyleConfig = Partial<{
     text?: string;
 }> | ((feature: unknown) => StyleConfig);
 
-declare type StyleOption = {
-    label: string;
-    uri: string;
-    image: string;
-};
-
-declare interface StyleSelectorState {
-    selected: MapBoxSource | null;
-    mapConfig: MapCanvasConfig;
-    props: {
-        onChange: (v: LayerOption) => void;
-        data: StyleOption[];
-    };
-}
-
 declare type SupportedVariant = ButtonVariant;
 
 export declare const Switch: ForwardRefExoticComponent<Omit<SwitchProps_2, "ref"> & RefAttributes<HTMLButtonElement>>;
@@ -3780,6 +3752,79 @@ declare type SwitchProps_2 = Omit<SwitchProps, "color"> & {
     label?: string;
     labelPlacement?: "end" | "start" | "top" | "bottom";
 };
+
+export declare const Tab: ({ value, ...props }: TabProps) => JSX.Element;
+
+export declare const TabPanel: default_2.ForwardRefExoticComponent<Omit<default_2.HTMLAttributes<HTMLDivElement>, "hidden"> & {
+    /** Matches the `idPrefix` on this group's `Tabs`. */
+    idPrefix: string;
+    /** This panel's own value. */
+    value: TabValue;
+    /** The tab set's selected value — the same state `Tabs` receives. */
+    activeValue: TabValue;
+    /**
+     * Keep this panel's children mounted while it is hidden. Off by default, so
+     * an inactive panel costs nothing; on when the panel holds form state worth
+     * preserving across tab switches.
+     */
+    keepMounted?: boolean;
+} & default_2.RefAttributes<HTMLDivElement>>;
+
+export declare type TabPanelProps = Omit<default_2.HTMLAttributes<HTMLDivElement>, "hidden"> & {
+    /** Matches the `idPrefix` on this group's `Tabs`. */
+    idPrefix: string;
+    /** This panel's own value. */
+    value: TabValue;
+    /** The tab set's selected value — the same state `Tabs` receives. */
+    activeValue: TabValue;
+    /**
+     * Keep this panel's children mounted while it is hidden. Off by default, so
+     * an inactive panel costs nothing; on when the panel holds form state worth
+     * preserving across tab switches.
+     */
+    keepMounted?: boolean;
+};
+
+export declare type TabProps = Omit<TabProps_2, "value"> & {
+    /**
+     * Required, where MUI falls back to the child's index, and narrowed to
+     * `string | number` because it becomes part of a DOM id.
+     */
+    value: TabValue;
+};
+
+export declare const Tabs: default_2.ForwardRefExoticComponent<(Omit<Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & {
+    "aria-label": string;
+    "aria-labelledby"?: never;
+} & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+}, "ref"> | Omit<Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & {
+    "aria-labelledby": string;
+    "aria-label"?: never;
+} & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+}, "ref">) & default_2.RefAttributes<HTMLDivElement>>;
+
+export declare type TabsProps = Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & AccessibleName & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+};
+
+declare type TabValue = string | number;
 
 export declare const TelicentHorizontalSVG: default_2.FC<SvgIconProps>;
 
@@ -4058,10 +4103,6 @@ export declare const useExtendedTheme: () => ExtendedTheme;
 export declare const useFloatingPanels: () => {
     panels: string[];
 };
-
-export { useMap }
-
-export declare const useMapCanvasContext: () => MapCanvasState;
 
 export declare const UserIcon: default_2.FC<SvgIconProps_2>;
 
