@@ -10,6 +10,7 @@
 // Requires dist/export.d.ts (run `yarn build` first) — extract-props reads it.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
+import { resolveDocumentsLabel } from "./llms-version-label.mjs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { loadProps } from "./extract-props.mjs";
@@ -26,14 +27,6 @@ const version = JSON.parse(
   readFileSync(resolve(root, "package.json"), "utf8")
 ).version;
 
-// What the manifest claims to document. `version` alone is a lie between
-// releases: package.json only moves when release-please merges, so every push
-// to main regenerates this file from current source while still stamping the
-// last released number. A consumer on that number then gets a manifest that
-// matches their version string and documents components they do not have.
-//
-// A build is a release iff this commit is the one that set the current
-// version, i.e. the parent's package.json says something else.
 const gitOut = (args) => {
   try {
     return execFileSync("git", args, { cwd: root, encoding: "utf8" }).trim();
@@ -42,25 +35,11 @@ const gitOut = (args) => {
   }
 };
 
-const parentVersion = (() => {
-  const raw = gitOut(["show", "HEAD~1:package.json"]);
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw).version;
-  } catch {
-    return null;
-  }
-})();
-
-const isRelease = parentVersion !== null && parentVersion !== version;
-const sha = gitOut(["rev-parse", "--short", "HEAD"]);
-
-// Released builds name the version, so a consumer on it can match exactly.
-// Everything else says so, so the same comparison fails and the reader falls
-// back to the installed types instead of trusting this file.
-const documents = isRelease
-  ? `v${version}`
-  : `unreleased (main@${sha || "unknown"}, after v${version})`;
+const documents = resolveDocumentsLabel({
+  version,
+  git: gitOut,
+  ref: process.env.GITHUB_REF_NAME,
+});
 
 const rawManifest = readFileSync(
   resolve(root, "docs/COMPONENTS.md"),
