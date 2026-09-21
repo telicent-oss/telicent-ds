@@ -286,7 +286,7 @@ export const FeatureEvents: Story = {
  * put -- framing a clicked polygon would re-frame an area the size of the
  * polygon, which is rarely what an analyst wants mid-investigation.
  */
-export const MarkerAndPolygonInteraction: Story = {
+export const MarkerPolygonAndPathInteraction: Story = {
 	args: {
 		zoom: 6,
 		center: [-1.5, 52.5],
@@ -295,7 +295,7 @@ export const MarkerAndPolygonInteraction: Story = {
 			{
 				id: "marker-a",
 				geohash: "gcpvj0",
-				name: "Marker A (London) - events WORK",
+				name: "Marker A (London)",
 				style: { markerType: "pin", color: "#ff6600" },
 			},
 		],
@@ -303,7 +303,7 @@ export const MarkerAndPolygonInteraction: Story = {
 			{
 				id: "polygon-a",
 				type: "Polygon",
-				name: "Polygon A (Midlands) - events BROKEN",
+				name: "Polygon A (Midlands)",
 				coordinates: [
 					[
 						[-2.8, 52.0],
@@ -316,7 +316,19 @@ export const MarkerAndPolygonInteraction: Story = {
 				style: { color: "#cc0000", backgroundColor: "rgba(204,0,0,0.35)" },
 			},
 		],
-		paths: [],
+		paths: [
+			{
+				id: "path-a",
+				type: "LineString",
+				name: "Path A (Bristol to Norwich)",
+				coordinates: [
+					[-2.6, 51.45],
+					[-1.9, 52.48],
+					[1.3, 52.63],
+				],
+				style: { color: "#00b3a4", width: 5 },
+			},
+		],
 	},
 	render: (args) => {
 		const [log, setLog] = useState<string[]>([]);
@@ -362,8 +374,11 @@ export const MarkerAndPolygonInteraction: Story = {
 					<div style={{ color: "#ff9a4d" }}>
 						Marker (orange pin): emits, and the map flies to it
 					</div>
-					<div style={{ color: "#ff6b6b", marginBottom: 6 }}>
-						Polygon: emits, and the viewport stays put
+					<div style={{ color: "#ff6b6b" }}>
+						Polygon (red): emits, and the viewport stays put
+					</div>
+					<div style={{ color: "#4fd1c5", marginBottom: 6 }}>
+						Path (teal): emits, and the viewport stays put
 					</div>
 					{log.length === 0 && <div>Click or hover each one...</div>}
 					{log.map((line, i) => (
