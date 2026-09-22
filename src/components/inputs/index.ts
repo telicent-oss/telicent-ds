@@ -9,6 +9,8 @@ export type { SelectProps } from "./Select/Select";
 export type { Options } from "./Select/Select";
 export type { SelectFooterArgs } from "./Select/Select";
 export { default as Switch } from "./Switch/Switch";
+export { default as LabeledSwitch } from "./LabeledSwitch/LabeledSwitch";
+export type { LabeledSwitchProps } from "./LabeledSwitch/LabeledSwitch";
 
 export { default as DatePicker } from "./DatePicker/DatePicker";
 export { default as DateTimePicker } from "./DateAndTimePicker/DateTimePicker";
