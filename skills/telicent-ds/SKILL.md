@@ -2,7 +2,7 @@
 name: telicent-ds
 description: Reads the @telicent-oss/ds component manifest that ships inside the installed package and follows it as the source of truth for Telicent UI, falling back to the installed type declarations when the package predates it. Use when building, adding, or changing any Telicent app screen, page, form, dialog, or component; when the user names @telicent-oss/ds or the Telicent design system; or when editing a file that imports from @telicent-oss/ds. Pulls component names, props, and variants from the manifest instead of training memory.
 license: Apache-2.0
-allowed-tools: Read, Grep, WebFetch(domain:telicent-oss.github.io)
+allowed-tools: Read, Grep
 metadata:
   author: telicent-oss
   version: '1.0.0'
@@ -19,9 +19,7 @@ Before writing or editing any Telicent UI, fetch the component manifest for the 
 
    In a monorepo the dependency is usually hoisted to the workspace root, not the
    package you are editing. If that path is not there, try it again from each parent
-   directory up to the repository root before giving up:
-   `../node_modules/@telicent-oss/ds/dist/llms.txt`, then `../../node_modules/...`,
-   and so on.
+   directory up to the repository root before giving up.
 
 2. If no directory up to the repository root has that file, say so and say you do not
    know why yet. It may be any of: the installed release predates the packaged
@@ -29,29 +27,13 @@ Before writing or editing any Telicent UI, fetch the component manifest for the 
    permission to read there. Check which before telling the user a cause, then
    continue.
 
-3. Read the installed version from `@telicent-oss/ds/package.json` inside whichever
-   `node_modules` directory step 1 reached, BY PATH.
-   `require("@telicent-oss/ds/package.json")` throws, since the `exports` map does not
-   expose it.
+3. Use `@telicent-oss/ds/dist/export.d.ts` in whichever `node_modules` directory step 1
+   reached as the API. It is the only source that is certain to match what is installed.
 
-4. Use `@telicent-oss/ds/dist/export.d.ts` in that same directory as the API. It is the
-   only source that is certain to match what is installed.
-
-### The copy on the web is usually the wrong version
+### The copy on the web is the wrong version
 
 `https://telicent-oss.github.io/telicent-ds/llms.txt` is rebuilt on every push to
-`main`, so it is ahead of every release except for the short window after one. Its last
-line is either of:
-
-```
-This reference documents @telicent-oss/ds v4.0.0.
-This reference documents @telicent-oss/ds unreleased (main@0c7e373, after v4.0.0).
-```
-
-Fetch it only if the installed version is known, and use it only when that whole last
-line reads exactly `This reference documents @telicent-oss/ds v<installed version>.` A
-line containing `unreleased` never qualifies, whatever version it names afterwards.
-Anything else, discard it and stay on the installed types.
+`main`, so it documents unreleased source. Do not build from it.
 
 ### What the types cannot tell you
 
@@ -66,7 +48,6 @@ ask - never write the API from memory.
 - Prefer an existing `@telicent-oss/ds` component over raw HTML, MUI, or Tailwind.
 - Set colour through the theme, not Tailwind classes. Wrap the app in `UIThemeProvider`.
 - Use only what the manifest documents — an absent component or prop is not public, so don't invent it.
-- Use the web copy only when its last line names the installed version and does not say `unreleased`.
 - With no manifest for the installed version, use the installed types or ask — never guess the API.
 
 ## Gotchas

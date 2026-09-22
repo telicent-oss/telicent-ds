@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "organization": "Telicent",
-  "abstract": "Points the agent at the @telicent-oss/ds component manifest (llms.txt) that ships inside the installed package at node_modules/@telicent-oss/ds/dist/llms.txt, and keeps generated UI inside the documented component/prop/variant API. Releases up to and including 4.0.0 carry no packaged manifest, so the skill uses the installed type declarations there. The URL below is the same manifest built from main, usable only when it names the installed version.",
+  "abstract": "Points the agent at the @telicent-oss/ds component manifest (llms.txt) that ships inside the installed package at node_modules/@telicent-oss/ds/dist/llms.txt, and keeps generated UI inside the documented component/prop/variant API. Releases up to and including 4.0.0 carry no packaged manifest, so the skill uses the installed type declarations there. The URL below is the same manifest built from main, for reading rather than for building against.",
   "references": [
     "https://telicent-oss.github.io/telicent-ds/llms.txt"
   ]
