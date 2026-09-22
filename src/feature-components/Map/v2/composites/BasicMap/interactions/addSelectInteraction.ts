@@ -18,7 +18,7 @@ export const addSelectInteraction = ({
   const select = new Select({
     layers,
     condition: click,
-    // A style here is applied via feature.setStyle() and overrides the layer's own style; null leaves appearance to the layer.
+    // null keeps the layer style on a selected feature.
     style: null,
   });
 

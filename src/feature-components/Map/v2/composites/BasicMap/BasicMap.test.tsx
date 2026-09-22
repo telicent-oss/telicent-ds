@@ -364,7 +364,6 @@ describe("BasicMapV2 error handling", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([]));
-		// resetMocks in jest.config.cjs clears implementations passed to jest.fn, so the stand-in is re-installed here.
 		(MapCanvasV2 as unknown as jest.Mock).mockImplementation(
 			(canvasProps: { mapInstanceRef?: { current: unknown } }) => {
 				if (canvasProps?.mapInstanceRef) {
@@ -656,7 +655,6 @@ describe("BasicMapV2 panToFeatures", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([]));
-		// The body is required: without mapInstanceRef every handle method early-returns.
 		(MapCanvasV2 as unknown as jest.Mock).mockImplementation(
 			(props: { mapInstanceRef?: { current: unknown } }) => {
 				if (props?.mapInstanceRef) {

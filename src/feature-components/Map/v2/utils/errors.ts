@@ -1,6 +1,6 @@
 /**
- * Thrown when a feature's `coordinates` cannot be converted into geometry.
- * `featureId` is the id of the offending record.
+ * A feature whose `coordinates` could not be converted into geometry.
+ * `featureId` is that feature's id.
  */
 export class MalformedFeatureError extends Error {
   readonly featureId: string;
@@ -9,7 +9,6 @@ export class MalformedFeatureError extends Error {
     super(message);
     this.name = "MalformedFeatureError";
     this.featureId = featureId;
-    // Without this, `instanceof` returns false once compiled down to ES5.
     Object.setPrototypeOf(this, MalformedFeatureError.prototype);
   }
 }

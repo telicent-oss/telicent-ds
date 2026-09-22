@@ -108,7 +108,7 @@ describe("panToFeature", () => {
   });
 
   it("does nothing for a non-finite coordinate instead of hanging", () => {
-    // Passes isEmpty (maxX is not below minX) but still non-finite.
+    // isEmpty is false, but the extent is not finite.
     const geometry = {
       getExtent: () => [Infinity, 0, Infinity, 0],
     } as any;
@@ -222,7 +222,6 @@ describe("panToFeatures", () => {
 
     expect(fit).toHaveBeenCalledTimes(1);
     const [extent] = fit.mock.calls[0];
-    // refCenterX comes from the first non-empty feature, so the extent stays finite.
     expect(extent.every((n: number) => Number.isFinite(n))).toBe(true);
   });
 

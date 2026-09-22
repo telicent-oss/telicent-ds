@@ -2,8 +2,7 @@ export default class MockPolygon {
   private coordinates: number[][][];
 
   constructor(coords: number[][][] = []) {
-    // Matches real OpenLayers, which throws a bare TypeError on a null ring or
-    // vertex. A lenient mock would hide the commonest bad API record.
+    // Real OpenLayers throws a TypeError on a null ring or vertex.
     for (const ring of coords) {
       if (!Array.isArray(ring)) {
         throw new TypeError("Cannot read properties of null (reading 'length')");
@@ -49,9 +48,7 @@ export default class MockPolygon {
 
   getExtent(): [number, number, number, number] {
     if (!this.coordinates.length) {
-      // What real OpenLayers returns for an empty geometry. Returning
-      // [0, 0, 0, 0] here hid a non-terminating loop in normalizeX from the
-      // entire test suite.
+      // Real OpenLayers returns this for an empty geometry.
       return [Infinity, Infinity, -Infinity, -Infinity];
     }
 

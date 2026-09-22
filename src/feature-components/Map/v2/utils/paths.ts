@@ -14,7 +14,7 @@ const buildDirectionImage = (
   rotation: number
 ) => {
   if (marker?.type === "svg") {
-    // `rotation` is clockwise from north; OL rotates an Icon clockwise from the markup's drawn orientation, taken here as east.
+    // rotation is clockwise from north. The markup points east, so subtract a quarter turn.
     return new Icon({
       src: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(marker.markup)}`,
       rotation: rotation - Math.PI / 2,
@@ -114,8 +114,7 @@ export const pathToOLFeature = (
       }),
     });
 
-    // Stored, never applied with setStyle(): a feature style replaces the layer style, killing the `pathStyle` prop for this path.
-    // getPathLayerDefaultStyle() reads `originalStyle` back when no `pathStyle` is set.
+    // Not applied with setStyle(): a feature style would override the map's pathStyle.
     if (style.direction) {
       feature.set("originalStyle", [
         strokeStyle,

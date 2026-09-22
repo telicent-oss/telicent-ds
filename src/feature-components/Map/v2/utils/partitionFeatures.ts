@@ -7,9 +7,8 @@ export interface PartitionedFeatures {
 }
 
 /**
- * Converts each item, returning the features that converted and a
- * `MalformedFeatureError` for each that did not. Any error becomes one, so a
- * single bad record cannot stop the rest.
+ * Converts each item. Returns the converted features and one
+ * `MalformedFeatureError` per item that failed. Any thrown error counts as a failure.
  */
 export const partitionFeatures = <T extends { id: string }>(
   items: T[],

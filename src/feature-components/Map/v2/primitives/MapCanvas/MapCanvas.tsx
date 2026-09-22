@@ -83,7 +83,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			return
 		}
 
-		// An overlap is resolved by layer z-order, not the order of this array.
+		// Array order does not set hit priority. Layer z-order does.
 		const interactiveLayers = [
 			markerLayer,
 			findVectorLayerById(layers, POLYGON_LAYER_ID),
@@ -98,7 +98,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 					.map(f => f.getId?.())
 					.filter((id): id is string => typeof id === "string");
 
-				// Markers only: fitting a clicked path or polygon re-frames the viewport to that feature's own extent.
+				// Only a marker click moves the view.
 				const markerSource = markerLayer.getSource();
 				const markers = features.filter(
 					(f) => markerSource?.hasFeature?.(f) ?? false

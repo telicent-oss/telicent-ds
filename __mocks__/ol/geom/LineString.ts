@@ -2,10 +2,7 @@ export default class MockLineString {
   private coordinates: number[][];
 
   constructor(coords: number[][] = []) {
-    // Real OpenLayers reads coords[i][0] while flattening, so a null or
-    // non-array vertex throws a bare TypeError. A lenient mock here would let
-    // a bad API record look survivable in tests and take the map down in a
-    // browser.
+    // Real OpenLayers throws a TypeError on a null vertex.
     for (const vertex of coords) {
       if (!Array.isArray(vertex)) {
         throw new TypeError("Cannot read properties of null (reading '0')");
@@ -43,9 +40,7 @@ export default class MockLineString {
 
   getExtent(): [number, number, number, number] {
     if (!this.coordinates.length) {
-      // What real OpenLayers returns for an empty geometry. Returning
-      // [0, 0, 0, 0] here hid a non-terminating loop in normalizeX from the
-      // entire test suite.
+      // Real OpenLayers returns this for an empty geometry.
       return [Infinity, Infinity, -Infinity, -Infinity];
     }
 

@@ -40,18 +40,16 @@ export const fitToFeature = (
 
   const projection = view.getProjection();
   const worldExtent = projection.getExtent();
-  // A projection's extent defaults to null; getWidth throws on it.
   if (!worldExtent) return;
 
   const worldWidth = getWidth(worldExtent);
 
-  // Normalizes a longitude (X) to the world extent.
-  // Modular, not a subtract loop: subtracting worldWidth from an x near Number.MAX_VALUE leaves it unchanged.
+  // Wraps x into the world extent.
   const normalizeX = (x: number) => {
     if (!Number.isFinite(x)) return x;
 
     const offsetFromWest = x - worldExtent[0];
-    // `%` keeps the dividend's sign, so an X west of the world needs the second pass.
+    // Adding worldWidth before the second modulo turns a negative remainder positive.
     const offsetInWorld =
       ((offsetFromWest % worldWidth) + worldWidth) % worldWidth;
 
@@ -65,7 +63,6 @@ export const fitToFeature = (
     extent = [coords[0], coords[1], coords[0], coords[1]];
   } else {
     const geomExtent = geometry.getExtent();
-    // OpenLayers reports an empty geometry's extent as [Infinity, Infinity, -Infinity, -Infinity].
     if (isEmpty(geomExtent)) return;
 
     // Normalize X for antimeridian
@@ -124,7 +121,6 @@ export const fitToFeatures = (
     if (!geom) continue;
 
     const extent = geom.getExtent();
-    // An empty extent's centre is NaN; as refCenterX it would make every worldShift NaN.
     if (isEmpty(extent)) continue;
 
     const centerX = (extent[0] + extent[2]) / 2;

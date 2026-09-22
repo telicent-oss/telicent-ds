@@ -42,7 +42,7 @@ export const getDefaultOverlayStyle = (): StyleLike => (feature) => {
   });
 };
 
-/** Gives each path its own `style` if it set one, otherwise the default overlay style. */
+/** Draws each path with its own `style`, or the default overlay style. */
 export const getPathLayerDefaultStyle = (): StyleLike => {
   const fallback = getDefaultOverlayStyle() as StyleFunction;
   return (feature, resolution) => {

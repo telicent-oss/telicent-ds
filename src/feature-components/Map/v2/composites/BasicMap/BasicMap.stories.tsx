@@ -72,7 +72,7 @@ BasicMapV2 is a React wrapper around OpenLayers that displays a map with selecta
 
 ### Quick usage
 \`\`\`tsx
-// markers and polygons are required; pass empty arrays for a bare map.
+// markers and polygons are required. Pass [] for none.
 // LayerSelector is rendered automatically.
 <BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} />
 \`\`\`
@@ -273,8 +273,7 @@ export const FeatureEvents: Story = {
 	},
 };
 
-/** Markers, polygons and paths all report through the same event callbacks,
- * but only a marker click moves the view. */
+/** Only a marker click moves the view. Polygon and path clicks only fire the callbacks. */
 export const MarkerPolygonAndPathInteraction: Story = {
 	args: {
 		zoom: 6,
@@ -499,7 +498,7 @@ export const DirectionTriangle: Story = {
 	},
 };
 
-// Drawing this markup pointing north breaks it: buildDirectionImage rotates by -π/2.
+// Draw the direction marker pointing east. The map rotates it from there.
 const chevronSvg = [
 	`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">`,
 	`<path d="M8 4 L16 12 L8 20" fill="none" stroke="#FF6600" stroke-width="3"`,
@@ -667,7 +666,6 @@ const pathStylePaths: PathFeature[] = [
 	},
 ];
 
-// Hoisted so the style function does not allocate a Style on each call.
 const SELECTED_PATH_STYLE = new Style({
 	stroke: new Stroke({ color: "#FF6600", width: 5 }),
 });
@@ -822,8 +820,7 @@ const PathStyleBeatsPerPathStyleDemo = () => {
 	);
 };
 
-/** Toggles `pathStyle` on against two paths that carry their own `style`. */
-// see pathStyle in map-types.ts
+/** `pathStyle` overrides each path's own `style`. */
 export const PathStyleBeatsPerPathStyle: Story = {
 	render: () => <PathStyleBeatsPerPathStyleDemo />,
 };
@@ -884,7 +881,7 @@ const MalformedFeatureReportedDemo = () => {
 	);
 };
 
-/** A malformed path is skipped and reported through `onError`; the other path still draws. */
+/** The malformed path is skipped and reported through `onError`. The other path still draws. */
 export const MalformedFeatureReportedToOnError: Story = {
 	render: () => <MalformedFeatureReportedDemo />,
 };
@@ -917,7 +914,7 @@ const LayerSetupFailureDemo = () => {
 	);
 };
 
-/** An unrecognised layer kind makes layer setup fail, leaving the map blank. */
+/** An unknown layer kind fails layer setup. The map stays blank and `onError` fires. */
 export const LayerSetupFailureReportsToOnError: Story = {
 	render: () => <LayerSetupFailureDemo />,
 };

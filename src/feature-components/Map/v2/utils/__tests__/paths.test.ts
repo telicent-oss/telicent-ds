@@ -5,7 +5,7 @@ import { MultiLineString } from "ol/geom";
 import { Style } from "ol/style";
 import { PathFeature } from "../../types/paths";
 
-// The ol mocks in __mocks__/ol/style store constructor options on `.props`, except RegularShape, which uses `.options`.
+// The style mocks expose constructor options as `.props`; RegularShape uses `.options`.
 type MockStyle = Style & {
   props: Record<string, MockStyle>;
   options: Record<string, MockStyle>;
@@ -73,7 +73,6 @@ describe("pathToOLFeature", () => {
     expect(stroke.props.color).toBe("#FF0000");
     expect(stroke.props.width).toBe(4);
     expect(stroke.props.lineDash).toEqual([5, 3]);
-    // see pathToOLFeature
     expect(feature.getStyle()).toBeNull();
   });
 

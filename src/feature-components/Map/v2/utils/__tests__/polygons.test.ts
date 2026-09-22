@@ -104,7 +104,7 @@ describe("polygonToOLFeature", () => {
       id: "bad-poly",
       type: "Polygon",
       name: "Malformed",
-      // MultiPolygon nesting (4D) under a Polygon (3D) type
+      // 4D (MultiPolygon) coordinates under type "Polygon"
       coordinates: [
         [
           [

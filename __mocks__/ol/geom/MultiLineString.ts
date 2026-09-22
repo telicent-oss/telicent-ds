@@ -36,9 +36,7 @@ export default class MockMultiLineString {
 
   getExtent(): [number, number, number, number] {
     if (!this.coordinates.length) {
-      // What real OpenLayers returns for an empty geometry. Returning
-      // [0, 0, 0, 0] here hid a non-terminating loop in normalizeX from the
-      // entire test suite.
+      // Real OpenLayers returns this for an empty geometry.
       return [Infinity, Infinity, -Infinity, -Infinity];
     }
 
