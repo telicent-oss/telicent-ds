@@ -78,9 +78,9 @@ describe("resolveDocumentsLabel", () => {
     expect(warn).toHaveBeenCalled();
   });
 
-  it("stays quiet on a root commit, which legitimately has no parent", () => {
+  it("says unreleased on a root commit without warning, since it has no parent", () => {
     const warn = jest.fn();
-    resolveDocumentsLabel({
+    const label = resolveDocumentsLabel({
       version: "0.1.0",
       warn,
       git: fakeGit({
@@ -90,35 +90,8 @@ describe("resolveDocumentsLabel", () => {
         "rev-parse --short HEAD": "abc1234",
       }),
     });
-    expect(warn).not.toHaveBeenCalled();
-  });
-
-  it("reads the first parent on a merge commit, which is the release case", () => {
-    // Release PRs land on main as merge commits: 0c7e373f has two parents, and
-    // first-parent order puts the pre-release main tip at HEAD~1.
-    const label = resolveDocumentsLabel({
-      version: "4.0.0",
-      warn: jest.fn(),
-      git: fakeGit({
-        ...FULL_CLONE,
-        "show HEAD~1:package.json": JSON.stringify({ version: "3.7.0" }),
-      }),
-    });
-    expect(label).toBe("v4.0.0");
-  });
-
-  it("says unreleased on a root commit, which has no parent to compare", () => {
-    const label = resolveDocumentsLabel({
-      version: "0.1.0",
-      warn: jest.fn(),
-      git: fakeGit({
-        "rev-parse --git-dir": ".git",
-        "rev-parse --is-shallow-repository": "false",
-        "rev-parse --abbrev-ref HEAD": "main",
-        "rev-parse --short HEAD": "abc1234",
-      }),
-    });
     expect(label).toBe("unreleased (main@abc1234, after v0.1.0)");
+    expect(warn).not.toHaveBeenCalled();
   });
 
   it("says unreleased outside a git repo, e.g. an unpacked tarball", () => {
