@@ -42,7 +42,7 @@ export const getDefaultOverlayStyle = (): StyleLike => (feature) => {
   });
 };
 
-/** Path layer style when no `pathStyle` is set; reads back the `originalStyle` a path carries (see `pathToOLFeature` in paths.ts). */
+/** Gives each path its own `style` if it set one, otherwise the default overlay style. */
 export const getPathLayerDefaultStyle = (): StyleLike => {
   const fallback = getDefaultOverlayStyle() as StyleFunction;
   return (feature, resolution) => {
