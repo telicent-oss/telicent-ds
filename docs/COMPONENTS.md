@@ -124,6 +124,12 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Surfaces/AppBar -->
 <!-- stories:Surfaces/Toolbar -->
 
+* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set.
+<!-- props:Tabs -->
+<!-- props:Tab -->
+<!-- props:TabPanel -->
+<!-- stories:Navigation/Tabs -->
+
 ## 3. Inputs & Forms
 *Use these instead of standard `<input>`, `<select>`, or `<textarea>` tags. Ensure accessibility labels are passed.*
 * **`TextField`**: Standard text input (wraps MUI TextField). Set the caption with `label`; use `value`/`onChange` as usual; DS adds `errorText` for an inline error message. Other props pass through to MUI TextField.

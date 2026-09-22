@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/telicent-oss/telicent-ds/compare/v3.7.0...v4.0.0) (2026-09-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* the following public exports are removed — BasicMap, FeatureMap, MapCanvas, MapCanvasProps, MapProvider, useMap, MapCanvasProvider, useMapCanvasContext, MapBoxSourceSchema, MapCanvasState, LayerSelector, LayerSelectorInsetInMap, LayerOption, ButtonZoomIn, ButtonZoomOut, MapToggleButtonPresentational. Consumers must migrate to Map v2 (BasicMapV2, LayerSelectorV2, etc.).
+
+### Miscellaneous Chores
+
+* remove Map v1 and maplibre-gl/react-map-gl (CVE fix) ([#553](https://github.com/telicent-oss/telicent-ds/issues/553)) ([76b6abe](https://github.com/telicent-oss/telicent-ds/commit/76b6abe618db21b947af131876dad0c27fce1230))
+
 ## [3.7.0](https://github.com/telicent-oss/telicent-ds/compare/v3.6.1...v3.7.0) (2026-09-02)
 
 
