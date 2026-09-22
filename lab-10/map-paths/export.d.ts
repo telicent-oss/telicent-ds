@@ -587,11 +587,13 @@ export declare interface BasicMapProperties {
     onLayersReady?: (isReady: boolean) => void;
     /**
      * Called on a failure the map survives; nothing already drawn is cleared, and
-     * without a handler the error is only logged. Four cases reach it:
+     * without a handler the error is only logged. Five cases reach it:
      *
      * - layer setup failed
      * - marker icons failed to load
      * - `setLayerOpacity` was called with an unknown layer id
+     * - `setLayerOpacity` was called before `onLayersReady(true)`, so there were
+     *   no layers to search
      * - a `polygons` or `paths` record could not be turned into geometry: a
      *   `MalformedFeatureError` naming the `featureId`, that record skipped. An
      *   unconvertible `markers` record instead aborts that render's update.
