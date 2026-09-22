@@ -17,16 +17,25 @@ Before writing or editing any Telicent UI, fetch the component manifest for the 
 1. Read `node_modules/@telicent-oss/ds/dist/llms.txt`. It ships inside the package, so
    it matches the installed version. Use it and stop here.
 
-2. If you cannot read that path, tell the user which of these it is, then continue:
-   the installed release predates the packaged manifest, or the project uses Yarn PnP
-   and has no `node_modules`, or you lack permission to read there.
+   In a monorepo the dependency is usually hoisted to the workspace root, not the
+   package you are editing. If that path is not there, try it again from each parent
+   directory up to the repository root before giving up:
+   `../node_modules/@telicent-oss/ds/dist/llms.txt`, then `../../node_modules/...`,
+   and so on.
 
-3. Read the installed version from `node_modules/@telicent-oss/ds/package.json` BY PATH.
+2. If no directory up to the repository root has that file, say so and say you do not
+   know why yet. It may be any of: the installed release predates the packaged
+   manifest, the project uses Yarn PnP and has no `node_modules` at all, or you lack
+   permission to read there. Check which before telling the user a cause, then
+   continue.
+
+3. Read the installed version from `@telicent-oss/ds/package.json` inside whichever
+   `node_modules` directory step 1 reached, BY PATH.
    `require("@telicent-oss/ds/package.json")` throws, since the `exports` map does not
    expose it.
 
-4. Use `node_modules/@telicent-oss/ds/dist/export.d.ts` as the API. It is the only
-   source that is certain to match what is installed.
+4. Use `@telicent-oss/ds/dist/export.d.ts` in that same directory as the API. It is the
+   only source that is certain to match what is installed.
 
 ### The copy on the web is usually the wrong version
 
@@ -62,7 +71,7 @@ ask - never write the API from memory.
 
 ## Gotchas
 
-Measured against DS 3.6.0 on 2026-08-24. Re-check against the manifest and the installed
+Measured against DS 4.0.0 on 2026-09-22. Re-check against the manifest and the installed
 types before relying on any of it.
 
 - **A component looks missing? Search by what it DOES, not its MUI name** — the DS
@@ -80,8 +89,9 @@ types before relying on any of it.
 - **Icons:** `@telicent-oss/mui-icons-material`, same paths as `@mui/icons-material`, a
   slimmed subset. Missing icon → add it to that package's icons-manifest and rebuild;
   never import upstream.
-- **Genuinely absent:** `Tabs`, `Tab`, `ToggleButtonGroup`. Compose from documented
-  primitives and say so — it is a gap in the DS, not the app's problem to keep solving.
+- **Genuinely absent:** `ToggleButtonGroup`. Compose from documented primitives and say
+  so — it is a gap in the DS, not the app's problem to keep solving. (`Tabs`, `Tab` and
+  `TabPanel` landed in 4.0.0 and are in the manifest.)
 - **Never silence a consuming app's `@mui/*` import ban** to get around a gap. No
   `eslint-disable`, no downgrade to `warn`. A silenced rule ships MUI and nobody sees it
   again.
