@@ -38,11 +38,9 @@ const gitOut = (args) => {
   }
 };
 
-// A release build is the commit that set the current version, so its parent's
-// package.json names a different one. Every git failure - shallow clone, root commit,
-// no checkout at all - lands on "unreleased", which is the safe direction: the reader
-// is told to distrust this file rather than to trust a stale one. Reading the parent
-// needs fetch-depth: 2 in GitHub Actions.
+// Is this commit the release-please one? It is, if the parent names a different
+// version. Anything unreadable falls through to "unreleased", which is the safe
+// direction: a reader distrusts this file rather than trusting a stale one.
 const parentVersion = (() => {
   try {
     return JSON.parse(gitOut(["show", "HEAD~1:package.json"])).version ?? null;

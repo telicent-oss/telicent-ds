@@ -39,9 +39,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # build-llms compares this commit's package.json against its parent's
-          # to tell a release build from an ordinary one. The default depth of 1
-          # has no parent, which would stamp every build "unreleased".
+          # build-llms runs `git show HEAD~1:package.json`. At depth 1 that fails,
+          # and every build gets labelled "unreleased".
           fetch-depth: 2
 
       - name: Setup Node.js
