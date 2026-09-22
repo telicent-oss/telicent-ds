@@ -38,9 +38,8 @@ const gitOut = (args) => {
   }
 };
 
-// Is this commit the release-please one? It is, if the parent names a different
-// version. Anything unreadable falls through to "unreleased", which is the safe
-// direction: a reader distrusts this file rather than trusting a stale one.
+// Released iff this commit changed the version in package.json. An unreadable
+// parent falls through to "unreleased", the safe direction.
 const parentVersion = (() => {
   try {
     return JSON.parse(gitOut(["show", "HEAD~1:package.json"])).version ?? null;
