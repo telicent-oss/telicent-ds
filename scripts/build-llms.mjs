@@ -169,7 +169,30 @@ if (propless.length > 0 || phantom.length > 0) {
 const outDir = resolve(root, "llms");
 mkdirSync(outDir, { recursive: true });
 
-const llmsFull = `${manifest}${otherExports}
+// The version goes at the TOP as well as the footer. This file is served at an
+// llms.txt URL, a convention an agent may follow without ever loading the skill, and
+// the header below tells it this is a complete reference. A reader that stops early
+// must still see which version it holds. The wording has to hold for both copies:
+// inside the package it always matches, so the instruction never fires; on the
+// website it is usually ahead, so it does.
+const versionBanner = `**VERSION:** This file documents @telicent-oss/ds ${documents}. If that is not the version installed in the project you are working on, do not build against it: read \`node_modules/@telicent-oss/ds/dist/llms.txt\` instead, which ships with the package and always matches what is installed.
+`;
+
+const withBanner = manifest.replace(
+  /^(# .*\n)/,
+  (title) => `${title}\n${versionBanner}`
+);
+
+// A silently missing banner is the whole failure this guards against: the file would
+// still look complete while telling a reader nothing about which version it is.
+if (withBanner === manifest) {
+  console.error(
+    "build-llms: docs/COMPONENTS.md must open with a '# ' title, so the version banner has somewhere to go."
+  );
+  process.exit(1);
+}
+
+const llmsFull = `${withBanner}${otherExports}
 
 ---
 
