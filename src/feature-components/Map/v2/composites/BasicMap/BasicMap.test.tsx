@@ -156,16 +156,14 @@ describe("BasicMapV2 pathStyle", () => {
 				c.kind === "overlay-vector" && c.id === PATH_LAYER_ID
 		);
 		expect(pathLayerConfig).toBeDefined();
-		// The config carries the default path style so a styled path draws
-		// correctly on the first frame. What it must never carry is props.pathStyle
-		// itself, which would put a new function identity into the config on every
-		// render and rebuild every layer.
+		// The config carries the default path style, never props.pathStyle: a new
+		// function identity in the config rebuilds every layer.
 		expect(pathLayerConfig!.style).toBeDefined();
 		expect(pathLayerConfig!.style).not.toBe(styleA);
 
 		const rebuildsBefore = (ensureLayers as jest.Mock).mock.calls.length;
 
-		// A fresh function identity each render is the case that used to spin.
+		// A parent declaring pathStyle inline gives a fresh identity each render.
 		rerender(
 			<BasicMapV2 zoom={5} center={[0, 0]} markers={[]} polygons={[]} paths={[]} pathStyle={styleB} />
 		);
@@ -263,8 +261,7 @@ describe("BasicMapV2 setLayerOpacity", () => {
 			);
 		});
 
-		// 50 is the percentage-for-fraction slip. Clamping it to 1 would leave a
-		// permanently wrong-looking map with no indication of why.
+		// 50 is the percentage-for-fraction slip; clamping it to 1 would hide it.
 		expect(() => ref.current!.setLayerOpacity("osm", 50)).toThrow();
 		expect(() => ref.current!.setLayerOpacity("osm", -0.5)).toThrow();
 		expect(mockLayer.getOpacity()).toBe(1);
@@ -371,12 +368,13 @@ const makeMockVectorLayer = (id: string) => {
 describe("BasicMapV2 error handling", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
-		// Default so a test that doesn't care about layers still gets past the
-		// layer effects; tests that assert on sources override it.
+		// Default so a test that doesn't care about layers gets past the layer
+		// effects; tests that assert on sources override it.
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([]));
-		// resetMocks: true in jest.config.cjs wipes the module factory, so the
-		// stand-in has to be re-installed here. It must populate mapInstanceRef
-		// or the effect that fills the sources early-returns.
+		// resetMocks in jest.config.cjs clears the implementation passed to
+		// jest.fn in the module factory, so the stand-in is re-installed here. It
+		// must populate mapInstanceRef or the effect that fills the sources
+		// early-returns.
 		(MapCanvasV2 as unknown as jest.Mock).mockImplementation(
 			(canvasProps: { mapInstanceRef?: { current: unknown } }) => {
 				if (canvasProps?.mapInstanceRef) {
@@ -429,9 +427,8 @@ describe("BasicMapV2 error handling", () => {
 	});
 
 	it("reports a null vertex instead of taking the map down", async () => {
-		// The converters only check the nesting of the first coordinate. A null
-		// vertex further in makes OpenLayers throw a bare TypeError, which is the
-		// ordinary shape of a bad record from an API adapter.
+		// The converters check the nesting of the first coordinate only; a null
+		// vertex further in makes OpenLayers throw a bare TypeError.
 		const nullVertexPath = {
 			id: "null-vertex",
 			type: "LineString",
@@ -480,7 +477,6 @@ describe("BasicMapV2 error handling", () => {
 			);
 		});
 
-		// One bad record out of two costs that record, not the map.
 		expect(onError).toHaveBeenCalledTimes(1);
 		const added = (path.source.addFeatures as jest.Mock).mock.calls[0][0];
 		expect(added).toHaveLength(1);
@@ -506,8 +502,8 @@ describe("BasicMapV2 error handling", () => {
 
 		expect(onError).toHaveBeenCalledTimes(1);
 
-		// A fresh array identity each render is what a parent building the list
-		// inline produces. The same broken record must not re-report forever.
+		// A parent building the list inline gives a fresh array identity each
+		// render.
 		await act(async () => {
 			rerender(
 				<BasicMapV2
@@ -525,8 +521,8 @@ describe("BasicMapV2 error handling", () => {
 	});
 
 	it("tells onLayersReady the map is not ready when layer setup fails", async () => {
-		// Without this an app that spins until onLayersReady(true) spins forever:
-		// the failure only reached onError.
+		// A consumer waiting on onLayersReady(true) has no other signal that setup
+		// failed.
 		(ensureLayers as jest.Mock).mockReturnValue(
 			Promise.reject(new Error("ensureLayers boom"))
 		);
@@ -554,8 +550,6 @@ describe("BasicMapV2 error handling", () => {
 	});
 
 	it("reports an unknown layer id from setLayerOpacity", async () => {
-		// A typo in the id used to do nothing at all, which was indistinguishable
-		// from layers that had not resolved yet.
 		const marker = makeMockVectorLayer(MARKER_LAYER_ID);
 		(ensureLayers as jest.Mock).mockReturnValue(
 			Promise.resolve([marker.layer])
@@ -586,8 +580,8 @@ describe("BasicMapV2 error handling", () => {
 	});
 
 	it("stays quiet when setLayerOpacity is called before the layers resolve", async () => {
-		// Layers are empty until ensureLayers settles. A call that early is a
-		// timing mistake, not a wrong id, so reporting it would cry wolf.
+		// Layers are empty until ensureLayers settles, so a call that early is a
+		// timing mistake rather than a wrong id.
 		let resolveLayers: (layers: unknown[]) => void = () => undefined;
 		(ensureLayers as jest.Mock).mockReturnValue(
 			new Promise((resolve) => {
@@ -680,9 +674,9 @@ describe("BasicMapV2 panToFeatures", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([]));
-		// resetMocks: true in jest.config.cjs wipes the module factory, so the
-		// stand-in has to be re-installed here. It must populate mapInstanceRef
-		// or every handle method early-returns with "Map is not ready yet".
+		// Re-installed per test (see the error-handling describe above). It must
+		// populate mapInstanceRef or every handle method early-returns with
+		// "Map is not ready yet".
 		(MapCanvasV2 as unknown as jest.Mock).mockImplementation(
 			(props: { mapInstanceRef?: { current: unknown } }) => {
 				if (props?.mapInstanceRef) {
@@ -694,9 +688,6 @@ describe("BasicMapV2 panToFeatures", () => {
 	});
 
 	it("frames every requested feature, not just the first", async () => {
-		// Regression: panToFeatures called the SINGULAR fitToFeature on
-		// features[0], so "show me these results" flew the analyst to one
-		// arbitrary result and left the rest off-screen.
 		const f1 = { id: "a" };
 		const f2 = { id: "b" };
 		const f3 = { id: "c" };

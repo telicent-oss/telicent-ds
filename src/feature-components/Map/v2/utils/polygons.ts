@@ -10,8 +10,6 @@ export const polygonToOLFeature = (
 ): Feature<Polygon | MultiPolygon> => {
   const { type, coordinates, id, meta } = polygon;
 
-  // Validate coordinate nesting against the declared type before building the
-  // OL geometry (Polygon = 3D, MultiPolygon = 4D) instead of casting.
   let geometry: Polygon | MultiPolygon;
   if (type === "MultiPolygon") {
     if (!is4D(coordinates)) {

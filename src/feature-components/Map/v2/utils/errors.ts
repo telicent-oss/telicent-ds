@@ -1,13 +1,11 @@
 /**
  * Names a feature whose `coordinates` could not be converted into geometry.
  *
- * `polygonToOLFeature` and `pathToOLFeature` throw this when the nesting
- * contradicts the declared `type`, rather than handing broken geometry to
- * OpenLayers. BasicMapV2 also wraps anything else a conversion throws in this
- * class, so a null vertex that OpenLayers rejects arrives the same way -- with
- * OpenLayers' own wording in the message. BasicMapV2 catches it per feature, skips that
- * record and passes this error to `onError`, so a consumer can tell a bad
- * record apart from any other failure and read which one it was:
+ * `polygonToOLFeature` and `pathToOLFeature` throw this when the coordinate
+ * nesting contradicts the declared `type`. `partitionFeatures` wraps any other
+ * conversion failure in this class too, so a `TypeError` from OpenLayers on a
+ * null vertex arrives the same way, carrying OpenLayers' wording in the
+ * message. The record is skipped and the error is passed to `onError`:
  *
  * ```ts
  * if (error instanceof MalformedFeatureError) { log(error.featureId); }

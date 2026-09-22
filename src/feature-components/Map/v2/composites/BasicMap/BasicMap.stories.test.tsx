@@ -18,7 +18,7 @@ describe("error behaviour stories render", () => {
 
   it("MalformedFeatureReportedToOnError lists the bad feature and keeps the map", async () => {
     renderStory(MalformedFeatureReportedToOnError);
-    // Rendered by the DS ErrorFallbackText, not bespoke story markup.
+    // ErrorFallbackText renders `name` as "⚠️ <name> failed to load".
     expect(screen.getByText(/BasicMapV2 failed to load/)).toBeTruthy();
     await waitFor(() =>
       expect(document.body.textContent).toContain(

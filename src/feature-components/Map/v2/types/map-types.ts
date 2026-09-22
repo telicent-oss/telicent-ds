@@ -67,17 +67,16 @@ export type BasicMapV2Handle = {
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
   /**
-   * Sets one layer's opacity, 0 to 1. Throws on a value outside that range and
-   * reports an unknown `layerId` through `onError`.
+   * Sets one layer's opacity. Throws on NaN, Infinity, or a value outside 0 to
+   * 1, and reports an unknown `layerId` through `onError`.
    *
    * For the overlays use the exported `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and
    * `PATH_LAYER_ID` rather than the literal strings.
    *
-   * Call it after `onLayersReady(true)`; before that there are no layers to
-   * set and the call does nothing. The value lasts until the next layer
-   * rebuild, which happens whenever `layers` changes identity -- every render
-   * if the parent passes an array literal. For an opacity that persists, set
-   * it on the `layers` config instead.
+   * A valid value does nothing until `onLayersReady(true)`. It then lasts until
+   * the next layer rebuild, which happens whenever `layers` changes identity:
+   * every render if the parent passes an array literal. For an opacity that
+   * persists, set it on the `layers` config instead.
    */
   setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
@@ -97,14 +96,13 @@ export interface BasicMapProperties {
   zoom: number;
   center: number[];
   /**
-   * Base layers, drawn under the markers, polygons and paths. Wins over the
-   * deprecated `mapStyleOptions` when both are passed. Omit both and the map
-   * draws with no basemap.
+   * Base layers, drawn under the markers, polygons and paths. A non-empty
+   * `layers` overrides the deprecated `mapStyleOptions`; an empty array falls
+   * through to it. Omit both and the map draws with no basemap.
    *
-   * A layer's `opacity` must be a number from 0 to 1. Unlike a bad feature
-   * record, a bad opacity throws rather than reporting through `onError`: the
-   * value is written by a developer in a prop or a deployment config, so it is
-   * a mistake to surface at once rather than data to skip.
+   * A layer's `opacity` must be a number from 0 to 1. A bad opacity throws,
+   * where a bad feature record is reported through `onError` instead: opacity
+   * comes from a prop or a deployment config, not from runtime data.
    */
   layers?: LayerConfig[];
   controls?: Partial<MapControlsConfig>;
@@ -113,10 +111,11 @@ export interface BasicMapProperties {
    */
   mapStyleOptions?: LegacyMapConfig;
   /**
-   * Feature ids share one namespace with `polygons` and `paths`. `panToFeature`
-   * and `onFeatureClick` key on the id alone, and a lookup takes the first
-   * match with the marker layer searched first, so an id reused across the
-   * three collections resolves to the marker.
+   * Feature ids share one namespace with `polygons` and `paths`.
+   * `panToFeature` and `panToFeatures` take the first match, searching the
+   * marker layer first, so an id reused across the three collections resolves
+   * to the marker. `onFeatureClick` reports ids, so a reused id does not
+   * identify which feature was clicked.
    */
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
@@ -125,23 +124,24 @@ export interface BasicMapProperties {
    * `feature.getId()` is what `pathStyle` receives and what `panToFeature`
    * matches on.
    *
-   * A path may carry its own `style`. Supplying `pathStyle` below replaces it
-   * for every path -- see there.
+   * A path may carry its own `style`, which `pathStyle` overrides. See
+   * `pathStyle`.
    */
   paths?: PathFeature[];
   /**
    * Style for the whole path layer: a single style, or a function called per
    * feature.
    *
-   * `pathStyle` wins outright. It applies to every path, including paths that
-   * set their own `style`, and those paths lose that appearance while it is
-   * set. To keep a path's own look and still respond to selection, branch on
-   * the id inside this function and return the style you want.
+   * It overrides every path's own `style`, direction arrows included, since the
+   * arrows are part of that style. Omit it and each path renders with its own
+   * `style`, or the default overlay style if it has none.
    *
-   * Omit it and each path renders with its own `style`, or the default overlay
-   * style if it has none.
+   * Changing it restyles and redraws the path layer. It does not rebuild the
+   * layers or move the viewport. A new function identity on every render
+   * redraws on every render, so memoise it on the state it reads, and hoist the
+   * `Style` objects: the function runs once per feature per layer render.
    *
-   * For selection-driven restyling, just close over state and compare ids:
+   * For selection-driven restyling, compare ids inside the function:
    *
    * ```tsx
    * const [selected, setSelected] = useState<string | null>(null);
@@ -149,17 +149,8 @@ export interface BasicMapProperties {
    *   feature.getId() === selected ? SELECTED : UNSELECTED;
    * ```
    *
-   * A new function identity is re-applied to the layer, which redraws it, so
-   * no manual refresh is needed. The flip side is that a new identity on every
-   * render redraws on every render: memoise it on the state it reads if that
-   * matters. Hoist the `Style` objects themselves — the function runs per
-   * feature per frame.
-   *
-   * Supplying this replaces a path's own `style` outright, direction arrows
-   * included: the arrows are part of the style this prop overrides, so a path
-   * that drew arrows stops drawing them. To keep them, read the path's own
-   * style back off the feature and fall through to it. It is stored under the
-   * `originalStyle` key and `get` returns `unknown`, so it needs a cast:
+   * A path's own `style` stays readable on the feature under the
+   * `originalStyle` key, so a function can fall through to it:
    *
    * ```tsx
    * const pathStyle = (feature: FeatureLike) =>
@@ -169,17 +160,15 @@ export interface BasicMapProperties {
    *       UNSELECTED;
    * ```
    *
-   * It is `undefined` for a path that set no `style` of its own, so give that
-   * case a fallback rather than returning it straight.
-   *
-   * Changing this does not rebuild the layers or move the viewport.
+   * It is `undefined` for a path that set no `style` of its own, so that case
+   * needs a fallback.
    */
   pathStyle?: StyleLike;
   onFeatureClick?: OnFeatureClick;
   onFeatureHover?: OnFeatureHover;
   /**
    * `true` once the base layers have resolved, and again after any rebuild.
-   * `false` on unmount, and when layer setup fails -- in which case `onError`
+   * `false` on unmount, and when layer setup fails, in which case `onError`
    * fires too.
    *
    * Ready means the layers exist. Markers, polygons and paths are added just
@@ -187,29 +176,27 @@ export interface BasicMapProperties {
    */
   onLayersReady?: (isReady: boolean) => void;
   /**
-   * Called on a failure the map survives. Nothing is ever cleared, so whatever
-   * was already drawn stays — an empty map if this was the first load, an
-   * out-of-date one otherwise. Without a handler the error is only logged, so
-   * pass this if the app needs to show that the map is incomplete.
+   * Called on a failure the map survives. Nothing already drawn is cleared, so
+   * the map is left empty if this was the first load and out of date
+   * otherwise. Without a handler the error is only logged.
    *
-   * Three cases reach it:
+   * Four cases reach it:
    *
    * - layer setup failed
    * - marker icons failed to load
+   * - `setLayerOpacity` was called with an unknown layer id
    * - a `polygons` or `paths` record could not be turned into geometry, most
    *   often because its `coordinates` contradict its `type`. That record is
    *   skipped and the rest of the map still draws. The error is a
-   *   `MalformedFeatureError` naming the `featureId`, so an app can decide
-   *   between a toast and a throw.
+   *   `MalformedFeatureError` naming the `featureId`.
    *
    * Skipping covers `polygons` and `paths` only. A `markers` record that
-   * cannot be converted aborts the whole update -- that render's polygons and
-   * paths are dropped with it, and the error reads "could not load marker
-   * icons".
+   * cannot be converted aborts that render's update, so its polygons and paths
+   * are not added either.
    *
-   * A malformed record is reported once per mounted map. Remounting reports it
-   * again, so an app that survives a route or tab switch should key on
-   * `featureId` itself rather than count calls.
+   * A malformed record is reported once per mounted map, per message.
+   * Remounting reports it again, so an app that survives a route or tab switch
+   * should key on `featureId` rather than count calls.
    */
   onError?: (error: Error) => void;
 }

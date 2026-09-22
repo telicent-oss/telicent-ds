@@ -6,8 +6,8 @@ import { FeatureEvent } from "../../../types/map-types";
 
 interface AddSelectInteractionOptions {
   map: OlMap;
-  /** Every layer whose features are selectable. One Select across all of them,
-   *  so an overlap resolves once instead of firing per layer. */
+  /** Every layer whose features are selectable. One Select spans all of them,
+   *  and with `multi` false a click on overlapping features selects one. */
   layers: VectorLayer[];
   onSelect?: (features: Feature[], event?: FeatureEvent) => void;
 }
@@ -20,10 +20,9 @@ export const addSelectInteraction = ({
   const select = new Select({
     layers,
     condition: click,
-    // OpenLayers applies a Select style by calling setStyle() on the selected
-    // feature, which overrides its layer's style. Any style here would beat
-    // BasicMapV2's pathStyle prop the instant a path was clicked, so selection
-    // is reported through onSelect only and appearance stays with the layer.
+    // OpenLayers applies a Select style with feature.setStyle(), which
+    // overrides the layer's style. Null leaves appearance to the layer and
+    // reports selection through onSelect only.
     style: null,
   });
 

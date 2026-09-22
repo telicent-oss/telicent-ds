@@ -14,8 +14,8 @@ const buildDirectionImage = (
   rotation: number
 ) => {
   if (marker?.type === "svg") {
-    // SVGs are assumed to point right (east) at rest; offset by -π/2 to
-    // align with the north-based rotation used by OL.
+    // `rotation` is measured clockwise from north. OL rotates an Icon
+    // clockwise from the markup's drawn orientation, taken here as east.
     return new Icon({
       src: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(marker.markup)}`,
       rotation: rotation - Math.PI / 2,
@@ -24,7 +24,6 @@ const buildDirectionImage = (
     });
   }
 
-  // Default: triangle
   return new RegularShape({
     points: 3,
     radius: size,
@@ -77,8 +76,6 @@ export const pathToOLFeature = (
 ): Feature<LineString | MultiLineString> => {
   const { type, coordinates, id, meta, style } = path;
 
-  // Validate coordinate nesting against the declared type before building the
-  // OL geometry (LineString = 2D, MultiLineString = 3D) instead of casting.
   let geometry: LineString | MultiLineString;
   if (type === "MultiLineString") {
     if (!is3D(coordinates)) {
@@ -118,11 +115,11 @@ export const pathToOLFeature = (
       }),
     });
 
-    // Stored on the feature, never applied with setStyle(). OpenLayers treats
-    // a feature style as an override of the layer style, so setting it here
-    // would make BasicMapV2's layer-level `pathStyle` prop dead for any path
-    // that carries its own `style`. getPathLayerDefaultStyle() reads this back
-    // when no pathStyle is supplied, so a path still looks the same.
+    // Stored on the feature, never applied with setStyle(). OpenLayers renders
+    // a feature with its own style function in place of the layer's, which
+    // would make BasicMapV2's layer-level `pathStyle` prop dead for this path.
+    // getPathLayerDefaultStyle() reads `originalStyle` back when no `pathStyle`
+    // is supplied.
     if (style.direction) {
       feature.set("originalStyle", [
         strokeStyle,

@@ -45,10 +45,8 @@ export const getDefaultOverlayStyle = (): StyleLike => (feature) => {
 /**
  * The path layer's style when the consumer supplies no `pathStyle`.
  *
- * A path's own `style` is stored on the feature as `originalStyle` rather than
- * applied with `setStyle()`, so that a layer-level `pathStyle` can override it.
- * This reads it back, which is what keeps a styled path looking the same when
- * no `pathStyle` is set.
+ * Reads back the `originalStyle` a path carries (see `pathToOLFeature` in
+ * paths.ts), so a styled path looks the same with no `pathStyle` set.
  */
 export const getPathLayerDefaultStyle = (): StyleLike => {
   const fallback = getDefaultOverlayStyle() as StyleFunction;

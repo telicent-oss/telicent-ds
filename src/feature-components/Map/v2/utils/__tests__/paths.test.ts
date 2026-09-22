@@ -5,7 +5,8 @@ import { MultiLineString } from "ol/geom";
 import { Style } from "ol/style";
 import { PathFeature } from "../../types/paths";
 
-// Mock classes store constructor args in .props or .options
+// The ol mocks in __mocks__/ol/style store constructor options on `.props`,
+// except RegularShape, which uses `.options`.
 type MockStyle = Style & {
   props: Record<string, MockStyle>;
   options: Record<string, MockStyle>;
@@ -73,8 +74,7 @@ describe("pathToOLFeature", () => {
     expect(stroke.props.color).toBe("#FF0000");
     expect(stroke.props.width).toBe(4);
     expect(stroke.props.lineDash).toEqual([5, 3]);
-    // Never applied as a feature style: that would override the layer style
-    // and make BasicMapV2's pathStyle prop dead for this path.
+    // A feature style would replace the layer style; see `pathToOLFeature`.
     expect(feature.getStyle()).toBeNull();
   });
 

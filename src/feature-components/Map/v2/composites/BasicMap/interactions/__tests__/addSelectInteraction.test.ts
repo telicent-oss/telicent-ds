@@ -39,9 +39,6 @@ describe("addSelectInteraction", () => {
   });
 
   it("gives Select no style so a selected feature keeps its layer's", () => {
-    // OpenLayers applies a Select style by calling setStyle() on the feature,
-    // which overrides the layer style. A style here would beat BasicMapV2's
-    // pathStyle prop for any clicked path.
     addSelectInteraction({ map, layers: [layer] });
 
     expect((Select as jest.Mock).mock.calls[0][0].style).toBeNull();

@@ -97,10 +97,7 @@ describe("panToFeature", () => {
   });
 
   it("does nothing for an empty geometry instead of hanging", () => {
-    // Real OL reports [Infinity, Infinity, -Infinity, -Infinity] for an empty
-    // geometry. normalizeX used to subtract its way down from Infinity, which
-    // never terminates and freezes the tab. The old test here mocked
-    // getExtent() returning undefined, which real OL never does.
+    // An empty OpenLayers geometry reports this extent.
     const geometry = {
       getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
     } as any;
@@ -124,9 +121,7 @@ describe("panToFeature", () => {
   });
 
   it("normalizes a far-out longitude without looping", () => {
-    // The old subtract-until-in-range loop hung here: Number.MAX_VALUE minus
-    // the world width is still exactly Number.MAX_VALUE in float64, so the
-    // condition never flipped.
+    // Number.MAX_VALUE - 360 === Number.MAX_VALUE in float64.
     const geometry = {
       getExtent: () => [Number.MAX_VALUE, 0, Number.MAX_VALUE, 0],
     } as any;
@@ -139,7 +134,7 @@ describe("panToFeature", () => {
   });
 
   it("does nothing when the projection reports no world extent", () => {
-    // fitToFeatures guards this; fitToFeature went straight to getWidth.
+    // getWidth throws on a null world extent.
     const noExtentMap = {
       getView: () => ({
         getProjection: () => ({ getExtent: () => null }),
@@ -213,10 +208,6 @@ describe("panToFeatures", () => {
   });
 
   it("skips an empty geometry listed first, whatever the order", () => {
-    // Regression: an empty extent averaged to NaN, which became refCenterX and
-    // shifted every later feature out of existence, ending in OL throwing
-    // "Cannot fit empty extent". It only bit when the empty feature came
-    // first, so the failure was order-dependent.
     const empty = {
       getGeometry: () => ({
         getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
@@ -233,8 +224,7 @@ describe("panToFeatures", () => {
 
     expect(fit).toHaveBeenCalledTimes(1);
     const [extent] = fit.mock.calls[0];
-    // refCenterX must come from the first NON-EMPTY feature, so the resulting
-    // extent is finite rather than NaN-poisoned.
+    // refCenterX comes from the first non-empty feature, so the extent stays finite.
     expect(extent.every((n: number) => Number.isFinite(n))).toBe(true);
   });
 

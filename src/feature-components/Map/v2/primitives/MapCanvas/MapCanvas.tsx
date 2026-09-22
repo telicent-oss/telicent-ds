@@ -83,11 +83,8 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			return
 		}
 
-		// Every overlay that carries user features, not just markers. One
-		// interaction across all of them: separate interactions would fire one
-		// event per layer for a single click. Which feature wins an overlap is
-		// decided by layer z-order (ensureLayers assigns it by position), not
-		// by the order of this array.
+		// An overlap is resolved by layer z-order (ensureLayers assigns it by
+		// config position), not by the order of this array.
 		const interactiveLayers = [
 			markerLayer,
 			findVectorLayerById(layers, POLYGON_LAYER_ID),
@@ -102,11 +99,9 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 					.map(f => f.getId?.())
 					.filter((id): id is string => typeof id === "string");
 
-				// Markers only. A marker is a point, so framing it on click is
-				// helpful; framing a clicked path zooms out far enough to hold a
-				// 500 km line, and a clicked country-sized polygon re-frames the
-				// country. Selecting those reports through onFeatureClick and
-				// leaves the viewport where the user put it.
+				// Markers only: fitting a clicked path or polygon re-frames the
+				// viewport to that feature's own extent. Other features still
+				// report through onFeatureClick.
 				const markerSource = markerLayer.getSource();
 				const markers = features.filter(
 					(f) => markerSource?.hasFeature?.(f) ?? false

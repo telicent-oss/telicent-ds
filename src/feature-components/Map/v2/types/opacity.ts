@@ -1,10 +1,12 @@
 import { z } from "zod";
 
 /**
- * Layer opacity as OpenLayers defines it: a finite fraction from 0 to 1.
+ * Layer opacity: a fraction from 0 to 1, the range OpenLayers documents for
+ * `Layer.setOpacity`. That method checks only `typeof opacity === "number"`,
+ * so this schema also rejects NaN and Infinity.
  *
- * TypeScript cannot exclude NaN from `number` or bound it to a range, so the
- * schema carries what the type cannot.
+ * TypeScript cannot bound `number` to a range or exclude NaN, so the schema
+ * carries what the type cannot.
  */
 export const OpacitySchema = z.number().finite().min(0).max(1);
 

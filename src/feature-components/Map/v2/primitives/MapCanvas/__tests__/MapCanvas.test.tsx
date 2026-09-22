@@ -36,11 +36,10 @@ const defaultProps = {
 	center: [0, 0]
 }
 
-// A layer stand-in with a source, because MapCanvas asks the marker layer
-// whether a selected feature belongs to it before framing the viewport.
-// A plain function, not jest.fn: resetMocks in jest.config.cjs wipes a mock's
-// implementation, so hasFeature would return undefined and the fit would look
-// correctly skipped when it was really never asked.
+// MapCanvas asks the marker layer whether a selected feature belongs to it
+// before framing the viewport. hasFeature is a plain function, not jest.fn:
+// resetMocks in jest.config.cjs clears an implementation passed to jest.fn, so
+// it would return undefined and the fit would look skipped on purpose.
 const markerSource = { hasFeature: () => true };
 const mockMarkerLayer = { getSource: () => markerSource };
 
@@ -86,8 +85,6 @@ describe("MapCanvasV2", () => {
 	});
 
 	it("binds select and hover to the polygon and path layers, not just markers", () => {
-		// Polygons and paths live in their own layers. Binding the interactions
-		// to the marker layer alone makes them silently unclickable.
 		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 
 		(findVectorLayerById as jest.Mock).mockImplementation(
@@ -172,9 +169,6 @@ describe("MapCanvasV2", () => {
 	});
 
 	it("leaves the viewport alone when the clicked feature is not a marker", () => {
-		// Framing a clicked path zooms out to hold the whole line, and a clicked
-		// polygon re-frames an area its own size. Only a point marker is worth
-		// flying to.
 		const layers = [{ id: "layer1" }] as unknown as BaseLayer[];
 		const onFeatureClick = jest.fn();
 
@@ -198,7 +192,6 @@ describe("MapCanvasV2", () => {
 
 		expect(fitToFeature).not.toHaveBeenCalled();
 		expect(fitToFeatures).not.toHaveBeenCalled();
-		// Still reported: the click is not swallowed, only the pan is.
 		expect(onFeatureClick).toHaveBeenCalledWith(["feature1"], undefined);
 	});
 

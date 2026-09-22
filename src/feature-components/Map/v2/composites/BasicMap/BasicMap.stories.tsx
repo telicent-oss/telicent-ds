@@ -274,17 +274,8 @@ export const FeatureEvents: Story = {
 };
 
 /**
- * Markers and polygons both emit click and hover events, and only the marker
- * moves the map.
- *
- * Polygons live in their own OpenLayers layer rather than the marker layer.
- * Both layers are passed to the select and hover interactions, so both kinds
- * report through `onFeatureClick` and `onFeatureHover`.
- *
- * Click the orange MARKER pin: the log fills and the map flies to it, which is
- * useful for a point. Click the POLYGON: the log fills and the viewport stays
- * put -- framing a clicked polygon would re-frame an area the size of the
- * polygon, which is rarely what an analyst wants mid-investigation.
+ * Markers, polygons and paths all report through `onFeatureClick` and
+ * `onFeatureHover`. Only a marker click moves the view.
  */
 export const MarkerPolygonAndPathInteraction: Story = {
 	args: {
@@ -405,39 +396,39 @@ export const WithMarkersAndPaths: Story = {
 	},
 };
 
-// Edinburgh → London, hot (newest) → cold (oldest)
+// Ordered oldest (Edinburgh) to newest (London).
 const movementTrailCoordinates: [number, number][] = [
-	[-3.19, 55.95],   // Edinburgh
-	[-2.24, 55.86],   // somewhere east
-	[-1.62, 54.98],   // Newcastle
-	[-1.29, 54.57],   // Durham
-	[-1.55, 53.80],   // Leeds
-	[-1.47, 53.38],   // Sheffield
-	[-1.15, 52.95],   // Nottingham
-	[-1.09, 52.62],   // Leicester
-	[-0.78, 52.04],   // Northampton
-	[-0.46, 51.75],   // NW of London
-	[-0.13, 51.51],   // London
+	[-3.19, 55.95],
+	[-2.24, 55.86],
+	[-1.62, 54.98],
+	[-1.29, 54.57],
+	[-1.55, 53.80],
+	[-1.47, 53.38],
+	[-1.15, 52.95],
+	[-1.09, 52.62],
+	[-0.78, 52.04],
+	[-0.46, 51.75],
+	[-0.13, 51.51],
 ];
 
 function interpolateColor(
 	t: number
 ): { r: number; g: number; b: number } {
-	// t: 0 (cold/blue) → 1 (hot/red)
+	// t 0 is rgb(30, 80, 250) blue; t 1 is rgb(255, 0, 30) red.
 	return {
-		r: Math.round(30 + 225 * t),      // 30 → 255
-		g: Math.round(80 * (1 - t)),       // 80 → 0
-		b: Math.round(220 * (1 - t) + 30), // 250 → 30
+		r: Math.round(30 + 225 * t),
+		g: Math.round(80 * (1 - t)),
+		b: Math.round(220 * (1 - t) + 30),
 	};
 }
 
 const movementTrailPaths: PathFeature[] = movementTrailCoordinates
 	.slice(0, -1)
 	.map((coord, i, arr) => {
-		const t = i / (arr.length - 1); // 0 (oldest) → 1 (newest)
+		const t = i / (arr.length - 1);
 		const { r, g, b } = interpolateColor(t);
-		const opacity = 0.3 + 0.7 * t;   // 0.3 → 1.0
-		const width = 2 + 4 * t;         // 2 → 6
+		const opacity = 0.3 + 0.7 * t;
+		const width = 2 + 4 * t;
 
 		return {
 			id: `trail-${i}`,
@@ -462,7 +453,6 @@ export const MovementTrail: Story = {
 	},
 };
 
-// Omitting `marker` defaults to triangle.
 const triangleDirectedPaths: PathFeature[] = [
 	{
 		id: "tri-1",
@@ -513,7 +503,8 @@ export const DirectionTriangle: Story = {
 	},
 };
 
-// SVG should point east at rest; OL rotates to match segment bearing.
+// buildDirectionImage rotates an svg marker by -π/2, so the markup must
+// point east at rest.
 const chevronSvg = [
 	`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">`,
 	`<path d="M8 4 L16 12 L8 20" fill="none" stroke="#FF6600" stroke-width="3"`,
@@ -681,8 +672,7 @@ const pathStylePaths: PathFeature[] = [
 	},
 ];
 
-// Hoisted: a style function runs per feature per frame, so allocating Style
-// objects inside it churns garbage for no benefit.
+// Hoisted so the style function does not allocate a Style on each call.
 const SELECTED_PATH_STYLE = new Style({
 	stroke: new Stroke({ color: "#FF6600", width: 5 }),
 });
@@ -693,10 +683,8 @@ const UNSELECTED_PATH_STYLE = new Style({
 const PathStyleFunctionDemo = () => {
 	const [selected, setSelected] = useState<string | null>(null);
 
-	// A plain function closing over state. Each render makes a new identity,
-	// which re-applies via pathLayer.setStyle() -- and OL's setStyle calls
-	// changed() itself, so the layer redraws. No useCallback, no ref, no
-	// manual changed().
+	// A new identity each render re-applies through pathLayer.setStyle(), and
+	// OpenLayers' setStyle() calls changed(), so the layer redraws.
 	const pathStyle = (feature: FeatureLike) =>
 		feature.getId() === selected ? SELECTED_PATH_STYLE : UNSELECTED_PATH_STYLE;
 
@@ -733,27 +721,6 @@ export const PathStyleFunction: Story = {
 	render: () => <PathStyleFunctionDemo />,
 };
 
-/**
- * `pathStyle` wins outright over a path's own `style`.
- *
- * Route A is pink and Route B is blue, each set through its own `style`. The
- * `pathStyle` function below paints in orange and grey, so the two sets of
- * colours never collide and you can always tell which one is driving.
- *
- * The story opens with `pathStyle` set to `undefined`, so each route draws its
- * own `style`: Route A pink, Route B blue. The buttons under the toggle are
- * disabled, because there is no `pathStyle` to drive.
- *
- * Hit "Supply pathStyle" and both colours vanish at once -- every path turns
- * grey, and whichever one you pick turns orange and thick. That is the rule:
- * `pathStyle` applies to every path, including the ones that set their own
- * `style`. Remove it again and pink and blue come straight back.
- *
- * This used to be broken: `createPathFeature` applied a path's own style with
- * OpenLayers' `setStyle()`, which overrides the layer style, so `pathStyle`
- * never ran for a styled path. The style is now held on the feature as
- * `originalStyle` and only read back when no `pathStyle` is supplied.
- */
 const mixedStylePaths: PathFeature[] = [
 	{
 		id: "path-a",
@@ -796,8 +763,6 @@ const PathStyleBeatsPerPathStyleDemo = () => {
 					position: "absolute",
 					zIndex: 10,
 					color: "#fff",
-					// The map draws underneath, so the panel needs its own backdrop for
-					// the labels to stay readable over tiles of any colour.
 					backgroundColor: "rgba(0, 0, 0, 0.7)",
 					borderRadius: 1,
 				}}
@@ -864,13 +829,14 @@ const PathStyleBeatsPerPathStyleDemo = () => {
 	);
 };
 
+/**
+ * Toggling `pathStyle` on against two paths that carry their own `style`.
+ * With it supplied every path draws grey or orange; without it, the per-path
+ * pink and blue. See `pathStyle` in map-types.ts.
+ */
 export const PathStyleBeatsPerPathStyle: Story = {
 	render: () => <PathStyleBeatsPerPathStyleDemo />,
 };
-
-/* ------------------------------------------------------------------ */
-/* Error behaviour                                                     */
-/* ------------------------------------------------------------------ */
 
 // number[] where the declared LineString needs number[][]
 const malformedPath = {
@@ -892,19 +858,6 @@ const goodPath: PathFeature = {
 	],
 };
 
-/**
- * A record whose `coordinates` contradict its declared `type` is skipped, and
- * `onError` is called once with a `MalformedFeatureError` naming it.
- *
- * Two paths go in. `bad-path` declares `LineString` but carries `number[]`, so
- * it is dropped. `good-path` still draws, in pink. The panel lists every
- * `onError` call the story received.
- *
- * Coordinates arrive from an API at runtime, so one bad record costs that
- * record rather than the map. Pass no `onError` and the error is logged to the
- * console instead, which is worth wiring up: a map missing one polygon looks
- * exactly like a complete one.
- */
 const MalformedFeatureReportedDemo = () => {
 	const [errors, setErrors] = useState<MalformedFeatureError[]>([]);
 	const onError = useCallback((error: Error) => {
@@ -942,6 +895,11 @@ const MalformedFeatureReportedDemo = () => {
 	);
 };
 
+/**
+ * `bad-path` declares `LineString` but carries `number[]`, so it is skipped and
+ * reported once through `onError`; `good-path` still draws. The panel lists
+ * each `onError` call.
+ */
 export const MalformedFeatureReportedToOnError: Story = {
 	render: () => <MalformedFeatureReportedDemo />,
 };
@@ -976,11 +934,8 @@ const LayerSetupFailureDemo = () => {
 };
 
 /**
- * Layer setup is async and survivable, so it does not throw: `onError` fires
- * and nothing is cleared. Here it fails on first load, so the map is blank —
- * on a later prop change the previous, now out-of-date, map would stay drawn.
- *
- * Drop the `onError` prop and the same failure only reaches the console.
+ * An unrecognised layer kind makes layer setup fail. `onError` is called and no
+ * layers are set, so the map stays blank on first load.
  */
 export const LayerSetupFailureReportsToOnError: Story = {
 	render: () => <LayerSetupFailureDemo />,

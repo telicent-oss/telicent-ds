@@ -26,8 +26,8 @@ export interface PathFeature {
   name: string;
   meta?: Record<string, any>;
   /**
-   * This path's own appearance. Ignored while BasicMapV2's layer-wide
-   * `pathStyle` prop is set, which wins outright.
+   * This path's own appearance. Overridden while BasicMapV2's layer-wide
+   * `pathStyle` prop is set; see `pathStyle` in map-types.ts.
    */
   style?: PathStyle;
 }

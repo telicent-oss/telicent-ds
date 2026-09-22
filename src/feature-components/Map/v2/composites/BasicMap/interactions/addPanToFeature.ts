@@ -40,20 +40,25 @@ export const fitToFeature = (
 
   const projection = view.getProjection();
   const worldExtent = projection.getExtent();
-  // Some projections report no extent. fitToFeatures already guards this; this
-  // one went straight to getWidth and threw.
+  // A projection's extent defaults to null; getWidth throws on it.
   if (!worldExtent) return;
 
   const worldWidth = getWidth(worldExtent);
 
-  // Normalizes a longitude (X) to the world extent. Modular rather than a
-  // subtract-until-in-range loop, which never terminates: not for a non-finite
-  // X, and not for a very large finite one either, where subtracting the world
-  // width falls below the float precision of the value and leaves it unchanged.
+  // Normalizes a longitude (X) into the world extent.
+  //
+  // Modular, not a subtract loop: for x near Number.MAX_VALUE, subtracting
+  // worldWidth leaves x unchanged.
   const normalizeX = (x: number) => {
     if (!Number.isFinite(x)) return x;
-    return ((((x - worldExtent[0]) % worldWidth) + worldWidth) % worldWidth) +
-      worldExtent[0];
+
+    const offsetFromWest = x - worldExtent[0];
+    // `%` keeps the sign of the dividend, so an X west of the world needs the
+    // extra `+ worldWidth` to land in [0, worldWidth).
+    const offsetInWorld =
+      ((offsetFromWest % worldWidth) + worldWidth) % worldWidth;
+
+    return offsetInWorld + worldExtent[0];
   };
 
   // Determine extent
@@ -63,9 +68,7 @@ export const fitToFeature = (
     extent = [coords[0], coords[1], coords[0], coords[1]];
   } else {
     const geomExtent = geometry.getExtent();
-    // An empty geometry reports [Infinity, Infinity, -Infinity, -Infinity].
-    // There is nothing to fit to, and the values poison every calculation
-    // below. (`!geomExtent` never fired: an array is always truthy.)
+    // OpenLayers reports an empty geometry's extent as [Infinity, Infinity, -Infinity, -Infinity].
     if (isEmpty(geomExtent)) return;
 
     // Normalize X for antimeridian
@@ -124,8 +127,7 @@ export const fitToFeatures = (
     if (!geom) continue;
 
     const extent = geom.getExtent();
-    // Skip empties: averaging Infinity and -Infinity gives NaN, which would
-    // make refCenterX NaN and shift every later feature out of existence.
+    // An empty extent's centre is NaN; as refCenterX it would make every worldShift NaN.
     if (isEmpty(extent)) continue;
 
     const centerX = (extent[0] + extent[2]) / 2;

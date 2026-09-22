@@ -7,14 +7,12 @@
  *   3D  number[][][]    — MultiLineString / Polygon
  *   4D  number[][][][]  — MultiPolygon
  *
- * An empty array passes at every depth: no coordinates is not a nesting mistake.
- * The resulting feature has nothing to draw, and OpenLayers reports its extent as
- * [Infinity, Infinity, -Infinity, -Infinity] rather than an ordinary box, so
- * fitToFeature and fitToFeatures skip it instead of trying to frame it.
+ * An empty array passes at 2D and above: no coordinates is not a nesting
+ * mistake. OpenLayers reports such a geometry's extent as
+ * [Infinity, Infinity, -Infinity, -Infinity], which fitToFeature skips.
  *
- * Use these to check a feature's `coordinates` against its declared `type`
- * before handing them to OpenLayers, rather than an unchecked `as` cast
- * (which can mask malformed input and surface as an opaque OL error later).
+ * These check a feature's `coordinates` against its declared `type` before the
+ * coordinates reach OpenLayers, in place of an `as` cast.
  */
 export function is1D(coords: unknown): coords is number[] {
   return Array.isArray(coords) && typeof coords[0] === "number";
