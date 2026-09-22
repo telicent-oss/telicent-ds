@@ -1,17 +1,9 @@
 #!/usr/bin/env node
-// Generates the LLM-discovery files served from the GitHub Pages root:
-//   llms/llms.txt      — the full @telicent-oss/ds component manifest, self-contained.
-//   llms/llms-full.txt — identical bytes, under the name some agents fetch by convention.
-// It also writes dist/llms.txt, the copy that ships inside the npm package. That copy
-// carries a different version banner: it is installed alongside the code it documents,
-// so it matches by construction, while the site copies track whatever branch built them.
-// Canonical source: docs/COMPONENTS.md (edited by hand). The manifest is small
-// (~10k tokens), so both files carry it whole; an agent gets the entire
-// component reference in one request whichever name it fetches.
-// The deploy-llms workflow publishes llms/ to the gh-pages root.
-// `yarn build` runs this as its last step. Run `yarn generate:llms` on its own to
-// regenerate the manifest without rebuilding the bundle.
-// Requires dist/export.d.ts (run `yarn build` first) — extract-props reads it.
+// Fills the props/stories tokens in docs/COMPONENTS.md (hand-edited) from
+// dist/export.d.ts, and writes:
+//   llms/llms.txt, llms/llms-full.txt — identical bytes, published to gh-pages
+//   dist/llms.txt                     — ships in the npm package
+// Last step of `yarn build`; `yarn generate:llms` reruns it alone.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -38,8 +30,7 @@ const gitOut = (args) => {
   }
 };
 
-// Released iff this commit changed the version in package.json. An unreadable
-// parent falls through to "unreleased", the safe direction.
+// Released iff this commit changed the version; anything unreadable is "unreleased".
 const parentVersion = (() => {
   try {
     return JSON.parse(gitOut(["show", "HEAD~1:package.json"])).version ?? null;
@@ -71,9 +62,7 @@ const { getStoriesByTitle } = loadStories();
 const propsByComponent = getPropsByComponent();
 const storiesByTitle = getStoriesByTitle();
 
-// YAML, not a markdown table: prop types contain `|` (unions), which collides
-// with table separators. A fenced block keyed by component also self-labels
-// each prop set, so stacked blocks under one bullet stay distinguishable.
+// YAML, not a markdown table: prop types contain `|`.
 const yamlKey = (k) => (/^[A-Za-z_$][\w$]*$/.test(k) ? k : `'${k.replace(/'/g, "''")}'`);
 const yamlStr = (s) => `'${s.replace(/'/g, "''")}'`;
 
@@ -109,8 +98,7 @@ const manifest = rawManifest.replace(
   /^<!-- (props|stories):(.+?) -->$/gm,
   (line, kind, key) => {
     if (kind === "props") {
-      // `props:Label=LookupKey` shows Label but resolves LookupKey's props, for
-      // components whose exported props type name differs from the import name.
+      // `props:Label=LookupKey` shows Label, resolves LookupKey's props.
       const eq = key.indexOf("=");
       const label = eq >= 0 ? key.slice(0, eq).trim() : key;
       const lookupKey = eq >= 0 ? key.slice(eq + 1).trim() : key;
@@ -130,9 +118,7 @@ const manifest = rawManifest.replace(
   }
 );
 
-// This also catches a truncated dist/export.d.ts. Such a file still parses, so
-// extract-props returns no props rather than throwing, and every props token in
-// docs/COMPONENTS.md lands here unresolved.
+// Also fires on a truncated dist/export.d.ts: it parses, so extract-props under-reports.
 if (unresolved.length > 0) {
   console.error(
     `build-llms: unresolved token(s) in docs/COMPONENTS.md — no matching key in the props/stories maps:\n  ${unresolved.join(
@@ -142,11 +128,10 @@ if (unresolved.length > 0) {
   process.exit(1);
 }
 
-// Components in the props map but referenced by no props token. Split three
-// ways so real drift surfaces instead of hiding among noise:
-//   gaps     — a real component export, not named anywhere in the manifest
-//   propless — already named in the prose, just has no props block (fine)
-//   phantom  — a `*Props` type with no value export, i.e. not a real component
+// In the props map, referenced by no token:
+//   gaps     — real export, named nowhere in docs/COMPONENTS.md
+//   propless — named in prose, no props block (fine)
+//   phantom  — a `*Props` type with no value export
 const valueExports = getValueExportNames();
 const namedInProse = (name) => new RegExp(`\\b${name}\\b`).test(rawManifest);
 
@@ -159,9 +144,7 @@ for (const c of [...propsByComponent.keys()].filter((c) => !referencedComponents
   else gaps.push(c);
 }
 
-// Undocumented real exports are auto-listed in an "Other exports" appendix
-// (name + props) so the published reference stays complete by construction: a
-// new export shows up here until a maintainer gives it a section above.
+// Appended so a new export shows up until a maintainer writes it a section above.
 const otherExports = gaps.length
   ? `\n\n---\n\n## Other exports\n\nExported by \`@telicent-oss/ds\` but not yet given a section above. Auto-listed from the type surface (props only); a maintainer should fold these into the manifest.\n\n${gaps
       .map((c) => `* \`${c}\`:\n${renderPropsBlock(c, c)}`)
@@ -184,12 +167,7 @@ if (propless.length > 0 || phantom.length > 0) {
 const outDir = resolve(root, "llms");
 mkdirSync(outDir, { recursive: true });
 
-// The version goes at the TOP as well as the footer. These files are served at an
-// llms.txt URL, a convention an agent may follow without ever loading the skill, and
-// the title below tells it this is a complete reference, so a reader that stops early
-// must still see which version it holds.
-// A silently missing banner is the whole failure this guards against: the file
-// would still look complete while telling a reader nothing about its version.
+// Version at the top too: a reader fetching the llms.txt URL may stop before the footer.
 const TITLE = /^(# .*\n)/;
 if (!TITLE.test(manifest)) {
   console.error(
@@ -219,28 +197,23 @@ This reference documents @telicent-oss/ds ${label}.
 `;
 };
 
-// The site copy is rebuilt from whatever branch pushed, so it is usually ahead of
-// every release and has to send the reader to the packaged copy.
+// Built from any branch, so it can be ahead of every release - redirect the reader.
 const siteCopy = render({
   label: documents,
   banner: `This file documents @telicent-oss/ds ${documents}. If that is not the version installed in the project you are working on, do not build against it: read \`node_modules/@telicent-oss/ds/dist/llms.txt\` instead, which ships with the package and always matches what is installed.`,
 });
 
-// The packaged copy is installed beside the code it documents, so it needs no git
-// comparison and must not redirect: the file it would point at is itself.
+// Must not redirect: the file it would point at is itself.
 const packagedCopy = render({
   label: `v${version}`,
   banner: `This file documents @telicent-oss/ds v${version}. It shipped inside that package, so it matches the version installed in your project. If that package was built locally rather than installed from npm, the code may be newer than v${version}.`,
 });
 
-// The manifest is ~10k tokens, small enough that an index pointing at a
-// separate file would only add a fetch hop. So /llms.txt carries the manifest
-// whole; /llms-full.txt is the same bytes under the name some tools fetch by
-// convention (Cursor, Windsurf, Copilot, Cline, Aider).
+// ~10k tokens, so no index hop. llms-full.txt is the same bytes under the other
+// name agents fetch by convention (Cursor, Windsurf, Copilot, Cline, Aider).
 writeFileSync(resolve(outDir, "llms.txt"), siteCopy);
 writeFileSync(resolve(outDir, "llms-full.txt"), siteCopy);
 
-// dist is made by `vite build`, which runs first in the `build` script.
 mkdirSync(resolve(root, "dist"), { recursive: true });
 writeFileSync(resolve(root, "dist/llms.txt"), packagedCopy);
 
