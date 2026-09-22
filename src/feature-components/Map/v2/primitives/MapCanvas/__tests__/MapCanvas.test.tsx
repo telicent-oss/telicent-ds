@@ -140,6 +140,7 @@ describe("MapCanvasV2", () => {
 
 		(findVectorLayerById as jest.Mock).mockReturnValue(mockMarkerLayer);
 
+		// Mock addSelectInteraction to immediately call onSelect
 		(addSelectInteraction as jest.Mock).mockImplementation(({ onSelect }) => {
 			onSelect([mockFeature]);
 			return "mockInteraction";

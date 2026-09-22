@@ -12,7 +12,10 @@ interface AddHoverInteractionOptions {
 }
 
 /**
- * Attaches a pointermove hit-test; fires onHover only when the hovered feature id changes. Returns a detach function.
+ * Attaches a pointermove hit-test that reports enter/leave transitions on the
+ * given vector layers' features. Fires only when the hovered feature id
+ * changes — moving within the same feature does not re-fire. Returns a
+ * detach function.
  */
 export const addHoverInteraction = ({
   map,

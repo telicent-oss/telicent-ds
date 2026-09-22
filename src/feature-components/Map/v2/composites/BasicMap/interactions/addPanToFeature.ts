@@ -45,6 +45,7 @@ export const fitToFeature = (
 
   const worldWidth = getWidth(worldExtent);
 
+  // Normalizes a longitude (X) to the world extent.
   // Modular, not a subtract loop: subtracting worldWidth from an x near Number.MAX_VALUE leaves it unchanged.
   const normalizeX = (x: number) => {
     if (!Number.isFinite(x)) return x;
@@ -57,6 +58,7 @@ export const fitToFeature = (
     return offsetInWorld + worldExtent[0];
   };
 
+  // Determine extent
   let extent: Extent;
   if (geometry instanceof Point) {
     const coords = geometry.getCoordinates();
@@ -66,9 +68,11 @@ export const fitToFeature = (
     // OpenLayers reports an empty geometry's extent as [Infinity, Infinity, -Infinity, -Infinity].
     if (isEmpty(geomExtent)) return;
 
+    // Normalize X for antimeridian
     let x0 = normalizeX(geomExtent[0]);
     let x1 = normalizeX(geomExtent[2]);
 
+    // Handle antimeridian crossing
     const span = x1 - x0;
     if (span > worldWidth / 2) {
       const wrappedX0 = x0 + worldWidth;
@@ -129,9 +133,11 @@ export const fitToFeatures = (
       refCenterX = centerX;
     }
 
+    // determine which world copy to use
     const delta = centerX - refCenterX;
     const worldShift = Math.round(delta / worldWidth) * worldWidth;
 
+    // clone + shift geometry
     const shifted = geom.clone();
     shifted.translate(-worldShift, 0);
 

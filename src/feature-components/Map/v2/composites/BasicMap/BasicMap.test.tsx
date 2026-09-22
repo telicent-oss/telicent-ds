@@ -47,6 +47,8 @@ const makeProps = (overrides?: Partial<BasicMapProperties>): BasicMapProperties 
 	paths: []
 });
 
+// Do I still need this if I have tested the children separately.
+// Perhaps I need to just test how features and polygons end up.
 describe.skip("BasicMapV2", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();

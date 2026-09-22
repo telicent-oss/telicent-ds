@@ -90,12 +90,14 @@ export const BasicMapV2 = React.forwardRef<
         : [];
 
     const overlayVectorLayers: LayerConfig[] = [
+      // Marker layer
       {
         kind: "overlay-vector",
         id: MARKER_LAYER_ID,
         data: [],
         visible: true,
       },
+      // Polygon layer
       {
         kind: "overlay-vector",
         id: POLYGON_LAYER_ID,

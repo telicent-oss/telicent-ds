@@ -198,8 +198,20 @@ const eventMarkers: MarkerFeature[] = [
 	},
 ];
 
-/** Logs every hover and click event the map emits for its markers.
- * Look at the log when the pointer moves straight from one marker to another. */
+/**
+ * Both `onFeatureHover` and `onFeatureClick` are wired to a debug panel that
+ * shows the raw id + pixel the DS emits. Callback contract:
+ *
+ * - `onFeatureHover(id, { pixel })` fires when the pointer enters a marker.
+ * - `onFeatureHover(null)` fires when the pointer leaves the last-hovered
+ *   marker (no pixel is included).
+ * - Moving the pointer **within** the same marker does not re-fire.
+ * - Moving directly from marker A to marker B fires once, with B's id and
+ *   pixel — the id change implicitly signals A is no longer hovered.
+ *
+ * The DS emits events only. The consuming app owns any popover / cursor /
+ * highlight / throttling behaviour built on top of these events.
+ */
 export const FeatureEvents: Story = {
 	args: {
 		zoom: 5,

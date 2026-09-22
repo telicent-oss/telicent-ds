@@ -5,6 +5,7 @@ import {
   getFeaturesById,
 } from "../addPanToFeature";
 
+// Use your geometry mocks (or real OL geometries if you prefer)
 import MockPoint from "../../../../../../../../__mocks__/ol/geom/Point";
 import MockPolygon from "../../../../../../../../__mocks__/ol/geom/Polygon";
 

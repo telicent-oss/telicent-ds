@@ -75,6 +75,9 @@ export type BasicMapV2Handle = {
    */
   setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
+  // zoomInAsync: () => Promise<void>;
+  // zoomOutAsync: () => Promise<void>;
+  // panToAsync: (ids: string[]) => Promise<void>;
 };
 
 export interface MapControlsConfig {
