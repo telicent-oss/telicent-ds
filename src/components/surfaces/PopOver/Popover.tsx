@@ -71,22 +71,7 @@ export interface PopOverProps extends Omit<ModalProps, "children"> {
 const PopOver = (props: PopOverProps) => {
   const theme = useTheme();
 
-  return (
-    <MUIPopOver
-      elevation={3}
-      slotProps={{
-        paper: {
-          sx: {
-            backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#eee",
-            backgroundImage: "none",
-            width: props.width,
-            padding: 2,
-          },
-        },
-      }}
-      {...props}
-    />
-  );
+  return <MUIPopOver elevation={3} {...props} />;
 };
 
 export default PopOver;
