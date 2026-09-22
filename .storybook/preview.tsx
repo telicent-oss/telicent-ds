@@ -2,6 +2,10 @@ import React from "react";
 import type { Preview } from "@storybook/react-vite";
 import UIThemeProvider from "../src/theme/UIThemeProvider";
 import { UIThemeSchema } from "../src/theme/colors/theme-colors";
+// Load the DS's own stylesheet so `:root` custom properties (e.g. `--teli-app-color`)
+// resolve inside the preview iframe. Without this, components that read the accent
+// via `rgb(var(--teli-app-color))` fall back to `currentColor` and render as black.
+import "../src/index.css";
 
 const preview: Preview = {
   decorators: [
