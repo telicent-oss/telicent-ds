@@ -1,8 +1,8 @@
 ---
 name: telicent-ds
-description: Reads the @telicent-oss/ds component manifest that ships inside the installed package, and falls back to the published site, then follows it as the source of truth for Telicent UI. Use when building, adding, or changing any Telicent app screen, page, form, dialog, or component; when the user names @telicent-oss/ds or the Telicent design system; or when editing a file that imports from @telicent-oss/ds. Pulls component names, props, and variants from the manifest instead of training memory.
+description: Reads the @telicent-oss/ds component manifest that ships inside the installed package and follows it as the source of truth for Telicent UI, falling back to the installed type declarations when the package predates it. Use when building, adding, or changing any Telicent app screen, page, form, dialog, or component; when the user names @telicent-oss/ds or the Telicent design system; or when editing a file that imports from @telicent-oss/ds. Pulls component names, props, and variants from the manifest instead of training memory.
 license: Apache-2.0
-allowed-tools: Read, WebFetch(domain:telicent-oss.github.io)
+allowed-tools: Read, Grep, WebFetch(domain:telicent-oss.github.io)
 metadata:
   author: telicent-oss
   version: '1.0.0'
@@ -14,33 +14,51 @@ Before writing or editing any Telicent UI, fetch the component manifest for the 
 
 ## Fetch the manifest
 
-1. Read `node_modules/@telicent-oss/ds/dist/llms.txt`. This ships inside the package,
-   so it always matches the installed version exactly. Use it and stop here.
-2. If that file is missing, the project is on a release from before the manifest
-   shipped in the package. Read the installed major from
-   `node_modules/@telicent-oss/ds/package.json` BY PATH - `require("@telicent-oss/ds/package.json")`
-   throws, since the `exports` map does not expose it - then fetch
-   `https://telicent-oss.github.io/telicent-ds/v<major>/llms.txt`, e.g. major 3 ->
-   `https://telicent-oss.github.io/telicent-ds/v3/llms.txt`.
-3. If that 404s - the package is not installed here, or that major predates the
-   per-major folders - fetch `https://telicent-oss.github.io/telicent-ds/llms.txt`.
+1. Read `node_modules/@telicent-oss/ds/dist/llms.txt`. It ships inside the package, so
+   it matches the installed version. Use it and stop here.
 
-Steps 2 and 3 read the published site, which is rebuilt on every push to main. Those
-copies can document components that are not in the installed version yet. The last
-line of the file says what it documents: `v4.0.0` is a release, and
-`unreleased (main@<sha>, after v3.7.0)` is a build from source ahead of the last
-release. Where a site copy disagrees with the installed types in
-`node_modules/@telicent-oss/ds/dist/export.d.ts`, trust the types.
+2. If you cannot read that path, tell the user which of these it is, then continue:
+   the installed release predates the packaged manifest, or the project uses Yarn PnP
+   and has no `node_modules`, or you lack permission to read there.
 
-The manifest is a complete, self-contained reference: setup, theming, every exported component with its props and `variant`s, and copy-paste recipes.
+3. Read the installed version from `node_modules/@telicent-oss/ds/package.json` BY PATH.
+   `require("@telicent-oss/ds/package.json")` throws, since the `exports` map does not
+   expose it.
+
+4. Use `node_modules/@telicent-oss/ds/dist/export.d.ts` as the API. It is the only
+   source that is certain to match what is installed.
+
+### The copy on the web is usually the wrong version
+
+`https://telicent-oss.github.io/telicent-ds/llms.txt` is rebuilt on every push to
+`main`, so it is ahead of every release except for the short window after one. Its last
+line is either of:
+
+```
+This reference documents @telicent-oss/ds v4.0.0.
+This reference documents @telicent-oss/ds unreleased (main@0c7e373, after v4.0.0).
+```
+
+Fetch it only if the installed version is known, and use it only when that whole last
+line reads exactly `This reference documents @telicent-oss/ds v<installed version>.` A
+line containing `unreleased` never qualifies, whatever version it names afterwards.
+Anything else, discard it and stay on the installed types.
+
+### What the types cannot tell you
+
+`export.d.ts` carries component and prop names, and nothing else: no `variant` values,
+no theming, no setup, no recipes. A project on a release older than the packaged
+manifest has no full reference, and upgrading is the only way to get one. Do not
+substitute the web copy for it. If the installed types are unreadable too, say so and
+ask - never write the API from memory.
 
 ## Rules
 
 - Prefer an existing `@telicent-oss/ds` component over raw HTML, MUI, or Tailwind.
 - Set colour through the theme, not Tailwind classes. Wrap the app in `UIThemeProvider`.
 - Use only what the manifest documents — an absent component or prop is not public, so don't invent it.
-- Treat a manifest read from the site (steps 2 and 3) as possibly ahead of the installed version, and trust the installed types wherever they disagree.
-- If every fetch fails, fall back to those installed types or ask — never guess the API.
+- Use the web copy only when its last line names the installed version and does not say `unreleased`.
+- With no manifest for the installed version, use the installed types or ask — never guess the API.
 
 ## Gotchas
 
@@ -50,9 +68,10 @@ types before relying on any of it.
 - **A component looks missing? Search by what it DOES, not its MUI name** — the DS
   renames: `Stack`→`FlexBox`, `Grid`→`FlexGrid`, `Typography`→`Text` (headings are
   `H1`–`H6`), `CircularProgress`→`Spinner`, `ToggleButton`→`TooltipToggleButton`.
-- **Then grep the installed types for the bare identifier**, not one export form.
-  `grep "^export declare const Text"` reports `Text` absent; it is
-  `export { Text_2 as Text }` in `dist/export.d.ts`.
+- **Then grep `dist/export.d.ts` for the bare identifier**, not one export form. A
+  component can be re-exported under another name: `Text` appears as
+  `export { Text_2 as Text }`, so `grep "export declare const Text"` reports it absent
+  when it is there. The file is over 2000 lines, so grep it rather than read it.
 - **`Box` is a top-level DS export**, not a namespace member: `import { Box } from
   "@telicent-oss/ds"`. It wraps MUI `Box` and adds `variant="outlined"`. Never swap it for
   `FlexBox` — that is a flex container and will change your layout. Never use `mui.Box` /

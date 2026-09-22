@@ -2,9 +2,9 @@
   "version": "1.0.0",
   "dsVersion": ">=3.0.0",
   "organization": "Telicent",
-  "abstract": "Points the agent at the versioned @telicent-oss/ds component manifest (llms.txt) for the installed major and keeps generated UI inside the documented component/prop/variant API. Version-adaptive with a latest-manifest fallback.",
+  "abstract": "Points the agent at the @telicent-oss/ds component manifest (llms.txt) that ships inside the installed package, and keeps generated UI inside the documented component/prop/variant API. Falls back to the published site only when that copy names the installed version.",
   "references": [
-    "https://telicent-oss.github.io/telicent-ds/llms.txt",
-    "https://telicent-oss.github.io/telicent-ds/v3/llms.txt"
-  ]
+    "https://telicent-oss.github.io/telicent-ds/llms.txt"
+  ],
+  "packagedManifest": "The manifest ships inside the package from the first release after PR 507. On earlier releases the skill falls back to the installed type declarations."
 }

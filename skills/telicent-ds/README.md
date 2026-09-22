@@ -20,8 +20,8 @@ Loading the skill is a separate, explicit opt-in: `npx skills add telicent-oss/t
 
 ## Manifest
 
-- Per major: `https://telicent-oss.github.io/telicent-ds/v<major>/llms.txt`
-- Latest: `https://telicent-oss.github.io/telicent-ds/llms.txt`
+- Installed copy: `node_modules/@telicent-oss/ds/dist/llms.txt`, exact for the version in use
+- Site copy: `https://telicent-oss.github.io/telicent-ds/llms.txt`, tracks `main` and names its version on the last line
 
 ## Versioning
 
