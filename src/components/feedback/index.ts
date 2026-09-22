@@ -16,3 +16,5 @@ export {
   type SnackbarKey,
   type SnackbarAction,
 } from "notistack";
+export { Tooltip } from "./Tooltip/Tooltip";
+export type { TooltipProps } from "@mui/material/Tooltip";
