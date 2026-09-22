@@ -124,10 +124,11 @@ describe("panToFeature", () => {
   });
 
   it("normalizes a far-out longitude without looping", () => {
-    // The old subtract-until-in-range loop hung here: 1e300 minus the world
-    // width is still exactly 1e300 in float64, so the condition never flipped.
+    // The old subtract-until-in-range loop hung here: Number.MAX_VALUE minus
+    // the world width is still exactly Number.MAX_VALUE in float64, so the
+    // condition never flipped.
     const geometry = {
-      getExtent: () => [1e300, 0, 1e300, 0],
+      getExtent: () => [Number.MAX_VALUE, 0, Number.MAX_VALUE, 0],
     } as any;
 
     const feature = { getGeometry: () => geometry } as any;
