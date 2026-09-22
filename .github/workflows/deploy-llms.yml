@@ -8,8 +8,9 @@ name: deploy-llms.yml
 # branch  /<branch>/
 #
 # The package ships its own dist/llms.txt, which is the copy that matches a
-# consumer's installed version. These site copies track main and name the version
-# they were built from on their last line, so a reader can tell them apart.
+# consumer's installed version and says so in its version banner. These site copies
+# track whatever branch built them, so their banner sends a reader to the packaged
+# copy instead. Both name their version on the last line.
 #
 # keep_files:true stops a deploy wiping paths it did not write. upload-storybook.yml
 # publishes Storybook to these same two paths, and each workflow's keep_files
@@ -23,6 +24,7 @@ on:
     paths:
       - docs/COMPONENTS.md
       - scripts/build-llms.mjs
+      - scripts/llms-version-label.mjs
       - scripts/extract-props.mjs
       - scripts/extract-stories.mjs
       - .github/workflows/deploy-llms.yml
@@ -58,18 +60,15 @@ jobs:
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
 
-      # yarn build ends with scripts/pack-llms.mjs, which writes llms/ for the deploy
-      # steps below and dist/llms.txt for the npm tarball.
+      # yarn build ends with scripts/build-llms.mjs, which writes llms/ for the
+      # deploy steps below and dist/llms.txt for the npm tarball. It exits non-zero
+      # rather than write a manifest it cannot label or fill, so a green build here
+      # already means llms/llms.txt is present.
       - name: Build package
         run: yarn build
 
-      # pack-llms skips when dist/export.d.ts is absent. The deploy steps use
-      # keep_files, so a skip would republish the old manifest with nothing to show
-      # for it. Fail here instead.
-      - name: Verify the manifest was generated
-        run: |
-          test -s llms/llms.txt || { echo "llms/llms.txt is missing or empty after yarn build"; exit 1; }
-          tail -1 llms/llms.txt
+      - name: Show the version this manifest claims
+        run: tail -1 llms/llms.txt
 
       - name: Deploy llms.txt to Pages root
         if: github.ref == 'refs/heads/main'
