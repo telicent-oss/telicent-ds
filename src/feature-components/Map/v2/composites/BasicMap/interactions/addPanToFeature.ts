@@ -51,7 +51,7 @@ export const fitToFeature = (
     if (!Number.isFinite(x)) return x;
 
     const offsetFromWest = x - worldExtent[0];
-    // Dropping the extra `+ worldWidth` leaves an X west of the world negative: `%` keeps the dividend's sign.
+    // `%` keeps the dividend's sign, so an X west of the world needs the second pass.
     const offsetInWorld =
       ((offsetFromWest % worldWidth) + worldWidth) % worldWidth;
 
@@ -124,7 +124,7 @@ export const fitToFeatures = (
     if (!geom) continue;
 
     const extent = geom.getExtent();
-    // Dropping this continue lets an empty extent's NaN centre become refCenterX and NaN every worldShift.
+    // An empty extent's centre is NaN; as refCenterX it would make every worldShift NaN.
     if (isEmpty(extent)) continue;
 
     const centerX = (extent[0] + extent[2]) / 2;

@@ -6,7 +6,6 @@ import { FeatureEvent } from "../../../types/map-types";
 
 interface AddSelectInteractionOptions {
   map: OlMap;
-  /** Every selectable layer; one Select spans all of them. */
   layers: VectorLayer[];
   onSelect?: (features: Feature[], event?: FeatureEvent) => void;
 }

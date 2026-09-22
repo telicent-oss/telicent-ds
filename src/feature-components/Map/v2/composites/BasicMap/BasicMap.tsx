@@ -43,7 +43,7 @@ export const BasicMapV2 = React.forwardRef<
   const [layers, setLayers] = useState<BaseLayer[]>([]);
   const mapInstance = useRef<Map | null>(null);
 
-  // Refs: an inline lambda would re-run the effects; the unmount cleanup would keep the first.
+  // Refs: an inline lambda re-runs the effects, and the unmount cleanup captures the first handler.
   const onErrorRef = useRef(props.onError);
   onErrorRef.current = props.onError;
   const onLayersReadyRef = useRef(props.onLayersReady);
@@ -104,7 +104,7 @@ export const BasicMapV2 = React.forwardRef<
         data: [],
         visible: true,
       },
-      // Never put props.pathStyle here: a new identity rebuilds every layer.
+      // props.pathStyle belongs in its own effect: a new identity here rebuilds every layer.
       {
         kind: "overlay-vector",
         id: PATH_LAYER_ID,

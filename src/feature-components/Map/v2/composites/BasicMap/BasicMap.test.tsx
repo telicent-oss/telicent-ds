@@ -655,7 +655,7 @@ describe("BasicMapV2 panToFeatures", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([]));
-		// Drop this body and every handle method early-returns "Map is not ready yet".
+		// The body is required: without mapInstanceRef every handle method early-returns.
 		(MapCanvasV2 as unknown as jest.Mock).mockImplementation(
 			(props: { mapInstanceRef?: { current: unknown } }) => {
 				if (props?.mapInstanceRef) {
