@@ -3099,7 +3099,7 @@ export declare type PolygonType = "Polygon" | "MultiPolygon";
  * Things to know when using the PopOver component:
  * - The component is built on top of the Modal component.
  */
-export declare const PopOver: (props: PopOverProps) => JSX.Element;
+export declare const PopOver: ({ width, ...props }: PopOverProps) => JSX.Element;
 
 declare interface PopOverProps extends Omit<ModalProps, "children"> {
     /**
@@ -3152,6 +3152,9 @@ declare interface PopOverProps extends Omit<ModalProps, "children"> {
      * }
      */
     transformOrigin?: PopoverOrigin;
+    /**
+     * Fixed width for the popover paper, in pixels.
+     */
     width?: number;
 }
 
