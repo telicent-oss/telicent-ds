@@ -9,7 +9,8 @@
 // (~10k tokens), so both files carry it whole; an agent gets the entire
 // component reference in one request whichever name it fetches.
 // The deploy-llms workflow publishes llms/ to the gh-pages root.
-// Run locally via `yarn generate:llms`, after `yarn build`.
+// `yarn build` runs this as its last step. Run `yarn generate:llms` on its own to
+// regenerate the manifest without rebuilding the bundle.
 // Requires dist/export.d.ts (run `yarn build` first) — extract-props reads it.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
@@ -179,20 +180,21 @@ mkdirSync(outDir, { recursive: true });
 // llms.txt URL, a convention an agent may follow without ever loading the skill, and
 // the title below tells it this is a complete reference, so a reader that stops early
 // must still see which version it holds.
+// A silently missing banner is the whole failure this guards against: the file
+// would still look complete while telling a reader nothing about its version.
+const TITLE = /^(# .*\n)/;
+if (!TITLE.test(manifest)) {
+  console.error(
+    "build-llms: docs/COMPONENTS.md must open with a '# ' title, so the version banner has somewhere to go."
+  );
+  process.exit(1);
+}
+
 const render = ({ banner, label }) => {
   const stamped = manifest.replace(
-    /^(# .*\n)/,
+    TITLE,
     (title) => `${title}\n**VERSION:** ${banner}\n`
   );
-
-  // A silently missing banner is the whole failure this guards against: the file
-  // would still look complete while telling a reader nothing about its version.
-  if (stamped === manifest) {
-    console.error(
-      "build-llms: docs/COMPONENTS.md must open with a '# ' title, so the version banner has somewhere to go."
-    );
-    process.exit(1);
-  }
 
   return `${stamped}${otherExports}
 
