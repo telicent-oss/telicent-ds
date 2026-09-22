@@ -230,7 +230,7 @@ const siteCopy = render({
 // comparison and must not redirect: the file it would point at is itself.
 const packagedCopy = render({
   label: `v${version}`,
-  banner: `This file documents @telicent-oss/ds v${version}. It shipped inside that package, so it matches the version installed in your project.`,
+  banner: `This file documents @telicent-oss/ds v${version}. It shipped inside that package, so it matches the version installed in your project. If that package was built locally rather than installed from npm, the code may be newer than v${version}.`,
 });
 
 // The manifest is ~10k tokens, small enough that an index pointing at a
