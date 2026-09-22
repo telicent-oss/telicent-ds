@@ -14,6 +14,11 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/lab": "5.0.0-alpha.170",
+    "@mui/material": "^5.16.7",
+    "@mui/x-date-pickers": "^8.9.2",
     "@react-spring/web": "^9.7.5",
     "@telicent-oss/fe-auth-lib": "1.0.4",
     "@telicent-oss/mui-icons-material": "^1.0.0",
@@ -87,6 +92,23 @@
     "axios": "*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@emotion/react": {
+      "optional": true
+    },
+    "@emotion/styled": {
+      "optional": true
+    },
+    "@mui/lab": {
+      "optional": true
+    },
+    "@mui/material": {
+      "optional": true
+    },
+    "@mui/x-date-pickers": {
+      "optional": true
+    }
   },
   "browserslist": {
     "production": [
