@@ -273,8 +273,8 @@ export const FeatureEvents: Story = {
 	},
 };
 
-/** Markers, polygons and paths all report through the same event callbacks.
- * Look at which of the three moves the view. */
+/** Markers, polygons and paths all report through the same event callbacks,
+ * but only a marker click moves the view. */
 export const MarkerPolygonAndPathInteraction: Story = {
 	args: {
 		zoom: 6,
@@ -884,8 +884,7 @@ const MalformedFeatureReportedDemo = () => {
 	);
 };
 
-/** A malformed path is skipped and reported through `onError`.
- * Look at the panel count against the one path that still draws. */
+/** A malformed path is skipped and reported through `onError`; the other path still draws. */
 export const MalformedFeatureReportedToOnError: Story = {
 	render: () => <MalformedFeatureReportedDemo />,
 };
@@ -918,8 +917,7 @@ const LayerSetupFailureDemo = () => {
 	);
 };
 
-/** An unrecognised layer kind makes layer setup fail.
- * Look at the blank map behind the reported error. */
+/** An unrecognised layer kind makes layer setup fail, leaving the map blank. */
 export const LayerSetupFailureReportsToOnError: Story = {
 	render: () => <LayerSetupFailureDemo />,
 };
