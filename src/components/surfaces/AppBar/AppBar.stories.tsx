@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box } from "@mui/material";
 
 import AppBar from "./AppBar";
-import { AppInfo, AppInfoRow, AppSwitch, Divider, TitleAndContent, UserProfile } from "../../data-display";
+import { AppInfo, AppInfoRow, AppSettings, AppSwitch, Divider, TitleAndContent, UserProfile } from "../../data-display";
 import { Button } from "../../buttons";
 import FlexBox from "../../layout/FlexBox";
+import ThemeSwitchRow from "../../inputs/ThemeSwitch/ThemeSwitchRow";
 import { appList } from "../../data-display/AppSwitch/AppSwitch.stories";
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
 
@@ -171,6 +172,9 @@ export const StandardHeader: Story = {
           <AppInfoRow label="Build" value="a1b2c3d" />
           <AppInfoRow label="Environment" value="production" />
         </AppInfo>
+        <AppSettings>
+          <ThemeSwitchRow checked={false} onChange={() => undefined} />
+        </AppSettings>
         {UserProfileExample}
       </FlexBox>
     ),
