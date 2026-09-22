@@ -25,4 +25,4 @@ Loading the skill is a separate, explicit opt-in: `npx skills add telicent-oss/t
 
 ## Versioning
 
-Version-exact: it reads the manifest shipped in the installed package. Releases from before the manifest shipped fall back to the installed type declarations, which carry component and prop names but no variants, recipes or theming. The copy on the web tracks main, so it is used only when its last line names the installed version.
+Version-exact: it reads the manifest shipped in the installed package. Releases up to and including 4.0.0 predate the packaged manifest and fall back to the installed type declarations, which carry component and prop names but no variants, recipes or theming. The copy on the web tracks main, so it is used only when its last line names the installed version.
