@@ -24,6 +24,9 @@ export type { UserProfileProps } from "./UserProfile/UserProfile";
 export { default as AppInfo } from "./AppInfo/AppInfo";
 export type { AppInfoProps } from "./AppInfo/AppInfo";
 
+export { default as AppSettings } from "./AppSettings/AppSettings";
+export type { AppSettingsProps } from "./AppSettings/AppSettings";
+
 export { default as AppInfoRow } from "./AppInfo/AppInfoRow";
 export type { AppInfoRowProps } from "./AppInfo/AppInfoRow";
 
