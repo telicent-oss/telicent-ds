@@ -7,7 +7,7 @@
 // reached the tarball, because shipping a package with no manifest silently is
 // worse than a red build.
 import { execFileSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync } from "node:fs";
+import { copyFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -15,9 +15,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dts = resolve(root, "dist/export.d.ts");
 
 if (!existsSync(dts)) {
-  console.warn(
-    "pack-llms: no dist/export.d.ts, so skipping the manifest."
-  );
+  console.warn("pack-llms: no dist/export.d.ts, so skipping the manifest.");
   process.exit(0);
 }
 
@@ -26,6 +24,5 @@ execFileSync("node", [resolve(root, "scripts/build-llms.mjs")], {
   stdio: "inherit",
 });
 
-mkdirSync(resolve(root, "dist"), { recursive: true });
 copyFileSync(resolve(root, "llms/llms.txt"), resolve(root, "dist/llms.txt"));
 console.log("pack-llms: wrote dist/llms.txt");

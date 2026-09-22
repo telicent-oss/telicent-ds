@@ -17,34 +17,45 @@
  * @param ref {string | undefined} branch name, when the caller already knows it
  * @returns {string} e.g. "v4.0.0" or "unreleased (main@83b3447, after v3.7.0)"
  */
-export function resolveDocumentsLabel({ version, git, warn = console.warn, ref }) {
-  const inGitRepo = git(["rev-parse", "--git-dir"]) !== "";
+const readParentVersion = (git) => {
+  const raw = git(["show", "HEAD~1:package.json"]);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw).version ?? null;
+  } catch {
+    return null;
+  }
+};
 
-  const parentVersion = (() => {
-    if (!inGitRepo) return null;
-    const raw = git(["show", "HEAD~1:package.json"]);
-    if (!raw) return null;
-    try {
-      return JSON.parse(raw).version ?? null;
-    } catch {
-      return null;
-    }
-  })();
+// A root commit legitimately has no parent. A shallow clone has one it cannot read,
+// which is a checkout to fix rather than a state to accept quietly.
+const isRootCommit = (git) =>
+  git(["rev-parse", "--is-shallow-repository"]) !== "true" &&
+  git(["rev-parse", "--verify", "--quiet", "HEAD^1"]) === "";
+
+// Actions checks out a detached HEAD, where abbrev-ref returns the literal "HEAD".
+const namedBranch = (git) => {
+  const abbrev = git(["rev-parse", "--abbrev-ref", "HEAD"]);
+  return abbrev && abbrev !== "HEAD" ? abbrev : "unknown-branch";
+};
+
+export function resolveDocumentsLabel({ version, git, warn = console.warn, ref }) {
+  // Outside a checkout, an unpacked tarball say, there is nothing to compare against.
+  if (git(["rev-parse", "--git-dir"]) === "") {
+    return `unreleased (${ref || "unknown-branch"}@unknown, after v${version})`;
+  }
+
+  const parentVersion = readParentVersion(git);
 
   // Released builds name the version, so a consumer on it can match exactly.
   // Everything else says so, so the same comparison fails and the reader falls back
   // to the installed types instead of trusting this file.
   if (parentVersion !== null && parentVersion !== version) return `v${version}`;
 
-  // A shallow clone holds HEAD but not its parent's objects, so a real release
-  // reads as an ordinary build and publishes stamped "unreleased". Say so rather
-  // than stopping the publish: a cautious label beats no manifest at all. A root
-  // commit genuinely has no parent, so it is the one silent case.
-  const shallow = git(["rev-parse", "--is-shallow-repository"]) === "true";
-  const hasParentRef = git(["rev-parse", "--verify", "--quiet", "HEAD^1"]) !== "";
-  const rootCommit = !shallow && !hasParentRef;
-
-  if (inGitRepo && parentVersion === null && !rootCommit) {
+  // A shallow clone reads a real release as an ordinary build and stamps it
+  // "unreleased". Say so rather than stopping the publish: a cautious label beats no
+  // manifest at all.
+  if (parentVersion === null && !isRootCommit(git)) {
     warn(
       "build-llms: cannot read the parent commit's package.json, so a release build " +
         "cannot be told from an ordinary one. Every build will be stamped unreleased. " +
@@ -52,16 +63,6 @@ export function resolveDocumentsLabel({ version, git, warn = console.warn, ref }
     );
   }
 
-  // Name the branch the manifest was built from. A preview published for a feature
-  // branch used to read "main@<sha>" for a commit that was never on main. Actions
-  // checks out a detached HEAD, where abbrev-ref returns the literal "HEAD", so the
-  // caller passes GITHUB_REF_NAME when it has it.
-  const branch = (() => {
-    if (ref) return ref;
-    const abbrev = inGitRepo ? git(["rev-parse", "--abbrev-ref", "HEAD"]) : "";
-    return abbrev && abbrev !== "HEAD" ? abbrev : "unknown-branch";
-  })();
-
-  const sha = inGitRepo ? git(["rev-parse", "--short", "HEAD"]) : "";
-  return `unreleased (${branch}@${sha || "unknown"}, after v${version})`;
+  const sha = git(["rev-parse", "--short", "HEAD"]);
+  return `unreleased (${ref || namedBranch(git)}@${sha || "unknown"}, after v${version})`;
 }
