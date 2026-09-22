@@ -228,7 +228,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 4	DataNavy (light)
     +++ 4	GraphOrange (dark)
-    @@ -91,52 +91,29 @@
+    @@ -91,52 +91,34 @@
          },
          "MuiCssBaseline": {}
        },
@@ -239,11 +239,10 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "dark": "rgba(47, 68, 202, 0.7)",
     -      "light": "rgba(47, 68, 202, 0.5)",
-    -      "contrastText": "#FFFFFF"
-    +      "main": "#F2A64B",
-    +      "dark": "rgba(242, 166, 75, 0.7)",
-    +      "light": "rgba(242, 166, 75, 0.5)",
-    +      "contrastText": "#000"
+    +      "main": "#A65200",
+    +      "dark": "#874300",
+    +      "light": "#C06806",
+           "contrastText": "#FFFFFF"
          },
          "contrastThreshold": 4.5,
          "tertiary": {
@@ -259,14 +258,16 @@ test("tmp theme diffs via unified patches", () => {
          "text": {
     -      "primary": "#ececec",
     -      "secondary": "rgba(255, 255, 255, 0.7)",
-    +      "primary": "#000000",
-    +      "secondary": "#000000",
+    +      "primary": "#1A1D21",
+    +      "secondary": "#5A6172",
            "disabled": "#999999"
          },
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
-    -    },
+    +      "default": "#F0F2F5",
+    +      "paper": "#FFFFFF"
+         },
     -    "success": {
     -      "main": "#2e7d32"
     -    },
@@ -288,7 +289,9 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F9F9F9"
+    +    "divider": "rgba(26, 29, 33, 0.12)",
+    +    "action": {
+    +      "hover": "rgba(26, 29, 33, 0.04)"
          }
        },
        "typography": {
@@ -503,10 +506,10 @@ test("tmp theme diffs via unified patches", () => {
     -      "dark": "rgba(47, 68, 202, 0.7)",
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
-    +      "main": "#000000",
-    +      "dark": "rgba(0, 0, 0, 0.7)",
-    +      "light": "rgba(0, 0, 0, 0.5)",
-    +      "contrastText": "#fff"
+    +      "main": "#FFFFFF",
+    +      "dark": "rgba(255, 255, 255, 0.7)",
+    +      "light": "rgba(255, 255, 255, 0.5)",
+    +      "contrastText": "#000"
          },
          "contrastThreshold": 4.5,
          "tertiary": {
