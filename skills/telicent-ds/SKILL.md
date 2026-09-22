@@ -2,7 +2,7 @@
 name: telicent-ds
 description: Reads the @telicent-oss/ds component manifest that ships inside the installed package and follows it as the source of truth for Telicent UI, falling back to the installed type declarations when the package predates it. Use when building, adding, or changing any Telicent app screen, page, form, dialog, or component; when the user names @telicent-oss/ds or the Telicent design system; or when editing a file that imports from @telicent-oss/ds. Pulls component names, props, and variants from the manifest instead of training memory.
 license: Apache-2.0
-allowed-tools: Read, Grep
+allowed-tools: Read, Grep, Glob
 metadata:
   author: telicent-oss
   version: '1.0.0'
@@ -31,8 +31,8 @@ Before writing or editing any Telicent UI, fetch the component manifest for the 
 
 ### The copy on the web is the wrong version
 
-`https://telicent-oss.github.io/telicent-ds/llms.txt` is rebuilt on every push to
-`main`, so it documents unreleased source. Do not build from it.
+`https://telicent-oss.github.io/telicent-ds/llms.txt` is built from `main`, so it
+documents unreleased source. Do not build from it.
 
 ### What the types cannot tell you
 
@@ -51,8 +51,8 @@ ask - never write the API from memory.
 
 ## Gotchas
 
-Measured against DS 4.0.0 on 2026-09-22. Re-check against the manifest and the installed
-types before relying on any of it.
+Checked against this repo's `main` on 2026-09-22, not against a published release.
+Re-check against the installed package before relying on any of it.
 
 - **A component looks missing? Search by what it DOES, not its MUI name** — the DS
   renames: `Stack`→`FlexBox`, `Grid`→`FlexGrid`, `Typography`→`Text` (headings are
@@ -70,8 +70,8 @@ types before relying on any of it.
   slimmed subset. Missing icon → add it to that package's icons-manifest and rebuild;
   never import upstream.
 - **Genuinely absent:** `ToggleButtonGroup`. Compose from documented primitives and say
-  so — it is a gap in the DS, not the app's problem to keep solving. (`Tabs`, `Tab` and
-  `TabPanel` landed in 4.0.0 and are in the manifest.)
+  so — it is a gap in the DS, not the app's problem to keep solving. `Tabs`, `Tab` and
+  `TabPanel` exist on `main` but are in no release yet.
 - **Never silence a consuming app's `@mui/*` import ban** to get around a gap. No
   `eslint-disable`, no downgrade to `warn`. A silenced rule ships MUI and nobody sees it
   again.

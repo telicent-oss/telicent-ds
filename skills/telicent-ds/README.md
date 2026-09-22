@@ -8,7 +8,7 @@ The design system ships a versioned manifest (`llms.txt`) describing every expor
 
 - `SKILL.md` — the operational skill: frontmatter, fetch steps, rules. Agents load this.
 - `AGENTS.md` — discovery entry for agents following the `AGENTS.md` convention.
-- `metadata.json` — skill version, abstract and manifest URL, for other tooling.
+- `metadata.json` — skill version and abstract. Its one URL is the GitHub Pages copy, which tracks `main`; do not build against it.
 - `README.md` — this overview.
 
 ## Not shipped in the package
@@ -16,4 +16,4 @@ The design system ships a versioned manifest (`llms.txt`) describing every expor
 This directory is repo-only. `package.json` sets `files: ["dist"]`, so the published
 `@telicent-oss/ds` tarball contains `dist/`, `README.md`, `LICENSE` and `package.json` and
 nothing else — installing the design system never writes a skill into a consumer's project.
-Loading the skill is a separate, explicit opt-in: `npx skills add telicent-oss/telicent-ds`.
+Loading the skill is a separate, explicit opt-in: `npx skills add telicent-oss/telicent-ds -a claude-code`.
