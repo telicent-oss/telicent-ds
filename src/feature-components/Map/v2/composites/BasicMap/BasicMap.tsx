@@ -43,9 +43,10 @@ export const BasicMapV2 = React.forwardRef<
   const [layers, setLayers] = useState<BaseLayer[]>([]);
   const mapInstance = useRef<Map | null>(null);
 
-  // Refs: an inline lambda re-runs the effects, and the unmount cleanup captures the first handler.
+  // A ref, so a caller passing a new inline function each render does not re-run the effects.
   const onErrorRef = useRef(props.onError);
   onErrorRef.current = props.onError;
+  // A ref, so the unmount cleanup calls the newest handler rather than the one from the first render.
   const onLayersReadyRef = useRef(props.onLayersReady);
   onLayersReadyRef.current = props.onLayersReady;
 
@@ -68,7 +69,7 @@ export const BasicMapV2 = React.forwardRef<
     [props.paths]
   );
 
-  // Reported from an effect, not the memo: onError in render is a side effect in render.
+  // Reported from an effect rather than the memo above, because render must stay pure.
   const reportedMalformed = useRef(new Set<string>());
   useEffect(() => {
     for (const error of [...malformedPolygons, ...malformedPaths]) {
