@@ -1,26 +1,9 @@
-/**
- * What the llms.txt manifest published to the website claims to document.
- *
- * Only the website copy needs this. The copy that ships inside the npm package is
- * installed beside the code it documents, so it names package.json's version flat
- * and never consults git.
- *
- * `version` from package.json alone is a lie between releases: package.json only
- * moves when release-please merges, so every push to main regenerates the manifest
- * from current source while still stamping the last released number. A consumer on
- * that number then gets a manifest that matches their version string and documents
- * components they do not have.
- *
- * A build is a release iff this commit is the one that set the current version,
- * i.e. the parent's package.json says something else. That test needs the parent
- * commit, so a caller running in CI must check out at least two commits.
- *
- * @param version {string} this commit's package.json version
- * @param git {(args: string[]) => string} runs git, returns trimmed stdout or ""
- * @param warn {(message: string) => void} where to report an unreadable parent
- * @param ref {string | undefined} branch name, when the caller already knows it
- * @returns {string} e.g. "v4.0.0" or "unreleased (main@83b3447, after v3.7.0)"
- */
+// What the llms.txt manifest published to the website claims to document.
+//
+// Only the website copy needs this. The copy that ships inside the npm package is
+// installed beside the code it documents, so it names package.json's version flat
+// and never consults git.
+
 const readParentVersion = (git) => {
   const raw = git(["show", "HEAD~1:package.json"]);
   if (!raw) return null;
@@ -43,6 +26,23 @@ const namedBranch = (git) => {
   return abbrev && abbrev !== "HEAD" ? abbrev : "unknown-branch";
 };
 
+/**
+ * `version` from package.json alone is a lie between releases: package.json only
+ * moves when release-please merges, so every push to main regenerates the manifest
+ * from current source while still stamping the last released number. A consumer on
+ * that number then gets a manifest that matches their version string and documents
+ * components they do not have.
+ *
+ * A build is a release iff this commit is the one that set the current version,
+ * i.e. the parent's package.json says something else. That test needs the parent
+ * commit, so a caller running in CI must check out at least two commits.
+ *
+ * @param version {string} this commit's package.json version
+ * @param git {(args: string[]) => string} runs git, returns trimmed stdout or ""
+ * @param warn {(message: string) => void} where to report an unreadable parent
+ * @param ref {string | undefined} branch name, when the caller already knows it
+ * @returns {string} e.g. "v4.0.0" or "unreleased (main@83b3447, after v3.7.0)"
+ */
 export function resolveDocumentsLabel({ version, git, warn = console.warn, ref }) {
   // Outside a checkout, an unpacked tarball say, there is nothing to compare against.
   if (git(["rev-parse", "--git-dir"]) === "") {
