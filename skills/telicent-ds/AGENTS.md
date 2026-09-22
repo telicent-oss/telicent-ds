@@ -10,6 +10,6 @@ Building or changing UI that uses `@telicent-oss/ds` (Telicent's MUI-based React
 
 ## How to use it
 
-Follow `SKILL.md` in this folder. It carries the exact steps — read `node_modules/@telicent-oss/ds/dist/llms.txt`, which ships in the package and matches the installed version, and fall back to the installed type declarations in `dist/export.d.ts` when that file is absent — and the rules for staying inside the documented API. The copy on the GitHub Pages site documents unreleased source, so the skill bans building from it. `metadata.json` carries the same pointers for tooling.
+Follow `SKILL.md` in this folder. It carries the exact steps — find the installed `@telicent-oss/ds` package and read `dist/llms.txt` inside it, which ships in the package and matches the installed version, falling back to `dist/export.d.ts` in that same package when the release predates the manifest — and the rules for staying inside the documented API. The copy on the GitHub Pages site documents unreleased source, so the skill bans building from it. `metadata.json` carries the same pointers for tooling.
 
 Any agent that reads the `AGENTS.md` / `SKILL.md` conventions can consume this. The `SKILL.md` frontmatter additionally carries Claude Code tool scoping (`allowed-tools`); other agents ignore fields they don't recognise.

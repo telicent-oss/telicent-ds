@@ -14,21 +14,20 @@ Before writing or editing any Telicent UI, fetch the component manifest for the 
 
 ## Fetch the manifest
 
-1. Read `node_modules/@telicent-oss/ds/dist/llms.txt`. It ships inside the package, so
-   it matches the installed version. Use it and stop here.
+1. Find the installed `@telicent-oss/ds` package and read `dist/llms.txt` inside it.
+   That file ships in the package, so it matches the installed version. Use it and stop
+   here.
 
-   In a monorepo the dependency is usually hoisted to the workspace root, not the
-   package you are editing. If that path is not there, try it again from each parent
-   directory up to the repository root before giving up.
+   Where the package lives varies by project: `node_modules/` beside the file you are
+   editing, the workspace root, a pnpm store, or nowhere on disk under Yarn PnP. Locate
+   it the way this project is actually laid out rather than assuming a path.
 
-2. If no directory up to the repository root has that file, say so and say you do not
-   know why yet. It may be any of: the installed release predates the packaged
-   manifest, the project uses Yarn PnP and has no `node_modules` at all, or you lack
-   permission to read there. Check which before telling the user a cause, then
-   continue.
+2. If the package has no `dist/llms.txt`, it is a release from before the manifest
+   shipped. Read `dist/export.d.ts` in that same package and use it as the API. It is
+   the only source that is certain to match what is installed.
 
-3. Use `@telicent-oss/ds/dist/export.d.ts` in whichever `node_modules` directory step 1
-   reached as the API. It is the only source that is certain to match what is installed.
+3. If you cannot find the installed package at all, say so without guessing why, and
+   ask. Do not substitute another version's API.
 
 ### The copy on the web is the wrong version
 
