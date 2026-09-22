@@ -1,7 +1,7 @@
 name: deploy-llms.yml
 
-# The llms.txt published here is built from a branch, so it describes unreleased
-# code. The copy matching a consumer's install ships in the package, as dist/llms.txt.
+# The llms.txt published here tracks a branch head, not a released package. The copy
+# matching a consumer's install ships in the tarball, as dist/llms.txt.
 #
 # keep_files:true stops this wiping upload-storybook.yml's files at the same paths.
 

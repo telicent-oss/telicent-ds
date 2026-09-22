@@ -133,8 +133,7 @@ jobs:
       # changed, since the build itself fails rather than skip the manifest.
       - name: Verify the component manifest packs
         run: |
-          # Listing a real tarball rather than parsing `npm pack --json`, so the
-          # check reads what npm actually wrote.
+          mkdir -p /tmp/packcheck
           npm pack --pack-destination /tmp/packcheck
           tar tzf /tmp/packcheck/*.tgz | grep -qx 'package/dist/llms.txt' \
             || { echo "dist/llms.txt is missing from the tarball"; exit 1; }
