@@ -2,11 +2,14 @@
 // Generates the LLM-discovery files served from the GitHub Pages root:
 //   llms/llms.txt      — the full @telicent-oss/ds component manifest, self-contained.
 //   llms/llms-full.txt — identical bytes, under the name some agents fetch by convention.
+// It also writes dist/llms.txt, the copy that ships inside the npm package. That copy
+// carries a different version banner: it is installed alongside the code it documents,
+// so it matches by construction, while the site copies track whatever branch built them.
 // Canonical source: docs/COMPONENTS.md (edited by hand). The manifest is small
 // (~10k tokens), so both files carry it whole; an agent gets the entire
 // component reference in one request whichever name it fetches.
 // The deploy-llms workflow publishes llms/ to the gh-pages root.
-// Run locally via `yarn build:llms`.
+// Run locally via `yarn generate:llms`, after `yarn build`.
 // Requires dist/export.d.ts (run `yarn build` first) — extract-props reads it.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
@@ -118,6 +121,9 @@ const manifest = rawManifest.replace(
   }
 );
 
+// This also catches a truncated dist/export.d.ts. Such a file still parses, so
+// extract-props returns no props rather than throwing, and every props token in
+// docs/COMPONENTS.md lands here unresolved.
 if (unresolved.length > 0) {
   console.error(
     `build-llms: unresolved token(s) in docs/COMPONENTS.md — no matching key in the props/stories maps:\n  ${unresolved.join(
@@ -169,30 +175,26 @@ if (propless.length > 0 || phantom.length > 0) {
 const outDir = resolve(root, "llms");
 mkdirSync(outDir, { recursive: true });
 
-// The version goes at the TOP as well as the footer. This file is served at an
+// The version goes at the TOP as well as the footer. These files are served at an
 // llms.txt URL, a convention an agent may follow without ever loading the skill, and
-// the header below tells it this is a complete reference. A reader that stops early
-// must still see which version it holds. The wording has to hold for both copies:
-// inside the package it always matches, so the instruction never fires; on the
-// website it is usually ahead, so it does.
-const versionBanner = `**VERSION:** This file documents @telicent-oss/ds ${documents}. If that is not the version installed in the project you are working on, do not build against it: read \`node_modules/@telicent-oss/ds/dist/llms.txt\` instead, which ships with the package and always matches what is installed.
-`;
-
-const withBanner = manifest.replace(
-  /^(# .*\n)/,
-  (title) => `${title}\n${versionBanner}`
-);
-
-// A silently missing banner is the whole failure this guards against: the file would
-// still look complete while telling a reader nothing about which version it is.
-if (withBanner === manifest) {
-  console.error(
-    "build-llms: docs/COMPONENTS.md must open with a '# ' title, so the version banner has somewhere to go."
+// the title below tells it this is a complete reference, so a reader that stops early
+// must still see which version it holds.
+const render = ({ banner, label }) => {
+  const stamped = manifest.replace(
+    /^(# .*\n)/,
+    (title) => `${title}\n**VERSION:** ${banner}\n`
   );
-  process.exit(1);
-}
 
-const llmsFull = `${withBanner}${otherExports}
+  // A silently missing banner is the whole failure this guards against: the file
+  // would still look complete while telling a reader nothing about its version.
+  if (stamped === manifest) {
+    console.error(
+      "build-llms: docs/COMPONENTS.md must open with a '# ' title, so the version banner has somewhere to go."
+    );
+    process.exit(1);
+  }
+
+  return `${stamped}${otherExports}
 
 ---
 
@@ -203,13 +205,35 @@ const llmsFull = `${withBanner}${otherExports}
 - Live examples (Storybook): ${PAGES}/
 - Source and issues: ${GITHUB}
 
-This reference documents @telicent-oss/ds ${documents}.
+This reference documents @telicent-oss/ds ${label}.
 `;
+};
+
+// The site copy is rebuilt from whatever branch pushed, so it is usually ahead of
+// every release and has to send the reader to the packaged copy.
+const siteCopy = render({
+  label: documents,
+  banner: `This file documents @telicent-oss/ds ${documents}. If that is not the version installed in the project you are working on, do not build against it: read \`node_modules/@telicent-oss/ds/dist/llms.txt\` instead, which ships with the package and always matches what is installed.`,
+});
+
+// The packaged copy is installed beside the code it documents, so it needs no git
+// comparison and must not redirect: the file it would point at is itself.
+const packagedCopy = render({
+  label: `v${version}`,
+  banner: `This file documents @telicent-oss/ds v${version}. It shipped inside that package, so it matches the version installed in your project.`,
+});
 
 // The manifest is ~10k tokens, small enough that an index pointing at a
 // separate file would only add a fetch hop. So /llms.txt carries the manifest
 // whole; /llms-full.txt is the same bytes under the name some tools fetch by
 // convention (Cursor, Windsurf, Copilot, Cline, Aider).
-writeFileSync(resolve(outDir, "llms.txt"), llmsFull);
-writeFileSync(resolve(outDir, "llms-full.txt"), llmsFull);
-console.log(`build-llms: wrote llms/llms.txt + llms/llms-full.txt (identical, ${documents})`);
+writeFileSync(resolve(outDir, "llms.txt"), siteCopy);
+writeFileSync(resolve(outDir, "llms-full.txt"), siteCopy);
+
+// dist is made by `vite build`, which runs first in the `build` script.
+mkdirSync(resolve(root, "dist"), { recursive: true });
+writeFileSync(resolve(root, "dist/llms.txt"), packagedCopy);
+
+console.log(
+  `build-llms: wrote llms/llms.txt + llms/llms-full.txt (${documents}) and dist/llms.txt (v${version})`
+);

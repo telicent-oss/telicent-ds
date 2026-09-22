@@ -1,5 +1,9 @@
 /**
- * What the llms.txt manifest claims to document.
+ * What the llms.txt manifest published to the website claims to document.
+ *
+ * Only the website copy needs this. The copy that ships inside the npm package is
+ * installed beside the code it documents, so it names package.json's version flat
+ * and never consults git.
  *
  * `version` from package.json alone is a lie between releases: package.json only
  * moves when release-please merges, so every push to main regenerates the manifest
@@ -53,13 +57,14 @@ export function resolveDocumentsLabel({ version, git, warn = console.warn, ref }
   if (parentVersion !== null && parentVersion !== version) return `v${version}`;
 
   // A shallow clone reads a real release as an ordinary build and stamps it
-  // "unreleased". Say so rather than stopping the publish: a cautious label beats no
+  // "unreleased". Say so rather than stopping the deploy: a cautious label beats no
   // manifest at all.
   if (parentVersion === null && !isRootCommit(git)) {
     warn(
       "build-llms: cannot read the parent commit's package.json, so a release build " +
-        "cannot be told from an ordinary one. Every build will be stamped unreleased. " +
-        "Check out with at least two commits (fetch-depth: 2 in GitHub Actions)."
+        "cannot be told from an ordinary one. The website copy will be stamped " +
+        "unreleased; the copy inside the package is unaffected. Check out with at " +
+        "least two commits (fetch-depth: 2 in GitHub Actions)."
     );
   }
 
