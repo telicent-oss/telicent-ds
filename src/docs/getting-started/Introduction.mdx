@@ -1,0 +1,24 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Docs/Getting started/Introduction" />
+
+# Introduction
+
+`@telicent-oss/ds` is Telicent's design system: the curated set of components, tokens, and patterns Telicent's frontends are built on. It's public, open source, and used by external adopters as well as internal apps — treat it as a product, not internal plumbing.
+
+## Philosophy
+
+The DS follows GOV UK's model: components are **curated, not passthrough**. Every export exists because a real use case has been evidenced across multiple apps, and every visual decision is made once here so consuming apps don't reimplement — or diverge on — it. Autocomplete on `@telicent-oss/ds` is a curation signal: everything shown is opinionated, tested, and endorsed.
+
+The DS builds on top of MUI, but it isn't an alias for MUI. Individual thin MUI wrappers are fine as a first-pass shape (e.g. `Alert`, `Skeleton`, the `Table` family); wholesale re-export of the MUI surface is not. If an app needs something the DS hasn't shipped, the answer is a targeted DS addition — see the *Using MUI directly* page.
+
+## Where to go next
+
+- **Install** — add the DS to your app and get it rendering.
+- **MUI dependencies** — which MUI versions the DS is built against, when to declare MUI in your own `package.json`.
+- **Using MUI directly** — the escape hatch for when the DS doesn't have what you need yet, and how to graduate that use into the DS.
+- **Theming** — light/dark, custom theme colours *(coming soon)*.
+
+## Contributing to the DS
+
+The DS grows when apps need something it doesn't have. If you're reaching for MUI directly, file a Jira ticket so the DS can absorb the pattern — details on the *Using MUI directly* page.

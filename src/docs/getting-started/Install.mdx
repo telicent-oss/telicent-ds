@@ -1,0 +1,84 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Docs/Getting started/Install" />
+
+# Install
+
+Add the DS to your app:
+
+```bash
+yarn add @telicent-oss/ds
+```
+
+Or via npm:
+
+```bash
+npm install @telicent-oss/ds
+```
+
+That's it for most apps — MUI, emotion, and everything else the DS needs come in transitively as dependencies of `@telicent-oss/ds`. You don't declare them in your own `package.json`.
+
+## Do I need to install MUI myself?
+
+**No — unless your app also uses a MUI-based library directly** (e.g. `@mui/x-data-grid`, `@mui/x-tree-view`, a MUI-based charting kit, or any third-party lib that lists MUI as a peer dep).
+
+In that case, add MUI (and emotion) to your own `package.json` at a version range compatible with what the DS declares — the package manager will dedupe DS's and your copy onto a single instance:
+
+```bash
+yarn add @telicent-oss/ds @mui/material @emotion/react @emotion/styled
+```
+
+The DS declares MUI as **optional peer** (`peerDependenciesMeta.optional`), which means:
+- If your app declares MUI, everyone in the tree dedupes onto your version. Single-instance guarantee holds.
+- If your app doesn't declare MUI, DS's own dependency provides it. Also single instance.
+
+The one thing you must avoid: declaring a MUI version *incompatible* with DS's peer range. That'll produce two copies in your `node_modules` and re-open the ThemeContext duplication risk. When in doubt, match the DS's range exactly.
+
+## Import the styles
+
+Import the DS stylesheet once at your app entry:
+
+```ts
+import "@telicent-oss/ds/dist/style.css";
+import "@telicent-oss/ds/dist/fontawesome.css";
+```
+
+FontAwesome icons render only if the second file is loaded.
+
+## Provider setup
+
+Wrap your app in `UIThemeProvider`. It supplies the MUI theme and `CssBaseline` internally — don't add your own `ThemeProvider` or `CssBaseline`.
+
+```tsx
+import { UIThemeProvider } from "@telicent-oss/ds";
+
+const App = () => (
+  <UIThemeProvider theme="DataNavy" dark={false}>
+    <YourApp />
+  </UIThemeProvider>
+);
+```
+
+- `theme` (required): one of `"DataNavy"`, `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"Blank"`.
+- `dark` (optional, default `false`): use the dark palette. Currently a static prop — a runtime toggle is on the roadmap.
+
+## Reading theme values in your own code
+
+When you write your own components alongside the DS, read colours and tokens through `useExtendedTheme`. This is the sanctioned way to set a colour — use it instead of hardcoded hex values.
+
+```tsx
+import { useExtendedTheme } from "@telicent-oss/ds";
+
+const MyComponent = () => {
+  const theme = useExtendedTheme();
+  return <div style={{ color: theme.palette.primary.main }}>…</div>;
+};
+```
+
+Palette keys include `primary`, `tertiary`, `text`, and `background`. Full palette structure is available on the `theme` object at runtime.
+
+## What's next
+
+- **MUI dependencies** — which MUI versions the DS is built against, when to add MUI to your own `package.json`.
+- **Using MUI directly** — for when the DS doesn't have the component you need yet.
+- **Theming** — light/dark and custom themes *(coming soon)*.

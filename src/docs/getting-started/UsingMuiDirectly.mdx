@@ -1,0 +1,97 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Docs/Getting started/Using MUI directly" />
+
+# Using MUI directly
+
+Every app should aim for zero direct `@mui/*` imports — everything through `@telicent-oss/ds`. But the DS grows deliberately, one component at a time, and there will be gaps. This page is the escape hatch for those gaps: how to reach for MUI temporarily, how to keep that code style-consistent with the DS, and how to get it absorbed back into the DS.
+
+## When you might need this
+
+- The DS doesn't yet ship a wrapper for the MUI component you need.
+- The DS's wrapper doesn't yet cover the specific prop / variant / behaviour you need.
+- You're prototyping in a POC (POCs are excluded from the lint rule anyway — this page applies to production apps).
+
+If none of the above is true, **the answer is not this page** — search the DS first, and if the component looks like it should exist but doesn't, still file a ticket rather than reaching for MUI.
+
+## How to escape the lint rule
+
+Production apps ban direct `@mui/*` imports via `no-restricted-imports`. When you genuinely need one, escape *narrowly* — one disable comment per import, tied to a Jira ticket:
+
+```tsx
+// eslint-disable-next-line no-restricted-imports -- FE-1234: DS wrapper pending for Popover
+import { Popover } from "@mui/material";
+```
+
+The Jira ID is not optional. It's what makes "how much drift is currently in the fleet" a `grep` question rather than a folklore one:
+
+```bash
+grep -rE "eslint-disable.*no-restricted-imports" src/
+```
+
+Every hit should have an accompanying open ticket. When the ticket ships, the disable comment gets removed with it.
+
+## Keep the code theme-consistent
+
+The escape hatch is temporary — this MUI code will migrate to a DS wrapper as soon as one lands. Write it so that migration is a one-line import change, not a rewrite. That means: **no hardcoded colours, no hardcoded spacing, no ad-hoc theme values.**
+
+Read every visual token through `useExtendedTheme`:
+
+```tsx
+// eslint-disable-next-line no-restricted-imports -- FE-1234: DS wrapper pending for Popover
+import { Popover } from "@mui/material";
+import { useExtendedTheme } from "@telicent-oss/ds";
+
+const InfoPopover = ({ anchorEl, onClose, children }) => {
+  const theme = useExtendedTheme();
+  return (
+    <Popover
+      open={!!anchorEl}
+      anchorEl={anchorEl}
+      onClose={onClose}
+      sx={{
+        "& .MuiPopover-paper": {
+          bgcolor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+          borderRadius: theme.shape.borderRadius,
+        },
+      }}
+    >
+      {children}
+    </Popover>
+  );
+};
+```
+
+When the DS `Popover` wrapper ships, migration is:
+
+```diff
+- // eslint-disable-next-line no-restricted-imports -- FE-1234: DS wrapper pending for Popover
+- import { Popover } from "@mui/material";
++ import { Popover } from "@telicent-oss/ds";
+```
+
+The `sx` block goes away — the DS wrapper handles it. The rest of your component doesn't change.
+
+## Filing the Jira ticket
+
+Absorbing an escape hatch back into the DS starts with a ticket. Include:
+
+- **Which apps hand-roll this today** — grep the fleet for direct imports or repeated `sx` blocks.
+- **Screenshot of the current rendering** — what the app looks like today with the escape-hatch code.
+- **What the DS-owned version should do** — required props, defaults, variants, which theme tokens it should read.
+- **Whether the underlying MUI component works off-theme** — if it does, the DS wrapper is a thin pass-through. If it needs palette or override work, note the theme keys involved.
+- **The Jira ID that appears in the app's `eslint-disable` comment** — so the DS team knows what will get unblocked when they ship.
+
+File under the DS project in Jira. There's no automation — the DS team relies on the ticket showing up.
+
+## After the DS ships the component
+
+Once the DS wrapper lands and you upgrade to the release that includes it:
+
+1. Change the import path from `@mui/material` → `@telicent-oss/ds`.
+2. Remove the `eslint-disable-next-line` comment.
+3. Delete any `sx` overrides that the DS wrapper now handles internally.
+4. Close the Jira ticket.
+
+That's the whole loop. Escape hatches exist to be closed — the shorter the round trip, the healthier the DS.
