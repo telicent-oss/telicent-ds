@@ -1,5 +1,7 @@
 # Telicent DS Component Manifest
 
+**VERSION:** This file documents @telicent-oss/ds unreleased, after v4.0.0. If that is not the version installed in the project you are working on, do not build against it: read `node_modules/@telicent-oss/ds/dist/llms.txt` instead, which ships with the package and always matches what is installed.
+
 > `@telicent-oss/ds` is Telicent's MUI-based React component library. This file is the complete, self-contained reference: setup, theming, every exported component, and copy-paste recipes. An agent that fetches it has what it needs to build a Telicent app UI without reading the source.
 
 **AGENT INSTRUCTION:** This is your source of truth for UI components. Before writing any custom JSX or Tailwind classes for a visual element, you MUST find the closest match in this document.
@@ -48,7 +50,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 
 > Auth (`useAuth`, `AuthProvider`, `AuthContext`, `AuthRedirectUri`, `Callback`, and the `authorize-flow` utilities) is exported from `@telicent-oss/ds` and used by most Telicent apps, but it is out of scope for this UI component reference. See `src/utils/authorize-flow` in the source.
 
-> Geospatial map components (`BasicMap`, `BasicMapV2`, `FeatureMap`, `MapCanvas`, `MapCanvasV2`, `LayerSelector`, `MapCanvasProvider`, and the `useMap` hook) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map` in the source.
+> Geospatial map components (`BasicMapV2`, `MapCanvasV2`, `LayerSelectorV2`, and the zoom and toggle controls) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map/v2` in the source. The v1 components were removed in 4.0.0.
 
 ---
 
@@ -291,6 +293,35 @@ Usage: https://github.com/telicent-oss/telicent-ds/blob/chore/ds-skill-and-per-m
 
 Demonstrated states:
 - Example
+
+* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set.
+```yaml
+Tabs:
+  'aria-label': {type: 'string', required: false}
+  'aria-labelledby': {type: 'string', required: false}
+  idPrefix: {type: 'string', required: true}
+```
+```yaml
+Tab:
+  value: {type: 'TabValue', required: true}
+```
+```yaml
+TabPanel:
+  activeValue: {type: 'TabValue', required: true}
+  idPrefix: {type: 'string', required: true}
+  keepMounted: {type: 'boolean', required: false}
+  value: {type: 'TabValue', required: true}
+```
+Live: https://telicent-oss.github.io/telicent-ds/chore/ds-skill-and-per-major-llms/?path=/docs/navigation-tabs--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/chore/ds-skill-and-per-major-llms/src/components/Navigation/Tabs/Tabs.stories.tsx
+
+Demonstrated states:
+- Default
+- WithLabelledBy
+- Vertical
+- Scrollable
+- WithIcons
+- KeepMounted
 
 ## 3. Inputs & Forms
 *Use these instead of standard `<input>`, `<select>`, or `<textarea>` tags. Ensure accessibility labels are passed.*
@@ -849,4 +880,4 @@ SnackbarProvider: {} # no own props; all inherited from the underlying MUI/DOM e
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds unreleased (chore/ds-skill-and-per-major-llms@34f2ff8, after v3.7.0).
+This reference documents @telicent-oss/ds unreleased, after v4.0.0.
