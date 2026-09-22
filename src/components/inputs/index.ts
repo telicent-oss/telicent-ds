@@ -11,6 +11,10 @@ export type { SelectFooterArgs } from "./Select/Select";
 export { default as Switch } from "./Switch/Switch";
 export { default as LabeledSwitch } from "./LabeledSwitch/LabeledSwitch";
 export type { LabeledSwitchProps } from "./LabeledSwitch/LabeledSwitch";
+export { default as ThemeSwitch } from "./ThemeSwitch/ThemeSwitch";
+export type { ThemeSwitchProps } from "./ThemeSwitch/ThemeSwitch";
+export { default as ThemeSwitchRow } from "./ThemeSwitch/ThemeSwitchRow";
+export type { ThemeSwitchRowProps } from "./ThemeSwitch/ThemeSwitchRow";
 
 export { default as DatePicker } from "./DatePicker/DatePicker";
 export { default as DateTimePicker } from "./DateAndTimePicker/DateTimePicker";
