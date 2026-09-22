@@ -29,7 +29,7 @@ vs no-doc gap measures the **doc's** value, not the model's React fluency.
 The candidate-generation step needs a model, so this is an on-demand eval, not a
 CI gate. `candidates/` and `results/` are gitignored.
 
-1. `yarn build && yarn generate:llms` — produce `llms/llms-full.txt`.
+1. `yarn build` — produce `llms/llms-full.txt`.
 2. For each task in `tasks.mjs`, ask a coding agent to write the file. Give the
    with-doc agent only `llms/llms-full.txt`; give the no-doc agent nothing. Save
    each answer to `eval/candidates/<taskId>.<condition>.tsx`
