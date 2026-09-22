@@ -118,6 +118,7 @@ import { FormLabelClasses } from '@mui/material';
 import { FormLabelProps } from '@mui/material';
 import { ForwardedRef } from 'react';
 import { ForwardRefExoticComponent } from 'react';
+import type * as GeoJSON_2 from 'geojson';
 import { Grid2Props } from '@mui/material';
 import { GridClasses } from '@mui/material';
 import { GridProps } from '@mui/material/Grid';
@@ -176,8 +177,6 @@ import { ListSubheaderClasses } from '@mui/material';
 import { ListSubheaderProps } from '@mui/material';
 import { LocationOn as LocationOnIcon } from '@telicent-oss/mui-icons-material';
 import { Map as Map_2 } from 'ol';
-import { MapProvider } from 'react-map-gl/maplibre';
-import { MapRef } from 'react-map-gl/maplibre';
 import { MenuClasses } from '@mui/material';
 import { MenuItemOwnProps } from '@mui/material';
 import { MenuListProps } from '@mui/material';
@@ -285,9 +284,10 @@ import { TableRowClasses } from '@mui/material';
 import { TableRowProps } from '@mui/material';
 import { TableSortLabelClasses } from '@mui/material';
 import { TableSortLabelProps } from '@mui/material';
-import { TabProps } from '@mui/material';
-import { TabsClasses } from '@mui/material';
-import { TabsProps } from '@mui/material';
+import { TabProps as TabProps_2 } from '@mui/material/Tab';
+import { TabProps as TabProps_3 } from '@mui/material';
+import { TabsOwnProps } from '@mui/material';
+import { TabsProps as TabsProps_2 } from '@mui/material/Tabs';
 import { TextFieldProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Theme as Theme_2 } from '@mui/material';
@@ -308,10 +308,17 @@ import { TypographyProps } from '@mui/material/Typography';
 import { TypographyProps as TypographyProps_2 } from '@mui/material';
 import { URLSearchParamsInit } from 'react-router-dom';
 import { UseAutocompleteProps } from '@mui/material/useAutocomplete';
-import { useMap } from 'react-map-gl/maplibre';
 import { UserInfo } from '@telicent-oss/fe-auth-lib';
 import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
+
+declare type AccessibleName = {
+    "aria-label": string;
+    "aria-labelledby"?: never;
+} | {
+    "aria-labelledby": string;
+    "aria-label"?: never;
+};
 
 export { Alert }
 
@@ -521,8 +528,6 @@ export declare type BaseVectorTileLayerConfig = {
     projection?: string;
     label: string;
 };
-
-export declare const BasicMap: default_2.FC<FeatureMapProps>;
 
 export declare interface BasicMapProperties {
     zoom: number;
@@ -990,14 +995,6 @@ export declare type FeatureEvent = {
     pixel: [number, number];
 };
 
-export declare const FeatureMap: default_2.FC<FeatureMapProps>;
-
-declare interface FeatureMapProps extends RequiredRest, // everything except initialViewState & geoPolygons
-Optionalized {
-    theme?: UITheme;
-    polygonLayers?: (mapboxgl.FillLayer | mapboxgl.LineLayer | mapboxgl.SymbolLayer)[];
-}
-
 export declare const FixedPanel: default_2.FC<PanelProps>;
 
 export declare const FlexBox: default_2.ForwardRefExoticComponent<Omit<StackProps, "ref"> & default_2.RefAttributes<HTMLDivElement>>;
@@ -1156,6 +1153,25 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiCssBaseline: {
         styleOverrides: (theme: Omit<Theme_2, "components">) => string;
+    };
+    MuiTabs: {
+        styleOverrides: {
+            root: ({ theme }: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+                component?: ElementType;
+            } & Record<string, unknown> & {
+                ownerState: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+                    component?: ElementType;
+                } & Record<string, unknown>;
+            } & {
+                theme: Omit<Theme_2, "components">;
+            }) => {
+                borderBottom: string;
+                "&.MuiTabs-vertical": {
+                    borderBottom: string;
+                    borderInlineEnd: string;
+                };
+            };
+        };
     };
     MuiCard: {
         variants: {
@@ -2333,8 +2349,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTab"];
         styleOverrides?: Partial<OverridesStyleRules<keyof TabClasses, "MuiTab", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TabProps> | ((props: Partial<TabProps> & {
-                ownerState: Partial<TabProps>;
+            props: Partial<TabProps_3> | ((props: Partial<TabProps_3> & {
+                ownerState: Partial<TabProps_3>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2443,18 +2459,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<TableSortLabelProps> | ((props: Partial<TableSortLabelProps> & {
                 ownerState: Partial<TableSortLabelProps>;
-            }) => boolean);
-            style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiTabs?: {
-        defaultProps?: ComponentsProps["MuiTabs"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TabsClasses, "MuiTabs", Omit<Theme_2, "components">>> | undefined;
-        variants?: {
-            props: Partial<TabsProps> | ((props: Partial<TabsProps> & {
-                ownerState: Partial<TabsProps>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2628,16 +2632,6 @@ export declare type LayerMeta = {
     visible: boolean;
 };
 
-export declare interface LayerOption {
-    uri: string;
-    image: string;
-    label: string;
-}
-
-export declare const LayerSelector: default_2.FC;
-
-export declare const LayerSelectorInsetInMap: default_2.FC<Pick<PresentationalProps, "color" | "sx" | "variant">>;
-
 export declare interface LayerSelectorProps {
     layers: default_5[];
     style?: React.CSSProperties;
@@ -2754,65 +2748,6 @@ export declare const loggerLevelOrder: Record<LoggerLevelString, number>;
 
 export declare type LoggerLevelString = "debug" | "info" | "warn" | "error";
 
-declare type MapBoxSource = z.infer<typeof MapBoxSourceSchema>;
-
-export declare const MapBoxSourceSchema: z.ZodObject<{
-    label: z.ZodString;
-    uri: z.ZodString;
-    image: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    label: string;
-    image: string;
-    uri: string;
-}, {
-    label: string;
-    image: string;
-    uri: string;
-}>;
-
-export declare const MapCanvas: default_2.FC<MapCanvasProps>;
-
-declare type MapCanvasConfig = {
-    tileSets: StyleOption[];
-    vectorStyles?: StyleOption | StyleOption[];
-};
-
-export declare interface MapCanvasProps {
-    mapRef: default_2.RefObject<MapRef | null>;
-    initialViewState: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-        maxZoom: number;
-    };
-    cursor?: string;
-    onDragStart: () => void;
-    onDragEnd: () => void;
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-    onLoad: () => void;
-    defaultStyle?: string;
-    attributionControl: boolean;
-    markers: ResultMarker[];
-    geoPolygons: GeoJSON.FeatureCollection;
-    selected: string[];
-    onClickMarker?: (m: ResultMarker) => void;
-    findByClassUri: (u: string) => any;
-    polygonLayers?: (mapboxgl.FillLayer | mapboxgl.LineLayer | mapboxgl.SymbolLayer)[];
-}
-
-/**
- * For state that is shared throughout the app
- */
-export declare const MapCanvasProvider: default_2.FC<{
-    initialMapStyleConfig: MapStyleConfig;
-    children: ReactNode;
-}>;
-
-export declare interface MapCanvasState {
-    styleSelector: StyleSelectorState;
-}
-
 export declare const MapCanvasV2: default_2.FC<MapCanvasV2Props>;
 
 export declare type MapCanvasV2Props = {
@@ -2835,13 +2770,6 @@ export declare interface MapControlsConfig {
 export declare const MapIcon: default_2.FC<SvgIconProps>;
 
 export declare type MapInstanceRef = React.MutableRefObject<Map_2 | null>;
-
-export { MapProvider }
-
-declare interface MapStyleConfig {
-    vectorStyles?: StyleOption | StyleOption[];
-    tileSets?: StyleOption[];
-}
 
 export declare const MapToggleButtonPresentational: default_2.FC<SecondaryButtonProps>;
 
@@ -3013,10 +2941,6 @@ declare type Option_2 = {
     icon?: React.ReactNode;
 };
 
-declare type Optional = Pick<Picked, "initialViewState" | "geoPolygons" | "attributionControl">;
-
-declare type Optionalized = Partial<Optional>;
-
 export declare interface Options {
     value: string | number;
     label: string;
@@ -3026,7 +2950,7 @@ export declare interface Options {
 export declare interface OverlayConfig {
     id: string;
     type: OverlayType;
-    source: string | GeoJSON.FeatureCollection;
+    source: string | GeoJSON_2.FeatureCollection;
     visible?: boolean;
     zIndex?: number;
     opacity?: number;
@@ -3105,8 +3029,6 @@ export declare interface PanelsType extends Record<string, PanelState> {
 export declare const Paper: default_2.ForwardRefExoticComponent<Omit<PaperProps, "ref"> & default_2.RefAttributes<HTMLDivElement>>;
 
 export declare function parseOrThrowWithInput<TSchema extends ZodTypeAny>(schema: TSchema, data: unknown): z.output<TSchema>;
-
-declare type Picked = Pick<MapCanvasProps, "initialViewState" | "defaultStyle" | "attributionControl" | "markers" | "geoPolygons" | "selected" | "onClickMarker" | "findByClassUri">;
 
 export declare const PlayIcon: default_2.FC<SvgIconProps>;
 
@@ -3197,15 +3119,6 @@ export declare const PreferredLabelCache: {
     get: (val: string) => string;
 };
 
-declare interface PresentationalProps extends Pick<ButtonProps, "sx" | "variant" | "color" | "size"> {
-    selectedIndex: number;
-    data: LayerOption[];
-    anchorEl: HTMLButtonElement | null;
-    onCloseDropdown: PopOverProps["onClose"];
-    onClickDropdown: ButtonProps["onClick"];
-    onListItemClick: (index: number) => void;
-}
-
 declare interface ProgressProps extends Omit<CircularProgressProps, "classes" | "color" | "size" | "sx" | "thickness"> {
 }
 
@@ -3234,8 +3147,6 @@ declare interface RequestApi {
     };
 }
 
-declare type RequiredRest = Omit<Picked, keyof Optional>;
-
 export declare const resolveFaIconPath: (faIcon?: string | IconDefinition) => ResolveResult;
 
 declare interface ResolveResult {
@@ -3244,13 +3155,6 @@ declare interface ResolveResult {
 }
 
 declare type ResolveStatus = "ready" | "missing" | "loading" | "invalid";
-
-declare type ResultMarker = {
-    geohash: string;
-    type: string;
-    uri: string;
-    name: string;
-};
 
 declare type RootPropsType = Omit<BoxProps, 'children' | 'content'>;
 
@@ -3650,21 +3554,6 @@ export declare type StyleConfig = Partial<{
     text?: string;
 }> | ((feature: unknown) => StyleConfig);
 
-declare type StyleOption = {
-    label: string;
-    uri: string;
-    image: string;
-};
-
-declare interface StyleSelectorState {
-    selected: MapBoxSource | null;
-    mapConfig: MapCanvasConfig;
-    props: {
-        onChange: (v: LayerOption) => void;
-        data: StyleOption[];
-    };
-}
-
 declare type SupportedVariant = ButtonVariant;
 
 export declare const Switch: ForwardRefExoticComponent<Omit<SwitchProps_2, "ref"> & RefAttributes<HTMLButtonElement>>;
@@ -3673,6 +3562,79 @@ declare type SwitchProps_2 = Omit<SwitchProps, "color"> & {
     label?: string;
     labelPlacement?: "end" | "start" | "top" | "bottom";
 };
+
+export declare const Tab: ({ value, ...props }: TabProps) => JSX.Element;
+
+export declare const TabPanel: default_2.ForwardRefExoticComponent<Omit<default_2.HTMLAttributes<HTMLDivElement>, "hidden"> & {
+    /** Matches the `idPrefix` on this group's `Tabs`. */
+    idPrefix: string;
+    /** This panel's own value. */
+    value: TabValue;
+    /** The tab set's selected value — the same state `Tabs` receives. */
+    activeValue: TabValue;
+    /**
+     * Keep this panel's children mounted while it is hidden. Off by default, so
+     * an inactive panel costs nothing; on when the panel holds form state worth
+     * preserving across tab switches.
+     */
+    keepMounted?: boolean;
+} & default_2.RefAttributes<HTMLDivElement>>;
+
+export declare type TabPanelProps = Omit<default_2.HTMLAttributes<HTMLDivElement>, "hidden"> & {
+    /** Matches the `idPrefix` on this group's `Tabs`. */
+    idPrefix: string;
+    /** This panel's own value. */
+    value: TabValue;
+    /** The tab set's selected value — the same state `Tabs` receives. */
+    activeValue: TabValue;
+    /**
+     * Keep this panel's children mounted while it is hidden. Off by default, so
+     * an inactive panel costs nothing; on when the panel holds form state worth
+     * preserving across tab switches.
+     */
+    keepMounted?: boolean;
+};
+
+export declare type TabProps = Omit<TabProps_2, "value"> & {
+    /**
+     * Required, where MUI falls back to the child's index, and narrowed to
+     * `string | number` because it becomes part of a DOM id.
+     */
+    value: TabValue;
+};
+
+export declare const Tabs: default_2.ForwardRefExoticComponent<(Omit<Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & {
+    "aria-label": string;
+    "aria-labelledby"?: never;
+} & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+}, "ref"> | Omit<Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & {
+    "aria-labelledby": string;
+    "aria-label"?: never;
+} & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+}, "ref">) & default_2.RefAttributes<HTMLDivElement>>;
+
+export declare type TabsProps = Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & AccessibleName & {
+    /**
+     * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
+     * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
+     * page, and repeated on this group's `TabPanel`s.
+     */
+    idPrefix: string;
+};
+
+declare type TabValue = string | number;
 
 export declare const TelicentHorizontalSVG: default_2.FC<SvgIconProps>;
 
@@ -3951,10 +3913,6 @@ export declare const useExtendedTheme: () => ExtendedTheme;
 export declare const useFloatingPanels: () => {
     panels: string[];
 };
-
-export { useMap }
-
-export declare const useMapCanvasContext: () => MapCanvasState;
 
 export declare const UserIcon: default_2.FC<SvgIconProps_2>;
 
