@@ -1,16 +1,9 @@
 name: deploy-llms.yml
 
-# Publishes llms.txt and llms-full.txt to the GitHub Pages site. Every deploy below
-# uses publish_dir ./llms, so each of these paths gets both files.
-#
-# ref     published at
-# main    /
-# branch  /<branch>/
-#
 # The package ships its own dist/llms.txt, which is the copy that matches a
 # consumer's installed version and says so in its version banner. These site copies
 # track whatever branch built them, so their banner sends a reader to the packaged
-# copy instead. Both name their version on the last line.
+# copy instead.
 #
 # keep_files:true stops a deploy wiping paths it did not write. upload-storybook.yml
 # publishes Storybook to these same two paths, and each workflow's keep_files
@@ -24,7 +17,6 @@ on:
     paths:
       - docs/COMPONENTS.md
       - scripts/build-llms.mjs
-      - scripts/llms-version-label.mjs
       - scripts/extract-props.mjs
       - scripts/extract-stories.mjs
       - .github/workflows/deploy-llms.yml
@@ -66,9 +58,6 @@ jobs:
       # already means llms/llms.txt is present.
       - name: Build package
         run: yarn build
-
-      - name: Show the version this manifest claims
-        run: tail -1 llms/llms.txt
 
       - name: Deploy llms.txt to Pages root
         if: github.ref == 'refs/heads/main'
