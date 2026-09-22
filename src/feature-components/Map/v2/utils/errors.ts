@@ -1,5 +1,6 @@
 /**
- * Names a feature whose `coordinates` could not be converted into geometry; thrown by `polygonToOLFeature`, `pathToOLFeature` and `partitionFeatures`.
+ * Thrown when a feature's `coordinates` cannot be converted into geometry.
+ * `featureId` is the id of the offending record.
  */
 export class MalformedFeatureError extends Error {
   readonly featureId: string;

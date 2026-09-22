@@ -67,11 +67,11 @@ export type BasicMapV2Handle = {
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
   /**
-   * Sets one layer's opacity; see `OpacitySchema` in types/opacity.ts. Reports
-   * an unknown `layerId` through `onError`; for the overlays use
-   * `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and `PATH_LAYER_ID`. It applies from
-   * `onLayersReady(true)` until the next layer rebuild; set `opacity` on the
-   * `layers` config to survive that rebuild.
+   * Sets one layer's opacity. Takes 0 to 1 and throws on anything else.
+   * Overlay ids are `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and `PATH_LAYER_ID`.
+   * An unknown id, or a call made before `onLayersReady(true)`, reaches
+   * `onError`. A later layer rebuild resets it; set `opacity` in the `layers`
+   * config to keep it.
    */
   setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
@@ -94,7 +94,7 @@ export interface BasicMapProperties {
    * Base layers, drawn under the markers, polygons and paths. A non-empty
    * `layers` overrides the deprecated `mapStyleOptions`; an empty array falls
    * through to it, and omitting both draws no basemap. A layer's `opacity`
-   * throws if invalid; see `OpacitySchema` in types/opacity.ts.
+   * takes 0 to 1 and throws on anything else.
    */
   layers?: LayerConfig[];
   controls?: Partial<MapControlsConfig>;
@@ -119,8 +119,8 @@ export interface BasicMapProperties {
    * It overrides every path's own `style`, direction arrows included. Omit it
    * and each path renders with its own `style`, or the default overlay style.
    * Changing it restyles the path layer without rebuilding layers or moving the
-   * viewport; memoise it and hoist the `Style` objects, as the function runs
-   * once per feature per layer render. A path's own `style` stays readable
+   * viewport; memoise it and hoist the `Style` objects it returns, since it is
+   * called for every path. A path's own `style` stays readable
    * under `originalStyle`, `undefined` if it set none:
    *
    * ```tsx

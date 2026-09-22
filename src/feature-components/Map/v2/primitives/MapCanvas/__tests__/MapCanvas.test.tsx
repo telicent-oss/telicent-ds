@@ -36,7 +36,7 @@ const defaultProps = {
 	center: [0, 0]
 }
 
-// hasFeature is a plain function, not jest.fn: resetMocks in jest.config.cjs clears implementations passed to jest.fn.
+// Keep this a plain function: resetMocks in jest.config.cjs would clear a jest.fn implementation.
 const markerSource = { hasFeature: () => true };
 const mockMarkerLayer = { getSource: () => markerSource };
 
