@@ -7,8 +7,9 @@ export interface PartitionedFeatures {
 }
 
 /**
- * Converts feature configs, keeping the ones that convert and collecting the ones that don't.
- * Catches every failure, not only `MalformedFeatureError`: the converters check the first coordinate only, so OpenLayers throws a plain `TypeError` on a null vertex further in.
+ * Converts each item, returning the features that converted and a
+ * `MalformedFeatureError` for each that did not. Any error becomes one, so a
+ * single bad record cannot stop the rest.
  */
 export const partitionFeatures = <T extends { id: string }>(
   items: T[],
