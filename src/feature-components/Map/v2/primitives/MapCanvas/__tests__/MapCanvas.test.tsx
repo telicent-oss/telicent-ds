@@ -36,10 +36,7 @@ const defaultProps = {
 	center: [0, 0]
 }
 
-// MapCanvas asks the marker layer whether a selected feature belongs to it
-// before framing the viewport. hasFeature is a plain function, not jest.fn:
-// resetMocks in jest.config.cjs clears an implementation passed to jest.fn, so
-// it would return undefined and the fit would look skipped on purpose.
+// hasFeature is a plain function, not jest.fn: resetMocks in jest.config.cjs clears implementations passed to jest.fn.
 const markerSource = { hasFeature: () => true };
 const mockMarkerLayer = { getSource: () => markerSource };
 
@@ -143,7 +140,6 @@ describe("MapCanvasV2", () => {
 
 		(findVectorLayerById as jest.Mock).mockReturnValue(mockMarkerLayer);
 
-		// Mock addSelectInteraction to immediately call onSelect
 		(addSelectInteraction as jest.Mock).mockImplementation(({ onSelect }) => {
 			onSelect([mockFeature]);
 			return "mockInteraction";

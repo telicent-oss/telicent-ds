@@ -14,8 +14,7 @@ const buildDirectionImage = (
   rotation: number
 ) => {
   if (marker?.type === "svg") {
-    // `rotation` is measured clockwise from north. OL rotates an Icon
-    // clockwise from the markup's drawn orientation, taken here as east.
+    // `rotation` is clockwise from north; OL rotates an Icon clockwise from the markup's drawn orientation, taken here as east.
     return new Icon({
       src: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(marker.markup)}`,
       rotation: rotation - Math.PI / 2,
@@ -115,11 +114,8 @@ export const pathToOLFeature = (
       }),
     });
 
-    // Stored on the feature, never applied with setStyle(). OpenLayers renders
-    // a feature with its own style function in place of the layer's, which
-    // would make BasicMapV2's layer-level `pathStyle` prop dead for this path.
-    // getPathLayerDefaultStyle() reads `originalStyle` back when no `pathStyle`
-    // is supplied.
+    // Stored, never applied with setStyle(): a feature style replaces the layer style, killing the `pathStyle` prop for this path.
+    // getPathLayerDefaultStyle() reads `originalStyle` back when no `pathStyle` is set.
     if (style.direction) {
       feature.set("originalStyle", [
         strokeStyle,

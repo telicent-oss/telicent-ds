@@ -43,8 +43,7 @@ export const BasicMapV2 = React.forwardRef<
   const [layers, setLayers] = useState<BaseLayer[]>([]);
   const mapInstance = useRef<Map | null>(null);
 
-  // Held in refs so an inline lambda does not re-run the effects, and so the
-  // unmount cleanup below calls the current handler rather than the first one.
+  // Refs: an inline lambda would re-run the effects; the unmount cleanup would keep the first.
   const onErrorRef = useRef(props.onError);
   onErrorRef.current = props.onError;
   const onLayersReadyRef = useRef(props.onLayersReady);
@@ -59,9 +58,6 @@ export const BasicMapV2 = React.forwardRef<
     console.error(`BasicMapV2: ${context}`, error);
   }, []);
 
-  // Memoised so the effect that fills the sources re-runs only when the
-  // converted features change, not on every render. A record that fails to
-  // convert is collected here and reported through onError below.
   const { features: polygonFeatures, malformed: malformedPolygons } = useMemo(
     () => partitionFeatures(props.polygons, polygonToOLFeature),
     [props.polygons]
@@ -72,13 +68,10 @@ export const BasicMapV2 = React.forwardRef<
     [props.paths]
   );
 
-  // Reported from an effect, never from the memo above: onError is a consumer
-  // callback and calling it during render is a side effect in render.
+  // Reported from an effect, not the memo: onError in render is a side effect in render.
   const reportedMalformed = useRef(new Set<string>());
   useEffect(() => {
     for (const error of [...malformedPolygons, ...malformedPaths]) {
-      // Keyed on id and message: the same record breaking the same way is
-      // reported once per mount, breaking differently reports again.
       const key = `${error.featureId}\u0000${error.message}`;
       if (reportedMalformed.current.has(key)) continue;
       reportedMalformed.current.add(key);
@@ -97,24 +90,19 @@ export const BasicMapV2 = React.forwardRef<
         : [];
 
     const overlayVectorLayers: LayerConfig[] = [
-      // Marker layer
       {
         kind: "overlay-vector",
         id: MARKER_LAYER_ID,
         data: [],
         visible: true,
       },
-      // Polygon layer
       {
         kind: "overlay-vector",
         id: POLYGON_LAYER_ID,
         data: [],
         visible: true,
       },
-      // props.pathStyle is applied in its own effect below, never put in this
-      // config: a new function identity would rebuild every layer. The default
-      // style is repeated here so the layer is not left with OpenLayers' own
-      // default style until that effect runs.
+      // Never put props.pathStyle here: a new identity rebuilds every layer.
       {
         kind: "overlay-vector",
         id: PATH_LAYER_ID,
@@ -124,8 +112,7 @@ export const BasicMapV2 = React.forwardRef<
       },
     ];
     const allLayers = [...baseLayers, ...overlayVectorLayers];
-    // Throws rather than being clamped: opacity is written by a developer in a
-    // prop or a deployment config, so a bad value is a mistake, not bad data.
+    // Throws rather than clamps: opacity is developer-written, so a bad value is a mistake.
     allLayers.forEach((layer) => {
       if ("opacity" in layer && layer.opacity !== undefined) {
         parseOrThrowWithInput(OpacitySchema, layer.opacity);
@@ -145,8 +132,6 @@ export const BasicMapV2 = React.forwardRef<
         }
       } catch (e) {
         reportError("could not set up layers", e);
-        // A consumer waiting on onLayersReady(true) gets no other signal that
-        // setup failed.
         if (!cancelled) onLayersReadyRef.current?.(false);
         return;
       }
@@ -165,8 +150,7 @@ export const BasicMapV2 = React.forwardRef<
   useEffect(() => {
     const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
     if (!pathLayer) return;
-    // pathStyle replaces each path's own `style` -- see `pathStyle` in
-    // map-types.ts.
+    // pathStyle replaces each path's own `style` -- see `pathStyle` in map-types.ts.
     pathLayer.setStyle(props.pathStyle ?? getPathLayerDefaultStyle());
   }, [layers, props.pathStyle]);
 
@@ -201,8 +185,7 @@ export const BasicMapV2 = React.forwardRef<
     (async () => {
       let markerFeatures: Feature[];
       try {
-        // Icon preload is a network fetch: report the failure and leave the
-        // previous render in place instead of dying as an unhandled rejection.
+        // A network fetch: report it and keep the previous render.
         await ensureMarkerIconsLoaded(props.markers);
         if (cancelled) return;
         markerFeatures = props.markers.map(markerToOLFeature);
@@ -304,14 +287,10 @@ export const BasicMapV2 = React.forwardRef<
       },
       setLayerOpacity: (layerId: string, opacity: number) => {
         const validated = parseOrThrowWithInput(OpacitySchema, opacity);
-        // Before the layers resolve there is nothing to find, so an early call
-        // is a timing mistake rather than a wrong id and is not reported.
-        // onLayersReady(true) marks this handle as usable.
+        // Before layers resolve an early call is a timing mistake, not a wrong id.
         if (layers.length < 1) return;
         const layer = layers.find((l) => l.get("id") === layerId);
         if (!layer) {
-          // An unreported no-op makes a typo in the id look the same as a
-          // layer that was never configured.
           reportError(
             `no layer with id "${layerId}"`,
             new Error(

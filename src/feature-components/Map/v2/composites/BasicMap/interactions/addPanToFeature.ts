@@ -45,23 +45,18 @@ export const fitToFeature = (
 
   const worldWidth = getWidth(worldExtent);
 
-  // Normalizes a longitude (X) into the world extent.
-  //
-  // Modular, not a subtract loop: for x near Number.MAX_VALUE, subtracting
-  // worldWidth leaves x unchanged.
+  // Modular, not a subtract loop: subtracting worldWidth from an x near Number.MAX_VALUE leaves it unchanged.
   const normalizeX = (x: number) => {
     if (!Number.isFinite(x)) return x;
 
     const offsetFromWest = x - worldExtent[0];
-    // `%` keeps the sign of the dividend, so an X west of the world needs the
-    // extra `+ worldWidth` to land in [0, worldWidth).
+    // Dropping the extra `+ worldWidth` leaves an X west of the world negative: `%` keeps the dividend's sign.
     const offsetInWorld =
       ((offsetFromWest % worldWidth) + worldWidth) % worldWidth;
 
     return offsetInWorld + worldExtent[0];
   };
 
-  // Determine extent
   let extent: Extent;
   if (geometry instanceof Point) {
     const coords = geometry.getCoordinates();
@@ -71,11 +66,9 @@ export const fitToFeature = (
     // OpenLayers reports an empty geometry's extent as [Infinity, Infinity, -Infinity, -Infinity].
     if (isEmpty(geomExtent)) return;
 
-    // Normalize X for antimeridian
     let x0 = normalizeX(geomExtent[0]);
     let x1 = normalizeX(geomExtent[2]);
 
-    // Handle antimeridian crossing
     const span = x1 - x0;
     if (span > worldWidth / 2) {
       const wrappedX0 = x0 + worldWidth;
@@ -127,7 +120,7 @@ export const fitToFeatures = (
     if (!geom) continue;
 
     const extent = geom.getExtent();
-    // An empty extent's centre is NaN; as refCenterX it would make every worldShift NaN.
+    // Dropping this continue lets an empty extent's NaN centre become refCenterX and NaN every worldShift.
     if (isEmpty(extent)) continue;
 
     const centerX = (extent[0] + extent[2]) / 2;
@@ -136,11 +129,9 @@ export const fitToFeatures = (
       refCenterX = centerX;
     }
 
-    // determine which world copy to use
     const delta = centerX - refCenterX;
     const worldShift = Math.round(delta / worldWidth) * worldWidth;
 
-    // clone + shift geometry
     const shifted = geom.clone();
     shifted.translate(-worldShift, 0);
 

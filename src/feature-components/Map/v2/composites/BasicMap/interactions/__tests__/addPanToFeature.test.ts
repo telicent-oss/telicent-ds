@@ -5,7 +5,6 @@ import {
   getFeaturesById,
 } from "../addPanToFeature";
 
-// Use your geometry mocks (or real OL geometries if you prefer)
 import MockPoint from "../../../../../../../../__mocks__/ol/geom/Point";
 import MockPolygon from "../../../../../../../../__mocks__/ol/geom/Polygon";
 
@@ -97,7 +96,6 @@ describe("panToFeature", () => {
   });
 
   it("does nothing for an empty geometry instead of hanging", () => {
-    // An empty OpenLayers geometry reports this extent.
     const geometry = {
       getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
     } as any;
@@ -134,7 +132,6 @@ describe("panToFeature", () => {
   });
 
   it("does nothing when the projection reports no world extent", () => {
-    // getWidth throws on a null world extent.
     const noExtentMap = {
       getView: () => ({
         getProjection: () => ({ getExtent: () => null }),

@@ -5,8 +5,7 @@ import { MultiLineString } from "ol/geom";
 import { Style } from "ol/style";
 import { PathFeature } from "../../types/paths";
 
-// The ol mocks in __mocks__/ol/style store constructor options on `.props`,
-// except RegularShape, which uses `.options`.
+// The ol mocks in __mocks__/ol/style store constructor options on `.props`, except RegularShape, which uses `.options`.
 type MockStyle = Style & {
   props: Record<string, MockStyle>;
   options: Record<string, MockStyle>;
@@ -74,7 +73,7 @@ describe("pathToOLFeature", () => {
     expect(stroke.props.color).toBe("#FF0000");
     expect(stroke.props.width).toBe(4);
     expect(stroke.props.lineDash).toEqual([5, 3]);
-    // A feature style would replace the layer style; see `pathToOLFeature`.
+    // see pathToOLFeature
     expect(feature.getStyle()).toBeNull();
   });
 
@@ -212,7 +211,6 @@ describe("pathToOLFeature", () => {
     const feature = pathToOLFeature(path);
     const appliedStyle = feature.get("originalStyle");
 
-    // 1 stroke + 1 arrow per segment (2 lines × 1 segment each = 2 arrows)
     expect(Array.isArray(appliedStyle)).toBe(true);
     expect((appliedStyle as Style[]).length).toBe(3);
   });
@@ -238,7 +236,6 @@ describe("pathToOLFeature", () => {
       id: "bad-line",
       type: "LineString",
       name: "Malformed",
-      // MultiLineString nesting (3D) under a LineString (2D) type
       coordinates: [
         [
           [-0.1, 51.5],

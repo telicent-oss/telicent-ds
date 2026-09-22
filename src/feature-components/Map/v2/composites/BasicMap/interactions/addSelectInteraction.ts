@@ -6,8 +6,7 @@ import { FeatureEvent } from "../../../types/map-types";
 
 interface AddSelectInteractionOptions {
   map: OlMap;
-  /** Every layer whose features are selectable. One Select spans all of them,
-   *  and with `multi` false a click on overlapping features selects one. */
+  /** Every selectable layer; one Select spans all of them. */
   layers: VectorLayer[];
   onSelect?: (features: Feature[], event?: FeatureEvent) => void;
 }
@@ -20,9 +19,7 @@ export const addSelectInteraction = ({
   const select = new Select({
     layers,
     condition: click,
-    // OpenLayers applies a Select style with feature.setStyle(), which
-    // overrides the layer's style. Null leaves appearance to the layer and
-    // reports selection through onSelect only.
+    // A style here is applied via feature.setStyle() and overrides the layer's own style; null leaves appearance to the layer.
     style: null,
   });
 

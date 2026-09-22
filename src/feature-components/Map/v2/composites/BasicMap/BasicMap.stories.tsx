@@ -198,20 +198,8 @@ const eventMarkers: MarkerFeature[] = [
 	},
 ];
 
-/**
- * Both `onFeatureHover` and `onFeatureClick` are wired to a debug panel that
- * shows the raw id + pixel the DS emits. Callback contract:
- *
- * - `onFeatureHover(id, { pixel })` fires when the pointer enters a marker.
- * - `onFeatureHover(null)` fires when the pointer leaves the last-hovered
- *   marker (no pixel is included).
- * - Moving the pointer **within** the same marker does not re-fire.
- * - Moving directly from marker A to marker B fires once, with B's id and
- *   pixel — the id change implicitly signals A is no longer hovered.
- *
- * The DS emits events only. The consuming app owns any popover / cursor /
- * highlight / throttling behaviour built on top of these events.
- */
+/** Logs every hover and click event the map emits for its markers.
+ * Look at the log when the pointer moves straight from one marker to another. */
 export const FeatureEvents: Story = {
 	args: {
 		zoom: 5,
@@ -273,10 +261,8 @@ export const FeatureEvents: Story = {
 	},
 };
 
-/**
- * Markers, polygons and paths all report through `onFeatureClick` and
- * `onFeatureHover`. Only a marker click moves the view.
- */
+/** Markers, polygons and paths all report through the same event callbacks.
+ * Look at which of the three moves the view. */
 export const MarkerPolygonAndPathInteraction: Story = {
 	args: {
 		zoom: 6,
@@ -396,7 +382,6 @@ export const WithMarkersAndPaths: Story = {
 	},
 };
 
-// Ordered oldest (Edinburgh) to newest (London).
 const movementTrailCoordinates: [number, number][] = [
 	[-3.19, 55.95],
 	[-2.24, 55.86],
@@ -414,7 +399,6 @@ const movementTrailCoordinates: [number, number][] = [
 function interpolateColor(
 	t: number
 ): { r: number; g: number; b: number } {
-	// t 0 is rgb(30, 80, 250) blue; t 1 is rgb(255, 0, 30) red.
 	return {
 		r: Math.round(30 + 225 * t),
 		g: Math.round(80 * (1 - t)),
@@ -503,8 +487,7 @@ export const DirectionTriangle: Story = {
 	},
 };
 
-// buildDirectionImage rotates an svg marker by -π/2, so the markup must
-// point east at rest.
+// Drawing this markup pointing north breaks it: buildDirectionImage rotates by -π/2.
 const chevronSvg = [
 	`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">`,
 	`<path d="M8 4 L16 12 L8 20" fill="none" stroke="#FF6600" stroke-width="3"`,
@@ -683,8 +666,6 @@ const UNSELECTED_PATH_STYLE = new Style({
 const PathStyleFunctionDemo = () => {
 	const [selected, setSelected] = useState<string | null>(null);
 
-	// A new identity each render re-applies through pathLayer.setStyle(), and
-	// OpenLayers' setStyle() calls changed(), so the layer redraws.
 	const pathStyle = (feature: FeatureLike) =>
 		feature.getId() === selected ? SELECTED_PATH_STYLE : UNSELECTED_PATH_STYLE;
 
@@ -829,16 +810,12 @@ const PathStyleBeatsPerPathStyleDemo = () => {
 	);
 };
 
-/**
- * Toggling `pathStyle` on against two paths that carry their own `style`.
- * With it supplied every path draws grey or orange; without it, the per-path
- * pink and blue. See `pathStyle` in map-types.ts.
- */
+/** Toggles `pathStyle` on against two paths that carry their own `style`. */
+// see pathStyle in map-types.ts
 export const PathStyleBeatsPerPathStyle: Story = {
 	render: () => <PathStyleBeatsPerPathStyleDemo />,
 };
 
-// number[] where the declared LineString needs number[][]
 const malformedPath = {
 	id: "bad-path",
 	type: "LineString",
@@ -895,11 +872,8 @@ const MalformedFeatureReportedDemo = () => {
 	);
 };
 
-/**
- * `bad-path` declares `LineString` but carries `number[]`, so it is skipped and
- * reported once through `onError`; `good-path` still draws. The panel lists
- * each `onError` call.
- */
+/** A malformed path is skipped and reported through `onError`.
+ * Look at the panel count against the one path that still draws. */
 export const MalformedFeatureReportedToOnError: Story = {
 	render: () => <MalformedFeatureReportedDemo />,
 };
@@ -921,7 +895,6 @@ const LayerSetupFailureDemo = () => {
 				<BasicMapV2
 					zoom={5}
 					center={[0, 51]}
-					// An unrecognised layer kind makes ensureLayers reject.
 					layers={[{ kind: "not-a-real-kind" } as unknown as LayerConfig]}
 					markers={[]}
 					polygons={[]}
@@ -933,10 +906,8 @@ const LayerSetupFailureDemo = () => {
 	);
 };
 
-/**
- * An unrecognised layer kind makes layer setup fail. `onError` is called and no
- * layers are set, so the map stays blank on first load.
- */
+/** An unrecognised layer kind makes layer setup fail.
+ * Look at the blank map behind the reported error. */
 export const LayerSetupFailureReportsToOnError: Story = {
 	render: () => <LayerSetupFailureDemo />,
 };

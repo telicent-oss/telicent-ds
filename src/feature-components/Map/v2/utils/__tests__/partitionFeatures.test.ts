@@ -20,8 +20,7 @@ describe("partitionFeatures", () => {
   });
 
   it("collects a plain TypeError too, naming the feature", () => {
-    // What OpenLayers throws on a null vertex, which the converters'
-    // first-coordinate check does not catch.
+    // What OpenLayers throws on a null vertex, past the converters' first-coordinate check.
     const { features, malformed } = partitionFeatures([{ id: "a" }], () => {
       throw new TypeError("Cannot read properties of null (reading '0')");
     });
