@@ -14,7 +14,6 @@
 // Requires dist/export.d.ts (run `yarn build` first) — extract-props reads it.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
-import { resolveDocumentsLabel } from "./llms-version-label.mjs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { loadProps } from "./extract-props.mjs";
@@ -39,11 +38,23 @@ const gitOut = (args) => {
   }
 };
 
-const documents = resolveDocumentsLabel({
-  version,
-  git: gitOut,
-  ref: process.env.GITHUB_REF_NAME,
-});
+// A release build is the commit that set the current version, so its parent's
+// package.json names a different one. Every git failure - shallow clone, root commit,
+// no checkout at all - lands on "unreleased", which is the safe direction: the reader
+// is told to distrust this file rather than to trust a stale one. Reading the parent
+// needs fetch-depth: 2 in GitHub Actions.
+const parentVersion = (() => {
+  try {
+    return JSON.parse(gitOut(["show", "HEAD~1:package.json"])).version ?? null;
+  } catch {
+    return null;
+  }
+})();
+
+const documents =
+  parentVersion !== null && parentVersion !== version
+    ? `v${version}`
+    : `unreleased, after v${version}`;
 
 const rawManifest = readFileSync(
   resolve(root, "docs/COMPONENTS.md"),
