@@ -562,7 +562,7 @@ describe("BasicMapV2 error handling", () => {
 		expect(onError.mock.calls[0][0].message).toContain("no-such-layer");
 	});
 
-	it("stays quiet when setLayerOpacity is called before the layers resolve", async () => {
+	it("reports setLayerOpacity called before the layers resolve", async () => {
 		let resolveLayers: (layers: unknown[]) => void = () => undefined;
 		(ensureLayers as jest.Mock).mockReturnValue(
 			new Promise((resolve) => {
@@ -588,7 +588,8 @@ describe("BasicMapV2 error handling", () => {
 			ref.current?.setLayerOpacity(MARKER_LAYER_ID, 0.5);
 		});
 
-		expect(onError).not.toHaveBeenCalled();
+		expect(onError).toHaveBeenCalledTimes(1);
+		expect(onError.mock.calls[0][0].message).toContain("layers is empty");
 
 		await act(async () => {
 			resolveLayers([makeMockVectorLayer(MARKER_LAYER_ID).layer]);

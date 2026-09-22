@@ -290,8 +290,17 @@ export const BasicMapV2 = React.forwardRef<
       },
       setLayerOpacity: (layerId: string, opacity: number) => {
         const validated = parseOrThrowWithInput(OpacitySchema, opacity);
-        // Before layers resolve an early call is a timing mistake, not a wrong id.
-        if (layers.length < 1) return;
+        // Called before onLayersReady(true), so there is no layer to find yet.
+        if (layers.length < 1) {
+          reportError(
+            "setLayerOpacity called before the layers resolved",
+            new Error(
+              `BasicMapV2: setLayerOpacity("${layerId}") called while layers is empty. ` +
+                `Wait for onLayersReady(true).`
+            )
+          );
+          return;
+        }
         const layer = layers.find((l) => l.get("id") === layerId);
         if (!layer) {
           reportError(
