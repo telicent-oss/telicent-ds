@@ -1,13 +1,9 @@
 name: deploy-llms.yml
 
-# The package ships its own dist/llms.txt, which is the copy that matches a
-# consumer's installed version and says so in its version banner. These site copies
-# track whatever branch built them, so their banner sends a reader to the packaged
-# copy instead.
+# The llms.txt published here is built from a branch, so it describes unreleased
+# code. The copy matching a consumer's install ships in the package, as dist/llms.txt.
 #
-# keep_files:true stops a deploy wiping paths it did not write. upload-storybook.yml
-# publishes Storybook to these same two paths, and each workflow's keep_files
-# protects the other's files.
+# keep_files:true stops this wiping upload-storybook.yml's files at the same paths.
 
 on:
   workflow_dispatch:
@@ -51,10 +47,8 @@ jobs:
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
 
-      # yarn build ends with scripts/build-llms.mjs, which writes llms/ for the
-      # deploy steps below and dist/llms.txt for the npm tarball. It exits non-zero
-      # rather than write a manifest it cannot label or fill, so a green build here
-      # already means llms/llms.txt is present.
+      # yarn build ends with build-llms.mjs: writes llms/ for the deploys below, and
+      # dist/llms.txt for the npm tarball. Exits non-zero rather than write a bad file.
       - name: Build package
         run: yarn build
 
