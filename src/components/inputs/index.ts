@@ -16,4 +16,11 @@ export { default as DateTimePicker } from "./DateAndTimePicker/DateTimePicker";
 export { default as Checkbox } from "./Checkbox/Checkbox";
 export { default as CopyToClipboard } from "../buttons/CopyToClipboard/CopyToClipboard";
 
+export { default as FormControl } from "./FormControl/FormControl";
+export type { FormControlProps } from "./FormControl/FormControl";
+export { default as FormControlLabel } from "./FormControlLabel/FormControlLabel";
+export type { FormControlLabelProps } from "./FormControlLabel/FormControlLabel";
+export { default as FormHelperText } from "./FormHelperText/FormHelperText";
+export type { FormHelperTextProps } from "./FormHelperText/FormHelperText";
+
 export * from "./SearchBox";
