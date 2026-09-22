@@ -18,6 +18,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # yarn build ends with scripts/pack-llms.mjs, which compares this commit's
+          # package.json against its parent's to label the manifest. Depth 1 has no
+          # parent, so a real release would ship stamped "unreleased".
+          fetch-depth: 2
       - name: Get tag name
         id: tag-name
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
