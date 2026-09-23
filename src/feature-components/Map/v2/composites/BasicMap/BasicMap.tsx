@@ -23,7 +23,7 @@ import {
   MARKER_LAYER_ID,
   POLYGON_LAYER_ID,
   PATH_LAYER_ID,
-  getPathLayerDefaultStyle,
+  pathLayerStyle,
 } from "../../utils/layers";
 import { findVectorLayerById } from "../../utils/feature";
 import {
@@ -107,7 +107,7 @@ export const BasicMapV2 = React.forwardRef<
         id: PATH_LAYER_ID,
         data: [],
         visible: true,
-        style: getPathLayerDefaultStyle(),
+        style: pathLayerStyle,
       },
     ];
     const allLayers = [...baseLayers, ...overlayVectorLayers];
@@ -149,7 +149,7 @@ export const BasicMapV2 = React.forwardRef<
   useEffect(() => {
     const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
     if (!pathLayer) return;
-    pathLayer.setStyle(props.pathStyle ?? getPathLayerDefaultStyle());
+    pathLayer.setStyle(props.pathStyle ?? pathLayerStyle);
   }, [layers, props.pathStyle]);
 
   useEffect(() => {

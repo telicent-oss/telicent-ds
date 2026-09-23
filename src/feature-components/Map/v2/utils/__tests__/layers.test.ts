@@ -3,6 +3,8 @@ import TileLayer from "ol/layer/Tile";
 import LayerGroup from "ol/layer/Group";
 import BaseLayer from "ol/layer/Base";
 import CircleStyle from "ol/style/Circle";
+import Style from "ol/style/Style";
+import { FeatureLike } from "ol/Feature";
 import { XYZ } from "ol/source";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTileSource from "ol/source/VectorTile";
@@ -18,7 +20,7 @@ import {
   getOverlayVectorLayer,
   getBaseVectorTileLayer,
   getDefaultOverlayStyle,
-  getPathLayerDefaultStyle,
+  pathLayerStyle,
   getBaseRasterLayer,
   attachMeta,
   getMeta,
@@ -53,36 +55,23 @@ describe("layers util", () => {
     });
   });
 
-  describe("getPathLayerDefaultStyle", () => {
+  describe("pathLayerStyle", () => {
+    const featureWith = (originalStyle: unknown) =>
+      ({
+        get: (key: string) =>
+          key === "originalStyle" ? originalStyle : undefined,
+      }) as unknown as FeatureLike;
+
     it("returns the feature's own originalStyle when it has one", () => {
-      const own = { marker: "own-style" };
-      const feature = {
-        get: (key: string) => (key === "originalStyle" ? own : undefined),
-        getGeometry: () => ({ getType: () => "LineString" }),
-      };
-
-      const styleFn = getPathLayerDefaultStyle() as (
-        feature: any,
-        resolution: number
-      ) => any;
-
-      expect(styleFn(feature as any, 1)).toBe(own);
+      const own = new Style({});
+      expect(pathLayerStyle(featureWith(own), 1)).toBe(own);
     });
 
-    it("falls back to the default overlay style when it has none", () => {
-      const feature = {
-        get: () => undefined,
-        getGeometry: () => ({ getType: () => "LineString" }),
+    it("falls back to an orange line when it has none", () => {
+      const style = pathLayerStyle(featureWith(undefined), 1) as unknown as {
+        props: { stroke: { props: { color: string } } };
       };
-
-      const styleFn = getPathLayerDefaultStyle() as (
-        feature: any,
-        resolution: number
-      ) => any;
-      const style = styleFn(feature as any, 1);
-
-      expect(style.props.stroke).toBeDefined();
-      expect(style.props.fill).toBeDefined();
+      expect(style.props.stroke.props.color).toBe("#FF6600");
     });
   });
 

@@ -42,18 +42,14 @@ export const getDefaultOverlayStyle = (): StyleLike => (feature) => {
   });
 };
 
-/** Draws each path with its own `style`, or the default overlay style. */
-export const getPathLayerDefaultStyle = (): StyleLike => {
-  const fallback = getDefaultOverlayStyle() as StyleFunction;
-  return (feature, resolution) => {
-    const original = feature.get("originalStyle") as
-      | Style
-      | Style[]
-      | undefined;
-    if (original) return original;
-    return fallback(feature, resolution);
-  };
-};
+const DEFAULT_PATH_STYLE = new Style({
+  stroke: new Stroke({ color: "#FF6600", width: 2 }),
+});
+
+/** Draws each path with its own `style`, or an orange line. */
+export const pathLayerStyle: StyleFunction = (feature) =>
+  (feature.get("originalStyle") as Style | Style[] | undefined) ??
+  DEFAULT_PATH_STYLE;
 
 export const getOverlayVectorLayer = (
   config: OverlayVectorLayerConfig
