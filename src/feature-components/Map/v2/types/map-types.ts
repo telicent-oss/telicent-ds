@@ -68,7 +68,7 @@ export type BasicMapV2Handle = {
   panToFeatures: (ids: string[]) => void;
   /**
    * Sets one layer's opacity. `opacity` must be 0 to 1; anything else throws.
-   * Overlay layer ids are `"marker-layer"`, `"polygon-layer"` and `"path-layer"`.
+   * Overlay layer ids are `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and `PATH_LAYER_ID`.
    * An unknown id, or a call before `onLayersReady(true)`, is reported to `onError`.
    * A layer rebuild resets the opacity. Set `opacity` in `layers` to keep it.
    */
