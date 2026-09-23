@@ -535,10 +535,10 @@ export declare interface BasicMapProperties {
     zoom: number;
     center: number[];
     /**
-     * Base layers, drawn under the markers, polygons and paths. A non-empty
-     * `layers` overrides the deprecated `mapStyleOptions`; an empty array falls
-     * through to it, and omitting both draws no basemap. A layer's `opacity`
-     * takes 0 to 1 and throws on anything else.
+     * Base layers, drawn under markers, polygons and paths.
+     * A non-empty array replaces `mapStyleOptions`. An empty array is treated as omitted.
+     * Omit both to draw no basemap.
+     * A layer `opacity` must be 0 to 1; anything else throws.
      */
     layers?: LayerConfig[];
     controls?: Partial<MapControlsConfig>;
@@ -547,25 +547,22 @@ export declare interface BasicMapProperties {
      */
     mapStyleOptions?: LegacyMapConfig;
     /**
-     * Feature ids share one namespace with `polygons` and `paths`. `panToFeature`
-     * and `panToFeatures` take the first match, marker layer first; `onFeatureClick`
-     * cannot disambiguate a reused id.
+     * Keep ids unique across `markers`, `polygons` and `paths`.
+     * `panToFeature` and `onFeatureClick` cannot tell a reused id apart.
      */
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
     /**
-     * Route lines. Each `PathFeature.id` becomes the OpenLayers feature id, so
-     * `feature.getId()` is what `pathStyle` reads and what `panToFeature` matches.
+     * Route lines. Each `id` becomes the OpenLayers feature id.
      */
     paths?: PathFeature[];
     /**
-     * Style for the whole path layer: one style, or a function called per feature.
-     * It overrides every path's own `style`, direction arrows included. Omit it
-     * and each path renders with its own `style`, or the default overlay style.
-     * Changing it restyles the path layer without rebuilding layers or moving the
-     * viewport; memoise it and hoist the `Style` objects it returns, since it is
-     * called for every path. A path's own `style` stays readable
-     * under `originalStyle`, `undefined` if it set none:
+     * Style for every path. Overrides each path's own `style`, direction arrows included.
+     * Omit it to draw each path with its own `style`, or the default style.
+     * Changing it does not rebuild layers or move the viewport.
+     * A function is called for each path in view each time the layer redraws its paths.
+     * Create `Style` objects outside it.
+     * A path's own `style` is available as `feature.get("originalStyle")`, `undefined` when not set:
      *
      * ```tsx
      * const pathStyle = (feature: FeatureLike) =>
@@ -579,26 +576,22 @@ export declare interface BasicMapProperties {
     onFeatureClick?: OnFeatureClick;
     onFeatureHover?: OnFeatureHover;
     /**
-     * `true` once the base layers have resolved, and again after any rebuild;
-     * `false` on unmount and when layer setup fails, which also fires `onError`.
-     * Ready means the layers exist; markers, polygons and paths follow, so the
-     * map may still be empty on the first call.
+     * `true` when the layers exist. Called again after each rebuild.
+     * `false` on unmount, and when layer setup fails (`onError` also fires).
+     * Markers, polygons and paths are added after this call.
      */
     onLayersReady?: (isReady: boolean) => void;
     /**
-     * Called on a failure the map survives; nothing already drawn is cleared, and
-     * without a handler the error is only logged. Five cases reach it:
+     * Called on an error the map survives. Content already drawn stays.
+     * Without a handler the error goes to `console.error`. Reported cases:
      *
      * - layer setup failed
-     * - marker icons failed to load
-     * - `setLayerOpacity` was called with an unknown layer id
-     * - `setLayerOpacity` was called before `onLayersReady(true)`, so there were
-     *   no layers to search
-     * - a `polygons` or `paths` record could not be turned into geometry: a
-     *   `MalformedFeatureError` naming the `featureId`, that record skipped. An
-     *   unconvertible `markers` record instead aborts that render's update.
+     * - marker icons failed to load, or a marker could not be converted; that update is skipped
+     * - `setLayerOpacity` called with an unknown id, or before `onLayersReady(true)`
+     * - a polygon or path could not be converted: a `MalformedFeatureError` with `featureId`;
+     *   that feature is skipped and the rest draw
      *
-     * Reported once per mounted map per message, so key on `featureId`.
+     * A malformed feature is reported once per mount for each distinct message.
      */
     onError?: (error: Error) => void;
 }
@@ -611,11 +604,10 @@ export declare type BasicMapV2Handle = {
     panToFeature: (id: string) => void;
     panToFeatures: (ids: string[]) => void;
     /**
-     * Sets one layer's opacity. Takes 0 to 1 and throws on anything else.
-     * Overlay ids are `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and `PATH_LAYER_ID`.
-     * An unknown id, or a call made before `onLayersReady(true)`, reaches
-     * `onError`. A later layer rebuild resets it; set `opacity` in the `layers`
-     * config to keep it.
+     * Sets one layer's opacity. `opacity` must be 0 to 1; anything else throws.
+     * Overlay layer ids are `"marker-layer"`, `"polygon-layer"` and `"path-layer"`.
+     * An unknown id, or a call before `onLayersReady(true)`, is reported to `onError`.
+     * A layer rebuild resets the opacity. Set `opacity` in `layers` to keep it.
      */
     setLayerOpacity: (layerId: string, opacity: number) => void;
     layers: default_5[];
@@ -2828,8 +2820,8 @@ export declare const loggerLevelOrder: Record<LoggerLevelString, number>;
 export declare type LoggerLevelString = "debug" | "info" | "warn" | "error";
 
 /**
- * Thrown when a feature's `coordinates` cannot be converted into geometry.
- * `featureId` is the id of the offending record.
+ * A feature whose `coordinates` could not be converted into geometry.
+ * `featureId` is that feature's id.
  */
 export declare class MalformedFeatureError extends Error {
     readonly featureId: string;
@@ -3027,9 +3019,6 @@ export declare type OnFeatureHover = (id: string | null, event?: FeatureEvent) =
 
 export declare type Opacity = z.infer<typeof OpacitySchema>;
 
-/**
- * Opacity from 0 to 1. `Layer.setOpacity` checks only `typeof opacity === "number"`, so NaN and Infinity are rejected here.
- */
 export declare const OpacitySchema: z.ZodNumber;
 
 declare type Option_2 = {
@@ -3135,9 +3124,7 @@ export declare interface PathFeature {
     coordinates: number[][] | number[][][];
     name: string;
     meta?: Record<string, any>;
-    /**
-     * This path's own appearance, overridden by `pathStyle` in map-types.ts.
-     */
+    /** This path's own style. The map's `pathStyle` overrides it. */
     style?: PathStyle;
 }
 
