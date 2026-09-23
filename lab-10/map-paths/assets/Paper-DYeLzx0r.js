@@ -1,0 +1,1 @@
+import{r as a,j as e}from"./iframe-DK5e7ZOT.js";import{P as p}from"./Paper-CkmaxJia.js";const s=a.forwardRef(function(r,o){return e(p,{ref:o,...r})});s.__docgenInfo={description:"",methods:[],displayName:"Paper"};export{s as P};
