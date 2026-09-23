@@ -1,6 +1,6 @@
 import type { Map as OlMap } from "ol";
 import type Geometry from "ol/geom/Geometry";
-import { extend, Extent, getWidth } from "ol/extent";
+import { extend, Extent, getWidth, isEmpty } from "ol/extent";
 import type Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
 import Point from "ol/geom/Point";
@@ -40,13 +40,20 @@ export const fitToFeature = (
 
   const projection = view.getProjection();
   const worldExtent = projection.getExtent();
+  if (!worldExtent) return;
+
   const worldWidth = getWidth(worldExtent);
 
-  // Normalizes a longitude (X) to the world extent
+  // Wraps x into the world extent.
   const normalizeX = (x: number) => {
-    while (x < worldExtent[0]) x += worldWidth;
-    while (x > worldExtent[2]) x -= worldWidth;
-    return x;
+    if (!Number.isFinite(x)) return x;
+
+    const offsetFromWest = x - worldExtent[0];
+    // Adding worldWidth before the second modulo turns a negative remainder positive.
+    const offsetInWorld =
+      ((offsetFromWest % worldWidth) + worldWidth) % worldWidth;
+
+    return offsetInWorld + worldExtent[0];
   };
 
   // Determine extent
@@ -56,7 +63,7 @@ export const fitToFeature = (
     extent = [coords[0], coords[1], coords[0], coords[1]];
   } else {
     const geomExtent = geometry.getExtent();
-    if (!geomExtent) return;
+    if (isEmpty(geomExtent)) return;
 
     // Normalize X for antimeridian
     let x0 = normalizeX(geomExtent[0]);
@@ -70,6 +77,8 @@ export const fitToFeature = (
       x0 = centerX;
       x1 = centerX;
     }
+
+    if (!Number.isFinite(x0) || !Number.isFinite(x1)) return;
 
     extent = [x0, geomExtent[1], x1, geomExtent[3]];
   }
@@ -112,6 +121,8 @@ export const fitToFeatures = (
     if (!geom) continue;
 
     const extent = geom.getExtent();
+    if (isEmpty(extent)) continue;
+
     const centerX = (extent[0] + extent[2]) / 2;
 
     if (refCenterX === null) {

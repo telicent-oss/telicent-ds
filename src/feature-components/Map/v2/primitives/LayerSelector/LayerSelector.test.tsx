@@ -69,4 +69,15 @@ describe("LayerSelector components", () => {
     render(<LayerSelectorV2 layers={[layersMock[0]] as any} />);
     expect(screen.queryByRole("button")).toBeNull();
   });
+
+  it("renders without error when no base layers exist", () => {
+    const overlayOnly = [
+      new MockLayer({ kind: "overlay-vector" }),
+    ];
+
+    (getMeta as jest.Mock).mockReturnValue(undefined);
+
+    const { container } = render(<LayerSelectorV2 layers={overlayOnly as any} />);
+    expect(screen.queryByRole("button")).toBeNull();
+  });
 });

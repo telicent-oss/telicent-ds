@@ -1,0 +1,63 @@
+export default class MockMultiPolygon {
+  private coordinates: number[][][][];
+
+  constructor(coords: number[][][][] = []) {
+    this.coordinates = coords;
+  }
+
+  getCoordinates() {
+    return this.coordinates;
+  }
+
+  setCoordinates(coords: number[][][][]) {
+    this.coordinates = coords;
+  }
+
+  getType() {
+    return "MultiPolygon";
+  }
+
+  clone() {
+    return new MockMultiPolygon(
+      this.coordinates.map((polygon) =>
+        polygon.map((ring) => ring.map(([x, y]) => [x, y]))
+      )
+    );
+  }
+
+  translate(dx: number, dy: number) {
+    this.coordinates = this.coordinates.map((polygon) =>
+      polygon.map((ring) => ring.map(([x, y]) => [x + dx, y + dy]))
+    );
+    return this;
+  }
+
+  transform() {
+    return this;
+  }
+
+  getExtent(): [number, number, number, number] {
+    if (!this.coordinates.length) {
+      // Real OpenLayers returns this for an empty geometry.
+      return [Infinity, Infinity, -Infinity, -Infinity];
+    }
+
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+
+    for (const polygon of this.coordinates) {
+      for (const ring of polygon) {
+        for (const [x, y] of ring) {
+          if (x < minX) minX = x;
+          if (y < minY) minY = y;
+          if (x > maxX) maxX = x;
+          if (y > maxY) maxY = y;
+        }
+      }
+    }
+
+    return [minX, minY, maxX, maxY];
+  }
+}

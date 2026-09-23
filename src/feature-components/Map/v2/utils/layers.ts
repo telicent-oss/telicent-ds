@@ -13,7 +13,7 @@ import { Point, Polygon } from "ol/geom";
 import { fromLonLat, get as getProjection } from "ol/proj";
 import Feature from "ol/Feature";
 import VectorLayer from "ol/layer/Vector";
-import { StyleLike } from "ol/style/Style";
+import { StyleFunction, StyleLike } from "ol/style/Style";
 import { Fill, Stroke, Style } from "ol/style";
 import CircleStyle from "ol/style/Circle";
 import LayerGroup from "ol/layer/Group";
@@ -41,6 +41,15 @@ export const getDefaultOverlayStyle = (): StyleLike => (feature) => {
     fill: new Fill({ color: "rgba(255, 102, 0, 0.2)" }),
   });
 };
+
+const DEFAULT_PATH_STYLE = new Style({
+  stroke: new Stroke({ color: "#FF6600", width: 2 }),
+});
+
+/** Draws each path with its own `style`, or an orange line. */
+export const pathLayerStyle: StyleFunction = (feature) =>
+  (feature.get("originalStyle") as Style | Style[] | undefined) ??
+  DEFAULT_PATH_STYLE;
 
 export const getOverlayVectorLayer = (
   config: OverlayVectorLayerConfig
@@ -102,6 +111,9 @@ export const getBaseVectorTileLayer = async (
       mapLayer.set("id", layerConfig.id);
       mapLayer.set("kind", layerConfig.kind);
       mapLayer.set("label", layerConfig.label);
+      if (layerConfig.opacity !== undefined) {
+        mapLayer.setOpacity(layerConfig.opacity);
+      }
 
       return attachMeta(mapLayer, {
         visible: Boolean(layerConfig.visible),
@@ -141,6 +153,9 @@ export const getBaseVectorTileLayer = async (
       layer.set("id", layerConfig.id);
       layer.set("kind", layerConfig.kind);
       layer.set("label", layerConfig.label);
+      if (layerConfig.opacity !== undefined) {
+        layer.setOpacity(layerConfig.opacity);
+      }
 
       const layerWithMeta = attachMeta(layer, {
         visible: Boolean(layerConfig.visible),
@@ -161,6 +176,9 @@ export const getBaseVectorTileLayer = async (
       customLayer.set("id", layerConfig.id);
       customLayer.set("kind", layerConfig.kind);
       customLayer.set("label", layerConfig.label);
+      if (layerConfig.opacity !== undefined) {
+        customLayer.setOpacity(layerConfig.opacity);
+      }
       return attachMeta(customLayer, {
         visible: Boolean(layerConfig.visible),
         label: layerConfig.label,
@@ -183,6 +201,9 @@ export const getBaseRasterLayer = (layerConfig: BaseRasterLayerConfig) => {
   layer.set("id", layerConfig.id);
   layer.set("kind", layerConfig.kind);
   layer.set("label", layerConfig.label);
+  if (layerConfig.opacity !== undefined) {
+    layer.setOpacity(layerConfig.opacity);
+  }
 
   const { previewImage: image, label, visible } = layerConfig;
 
@@ -201,6 +222,7 @@ export const getMeta = (layer: BaseLayer): LayerMeta => layer.get("meta");
 
 export const MARKER_LAYER_ID = "marker-layer";
 export const POLYGON_LAYER_ID = "polygon-layer";
+export const PATH_LAYER_ID = "path-layer";
 
 export const attachTileLoadErrorLogging = (
   layers: Collection<BaseLayer>,

@@ -6,7 +6,12 @@ import { fitToFeature, fitToFeatures } from "../../composites/BasicMap/interacti
 import { addSelectInteraction } from "../../composites/BasicMap/interactions/addSelectInteraction";
 import { addHoverInteraction } from "../../composites/BasicMap/interactions/addHoverInteraction";
 import { findVectorLayerById } from "../../utils/feature";
-import { attachTileLoadErrorLogging, MARKER_LAYER_ID } from "../../utils/layers";
+import {
+	attachTileLoadErrorLogging,
+	MARKER_LAYER_ID,
+	POLYGON_LAYER_ID,
+	PATH_LAYER_ID,
+} from "../../utils/layers";
 import { ensureView } from "../../utils/ensureView";
 import "ol/ol.css";
 import { buildControls } from "../../utils/buildControls";
@@ -78,17 +83,30 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 			return
 		}
 
+		// Array order does not set hit priority. Layer z-order does.
+		const interactiveLayers = [
+			markerLayer,
+			findVectorLayerById(layers, POLYGON_LAYER_ID),
+			findVectorLayerById(layers, PATH_LAYER_ID),
+		].filter((l): l is NonNullable<typeof l> => Boolean(l));
+
 		const select = addSelectInteraction({
 			map,
-			layer: markerLayer,
+			layers: interactiveLayers,
 			onSelect: (features: Feature[], event?: FeatureEvent) => {
 				const ids = features
 					.map(f => f.getId?.())
 					.filter((id): id is string => typeof id === "string");
-				if (features.length === 1) {
-					fitToFeature(mapInstanceRef.current!, features[0]);
-				} else {
-					fitToFeatures(mapInstanceRef.current!, features);
+
+				// Only a marker click moves the view.
+				const markerSource = markerLayer.getSource();
+				const markers = features.filter(
+					(f) => markerSource?.hasFeature?.(f) ?? false
+				);
+				if (markers.length === 1) {
+					fitToFeature(mapInstanceRef.current!, markers[0]);
+				} else if (markers.length > 1) {
+					fitToFeatures(mapInstanceRef.current!, markers);
 				}
 
 				if (onFeatureClick) {
@@ -100,7 +118,7 @@ export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 		const detachHover = onFeatureHover
 			? addHoverInteraction({
 				map,
-				layer: markerLayer,
+				layers: interactiveLayers,
 				onHover: onFeatureHover,
 			})
 			: undefined;

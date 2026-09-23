@@ -1,18 +1,7 @@
-export default class MockPolygon {
+export default class MockMultiLineString {
   private coordinates: number[][][];
 
   constructor(coords: number[][][] = []) {
-    // Real OpenLayers throws a TypeError on a null ring or vertex.
-    for (const ring of coords) {
-      if (!Array.isArray(ring)) {
-        throw new TypeError("Cannot read properties of null (reading 'length')");
-      }
-      for (const vertex of ring) {
-        if (!Array.isArray(vertex)) {
-          throw new TypeError("Cannot read properties of null (reading '0')");
-        }
-      }
-    }
     this.coordinates = coords;
   }
 
@@ -25,19 +14,18 @@ export default class MockPolygon {
   }
 
   getType() {
-    return "Polygon";
+    return "MultiLineString";
   }
 
   clone() {
-    // deep copy coordinates
-    return new MockPolygon(
-      this.coordinates.map((ring) => ring.map(([x, y]) => [x, y]))
+    return new MockMultiLineString(
+      this.coordinates.map((line) => line.map(([x, y]) => [x, y]))
     );
   }
 
   translate(dx: number, dy: number) {
-    this.coordinates = this.coordinates.map((ring) =>
-      ring.map(([x, y]) => [x + dx, y + dy])
+    this.coordinates = this.coordinates.map((line) =>
+      line.map(([x, y]) => [x + dx, y + dy])
     );
     return this;
   }
@@ -57,8 +45,8 @@ export default class MockPolygon {
     let maxX = -Infinity;
     let maxY = -Infinity;
 
-    for (const ring of this.coordinates) {
-      for (const [x, y] of ring) {
+    for (const line of this.coordinates) {
+      for (const [x, y] of line) {
         if (x < minX) minX = x;
         if (y < minY) minY = y;
         if (x > maxX) maxX = x;

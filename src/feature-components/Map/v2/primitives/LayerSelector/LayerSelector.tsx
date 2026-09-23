@@ -33,7 +33,7 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
 
   const baseLayers = useMemo(() => layers.filter((l) => l.get("kind")?.startsWith("base")), [layers]);
 
-  const selectedMeta = useMemo(() => getMeta(baseLayers[selectedIndex]), [baseLayers, selectedIndex]);
+  const selectedMeta = useMemo(() => baseLayers[selectedIndex] ? getMeta(baseLayers[selectedIndex]) : undefined, [baseLayers, selectedIndex]);
 
   const handleSelect = (label: string) => {
     localStorage.setItem("map.baselayer", label);
