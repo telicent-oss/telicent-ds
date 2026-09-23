@@ -69,9 +69,10 @@ describe("layers util", () => {
 
     it("falls back to an orange line when it has none", () => {
       const style = pathLayerStyle(featureWith(undefined), 1) as unknown as {
-        props: { stroke: { props: { color: string } } };
+        props: { stroke: { props: { color: string; width: number } } };
       };
-      expect(style.props.stroke.props.color).toBe("#FF6600");
+      expect(style.props.stroke.props).toEqual({ color: "#FF6600", width: 2 });
+      expect(pathLayerStyle(featureWith(undefined), 1)).toBe(style);
     });
   });
 

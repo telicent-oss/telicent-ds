@@ -33,7 +33,11 @@ import {
 	fitToFeatures,
 } from "./interactions/addPanToFeature";
 import { mapLegacyConfigToLayers } from "../../utils/legacy";
-import { MARKER_LAYER_ID, PATH_LAYER_ID } from "../../utils/layers";
+import {
+	MARKER_LAYER_ID,
+	PATH_LAYER_ID,
+	pathLayerStyle,
+} from "../../utils/layers";
 import { PathFeature } from "../../types/paths";
 import { MalformedFeatureError } from "../../utils/errors";
 
@@ -118,7 +122,7 @@ describe("BasicMapV2 pathStyle", () => {
 		expect(pathLayer.setStyle).toHaveBeenCalledWith(pathStyleFn);
 	});
 
-	it("falls back to the default overlay style when pathStyle is omitted", async () => {
+	it("uses pathLayerStyle when pathStyle is omitted", async () => {
 		const pathLayer = makeMockLayer(PATH_LAYER_ID);
 		(ensureLayers as jest.Mock).mockReturnValue(Promise.resolve([pathLayer]));
 
@@ -135,7 +139,7 @@ describe("BasicMapV2 pathStyle", () => {
 		});
 
 		expect(pathLayer.setStyle).toHaveBeenCalledTimes(1);
-		expect(pathLayer.setStyle).not.toHaveBeenCalledWith(undefined);
+		expect(pathLayer.setStyle).toHaveBeenCalledWith(pathLayerStyle);
 	});
 
 	it("keeps pathStyle out of the layer configs so a new style identity does not rebuild layers", async () => {
