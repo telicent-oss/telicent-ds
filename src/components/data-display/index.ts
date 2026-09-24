@@ -24,6 +24,9 @@ export type { UserProfileProps } from "./UserProfile/UserProfile";
 export { default as AppInfo } from "./AppInfo/AppInfo";
 export type { AppInfoProps } from "./AppInfo/AppInfo";
 
+export { default as AppSettings } from "./AppSettings/AppSettings";
+export type { AppSettingsProps } from "./AppSettings/AppSettings";
+
 export { default as AppInfoRow } from "./AppInfo/AppInfoRow";
 export type { AppInfoRowProps } from "./AppInfo/AppInfoRow";
 
@@ -34,3 +37,14 @@ export { default as UserStatus } from "./UserProfile/UserProfileContent/UserStat
 export type { UserStatusProps } from "./UserProfile/UserProfileContent/UserStatus";
 
 export { default as DropdownButton } from "./DropdownButton/DropdownButton";
+
+export { default as Table } from "./Table/Table";
+export type { TableProps } from "./Table/Table";
+export { default as TableBody } from "./Table/TableBody";
+export type { TableBodyProps } from "./Table/TableBody";
+export { default as TableCell } from "./Table/TableCell";
+export type { TableCellProps } from "./Table/TableCell";
+export { default as TableHead } from "./Table/TableHead";
+export type { TableHeadProps } from "./Table/TableHead";
+export { default as TableRow } from "./Table/TableRow";
+export type { TableRowProps } from "./Table/TableRow";
