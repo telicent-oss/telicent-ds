@@ -38,6 +38,67 @@ describe("App switch component", () => {
     expect(screen.getByRole("heading", { name: "APP 2" })).toBeInTheDocument();
   });
 
+  test("prefers theme-aware icon over legacy icon field", async () => {
+    const { user } = setup(
+      <AppSwitch
+        apps={[
+          {
+            id: "app-1",
+            name: "App 1",
+            url: "www.app1.com",
+            icon: "www.app1.com/legacy.svg",
+            iconLight: "www.app1.com/light.svg",
+            iconDark: "www.app1.com/dark.svg",
+          },
+        ]}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "app-switch" }));
+
+    const icon = screen.getByRole("img", { name: "App 1 icon" });
+    expect(icon).toHaveAttribute("src", "www.app1.com/light.svg");
+  });
+
+  test("falls back to legacy icon when theme-aware variants are absent", async () => {
+    const { user } = setup(
+      <AppSwitch
+        apps={[
+          {
+            id: "app-1",
+            name: "App 1",
+            url: "www.app1.com",
+            icon: "www.app1.com/legacy.svg",
+          },
+        ]}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "app-switch" }));
+
+    const icon = screen.getByRole("img", { name: "App 1 icon" });
+    expect(icon).toHaveAttribute("src", "www.app1.com/legacy.svg");
+  });
+
+  test("renders name only when no icon is provided", async () => {
+    const { user } = setup(
+      <AppSwitch
+        apps={[
+          {
+            id: "app-1",
+            name: "App 1",
+            url: "www.app1.com",
+          },
+        ]}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "app-switch" }));
+
+    expect(screen.getByRole("heading", { name: "APP 1" })).toBeInTheDocument();
+    expect(screen.queryByRole("img", { name: "App 1 icon" })).not.toBeInTheDocument();
+  });
+
   test("renders error message when schema validation errors", async () => {
     const { user } = setup(
       <AppSwitch

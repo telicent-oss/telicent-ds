@@ -6,31 +6,34 @@ export const appList = [
     id: "telicent-graph",
     name: "graph",
     url: "https://graph.io",
-    icon: "./src/assets/icons/graph.svg",
+    iconDark: "./src/assets/icons/graph.svg",
+    iconLight: "./src/assets/icons/graph.svg",
   },
   {
     id: "telicent-search",
     name: "search",
     url: "https://search.io",
-    icon: "./src/assets/icons/search.svg",
+    iconDark: "./src/assets/icons/search.svg",
+    iconLight: "./src/assets/icons/search.svg",
   },
   {
     id: "telicent-catalog",
     name: "catalog",
     url: "https://data-catalog.io",
-    icon: "./src/assets/icons/catalog.svg",
+    iconDark: "./src/assets/icons/catalog.svg",
+    iconLight: "./src/assets/icons/catalog.svg",
   },
   {
     id: "telicent-user-portal",
     name: "portal",
     url: "https://data-user-portal.io",
-    icon: "./src/assets/icons/user-portal-light.svg",
+    iconDark: "./src/assets/icons/user-portal-dark.svg",
+    iconLight: "./src/assets/icons/user-portal-light.svg",
   },
   {
-    id: "telicent-user-portal",
-    name: "portal",
-    url: "https://data-user-portal.io",
-    icon: "./src/assets/icons/user-portal-dark.svg",
+    id: "telicent-no-icon",
+    name: "no-icon app",
+    url: "https://no-icon.io",
   },
 ];
 
@@ -42,7 +45,8 @@ const meta: Meta<typeof AppSwitch> = {
   parameters: {
     docs: {
       description: {
-        component: "ApppSwitch component accepts apps, an array of objects, with id, name, url and icon.",
+        component:
+          "AppSwitch component accepts apps, an array of objects with id, name, url and optional iconDark/iconLight (theme-aware). The legacy `icon` field is still supported but deprecated. If no icon is provided, only the name renders.",
       },
     },
     layout: "fullscreen",

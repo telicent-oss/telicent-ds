@@ -16,7 +16,10 @@ export const AppSwitchLibrarySchema = zod.object({
   id: zod.string(),
   name: zod.string(),
   url: zod.string(),
-  icon: zod.string(),
+  /** @deprecated Use `iconDark` and `iconLight` for theme-aware icons. */
+  icon: zod.string().optional(),
+  iconDark: zod.string().optional(),
+  iconLight: zod.string().optional(),
 });
 
 export type AppSwitchLibraryType = zod.infer<typeof AppSwitchLibrarySchema>[];
@@ -78,6 +81,9 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
             );
           }
 
+          const themedIcon = theme.palette.mode === "dark" ? app.iconDark : app.iconLight;
+          const iconSrc = themedIcon ?? app.icon;
+
           return (
             <MUIMenuItem
               key={app.id}
@@ -98,9 +104,11 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
                 },
               }}
             >
-              <MUIListItemIcon>
-                <img src={app.icon} alt={`${app.name} icon`} css={{ width: 25, height: 25 }} />
-              </MUIListItemIcon>
+              {iconSrc && (
+                <MUIListItemIcon>
+                  <img src={iconSrc} alt={`${app.name} icon`} css={{ width: 25, height: 25 }} />
+                </MUIListItemIcon>
+              )}
               <MUIListItemText>
                 <MUITypography
                   variant="h1"
