@@ -108,12 +108,15 @@ import { FlattenedStyleTypeForFindIcon } from '@telicent-oss/ontologyservice';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { FormControlClasses } from '@mui/material';
 import { FormControlLabelClasses } from '@mui/material';
-import { FormControlLabelProps } from '@mui/material';
-import { FormControlProps } from '@mui/material';
+import { FormControlLabelProps } from '@mui/material/FormControlLabel';
+import { FormControlLabelProps as FormControlLabelProps_2 } from '@mui/material';
+import { FormControlProps } from '@mui/material/FormControl';
+import { FormControlProps as FormControlProps_2 } from '@mui/material';
 import { FormGroupClasses } from '@mui/material';
 import { FormGroupProps } from '@mui/material';
 import { FormHelperTextClasses } from '@mui/material';
-import { FormHelperTextProps } from '@mui/material';
+import { FormHelperTextProps } from '@mui/material/FormHelperText';
+import { FormHelperTextProps as FormHelperTextProps_2 } from '@mui/material';
 import { FormLabelClasses } from '@mui/material';
 import { FormLabelProps } from '@mui/material';
 import { ForwardedRef } from 'react';
@@ -218,6 +221,7 @@ import { RadioProps } from '@mui/material';
 import { RatingClasses } from '@mui/material';
 import { RatingProps } from '@mui/material';
 import { ReactNode } from 'react';
+import { Ref } from 'react';
 import { RefAttributes } from 'react';
 import { RefObject } from 'react';
 import { ScopedCssBaselineProps } from '@mui/material';
@@ -270,18 +274,23 @@ import { SwitchProps as SwitchProps_3 } from '@mui/material';
 import { SxProps } from '@mui/material/styles';
 import { SxProps as SxProps_2 } from '@mui/material';
 import { TabClasses } from '@mui/material';
-import { TableBodyProps } from '@mui/material';
+import { TableBodyProps } from '@mui/material/TableBody';
+import { TableBodyProps as TableBodyProps_2 } from '@mui/material';
 import { TableCellClasses } from '@mui/material';
-import { TableCellProps } from '@mui/material';
+import { TableCellProps } from '@mui/material/TableCell';
+import { TableCellProps as TableCellProps_2 } from '@mui/material';
 import { TableClasses } from '@mui/material';
 import { TableContainerProps } from '@mui/material';
 import { TableFooterProps } from '@mui/material';
-import { TableHeadProps } from '@mui/material';
+import { TableHeadProps } from '@mui/material/TableHead';
+import { TableHeadProps as TableHeadProps_2 } from '@mui/material';
 import { TablePaginationClasses } from '@mui/material';
 import { TablePaginationProps } from '@mui/material';
-import { TableProps } from '@mui/material';
+import { TableProps } from '@mui/material/Table';
+import { TableProps as TableProps_2 } from '@mui/material';
 import { TableRowClasses } from '@mui/material';
-import { TableRowProps } from '@mui/material';
+import { TableRowProps } from '@mui/material/TableRow';
+import { TableRowProps as TableRowProps_2 } from '@mui/material';
 import { TableSortLabelClasses } from '@mui/material';
 import { TableSortLabelProps } from '@mui/material';
 import { TabProps as TabProps_2 } from '@mui/material/Tab';
@@ -299,7 +308,8 @@ import { ToggleButtonProps as ToggleButtonProps_2 } from '@mui/material';
 import { ToolbarClasses } from '@mui/material';
 import { ToolbarProps } from '@mui/material';
 import { TooltipClasses } from '@mui/material';
-import { TooltipProps } from '@mui/material';
+import { TooltipProps } from '@mui/material/Tooltip';
+import { TooltipProps as TooltipProps_2 } from '@mui/material';
 import { TouchRippleClasses } from '@mui/material';
 import { TouchRippleProps } from '@mui/material/ButtonBase/TouchRipple';
 import { TreeViewBaseItem } from '@mui/x-tree-view';
@@ -363,6 +373,13 @@ export declare interface AppInfoRowProps {
     value: ReactNode;
     id?: string;
 }
+
+export declare const AppSettings: default_2.FC<AppSettingsProps>;
+
+export declare type AppSettingsProps = PropsWithChildren<{
+    id?: string;
+    ariaLabel?: string;
+}>;
 
 export declare const AppSwitch: default_2.FC<{
     apps: AppSwitchLibraryType;
@@ -1038,6 +1055,18 @@ export declare interface FloatingPanelToggleButtonProps extends Omit<ToggleButto
 
 export declare const FloppyDiskIcon: default_2.FC<SvgIconProps>;
 
+export declare const FormControl: default_2.FC<FormControlProps>;
+
+export declare const FormControlLabel: default_2.FC<FormControlLabelProps>;
+
+export { FormControlLabelProps }
+
+export { FormControlProps }
+
+export declare const FormHelperText: default_2.FC<FormHelperTextProps>;
+
+export { FormHelperTextProps }
+
 declare const generateComponentOverrides: (uiTheme: UITheme) => {
     MuiPaper: {
         styleOverrides: {
@@ -1048,10 +1077,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiMenuItem: {
         styleOverrides: {
-            root: ({ theme }: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disabled" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected" | "disableGutters"> & {
+            root: ({ theme }: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected" | "disableGutters"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disabled" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected" | "disableGutters"> & {
+                ownerState: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected" | "disableGutters"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1229,10 +1258,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiButton: {
         styleOverrides: {
-            root: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "disabled" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+            root: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "disabled" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1240,10 +1269,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             }) => {
                 paddingInline: string;
             };
-            outlinedInherit: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "disabled" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+            outlinedInherit: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "disabled" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1252,10 +1281,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                 border: string;
                 boxShadow: string;
             };
-            outlinedPrimary: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "disabled" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+            outlinedPrimary: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "disabled" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1670,8 +1699,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiFormControl"];
         styleOverrides?: Partial<OverridesStyleRules<keyof FormControlClasses, "MuiFormControl", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<FormControlProps> | ((props: Partial<FormControlProps> & {
-                ownerState: Partial<FormControlProps>;
+            props: Partial<FormControlProps_2> | ((props: Partial<FormControlProps_2> & {
+                ownerState: Partial<FormControlProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -1682,8 +1711,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiFormControlLabel"];
         styleOverrides?: Partial<OverridesStyleRules<keyof FormControlLabelClasses, "MuiFormControlLabel", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<FormControlLabelProps> | ((props: Partial<FormControlLabelProps> & {
-                ownerState: Partial<FormControlLabelProps>;
+            props: Partial<FormControlLabelProps_2> | ((props: Partial<FormControlLabelProps_2> & {
+                ownerState: Partial<FormControlLabelProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -1706,8 +1735,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiFormHelperText"];
         styleOverrides?: Partial<OverridesStyleRules<keyof FormHelperTextClasses, "MuiFormHelperText", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<FormHelperTextProps> | ((props: Partial<FormHelperTextProps> & {
-                ownerState: Partial<FormHelperTextProps>;
+            props: Partial<FormHelperTextProps_2> | ((props: Partial<FormHelperTextProps_2> & {
+                ownerState: Partial<FormHelperTextProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2361,8 +2390,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTable"];
         styleOverrides?: Partial<OverridesStyleRules<keyof TableClasses, "MuiTable", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TableProps> | ((props: Partial<TableProps> & {
-                ownerState: Partial<TableProps>;
+            props: Partial<TableProps_2> | ((props: Partial<TableProps_2> & {
+                ownerState: Partial<TableProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2373,8 +2402,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTableBody"];
         styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableBody", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TableBodyProps> | ((props: Partial<TableBodyProps> & {
-                ownerState: Partial<TableBodyProps>;
+            props: Partial<TableBodyProps_2> | ((props: Partial<TableBodyProps_2> & {
+                ownerState: Partial<TableBodyProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2385,8 +2414,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTableCell"];
         styleOverrides?: Partial<OverridesStyleRules<keyof TableCellClasses, "MuiTableCell", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TableCellProps> | ((props: Partial<TableCellProps> & {
-                ownerState: Partial<TableCellProps>;
+            props: Partial<TableCellProps_2> | ((props: Partial<TableCellProps_2> & {
+                ownerState: Partial<TableCellProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2421,8 +2450,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTableHead"];
         styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableHead", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TableHeadProps> | ((props: Partial<TableHeadProps> & {
-                ownerState: Partial<TableHeadProps>;
+            props: Partial<TableHeadProps_2> | ((props: Partial<TableHeadProps_2> & {
+                ownerState: Partial<TableHeadProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2445,8 +2474,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTableRow"];
         styleOverrides?: Partial<OverridesStyleRules<keyof TableRowClasses, "MuiTableRow", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TableRowProps> | ((props: Partial<TableRowProps> & {
-                ownerState: Partial<TableRowProps>;
+            props: Partial<TableRowProps_2> | ((props: Partial<TableRowProps_2> & {
+                ownerState: Partial<TableRowProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2517,8 +2546,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiTooltip"];
         styleOverrides?: Partial<OverridesStyleRules<keyof TooltipClasses, "MuiTooltip", Omit<Theme_2, "components">>> | undefined;
         variants?: {
-            props: Partial<TooltipProps> | ((props: Partial<TooltipProps> & {
-                ownerState: Partial<TooltipProps>;
+            props: Partial<TooltipProps_2> | ((props: Partial<TooltipProps_2> & {
+                ownerState: Partial<TooltipProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme_2, "components">;
@@ -2622,6 +2651,20 @@ export declare const isAuthRedirect: ({ config, url, }: IsAuthRedirectArgs) => b
 export declare type IsAuthRedirectArgs = {
     config: AuthServerOAuth2ClientConfig;
     url: string | URL;
+};
+
+export declare const LabeledSwitch: ({ text, subtext, checked, onChange, disabled, error, helperText, inputProps, ref, ...rest }: LabeledSwitchProps) => JSX.Element;
+
+export declare type LabeledSwitchProps = {
+    text: string;
+    subtext?: string;
+    checked?: boolean;
+    onChange: (checked: boolean) => void;
+    disabled?: boolean;
+    error?: boolean;
+    helperText?: string;
+    inputProps?: SwitchProps["inputProps"];
+    ref?: Ref<HTMLButtonElement>;
 };
 
 export declare type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig | OverlayVectorLayerConfig;
@@ -3056,7 +3099,7 @@ export declare type PolygonType = "Polygon" | "MultiPolygon";
  * Things to know when using the PopOver component:
  * - The component is built on top of the Modal component.
  */
-export declare const PopOver: (props: PopOverProps) => JSX.Element;
+export declare const PopOver: ({ width, ...props }: PopOverProps) => JSX.Element;
 
 declare interface PopOverProps extends Omit<ModalProps, "children"> {
     /**
@@ -3109,6 +3152,9 @@ declare interface PopOverProps extends Omit<ModalProps, "children"> {
      * }
      */
     transformOrigin?: PopoverOrigin;
+    /**
+     * Fixed width for the popover paper, in pixels.
+     */
     width?: number;
 }
 
@@ -3565,6 +3611,26 @@ declare type SwitchProps_2 = Omit<SwitchProps, "color"> & {
 
 export declare const Tab: ({ value, ...props }: TabProps) => JSX.Element;
 
+export declare const Table: default_2.FC<TableProps>;
+
+export declare const TableBody: default_2.FC<TableBodyProps>;
+
+export { TableBodyProps }
+
+export declare const TableCell: default_2.FC<TableCellProps>;
+
+export { TableCellProps }
+
+export declare const TableHead: default_2.FC<TableHeadProps>;
+
+export { TableHeadProps }
+
+export { TableProps }
+
+export declare const TableRow: default_2.FC<TableRowProps>;
+
+export { TableRowProps }
+
 export declare const TabPanel: default_2.ForwardRefExoticComponent<Omit<default_2.HTMLAttributes<HTMLDivElement>, "hidden"> & {
     /** Matches the `idPrefix` on this group's `Tabs`. */
     idPrefix: string;
@@ -3670,6 +3736,25 @@ export declare type TextProps = BaseProps & Partial<{
     variant: TypographyVariant | "subtitle2" | "overline" | "caption";
 }>;
 
+export declare const ThemeSwitch: ForwardRefExoticComponent<ThemeSwitchProps & RefAttributes<HTMLButtonElement>>;
+
+export declare type ThemeSwitchProps = {
+    checked: boolean;
+    onChange: (checked: boolean) => void;
+    label?: string;
+    labelId?: string;
+    disabled?: boolean;
+    className?: string;
+};
+
+export declare const ThemeSwitchRow: ForwardRefExoticComponent<Omit<ThemeSwitchProps, "labelId"> & {
+    hint?: string;
+} & RefAttributes<HTMLButtonElement>>;
+
+export declare type ThemeSwitchRowProps = Omit<ThemeSwitchProps, "labelId"> & {
+    hint?: string;
+};
+
 export declare const TitleAndContent: FC<TitleAndContentProps>;
 
 declare interface TitleAndContentProps {
@@ -3680,6 +3765,10 @@ declare interface TitleAndContentProps {
 export declare type ToggleFn = (id: string) => void;
 
 export declare const Toolbar: default_2.FC<ToolbarProps>;
+
+export declare const Tooltip: default_2.FC<TooltipProps>;
+
+export { TooltipProps }
 
 export declare const TooltipToggleButton: default_2.FC<TooltipToggleButtonProps>;
 
