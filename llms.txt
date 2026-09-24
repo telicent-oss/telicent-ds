@@ -845,6 +845,13 @@ AppInfoRow:
   value: {type: 'React.ReactNode', required: true}
 ```
 
+* `AppSettings`:
+```yaml
+AppSettings:
+  ariaLabel: {type: 'string', required: false}
+  id: {type: 'string', required: false}
+```
+
 * `ConfirmDialog`:
 ```yaml
 ConfirmDialog:
@@ -864,9 +871,45 @@ ConfirmDialog:
   variant: {type: 'ConfirmDialogVariant', required: false}
 ```
 
+* `LabeledSwitch`:
+```yaml
+LabeledSwitch:
+  checked: {type: 'boolean', required: false}
+  disabled: {type: 'boolean', required: false}
+  error: {type: 'boolean', required: false}
+  helperText: {type: 'string', required: false}
+  inputProps: {type: 'React.InputHTMLAttributes<HTMLInputElement>', required: false}
+  onChange: {type: '(checked: boolean) => void', required: true}
+  ref: {type: 'React.Ref<HTMLButtonElement>', required: false}
+  subtext: {type: 'string', required: false}
+  text: {type: 'string', required: true}
+```
+
 * `SnackbarProvider`:
 ```yaml
 SnackbarProvider: {} # no own props; all inherited from the underlying MUI/DOM element
+```
+
+* `ThemeSwitch`:
+```yaml
+ThemeSwitch:
+  checked: {type: 'boolean', required: true}
+  className: {type: 'string', required: false}
+  disabled: {type: 'boolean', required: false}
+  label: {type: 'string', required: false}
+  labelId: {type: 'string', required: false}
+  onChange: {type: '(checked: boolean) => void', required: true}
+```
+
+* `ThemeSwitchRow`:
+```yaml
+ThemeSwitchRow:
+  checked: {type: 'boolean', required: true}
+  className: {type: 'string', required: false}
+  disabled: {type: 'boolean', required: false}
+  hint: {type: 'string', required: false}
+  label: {type: 'string', required: false}
+  onChange: {type: '(checked: boolean) => void', required: true}
 ```
 
 ---
