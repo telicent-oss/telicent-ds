@@ -921,4 +921,4 @@ ThemeSwitchRow:
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds v4.1.0.
+This reference documents @telicent-oss/ds v4.2.0.
