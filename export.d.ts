@@ -389,17 +389,24 @@ export declare const AppSwitchLibrarySchema: default_3.ZodObject<{
     id: default_3.ZodString;
     name: default_3.ZodString;
     url: default_3.ZodString;
-    icon: default_3.ZodString;
+    /** @deprecated Use `iconDark` and `iconLight` for theme-aware icons. */
+    icon: default_3.ZodOptional<default_3.ZodString>;
+    iconDark: default_3.ZodOptional<default_3.ZodString>;
+    iconLight: default_3.ZodOptional<default_3.ZodString>;
 }, "strip", default_3.ZodTypeAny, {
     id: string;
     url: string;
-    icon: string;
     name: string;
+    icon?: string | undefined;
+    iconDark?: string | undefined;
+    iconLight?: string | undefined;
 }, {
     id: string;
     url: string;
-    icon: string;
     name: string;
+    icon?: string | undefined;
+    iconDark?: string | undefined;
+    iconLight?: string | undefined;
 }>;
 
 export declare type AppSwitchLibraryType = default_3.infer<typeof AppSwitchLibrarySchema>[];
