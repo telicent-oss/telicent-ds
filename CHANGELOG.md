@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/telicent-oss/telicent-ds/compare/v4.1.0...v4.2.0) (2026-09-25)
+
+
+### Features
+
+* **AppSwitch:** support optional theme-aware icons ([#559](https://github.com/telicent-oss/telicent-ds/issues/559)) ([fcfe0dd](https://github.com/telicent-oss/telicent-ds/commit/fcfe0dd079e9cd840d5403283f9afb9976d236a3))
+
 ## [4.1.0](https://github.com/telicent-oss/telicent-ds/compare/v4.0.0...v4.1.0) (2026-09-24)
 
 
