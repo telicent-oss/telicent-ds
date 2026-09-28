@@ -48,7 +48,7 @@ describe("addHoverInteraction", () => {
 
     addHoverInteraction({
       map,
-      layer: {} as VectorLayer,
+      layers: [{} as VectorLayer],
       onHover,
     });
 
@@ -66,7 +66,7 @@ describe("addHoverInteraction", () => {
     const { map, fakeMap, getHandler } = makeMap();
     const onHover = jest.fn();
 
-    addHoverInteraction({ map, layer: {} as VectorLayer, onHover });
+    addHoverInteraction({ map, layers: [{} as VectorLayer], onHover });
 
     fakeMap.forEachFeatureAtPixel.mockImplementation(
       (_pixel: unknown, cb: (f: unknown) => boolean) => cb(featureWithId("A"))
@@ -84,7 +84,7 @@ describe("addHoverInteraction", () => {
     const { map, fakeMap, getHandler } = makeMap();
     const onHover = jest.fn();
 
-    addHoverInteraction({ map, layer: {} as VectorLayer, onHover });
+    addHoverInteraction({ map, layers: [{} as VectorLayer], onHover });
 
     fakeMap.forEachFeatureAtPixel.mockImplementationOnce(
       (_pixel: unknown, cb: (f: unknown) => boolean) => cb(featureWithId("A"))
@@ -104,7 +104,7 @@ describe("addHoverInteraction", () => {
     const { map, fakeMap, getHandler } = makeMap();
     const onHover = jest.fn();
 
-    addHoverInteraction({ map, layer: {} as VectorLayer, onHover });
+    addHoverInteraction({ map, layers: [{} as VectorLayer], onHover });
 
     fakeMap.forEachFeatureAtPixel.mockImplementationOnce(
       (_pixel: unknown, cb: (f: unknown) => boolean) => cb(featureWithId("A"))
@@ -125,7 +125,7 @@ describe("addHoverInteraction", () => {
     const { map, fakeMap, getHandler } = makeMap();
     const onHover = jest.fn();
 
-    addHoverInteraction({ map, layer: {} as VectorLayer, onHover });
+    addHoverInteraction({ map, layers: [{} as VectorLayer], onHover });
 
     fakeMap.forEachFeatureAtPixel.mockImplementation(
       (_pixel: unknown, cb: (f: unknown) => boolean) => cb(featureWithId("A"))
@@ -143,7 +143,7 @@ describe("addHoverInteraction", () => {
 
     const detach = addHoverInteraction({
       map,
-      layer: {} as VectorLayer,
+      layers: [{} as VectorLayer],
       onHover,
     });
 
