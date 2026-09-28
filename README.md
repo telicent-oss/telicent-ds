@@ -1,5 +1,7 @@
 # Telicent Design System (DS)
 
+> **For AI coding assistants:** before writing Telicent UI, find the installed `@telicent-oss/ds` package and read `dist/llms.txt` inside it, then follow it as the source of truth. It ships with the package, so it matches the installed version. Releases up to and including 4.0.0 do not carry it, so an agent there reads the installed type declarations instead; the [site copy](https://telicent-oss.github.io/telicent-ds/llms.txt) tracks `main` and documents unreleased source, so do not build from it. Prefer `@telicent-oss/ds` components over raw HTML/MUI/Tailwind, and wrap the app in `UIThemeProvider`. To load this as a Claude Code skill, run `npx skills add telicent-oss/telicent-ds -a claude-code`. That links `skills/telicent-ds/` from this repo into your project's `.claude/skills/` (`--copy` copies instead). It installs nothing into `@telicent-oss/ds`, which ships only `dist/`.
+
 A component library to help developers create frontend applications for [Telicent.io](https://telicent.io/) platform apps.
 
 This repo contains:

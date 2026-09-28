@@ -48,7 +48,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 
 > Auth (`useAuth`, `AuthProvider`, `AuthContext`, `AuthRedirectUri`, `Callback`, and the `authorize-flow` utilities) is exported from `@telicent-oss/ds` and used by most Telicent apps, but it is out of scope for this UI component reference. See `src/utils/authorize-flow` in the source.
 
-> Geospatial map components (`BasicMap`, `BasicMapV2`, `FeatureMap`, `MapCanvas`, `MapCanvasV2`, `LayerSelector`, `MapCanvasProvider`, and the `useMap` hook) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map` in the source.
+> Geospatial map components (`BasicMapV2`, `MapCanvasV2`, `LayerSelectorV2`, and the zoom and toggle controls) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map/v2` in the source. The v1 components were removed in 4.0.0.
 
 ---
 

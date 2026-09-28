@@ -1,11 +1,9 @@
 name: deploy-llms.yml
 
-# Publishes the llms.txt index + llms-full.txt to the GitHub Pages site.
-#   main           -> site root        (.../llms.txt, .../llms-full.txt)
-#   other branches -> per-branch preview (.../<branch>/llms.txt, .../<branch>/llms-full.txt)
-# keep_files:true lets these coexist with Storybook (which owns the same paths)
-# without either deploy wiping the other. A shared github-pages concurrency
-# group serialises the gh-pages pushes so the two deploys cannot race.
+# The llms.txt published here tracks a branch head, not a released package. The copy
+# matching a consumer's install ships in the tarball, as dist/llms.txt.
+#
+# keep_files:true stops this wiping upload-storybook.yml's files at the same paths.
 
 on:
   workflow_dispatch:
@@ -36,6 +34,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # build-llms runs `git show HEAD~1:package.json`. At depth 1 that fails,
+          # and every build gets labelled "unreleased".
+          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -45,12 +47,10 @@ jobs:
       - name: Install dependencies
         run: LOCAL_MACHINE=false yarn install --frozen-lockfile
 
-      # build-llms reads the TypeScript types, so deps + dist/export.d.ts must exist first.
+      # yarn build ends with build-llms.mjs: writes llms/ for the deploys below, and
+      # dist/llms.txt for the npm tarball. Exits non-zero rather than write a bad file.
       - name: Build package
         run: yarn build
-
-      - name: Generate llms.txt
-        run: yarn generate:llms
 
       - name: Deploy llms.txt to Pages root
         if: github.ref == 'refs/heads/main'
