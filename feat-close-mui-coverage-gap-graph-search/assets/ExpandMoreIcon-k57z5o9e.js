@@ -1,0 +1,1 @@
+import{a as o}from"./iframe-pSdNPpsj.js";import{S as n}from"./SvgIcon-BonYN8Aw.js";const a=r=>o(n,{...r,children:o("path",{d:"M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z",fill:"currentColor"})});a.__docgenInfo={description:"",methods:[],displayName:"ExpandMoreIcon"};export{a as E};
