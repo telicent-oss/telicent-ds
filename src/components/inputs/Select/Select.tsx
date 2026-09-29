@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import React, { useId } from "react";
 
+export type { SelectChangeEvent } from "@mui/material";
+
 export interface Options {
   value: string | number;
   label: string;

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useTheme } from "@mui/material/styles";
-import { Alert } from "./Alert";
+import { Alert, AlertTitle } from "./Alert";
 import UIThemeProvider from "../../../theme/UIThemeProvider";
 
 const meta = {
@@ -26,6 +26,26 @@ export const Basic: AlertStory = {
     },
   },
   render: (args) => <Alert {...args} />,
+};
+
+export const WithTitle: AlertStory = {
+  args: {
+    severity: "warning",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Compose `AlertTitle` inside `Alert` to give the alert a heading; body copy sits below as `Alert` children. `AlertTitle` is exported alongside `Alert` — `import { Alert, AlertTitle } from \"@telicent-oss/ds\"`.",
+      },
+    },
+  },
+  render: (args) => (
+    <Alert {...args}>
+      <AlertTitle>Heads up</AlertTitle>
+      More detail about the alert goes here as children of Alert.
+    </Alert>
+  ),
 };
 
 const Diag = () => {

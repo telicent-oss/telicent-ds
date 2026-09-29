@@ -8,4 +8,6 @@ export interface DividerProps extends MUIDividerProps {
 
 const Divider = (props: DividerProps) => <MUIDivider {...props} />;
 
+export { dividerClasses } from "@mui/material/Divider";
+
 export default Divider;

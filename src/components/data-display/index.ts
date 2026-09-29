@@ -10,7 +10,7 @@ export type { AppSwitchLibraryType } from "./AppSwitch/AppSwitch";
 export { default as Chip } from "./Chip/Chip";
 export type { ChipProps } from "./Chip/Chip";
 
-export { default as Divider } from "./Divider/Divider";
+export { default as Divider, dividerClasses } from "./Divider/Divider";
 
 export { default as IESType } from "./IESType/IESType";
 export type { IESTypeProps } from "./IESType/IESType";
@@ -37,6 +37,9 @@ export { default as UserStatus } from "./UserProfile/UserProfileContent/UserStat
 export type { UserStatusProps } from "./UserProfile/UserProfileContent/UserStatus";
 
 export { default as DropdownButton } from "./DropdownButton/DropdownButton";
+
+export { default as SvgIcon } from "./SvgIcon/SvgIcon";
+export type { SvgIconProps } from "./SvgIcon/SvgIcon";
 
 export { default as Table } from "./Table/Table";
 export type { TableProps } from "./Table/Table";

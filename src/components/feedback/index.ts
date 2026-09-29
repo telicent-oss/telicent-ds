@@ -5,7 +5,7 @@ export * from "./Dialog/Dialog";
 export { default as ConfirmDialog } from "./ConfirmDialog/ConfirmDialog";
 export type { ConfirmDialogProps } from "./ConfirmDialog/ConfirmDialog";
 export { Skeleton } from "./Skeleton/Skeleton";
-export { Alert, type AlertColor } from "./Alert/Alert";
+export { Alert, AlertTitle, type AlertColor } from "./Alert/Alert";
 export { default as SnackbarProvider, type SnackbarProviderProps } from "./Snackbar/SnackbarProvider";
 export { snackbar, useSnackbar, type SnackbarType, type SnackbarArgs } from "./Snackbar/Snackbar";
 // Curated notistack re-exports. The vocab-neutral pieces stay notistack-side:

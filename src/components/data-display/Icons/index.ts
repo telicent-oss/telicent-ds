@@ -17,5 +17,8 @@ export { default as WarningIcon } from "./WarningIcon";
 export { default as TelicentMark } from "./TelicentMark";
 export { default as TelicentHorizontalSVG } from "./TelicentHorizontalSVG";
 export { default as UserIcon } from "./UserIcon";
+export { default as ExpandMoreIcon } from "./ExpandMoreIcon";
+export { default as ExpandLessIcon } from "./ExpandLessIcon";
 export { List as ListIcon } from "@telicent-oss/mui-icons-material";
 export { LocationOn as LocationOnIcon } from "@telicent-oss/mui-icons-material";
+export { ChevronRight as ChevronRightIcon } from "@telicent-oss/mui-icons-material";

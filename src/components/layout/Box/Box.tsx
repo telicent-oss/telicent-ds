@@ -26,3 +26,5 @@ const BoxImpl = ({ variant, sx, ...rest }: BoxProps & BoxAdditionalProps) => {
 export const Box = BoxImpl as OverridableComponent<
   BoxTypeMap<BoxAdditionalProps, "div", Theme>
 >;
+
+export type { BoxProps };
