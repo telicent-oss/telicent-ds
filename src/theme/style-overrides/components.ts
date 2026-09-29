@@ -5,6 +5,7 @@ import { FONT_FACES_CSS } from "./typography";
 const generateComponentOverrides = (uiTheme: UITheme) =>
   ({
     ...componentOverrides.AVATAR_OVERRIDES,
+    ...componentOverrides.generateAccordionOverrides(uiTheme),
     ...componentOverrides.generateButtonOverrides(uiTheme),
     ...componentOverrides.generateCardOverrides(uiTheme),
     ...componentOverrides.generateTabsOverrides(uiTheme),

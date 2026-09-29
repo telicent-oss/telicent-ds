@@ -1,3 +1,4 @@
+export * from "./Accordion";
 export * from "./Card";
 export * from "./FloatingPanel";
 export { default as FixedPanel } from "./FixedPanel/FixedPanel";
