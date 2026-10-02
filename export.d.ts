@@ -1,14 +1,16 @@
 import { AccordionActionsClasses } from '@mui/material';
 import { AccordionActionsProps } from '@mui/material';
-import { AccordionClasses } from '@mui/material';
-import { AccordionDetailsProps } from '@mui/material';
-import { AccordionProps } from '@mui/material';
+import { AccordionDetailsProps } from '@mui/material/AccordionDetails';
+import { AccordionDetailsProps as AccordionDetailsProps_2 } from '@mui/material';
+import { AccordionProps } from '@mui/material/Accordion';
 import { AccordionSummaryClasses } from '@mui/material';
-import { AccordionSummaryProps } from '@mui/material';
+import { AccordionSummaryProps } from '@mui/material/AccordionSummary';
+import { AccordionSummaryProps as AccordionSummaryProps_2 } from '@mui/material';
 import { default as Alert } from '@mui/material/Alert';
 import { AlertClasses } from '@mui/material';
 import { AlertColor } from '@mui/material/Alert';
 import { AlertProps } from '@mui/material';
+import { default as AlertTitle } from '@mui/material/AlertTitle';
 import { AlertTitleProps } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { AppBarProps as AppBarProps_2 } from '@mui/material/AppBar';
@@ -28,7 +30,8 @@ import { BaseSelectProps } from '@mui/material';
 import { BottomNavigationActionClasses } from '@mui/material';
 import { BottomNavigationActionProps } from '@mui/material';
 import { BottomNavigationProps } from '@mui/material';
-import { BoxProps } from '@mui/material';
+import { BoxProps } from '@mui/material/Box';
+import { BoxProps as BoxProps_2 } from '@mui/material';
 import { BoxTypeMap } from '@mui/system';
 import { BreadcrumbsClasses } from '@mui/material';
 import { BreadcrumbsProps } from '@mui/material';
@@ -53,6 +56,7 @@ import { CardOwnProps } from '@mui/material';
 import { CardProps as CardProps_2 } from '@mui/material/Card';
 import { CheckboxClasses } from '@mui/material';
 import { CheckboxProps } from '@mui/material';
+import { ChevronRight as ChevronRightIcon } from '@telicent-oss/mui-icons-material';
 import { ChipClasses } from '@mui/material';
 import { ChipProps as ChipProps_2 } from '@mui/material/Chip';
 import { ChipProps as ChipProps_3 } from '@mui/material';
@@ -75,7 +79,8 @@ import { default as default_2 } from 'react';
 import { default as default_3 } from 'zod';
 import { default as default_4 } from '@telicent-oss/fe-auth-lib';
 import { default as default_5 } from 'ol/layer/Base';
-import { default as default_6 } from '@mui/material/InputBase';
+import { default as default_6 } from '@mui/material/Menu';
+import { default as default_7 } from '@mui/material/InputBase';
 import { DetailedHTMLProps } from 'react';
 import { DialogActions } from '@mui/material';
 import { DialogActionsClasses } from '@mui/material';
@@ -89,6 +94,7 @@ import { DialogProps as DialogProps_2 } from '@mui/material';
 import { DialogTitle } from '@mui/material';
 import { DialogTitleProps } from '@mui/material';
 import { DividerClasses } from '@mui/material';
+import { dividerClasses } from '@mui/material/Divider';
 import { DividerProps } from '@mui/material/Divider';
 import { DividerProps as DividerProps_3 } from '@mui/material';
 import { DrawerClasses } from '@mui/material';
@@ -182,6 +188,7 @@ import { LocationOn as LocationOnIcon } from '@telicent-oss/mui-icons-material';
 import { Map as Map_2 } from 'ol';
 import { MenuClasses } from '@mui/material';
 import { MenuItemOwnProps } from '@mui/material';
+import { MenuItemProps } from '@mui/material/MenuItem';
 import { MenuListProps } from '@mui/material';
 import { MenuProps } from '@mui/material';
 import { MobileStepperClasses } from '@mui/material';
@@ -212,6 +219,7 @@ import { PopoverPosition } from '@mui/material/Popover';
 import { PopoverProps } from '@mui/material/Popover';
 import { PopoverProps as PopoverProps_2 } from '@mui/material';
 import { PopoverReference } from '@mui/material/Popover';
+import { PopperProps } from '@mui/material/Popper';
 import { PropsWithChildren } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 import { QueryKey } from '@tanstack/react-query';
@@ -220,11 +228,13 @@ import { RadioGroupProps } from '@mui/material';
 import { RadioProps } from '@mui/material';
 import { RatingClasses } from '@mui/material';
 import { RatingProps } from '@mui/material';
+import * as React_2 from 'react';
 import { ReactNode } from 'react';
 import { Ref } from 'react';
 import { RefAttributes } from 'react';
 import { RefObject } from 'react';
 import { ScopedCssBaselineProps } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import { SelectClasses } from '@mui/material';
 import { SelectProps as SelectProps_2 } from '@mui/material';
 import { SkeletonClasses } from '@mui/material';
@@ -271,8 +281,8 @@ import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
 import { SwitchClasses } from '@mui/material';
 import { SwitchProps } from '@mui/material/Switch';
 import { SwitchProps as SwitchProps_3 } from '@mui/material';
-import { SxProps } from '@mui/material/styles';
-import { SxProps as SxProps_2 } from '@mui/material';
+import { SxProps } from '@mui/material';
+import { SxProps as SxProps_2 } from '@mui/material/styles';
 import { TabClasses } from '@mui/material';
 import { TableBodyProps } from '@mui/material/TableBody';
 import { TableBodyProps as TableBodyProps_2 } from '@mui/material';
@@ -298,8 +308,9 @@ import { TabProps as TabProps_3 } from '@mui/material';
 import { TabsOwnProps } from '@mui/material';
 import { TabsProps as TabsProps_2 } from '@mui/material/Tabs';
 import { TextFieldProps } from '@mui/material';
-import { Theme } from '@mui/material/styles';
-import { Theme as Theme_2 } from '@mui/material';
+import { Theme } from '@mui/material';
+import { Theme as Theme_2 } from '@mui/material/styles';
+import { Theme as Theme_3 } from '@emotion/react';
 import { ToggleButtonClasses } from '@mui/material';
 import { ToggleButtonGroupClasses } from '@mui/material';
 import { ToggleButtonGroupProps } from '@mui/material';
@@ -330,9 +341,23 @@ declare type AccessibleName = {
     "aria-label"?: never;
 };
 
+export declare const Accordion: default_2.FC<AccordionProps>;
+
+export declare const AccordionDetails: default_2.FC<AccordionDetailsProps>;
+
+export { AccordionDetailsProps }
+
+export { AccordionProps }
+
+export declare const AccordionSummary: default_2.FC<AccordionSummaryProps>;
+
+export { AccordionSummaryProps }
+
 export { Alert }
 
 export { AlertColor }
+
+export { AlertTitle }
 
 export { alpha }
 
@@ -581,11 +606,13 @@ export declare type BasicMapV2Handle = {
 
 export declare const BinIcon: default_2.FC<SvgIconProps>;
 
-export declare const Box: OverridableComponent<BoxTypeMap<BoxAdditionalProps, "div", Theme>>;
+export declare const Box: OverridableComponent<BoxTypeMap<BoxAdditionalProps, "div", Theme_2>>;
 
 declare type BoxAdditionalProps = {
     variant?: BoxVariant;
 };
+
+export { BoxProps }
 
 declare type BoxVariant = "outlined";
 
@@ -655,7 +682,7 @@ export declare const CardActions: default_2.FC<PropsWithChildren>;
 export declare const CardContent: default_2.FC<CardContentProps>;
 
 declare interface CardContentProps extends PropsWithChildren {
-    sx?: SxProps<Theme>;
+    sx?: SxProps_2<Theme_2>;
 }
 
 export declare const CardHeader: default_2.FC<CardHeaderProps>;
@@ -665,6 +692,8 @@ declare type CardProps = Omit<CardProps_2, "classes" | "raised"> & Partial<{
 }>;
 
 export declare const Checkbox: default_2.FC<CustomCheckboxProps>;
+
+export { ChevronRightIcon }
 
 export declare const Chip: default_2.FC<ChipProps>;
 
@@ -746,7 +775,7 @@ declare interface ContainerProps_2 extends default_2.HTMLAttributes<HTMLDivEleme
     maxWidth?: "xs" | "sm" | "md" | "lg" | "xl" | false;
 }
 
-declare interface ControlAreaProps extends Omit<BoxProps, 'position'> {
+declare interface ControlAreaProps extends Omit<BoxProps_2, 'position'> {
     position: Position;
 }
 
@@ -867,6 +896,8 @@ export { DialogTitleProps }
 
 export declare const Divider: (props: DividerProps_2) => JSX.Element;
 
+export { dividerClasses }
+
 declare interface DividerProps_2 extends DividerProps {
     component?: React.ElementType;
     flexItem?: boolean;
@@ -942,7 +973,7 @@ export declare interface DrawerController {
 
 declare interface DrawerPresentationalProps extends Omit<DrawerProps_2, "PaperProps" | "onToggle">, Omit<default_2.HTMLAttributes<HTMLDivElement>, "onToggle"> {
     PaperProps?: DrawerProps_2["PaperProps"];
-    PaperSx?: SxProps<Theme>;
+    PaperSx?: SxProps_2<Theme_2>;
     drawerWidth?: number;
     children: ReactNode;
     onToggle?: default_2.MouseEventHandler<HTMLButtonElement>;
@@ -953,7 +984,7 @@ export declare interface DrawerProps extends Omit<DrawerPresentationalProps, "op
     /** (default: true) */
     initialOpen?: boolean;
     onVisibilityChange?: (open: boolean) => void;
-    PaperSx?: SxProps_2<Theme_2>;
+    PaperSx?: SxProps<Theme>;
 }
 
 export declare const DropdownButton: default_2.FC<DropdownButtonProps>;
@@ -1001,14 +1032,18 @@ export declare const ErrorFallbackWrapper: default_2.FC<ErrorFallbackWrapperProp
 export declare type ErrorFallbackWrapperProps = {
     children: default_2.ReactNode;
     height?: number | string;
-    sx?: SxProps_2<Theme_2>;
+    sx?: SxProps<Theme>;
 };
+
+export declare const ExpandLessIcon: default_2.FC<SvgIconProps>;
+
+export declare const ExpandMoreIcon: default_2.FC<SvgIconProps>;
 
 declare interface ExtendedPalette extends Palette {
     components: ComponentOverrides;
 }
 
-declare interface ExtendedTheme extends Omit<Theme, "components" | "palette"> {
+declare interface ExtendedTheme extends Omit<Theme_2, "components" | "palette"> {
     components: ComponentOverrides;
     palette: ExtendedPalette;
 }
@@ -1084,14 +1119,14 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiMenuItem: {
         styleOverrides: {
-            root: ({ theme }: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected" | "disableGutters"> & {
+            root: ({ theme }: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disableGutters" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected" | "disableGutters"> & {
+                ownerState: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disableGutters" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 display: "flex";
                 alignItems: "center";
@@ -1133,21 +1168,21 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             paper: ({ theme }: AutocompleteProps_2<any, any, any, any, "div"> & Record<string, unknown> & {
                 ownerState: AutocompleteProps_2<any, any, any, any, "div"> & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 borderRadius: number;
             };
             listbox: ({ theme }: AutocompleteProps_2<any, any, any, any, "div"> & Record<string, unknown> & {
                 ownerState: AutocompleteProps_2<any, any, any, any, "div"> & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 padding: string;
             };
             option: ({ theme }: AutocompleteProps_2<any, any, any, any, "div"> & Record<string, unknown> & {
                 ownerState: AutocompleteProps_2<any, any, any, any, "div"> & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 display: "flex";
                 alignItems: "center";
@@ -1188,7 +1223,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         };
     };
     MuiCssBaseline: {
-        styleOverrides: (theme: Omit<Theme_2, "components">) => string;
+        styleOverrides: (theme: Omit<Theme, "components">) => string;
     };
     MuiTabs: {
         styleOverrides: {
@@ -1199,7 +1234,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 borderBottom: string;
                 "&.MuiTabs-vertical": {
@@ -1215,7 +1250,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                 variant: "outlined";
             };
             style: ({ theme }: {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 borderWidth: number;
                 borderStyle: "solid";
@@ -1230,7 +1265,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 borderRadius: string;
             };
@@ -1245,7 +1280,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 padding: string;
                 ":last-child": {
@@ -1272,7 +1307,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 paddingInline: string;
             };
@@ -1283,7 +1318,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 border: string;
                 boxShadow: string;
@@ -1295,7 +1330,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }) => {
                 border: string;
             };
@@ -1318,1051 +1353,1053 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             };
         };
     };
+    MuiAccordion: {
+        defaultProps: {
+            elevation: number;
+            disableGutters: true;
+        };
+        styleOverrides: {
+            root: {
+                backgroundColor: "transparent";
+                "&:before": {
+                    display: string;
+                };
+            };
+        };
+    };
     MuiAlert?: {
         defaultProps?: ComponentsProps["MuiAlert"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof AlertClasses, "MuiAlert", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof AlertClasses, "MuiAlert", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<AlertProps> | ((props: Partial<AlertProps> & {
                 ownerState: Partial<AlertProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiAlertTitle?: {
         defaultProps?: ComponentsProps["MuiAlertTitle"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiAlertTitle", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiAlertTitle", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<AlertTitleProps> | ((props: Partial<AlertTitleProps> & {
                 ownerState: Partial<AlertTitleProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiAvatar?: {
         defaultProps?: ComponentsProps["MuiAvatar"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof AvatarClasses, "MuiAvatar", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof AvatarClasses, "MuiAvatar", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<AvatarProps> | ((props: Partial<AvatarProps> & {
                 ownerState: Partial<AvatarProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiAvatarGroup?: {
         defaultProps?: ComponentsProps["MuiAvatarGroup"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof AvatarGroupClasses, "MuiAvatarGroup", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof AvatarGroupClasses, "MuiAvatarGroup", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<AvatarGroupProps> | ((props: Partial<AvatarGroupProps> & {
                 ownerState: Partial<AvatarGroupProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiBackdrop?: {
         defaultProps?: ComponentsProps["MuiBackdrop"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof BackdropClasses, "MuiBackdrop", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof BackdropClasses, "MuiBackdrop", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<BackdropProps> | ((props: Partial<BackdropProps> & {
                 ownerState: Partial<BackdropProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiBadge?: {
         defaultProps?: ComponentsProps["MuiBadge"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof BadgeClasses, "MuiBadge", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof BadgeClasses, "MuiBadge", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<BadgeProps> | ((props: Partial<BadgeProps> & {
                 ownerState: Partial<BadgeProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiBottomNavigation?: {
         defaultProps?: ComponentsProps["MuiBottomNavigation"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiBottomNavigation", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiBottomNavigation", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<BottomNavigationProps> | ((props: Partial<BottomNavigationProps> & {
                 ownerState: Partial<BottomNavigationProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiBottomNavigationAction?: {
         defaultProps?: ComponentsProps["MuiBottomNavigationAction"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof BottomNavigationActionClasses, "MuiBottomNavigationAction", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof BottomNavigationActionClasses, "MuiBottomNavigationAction", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<BottomNavigationActionProps> | ((props: Partial<BottomNavigationActionProps> & {
                 ownerState: Partial<BottomNavigationActionProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiBreadcrumbs?: {
         defaultProps?: ComponentsProps["MuiBreadcrumbs"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof BreadcrumbsClasses, "MuiBreadcrumbs", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof BreadcrumbsClasses, "MuiBreadcrumbs", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<BreadcrumbsProps> | ((props: Partial<BreadcrumbsProps> & {
                 ownerState: Partial<BreadcrumbsProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiButtonBase?: {
         defaultProps?: ComponentsProps["MuiButtonBase"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ButtonBaseClasses, "MuiButtonBase", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ButtonBaseClasses, "MuiButtonBase", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ButtonBaseProps> | ((props: Partial<ButtonBaseProps> & {
                 ownerState: Partial<ButtonBaseProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiButtonGroup?: {
         defaultProps?: ComponentsProps["MuiButtonGroup"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ButtonGroupClasses, "MuiButtonGroup", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ButtonGroupClasses, "MuiButtonGroup", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ButtonGroupProps> | ((props: Partial<ButtonGroupProps> & {
                 ownerState: Partial<ButtonGroupProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiCardActionArea?: {
         defaultProps?: ComponentsProps["MuiCardActionArea"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof CardActionAreaClasses, "MuiCardActionArea", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof CardActionAreaClasses, "MuiCardActionArea", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<CardActionAreaProps> | ((props: Partial<CardActionAreaProps> & {
                 ownerState: Partial<CardActionAreaProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiCardHeader?: {
         defaultProps?: ComponentsProps["MuiCardHeader"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof CardHeaderClasses, "MuiCardHeader", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof CardHeaderClasses, "MuiCardHeader", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<CardHeaderProps_2> | ((props: Partial<CardHeaderProps_2> & {
                 ownerState: Partial<CardHeaderProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiCardMedia?: {
         defaultProps?: ComponentsProps["MuiCardMedia"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof CardMediaClasses, "MuiCardMedia", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof CardMediaClasses, "MuiCardMedia", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<CardMediaProps> | ((props: Partial<CardMediaProps> & {
                 ownerState: Partial<CardMediaProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiCheckbox?: {
         defaultProps?: ComponentsProps["MuiCheckbox"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof CheckboxClasses, "MuiCheckbox", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof CheckboxClasses, "MuiCheckbox", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<CheckboxProps> | ((props: Partial<CheckboxProps> & {
                 ownerState: Partial<CheckboxProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiChip?: {
         defaultProps?: ComponentsProps["MuiChip"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ChipClasses, "MuiChip", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ChipClasses, "MuiChip", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ChipProps_3> | ((props: Partial<ChipProps_3> & {
                 ownerState: Partial<ChipProps_3>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiCircularProgress?: {
         defaultProps?: ComponentsProps["MuiCircularProgress"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof CircularProgressClasses, "MuiCircularProgress", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof CircularProgressClasses, "MuiCircularProgress", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<CircularProgressProps_2> | ((props: Partial<CircularProgressProps_2> & {
                 ownerState: Partial<CircularProgressProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiCollapse?: {
         defaultProps?: ComponentsProps["MuiCollapse"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof CollapseClasses, "MuiCollapse", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof CollapseClasses, "MuiCollapse", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<CollapseProps> | ((props: Partial<CollapseProps> & {
                 ownerState: Partial<CollapseProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiContainer?: {
         defaultProps?: ComponentsProps["MuiContainer"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ContainerClasses, "MuiContainer", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ContainerClasses, "MuiContainer", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ContainerProps> | ((props: Partial<ContainerProps> & {
                 ownerState: Partial<ContainerProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiDialog?: {
         defaultProps?: ComponentsProps["MuiDialog"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof DialogClasses, "MuiDialog", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof DialogClasses, "MuiDialog", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<DialogProps_2> | ((props: Partial<DialogProps_2> & {
                 ownerState: Partial<DialogProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiDialogActions?: {
         defaultProps?: ComponentsProps["MuiDialogActions"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof DialogActionsClasses, "MuiDialogActions", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof DialogActionsClasses, "MuiDialogActions", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<DialogActionsProps> | ((props: Partial<DialogActionsProps> & {
                 ownerState: Partial<DialogActionsProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiDialogContent?: {
         defaultProps?: ComponentsProps["MuiDialogContent"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof DialogContentClasses, "MuiDialogContent", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof DialogContentClasses, "MuiDialogContent", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<DialogContentProps> | ((props: Partial<DialogContentProps> & {
                 ownerState: Partial<DialogContentProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiDialogContentText?: {
         defaultProps?: ComponentsProps["MuiDialogContentText"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiDialogContentText", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiDialogContentText", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<DialogContentTextProps> | ((props: Partial<DialogContentTextProps> & {
                 ownerState: Partial<DialogContentTextProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiDialogTitle?: {
         defaultProps?: ComponentsProps["MuiDialogTitle"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiDialogTitle", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiDialogTitle", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<DialogTitleProps> | ((props: Partial<DialogTitleProps> & {
                 ownerState: Partial<DialogTitleProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiDivider?: {
         defaultProps?: ComponentsProps["MuiDivider"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof DividerClasses, "MuiDivider", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof DividerClasses, "MuiDivider", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<DividerProps_3> | ((props: Partial<DividerProps_3> & {
                 ownerState: Partial<DividerProps_3>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiDrawer?: {
         defaultProps?: ComponentsProps["MuiDrawer"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof DrawerClasses, "MuiDrawer", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof DrawerClasses, "MuiDrawer", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<DrawerProps_3> | ((props: Partial<DrawerProps_3> & {
                 ownerState: Partial<DrawerProps_3>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiAccordion?: {
-        defaultProps?: ComponentsProps["MuiAccordion"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof AccordionClasses, "MuiAccordion", Omit<Theme_2, "components">>> | undefined;
-        variants?: {
-            props: Partial<AccordionProps> | ((props: Partial<AccordionProps> & {
-                ownerState: Partial<AccordionProps>;
-            }) => boolean);
-            style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiAccordionActions?: {
         defaultProps?: ComponentsProps["MuiAccordionActions"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof AccordionActionsClasses, "MuiAccordionActions", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof AccordionActionsClasses, "MuiAccordionActions", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<AccordionActionsProps> | ((props: Partial<AccordionActionsProps> & {
                 ownerState: Partial<AccordionActionsProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiAccordionDetails?: {
         defaultProps?: ComponentsProps["MuiAccordionDetails"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiAccordionDetails", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiAccordionDetails", Omit<Theme, "components">>> | undefined;
         variants?: {
-            props: Partial<AccordionDetailsProps> | ((props: Partial<AccordionDetailsProps> & {
-                ownerState: Partial<AccordionDetailsProps>;
+            props: Partial<AccordionDetailsProps_2> | ((props: Partial<AccordionDetailsProps_2> & {
+                ownerState: Partial<AccordionDetailsProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiAccordionSummary?: {
         defaultProps?: ComponentsProps["MuiAccordionSummary"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof AccordionSummaryClasses, "MuiAccordionSummary", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof AccordionSummaryClasses, "MuiAccordionSummary", Omit<Theme, "components">>> | undefined;
         variants?: {
-            props: Partial<AccordionSummaryProps> | ((props: Partial<AccordionSummaryProps> & {
-                ownerState: Partial<AccordionSummaryProps>;
+            props: Partial<AccordionSummaryProps_2> | ((props: Partial<AccordionSummaryProps_2> & {
+                ownerState: Partial<AccordionSummaryProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiFab?: {
         defaultProps?: ComponentsProps["MuiFab"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof FabClasses, "MuiFab", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof FabClasses, "MuiFab", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<FabProps> | ((props: Partial<FabProps> & {
                 ownerState: Partial<FabProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiFilledInput?: {
         defaultProps?: ComponentsProps["MuiFilledInput"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof FilledInputClasses, "MuiFilledInput", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof FilledInputClasses, "MuiFilledInput", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<FilledInputProps> | ((props: Partial<FilledInputProps> & {
                 ownerState: Partial<FilledInputProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiFormControl?: {
         defaultProps?: ComponentsProps["MuiFormControl"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof FormControlClasses, "MuiFormControl", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof FormControlClasses, "MuiFormControl", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<FormControlProps_2> | ((props: Partial<FormControlProps_2> & {
                 ownerState: Partial<FormControlProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiFormControlLabel?: {
         defaultProps?: ComponentsProps["MuiFormControlLabel"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof FormControlLabelClasses, "MuiFormControlLabel", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof FormControlLabelClasses, "MuiFormControlLabel", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<FormControlLabelProps_2> | ((props: Partial<FormControlLabelProps_2> & {
                 ownerState: Partial<FormControlLabelProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiFormGroup?: {
         defaultProps?: ComponentsProps["MuiFormGroup"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof FormGroupClasses, "MuiFormGroup", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof FormGroupClasses, "MuiFormGroup", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<FormGroupProps> | ((props: Partial<FormGroupProps> & {
                 ownerState: Partial<FormGroupProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiFormHelperText?: {
         defaultProps?: ComponentsProps["MuiFormHelperText"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof FormHelperTextClasses, "MuiFormHelperText", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof FormHelperTextClasses, "MuiFormHelperText", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<FormHelperTextProps_2> | ((props: Partial<FormHelperTextProps_2> & {
                 ownerState: Partial<FormHelperTextProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiFormLabel?: {
         defaultProps?: ComponentsProps["MuiFormLabel"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof FormLabelClasses, "MuiFormLabel", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof FormLabelClasses, "MuiFormLabel", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<FormLabelProps> | ((props: Partial<FormLabelProps> & {
                 ownerState: Partial<FormLabelProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiGrid?: {
         defaultProps?: ComponentsProps["MuiGrid"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof GridClasses, "MuiGrid", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof GridClasses, "MuiGrid", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<GridProps_2> | ((props: Partial<GridProps_2> & {
                 ownerState: Partial<GridProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiGrid2?: {
         defaultProps?: ComponentsProps["MuiGrid2"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiGrid2", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiGrid2", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<Grid2Props> | ((props: Partial<Grid2Props> & {
                 ownerState: Partial<Grid2Props>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiImageList?: {
         defaultProps?: ComponentsProps["MuiImageList"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ImageListClasses, "MuiImageList", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ImageListClasses, "MuiImageList", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ImageListProps> | ((props: Partial<ImageListProps> & {
                 ownerState: Partial<ImageListProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiImageListItem?: {
         defaultProps?: ComponentsProps["MuiImageListItem"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ImageListItemClasses, "MuiImageListItem", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ImageListItemClasses, "MuiImageListItem", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ImageListItemProps> | ((props: Partial<ImageListItemProps> & {
                 ownerState: Partial<ImageListItemProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiImageListItemBar?: {
         defaultProps?: ComponentsProps["MuiImageListItemBar"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ImageListItemBarClasses, "MuiImageListItemBar", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ImageListItemBarClasses, "MuiImageListItemBar", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ImageListItemBarProps> | ((props: Partial<ImageListItemBarProps> & {
                 ownerState: Partial<ImageListItemBarProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiIcon?: {
         defaultProps?: ComponentsProps["MuiIcon"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof IconClasses, "MuiIcon", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof IconClasses, "MuiIcon", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<IconProps> | ((props: Partial<IconProps> & {
                 ownerState: Partial<IconProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiInput?: {
         defaultProps?: ComponentsProps["MuiInput"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof InputClasses, "MuiInput", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof InputClasses, "MuiInput", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<InputProps> | ((props: Partial<InputProps> & {
                 ownerState: Partial<InputProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiInputAdornment?: {
         defaultProps?: ComponentsProps["MuiInputAdornment"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof InputAdornmentClasses, "MuiInputAdornment", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof InputAdornmentClasses, "MuiInputAdornment", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<InputAdornmentProps> | ((props: Partial<InputAdornmentProps> & {
                 ownerState: Partial<InputAdornmentProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiInputBase?: {
         defaultProps?: ComponentsProps["MuiInputBase"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof InputBaseClasses, "MuiInputBase", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof InputBaseClasses, "MuiInputBase", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<InputBaseProps_2> | ((props: Partial<InputBaseProps_2> & {
                 ownerState: Partial<InputBaseProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiInputLabel?: {
         defaultProps?: ComponentsProps["MuiInputLabel"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof InputLabelClasses, "MuiInputLabel", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof InputLabelClasses, "MuiInputLabel", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<InputLabelProps> | ((props: Partial<InputLabelProps> & {
                 ownerState: Partial<InputLabelProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiLinearProgress?: {
         defaultProps?: ComponentsProps["MuiLinearProgress"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof LinearProgressClasses, "MuiLinearProgress", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof LinearProgressClasses, "MuiLinearProgress", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<LinearProgressProps_2> | ((props: Partial<LinearProgressProps_2> & {
                 ownerState: Partial<LinearProgressProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiLink?: {
         defaultProps?: ComponentsProps["MuiLink"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof LinkClasses, "MuiLink", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof LinkClasses, "MuiLink", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<LinkProps> | ((props: Partial<LinkProps> & {
                 ownerState: Partial<LinkProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiList?: {
         defaultProps?: ComponentsProps["MuiList"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListClasses, "MuiList", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListClasses, "MuiList", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ListProps_2> | ((props: Partial<ListProps_2> & {
                 ownerState: Partial<ListProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiListItem?: {
         defaultProps?: ComponentsProps["MuiListItem"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemClasses, "MuiListItem", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemClasses, "MuiListItem", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ListItemProps_2> | ((props: Partial<ListItemProps_2> & {
                 ownerState: Partial<ListItemProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiListItemButton?: {
         defaultProps?: ComponentsProps["MuiListItemButton"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemButtonClasses, "MuiListItemButton", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemButtonClasses, "MuiListItemButton", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ListItemButtonProps_2> | ((props: Partial<ListItemButtonProps_2> & {
                 ownerState: Partial<ListItemButtonProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiListItemAvatar?: {
         defaultProps?: ComponentsProps["MuiListItemAvatar"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemAvatarClasses, "MuiListItemAvatar", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemAvatarClasses, "MuiListItemAvatar", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ListItemAvatarProps> | ((props: Partial<ListItemAvatarProps> & {
                 ownerState: Partial<ListItemAvatarProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiListItemIcon?: {
         defaultProps?: ComponentsProps["MuiListItemIcon"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemIconClasses, "MuiListItemIcon", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemIconClasses, "MuiListItemIcon", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ListItemIconProps_2> | ((props: Partial<ListItemIconProps_2> & {
                 ownerState: Partial<ListItemIconProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiListItemSecondaryAction?: {
         defaultProps?: ComponentsProps["MuiListItemSecondaryAction"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemSecondaryActionClasses, "MuiListItemSecondaryAction", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemSecondaryActionClasses, "MuiListItemSecondaryAction", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ListItemSecondaryActionProps> | ((props: Partial<ListItemSecondaryActionProps> & {
                 ownerState: Partial<ListItemSecondaryActionProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiListItemText?: {
         defaultProps?: ComponentsProps["MuiListItemText"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemTextClasses, "MuiListItemText", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListItemTextClasses, "MuiListItemText", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ListItemTextProps_3<"span", "p">> | ((props: Partial<ListItemTextProps_3<"span", "p">> & {
                 ownerState: Partial<ListItemTextProps_3<"span", "p">>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiListSubheader?: {
         defaultProps?: ComponentsProps["MuiListSubheader"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListSubheaderClasses, "MuiListSubheader", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListSubheaderClasses, "MuiListSubheader", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ListSubheaderProps> | ((props: Partial<ListSubheaderProps> & {
                 ownerState: Partial<ListSubheaderProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiMenu?: {
         defaultProps?: ComponentsProps["MuiMenu"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof MenuClasses, "MuiMenu", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof MenuClasses, "MuiMenu", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<MenuProps> | ((props: Partial<MenuProps> & {
                 ownerState: Partial<MenuProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiMenuList?: {
         defaultProps?: ComponentsProps["MuiMenuList"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ListClasses, "MuiMenuList", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ListClasses, "MuiMenuList", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<MenuListProps> | ((props: Partial<MenuListProps> & {
                 ownerState: Partial<MenuListProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiMobileStepper?: {
         defaultProps?: ComponentsProps["MuiMobileStepper"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof MobileStepperClasses, "MuiMobileStepper", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof MobileStepperClasses, "MuiMobileStepper", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<MobileStepperProps> | ((props: Partial<MobileStepperProps> & {
                 ownerState: Partial<MobileStepperProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiModal?: {
         defaultProps?: ComponentsProps["MuiModal"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ModalClasses, "MuiModal", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ModalClasses, "MuiModal", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ModalProps_3> | ((props: Partial<ModalProps_3> & {
                 ownerState: Partial<ModalProps_3>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiNativeSelect?: {
         defaultProps?: ComponentsProps["MuiNativeSelect"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof NativeSelectClasses, "MuiNativeSelect", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof NativeSelectClasses, "MuiNativeSelect", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<NativeSelectProps> | ((props: Partial<NativeSelectProps> & {
                 ownerState: Partial<NativeSelectProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiOutlinedInput?: {
         defaultProps?: ComponentsProps["MuiOutlinedInput"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof OutlinedInputClasses, "MuiOutlinedInput", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof OutlinedInputClasses, "MuiOutlinedInput", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<OutlinedInputProps> | ((props: Partial<OutlinedInputProps> & {
                 ownerState: Partial<OutlinedInputProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiPagination?: {
         defaultProps?: ComponentsProps["MuiPagination"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof PaginationClasses, "MuiPagination", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof PaginationClasses, "MuiPagination", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<PaginationProps> | ((props: Partial<PaginationProps> & {
                 ownerState: Partial<PaginationProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiPaginationItem?: {
         defaultProps?: ComponentsProps["MuiPaginationItem"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof PaginationItemClasses, "MuiPaginationItem", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof PaginationItemClasses, "MuiPaginationItem", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<PaginationItemProps> | ((props: Partial<PaginationItemProps> & {
                 ownerState: Partial<PaginationItemProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiPopper?: {
         defaultProps?: ComponentsProps["MuiPopper"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiPopper", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiPopper", Omit<Theme, "components">>> | undefined;
     } | undefined;
     MuiPopover?: {
         defaultProps?: ComponentsProps["MuiPopover"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof PopoverClasses, "MuiPopover", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof PopoverClasses, "MuiPopover", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<PopoverProps_2> | ((props: Partial<PopoverProps_2> & {
                 ownerState: Partial<PopoverProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiRadio?: {
         defaultProps?: ComponentsProps["MuiRadio"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof RadioClasses, "MuiRadio", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof RadioClasses, "MuiRadio", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<RadioProps> | ((props: Partial<RadioProps> & {
                 ownerState: Partial<RadioProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiRadioGroup?: {
         defaultProps?: ComponentsProps["MuiRadioGroup"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof FormGroupClasses, "MuiRadioGroup", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof FormGroupClasses, "MuiRadioGroup", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<RadioGroupProps> | ((props: Partial<RadioGroupProps> & {
                 ownerState: Partial<RadioGroupProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiRating?: {
         defaultProps?: ComponentsProps["MuiRating"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof RatingClasses, "MuiRating", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof RatingClasses, "MuiRating", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<RatingProps> | ((props: Partial<RatingProps> & {
                 ownerState: Partial<RatingProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiScopedCssBaseline?: {
         defaultProps?: ComponentsProps["MuiScopedCssBaseline"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiScopedCssBaseline", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiScopedCssBaseline", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ScopedCssBaselineProps> | ((props: Partial<ScopedCssBaselineProps> & {
                 ownerState: Partial<ScopedCssBaselineProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSelect?: {
         defaultProps?: ComponentsProps["MuiSelect"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SelectClasses, "MuiSelect", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SelectClasses, "MuiSelect", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SelectProps_2> | ((props: Partial<SelectProps_2> & {
                 ownerState: Partial<SelectProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSkeleton?: {
         defaultProps?: ComponentsProps["MuiSkeleton"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SkeletonClasses, "MuiSkeleton", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SkeletonClasses, "MuiSkeleton", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SkeletonProps> | ((props: Partial<SkeletonProps> & {
                 ownerState: Partial<SkeletonProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSlider?: {
         defaultProps?: ComponentsProps["MuiSlider"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SliderClasses, "MuiSlider", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SliderClasses, "MuiSlider", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SliderProps> | ((props: Partial<SliderProps> & {
                 ownerState: Partial<SliderProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSnackbar?: {
         defaultProps?: ComponentsProps["MuiSnackbar"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SnackbarClasses, "MuiSnackbar", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SnackbarClasses, "MuiSnackbar", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SnackbarProps> | ((props: Partial<SnackbarProps> & {
                 ownerState: Partial<SnackbarProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSnackbarContent?: {
         defaultProps?: ComponentsProps["MuiSnackbarContent"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SnackbarContentClasses, "MuiSnackbarContent", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SnackbarContentClasses, "MuiSnackbarContent", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SnackbarContentProps> | ((props: Partial<SnackbarContentProps> & {
                 ownerState: Partial<SnackbarContentProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSpeedDial?: {
         defaultProps?: ComponentsProps["MuiSpeedDial"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SpeedDialClasses, "MuiSpeedDial", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SpeedDialClasses, "MuiSpeedDial", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SpeedDialProps> | ((props: Partial<SpeedDialProps> & {
                 ownerState: Partial<SpeedDialProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSpeedDialAction?: {
         defaultProps?: ComponentsProps["MuiSpeedDialAction"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SpeedDialActionClasses, "MuiSpeedDialAction", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SpeedDialActionClasses, "MuiSpeedDialAction", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SpeedDialActionProps> | ((props: Partial<SpeedDialActionProps> & {
                 ownerState: Partial<SpeedDialActionProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSpeedDialIcon?: {
         defaultProps?: ComponentsProps["MuiSpeedDialIcon"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SpeedDialIconClasses, "MuiSpeedDialIcon", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SpeedDialIconClasses, "MuiSpeedDialIcon", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SpeedDialIconProps> | ((props: Partial<SpeedDialIconProps> & {
                 ownerState: Partial<SpeedDialIconProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiStack?: {
         defaultProps?: ComponentsProps["MuiStack"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiStack", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiStack", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<StackProps_2> | ((props: Partial<StackProps_2> & {
                 ownerState: Partial<StackProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiStep?: {
         defaultProps?: ComponentsProps["MuiStep"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof StepClasses, "MuiStep", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof StepClasses, "MuiStep", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<StepProps> | ((props: Partial<StepProps> & {
                 ownerState: Partial<StepProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiStepButton?: {
         defaultProps?: ComponentsProps["MuiStepButton"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof StepButtonClasses, "MuiStepButton", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof StepButtonClasses, "MuiStepButton", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<StepButtonProps> | ((props: Partial<StepButtonProps> & {
                 ownerState: Partial<StepButtonProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiStepConnector?: {
         defaultProps?: ComponentsProps["MuiStepConnector"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof StepConnectorClasses, "MuiStepConnector", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof StepConnectorClasses, "MuiStepConnector", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<StepConnectorProps> | ((props: Partial<StepConnectorProps> & {
                 ownerState: Partial<StepConnectorProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiStepContent?: {
         defaultProps?: ComponentsProps["MuiStepContent"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof StepContentClasses, "MuiStepContent", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof StepContentClasses, "MuiStepContent", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<StepContentProps> | ((props: Partial<StepContentProps> & {
                 ownerState: Partial<StepContentProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiStepIcon?: {
         defaultProps?: ComponentsProps["MuiStepIcon"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof StepIconClasses, "MuiStepIcon", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof StepIconClasses, "MuiStepIcon", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<StepIconProps> | ((props: Partial<StepIconProps> & {
                 ownerState: Partial<StepIconProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiStepLabel?: {
         defaultProps?: ComponentsProps["MuiStepLabel"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof StepLabelClasses, "MuiStepLabel", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof StepLabelClasses, "MuiStepLabel", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<StepLabelProps> | ((props: Partial<StepLabelProps> & {
                 ownerState: Partial<StepLabelProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiStepper?: {
         defaultProps?: ComponentsProps["MuiStepper"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof StepperClasses, "MuiStepper", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof StepperClasses, "MuiStepper", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<StepperProps> | ((props: Partial<StepperProps> & {
                 ownerState: Partial<StepperProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiSvgIcon?: {
         defaultProps?: ComponentsProps["MuiSvgIcon"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SvgIconClasses, "MuiSvgIcon", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SvgIconClasses, "MuiSvgIcon", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SvgIconProps_2> | ((props: Partial<SvgIconProps_2> & {
                 ownerState: Partial<SvgIconProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
@@ -2371,217 +2408,217 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiSwitch?: {
         defaultProps?: ComponentsProps["MuiSwitch"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof SwitchClasses, "MuiSwitch", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof SwitchClasses, "MuiSwitch", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<SwitchProps_3> | ((props: Partial<SwitchProps_3> & {
                 ownerState: Partial<SwitchProps_3>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTab?: {
         defaultProps?: ComponentsProps["MuiTab"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TabClasses, "MuiTab", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TabClasses, "MuiTab", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TabProps_3> | ((props: Partial<TabProps_3> & {
                 ownerState: Partial<TabProps_3>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTable?: {
         defaultProps?: ComponentsProps["MuiTable"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TableClasses, "MuiTable", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TableClasses, "MuiTable", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TableProps_2> | ((props: Partial<TableProps_2> & {
                 ownerState: Partial<TableProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTableBody?: {
         defaultProps?: ComponentsProps["MuiTableBody"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableBody", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableBody", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TableBodyProps_2> | ((props: Partial<TableBodyProps_2> & {
                 ownerState: Partial<TableBodyProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTableCell?: {
         defaultProps?: ComponentsProps["MuiTableCell"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TableCellClasses, "MuiTableCell", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TableCellClasses, "MuiTableCell", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TableCellProps_2> | ((props: Partial<TableCellProps_2> & {
                 ownerState: Partial<TableCellProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTableContainer?: {
         defaultProps?: ComponentsProps["MuiTableContainer"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableContainer", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableContainer", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TableContainerProps> | ((props: Partial<TableContainerProps> & {
                 ownerState: Partial<TableContainerProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTableFooter?: {
         defaultProps?: ComponentsProps["MuiTableFooter"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableFooter", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableFooter", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TableFooterProps> | ((props: Partial<TableFooterProps> & {
                 ownerState: Partial<TableFooterProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTableHead?: {
         defaultProps?: ComponentsProps["MuiTableHead"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableHead", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTableHead", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TableHeadProps_2> | ((props: Partial<TableHeadProps_2> & {
                 ownerState: Partial<TableHeadProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTablePagination?: {
         defaultProps?: ComponentsProps["MuiTablePagination"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TablePaginationClasses, "MuiTablePagination", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TablePaginationClasses, "MuiTablePagination", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TablePaginationProps> | ((props: Partial<TablePaginationProps> & {
                 ownerState: Partial<TablePaginationProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTableRow?: {
         defaultProps?: ComponentsProps["MuiTableRow"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TableRowClasses, "MuiTableRow", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TableRowClasses, "MuiTableRow", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TableRowProps_2> | ((props: Partial<TableRowProps_2> & {
                 ownerState: Partial<TableRowProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTableSortLabel?: {
         defaultProps?: ComponentsProps["MuiTableSortLabel"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TableSortLabelClasses, "MuiTableSortLabel", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TableSortLabelClasses, "MuiTableSortLabel", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TableSortLabelProps> | ((props: Partial<TableSortLabelProps> & {
                 ownerState: Partial<TableSortLabelProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTextField?: {
         defaultProps?: ComponentsProps["MuiTextField"];
-        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTextField", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<"root", "MuiTextField", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TextFieldProps> | ((props: Partial<TextFieldProps> & {
                 ownerState: Partial<TextFieldProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiToggleButton?: {
         defaultProps?: ComponentsProps["MuiToggleButton"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ToggleButtonClasses, "MuiToggleButton", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ToggleButtonClasses, "MuiToggleButton", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ToggleButtonProps_2> | ((props: Partial<ToggleButtonProps_2> & {
                 ownerState: Partial<ToggleButtonProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiToggleButtonGroup?: {
         defaultProps?: ComponentsProps["MuiToggleButtonGroup"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ToggleButtonGroupClasses, "MuiToggleButtonGroup", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ToggleButtonGroupClasses, "MuiToggleButtonGroup", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ToggleButtonGroupProps> | ((props: Partial<ToggleButtonGroupProps> & {
                 ownerState: Partial<ToggleButtonGroupProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiToolbar?: {
         defaultProps?: ComponentsProps["MuiToolbar"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ToolbarClasses, "MuiToolbar", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof ToolbarClasses, "MuiToolbar", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<ToolbarProps> | ((props: Partial<ToolbarProps> & {
                 ownerState: Partial<ToolbarProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTooltip?: {
         defaultProps?: ComponentsProps["MuiTooltip"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TooltipClasses, "MuiTooltip", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TooltipClasses, "MuiTooltip", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TooltipProps_2> | ((props: Partial<TooltipProps_2> & {
                 ownerState: Partial<TooltipProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTouchRipple?: {
         defaultProps?: ComponentsProps["MuiTouchRipple"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TouchRippleClasses, "MuiTouchRipple", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TouchRippleClasses, "MuiTouchRipple", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TouchRippleProps> | ((props: Partial<TouchRippleProps> & {
                 ownerState: Partial<TouchRippleProps>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
     MuiTypography?: {
         defaultProps?: ComponentsProps["MuiTypography"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TypographyClasses, "MuiTypography", Omit<Theme_2, "components">>> | undefined;
+        styleOverrides?: Partial<OverridesStyleRules<keyof TypographyClasses, "MuiTypography", Omit<Theme, "components">>> | undefined;
         variants?: {
             props: Partial<TypographyProps_2> | ((props: Partial<TypographyProps_2> & {
                 ownerState: Partial<TypographyProps_2>;
             }) => boolean);
             style: Interpolation<    {
-                theme: Omit<Theme_2, "components">;
+                theme: Omit<Theme, "components">;
             }>;
         }[] | undefined;
     } | undefined;
@@ -2648,8 +2685,8 @@ export declare const InsetInMap: default_2.FC<RootPropsType & {
 }>;
 
 export declare const insetInMap: {
-    Background: default_2.FC<BoxProps>;
-    Content: default_2.FC<BoxProps>;
+    Background: default_2.FC<BoxProps_2>;
+    Content: default_2.FC<BoxProps_2>;
     ControlArea: default_2.FC<ControlAreaProps>;
 };
 
@@ -2853,6 +2890,42 @@ export declare interface MarkerStyle {
 
 export declare type MarkerType = "pin" | "circle" | "icon" | string;
 
+export declare const Menu: React_2.FC<MenuProps_2>;
+
+export declare const MenuItem: default_2.FC<MenuItemProps>;
+
+export { MenuItemProps }
+
+export declare type MenuOption = {
+    id: string;
+    label: React_2.ReactNode;
+    onClick?: () => void;
+    disabled?: boolean;
+    icon?: React_2.ReactNode;
+    href?: string;
+    target?: "_blank" | "_self" | "_parent" | "_top";
+    dividerAbove?: boolean;
+    selected?: boolean;
+};
+
+declare type MenuProps_2 = {
+    "aria-label"?: string;
+    button: (props: {
+        onClick: (e: React_2.MouseEvent<HTMLElement>) => void;
+        "aria-controls": string | undefined;
+        "aria-haspopup": true;
+        "aria-expanded": boolean | undefined;
+    }) => React_2.ReactNode;
+    options: MenuOption[];
+    onSelect?: (option: MenuOption) => void;
+    onOpenChange?: (open: boolean) => void;
+    menuId?: string;
+    anchorOrigin?: React_2.ComponentProps<typeof default_6>["anchorOrigin"];
+    transformOrigin?: React_2.ComponentProps<typeof default_6>["transformOrigin"];
+    autoFocusSelected?: boolean;
+    sx?: SxProps<Theme_3>;
+};
+
 export declare const MiniSearchAutocomplete: <Value extends AutocompleteOption = AutocompleteOption, Multiple extends boolean = false, DisableClearable extends boolean = false, FreeSolo extends boolean = false>(props: MiniSearchAutocompleteProps<Value, Multiple, DisableClearable, FreeSolo> & {
     ref?: default_2.Ref<HTMLDivElement>;
 }) => default_2.ReactElement | null;
@@ -2951,7 +3024,7 @@ export declare type ModalProps = Omit<ModalProps_2, "slots" | "slotProps" | "Bac
 export declare const mui: {
     IconButton: ExtendButtonBase<IconButtonTypeMap<    {}, "button">>;
     Button: ExtendButtonBase<ButtonTypeMap<    {}, "button">>;
-    Box: OverridableComponent_2<BoxTypeMap<    {}, "div", Theme_2>>;
+    Box: OverridableComponent_2<BoxTypeMap<    {}, "div", Theme>>;
 };
 
 declare type MUIAutocompleteProps<Option> = AutocompleteProps_2<Option, false, false, true>;
@@ -3165,6 +3238,10 @@ declare interface PopOverProps extends Omit<ModalProps, "children"> {
     width?: number;
 }
 
+export declare const Popper: default_2.FC<PopperProps>;
+
+export { PopperProps }
+
 export declare type Position = "topLeft" | "top" | "topRight" | "right" | "bottomRight" | "bottom" | "bottomLeft" | "left" | "center";
 
 export declare const PreferredLabelCache: {
@@ -3209,7 +3286,7 @@ declare interface ResolveResult {
 
 declare type ResolveStatus = "ready" | "missing" | "loading" | "invalid";
 
-declare type RootPropsType = Omit<BoxProps, 'children' | 'content'>;
+declare type RootPropsType = Omit<BoxProps_2, 'children' | 'content'>;
 
 export declare type Scrollable = HTMLDivElement | (Window & typeof globalThis);
 
@@ -3279,7 +3356,7 @@ declare type SearchAutocompleteProps<Option = DefaultOption> = {
 
 export declare const SearchBox: default_2.FC<SearchBoxProps>;
 
-export declare interface SearchBoxProps<Value = string> extends default_2.ComponentProps<typeof default_6> {
+export declare interface SearchBoxProps<Value = string> extends default_2.ComponentProps<typeof default_7> {
     /**
      * If true, the input element is focused during the first mount.
      */
@@ -3320,7 +3397,7 @@ export declare interface SearchBoxProps<Value = string> extends default_2.Compon
      */
     value?: Value;
     width?: number;
-    sx?: SxProps_2;
+    sx?: SxProps;
 }
 
 export declare const SearchIcon: default_2.FC<SearchIconProps>;
@@ -3522,6 +3599,8 @@ export declare const Select: default_2.ForwardRefExoticComponent<(Omit<FilledSel
     renderOption?: (option: Options) => default_2.ReactNode;
 }, "ref">) & default_2.RefAttributes<HTMLInputElement>>;
 
+export { SelectChangeEvent }
+
 /**
  * Arguments passed to the `footer` render function.
  */
@@ -3609,12 +3688,18 @@ export declare type StyleConfig = Partial<{
 
 declare type SupportedVariant = ButtonVariant;
 
+export declare const SvgIcon: default_2.FC<SvgIconProps>;
+
+export { SvgIconProps }
+
 export declare const Switch: ForwardRefExoticComponent<Omit<SwitchProps_2, "ref"> & RefAttributes<HTMLButtonElement>>;
 
 declare type SwitchProps_2 = Omit<SwitchProps, "color"> & {
     label?: string;
     labelPlacement?: "end" | "start" | "top" | "bottom";
 };
+
+export { SxProps }
 
 export declare const Tab: ({ value, ...props }: TabProps) => JSX.Element;
 
@@ -3743,6 +3828,8 @@ export declare type TextProps = BaseProps & Partial<{
     variant: TypographyVariant | "subtitle2" | "overline" | "caption";
 }>;
 
+export { Theme }
+
 export declare const ThemeSwitch: ForwardRefExoticComponent<ThemeSwitchProps & RefAttributes<HTMLButtonElement>>;
 
 export declare type ThemeSwitchProps = {
@@ -3768,6 +3855,10 @@ declare interface TitleAndContentProps {
     title?: string;
     content?: string;
 }
+
+export declare const ToggleButton: default_2.FC<ToggleButtonProps>;
+
+export { ToggleButtonProps }
 
 export declare type ToggleFn = (id: string) => void;
 
@@ -3887,7 +3978,7 @@ export declare type TreeViewProps<Item extends object = TreeViewBaseItem> = {
      * array of strings; when false (default) a string.
      */
     selectedItems: string | string[];
-    sx: SxProps_2;
+    sx: SxProps;
 }>;
 
 declare type TypeIconProps = {
