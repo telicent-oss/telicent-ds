@@ -188,6 +188,19 @@ Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surf
 
 Demonstrated states:
 - Demo
+* **`Accordion` / `AccordionSummary` / `AccordionDetails`**: Collapsible surface. DS bakes `elevation={0}`, `disableGutters`, transparent background, hidden top divider, and a default `expandIcon` on `AccordionSummary` — a plain `<Accordion><AccordionSummary>label</AccordionSummary><AccordionDetails>body</AccordionDetails></Accordion>` renders the DS shape with no `sx`. Padding on Summary/Details is deliberately left per-callsite. Prefer `Card` when the group is a distinct data entity with actions.
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-accordion--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/Accordion/Accordion.stories.tsx
+
+Demonstrated states:
+- Default
+- StartsExpanded
+- CustomExpandIcon
+- FlushLeftPadding
+- AdjacentAccordions
+- WithGutter
+- OverriddenStyles
+- Disabled
 * **`PopOver`**: Use for tooltip-style overlays and contextual pop-up content.
 ```yaml
 PopOver:
@@ -206,7 +219,10 @@ Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-popover--d
 Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/PopOver/PopOver.stories.tsx
 
 Demonstrated states:
-- Demo — open=false
+- Default — open=false
+- WithWidth — open=false, width=320
+- AsUserMenu — open=false
+- AnchorPosition — open=false
 * **`FixedPanel` / `FloatingPanel`**: Use for sidebars, property panels, or tool windows.
   * `FloatingPanel` exposes three sub-components: `FloatingPanel.DraggablePanel`, `FloatingPanel.Provider`, and `FloatingPanel.ToggleButton`.
   * `DraggableFloatingPanel` is the same component as `FloatingPanel.DraggablePanel`, exported directly. Use the named export for a standalone draggable panel; use the `FloatingPanel.*` namespace when you also need `.Provider` / `.ToggleButton` (also exported flat as `FloatingPanelProvider` and `FloatingPanelToggleButton`).
