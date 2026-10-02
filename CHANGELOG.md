@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.3.0](https://github.com/telicent-oss/telicent-ds/compare/v4.2.0...v4.3.0) (2026-10-02)
+
+
+### Features
+
+* close MUI direct-import gap (part 2) + port Accordion trio ([#562](https://github.com/telicent-oss/telicent-ds/issues/562)) ([21eed67](https://github.com/telicent-oss/telicent-ds/commit/21eed676c5493829900623760ddd9a43530eeb95))
+* **skill:** opt-in telicent-ds Claude skill + packaged llms.txt manifest ([#507](https://github.com/telicent-oss/telicent-ds/issues/507)) ([1f70656](https://github.com/telicent-oss/telicent-ds/commit/1f7065618372600f4c3d39af5c5fb64941233392))
+
 ## [4.2.0](https://github.com/telicent-oss/telicent-ds/compare/v4.1.0...v4.2.0) (2026-09-25)
 
 
