@@ -1,3 +1,5 @@
+export { default as ToggleButton } from "./ToggleButton/ToggleButton";
+export type { ToggleButtonProps } from "./ToggleButton/ToggleButton";
 export { default as TooltipToggleButton } from "./TooltipToggleButton";
 
 export { default as EditableTextField } from "./EditableTextField/EditableTextField";
@@ -8,6 +10,7 @@ export { default as Autocomplete } from "./Autocomplete/Autocomplete";
 export type { SelectProps } from "./Select/Select";
 export type { Options } from "./Select/Select";
 export type { SelectFooterArgs } from "./Select/Select";
+export type { SelectChangeEvent } from "./Select/Select";
 export { default as Switch } from "./Switch/Switch";
 export { default as LabeledSwitch } from "./LabeledSwitch/LabeledSwitch";
 export type { LabeledSwitchProps } from "./LabeledSwitch/LabeledSwitch";

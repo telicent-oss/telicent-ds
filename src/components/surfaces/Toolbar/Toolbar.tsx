@@ -8,7 +8,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ children, sx, ...rest }) => {
     <MuiToolbar
       disableGutters={true}
       variant="dense"
-      sx={{ backgroundColor: theme.palette.mode === "dark" ? "#2e2e2e" : "#FFFFFF", paddingX: 2, paddingY: 1, ...sx }}
+      sx={{ backgroundColor: theme.palette.mode === "dark" ? "#2e2e2e" : "#E6E8EC", paddingX: 2, paddingY: 1, ...sx }}
       {...rest}
     >
       {children}

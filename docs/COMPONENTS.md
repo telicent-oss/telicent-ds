@@ -94,6 +94,8 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Surfaces/Card -->
 * **`Paper`**: A basic elevated surface background without the strict structure of a Card.
 <!-- stories:Surfaces/Paper -->
+* **`Accordion` / `AccordionSummary` / `AccordionDetails`**: Collapsible surface. DS bakes `elevation={0}`, `disableGutters`, transparent background, hidden top divider, and a default `expandIcon` on `AccordionSummary` — a plain `<Accordion><AccordionSummary>label</AccordionSummary><AccordionDetails>body</AccordionDetails></Accordion>` renders the DS shape with no `sx`. Padding on Summary/Details is deliberately left per-callsite. Prefer `Card` when the group is a distinct data entity with actions.
+<!-- stories:Surfaces/Accordion -->
 * **`PopOver`**: Use for tooltip-style overlays and contextual pop-up content.
 <!-- props:PopOver -->
 <!-- stories:Surfaces/PopOver -->
