@@ -124,8 +124,8 @@ test("tmp theme diffs via unified patches", () => {
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#F56AAA",
-    +      "dark": "rgba(245, 106, 170, 0.7)",
-    +      "light": "rgba(245, 106, 170, 0.5)",
+    +      "dark": "#C45488",
+    +      "light": "#F787BB",
     +      "contrastText": "#000"
          },
          "contrastThreshold": 4.5,
@@ -148,9 +148,9 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "dark": "rgba(47, 68, 202, 0.7)",
     -      "light": "rgba(47, 68, 202, 0.5)",
-    +      "main": "#C41C6B",
-    +      "dark": "#A11757",
-    +      "light": "#E4217C",
+    +      "main": "#B70071",
+    +      "dark": "#92005A",
+    +      "light": "#C5338D",
            "contrastText": "#FFFFFF"
          },
          "contrastThreshold": 4.5,
@@ -224,8 +224,8 @@ test("tmp theme diffs via unified patches", () => {
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#F2A64B",
-    +      "dark": "rgba(242, 166, 75, 0.7)",
-    +      "light": "rgba(242, 166, 75, 0.5)",
+    +      "dark": "#C1843C",
+    +      "light": "#F4B76F",
     +      "contrastText": "#000"
          },
          "contrastThreshold": 4.5,
@@ -248,9 +248,9 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "dark": "rgba(47, 68, 202, 0.7)",
     -      "light": "rgba(47, 68, 202, 0.5)",
-    +      "main": "#A65200",
-    +      "dark": "#874300",
-    +      "light": "#C06806",
+    +      "main": "#C24D00",
+    +      "dark": "#9B3D00",
+    +      "light": "#CE7033",
            "contrastText": "#FFFFFF"
          },
          "contrastThreshold": 4.5,
@@ -324,8 +324,8 @@ test("tmp theme diffs via unified patches", () => {
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#20BCFA",
-    +      "dark": "rgba(32, 188, 250, 0.7)",
-    +      "light": "rgba(32, 188, 250, 0.5)",
+    +      "dark": "#1F8CB8",
+    +      "light": "#1F6D8C",
     +      "contrastText": "#000"
          },
          "contrastThreshold": 4.5,
@@ -346,8 +346,10 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
            "main": "#2F44CA",
-           "dark": "rgba(47, 68, 202, 0.7)",
-           "light": "rgba(47, 68, 202, 0.5)",
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    +      "dark": "#6C7AD8",
+    +      "light": "#949FE2",
            "contrastText": "#FFFFFF"
          },
          "contrastThreshold": 4.5,
