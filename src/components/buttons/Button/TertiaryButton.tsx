@@ -14,7 +14,7 @@ export const TertiaryButton = forwardRef<HTMLButtonElement, TertiaryButtonProps>
       {...buttonProps}
       sx={{
         border: `1px solid ${theme.palette.tertiary?.main}`,
-        color: theme.palette.tertiary?.contrastText,
+        color: theme.palette.tertiary?.main,
         backgroundColor: theme.palette.mode === "dark" ? "#080808" : "#FFFFFF",
         "&:hover": {
           backgroundColor: `${theme.palette.tertiary?.main}14`,

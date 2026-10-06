@@ -28,12 +28,6 @@ const DocumentPink = {
       primary: "#1A1D21",
       secondary: "#5A6172",
     },
-    tertiary: {
-      main: "#5A6172",
-      dark: "#454B59",
-      light: "#767E90",
-      contrastText: "#FFFFFF",
-    },
     divider: "rgba(26, 29, 33, 0.12)",
     action: {
       hover: "rgba(26, 29, 33, 0.04)",
