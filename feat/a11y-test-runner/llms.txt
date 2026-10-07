@@ -621,7 +621,9 @@ Demonstrated states:
 * **`UserProfile` / `UserProfileContent` / `UserStatus`**: Components for rendering user avatars, profile details, and active states. `UserProfileContent` renders the expanded profile detail; `UserStatus` renders the online/status indicator.
 ```yaml
 UserProfile:
+  ariaLabel: {type: 'string', required: false}
   fullName: {type: 'string', required: false}
+  id: {type: 'string', required: false}
 ```
 ```yaml
 UserStatus:
@@ -631,7 +633,10 @@ Live: https://telicent-oss.github.io/telicent-ds/feat/a11y-test-runner/?path=/do
 Usage: https://github.com/telicent-oss/telicent-ds/blob/feat/a11y-test-runner/src/components/data-display/UserProfile/UserProfile.stories.tsx
 
 Demonstrated states:
-- Basic — fullName="Satoru Gojo"
+- Default — fullName="Satoru Gojo", children=DropdownChildren
+- IconOnly — children=DropdownChildren
+- WithId — id="user-profile", fullName="Satoru Gojo", children=DropdownChildren
+- LongName — fullName="Alexander Montgomery-Fitzpatrick III, Senior Principal Engineer", children=DropdownChildren
 * **`AppSwitch`**: Specific component for switching between different applications.
 Live: https://telicent-oss.github.io/telicent-ds/feat/a11y-test-runner/?path=/docs/data-display-app-switch--docs
 Usage: https://github.com/telicent-oss/telicent-ds/blob/feat/a11y-test-runner/src/components/data-display/AppSwitch/AppSwitch.stories.tsx
