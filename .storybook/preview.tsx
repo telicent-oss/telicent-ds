@@ -71,6 +71,13 @@ const preview: Preview = {
     // toolbar is disabled to avoid a redundant dark/light control.
     backgrounds: { disable: true },
     a11y: {
+      // `error` surfaces axe violations as full Jest test failures, which
+      // the HTML reporter captures with per-story detail (yarn test:a11y →
+      // a11y-report/index.html). `todo` would log violations as warnings
+      // only and leave the HTML showing all tests passing. Trade-off:
+      // non-zero exit code locally and in CI until the baseline is clean —
+      // revisit before wiring into a CI gate.
+      test: "error",
       // Target WCAG 2.2 AA — see docs/accessibility.md and docs/adr/0001-wcag-2.2-aa.md
       options: {
         runOnly: {
