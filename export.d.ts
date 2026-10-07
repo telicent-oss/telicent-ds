@@ -4060,6 +4060,12 @@ declare type UIThemeProviderProps = default_2.PropsWithChildren & {
     dark?: boolean;
 };
 
+/**
+ * Curated set of DS themes. `"DataNavy"` is deprecated (kept for backwards
+ * compatibility with apps that still pass it to `UIThemeProvider`) and is
+ * hidden from the Storybook theme selector — prefer any of the others for
+ * new work.
+ */
 export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
 
 export declare const uriComponentCodec: Codec;
