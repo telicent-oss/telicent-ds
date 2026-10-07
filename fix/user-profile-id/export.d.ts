@@ -4109,7 +4109,7 @@ export declare const UserProfileContent: default_2.FC<PropsWithChildren>;
 
 export declare type UserProfileProps = PropsWithChildren & {
     fullName?: string;
-    /** Lands on the trigger button. The menu id is derived as `${id}-menu`. */
+    /** Lands on the trigger button. The menu id is derived as `${id}-menu`. Default `"user-profile"`. */
     id?: string;
     /** Accessible name for the trigger button. Default `"User menu"`. */
     ariaLabel?: string;
