@@ -6,6 +6,12 @@ import AdminBlue from "./AdminBlue";
 import GeoGreen from "./GeoGreen";
 import Blank from "./BlankTheme";
 
+/**
+ * Curated set of DS themes. `"DataNavy"` is deprecated (kept for backwards
+ * compatibility with apps that still pass it to `UIThemeProvider`) and is
+ * hidden from the Storybook theme selector — prefer any of the others for
+ * new work.
+ */
 export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 

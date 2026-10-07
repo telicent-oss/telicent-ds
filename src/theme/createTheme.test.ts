@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -105,52 +105,29 @@
+    @@ -105,53 +105,33 @@
          },
          "MuiCssBaseline": {}
        },
@@ -59,14 +59,14 @@ test("tmp theme diffs via unified patches", () => {
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-    -      "main": "#6B6B6B",
-    -      "dark": "rgba(107, 107, 107, 0.7)",
-    -      "light": "rgba(107, 107, 107, 0.5)",
-    -      "contrastText": "#FFFFFF"
-    +      "main": "#8094A3",
-    +      "dark": "rgba(128, 148, 163, 0.7)",
-    +      "light": "rgba(128, 148, 163, 0.5)",
-    +      "contrastText": "#252525"
+    -      "main": "#A0A0A0",
+    -      "dark": "#808080",
+    -      "light": "#BFBFBF",
+    -      "contrastText": "#1A1A1A"
+    +      "main": "#5A6172",
+    +      "dark": "#454B59",
+    +      "light": "#767E90",
+    +      "contrastText": "#FFFFFF"
          },
          "text": {
     -      "primary": "#ececec",
@@ -78,12 +78,14 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
-    -    },
+    +      "default": "#F9F9F9"
+         },
     -    "success": {
     -      "main": "#2e7d32"
     -    },
-    -    "error": {
-    -      "main": "#d32f2f"
+         "error": {
+    -      "main": "#ff5252",
+    -      "dark": "#c62828"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -100,7 +102,8 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F9F9F9"
+    +      "main": "#d32f2f",
+    +      "dark": "#b71c1c"
          }
        },
        "typography": {
@@ -121,20 +124,20 @@ test("tmp theme diffs via unified patches", () => {
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#F56AAA",
-    +      "dark": "rgba(245, 106, 170, 0.7)",
-    +      "light": "rgba(245, 106, 170, 0.5)",
+    +      "dark": "#C45488",
+    +      "light": "#F787BB",
     +      "contrastText": "#000"
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-           "main": "#6B6B6B",
+           "main": "#A0A0A0",
 
 
     Index: 2
     ===================================================================
     --- 2	DataNavy (light)
     +++ 2	DocumentPink (dark)
-    @@ -105,52 +105,34 @@
+    @@ -105,53 +105,38 @@
          },
          "MuiCssBaseline": {}
        },
@@ -145,20 +148,21 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "dark": "rgba(47, 68, 202, 0.7)",
     -      "light": "rgba(47, 68, 202, 0.5)",
-    +      "main": "#C41C6B",
-    +      "dark": "#A11757",
-    +      "light": "#E4217C",
+    +      "main": "#B70071",
+    +      "dark": "#92005A",
+    +      "light": "#C5338D",
            "contrastText": "#FFFFFF"
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-    -      "main": "#6B6B6B",
-    -      "dark": "rgba(107, 107, 107, 0.7)",
-    -      "light": "rgba(107, 107, 107, 0.5)",
+    -      "main": "#A0A0A0",
+    -      "dark": "#808080",
+    -      "light": "#BFBFBF",
+    -      "contrastText": "#1A1A1A"
     +      "main": "#5A6172",
     +      "dark": "#454B59",
     +      "light": "#767E90",
-           "contrastText": "#FFFFFF"
+    +      "contrastText": "#FFFFFF"
          },
          "text": {
     -      "primary": "#ececec",
@@ -176,9 +180,12 @@ test("tmp theme diffs via unified patches", () => {
     -    "success": {
     -      "main": "#2e7d32"
     -    },
-    -    "error": {
-    -      "main": "#d32f2f"
-    -    },
+         "error": {
+    -      "main": "#ff5252",
+    -      "dark": "#c62828"
+    +      "main": "#d32f2f",
+    +      "dark": "#b71c1c"
+         },
     -    "grey": {
     -      "50": "#fafafa",
     -      "100": "#f5f5f5",
@@ -217,20 +224,20 @@ test("tmp theme diffs via unified patches", () => {
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#F2A64B",
-    +      "dark": "rgba(242, 166, 75, 0.7)",
-    +      "light": "rgba(242, 166, 75, 0.5)",
+    +      "dark": "#C1843C",
+    +      "light": "#F4B76F",
     +      "contrastText": "#000"
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-           "main": "#6B6B6B",
+           "main": "#A0A0A0",
 
 
     Index: 4
     ===================================================================
     --- 4	DataNavy (light)
     +++ 4	GraphOrange (dark)
-    @@ -105,52 +105,34 @@
+    @@ -105,53 +105,38 @@
          },
          "MuiCssBaseline": {}
        },
@@ -241,21 +248,21 @@ test("tmp theme diffs via unified patches", () => {
     -      "main": "#2F44CA",
     -      "dark": "rgba(47, 68, 202, 0.7)",
     -      "light": "rgba(47, 68, 202, 0.5)",
-    +      "main": "#A65200",
-    +      "dark": "#874300",
-    +      "light": "#C06806",
+    +      "main": "#C24D00",
+    +      "dark": "#9B3D00",
+    +      "light": "#CE7033",
            "contrastText": "#FFFFFF"
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-    -      "main": "#6B6B6B",
-    -      "dark": "rgba(107, 107, 107, 0.7)",
-    -      "light": "rgba(107, 107, 107, 0.5)",
-    -      "contrastText": "#FFFFFF"
-    +      "main": "#8094A3",
-    +      "dark": "rgba(128, 148, 163, 0.7)",
-    +      "light": "rgba(128, 148, 163, 0.5)",
-    +      "contrastText": "#252525"
+    -      "main": "#A0A0A0",
+    -      "dark": "#808080",
+    -      "light": "#BFBFBF",
+    -      "contrastText": "#1A1A1A"
+    +      "main": "#5A6172",
+    +      "dark": "#454B59",
+    +      "light": "#767E90",
+    +      "contrastText": "#FFFFFF"
          },
          "text": {
     -      "primary": "#ececec",
@@ -273,9 +280,12 @@ test("tmp theme diffs via unified patches", () => {
     -    "success": {
     -      "main": "#2e7d32"
     -    },
-    -    "error": {
-    -      "main": "#d32f2f"
-    -    },
+         "error": {
+    -      "main": "#ff5252",
+    -      "dark": "#c62828"
+    +      "main": "#d32f2f",
+    +      "dark": "#b71c1c"
+         },
     -    "grey": {
     -      "50": "#fafafa",
     -      "100": "#f5f5f5",
@@ -314,20 +324,20 @@ test("tmp theme diffs via unified patches", () => {
     -      "light": "rgba(47, 68, 202, 0.5)",
     -      "contrastText": "#FFFFFF"
     +      "main": "#20BCFA",
-    +      "dark": "rgba(32, 188, 250, 0.7)",
-    +      "light": "rgba(32, 188, 250, 0.5)",
+    +      "dark": "#1F8CB8",
+    +      "light": "#1F6D8C",
     +      "contrastText": "#000"
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-           "main": "#6B6B6B",
+           "main": "#A0A0A0",
 
 
     Index: 6
     ===================================================================
     --- 6	DataNavy (light)
     +++ 6	AdminBlue (dark)
-    @@ -105,52 +105,29 @@
+    @@ -105,53 +105,33 @@
          },
          "MuiCssBaseline": {}
        },
@@ -336,20 +346,22 @@ test("tmp theme diffs via unified patches", () => {
     +    "mode": "light",
          "primary": {
            "main": "#2F44CA",
-           "dark": "rgba(47, 68, 202, 0.7)",
-           "light": "rgba(47, 68, 202, 0.5)",
+    -      "dark": "rgba(47, 68, 202, 0.7)",
+    -      "light": "rgba(47, 68, 202, 0.5)",
+    +      "dark": "#6C7AD8",
+    +      "light": "#949FE2",
            "contrastText": "#FFFFFF"
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-    -      "main": "#6B6B6B",
-    -      "dark": "rgba(107, 107, 107, 0.7)",
-    -      "light": "rgba(107, 107, 107, 0.5)",
-    -      "contrastText": "#FFFFFF"
-    +      "main": "#8094A3",
-    +      "dark": "rgba(128, 148, 163, 0.7)",
-    +      "light": "rgba(128, 148, 163, 0.5)",
-    +      "contrastText": "#252525"
+    -      "main": "#A0A0A0",
+    -      "dark": "#808080",
+    -      "light": "#BFBFBF",
+    -      "contrastText": "#1A1A1A"
+    +      "main": "#5A6172",
+    +      "dark": "#454B59",
+    +      "light": "#767E90",
+    +      "contrastText": "#FFFFFF"
          },
          "text": {
     -      "primary": "#ececec",
@@ -361,12 +373,14 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
-    -    },
+    +      "default": "#F9F9F9"
+         },
     -    "success": {
     -      "main": "#2e7d32"
     -    },
-    -    "error": {
-    -      "main": "#d32f2f"
+         "error": {
+    -      "main": "#ff5252",
+    -      "dark": "#c62828"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -383,7 +397,8 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F9F9F9"
+    +      "main": "#d32f2f",
+    +      "dark": "#b71c1c"
          }
        },
        "typography": {
@@ -410,7 +425,7 @@ test("tmp theme diffs via unified patches", () => {
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-           "main": "#6B6B6B",
+           "main": "#A0A0A0",
     @@ -125,9 +125,9 @@
            "secondary": "rgba(255, 255, 255, 0.7)",
            "disabled": "#999999"
@@ -428,7 +443,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 8	DataNavy (light)
     +++ 8	GeoGreen (dark)
-    @@ -105,52 +105,29 @@
+    @@ -105,53 +105,33 @@
          },
          "MuiCssBaseline": {}
        },
@@ -447,14 +462,14 @@ test("tmp theme diffs via unified patches", () => {
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-    -      "main": "#6B6B6B",
-    -      "dark": "rgba(107, 107, 107, 0.7)",
-    -      "light": "rgba(107, 107, 107, 0.5)",
-    -      "contrastText": "#FFFFFF"
-    +      "main": "#8094A3",
-    +      "dark": "rgba(128, 148, 163, 0.7)",
-    +      "light": "rgba(128, 148, 163, 0.5)",
-    +      "contrastText": "#252525"
+    -      "main": "#A0A0A0",
+    -      "dark": "#808080",
+    -      "light": "#BFBFBF",
+    -      "contrastText": "#1A1A1A"
+    +      "main": "#5A6172",
+    +      "dark": "#454B59",
+    +      "light": "#767E90",
+    +      "contrastText": "#FFFFFF"
          },
          "text": {
     -      "primary": "#ececec",
@@ -466,12 +481,14 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
-    -    },
+    +      "default": "#080808"
+         },
     -    "success": {
     -      "main": "#2e7d32"
     -    },
-    -    "error": {
-    -      "main": "#d32f2f"
+         "error": {
+    -      "main": "#ff5252",
+    -      "dark": "#c62828"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -488,7 +505,8 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#080808"
+    +      "main": "#d32f2f",
+    +      "dark": "#b71c1c"
          }
        },
        "typography": {
@@ -515,14 +533,14 @@ test("tmp theme diffs via unified patches", () => {
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-           "main": "#6B6B6B",
+           "main": "#A0A0A0",
 
 
     Index: 10
     ===================================================================
     --- 10	DataNavy (light)
     +++ 10	Blank (dark)
-    @@ -105,52 +105,29 @@
+    @@ -105,53 +105,33 @@
          },
          "MuiCssBaseline": {}
        },
@@ -541,14 +559,14 @@ test("tmp theme diffs via unified patches", () => {
          },
          "contrastThreshold": 4.5,
          "tertiary": {
-    -      "main": "#6B6B6B",
-    -      "dark": "rgba(107, 107, 107, 0.7)",
-    -      "light": "rgba(107, 107, 107, 0.5)",
-    -      "contrastText": "#FFFFFF"
-    +      "main": "#8094A3",
-    +      "dark": "rgba(128, 148, 163, 0.7)",
-    +      "light": "rgba(128, 148, 163, 0.5)",
-    +      "contrastText": "#252525"
+    -      "main": "#A0A0A0",
+    -      "dark": "#808080",
+    -      "light": "#BFBFBF",
+    -      "contrastText": "#1A1A1A"
+    +      "main": "#5A6172",
+    +      "dark": "#454B59",
+    +      "light": "#767E90",
+    +      "contrastText": "#FFFFFF"
          },
          "text": {
     -      "primary": "#ececec",
@@ -560,12 +578,14 @@ test("tmp theme diffs via unified patches", () => {
          "background": {
     -      "default": "#1D1D1D",
     -      "paper": "#252525"
-    -    },
+    +      "default": "#F9F9F9"
+         },
     -    "success": {
     -      "main": "#2e7d32"
     -    },
-    -    "error": {
-    -      "main": "#d32f2f"
+         "error": {
+    -      "main": "#ff5252",
+    -      "dark": "#c62828"
     -    },
     -    "grey": {
     -      "50": "#fafafa",
@@ -582,7 +602,8 @@ test("tmp theme diffs via unified patches", () => {
     -      "A200": "#eeeeee",
     -      "A400": "#bdbdbd",
     -      "A700": "#616161"
-    +      "default": "#F9F9F9"
+    +      "main": "#d32f2f",
+    +      "dark": "#b71c1c"
          }
        },
        "typography": {

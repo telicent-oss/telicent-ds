@@ -4,7 +4,7 @@ import ThemeViewer from "./ThemeViewer";
 import { useExtendedTheme } from "../export";
 
 const meta: Meta<typeof ThemeViewer> = {
-  title: "Theme/ThemeViewer",
+  title: "Theme/Design Tokens",
   component: ThemeViewer,
   tags: ["autodocs"],
   decorators: [
