@@ -10,7 +10,7 @@ import DownArrowIcon from "../FontAwesomeIcons/DownArrowIcon";
 
 export type UserProfileProps = PropsWithChildren & {
   fullName?: string;
-  /** Lands on the trigger button. The menu id is derived as `${id}-menu`. */
+  /** Lands on the trigger button. The menu id is derived as `${id}-menu`. Default `"user-profile"`. */
   id?: string;
   /** Accessible name for the trigger button. Default `"User menu"`. */
   ariaLabel?: string;
@@ -19,12 +19,12 @@ export type UserProfileProps = PropsWithChildren & {
 const UserProfile: React.FC<UserProfileProps> = ({
   fullName,
   children,
-  id,
+  id = "user-profile",
   ariaLabel = "User menu",
 }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
-  const menuId = id ? `${id}-menu` : "user-profile-menu";
+  const menuId = `${id}-menu`;
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

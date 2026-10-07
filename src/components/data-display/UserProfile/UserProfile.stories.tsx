@@ -104,8 +104,8 @@ import {
     id: {
       control: "text",
       description:
-        'Lands on the trigger button for stable E2E selectors (project convention is `testIdAttribute: "id"`). The menu id is derived as `${id}-menu`. Defaults to the legacy hardcoded `"user-profile-menu"` for backwards compatibility when omitted.',
-      table: { type: { summary: "string" } },
+        'Lands on the trigger button for stable E2E selectors (project convention is `testIdAttribute: "id"`). The menu id is derived as `${id}-menu`. Defaults to `"user-profile"` so every instance has a stable selector out of the box — override when multiple UserProfiles coexist on a page.',
+      table: { type: { summary: "string" }, defaultValue: { summary: '"user-profile"' } },
     },
     ariaLabel: {
       control: "text",

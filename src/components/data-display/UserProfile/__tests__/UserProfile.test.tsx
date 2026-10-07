@@ -58,11 +58,14 @@ describe("UserProfile", () => {
     expect(screen.getByText("panel content")).toBeVisible();
   });
 
-  test("falls back to the legacy menu id when `id` is omitted", async () => {
+  test("defaults the trigger id to 'user-profile' when the prop is omitted", async () => {
     const { user } = setup(
       <UserProfile fullName="Test User">contents go here</UserProfile>,
     );
-    await user.click(screen.getByRole("button"));
+    const trigger = screen.getByRole("button");
+    expect(trigger).toHaveAttribute("id", "user-profile");
+
+    await user.click(trigger);
     expect(document.getElementById("user-profile-menu")).toBeInTheDocument();
   });
 
