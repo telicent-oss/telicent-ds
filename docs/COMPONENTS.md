@@ -156,6 +156,9 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Inputs/Checkbox -->
 * **`Switch`**: On/Off toggle (wraps MUI Switch). `label`, `labelPlacement="end" | "start" | "top" | "bottom"` (default `end`), `checked`/`onChange`.
 <!-- stories:Inputs/Switch -->
+* **`ToggleButtonGroup`**: Use for a small set of mutually exclusive views or modes where both options should stay visible. Pass `pill` for the Telicent pill treatment. Reach for `Tabs` instead when the buttons select a panel.
+<!-- props:ToggleButtonGroup -->
+<!-- stories:Inputs/ToggleButtonGroup -->
 * **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs.
 <!-- props:DatePicker -->
 <!-- props:DateTimePicker -->

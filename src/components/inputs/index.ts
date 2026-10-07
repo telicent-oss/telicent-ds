@@ -1,5 +1,7 @@
 export { default as ToggleButton } from "./ToggleButton/ToggleButton";
 export type { ToggleButtonProps } from "./ToggleButton/ToggleButton";
+export { default as ToggleButtonGroup } from "./ToggleButtonGroup/ToggleButtonGroup";
+export type { ToggleButtonGroupProps } from "./ToggleButtonGroup/ToggleButtonGroup";
 export { default as TooltipToggleButton } from "./TooltipToggleButton";
 
 export { default as EditableTextField } from "./EditableTextField/EditableTextField";
