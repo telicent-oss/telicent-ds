@@ -6,3 +6,4 @@
 export * from "./typography";
 export * from "./button-variants";
 export * from "./breakpoints";
+export * from "./pill-group";
