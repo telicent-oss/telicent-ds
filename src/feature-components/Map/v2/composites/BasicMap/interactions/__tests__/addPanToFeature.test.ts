@@ -96,14 +96,52 @@ describe("panToFeature", () => {
     );
   });
 
-  it("does nothing if geometry.getExtent returns undefined", () => {
+  it("does nothing for an empty geometry instead of hanging", () => {
     const geometry = {
-      getExtent: () => undefined,
+      getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
     } as any;
 
     const feature = { getGeometry: () => geometry } as any;
 
     fitToFeature(map, feature);
+    expect(fit).not.toHaveBeenCalled();
+  });
+
+  it("does nothing for a non-finite coordinate instead of hanging", () => {
+    // isEmpty is false, but the extent is not finite.
+    const geometry = {
+      getExtent: () => [Infinity, 0, Infinity, 0],
+    } as any;
+
+    const feature = { getGeometry: () => geometry } as any;
+
+    fitToFeature(map, feature);
+    expect(fit).not.toHaveBeenCalled();
+  });
+
+  it("normalizes a far-out longitude without looping", () => {
+    // Number.MAX_VALUE - 360 === Number.MAX_VALUE in float64.
+    const geometry = {
+      getExtent: () => [Number.MAX_VALUE, 0, Number.MAX_VALUE, 0],
+    } as any;
+
+    const feature = { getGeometry: () => geometry } as any;
+
+    const start = Date.now();
+    fitToFeature(map, feature);
+    expect(Date.now() - start).toBeLessThan(1000);
+  });
+
+  it("does nothing when the projection reports no world extent", () => {
+    const noExtentMap = {
+      getView: () => ({
+        getProjection: () => ({ getExtent: () => null }),
+        fit,
+      }),
+    } as any;
+    const feature = { getGeometry: () => new MockPoint([1, 1]) } as any;
+
+    expect(() => fitToFeature(noExtentMap, feature)).not.toThrow();
     expect(fit).not.toHaveBeenCalled();
   });
 
@@ -165,6 +203,43 @@ describe("panToFeatures", () => {
         duration: 600,
       })
     );
+  });
+
+  it("skips an empty geometry listed first, whatever the order", () => {
+    const empty = {
+      getGeometry: () => ({
+        getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
+        clone() {
+          return this;
+        },
+        translate: () => undefined,
+      }),
+    } as any;
+    const real1 = { getGeometry: () => new MockPoint([0, 0]) } as any;
+    const real2 = { getGeometry: () => new MockPoint([20, 20]) } as any;
+
+    fitToFeatures(map, [empty, real1, real2]);
+
+    expect(fit).toHaveBeenCalledTimes(1);
+    const [extent] = fit.mock.calls[0];
+    expect(extent.every((n: number) => Number.isFinite(n))).toBe(true);
+  });
+
+  it("does nothing when every feature is empty", () => {
+    const empty = () =>
+      ({
+        getGeometry: () => ({
+          getExtent: () => [Infinity, Infinity, -Infinity, -Infinity],
+          clone() {
+            return this;
+          },
+          translate: () => undefined,
+        }),
+      }) as any;
+
+    fitToFeatures(map, [empty(), empty()]);
+
+    expect(fit).not.toHaveBeenCalled();
   });
 
   it("respects maxZoom", () => {

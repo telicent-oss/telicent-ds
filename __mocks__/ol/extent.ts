@@ -54,3 +54,6 @@ export const containsCoordinate = (
 
 export const getWidth = ([minX, , maxX]: [number, number, number, number]) =>
   maxX - minX;
+
+export const isEmpty = ([minX, minY, maxX, maxY]: Extent): boolean =>
+  maxX < minX || maxY < minY;
