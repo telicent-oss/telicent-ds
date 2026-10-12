@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.4.0](https://github.com/telicent-oss/telicent-ds/compare/v4.3.0...v4.4.0) (2026-10-12)
+
+
+### Features
+
+* close MUI direct-import gap (part 3) ([#571](https://github.com/telicent-oss/telicent-ds/issues/571)) ([812d975](https://github.com/telicent-oss/telicent-ds/commit/812d975f2bac1b59b28106d8e7faa73bf640c841))
+* **theme, inputs:** port the pill-group treatment ([#569](https://github.com/telicent-oss/telicent-ds/issues/569)) ([49d2b6d](https://github.com/telicent-oss/telicent-ds/commit/49d2b6d930f33ac6c88a5d77a7dd400e3865329a))
+
 ## [4.3.0](https://github.com/telicent-oss/telicent-ds/compare/v4.2.0...v4.3.0) (2026-10-07)
 
 
