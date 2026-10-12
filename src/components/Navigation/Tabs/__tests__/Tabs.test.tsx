@@ -3,14 +3,21 @@ import React, { useState } from "react";
 import Tabs from "../Tabs";
 import Tab from "../Tab";
 import TabPanel from "../TabPanel";
+import { PILL_GROUP_CLASS } from "../../../../tokens";
 import { setup } from "../../../../test-utils";
 
-const TabSet = ({ keepMounted = false }: { keepMounted?: boolean }) => {
+const TabSet = ({ keepMounted = false, pill = false }: { keepMounted?: boolean; pill?: boolean }) => {
   const [tab, setTab] = useState<string>("one");
 
   return (
     <>
-      <Tabs idPrefix="set" aria-label="Test tabs" value={tab} onChange={(_, next) => setTab(next)}>
+      <Tabs
+        pill={pill}
+        idPrefix="set"
+        aria-label="Test tabs"
+        value={tab}
+        onChange={(_, next) => setTab(next)}
+      >
         <Tab value="one" label="One" />
         <Tab value="two" label="Two" disabled />
       </Tabs>
@@ -87,5 +94,22 @@ describe("Tabs", () => {
     );
 
     consoleError.mockRestore();
+  });
+
+  // Queried off the container, not by role: MUI puts `role="tablist"` on
+  // the inner flex container while the class lands on the MuiTabs root.
+  test("marks the pill group so the theme can style it", () => {
+    const { container } = setup(<TabSet pill />);
+    expect(container.querySelector(`.${PILL_GROUP_CLASS}`)).toBeInTheDocument();
+  });
+
+  test("leaves the default tab set unmarked, and keeps its semantics either way", () => {
+    const { container } = setup(<TabSet />);
+    expect(container.querySelector(`.${PILL_GROUP_CLASS}`)).not.toBeInTheDocument();
+    // The pill is a skin: role and derived ids are identical in both.
+    expect(screen.getByRole("tab", { name: "One" })).toHaveAttribute(
+      "aria-controls",
+      "set-panel-one"
+    );
   });
 });

@@ -44,7 +44,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 0	DataNavy (light)
     +++ 0	DataNavy (dark)
-    @@ -105,53 +105,33 @@
+    @@ -111,53 +111,33 @@
          },
          "MuiCssBaseline": {}
        },
@@ -114,7 +114,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 1	DataNavy (light)
     +++ 1	DocumentPink (light)
-    @@ -107,12 +107,12 @@
+    @@ -113,12 +113,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -137,7 +137,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 2	DataNavy (light)
     +++ 2	DocumentPink (dark)
-    @@ -105,53 +105,38 @@
+    @@ -111,53 +111,38 @@
          },
          "MuiCssBaseline": {}
        },
@@ -214,7 +214,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 3	DataNavy (light)
     +++ 3	GraphOrange (light)
-    @@ -107,12 +107,12 @@
+    @@ -113,12 +113,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -237,7 +237,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 4	DataNavy (light)
     +++ 4	GraphOrange (dark)
-    @@ -105,53 +105,38 @@
+    @@ -111,53 +111,38 @@
          },
          "MuiCssBaseline": {}
        },
@@ -314,7 +314,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 5	DataNavy (light)
     +++ 5	AdminBlue (light)
-    @@ -107,12 +107,12 @@
+    @@ -113,12 +113,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -337,7 +337,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 6	DataNavy (light)
     +++ 6	AdminBlue (dark)
-    @@ -105,53 +105,33 @@
+    @@ -111,53 +111,33 @@
          },
          "MuiCssBaseline": {}
        },
@@ -409,7 +409,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 7	DataNavy (light)
     +++ 7	GeoGreen (light)
-    @@ -107,12 +107,12 @@
+    @@ -113,12 +113,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -426,7 +426,7 @@ test("tmp theme diffs via unified patches", () => {
          "contrastThreshold": 4.5,
          "tertiary": {
            "main": "#A0A0A0",
-    @@ -125,9 +125,9 @@
+    @@ -131,9 +131,9 @@
            "secondary": "rgba(255, 255, 255, 0.7)",
            "disabled": "#999999"
          },
@@ -443,7 +443,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 8	DataNavy (light)
     +++ 8	GeoGreen (dark)
-    @@ -105,53 +105,33 @@
+    @@ -111,53 +111,33 @@
          },
          "MuiCssBaseline": {}
        },
@@ -517,7 +517,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 9	DataNavy (light)
     +++ 9	Blank (light)
-    @@ -107,12 +107,12 @@
+    @@ -113,12 +113,12 @@
        },
        "palette": {
          "mode": "dark",
@@ -540,7 +540,7 @@ test("tmp theme diffs via unified patches", () => {
     ===================================================================
     --- 10	DataNavy (light)
     +++ 10	Blank (dark)
-    @@ -105,53 +105,33 @@
+    @@ -111,53 +111,33 @@
          },
          "MuiCssBaseline": {}
        },

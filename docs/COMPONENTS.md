@@ -126,7 +126,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Surfaces/AppBar -->
 <!-- stories:Surfaces/Toolbar -->
 
-* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set.
+* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set. Pass `pill` for the Telicent pill treatment (same shape as `ToggleButtonGroup`'s pill); the tablist role, roving tabindex and derived ids are unchanged.
 <!-- props:Tabs -->
 <!-- props:Tab -->
 <!-- props:TabPanel -->
@@ -156,6 +156,9 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Inputs/Checkbox -->
 * **`Switch`**: On/Off toggle (wraps MUI Switch). `label`, `labelPlacement="end" | "start" | "top" | "bottom"` (default `end`), `checked`/`onChange`.
 <!-- stories:Inputs/Switch -->
+* **`ToggleButtonGroup`**: Use for a small set of mutually exclusive views or modes where both options should stay visible. Pass `pill` for the Telicent pill treatment. Reach for `Tabs` instead when the buttons select a panel.
+<!-- props:ToggleButtonGroup -->
+<!-- stories:Inputs/ToggleButtonGroup -->
 * **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs.
 <!-- props:DatePicker -->
 <!-- props:DateTimePicker -->

@@ -9,6 +9,7 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     ...componentOverrides.generateButtonOverrides(uiTheme),
     ...componentOverrides.generateCardOverrides(uiTheme),
     ...componentOverrides.generateTabsOverrides(uiTheme),
+    ...componentOverrides.generateToggleButtonOverrides(uiTheme),
     MuiPaper: {
       styleOverrides: {
         root: {
