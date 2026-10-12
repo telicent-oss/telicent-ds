@@ -19,6 +19,8 @@ import TextField from "../components/inputs/TextField/TextField";
 import Select from "../components/inputs/Select/Select";
 import Checkbox from "../components/inputs/Checkbox/Checkbox";
 import Switch from "../components/inputs/Switch/Switch";
+import Radio from "../components/inputs/Radio/Radio";
+import RadioGroup from "../components/inputs/RadioGroup/RadioGroup";
 import Card from "../components/surfaces/Card/Card";
 import CardContent from "../components/surfaces/Card/CardContent";
 import Paper from "../components/surfaces/Paper/Paper";
@@ -105,6 +107,7 @@ export const AppShell: Story = {
     const [checkedA, setCheckedA] = useState(true);
     const [checkedB, setCheckedB] = useState(false);
     const [switchOn, setSwitchOn] = useState(true);
+    const [backupType, setBackupType] = useState("full");
 
     return (
       <>
@@ -245,6 +248,14 @@ export const AppShell: Story = {
                       checked={switchOn}
                       onChange={(e) => setSwitchOn(e.target.checked)}
                     />
+                    <RadioGroup
+                      value={backupType}
+                      onChange={(e) => setBackupType(e.target.value)}
+                    >
+                      <Radio value="full" label="Full backup" />
+                      <Radio value="incremental" label="Incremental" />
+                      <Radio value="snapshot" label="Snapshot only" />
+                    </RadioGroup>
                   </FlexBox>
                 </CardContent>
                 <FlexBox

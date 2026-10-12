@@ -34,6 +34,8 @@ export default defineConfig({
         /^@mui\/lab\/.*/,
         "@mui/x-date-pickers",
         /^@mui\/x-date-pickers\/.*/,
+        "@mui/x-data-grid",
+        /^@mui\/x-data-grid\/.*/,
         "@mui/private-theming",
         "@mui/styled-engine",
         "@emotion/react",

@@ -51,3 +51,12 @@ export { default as TableHead } from "./Table/TableHead";
 export type { TableHeadProps } from "./Table/TableHead";
 export { default as TableRow } from "./Table/TableRow";
 export type { TableRowProps } from "./Table/TableRow";
+
+export { default as DataGrid } from "./DataGrid/DataGrid";
+export type {
+  DataGridProps,
+  GridColDef,
+  GridRenderCellParams,
+  GridRowParams,
+  GridSortModel,
+} from "./DataGrid/DataGrid";

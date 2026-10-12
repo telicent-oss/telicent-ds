@@ -1,11 +1,33 @@
 import React from "react";
 import type { Preview } from "@storybook/react-vite";
+import { useTheme } from "@mui/material/styles";
 import UIThemeProvider from "../src/theme/UIThemeProvider";
 import { UIThemeSchema } from "../src/theme/colors/theme-colors";
 // Load the DS's own stylesheet so `:root` custom properties (e.g. `--teli-app-color`)
 // resolve inside the preview iframe. Without this, components that read the accent
 // via `rgb(var(--teli-app-color))` fall back to `currentColor` and render as black.
 import "../src/index.css";
+
+// Reads `background.default` from the resolved theme so axe-core's color-contrast
+// rule measures against the real background each theme × mode combo renders —
+// not a hardcoded hex. Previous hardcode (`#F5F5F5` / `#1D1D1D`) matched only 4
+// of 10 theme × mode combos and silently passed stories that would fail contrast
+// on GeoGreen dark (`#080808`) or GraphOrange light (`#F0F2F5`). Must sit inside
+// `UIThemeProvider` so `useTheme()` resolves. See docs/accessibility.md § Known gaps.
+const ThemedCanvas: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const theme = useTheme();
+  return (
+    <div
+      style={{
+        backgroundColor: theme.palette.background.default,
+        padding: 16,
+        minHeight: "100vh",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 const preview: Preview = {
   decorators: [
@@ -16,17 +38,9 @@ const preview: Preview = {
 
       return (
         <UIThemeProvider dark={isDark} theme={selectedTheme}>
-          {/* Explicit background so axe-core's color-contrast rule can determine
-              the background reliably (see docs/accessibility.md § Known gaps). */}
-          <div
-            style={{
-              backgroundColor: isDark ? "#1D1D1D" : "#F5F5F5",
-              padding: 16,
-              minHeight: "100vh",
-            }}
-          >
+          <ThemedCanvas>
             <Story />
-          </div>
+          </ThemedCanvas>
         </UIThemeProvider>
       );
     },
