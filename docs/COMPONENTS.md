@@ -156,6 +156,10 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Inputs/Checkbox -->
 * **`Switch`**: On/Off toggle (wraps MUI Switch). `label`, `labelPlacement="end" | "start" | "top" | "bottom"` (default `end`), `checked`/`onChange`.
 <!-- stories:Inputs/Switch -->
+* **`Radio` / `RadioGroup`**: Mutually-exclusive choice between several options (wraps MUI Radio / RadioGroup). `label` on `Radio` collapses the `FormControlLabel` wrap; `color="primary"` is baked (not overridable). Use `RadioGroup` with `value`/`onChange` to own the selection; use standalone `Radio` only when a `Switch` would be semantically wrong.
+<!-- props:Radio -->
+<!-- stories:Inputs/Radio -->
+<!-- stories:Inputs/RadioGroup -->
 * **`ToggleButtonGroup`**: Use for a small set of mutually exclusive views or modes where both options should stay visible. Pass `pill` for the Telicent pill treatment. Reach for `Tabs` instead when the buttons select a panel.
 <!-- props:ToggleButtonGroup -->
 <!-- stories:Inputs/ToggleButtonGroup -->
@@ -164,6 +168,9 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:DateTimePicker -->
 <!-- stories:Inputs/DatePicker -->
 <!-- stories:Inputs/DateTimePicker -->
+* **`LocalizationProvider` / `AdapterDayjs`**: Root-level provider for `DatePicker` / `DateTimePicker`. Mount once at the app root — the dayjs adapter is pre-wired, so a bare `<LocalizationProvider>` is enough. `AdapterDayjs` is re-exported for apps that want to pass it explicitly or use it outside the provider.
+<!-- props:LocalizationProvider -->
+<!-- stories:Inputs/LocalizationProvider -->
 
 ## 4. Data Display & Typography
 *Use these to render text and structured data.*
@@ -178,6 +185,9 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:TreeView -->
 * **`Chip`**: Use for tags, statuses, or small attributes.
 <!-- stories:Data display/Chip -->
+* **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
+<!-- props:DataGrid -->
+<!-- stories:Data display/DataGrid -->
 * **`Divider`**: Use to separate content sections instead of `<hr>`.
 <!-- stories:Data display/Divider -->
 * **`UserProfile` / `UserProfileContent` / `UserStatus`**: Components for rendering user avatars, profile details, and active states. `UserProfileContent` renders the expanded profile detail; `UserStatus` renders the online/status indicator.

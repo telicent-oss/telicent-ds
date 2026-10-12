@@ -18,6 +18,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.7",
+    "@mui/x-data-grid": "^8.15.0",
     "@mui/x-date-pickers": "^8.9.2",
     "@react-spring/web": "^9.7.5",
     "@telicent-oss/fe-auth-lib": "1.0.4",
@@ -89,6 +90,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.7",
+    "@mui/x-data-grid": "^8.15.0",
     "@mui/x-date-pickers": "^8.9.2",
     "@tanstack/react-query": "*",
     "@telicent-oss/ontologyservice": "^1.0.2",
@@ -110,6 +112,9 @@
       "optional": true
     },
     "@mui/x-date-pickers": {
+      "optional": true
+    },
+    "@mui/x-data-grid": {
       "optional": true
     }
   },
@@ -138,6 +143,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.7",
+    "@mui/x-data-grid": "^8.15.0",
     "@mui/x-date-pickers": "^8.9.2",
     "@mui/x-tree-view": "7.3.1",
     "@storybook/addon-a11y": "10.4.6",
