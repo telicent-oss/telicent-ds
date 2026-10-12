@@ -516,6 +516,26 @@ Demonstrated states:
 - Required — checked=false, id="switch-required", label="Required setting", required=true
 - NoLabel — checked=true, id="switch-no-label"
 - ExampleWithOnChange — disabled=false
+* **`Radio` / `RadioGroup`**: Mutually-exclusive choice between several options (wraps MUI Radio / RadioGroup). `label` on `Radio` collapses the `FormControlLabel` wrap; `color="primary"` is baked (not overridable). Use `RadioGroup` with `value`/`onChange` to own the selection; use standalone `Radio` only when a `Switch` would be semantically wrong.
+```yaml
+Radio:
+  label: {type: 'React.ReactNode', required: false}
+  labelPlacement: {type: '"bottom" | "top" | "end" | "start"', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-radio--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/Radio/Radio.stories.tsx
+
+Demonstrated states:
+- Default — id="radio-default", value="option-a"
+- WithLabel — id="radio-with-label", value="option-a", label="Full backup", defaultChecked=true
+- Disabled — id="radio-disabled", value="option-a", label="Not available", disabled=true
+- InsideRadioGroup
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-radiogroup--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/RadioGroup/RadioGroup.stories.tsx
+
+Demonstrated states:
+- Column
+- Row
 * **`ToggleButtonGroup`**: Use for a small set of mutually exclusive views or modes where both options should stay visible. Pass `pill` for the Telicent pill treatment. Reach for `Tabs` instead when the buttons select a panel.
 ```yaml
 ToggleButtonGroup:
@@ -539,10 +559,10 @@ DatePicker:
   fullWidth: {type: 'boolean', required: false}
   helperText: {type: 'string', required: false}
   label: {type: 'ReactNode & string', required: false}
-  maxDate: {type: 'PickerValidDate', required: false}
-  minDate: {type: 'PickerValidDate', required: false}
+  maxDate: {type: 'Dayjs', required: false}
+  minDate: {type: 'Dayjs', required: false}
   textFieldProps: {type: 'TextFieldProps', required: false}
-  value: {type: 'Dayjs | null', required: true}
+  value: {type: 'Dayjs', required: true}
 ```
 ```yaml
 DateTimePicker:
@@ -550,8 +570,8 @@ DateTimePicker:
   errorMsg: {type: 'string', required: false}
   fullWidth: {type: 'boolean', required: false}
   helperText: {type: 'string', required: false}
-  maxDateTime: {type: 'PickerValidDate', required: false}
-  minDateTime: {type: 'PickerValidDate', required: false}
+  maxDateTime: {type: 'Dayjs', required: false}
+  minDateTime: {type: 'Dayjs', required: false}
   textFieldProps: {type: 'TextFieldProps', required: false}
 ```
 Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-datepicker--docs
@@ -568,6 +588,16 @@ Demonstrated states:
 - Default — label="Pick date & time"
 - ErrorState — label="Required field", error=true, errorMsg="Something went wrong", helperText="Date and time are required"
 - WithDateRestrictions — label="Restricted time range", helperText="Only available within the next 48 hours"
+* **`LocalizationProvider` / `AdapterDayjs`**: Root-level provider for `DatePicker` / `DateTimePicker`. Mount once at the app root — the dayjs adapter is pre-wired, so a bare `<LocalizationProvider>` is enough. `AdapterDayjs` is re-exported for apps that want to pass it explicitly or use it outside the provider.
+```yaml
+LocalizationProvider:
+  dateAdapter: {type: 'new (...args: any) => MuiPickersAdapter<unknown>', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/inputs-localizationprovider--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/inputs/LocalizationProvider/LocalizationProvider.stories.tsx
+
+Demonstrated states:
+- WrappingADatePicker
 
 ## 4. Data Display & Typography
 *Use these to render text and structured data.*
@@ -627,6 +657,21 @@ Demonstrated states:
 - Outlined — variant="outlined"
 - ClickableChips
 - DeletableChips
+* **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
+```yaml
+DataGrid:
+  initialSort: {type: 'GridSortModel', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-datagrid--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/DataGrid/DataGrid.stories.tsx
+
+Demonstrated states:
+- Default — columns=basicColumns
+- WithInitialSort — columns=basicColumns, initialSort=[…]
+- WithCustomCellRenderer
+- ClickableRows
+- Loading — columns=basicColumns, loading=true
+- Empty — rows=[…], columns=basicColumns
 * **`Divider`**: Use to separate content sections instead of `<hr>`.
 Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-divider--docs
 Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/Divider/Divider.stories.tsx
