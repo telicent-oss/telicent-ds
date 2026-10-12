@@ -29,8 +29,8 @@ Tab navigation with the accessibility wiring derived rather than hand-rolled.
 - **\`Tab\` requires an explicit \`value\`, narrowed to \`string | number\`.** MUI falls back to the child's index; the DS does not, because the value lands in a DOM id. An object value would stringify to \`[object Object]\` and give two panels the same id.
 - **\`TabPanel\` owns \`hidden\`.** The element renders in both states, so a tab's \`aria-controls\` always resolves to a real node. Only the children are conditional.
 - **A \`Tab\` outside \`Tabs\` throws.** \`role="tab"\` outside a \`tablist\` is invalid ARIA, and a silent fallback would ship a tab set that looks right and is unwired.
-
 - **\`pill\` restyles the group without changing its semantics.** A bordered well hugging its tabs, the selected tab filled, no underline indicator. The tablist role, roving tabindex and derived ids are untouched — it is a skin, not a second tabs component. A boolean rather than a \`variant\` value, because MUI's \`Tabs\` already owns \`variant\` for \`standard | scrollable | fullWidth\`.
+
 ---
 
 ### Accessibility

@@ -126,7 +126,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Surfaces/AppBar -->
 <!-- stories:Surfaces/Toolbar -->
 
-* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set.
+* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set. Pass `pill` for the Telicent pill treatment (same shape as `ToggleButtonGroup`'s pill); the tablist role, roving tabindex and derived ids are unchanged.
 <!-- props:Tabs -->
 <!-- props:Tab -->
 <!-- props:TabPanel -->

@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { ToggleButtonGroup } from "./ToggleButtonGroup";
 import { ToggleButton } from "../ToggleButton/ToggleButton";
 
@@ -176,6 +178,44 @@ export const Default: Story = {
           Map
         </ToggleButton>
       </ToggleButtonGroup>
+    );
+  },
+};
+
+export const WithLabelledBy: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The other half of the accessible-name union. When a visible heading already names the group, point `aria-labelledby` at it rather than repeating the text in an `aria-label` that can drift out of sync.",
+      },
+    },
+  },
+  render: () => {
+    const [view, setView] = useState<"list" | "map">("list");
+    return (
+      <Box>
+        <Typography id="toggle-labelled-by-heading" variant="h6" sx={{ mb: 1 }}>
+          Result view
+        </Typography>
+        <ToggleButtonGroup
+          pill
+          exclusive
+          size="small"
+          aria-labelledby="toggle-labelled-by-heading"
+          value={view}
+          onChange={(_event, next: "list" | "map" | null) => {
+            if (next !== null) setView(next);
+          }}
+        >
+          <ToggleButton value="list" aria-label="List view">
+            List
+          </ToggleButton>
+          <ToggleButton value="map" aria-label="Map view">
+            Map
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
     );
   },
 };
