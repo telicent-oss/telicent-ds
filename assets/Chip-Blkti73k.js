@@ -1,0 +1,1 @@
+import{a as l}from"./iframe-Cd_b2o5a.js";import{C as i}from"./Chip-Bai6p_3l.js";const o=({variant:e="filled",color:a="primary",...r})=>l(i,{variant:e,color:a,...r});o.__docgenInfo={description:"",methods:[],displayName:"Chip",props:{variant:{defaultValue:{value:'"filled"',computed:!1},required:!1},color:{defaultValue:{value:'"primary"',computed:!1},required:!1}}};export{o as C};

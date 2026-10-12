@@ -283,7 +283,6 @@ import { SwitchProps } from '@mui/material/Switch';
 import { SwitchProps as SwitchProps_3 } from '@mui/material';
 import { SxProps } from '@mui/material';
 import { SxProps as SxProps_2 } from '@mui/material/styles';
-import { TabClasses } from '@mui/material';
 import { TableBodyProps } from '@mui/material/TableBody';
 import { TableBodyProps as TableBodyProps_2 } from '@mui/material';
 import { TableCellClasses } from '@mui/material';
@@ -303,8 +302,8 @@ import { TableRowProps } from '@mui/material/TableRow';
 import { TableRowProps as TableRowProps_2 } from '@mui/material';
 import { TableSortLabelClasses } from '@mui/material';
 import { TableSortLabelProps } from '@mui/material';
+import { TabOwnProps } from '@mui/material';
 import { TabProps as TabProps_2 } from '@mui/material/Tab';
-import { TabProps as TabProps_3 } from '@mui/material';
 import { TabsOwnProps } from '@mui/material';
 import { TabsProps as TabsProps_2 } from '@mui/material/Tabs';
 import { TextFieldProps } from '@mui/material';
@@ -312,8 +311,8 @@ import { Theme } from '@mui/material';
 import { Theme as Theme_2 } from '@mui/material/styles';
 import { Theme as Theme_3 } from '@emotion/react';
 import { ToggleButtonClasses } from '@mui/material';
-import { ToggleButtonGroupClasses } from '@mui/material';
-import { ToggleButtonGroupProps } from '@mui/material';
+import { ToggleButtonGroupProps as ToggleButtonGroupProps_2 } from '@mui/material/ToggleButtonGroup';
+import { ToggleButtonGroupProps as ToggleButtonGroupProps_3 } from '@mui/material';
 import { ToggleButtonProps } from '@mui/material/ToggleButton';
 import { ToggleButtonProps as ToggleButtonProps_2 } from '@mui/material';
 import { ToolbarClasses } from '@mui/material';
@@ -334,6 +333,14 @@ import { z } from 'zod';
 import { ZodTypeAny } from 'zod';
 
 declare type AccessibleName = {
+    "aria-label": string;
+    "aria-labelledby"?: never;
+} | {
+    "aria-labelledby": string;
+    "aria-label"?: never;
+};
+
+declare type AccessibleName_2 = {
     "aria-label": string;
     "aria-labelledby"?: never;
 } | {
@@ -1119,10 +1126,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiMenuItem: {
         styleOverrides: {
-            root: ({ theme }: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disableGutters" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected"> & {
+            root: ({ theme }: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disableGutters" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "selected" | "dense" | "divider"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disableGutters" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "dense" | "divider" | "selected"> & {
+                ownerState: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disableGutters" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "selected" | "dense" | "divider"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1225,6 +1232,64 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     MuiCssBaseline: {
         styleOverrides: (theme: Omit<Theme, "components">) => string;
     };
+    MuiToggleButtonGroup: {
+        styleOverrides: {
+            root: ({ theme }: ToggleButtonGroupProps_3 & Record<string, unknown> & {
+                ownerState: ToggleButtonGroupProps_3 & Record<string, unknown>;
+            } & {
+                theme: Omit<Theme, "components">;
+            }) => {
+                [x: string]: {
+                    width: string;
+                    border: string;
+                    borderRadius: number;
+                    backgroundColor: string;
+                    padding: string;
+                    gap: string;
+                    margin?: undefined;
+                    minHeight?: undefined;
+                    height?: undefined;
+                    minWidth?: undefined;
+                    textTransform?: undefined;
+                    whiteSpace?: undefined;
+                    fontSize?: undefined;
+                    color?: undefined;
+                    "&.Mui-selected, &.Mui-selected:hover"?: undefined;
+                    "& .MuiTouchRipple-root"?: undefined;
+                } | {
+                    border: number;
+                    borderRadius: number;
+                    margin: number;
+                    minHeight: number;
+                    height: number;
+                    minWidth: string;
+                    padding: string;
+                    textTransform: string;
+                    whiteSpace: string;
+                    fontSize: number;
+                    color: string;
+                    "&.Mui-selected, &.Mui-selected:hover": {
+                        backgroundColor: string;
+                        color: string;
+                    };
+                    "& .MuiTouchRipple-root": {
+                        display: string;
+                    };
+                    width?: undefined;
+                    backgroundColor?: undefined;
+                    gap?: undefined;
+                };
+                "&.TelicentPillGroup": {
+                    width: string;
+                    border: string;
+                    borderRadius: number;
+                    backgroundColor: string;
+                    padding: string;
+                    gap: string;
+                };
+            };
+        };
+    };
     MuiTabs: {
         styleOverrides: {
             root: ({ theme }: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
@@ -1240,6 +1305,52 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                 "&.MuiTabs-vertical": {
                     borderBottom: string;
                     borderInlineEnd: string;
+                };
+                "&.TelicentPillGroup": {
+                    width: string;
+                    minHeight: string;
+                    border: string;
+                    borderRadius: number;
+                    backgroundColor: string;
+                    padding: string;
+                    "& .MuiTabs-indicator": {
+                        display: string;
+                    };
+                    "& .MuiTabs-flexContainer": {
+                        gap: string;
+                    };
+                };
+            };
+        };
+    };
+    MuiTab: {
+        styleOverrides: {
+            root: ({ theme }: TabOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "disabled" | "className" | "style" | "classes" | "children" | "sx" | "label" | "tabIndex" | "icon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "wrapped" | "iconPosition"> & {
+                component?: ElementType;
+            } & Record<string, unknown> & {
+                ownerState: TabOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "disabled" | "className" | "style" | "classes" | "children" | "sx" | "label" | "tabIndex" | "icon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "wrapped" | "iconPosition"> & {
+                    component?: ElementType;
+                } & Record<string, unknown>;
+            } & {
+                theme: Omit<Theme, "components">;
+            }) => {
+                ".TelicentPillGroup &": {
+                    minHeight: number;
+                    height: number;
+                    minWidth: string;
+                    padding: string;
+                    textTransform: string;
+                    borderRadius: number;
+                    whiteSpace: string;
+                    fontSize: number;
+                    color: string;
+                    "&.Mui-selected": {
+                        backgroundColor: string;
+                        color: string;
+                    };
+                    "& .MuiTouchRipple-root": {
+                        display: string;
+                    };
                 };
             };
         };
@@ -2418,18 +2529,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             }>;
         }[] | undefined;
     } | undefined;
-    MuiTab?: {
-        defaultProps?: ComponentsProps["MuiTab"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof TabClasses, "MuiTab", Omit<Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<TabProps_3> | ((props: Partial<TabProps_3> & {
-                ownerState: Partial<TabProps_3>;
-            }) => boolean);
-            style: Interpolation<    {
-                theme: Omit<Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
     MuiTable?: {
         defaultProps?: ComponentsProps["MuiTable"];
         styleOverrides?: Partial<OverridesStyleRules<keyof TableClasses, "MuiTable", Omit<Theme, "components">>> | undefined;
@@ -2556,18 +2655,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<ToggleButtonProps_2> | ((props: Partial<ToggleButtonProps_2> & {
                 ownerState: Partial<ToggleButtonProps_2>;
-            }) => boolean);
-            style: Interpolation<    {
-                theme: Omit<Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiToggleButtonGroup?: {
-        defaultProps?: ComponentsProps["MuiToggleButtonGroup"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof ToggleButtonGroupClasses, "MuiToggleButtonGroup", Omit<Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<ToggleButtonGroupProps> | ((props: Partial<ToggleButtonGroupProps> & {
-                ownerState: Partial<ToggleButtonGroupProps>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme, "components">;
@@ -3771,6 +3858,15 @@ export declare const Tabs: default_2.ForwardRefExoticComponent<(Omit<Omit<TabsPr
      * page, and repeated on this group's `TabPanel`s.
      */
     idPrefix: string;
+    /**
+     * Render as a pill group: a bordered well hugging its tabs, the
+     * selected tab filled, and no underline indicator.
+     *
+     * A boolean rather than a `variant` value — MUI's `Tabs` already owns
+     * `variant` for `standard | scrollable | fullWidth`, and MUI v5's
+     * theme `variants` support does not cover `MuiTabs`.
+     */
+    pill?: boolean;
 }, "ref"> | Omit<Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & {
     "aria-labelledby": string;
     "aria-label"?: never;
@@ -3781,15 +3877,33 @@ export declare const Tabs: default_2.ForwardRefExoticComponent<(Omit<Omit<TabsPr
      * page, and repeated on this group's `TabPanel`s.
      */
     idPrefix: string;
+    /**
+     * Render as a pill group: a bordered well hugging its tabs, the
+     * selected tab filled, and no underline indicator.
+     *
+     * A boolean rather than a `variant` value — MUI's `Tabs` already owns
+     * `variant` for `standard | scrollable | fullWidth`, and MUI v5's
+     * theme `variants` support does not cover `MuiTabs`.
+     */
+    pill?: boolean;
 }, "ref">) & default_2.RefAttributes<HTMLDivElement>>;
 
-export declare type TabsProps = Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & AccessibleName & {
+export declare type TabsProps = Omit<TabsProps_2, "aria-label" | "aria-labelledby"> & AccessibleName_2 & {
     /**
      * Namespace for the `id` / `aria-controls` / `aria-labelledby` triple the
      * DS wires between each `Tab` and its `TabPanel`. Unique per tab set on the
      * page, and repeated on this group's `TabPanel`s.
      */
     idPrefix: string;
+    /**
+     * Render as a pill group: a bordered well hugging its tabs, the
+     * selected tab filled, and no underline indicator.
+     *
+     * A boolean rather than a `variant` value — MUI's `Tabs` already owns
+     * `variant` for `standard | scrollable | fullWidth`, and MUI v5's
+     * theme `variants` support does not cover `MuiTabs`.
+     */
+    pill?: boolean;
 };
 
 declare type TabValue = string | number;
@@ -3857,6 +3971,37 @@ declare interface TitleAndContentProps {
 }
 
 export declare const ToggleButton: default_2.FC<ToggleButtonProps>;
+
+export declare const ToggleButtonGroup: default_2.ForwardRefExoticComponent<(Omit<Omit<ToggleButtonGroupProps_2, "aria-label" | "aria-labelledby"> & {
+    "aria-label": string;
+    "aria-labelledby"?: never;
+} & {
+    /**
+     * Render as a pill group: a bordered well hugging its buttons, with
+     * the selected one filled. Without it the group renders MUI's
+     * default squared-off segments.
+     */
+    pill?: boolean;
+}, "ref"> | Omit<Omit<ToggleButtonGroupProps_2, "aria-label" | "aria-labelledby"> & {
+    "aria-labelledby": string;
+    "aria-label"?: never;
+} & {
+    /**
+     * Render as a pill group: a bordered well hugging its buttons, with
+     * the selected one filled. Without it the group renders MUI's
+     * default squared-off segments.
+     */
+    pill?: boolean;
+}, "ref">) & default_2.RefAttributes<HTMLDivElement>>;
+
+export declare type ToggleButtonGroupProps = Omit<ToggleButtonGroupProps_2, "aria-label" | "aria-labelledby"> & AccessibleName & {
+    /**
+     * Render as a pill group: a bordered well hugging its buttons, with
+     * the selected one filled. Without it the group renders MUI's
+     * default squared-off segments.
+     */
+    pill?: boolean;
+};
 
 export { ToggleButtonProps }
 
