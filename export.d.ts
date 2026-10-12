@@ -6,6 +6,7 @@ import { AccordionProps } from '@mui/material/Accordion';
 import { AccordionSummaryClasses } from '@mui/material';
 import { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import { AccordionSummaryProps as AccordionSummaryProps_2 } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { default as Alert } from '@mui/material/Alert';
 import { AlertClasses } from '@mui/material';
 import { AlertColor } from '@mui/material/Alert';
@@ -67,11 +68,13 @@ import { closeSnackbar } from 'notistack';
 import { CollapseClasses } from '@mui/material';
 import { CollapseProps } from '@mui/material';
 import { CommonProps } from '@mui/material/OverridableComponent';
+import { ComponentProps } from 'react';
 import { ComponentsProps } from '@mui/material';
 import { ContainerClasses } from '@mui/material';
 import { ContainerProps } from '@mui/material';
 import { Context } from 'react';
 import { Coordinate } from 'ol/coordinate';
+import { DataGrid as DataGrid_2 } from '@mui/x-data-grid';
 import { DatePickerProps as DatePickerProps_2 } from '@mui/x-date-pickers/DatePicker';
 import { DateTimePickerProps as DateTimePickerProps_2 } from '@mui/x-date-pickers/DateTimePicker';
 import { Dayjs } from 'dayjs';
@@ -130,8 +133,13 @@ import { ForwardRefExoticComponent } from 'react';
 import type * as GeoJSON_2 from 'geojson';
 import { Grid2Props } from '@mui/material';
 import { GridClasses } from '@mui/material';
+import { GridClasses as GridClasses_2 } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 import { GridProps } from '@mui/material/Grid';
 import { GridProps as GridProps_2 } from '@mui/material';
+import { GridRenderCellParams } from '@mui/x-data-grid';
+import { GridRowParams } from '@mui/x-data-grid';
+import { GridSortModel } from '@mui/x-data-grid';
 import { HTMLAttributes } from 'react';
 import { IconButtonProps } from '@mui/material/IconButton';
 import { IconButtonTypeMap } from '@mui/material';
@@ -184,6 +192,7 @@ import { ListProps } from '@mui/material/List';
 import { ListProps as ListProps_2 } from '@mui/material';
 import { ListSubheaderClasses } from '@mui/material';
 import { ListSubheaderProps } from '@mui/material';
+import { LocalizationProvider as LocalizationProvider_2 } from '@mui/x-date-pickers/LocalizationProvider';
 import { LocationOn as LocationOnIcon } from '@telicent-oss/mui-icons-material';
 import { Map as Map_2 } from 'ol';
 import { MenuClasses } from '@mui/material';
@@ -224,8 +233,10 @@ import { PropsWithChildren } from 'react';
 import { QueryClient } from '@tanstack/react-query';
 import { QueryKey } from '@tanstack/react-query';
 import { RadioClasses } from '@mui/material';
-import { RadioGroupProps } from '@mui/material';
-import { RadioProps } from '@mui/material';
+import { RadioGroupProps } from '@mui/material/RadioGroup';
+import { RadioGroupProps as RadioGroupProps_2 } from '@mui/material';
+import { RadioProps as RadioProps_2 } from '@mui/material/Radio';
+import { RadioProps as RadioProps_3 } from '@mui/material';
 import { RatingClasses } from '@mui/material';
 import { RatingProps } from '@mui/material';
 import * as React_2 from 'react';
@@ -359,6 +370,8 @@ export { AccordionProps }
 export declare const AccordionSummary: default_2.FC<AccordionSummaryProps>;
 
 export { AccordionSummaryProps }
+
+export { AdapterDayjs }
 
 export { Alert }
 
@@ -806,6 +819,27 @@ declare interface CustomCheckboxProps extends CheckboxProps {
     label?: string;
     required?: boolean;
 }
+
+/**
+ * Telicent-themed `DataGrid` — a MUI `x-data-grid` wrapped in a nested
+ * `ThemeProvider` that extends the outer DS theme with Telicent's grid
+ * styling. Palette-token-driven, so light/dark theme switching Just Works.
+ *
+ * Telicent defaults baked in: `autoHeight`, `disableColumnResize`,
+ * `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination: true`,
+ * `pageSizeOptions: [10, 25, 50]`, initial page size 10.
+ *
+ * When `onRowClick` is set, DS opts row hover (`palette.action.hover`) and
+ * the pointer cursor back in — the baked theme suppresses row hover by
+ * default so non-interactive grids don't flicker, so interactive grids need
+ * the opt-in. Callsite `sx` wins (spread last) if a consumer wants a
+ * different hover colour or no hover.
+ */
+export declare const DataGrid: FC<DataGridProps>;
+
+export declare type DataGridProps = {
+    initialSort?: GridSortModel;
+} & ComponentProps<typeof DataGrid_2>;
 
 export declare const DataServiceIcon: default_2.FC<SvgIconProps_2>;
 
@@ -2266,8 +2300,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiRadio"];
         styleOverrides?: Partial<OverridesStyleRules<keyof RadioClasses, "MuiRadio", Omit<Theme, "components">>> | undefined;
         variants?: {
-            props: Partial<RadioProps> | ((props: Partial<RadioProps> & {
-                ownerState: Partial<RadioProps>;
+            props: Partial<RadioProps_3> | ((props: Partial<RadioProps_3> & {
+                ownerState: Partial<RadioProps_3>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme, "components">;
@@ -2278,8 +2312,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiRadioGroup"];
         styleOverrides?: Partial<OverridesStyleRules<keyof FormGroupClasses, "MuiRadioGroup", Omit<Theme, "components">>> | undefined;
         variants?: {
-            props: Partial<RadioGroupProps> | ((props: Partial<RadioGroupProps> & {
-                ownerState: Partial<RadioGroupProps>;
+            props: Partial<RadioGroupProps_2> | ((props: Partial<RadioGroupProps_2> & {
+                ownerState: Partial<RadioGroupProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme, "components">;
@@ -2516,7 +2550,7 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     } | undefined;
     MuiSwipeableDrawer?: {
         defaultProps?: ComponentsProps["MuiSwipeableDrawer"];
-    };
+    } | undefined;
     MuiSwitch?: {
         defaultProps?: ComponentsProps["MuiSwitch"];
         styleOverrides?: Partial<OverridesStyleRules<keyof SwitchClasses, "MuiSwitch", Omit<Theme, "components">>> | undefined;
@@ -2711,7 +2745,11 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     } | undefined;
     MuiUseMediaQuery?: {
         defaultProps?: ComponentsProps["MuiUseMediaQuery"];
-    };
+    } | undefined;
+    MuiDataGrid?: {
+        defaultProps?: ComponentsProps["MuiDataGrid"];
+        styleOverrides?: Partial<OverridesStyleRules<keyof GridClasses_2, "MuiDataGrid", Omit<Theme, "components">>> | undefined;
+    } | undefined;
 };
 
 export declare const getCodec: (mode?: ENCODE_SEARCH_PARAMS_MODES_Type) => Codec;
@@ -2724,7 +2762,15 @@ export declare const GRAPH_APP: {
     };
 };
 
+export { GridColDef }
+
 export declare const GridIcon: default_2.FC<SvgIconProps>;
+
+export { GridRenderCellParams }
+
+export { GridRowParams }
+
+export { GridSortModel }
 
 export declare const H1: default_2.FC<HeadingProps>;
 
@@ -2857,6 +2903,12 @@ export declare const ListItemText: default_2.FC<ListItemTextProps_2>;
 
 declare interface ListItemTextProps_2 extends Omit<ListItemTextProps, "primaryTypographyProps" | "secondaryTypographyProps" | "sx"> {
 }
+
+export declare const LocalizationProvider: default_2.FC<LocalizationProviderProps>;
+
+export declare type LocalizationProviderProps = Omit<MuiProps, "dateAdapter"> & {
+    dateAdapter?: MuiProps["dateAdapter"];
+};
 
 export { LocationOnIcon }
 
@@ -3118,6 +3170,8 @@ declare type MUIAutocompleteProps<Option> = AutocompleteProps_2<Option, false, f
 
 declare type MuiMultiplePassthrough = Omit<AutocompleteProps<Option_2, true, false, false>, "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size">;
 
+declare type MuiProps = ComponentProps<typeof LocalizationProvider_2>;
+
 declare type MuiSinglePassthrough = Omit<AutocompleteProps<Option_2, false, false, false>, "options" | "value" | "onChange" | "renderInput" | "multiple" | "disabled" | "size">;
 
 declare type MultipleAutoCompleteProps = MultipleProps & MuiMultiplePassthrough;
@@ -3340,6 +3394,17 @@ declare interface ProgressProps extends Omit<CircularProgressProps, "classes" | 
 }
 
 export declare const QuestionIcon: default_2.FC<SvgIconProps>;
+
+export declare const Radio: ForwardRefExoticComponent<Omit<RadioProps, "ref"> & RefAttributes<HTMLButtonElement>>;
+
+export declare const RadioGroup: default_2.FC<RadioGroupProps>;
+
+export { RadioGroupProps }
+
+export declare type RadioProps = Omit<RadioProps_2, "color"> & {
+    label?: React.ReactNode;
+    labelPlacement?: "end" | "start" | "top" | "bottom";
+};
 
 export declare const RecentSearches: default_2.FC<RecentSearchProps>;
 
