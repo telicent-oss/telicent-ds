@@ -834,6 +834,12 @@ declare interface CustomCheckboxProps extends CheckboxProps {
  * default so non-interactive grids don't flicker, so interactive grids need
  * the opt-in. Callsite `sx` wins (spread last) if a consumer wants a
  * different hover colour or no hover.
+ *
+ * Uses `useTheme()` rather than the function form `theme={(outer) => ...}`
+ * so the component tolerates being rendered without an outer `ThemeProvider`
+ * — `useTheme()` falls back to MUI's `defaultTheme`, which has a full
+ * palette. The function form would receive `{}` and crash on
+ * `palette.background.default`.
  */
 export declare const DataGrid: FC<DataGridProps>;
 
