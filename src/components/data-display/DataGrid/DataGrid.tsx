@@ -1,11 +1,11 @@
-import React, { type FC, type ComponentProps } from "react";
+import React, { useMemo, type FC, type ComponentProps } from "react";
 import {
   DataGrid as MuiDataGrid,
   type GridSortModel,
 } from "@mui/x-data-grid";
 import type {} from "@mui/x-data-grid/themeAugmentation";
 import { ThemeProvider } from "@mui/material";
-import { createTheme, type Theme } from "@mui/material/styles";
+import { createTheme, useTheme, type Theme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
 /**
@@ -170,52 +170,61 @@ export type DataGridProps = {
  * default so non-interactive grids don't flicker, so interactive grids need
  * the opt-in. Callsite `sx` wins (spread last) if a consumer wants a
  * different hover colour or no hover.
+ *
+ * Uses `useTheme()` rather than the function form `theme={(outer) => ...}`
+ * so the component tolerates being rendered without an outer `ThemeProvider`
+ * — `useTheme()` falls back to MUI's `defaultTheme`, which has a full
+ * palette. The function form would receive `{}` and crash on
+ * `palette.background.default`.
  */
 export const DataGrid: FC<DataGridProps> = ({
   initialSort,
   onRowClick,
   sx,
   ...rest
-}) => (
-  <ThemeProvider
-    theme={(outerTheme) =>
-      createTheme(outerTheme, buildDataGridTheme(outerTheme as Theme))
-    }
-  >
-    <Box sx={{ width: "100%" }}>
-      <MuiDataGrid
-        autoHeight
-        disableColumnResize
-        disableRowSelectionOnClick
-        disableColumnMenu
-        pagination
-        pageSizeOptions={[10, 25, 50]}
-        initialState={{
-          pagination: { paginationModel: { pageSize: 10, page: 0 } },
-          sorting: initialSort ? { sortModel: initialSort } : undefined,
-        }}
-        onRowClick={onRowClick}
-        {...rest}
-        sx={[
-          (theme) => ({
-            "& .MuiDataGrid-overlay": { inset: 0 },
-            ...(onRowClick
-              ? {
-                  "& .MuiDataGrid-row": {
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: theme.palette.action.hover,
+}) => {
+  const outerTheme = useTheme();
+  const scopedTheme = useMemo(
+    () => createTheme(outerTheme, buildDataGridTheme(outerTheme)),
+    [outerTheme],
+  );
+  return (
+    <ThemeProvider theme={scopedTheme}>
+      <Box sx={{ width: "100%" }}>
+        <MuiDataGrid
+          autoHeight
+          disableColumnResize
+          disableRowSelectionOnClick
+          disableColumnMenu
+          pagination
+          pageSizeOptions={[10, 25, 50]}
+          initialState={{
+            pagination: { paginationModel: { pageSize: 10, page: 0 } },
+            sorting: initialSort ? { sortModel: initialSort } : undefined,
+          }}
+          onRowClick={onRowClick}
+          {...rest}
+          sx={[
+            (theme) => ({
+              "& .MuiDataGrid-overlay": { inset: 0 },
+              ...(onRowClick
+                ? {
+                    "& .MuiDataGrid-row": {
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: theme.palette.action.hover,
+                      },
                     },
-                  },
-                }
-              : {}),
-          }),
-          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
-        ]}
-      />
-    </Box>
-  </ThemeProvider>
-);
+                  }
+                : {}),
+            }),
+            ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+          ]}
+        />
+      </Box>
+    </ThemeProvider>
+  );
+};
 
 export type {
   GridColDef,
