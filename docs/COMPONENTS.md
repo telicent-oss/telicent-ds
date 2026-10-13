@@ -3,7 +3,7 @@
 > `@telicent-oss/ds` is Telicent's MUI-based React component library. This file is the complete, self-contained reference: setup, theming, every exported component, and copy-paste recipes. An agent that fetches it has what it needs to build a Telicent app UI without reading the source.
 
 **AGENT INSTRUCTION:** This is your source of truth for UI components. Before writing any custom JSX or Tailwind classes for a visual element, you MUST find the closest match in this document.
-- All components are imported directly from `@telicent-oss/ds`. (e.g., `import { Button, Card } from "@telicent-oss/ds";`)
+- Most components are imported directly from `@telicent-oss/ds` (e.g., `import { Button, Card } from "@telicent-oss/ds";`). Two heavy MUI X integrations are exposed as opt-in sub-paths so apps that don't use them pay nothing: `@telicent-oss/ds/data-grid` for `DataGrid`, `@telicent-oss/ds/date-pickers` for `DatePicker` / `DateTimePicker` / `LocalizationProvider` / `AdapterDayjs`.
 - **Do not** write raw HTML (`<button>`, `<div>` for cards, `<input>`) if a component exists here.
 - **Do not** use Tailwind for colors, borders, or shadows on these components; the theme controls them. Set colour through the theme palette (see Setup & Theming). Use Tailwind primarily for spacing (`gap-X`, `mt-X`) and sizing.
 
@@ -163,12 +163,12 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 * **`ToggleButtonGroup`**: Use for a small set of mutually exclusive views or modes where both options should stay visible. Pass `pill` for the Telicent pill treatment. Reach for `Tabs` instead when the buttons select a panel.
 <!-- props:ToggleButtonGroup -->
 <!-- stories:Inputs/ToggleButtonGroup -->
-* **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs.
+* **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs. Import from the `@telicent-oss/ds/date-pickers` sub-path, which carries the `@mui/x-date-pickers` dependency so apps that don't use date inputs pay nothing for it.
 <!-- props:DatePicker -->
 <!-- props:DateTimePicker -->
 <!-- stories:Inputs/DatePicker -->
 <!-- stories:Inputs/DateTimePicker -->
-* **`LocalizationProvider` / `AdapterDayjs`**: Root-level provider for `DatePicker` / `DateTimePicker`. Mount once at the app root — the dayjs adapter is pre-wired, so a bare `<LocalizationProvider>` is enough. `AdapterDayjs` is re-exported for apps that want to pass it explicitly or use it outside the provider.
+* **`LocalizationProvider` / `AdapterDayjs`**: Root-level provider for `DatePicker` / `DateTimePicker`. Mount once at the app root — the dayjs adapter is pre-wired, so a bare `<LocalizationProvider>` is enough. `AdapterDayjs` is re-exported for apps that want to pass it explicitly or use it outside the provider. Imported from `@telicent-oss/ds/date-pickers` alongside the pickers.
 <!-- props:LocalizationProvider -->
 <!-- stories:Inputs/LocalizationProvider -->
 
@@ -185,7 +185,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:TreeView -->
 * **`Chip`**: Use for tags, statuses, or small attributes.
 <!-- stories:Data display/Chip -->
-* **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
+* **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). Import from the `@telicent-oss/ds/data-grid` sub-path, which carries the `@mui/x-data-grid` dependency so apps that don't use grids pay nothing for it. DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
 <!-- props:DataGrid -->
 <!-- stories:Data display/DataGrid -->
 * **`Divider`**: Use to separate content sections instead of `<hr>`.

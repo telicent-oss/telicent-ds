@@ -21,14 +21,6 @@ export type { ThemeSwitchProps } from "./ThemeSwitch/ThemeSwitch";
 export { default as ThemeSwitchRow } from "./ThemeSwitch/ThemeSwitchRow";
 export type { ThemeSwitchRowProps } from "./ThemeSwitch/ThemeSwitchRow";
 
-export { default as DatePicker } from "./DatePicker/DatePicker";
-export { default as DateTimePicker } from "./DateAndTimePicker/DateTimePicker";
-export {
-  default as LocalizationProvider,
-  AdapterDayjs,
-} from "./LocalizationProvider/LocalizationProvider";
-export type { LocalizationProviderProps } from "./LocalizationProvider/LocalizationProvider";
-
 export { default as Checkbox } from "./Checkbox/Checkbox";
 export { default as CopyToClipboard } from "../buttons/CopyToClipboard/CopyToClipboard";
 

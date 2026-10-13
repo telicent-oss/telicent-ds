@@ -14,6 +14,12 @@ import { loadStories } from "./extract-stories.mjs";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 
+const DTS_ENTRIES = [
+  resolve(root, "dist/ds.d.ts"),
+  resolve(root, "dist/data-grid.d.ts"),
+  resolve(root, "dist/date-pickers.d.ts"),
+];
+
 const PAGES = "https://telicent-oss.github.io/telicent-ds";
 const NPM = "https://www.npmjs.com/package/@telicent-oss/ds";
 const GITHUB = "https://github.com/telicent-oss/telicent-ds";
@@ -49,17 +55,20 @@ const rawManifest = readFileSync(
   "utf8"
 ).trim();
 
-let getPropsByComponent;
-let getValueExportNames;
+const propsByComponent = new Map();
+const valueExportNames = new Set();
 try {
-  ({ getPropsByComponent, getValueExportNames } = loadProps());
+  for (const dtsPath of DTS_ENTRIES) {
+    const { getPropsByComponent, getValueExportNames } = loadProps(dtsPath);
+    for (const [k, v] of getPropsByComponent()) propsByComponent.set(k, v);
+    for (const n of getValueExportNames()) valueExportNames.add(n);
+  }
 } catch (err) {
   console.error(err.message);
   process.exit(1);
 }
+const getValueExportNames = () => valueExportNames;
 const { getStoriesByTitle } = loadStories();
-
-const propsByComponent = getPropsByComponent();
 const storiesByTitle = getStoriesByTitle();
 
 // YAML, not a markdown table: prop types contain `|`.
