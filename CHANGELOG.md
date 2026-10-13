@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.4.1](https://github.com/telicent-oss/telicent-ds/compare/v4.4.0...v4.4.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* **data-grid:** tolerate missing outer ThemeProvider ([#573](https://github.com/telicent-oss/telicent-ds/issues/573)) ([17726ee](https://github.com/telicent-oss/telicent-ds/commit/17726eee827e783d48996ad6674bca0dc8da3134))
+
 ## [4.4.0](https://github.com/telicent-oss/telicent-ds/compare/v4.3.0...v4.4.0) (2026-10-12)
 
 
