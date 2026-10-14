@@ -7,7 +7,8 @@ import { useDrawer, DrawerController } from "../primitives/useDrawer";
 import { SxProps, Theme } from "@mui/material";
 export { useDrawer, type DrawerController } from "../primitives/useDrawer";
 
-export interface DrawerProps
+/** @deprecated Use the controlled `Drawer` from `@telicent-oss/ds` (ADR-0005). */
+export interface InsetDrawerProps
   extends Omit<
     DrawerPresentationalProps,
     "open" | "onClose" | "ref" // required by app TS checks
@@ -18,7 +19,12 @@ export interface DrawerProps
   PaperSx?: SxProps<Theme>;
 }
 
-export const Drawer = forwardRef<DrawerController, DrawerProps>(
+/**
+ * @deprecated The map inset's ref-driven panel. Use the controlled `Drawer`
+ * from `@telicent-oss/ds`, which takes `open` and `onClose` (ADR-0005).
+ * Kept for existing consumers; removed in a later major.
+ */
+export const InsetDrawer = forwardRef<DrawerController, InsetDrawerProps>(
   ({ initialOpen = true, onVisibilityChange, children, ...rest }, ref) => {
     const { drawerProps } = useDrawer({
       ref,
@@ -34,4 +40,4 @@ export const Drawer = forwardRef<DrawerController, DrawerProps>(
   }
 );
 
-Drawer.displayName = "Drawer";
+InsetDrawer.displayName = "InsetDrawer";

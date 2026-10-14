@@ -16,8 +16,6 @@ export const AppSwitchLibrarySchema = zod.object({
   id: zod.string(),
   name: zod.string(),
   url: zod.string(),
-  /** @deprecated Use `iconDark` and `iconLight` for theme-aware icons. */
-  icon: zod.string().optional(),
   iconDark: zod.string().optional(),
   iconLight: zod.string().optional(),
 });
@@ -81,8 +79,7 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
             );
           }
 
-          const themedIcon = theme.palette.mode === "dark" ? app.iconDark : app.iconLight;
-          const iconSrc = themedIcon ?? app.icon;
+          const iconSrc = theme.palette.mode === "dark" ? app.iconDark : app.iconLight;
 
           return (
             <MUIMenuItem

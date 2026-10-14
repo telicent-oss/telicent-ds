@@ -16,7 +16,6 @@ import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
 import { BasicMapProperties } from "../../types/map-types";
 import { LayerConfig } from "../../types/layers";
 import { ensureLayers } from "../../utils/ensureLayers";
-import { mapLegacyConfigToLayers } from "../../utils/legacy";
 
 
 const makeProps = (overrides?: Partial<BasicMapProperties>): BasicMapProperties => ({
@@ -55,19 +54,5 @@ describe.skip("BasicMapV2", () => {
 		const props = makeProps({ layers: [darkModeLayer] })
 		render(<BasicMapV2 {...props} />);
 		expect(ensureLayers).toHaveBeenCalled();
-	});
-
-	it("calls mapLegacyConfigToLayers when mapStyleOptions are provided", () => {
-		const mapStyleOption = {
-			vectorStyles: {
-				label: 'default',
-				uri: "http://gohere.com",
-				image: "imagehash",
-			},
-		}
-
-		const props = makeProps({ mapStyleOptions: mapStyleOption })
-		render(<BasicMapV2 {...props} />);
-		expect(mapLegacyConfigToLayers).toHaveBeenCalled();
 	});
 });

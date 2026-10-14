@@ -1,6 +1,6 @@
 import React from "react";
 import { render, act } from "@testing-library/react";
-import { Drawer, DrawerController } from "./Drawer";
+import { InsetDrawer, DrawerController } from "./InsetDrawer";
 
 jest.mock("../primitives/DrawerPresentational", () => {
   const React = require("react") as typeof import("react");
@@ -21,11 +21,11 @@ const {
   __mockDrawerPresentational,
 } = require("../primitives/DrawerPresentational");
 
-describe("Drawer", () => {
+describe("InsetDrawer", () => {
   beforeEach(() => __mockDrawerPresentational.mockClear());
 
   test("passes initialOpen and children", () => {
-    render(<Drawer initialOpen={false}>content</Drawer>);
+    render(<InsetDrawer initialOpen={false}>content</InsetDrawer>);
     const props = __mockDrawerPresentational.mock.calls.at(-1)![0];
     expect(props.open).toBe(false);
     expect(props.children).toBe("content");
@@ -36,9 +36,9 @@ describe("Drawer", () => {
     const ref = React.createRef<DrawerController>();
 
     render(
-      <Drawer ref={ref} initialOpen={false} onVisibilityChange={onVisibilityChange}>
+      <InsetDrawer ref={ref} initialOpen={false} onVisibilityChange={onVisibilityChange}>
         x
-      </Drawer>
+      </InsetDrawer>
     );
 
     expect(onVisibilityChange).toHaveBeenCalledWith(false);
@@ -50,7 +50,7 @@ describe("Drawer", () => {
 
   test("ref API toggles and re-renders", () => {
     const ref = React.createRef<DrawerController>();
-    render(<Drawer ref={ref}>x</Drawer>);
+    render(<InsetDrawer ref={ref}>x</InsetDrawer>);
 
     const first = __mockDrawerPresentational.mock.calls.at(-1)![0].open;
     expect(first).toBe(true);

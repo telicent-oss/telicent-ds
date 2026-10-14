@@ -7,7 +7,7 @@ import { AccordionSummary } from "../AccordionSummary";
 import { AccordionDetails } from "../AccordionDetails";
 
 const renderInTheme = (ui: React.ReactElement) =>
-  setup(<UIThemeProvider theme="DataNavy">{ui}</UIThemeProvider>);
+  setup(<UIThemeProvider theme="DocumentPink">{ui}</UIThemeProvider>);
 
 describe("Accordion", () => {
   test("renders summary and details children", async () => {

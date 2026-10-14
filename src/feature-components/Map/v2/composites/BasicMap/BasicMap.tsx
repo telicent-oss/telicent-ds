@@ -22,7 +22,6 @@ import {
   fitToFeatures,
 } from "./interactions/addPanToFeature";
 import { polygonToOLFeature } from "../../utils/polygons";
-import { mapLegacyConfigToLayers } from "../../utils/legacy";
 import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
 
 export const BasicMapV2 = React.forwardRef<
@@ -35,12 +34,7 @@ export const BasicMapV2 = React.forwardRef<
   const showLayerSelector = props.controls?.showLayerSelector ?? true;
 
   const effectiveLayers = useMemo(() => {
-    const baseLayers =
-      Array.isArray(props.layers) && props.layers.length > 0
-        ? props.layers
-        : props.mapStyleOptions && Object.keys(props.mapStyleOptions).length > 0
-        ? mapLegacyConfigToLayers(props.mapStyleOptions)
-        : [];
+    const baseLayers = Array.isArray(props.layers) ? props.layers : [];
 
     const overlayVectorLayers: LayerConfig[] = [
       // Marker layer

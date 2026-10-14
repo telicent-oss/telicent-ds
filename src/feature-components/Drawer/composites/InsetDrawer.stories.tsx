@@ -1,19 +1,21 @@
 import React, { forwardRef, ReactNode } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, Button } from "@mui/material";
-import { Drawer, DrawerProps } from "./Drawer";
+import { InsetDrawer, InsetDrawerProps } from "./InsetDrawer";
 import { DrawerPresentational } from "../primitives/DrawerPresentational";
 import { useDrawer, DrawerController } from "../primitives/useDrawer";
 import PrimaryButton from "../../../components/buttons/Button/PrimaryButton";
 
-const meta: Meta<typeof Drawer> = {
-  title: "Component Library/Drawer",
-  component: Drawer,
+const meta: Meta<typeof InsetDrawer> = {
+  title: "Component Library/InsetDrawer",
+  component: InsetDrawer,
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
-        component: `Persistent drawer with toggle control. Communicates open state via callback.
+        component: `**Deprecated.** Use \`Drawer\` (Surfaces/Drawer), the controlled side sheet.
+
+Persistent drawer with toggle control. Communicates open state via callback.
 
 Use \`useDrawer\` hook and \`DrawerPresentational\` for imperative control.`,
       },
@@ -29,7 +31,7 @@ Use \`useDrawer\` hook and \`DrawerPresentational\` for imperative control.`,
 };
 export default meta;
 
-type Story = StoryObj<typeof Drawer>;
+type Story = StoryObj<typeof InsetDrawer>;
 
 export const Default: Story = {
   args: {
