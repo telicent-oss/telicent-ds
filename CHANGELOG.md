@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.4.2](https://github.com/telicent-oss/telicent-ds/compare/v4.4.1...v4.4.2) (2026-10-14)
+
+
+### Bug Fixes
+
+* **packaging:** split MUI X deps into opt-in sub-path exports ([#575](https://github.com/telicent-oss/telicent-ds/issues/575)) ([54600b7](https://github.com/telicent-oss/telicent-ds/commit/54600b708ece48216668d4328b72348233eb02f8))
+* **theme:** drop hardcoded dark Paper overrides that broke light theme ([#577](https://github.com/telicent-oss/telicent-ds/issues/577)) ([723ef20](https://github.com/telicent-oss/telicent-ds/commit/723ef206305e5ebf2188f7eeec0dfbab1d302843))
+
 ## [4.4.1](https://github.com/telicent-oss/telicent-ds/compare/v4.4.0...v4.4.1) (2026-10-13)
 
 
