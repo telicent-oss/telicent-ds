@@ -62,8 +62,8 @@ Everything else on MUI X's \`DataGrid\` passes through, and a callsite prop over
 ### Example
 
 \`\`\`tsx
-import { DataGrid } from "@telicent-oss/ds";
-import type { GridColDef } from "@telicent-oss/ds";
+import { DataGrid } from "@telicent-oss/ds/data-grid";
+import type { GridColDef } from "@telicent-oss/ds/data-grid";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 120 },

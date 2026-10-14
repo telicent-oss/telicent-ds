@@ -30,7 +30,8 @@ Root-level date/time context for every \`<DatePicker>\` / \`<DateTimePicker>\` o
 Mount once at the app root, inside the theme provider, outside any route tree. Every \`<DatePicker>\` / \`<DateTimePicker>\` beneath it reads from the same context.
 
 \`\`\`tsx
-import { UIThemeProvider, LocalizationProvider, DatePicker } from "@telicent-oss/ds";
+import { UIThemeProvider } from "@telicent-oss/ds";
+import { LocalizationProvider, DatePicker } from "@telicent-oss/ds/date-pickers";
 
 const App = () => (
   <UIThemeProvider dark theme="AdminBlue">

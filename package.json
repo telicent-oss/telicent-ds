@@ -90,8 +90,6 @@
     "@emotion/styled": "^11.10.6",
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.16.7",
-    "@mui/x-data-grid": "^8.15.0",
-    "@mui/x-date-pickers": "^8.9.2",
     "@tanstack/react-query": "*",
     "@telicent-oss/ontologyservice": "^1.0.2",
     "axios": "*",
@@ -109,12 +107,6 @@
       "optional": true
     },
     "@mui/material": {
-      "optional": true
-    },
-    "@mui/x-date-pickers": {
-      "optional": true
-    },
-    "@mui/x-data-grid": {
       "optional": true
     }
   },
@@ -231,14 +223,24 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/ds.umd.cjs",
+  "main": "./dist/ds.cjs",
   "module": "./dist/ds.js",
-  "types": "./dist/export.d.ts",
+  "types": "./dist/ds.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/export.d.ts",
+      "types": "./dist/ds.d.ts",
       "import": "./dist/ds.js",
-      "require": "./dist/ds.umd.cjs"
+      "require": "./dist/ds.cjs"
+    },
+    "./data-grid": {
+      "types": "./dist/data-grid.d.ts",
+      "import": "./dist/data-grid.js",
+      "require": "./dist/data-grid.cjs"
+    },
+    "./date-pickers": {
+      "types": "./dist/date-pickers.d.ts",
+      "import": "./dist/date-pickers.js",
+      "require": "./dist/date-pickers.cjs"
     },
     "./dist/style.css": {
       "style": "./dist/style.css",

@@ -19,7 +19,7 @@ import ts from "typescript";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
-export const defaultDtsPath = resolve(root, "dist/export.d.ts");
+export const defaultDtsPath = resolve(root, "dist/ds.d.ts");
 
 // api-extractor rolls default imports up to opaque `default_N` aliases; map each
 // back to a readable name so no `default_N` token leaks into the rendered types.

@@ -15,9 +15,13 @@ export default defineConfig({
     minify: false,
     sourcemap: true,
     lib: {
-      entry: path.resolve(__dirname, "src/export.ts"),
+      entry: {
+        ds: path.resolve(__dirname, "src/export.ts"),
+        "data-grid": path.resolve(__dirname, "src/data-grid.ts"),
+        "date-pickers": path.resolve(__dirname, "src/date-pickers.ts"),
+      },
       name: "@telicent-oss/ds",
-      fileName: "ds",
+      formats: ["es", "cjs"],
     },
     rollupOptions: {
       // Externalise MUI + Emotion so consumers share a single instance (fixes
