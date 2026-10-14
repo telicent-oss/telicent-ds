@@ -32,11 +32,11 @@ Wrap the app in `UIThemeProvider`. It supplies the MUI theme and `CssBaseline` i
 ```tsx
 import { UIThemeProvider } from "@telicent-oss/ds";
 
-<UIThemeProvider theme="DataNavy" dark={false}>
+<UIThemeProvider theme="DocumentPink" dark={false}>
   <App />
 </UIThemeProvider>
 ```
-- `theme` (required): one of `"DataNavy"`, `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"Blank"`.
+- `theme` (required): one of `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"GeoGreen"`, `"Blank"`.
 - `dark` (optional, default `false`): set it for the dark palette. Dark mode is this prop only — there is no runtime toggle or CSS class.
 
 Read theme colours and tokens in app code with the `useExtendedTheme` hook. This is the sanctioned way to set a colour — use it instead of a Tailwind colour class:
@@ -848,7 +848,7 @@ import { UIThemeProvider } from "@telicent-oss/ds";
 
 export function Root() {
   return (
-    <UIThemeProvider theme="DataNavy" dark={false}>
+    <UIThemeProvider theme="DocumentPink" dark={false}>
       <App />
     </UIThemeProvider>
   );
