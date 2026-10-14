@@ -420,22 +420,18 @@ export declare const AppSwitchLibrarySchema: default_3.ZodObject<{
     id: default_3.ZodString;
     name: default_3.ZodString;
     url: default_3.ZodString;
-    /** @deprecated Use `iconDark` and `iconLight` for theme-aware icons. */
-    icon: default_3.ZodOptional<default_3.ZodString>;
     iconDark: default_3.ZodOptional<default_3.ZodString>;
     iconLight: default_3.ZodOptional<default_3.ZodString>;
 }, "strip", default_3.ZodTypeAny, {
     id: string;
     url: string;
     name: string;
-    icon?: string | undefined;
     iconDark?: string | undefined;
     iconLight?: string | undefined;
 }, {
     id: string;
     url: string;
     name: string;
-    icon?: string | undefined;
     iconDark?: string | undefined;
     iconLight?: string | undefined;
 }>;
@@ -593,10 +589,6 @@ export declare interface BasicMapProperties {
     center: number[];
     layers?: LayerConfig[];
     controls?: Partial<MapControlsConfig>;
-    /**
-     * @deprecated Use `layers` instead. This prop will be removed in a future release.
-     */
-    mapStyleOptions?: LegacyMapConfig;
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
     onFeatureClick?: OnFeatureClick;
@@ -2794,24 +2786,6 @@ export declare interface LayerWithOptionalSource extends default_5 {
     getSource?: () => SourceWithEvents | null;
 }
 
-export declare type LegacyMapConfig = {
-    vectorStyles?: LegacyVectorStyle;
-    tileSets?: LegacyTileSet[];
-};
-
-export declare type LegacyTileSet = {
-    label: string;
-    uri: string;
-    image: string;
-    attribution?: string;
-};
-
-export declare type LegacyVectorStyle = {
-    label: string;
-    uri: string;
-    image: string;
-};
-
 export declare const LinearProgress: default_2.FC<LinearProgressProps>;
 
 export declare const Link: default_2.ForwardRefExoticComponent<Omit<LinkButtonProps, "ref"> & default_2.RefAttributes<HTMLButtonElement>>;
@@ -4191,13 +4165,8 @@ declare type UIThemeProviderProps = default_2.PropsWithChildren & {
     dark?: boolean;
 };
 
-/**
- * Curated set of DS themes. `"DataNavy"` is deprecated (kept for backwards
- * compatibility with apps that still pass it to `UIThemeProvider`) and is
- * hidden from the Storybook theme selector — prefer any of the others for
- * new work.
- */
-export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
+/** Curated set of DS themes. */
+export declare const UIThemeSchema: default_3.ZodEnum<["DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
 
 export declare const uriComponentCodec: Codec;
 
