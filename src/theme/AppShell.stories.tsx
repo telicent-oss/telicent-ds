@@ -90,7 +90,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          "Composed layout that renders together the DS components apps reach for most, so a theme change can be assessed in context. Not a component reference — for that, see each component's own story. Use the Storybook theme selector to flip between DataNavy / DocumentPink / GraphOrange / AdminBlue / Blank and observe how contrast, elevation, and severity react across the same layout. Useful for accessibility spot-checks and for eyeballing a new palette before an app upgrades.",
+          "Composed layout that renders together the DS components apps reach for most, so a theme change can be assessed in context. Not a component reference — for that, see each component's own story. Use the Storybook theme selector to flip between DocumentPink / GraphOrange / AdminBlue / GeoGreen / Blank and observe how contrast, elevation, and severity react across the same layout. Useful for accessibility spot-checks and for eyeballing a new palette before an app upgrades.",
       },
     },
   },
