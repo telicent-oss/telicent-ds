@@ -2,34 +2,24 @@ import Select from "ol/interaction/Select";
 import { click } from "ol/events/condition";
 import { Feature, Map as OlMap } from "ol";
 import type VectorLayer from "ol/layer/Vector";
-import { Stroke, Style } from "ol/style";
-import type { StyleFunction } from "ol/style/Style";
 import { FeatureEvent } from "../../../types/map-types";
 
 interface AddSelectInteractionOptions {
   map: OlMap;
-  layer: VectorLayer;
+  layers: VectorLayer[];
   onSelect?: (features: Feature[], event?: FeatureEvent) => void;
 }
 
 export const addSelectInteraction = ({
   map,
-  layer,
+  layers,
   onSelect,
 }: AddSelectInteractionOptions): Select => {
   const select = new Select({
-    layers: [layer],
+    layers,
     condition: click,
-    style: (feat) => {
-      const original = feat.get("originalStyle") as Style | Style[] | undefined;
-      const baseStyles = Array.isArray(original)
-        ? original
-        : original
-        ? [original]
-        : [];
-      // Add highlight on top
-      return baseStyles;
-    },
+    // null keeps the layer style on a selected feature.
+    style: null,
   });
 
   map.addInteraction(select);

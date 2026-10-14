@@ -2,6 +2,17 @@ export default class MockPolygon {
   private coordinates: number[][][];
 
   constructor(coords: number[][][] = []) {
+    // Real OpenLayers throws a TypeError on a null ring or vertex.
+    for (const ring of coords) {
+      if (!Array.isArray(ring)) {
+        throw new TypeError("Cannot read properties of null (reading 'length')");
+      }
+      for (const vertex of ring) {
+        if (!Array.isArray(vertex)) {
+          throw new TypeError("Cannot read properties of null (reading '0')");
+        }
+      }
+    }
     this.coordinates = coords;
   }
 
@@ -31,9 +42,14 @@ export default class MockPolygon {
     return this;
   }
 
+  transform() {
+    return this;
+  }
+
   getExtent(): [number, number, number, number] {
     if (!this.coordinates.length) {
-      return [0, 0, 0, 0];
+      // Real OpenLayers returns this for an empty geometry.
+      return [Infinity, Infinity, -Infinity, -Infinity];
     }
 
     let minX = Infinity;
