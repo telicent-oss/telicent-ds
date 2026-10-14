@@ -1,11 +1,11 @@
 # Telicent DS Component Manifest
 
-**VERSION:** This file documents @telicent-oss/ds v4.4.1. If that is not the version installed in the project you are working on, do not build against it: read `node_modules/@telicent-oss/ds/dist/llms.txt` instead, which ships with the package and always matches what is installed.
+**VERSION:** This file documents @telicent-oss/ds unreleased, after v4.4.1. If that is not the version installed in the project you are working on, do not build against it: read `node_modules/@telicent-oss/ds/dist/llms.txt` instead, which ships with the package and always matches what is installed.
 
 > `@telicent-oss/ds` is Telicent's MUI-based React component library. This file is the complete, self-contained reference: setup, theming, every exported component, and copy-paste recipes. An agent that fetches it has what it needs to build a Telicent app UI without reading the source.
 
 **AGENT INSTRUCTION:** This is your source of truth for UI components. Before writing any custom JSX or Tailwind classes for a visual element, you MUST find the closest match in this document.
-- All components are imported directly from `@telicent-oss/ds`. (e.g., `import { Button, Card } from "@telicent-oss/ds";`)
+- Most components are imported directly from `@telicent-oss/ds` (e.g., `import { Button, Card } from "@telicent-oss/ds";`). Two heavy MUI X integrations are exposed as opt-in sub-paths so apps that don't use them pay nothing: `@telicent-oss/ds/data-grid` for `DataGrid`, `@telicent-oss/ds/date-pickers` for `DatePicker` / `DateTimePicker` / `LocalizationProvider` / `AdapterDayjs`.
 - **Do not** write raw HTML (`<button>`, `<div>` for cards, `<input>`) if a component exists here.
 - **Do not** use Tailwind for colors, borders, or shadows on these components; the theme controls them. Set colour through the theme palette (see Setup & Theming). Use Tailwind primarily for spacing (`gap-X`, `mt-X`) and sizing.
 
@@ -551,7 +551,7 @@ Demonstrated states:
 - Default
 - WithLabelledBy
 - DeselectHazard
-* **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs.
+* **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs. Import from the `@telicent-oss/ds/date-pickers` sub-path, which carries the `@mui/x-date-pickers` dependency so apps that don't use date inputs pay nothing for it.
 ```yaml
 DatePicker:
   error: {type: 'boolean', required: false}
@@ -588,7 +588,7 @@ Demonstrated states:
 - Default — label="Pick date & time"
 - ErrorState — label="Required field", error=true, errorMsg="Something went wrong", helperText="Date and time are required"
 - WithDateRestrictions — label="Restricted time range", helperText="Only available within the next 48 hours"
-* **`LocalizationProvider` / `AdapterDayjs`**: Root-level provider for `DatePicker` / `DateTimePicker`. Mount once at the app root — the dayjs adapter is pre-wired, so a bare `<LocalizationProvider>` is enough. `AdapterDayjs` is re-exported for apps that want to pass it explicitly or use it outside the provider.
+* **`LocalizationProvider` / `AdapterDayjs`**: Root-level provider for `DatePicker` / `DateTimePicker`. Mount once at the app root — the dayjs adapter is pre-wired, so a bare `<LocalizationProvider>` is enough. `AdapterDayjs` is re-exported for apps that want to pass it explicitly or use it outside the provider. Imported from `@telicent-oss/ds/date-pickers` alongside the pickers.
 ```yaml
 LocalizationProvider:
   dateAdapter: {type: 'new (...args: any) => MuiPickersAdapter<unknown>', required: false}
@@ -657,7 +657,7 @@ Demonstrated states:
 - Outlined — variant="outlined"
 - ClickableChips
 - DeletableChips
-* **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
+* **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). Import from the `@telicent-oss/ds/data-grid` sub-path, which carries the `@mui/x-data-grid` dependency so apps that don't use grids pay nothing for it. DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
 ```yaml
 DataGrid:
   initialSort: {type: 'GridSortModel', required: false}
@@ -1006,4 +1006,4 @@ ThemeSwitchRow:
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds v4.4.1.
+This reference documents @telicent-oss/ds unreleased, after v4.4.1.
