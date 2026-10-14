@@ -48,13 +48,15 @@ export const ResizeBaseline: Story = {
       <AppSwitch
         apps={[
           {
-            icon: "./src/assets/icons/graph.svg",
+            iconDark: "./src/assets/icons/graph.svg",
+            iconLight: "./src/assets/icons/graph.svg",
             id: "telicent-graph",
             name: "graph",
             url: "https://graph.io",
           },
           {
-            icon: "./src/assets/icons/search.svg",
+            iconDark: "./src/assets/icons/search.svg",
+            iconLight: "./src/assets/icons/search.svg",
             id: "telicent-search",
             name: "search",
             url: "https://search.io",

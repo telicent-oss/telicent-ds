@@ -12,19 +12,19 @@ describe("App switch component", () => {
             id: "app-1",
             name: "App 1",
             url: "www.app1.com",
-            icon: "www.app1.com/assets/favicon.svg",
+            iconLight: "www.app1.com/assets/favicon.svg",
           },
           {
             id: "app-2",
             name: "App 2",
             url: "www.app2.com",
-            icon: "www.app2.com/assets/favicon.svg",
+            iconLight: "www.app2.com/assets/favicon.svg",
           },
           {
             id: "app-3",
             name: "App 3",
             url: "www.app3.com",
-            icon: "www.app3.com/assets/favicon.svg",
+            iconLight: "www.app3.com/assets/favicon.svg",
           },
         ]}
       />,
@@ -38,7 +38,7 @@ describe("App switch component", () => {
     expect(screen.getByRole("heading", { name: "APP 2" })).toBeInTheDocument();
   });
 
-  test("prefers theme-aware icon over legacy icon field", async () => {
+  test("uses the light icon in light mode", async () => {
     const { user } = setup(
       <AppSwitch
         apps={[
@@ -46,7 +46,6 @@ describe("App switch component", () => {
             id: "app-1",
             name: "App 1",
             url: "www.app1.com",
-            icon: "www.app1.com/legacy.svg",
             iconLight: "www.app1.com/light.svg",
             iconDark: "www.app1.com/dark.svg",
           },
@@ -58,26 +57,6 @@ describe("App switch component", () => {
 
     const icon = screen.getByRole("img", { name: "App 1 icon" });
     expect(icon).toHaveAttribute("src", "www.app1.com/light.svg");
-  });
-
-  test("falls back to legacy icon when theme-aware variants are absent", async () => {
-    const { user } = setup(
-      <AppSwitch
-        apps={[
-          {
-            id: "app-1",
-            name: "App 1",
-            url: "www.app1.com",
-            icon: "www.app1.com/legacy.svg",
-          },
-        ]}
-      />,
-    );
-
-    await user.click(screen.getByRole("button", { name: "app-switch" }));
-
-    const icon = screen.getByRole("img", { name: "App 1 icon" });
-    expect(icon).toHaveAttribute("src", "www.app1.com/legacy.svg");
   });
 
   test("renders name only when no icon is provided", async () => {
@@ -107,13 +86,13 @@ describe("App switch component", () => {
           {
             id: "app-1",
             name: "App 1",
-            icon: "www.app1.com/assets/favicon.svg",
+            iconLight: "www.app1.com/assets/favicon.svg",
           },
           {
             id: "app-2",
             name: "App 2",
             url: "www.app2.com",
-            icon: "www.app2.com/assets/favicon.svg",
+            iconLight: "www.app2.com/assets/favicon.svg",
           },
         ]}
       />,

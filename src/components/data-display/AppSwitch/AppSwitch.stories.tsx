@@ -46,7 +46,7 @@ const meta: Meta<typeof AppSwitch> = {
     docs: {
       description: {
         component:
-          "AppSwitch component accepts apps, an array of objects with id, name, url and optional iconDark/iconLight (theme-aware). The legacy `icon` field is still supported but deprecated. If no icon is provided, only the name renders.",
+          "AppSwitch component accepts apps, an array of objects with id, name, url and optional iconDark/iconLight (theme-aware). If no icon is provided, only the name renders.",
       },
     },
     layout: "fullscreen",
