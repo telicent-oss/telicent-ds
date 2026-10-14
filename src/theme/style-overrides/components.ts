@@ -8,6 +8,7 @@ const generateComponentOverrides = (uiTheme: UITheme) =>
     ...componentOverrides.generateAccordionOverrides(uiTheme),
     ...componentOverrides.generateButtonOverrides(uiTheme),
     ...componentOverrides.generateCardOverrides(uiTheme),
+    ...componentOverrides.generateDrawerOverrides(uiTheme),
     ...componentOverrides.generateTabsOverrides(uiTheme),
     ...componentOverrides.generateToggleButtonOverrides(uiTheme),
     MuiPaper: {

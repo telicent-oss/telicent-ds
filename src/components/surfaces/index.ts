@@ -6,6 +6,9 @@ export { default as FixedPanel } from "./FixedPanel/FixedPanel";
 export { default as AppBar } from "./AppBar/AppBar";
 export type { AppBarProps } from "./AppBar/AppBar";
 
+export { default as Drawer } from "./Drawer/Drawer";
+export type { DrawerProps } from "./Drawer/Drawer";
+
 export { default as PopOver } from "./PopOver/Popover";
 export { default as Popper } from "./Popper/Popper";
 export type { PopperProps } from "./Popper/Popper";
