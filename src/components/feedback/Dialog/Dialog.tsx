@@ -24,17 +24,7 @@ export interface DialogProps extends MuiDialogProps {
 
 const Dialog: FC<DialogProps> = ({ open, onClose, children, ...otherProps }) => {
   return (
-    <MuiDialog
-      open={open}
-      onClose={onClose}
-      sx={{
-        "& .MuiPaper-root": {
-          backgroundColor: "#1e1e1e",
-          color: "#fff",
-        },
-      }}
-      {...otherProps}
-    >
+    <MuiDialog open={open} onClose={onClose} {...otherProps}>
       {children}
     </MuiDialog>
   );
