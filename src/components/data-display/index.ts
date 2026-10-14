@@ -7,6 +7,9 @@ export { AppSwitchLibrarySchema } from "./AppSwitch/AppSwitch";
 export { default as AppSwitch } from "./AppSwitch/AppSwitch";
 export type { AppSwitchLibraryType } from "./AppSwitch/AppSwitch";
 
+export { default as Badge } from "./Badge/Badge";
+export type { BadgeProps } from "./Badge/Badge";
+
 export { default as Chip } from "./Chip/Chip";
 export type { ChipProps } from "./Chip/Chip";
 

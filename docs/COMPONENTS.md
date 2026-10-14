@@ -105,9 +105,12 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:DraggableFloatingPanel -->
 <!-- stories:Surfaces/FixedPanel -->
 <!-- stories:Surfaces/FloatingPanel/FloatingPanel.DraggablePanel -->
-* **`Drawer`**: Collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+* **`Drawer`**: Controlled side sheet for a task beside the page (filters, details). Pass `open`/`onClose` and `width`; header, scrolling body and footer are children.
 <!-- props:Drawer -->
-<!-- stories:Component Library/Drawer -->
+<!-- stories:Surfaces/Drawer -->
+* **`InsetDrawer`** *(deprecated, use `Drawer`)*: The map inset's collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+<!-- props:InsetDrawer -->
+<!-- stories:Component Library/InsetDrawer -->
 * **`AppBar` / `Toolbar` / `AppChrome`**: Use strictly for top-level application navigation and headers. `AppChrome` is the app shell; pair it with `AppSwitch` for cross-app navigation.
 
   Application header — blessed method. Render the top-level chrome of a standalone app with `AppBar` and fill every chrome slot; do not ship the title-only form. Canonical composition:
@@ -185,6 +188,9 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:TreeView -->
 * **`Chip`**: Use for tags, statuses, or small attributes.
 <!-- stories:Data display/Chip -->
+* **`Badge`**: A count or dot on another element. Put the count in the host's accessible name; the badge is hidden from screen readers.
+<!-- props:Badge -->
+<!-- stories:Data display/Badge -->
 * **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). Import from the `@telicent-oss/ds/data-grid` sub-path, which carries the `@mui/x-data-grid` dependency so apps that don't use grids pay nothing for it. DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
 <!-- props:DataGrid -->
 <!-- stories:Data display/DataGrid -->
