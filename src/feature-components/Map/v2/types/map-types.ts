@@ -7,24 +7,6 @@ import { MarkerFeature } from "./markers";
 import { Map } from "ol";
 import { PolygonFeature } from "./polygons";
 
-export type LegacyTileSet = {
-  label: string;
-  uri: string;
-  image: string;
-  attribution?: string;
-};
-
-export type LegacyVectorStyle = {
-  label: string;
-  uri: string;
-  image: string;
-};
-
-export type LegacyMapConfig = {
-  vectorStyles?: LegacyVectorStyle;
-  tileSets?: LegacyTileSet[];
-};
-
 export type StyleConfig =
   | Partial<{
       fillColor: string;
@@ -82,10 +64,6 @@ export interface BasicMapProperties {
   center: number[];
   layers?: LayerConfig[];
   controls?: Partial<MapControlsConfig>;
-  /**
-   * @deprecated Use `layers` instead. This prop will be removed in a future release.
-   */
-  mapStyleOptions?: LegacyMapConfig;
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
   onFeatureClick?: OnFeatureClick;

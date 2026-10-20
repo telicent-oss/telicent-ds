@@ -61,10 +61,7 @@ const preview: Preview = {
       description: "Global UI theme for components",
       toolbar: {
         title: "Theme",
-        // DataNavy is deprecated (see theme-colors.ts) — apps that still
-        // pass `theme="DataNavy"` keep working, but the Storybook toolbar
-        // no longer offers it so design QA is scoped to the supported set.
-        items: UIThemeSchema.options.filter((t) => t !== "DataNavy"),
+        items: UIThemeSchema.options,
         dynamicTitle: true,
       },
     },

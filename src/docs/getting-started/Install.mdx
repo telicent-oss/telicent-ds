@@ -53,13 +53,13 @@ Wrap your app in `UIThemeProvider`. It supplies the MUI theme and `CssBaseline` 
 import { UIThemeProvider } from "@telicent-oss/ds";
 
 const App = () => (
-  <UIThemeProvider theme="DataNavy" dark={false}>
+  <UIThemeProvider theme="DocumentPink" dark={false}>
     <YourApp />
   </UIThemeProvider>
 );
 ```
 
-- `theme` (required): one of `"DataNavy"`, `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"Blank"`.
+- `theme` (required): one of `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"GeoGreen"`, `"Blank"`.
 - `dark` (optional, default `false`): use the dark palette. Currently a static prop — a runtime toggle is on the roadmap.
 
 ## Reading theme values in your own code

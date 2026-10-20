@@ -11,7 +11,6 @@ export const allArgs: BasicMapProperties = {
 	zoom: 5,
 	center: [0, 0],
 	layers: [],
-	mapStyleOptions: undefined,
 	markers: [],
 	polygons: []
 };

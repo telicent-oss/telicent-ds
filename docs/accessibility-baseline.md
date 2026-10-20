@@ -59,7 +59,7 @@ MUI's bare `<input type="checkbox">` has no accessible name. Covers:
 
 - `Popper AsTypeahead`
 - `Tabs KeepMounted`
-- `Drawer CustomWidth`
+- `InsetDrawer CustomWidth`
 - `FlexGrid` × 3 — `BasicColumns`, `Rows`, `MainDetailLayout`
 - `Alert LightModeThemingCheck`
 - `FloatingPanel.DraggablePanel ResizeBaseline`
