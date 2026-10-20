@@ -1,6 +1,6 @@
 # Telicent DS Component Manifest
 
-**VERSION:** This file documents @telicent-oss/ds v4.4.2. If that is not the version installed in the project you are working on, do not build against it: read `node_modules/@telicent-oss/ds/dist/llms.txt` instead, which ships with the package and always matches what is installed.
+**VERSION:** This file documents @telicent-oss/ds unreleased, after v4.4.2. If that is not the version installed in the project you are working on, do not build against it: read `node_modules/@telicent-oss/ds/dist/llms.txt` instead, which ships with the package and always matches what is installed.
 
 > `@telicent-oss/ds` is Telicent's MUI-based React component library. This file is the complete, self-contained reference: setup, theming, every exported component, and copy-paste recipes. An agent that fetches it has what it needs to build a Telicent app UI without reading the source.
 
@@ -32,11 +32,11 @@ Wrap the app in `UIThemeProvider`. It supplies the MUI theme and `CssBaseline` i
 ```tsx
 import { UIThemeProvider } from "@telicent-oss/ds";
 
-<UIThemeProvider theme="DataNavy" dark={false}>
+<UIThemeProvider theme="DocumentPink" dark={false}>
   <App />
 </UIThemeProvider>
 ```
-- `theme` (required): one of `"DataNavy"`, `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"Blank"`.
+- `theme` (required): one of `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"GeoGreen"`, `"Blank"`.
 - `dark` (optional, default `false`): set it for the dark palette. Dark mode is this prop only — there is no runtime toggle or CSS class.
 
 Read theme colours and tokens in app code with the `useExtendedTheme` hook. This is the sanctioned way to set a colour — use it instead of a Tailwind colour class:
@@ -248,9 +248,22 @@ Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surf
 
 Demonstrated states:
 - ResizeBaseline — bounds="parent", title="Resize baseline", targetId="map", iconBeforeTitle=<jsx>
-* **`Drawer`**: Collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+* **`Drawer`**: Controlled side sheet for a task beside the page (filters, details). Pass `open`/`onClose` and `width`; header, scrolling body and footer are children.
 ```yaml
 Drawer:
+  width: {type: 'string | number', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/surfaces-drawer--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/surfaces/Drawer/Drawer.stories.tsx
+
+Demonstrated states:
+- Default — open=false
+- Width — open=false, width=420
+- CappedAtViewport — open=false, width=1600
+- HeaderBodyFooter — open=false, width=420
+* **`InsetDrawer`** *(deprecated, use `Drawer`)*: The map inset's collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+```yaml
+InsetDrawer:
   children: {type: 'React.ReactNode', required: true}
   drawerWidth: {type: 'number', required: false}
   id: {type: 'string', required: false}
@@ -260,8 +273,8 @@ Drawer:
   PaperProps: {type: 'Partial<PaperProps<React.ElementType<any, keyof React.JSX.IntrinsicElements>>>', required: false}
   PaperSx: {type: 'SxProps<Theme>', required: false}
 ```
-Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/component-library-drawer--docs
-Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/feature-components/Drawer/composites/Drawer.stories.tsx
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/component-library-insetdrawer--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/feature-components/Drawer/composites/InsetDrawer.stories.tsx
 
 Demonstrated states:
 - Default — children=<jsx>
@@ -657,6 +670,19 @@ Demonstrated states:
 - Outlined — variant="outlined"
 - ClickableChips
 - DeletableChips
+* **`Badge`**: A count or dot on another element. Put the count in the host's accessible name; the badge is hidden from screen readers.
+```yaml
+Badge: {} # no own props; all inherited from the underlying MUI/DOM element
+```
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/data-display-badge--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/components/data-display/Badge/Badge.stories.tsx
+
+Demonstrated states:
+- OnIconButton — badgeContent=2
+- ZeroHidden — badgeContent=0
+- Max — badgeContent=120, max=99
+- Dot — variant="dot", badgeContent=1
+- AnnouncedBadge — badgeContent=3, slotProps={…}
 * **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). Import from the `@telicent-oss/ds/data-grid` sub-path, which carries the `@mui/x-data-grid` dependency so apps that don't use grids pay nothing for it. DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
 ```yaml
 DataGrid:
@@ -822,7 +848,7 @@ import { UIThemeProvider } from "@telicent-oss/ds";
 
 export function Root() {
   return (
-    <UIThemeProvider theme="DataNavy" dark={false}>
+    <UIThemeProvider theme="DocumentPink" dark={false}>
       <App />
     </UIThemeProvider>
   );
@@ -1006,4 +1032,4 @@ ThemeSwitchRow:
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds v4.4.2.
+This reference documents @telicent-oss/ds unreleased, after v4.4.2.
