@@ -24,8 +24,8 @@ import { AvatarProps } from '@mui/material';
 import { AxiosInstance } from 'axios';
 import { BackdropClasses } from '@mui/material';
 import { BackdropProps } from '@mui/material';
-import { BadgeClasses } from '@mui/material';
-import { BadgeProps } from '@mui/material';
+import { BadgeOwnProps } from '@mui/material';
+import { BadgeProps as BadgeProps_2 } from '@mui/material/Badge';
 import { BaseSelectProps } from '@mui/material';
 import { BottomNavigationActionClasses } from '@mui/material';
 import { BottomNavigationActionProps } from '@mui/material';
@@ -94,7 +94,6 @@ import { DividerClasses } from '@mui/material';
 import { dividerClasses } from '@mui/material/Divider';
 import { DividerProps } from '@mui/material/Divider';
 import { DividerProps as DividerProps_3 } from '@mui/material';
-import { DrawerClasses } from '@mui/material';
 import { DrawerProps as DrawerProps_2 } from '@mui/material/Drawer';
 import { DrawerProps as DrawerProps_3 } from '@mui/material';
 import { ElementType } from 'react';
@@ -421,22 +420,18 @@ export declare const AppSwitchLibrarySchema: default_3.ZodObject<{
     id: default_3.ZodString;
     name: default_3.ZodString;
     url: default_3.ZodString;
-    /** @deprecated Use `iconDark` and `iconLight` for theme-aware icons. */
-    icon: default_3.ZodOptional<default_3.ZodString>;
     iconDark: default_3.ZodOptional<default_3.ZodString>;
     iconLight: default_3.ZodOptional<default_3.ZodString>;
 }, "strip", default_3.ZodTypeAny, {
     id: string;
     url: string;
     name: string;
-    icon?: string | undefined;
     iconDark?: string | undefined;
     iconLight?: string | undefined;
 }, {
     id: string;
     url: string;
     name: string;
-    icon?: string | undefined;
     iconDark?: string | undefined;
     iconLight?: string | undefined;
 }>;
@@ -544,6 +539,10 @@ declare type AutocompleteOption = {
     isRecentSearch: boolean;
 };
 
+export declare const Badge: default_2.FC<BadgeProps>;
+
+export declare type BadgeProps = BadgeProps_2;
+
 export declare const base64Codec: Codec;
 
 export declare type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;
@@ -590,10 +589,6 @@ export declare interface BasicMapProperties {
     center: number[];
     layers?: LayerConfig[];
     controls?: Partial<MapControlsConfig>;
-    /**
-     * @deprecated Use `layers` instead. This prop will be removed in a future release.
-     */
-    mapStyleOptions?: LegacyMapConfig;
     markers: MarkerFeature[];
     polygons: PolygonFeature[];
     onFeatureClick?: OnFeatureClick;
@@ -903,8 +898,13 @@ export declare interface DraggableFloatingPanelProps extends HTMLAttributes<HTML
 
 export declare const DragHandleIcon: default_2.FC<SvgIconProps>;
 
-export declare const Drawer: default_2.ForwardRefExoticComponent<DrawerProps & default_2.RefAttributes<DrawerController>>;
+/**
+ * A controlled side sheet: MUI's Drawer under the DS theme. The caller owns
+ * `open` and `onClose`, and Escape and a backdrop click both call `onClose`.
+ */
+export declare const Drawer: default_2.FC<DrawerProps>;
 
+/** @deprecated Part of the deprecated `InsetDrawer` (ADR-0005). */
 export declare interface DrawerController {
     openDrawer(): void;
     closeDrawer(): void;
@@ -921,12 +921,13 @@ declare interface DrawerPresentationalProps extends Omit<DrawerProps_2, "PaperPr
     id?: string;
 }
 
-export declare interface DrawerProps extends Omit<DrawerPresentationalProps, "open" | "onClose" | "ref"> {
-    /** (default: true) */
-    initialOpen?: boolean;
-    onVisibilityChange?: (open: boolean) => void;
-    PaperSx?: SxProps<Theme>;
-}
+export declare type DrawerProps = DrawerProps_2 & {
+    /**
+     * Width of a left or right panel, in px when a number. The theme caps it
+     * at the viewport, so a fixed width never runs off a narrow screen.
+     */
+    width?: number | string;
+};
 
 export declare const DropdownButton: default_2.FC<DropdownButtonProps>;
 
@@ -1289,6 +1290,19 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             };
         };
     };
+    MuiDrawer: {
+        styleOverrides: {
+            paper: ({ ownerState }: DrawerProps_3 & Record<string, unknown> & {
+                ownerState: DrawerProps_3 & Record<string, unknown>;
+            } & {
+                theme: Omit<Theme, "components">;
+            }) => {
+                maxWidth: string;
+            } | {
+                maxWidth?: undefined;
+            };
+        };
+    };
     MuiCard: {
         variants: {
             props: {
@@ -1398,6 +1412,30 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             };
         };
     };
+    MuiBadge: {
+        styleOverrides: {
+            badge: ({ theme }: BadgeOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "components" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "color" | "invisible" | "anchorOrigin" | "badgeContent" | "componentsProps" | "max" | "overlap" | "showZero"> & {
+                component?: ElementType;
+            } & Record<string, unknown> & {
+                ownerState: BadgeOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "components" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "color" | "invisible" | "anchorOrigin" | "badgeContent" | "componentsProps" | "max" | "overlap" | "showZero"> & {
+                    component?: ElementType;
+                } & Record<string, unknown>;
+            } & {
+                theme: Omit<Theme, "components">;
+            }) => {
+                pointerEvents: "none";
+                "&.MuiBadge-standard": {
+                    minWidth: number;
+                    height: number;
+                    padding: string;
+                    borderRadius: number;
+                    fontSize: number;
+                    fontWeight: number;
+                    border: string;
+                };
+            };
+        };
+    };
     MuiAccordion: {
         defaultProps: {
             elevation: number;
@@ -1466,18 +1504,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<BackdropProps> | ((props: Partial<BackdropProps> & {
                 ownerState: Partial<BackdropProps>;
-            }) => boolean);
-            style: Interpolation<    {
-                theme: Omit<Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiBadge?: {
-        defaultProps?: ComponentsProps["MuiBadge"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof BadgeClasses, "MuiBadge", Omit<Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<BadgeProps> | ((props: Partial<BadgeProps> & {
-                ownerState: Partial<BadgeProps>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme, "components">;
@@ -1706,18 +1732,6 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         variants?: {
             props: Partial<DividerProps_3> | ((props: Partial<DividerProps_3> & {
                 ownerState: Partial<DividerProps_3>;
-            }) => boolean);
-            style: Interpolation<    {
-                theme: Omit<Theme, "components">;
-            }>;
-        }[] | undefined;
-    } | undefined;
-    MuiDrawer?: {
-        defaultProps?: ComponentsProps["MuiDrawer"];
-        styleOverrides?: Partial<OverridesStyleRules<keyof DrawerClasses, "MuiDrawer", Omit<Theme, "components">>> | undefined;
-        variants?: {
-            props: Partial<DrawerProps_3> | ((props: Partial<DrawerProps_3> & {
-                ownerState: Partial<DrawerProps_3>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme, "components">;
@@ -2703,6 +2717,21 @@ declare type InputText = TextFieldProps & {
     fullWidth?: boolean;
 };
 
+/**
+ * @deprecated The map inset's ref-driven panel. Use the controlled `Drawer`
+ * from `@telicent-oss/ds`, which takes `open` and `onClose` (ADR-0005).
+ * Kept for existing consumers; removed in a later major.
+ */
+export declare const InsetDrawer: default_2.ForwardRefExoticComponent<InsetDrawerProps & default_2.RefAttributes<DrawerController>>;
+
+/** @deprecated Use the controlled `Drawer` from `@telicent-oss/ds` (ADR-0005). */
+export declare interface InsetDrawerProps extends Omit<DrawerPresentationalProps, "open" | "onClose" | "ref"> {
+    /** (default: true) */
+    initialOpen?: boolean;
+    onVisibilityChange?: (open: boolean) => void;
+    PaperSx?: SxProps<Theme>;
+}
+
 export declare const InsetInMap: default_2.FC<RootPropsType & {
     content: default_2.ReactNode;
     children?: default_2.ReactNode;
@@ -2756,24 +2785,6 @@ export declare type LayersRef = React.MutableRefObject<default_5[] | null>;
 export declare interface LayerWithOptionalSource extends default_5 {
     getSource?: () => SourceWithEvents | null;
 }
-
-export declare type LegacyMapConfig = {
-    vectorStyles?: LegacyVectorStyle;
-    tileSets?: LegacyTileSet[];
-};
-
-export declare type LegacyTileSet = {
-    label: string;
-    uri: string;
-    image: string;
-    attribution?: string;
-};
-
-export declare type LegacyVectorStyle = {
-    label: string;
-    uri: string;
-    image: string;
-};
 
 export declare const LinearProgress: default_2.FC<LinearProgressProps>;
 
@@ -3872,11 +3883,11 @@ declare type TeliTypeIconSizeProp = "xs" | "sm" | "base" | "lg";
 declare const Text_2: default_2.FC<TextProps>;
 export { Text_2 as Text }
 
-export declare const TextField: default_2.ForwardRefExoticComponent<(Omit<OutlinedTextFieldProps & {
+export declare const TextField: default_2.ForwardRefExoticComponent<(Omit<StandardTextFieldProps & {
+    errorText?: default_2.ReactNode;
+}, "ref"> | Omit<OutlinedTextFieldProps & {
     errorText?: default_2.ReactNode;
 }, "ref"> | Omit<FilledTextFieldProps & {
-    errorText?: default_2.ReactNode;
-}, "ref"> | Omit<StandardTextFieldProps & {
     errorText?: default_2.ReactNode;
 }, "ref">) & default_2.RefAttributes<HTMLInputElement>>;
 
@@ -4154,13 +4165,8 @@ declare type UIThemeProviderProps = default_2.PropsWithChildren & {
     dark?: boolean;
 };
 
-/**
- * Curated set of DS themes. `"DataNavy"` is deprecated (kept for backwards
- * compatibility with apps that still pass it to `UIThemeProvider`) and is
- * hidden from the Storybook theme selector — prefer any of the others for
- * new work.
- */
-export declare const UIThemeSchema: default_3.ZodEnum<["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
+/** Curated set of DS themes. */
+export declare const UIThemeSchema: default_3.ZodEnum<["DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
 
 export declare const uriComponentCodec: Codec;
 
@@ -4177,6 +4183,7 @@ export declare const useDebounce: (value: any, delay?: number) => any;
  * @param onVisibilityChange
  * @returns
  */
+/** @deprecated Part of the deprecated `InsetDrawer` (ADR-0005). */
 export declare function useDrawer(args: {
     ref: ForwardedRef<DrawerController>;
     initialOpen: boolean;
