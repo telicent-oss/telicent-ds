@@ -16,6 +16,36 @@ import "../src/index.css";
 // `UIThemeProvider` so `useTheme()` resolves. See docs/accessibility.md § Known gaps.
 const ThemedCanvas: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const theme = useTheme();
+  // Inject a stylesheet into the preview iframe so <html> and <body> share
+  // the themed background. Needed because Storybook's own `.sb-show-main`
+  // / preview-body styles paint the outer area white at a specificity that
+  // beats a plain inline style on `document.body`. `!important` makes the
+  // override reliable across Storybook versions. The canvas div still
+  // paints its own background so a11y color-contrast measurement is
+  // unchanged.
+  React.useEffect(() => {
+    const styleId = "ds-themed-canvas-body-bg";
+    let style = document.getElementById(styleId) as HTMLStyleElement | null;
+    if (!style) {
+      style = document.createElement("style");
+      style.id = styleId;
+      document.head.appendChild(style);
+    }
+    // Covers both views:
+    //  - standalone canvas: html / body / .sb-show-main
+    //  - autodocs preview boxes: .sbdocs-preview / .docs-story / .innerZoomElementWrapper
+    // (Leaves the surrounding docs-page chrome — titles, prop tables, prose —
+    // untouched so only the actual story preview area picks up the theme.)
+    style.textContent = `
+      html, body, .sb-show-main,
+      .sbdocs-preview, .docs-story, .innerZoomElementWrapper {
+        background-color: ${theme.palette.background.default} !important;
+      }
+    `;
+    return () => {
+      style?.remove();
+    };
+  }, [theme.palette.background.default]);
   return (
     <div
       style={{

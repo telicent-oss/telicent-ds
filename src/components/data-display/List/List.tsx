@@ -21,9 +21,10 @@ export const ListItem: React.FC<MUIListItemProps> = (listItemProps) => (
   <MUIListItem {...listItemProps} />
 );
 
-export const ListItemButton: React.FC<MUIListItemButtonProps> = (
-  listItemButtonProps
-) => <MUIListItemButton {...listItemButtonProps} />;
+// Re-exported as-is so MUI's OverridableComponent typing survives — this is
+// what lets `<ListItemButton component="a" href={...}>` narrow onClick to
+// anchor events. Wrapping it in React.FC would strip the generic.
+export const ListItemButton = MUIListItemButton;
 
 export const ListItemIcon: React.FC<MUIListItemIconProps> = (
   listItemIconProps
