@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.0.0](https://github.com/telicent-oss/telicent-ds/compare/v4.4.2...v5.0.0) (2026-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Drawer and DrawerProps now name the controlled side sheet. Import InsetDrawer and InsetDrawerProps for the map inset panel.
+
+### Features
+
+* **data-display:** add EntityList — navigational list of entities ([#580](https://github.com/telicent-oss/telicent-ds/issues/580)) ([32a1cc1](https://github.com/telicent-oss/telicent-ds/commit/32a1cc1e1ec10bfac0409707efa966fb62f396c3))
+* port MUI Drawer and Badge, remove deprecated APIs ([#578](https://github.com/telicent-oss/telicent-ds/issues/578)) ([239e172](https://github.com/telicent-oss/telicent-ds/commit/239e172cde83b11c2770752674cb561eb43c45ac))
+
 ## [4.4.2](https://github.com/telicent-oss/telicent-ds/compare/v4.4.1...v4.4.2) (2026-10-14)
 
 
