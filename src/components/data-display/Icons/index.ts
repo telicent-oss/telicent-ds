@@ -21,4 +21,5 @@ export { default as ExpandMoreIcon } from "./ExpandMoreIcon";
 export { default as ExpandLessIcon } from "./ExpandLessIcon";
 export { List as ListIcon } from "@telicent-oss/mui-icons-material";
 export { LocationOn as LocationOnIcon } from "@telicent-oss/mui-icons-material";
+export { ChevronLeft as ChevronLeftIcon } from "@telicent-oss/mui-icons-material";
 export { ChevronRight as ChevronRightIcon } from "@telicent-oss/mui-icons-material";

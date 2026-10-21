@@ -54,3 +54,11 @@ export { default as TableHead } from "./Table/TableHead";
 export type { TableHeadProps } from "./Table/TableHead";
 export { default as TableRow } from "./Table/TableRow";
 export type { TableRowProps } from "./Table/TableRow";
+
+export { default as EntityList } from "./EntityList/EntityList";
+export type {
+  EntityListColumn,
+  EntityListProps,
+  SortDirection,
+  SortValue,
+} from "./EntityList/EntityList";
