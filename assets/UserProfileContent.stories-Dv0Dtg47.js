@@ -1,0 +1,27 @@
+import{b as e,a as t,F as x}from"./iframe-DLGF4BUc.js";import{c as g,B as n}from"./EntityList-DIdsLu9S.js";import{F as p}from"./FlexBox-2AT2Uwu-.js";import{T as m}from"./Text-DpXgC9ew.js";import"./preload-helper-C1FmrZbK.js";import"./clsx-B-dksMZM.js";import"./styled-B1nzYGMU.js";import"./extendSxProp-DWxvZHYy.js";import"./ListContext-fSi36sDS.js";import"./ListItem-hW3jOJVo.js";import"./FormControl-CE4f5UQy.js";import"./useFormControl-CA29WpPn.js";import"./composeClasses-fLhin0tj.js";import"./TransitionGroupContext-D9CYwYvt.js";import"./resolveComponentProps-D6mFZg2W.js";import"./ButtonBase-CotwqhDg.js";import"./Toolbar-CiP-GOsO.js";import"./TextField-QkCWN4g8.js";import"./Modal-BPxGlzs1.js";import"./ownerDocument-DW-IO8s5.js";import"./createChainedFunction-BO_9K8Jh.js";import"./useSlotProps-rF9rKq-f.js";import"./index-Dy45cCFj.js";import"./utils-CoFQBbdh.js";import"./Popover-Dv9-1Kkh.js";import"./Paper-LJUHI-NO.js";import"./useControlled-D33ms4hd.js";import"./createSvgIcon-B7-RWdsa.js";import"./SvgIcon-By8aXgIc.js";import"./FormHelperText-C3O1dcpJ.js";import"./Close-DkoVebQq.js";import"./Popper-BgB7JZlg.js";import"./Badge-D6m7LIpW.js";import"./Chip-DdiieqSv.js";import"./IconButton-Bkq1m1C2.js";import"./FormControlLabel-DcBr0i4W.js";import"./Typography-CQvGJptE.js";import"./Stack-CX0L4V8W.js";import"./styled-oG3mFbuA.js";import"./createStyled-DLvNylUN.js";import"./useThemeProps-D5sfc09H.js";import"./MenuItem-BBO4kaVs.js";import"./dividerClasses-Ik8JkkD1.js";import"./Button-CV9E6iBw.js";import"./MapToggleButtonPresentational-DJ0t76sA.js";import"./Remove-CSdcmxrN.js";import"./Box-CA85B3I1.js";import"./ExpandLessIcon-BhrxwplQ.js";import"./Box-DfrYrAOU.js";import"./Container-B5aPNULB.js";import"./CogIcon-DZO7HehB.js";import"./InfoIcon-wTIowM_2.js";import"./ExpandMoreIcon-CEUANqPb.js";import"./ThemeSwitchRow-BvvaAcwo.js";import"./index-B2PZUJHW.js";import"./IconButton-C1KFnQCW.js";import"./Badge-BIgwpspb.js";import"./Chip-QXpGNnbf.js";import"./Divider-BqsWnBLy.js";import"./Divider-DHVXymBh.js";import"./TreeView-CxRDQ7im.js";import"./useThemeProps-Ba0TDecv.js";import"./Collapse-CuiTrv0f.js";import"./useSlot-BBQYsIC4.js";import"./AppInfoRow-nWejkyoV.js";import"./_IconPopover-C3WXrhmi.js";import"./AppSettings-C44XWmY2.js";import"./SvgIcon-Cv0ryMMu.js";import"./TableRow-DHNYRXF1.js";import"./TableCell-CDmZf9CJ.js";import"./Skeleton-DU7jOf86.js";import"./Skeleton-DXmSA4o_.js";import"./Edit-r4GAQfgg.js";import"./LinearProgress-DipKtq4x.js";import"./LinearProgress-BFS8oSB-.js";import"./Spinner-i2qfrWwN.js";import"./CircularProgress-i3TCesHd.js";import"./Dialog-Bm_WSvFH.js";import"./DialogContent-De5u5KBX.js";import"./Alert-DbYWFn5H.js";import"./ToggleButton-BWQSSQTu.js";import"./ToggleButton-l9u-dadR.js";import"./ToggleButtonGroup-DJo22eSV.js";import"./LinkButton-CRKxeZyL.js";import"./TextField-C8b_bMXq.js";import"./Switch-NkmTKI6k.js";import"./Switch-CJZKOFUT.js";import"./LabeledSwitch-BQ84BIxN.js";import"./RadioGroup-pBxOyj1N.js";import"./FormControl-DxjzYp0j.js";import"./FormHelperText-cm1vsiIe.js";import"./Tabs-C4i0NMYz.js";import"./MenuItem-BnPC1eYg.js";import"./AccordionDetails-BVl2h7ZR.js";import"./Paper-DC9SKnip.js";import"./ErrorFallback-CtoHCFXW.js";import"./ErrorFallbackText-BsCe1noc.js";import"./ErrorFallbackWrapper-C9vTjGhq.js";import"./Brand-xyVOOd-f.js";const ai={title:"Data display/User profile/User profile content",component:g,tags:["autodocs"],decorators:i=>t("div",{style:{width:300},children:t(i,{})}),argTypes:{children:{control:!1,description:"Content inside the component",table:{type:{summary:"ReactNode"}}}}},u=[{heading:"Username",value:"Admin"},{heading:"Email",value:"admin@telicent.io"},{heading:"Deployed Organisation",value:"Telicent"},{heading:"UserId",value:"3004958Ed-23-sdf-404-21334"},{heading:"Attributes",value:"GBR"},{heading:"Clearance",value:"SEN"}],r={args:{children:u.slice(0,3).map(i=>e(p,{children:[t(m,{children:t("b",{children:i.heading})}),t(m,{children:i.value})]},i.heading))}},o={args:{children:e(x,{children:[u.map(i=>e(p,{children:[t(m,{children:t("b",{children:i.heading})}),t(m,{children:i.value})]},i.heading)),e(p,{direction:"row",columnGap:2,justifyContent:"end",children:[t(n,{variant:"secondary",disableElevation:!0,children:"Action"}),t(n,{disableElevation:!0,children:"Action"})]})]})}};var a,s,d;r.parameters={...r.parameters,docs:{...(a=r.parameters)==null?void 0:a.docs,source:{originalSource:`{
+  args: {
+    children: items.slice(0, 3).map(item => <FlexBox key={item.heading}>
+        <Text>
+          <b>{item.heading}</b>
+        </Text>
+        <Text>{item.value}</Text>
+      </FlexBox>)
+  }
+}`,...(d=(s=r.parameters)==null?void 0:s.docs)==null?void 0:d.source}}};var l,c,h;o.parameters={...o.parameters,docs:{...(l=o.parameters)==null?void 0:l.docs,source:{originalSource:`{
+  args: {
+    children: <>
+        {items.map(item => <FlexBox key={item.heading}>
+            <Text>
+              <b>{item.heading}</b>
+            </Text>
+            <Text>{item.value}</Text>
+          </FlexBox>)}
+        <FlexBox direction="row" columnGap={2} justifyContent="end">
+          <Button variant="secondary" disableElevation>
+            Action
+          </Button>
+          <Button disableElevation>Action</Button>
+        </FlexBox>
+      </>
+  }
+}`,...(h=(c=o.parameters)==null?void 0:c.docs)==null?void 0:h.source}}};const si=["Basic","WithActions"];export{r as Basic,o as WithActions,si as __namedExportsOrder,ai as default};

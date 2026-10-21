@@ -56,6 +56,7 @@ import { CardOwnProps } from '@mui/material';
 import { CardProps as CardProps_2 } from '@mui/material/Card';
 import { CheckboxClasses } from '@mui/material';
 import { CheckboxProps } from '@mui/material';
+import { ChevronLeft as ChevronLeftIcon } from '@telicent-oss/mui-icons-material';
 import { ChevronRight as ChevronRightIcon } from '@telicent-oss/mui-icons-material';
 import { ChipClasses } from '@mui/material';
 import { ChipProps as ChipProps_2 } from '@mui/material/Chip';
@@ -164,8 +165,8 @@ import { List as ListIcon } from '@telicent-oss/mui-icons-material';
 import { ListItemAvatarClasses } from '@mui/material';
 import { ListItemAvatarProps } from '@mui/material';
 import { ListItemButtonClasses } from '@mui/material';
-import { ListItemButtonProps } from '@mui/material/ListItemButton';
-import { ListItemButtonProps as ListItemButtonProps_2 } from '@mui/material';
+import { ListItemButtonProps } from '@mui/material';
+import { ListItemButtonTypeMap } from '@mui/material/ListItemButton';
 import { ListItemClasses } from '@mui/material';
 import { ListItemIconClasses } from '@mui/material';
 import { ListItemIconProps } from '@mui/material/ListItemIcon';
@@ -695,6 +696,8 @@ declare type CardProps = Omit<CardProps_2, "classes" | "raised"> & Partial<{
 
 export declare const Checkbox: default_2.FC<CustomCheckboxProps>;
 
+export { ChevronLeftIcon }
+
 export { ChevronRightIcon }
 
 export declare const Chip: default_2.FC<ChipProps>;
@@ -957,6 +960,37 @@ export declare type ENCODE_SEARCH_PARAMS_MODES_Type = z.infer<typeof ENCODE_SEAR
  * Ensure an icon is loaded using the loader chain.
  */
 export declare const ensureFaIconPath: (faIcon: string) => Promise<string | undefined>;
+
+export declare const EntityList: <T>({ items, columns, getItemKey, getItemHref, getItemLabel, onItemClick, ariaLabelledBy, ariaLabel, initialSort, isLoading, defaultPageSize, pageSizeOptions, renderEmpty, }: EntityListProps<T>) => JSX.Element;
+
+declare type EntityListBaseProps<T> = {
+    items: T[];
+    columns: EntityListColumn<T>[];
+    getItemKey: (item: T) => string | number;
+    getItemHref?: (item: T) => string;
+    getItemLabel?: (item: T) => string;
+    onItemClick?: (item: T, href: string) => void;
+    initialSort?: {
+        key: string;
+        direction: SortDirection;
+    };
+    isLoading?: boolean;
+    defaultPageSize?: number;
+    pageSizeOptions?: number[];
+    renderEmpty?: () => ReactNode;
+};
+
+export declare type EntityListColumn<T> = {
+    key: string;
+    header: string;
+    render: (item: T) => ReactNode;
+    getSortValue?: (item: T) => SortValue;
+    flex?: number;
+    width?: number | string;
+    align?: "left" | "right";
+};
+
+export declare type EntityListProps<T> = EntityListBaseProps<T> & LabellingProps;
 
 export declare const ErrorFallback: default_2.FC<ErrorFallbackProps>;
 
@@ -2030,8 +2064,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiListItemButton"];
         styleOverrides?: Partial<OverridesStyleRules<keyof ListItemButtonClasses, "MuiListItemButton", Omit<Theme, "components">>> | undefined;
         variants?: {
-            props: Partial<ListItemButtonProps_2> | ((props: Partial<ListItemButtonProps_2> & {
-                ownerState: Partial<ListItemButtonProps_2>;
+            props: Partial<ListItemButtonProps> | ((props: Partial<ListItemButtonProps> & {
+                ownerState: Partial<ListItemButtonProps>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme, "components">;
@@ -2765,6 +2799,14 @@ export declare type LabeledSwitchProps = {
     ref?: Ref<HTMLButtonElement>;
 };
 
+declare type LabellingProps = {
+    ariaLabel: string;
+    ariaLabelledBy?: string;
+} | {
+    ariaLabel?: string;
+    ariaLabelledBy: string;
+};
+
 export declare type LayerConfig = BaseRasterLayerConfig | BaseVectorTileLayerConfig | OverlayVectorLayerConfig;
 
 export declare type LayerMeta = {
@@ -2798,7 +2840,7 @@ export { ListIcon }
 
 export declare const ListItem: default_2.FC<ListItemProps>;
 
-export declare const ListItemButton: default_2.FC<ListItemButtonProps>;
+export declare const ListItemButton: ExtendButtonBase<ListItemButtonTypeMap<    {}, "div">>;
 
 export declare const ListItemIcon: default_2.FC<ListItemIconProps>;
 
@@ -3718,6 +3760,10 @@ export declare const SnackbarProvider: FC<SnackbarProviderProps>;
 export declare type SnackbarProviderProps = SnackbarProviderProps_2;
 
 export declare type SnackbarType = "success" | "error" | "warning" | "info";
+
+export declare type SortDirection = "asc" | "desc";
+
+export declare type SortValue = string | number | Date | null | undefined;
 
 export declare interface SourceWithEvents {
     on(type: string, listener: (e: unknown) => void): void;

@@ -1,0 +1,1 @@
+import{a as s}from"./iframe-DLGF4BUc.js";import{L as o}from"./LinearProgress-BFS8oSB-.js";const e=({...r})=>s(o,{...r});e.__docgenInfo={description:"",methods:[],displayName:"LinearProgress"};export{e as L};
