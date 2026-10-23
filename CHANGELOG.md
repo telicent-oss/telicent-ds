@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.1](https://github.com/telicent-oss/telicent-ds/compare/v5.0.0...v5.0.1) (2026-10-23)
+
+
+### Bug Fixes
+
+* **theme, map:** Map panel light theme + MapPanel composite ([#582](https://github.com/telicent-oss/telicent-ds/issues/582)) ([697821a](https://github.com/telicent-oss/telicent-ds/commit/697821a4de5c8e4c4b7fb8535866b7d7f02a42cd))
+
 ## [5.0.0](https://github.com/telicent-oss/telicent-ds/compare/v4.4.2...v5.0.0) (2026-10-21)
 
 
