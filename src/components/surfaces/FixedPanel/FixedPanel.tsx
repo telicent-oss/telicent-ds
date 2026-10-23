@@ -57,7 +57,7 @@ const Panel: React.FC<PanelProps> = ({
 
   const visible = !context.panels[targetId]?.minimised && context.panels[targetId]?.visible;
 
-  const backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : theme.palette.grey[300];
+  const backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : theme.palette.background.paper;
 
   return (
     <MUIBox

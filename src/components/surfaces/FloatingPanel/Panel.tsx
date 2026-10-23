@@ -62,9 +62,7 @@ const Panel: React.FC<PanelProps> = ({
 
   const visible = context.panels[targetId]?.visible;
 
-  // const backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : theme.palette.grey[300];
-
-  const backgroundColor = "#2C2C2C";
+  const backgroundColor = theme.palette.background.paper;
 
   return (
     <MUIBox
@@ -135,8 +133,8 @@ const Panel: React.FC<PanelProps> = ({
             right: 0,
             width: "1rem", // w-8
             height: "1rem", // h-8
-            borderRight: "2px solid #9CA3AF",
-            borderBottom: "2px solid #9CA3AF",
+            borderRight: `2px solid ${theme.palette.divider}`,
+            borderBottom: `2px solid ${theme.palette.divider}`,
             zIndex: 100,
           }}
         />
