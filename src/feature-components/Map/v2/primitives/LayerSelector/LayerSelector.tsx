@@ -33,7 +33,10 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
 
   const baseLayers = useMemo(() => layers.filter((l) => l.get("kind")?.startsWith("base")), [layers]);
 
-  const selectedMeta = useMemo(() => getMeta(baseLayers[selectedIndex]), [baseLayers, selectedIndex]);
+  const selectedMeta = useMemo(() => {
+    const layer = baseLayers[selectedIndex];
+    return layer ? getMeta(layer) : undefined;
+  }, [baseLayers, selectedIndex]);
 
   const handleSelect = (label: string) => {
     localStorage.setItem("map.baselayer", label);
@@ -104,9 +107,12 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
               display: "flex",
               alignItems: "center",
               gap: "6px",
-              backgroundColor: "#1D1D1D",
-              color: "white",
-              "&:hover": { color: theme.palette.primary.main, backgroundColor: "#1D1D1D" },
+              backgroundColor: theme.palette.background.default,
+              color: theme.palette.text.primary,
+              "&:hover": {
+                color: theme.palette.primary.main,
+                backgroundColor: theme.palette.background.default,
+              },
             }}
           >
             {selectedMeta?.image ? (
