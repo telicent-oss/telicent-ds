@@ -1,0 +1,1 @@
+import{r,a as n}from"./iframe-Djv8ktra.js";import{I as s}from"./IconButton-D0URHQdC.js";const a=r.forwardRef((o,t)=>n(s,{ref:t,...o}));a.__docgenInfo={description:"",methods:[],displayName:"IconButton"};export{a as I};
