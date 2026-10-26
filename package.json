@@ -143,7 +143,6 @@
     "@tanstack/react-query": "^5.18.0",
     "@telicent-oss/mui-icons-material": "^1.0.0",
     "@telicent-oss/ontologyservice": "^1.0.2",
-    "@telicent-oss/telicent-frontend-cli": "^1.5.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
