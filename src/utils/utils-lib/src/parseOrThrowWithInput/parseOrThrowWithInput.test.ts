@@ -36,11 +36,10 @@ describe("parseOrThrowWithInput", () => {
           {
             "code": "invalid_type",
             "expected": "string",
-            "message": "Expected string, received number",
+            "message": "Invalid input: expected string, received number",
             "path": [
               "foo",
             ],
-            "received": "number",
           },
         ]
       `);
