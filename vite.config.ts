@@ -22,6 +22,7 @@ export default defineConfig({
       },
       name: "@telicent-oss/ds",
       formats: ["es", "cjs"],
+      cssFileName: "style",
     },
     rollupOptions: {
       // Externalise MUI + Emotion so consumers share a single instance (fixes
