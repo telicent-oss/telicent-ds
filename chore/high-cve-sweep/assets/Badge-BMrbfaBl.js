@@ -1,0 +1,1 @@
+import{a as i}from"./iframe-BrOrNHEh.js";import{B as d}from"./Badge-LDV7duPO.js";const r=e=>typeof e=="function"?a=>({"aria-hidden":!0,...e(a)}):{"aria-hidden":!0,...e},n=({slotProps:e,...a})=>i(d,{color:"primary",...a,slotProps:{...e,badge:r(e==null?void 0:e.badge)}});n.__docgenInfo={description:"",methods:[],displayName:"Badge"};export{n as B};
