@@ -423,19 +423,7 @@ export declare const AppSwitchLibrarySchema: default_3.ZodObject<{
     url: default_3.ZodString;
     iconDark: default_3.ZodOptional<default_3.ZodString>;
     iconLight: default_3.ZodOptional<default_3.ZodString>;
-}, "strip", default_3.ZodTypeAny, {
-    id: string;
-    url: string;
-    name: string;
-    iconDark?: string | undefined;
-    iconLight?: string | undefined;
-}, {
-    id: string;
-    url: string;
-    name: string;
-    iconDark?: string | undefined;
-    iconLight?: string | undefined;
-}>;
+}, default_3.core.$strip>;
 
 export declare type AppSwitchLibraryType = default_3.infer<typeof AppSwitchLibrarySchema>[];
 
@@ -952,7 +940,7 @@ declare interface DropdownButtonProps {
 
 export declare const EditableTextField: default_2.FC<InputText>;
 
-export declare const ENCODE_SEARCH_PARAMS_MODES_Schema: z.ZodUnion<[z.ZodLiteral<"as base64">, z.ZodLiteral<"as uri component">]>;
+export declare const ENCODE_SEARCH_PARAMS_MODES_Schema: z.ZodUnion<readonly [z.ZodLiteral<"as base64">, z.ZodLiteral<"as uri component">]>;
 
 export declare type ENCODE_SEARCH_PARAMS_MODES_Type = z.infer<typeof ENCODE_SEARCH_PARAMS_MODES_Schema>;
 
@@ -1261,10 +1249,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiTabs: {
         styleOverrides: {
-            root: ({ theme }: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+            root: ({ theme }: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "value" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+                ownerState: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "value" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1294,10 +1282,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiTab: {
         styleOverrides: {
-            root: ({ theme }: TabOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "disabled" | "className" | "style" | "classes" | "children" | "sx" | "label" | "tabIndex" | "icon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "wrapped" | "iconPosition"> & {
+            root: ({ theme }: TabOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "label" | "tabIndex" | "icon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "value" | "wrapped" | "iconPosition"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: TabOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "value" | "disabled" | "className" | "style" | "classes" | "children" | "sx" | "label" | "tabIndex" | "icon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "wrapped" | "iconPosition"> & {
+                ownerState: TabOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "label" | "tabIndex" | "icon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "value" | "wrapped" | "iconPosition"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -4212,7 +4200,13 @@ declare type UIThemeProviderProps = default_2.PropsWithChildren & {
 };
 
 /** Curated set of DS themes. */
-export declare const UIThemeSchema: default_3.ZodEnum<["DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]>;
+export declare const UIThemeSchema: default_3.ZodEnum<{
+    DocumentPink: "DocumentPink";
+    GraphOrange: "GraphOrange";
+    AdminBlue: "AdminBlue";
+    GeoGreen: "GeoGreen";
+    Blank: "Blank";
+}>;
 
 export declare const uriComponentCodec: Codec;
 
