@@ -4197,12 +4197,12 @@
   dependencies:
     "@tanstack/query-core" "5.90.20"
 
-"@telicent-oss/fe-auth-lib@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@telicent-oss/fe-auth-lib/-/fe-auth-lib-1.0.4.tgz#dc40f476a6e3cec29b51b654952bb1275ce241d8"
-  integrity sha512-8DNEKrH21KKiWDuNJtgOVrVwpMAz2GRIqaBqEBoeuhWxuzR+kCrEy/En2Wr67aGt+BG54dGSc6IKstpmQBZAWA==
+"@telicent-oss/fe-auth-lib@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/fe-auth-lib/-/fe-auth-lib-2.0.0.tgz#de342d0a1dd247eb4e2fe28d37f75a87afd5d5b6"
+  integrity sha512-cp9ktNi0HGgdHVR+gIUMyGXF6664N4TMcH7pdxIYVtn4ZGBjhdWzsw/zaLeXhwu+25VH34Ma+ryMW7cg43R5Tg==
   dependencies:
-    zod "^3.23.8"
+    zod "^4.6.6"
 
 "@telicent-oss/mui-icons-material@^1.0.0":
   version "1.0.1"
@@ -4211,22 +4211,22 @@
   dependencies:
     "@babel/runtime" "^7.28.2"
 
-"@telicent-oss/ontologyservice@^1.0.2":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@telicent-oss/ontologyservice/-/ontologyservice-1.0.4.tgz#649d970a611d83d581fba091a97f72017079c824"
-  integrity sha512-Lo9frYOrdB2Ymi2RXsoGNmgAqpih6l0+xqI3mTCnf/ilytUoAQFZaAIuvwZvx4+0PcuUfPYgEQBaAvV1wr/i3Q==
+"@telicent-oss/ontologyservice@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/ontologyservice/-/ontologyservice-2.0.0.tgz#11ce5c2fd0376efa3011d4f50f1e48bc2627ad51"
+  integrity sha512-+0FUtcQBUpKZZ7RNElHsYnJxakumIVcMf1k3ygxzAb/JQLQwxDoX5DSiHC/qISv8LNbg/GRkL+WiqnQ5C+Vj9g==
   dependencies:
-    "@telicent-oss/rdfservice" "^1.0.2"
+    "@telicent-oss/rdfservice" "^2.0.0"
     "@types/lodash" "^4.17.13"
     lodash "^4.17.21"
-    zod "^3.23.8"
+    zod "^4.6.6"
 
-"@telicent-oss/rdfservice@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@telicent-oss/rdfservice/-/rdfservice-1.0.2.tgz#ec6a0d8f8d84a460c34ca7731bcca145d7ff3c6a"
-  integrity sha512-4y4GCQNcls6EmXsf7Z+DsD1WLdCSsSYRg5QHirqCvTRckg2zKthxc69LQpkskzgVYXI8QLSgIrUWe8Hvsn0gJg==
+"@telicent-oss/rdfservice@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@telicent-oss/rdfservice/-/rdfservice-2.0.0.tgz#773b99cea4337833f84c573656b6b7ad1ed825c2"
+  integrity sha512-VMgPhUwb/Ko/lAwktH1QIujPPxCdkIHOu8duPeSHoris25h3Ne7ft9hn9zP5PtLqWLMokaEDPjjnOKSTC1aErQ==
   dependencies:
-    zod "^3.22.4"
+    zod "^4.6.6"
 
 "@testing-library/dom@^10.4.0":
   version "10.4.1"
@@ -15201,11 +15201,6 @@ zarrita@^0.6.0:
   dependencies:
     "@zarrita/storage" "^0.1.4"
     numcodecs "^0.3.2"
-
-zod@^3.22.4, zod@^3.23.8:
-  version "3.25.76"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-3.25.76.tgz#26841c3f6fd22a6a2760e7ccb719179768471e34"
-  integrity sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==
 
 zod@^4.6.6:
   version "4.6.7"
