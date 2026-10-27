@@ -102,7 +102,7 @@ describe("App switch component", () => {
 
     expect(screen.getAllByRole("menuitem")).toHaveLength(2);
     expect(screen.getAllByRole("menuitem")[0]).toHaveTextContent(
-      "Misconfiguration error: App Switch library for id app-1url: Required",
+      "Misconfiguration error: App Switch library for id app-1url: Invalid input: expected string, received undefined",
     );
   });
 });
