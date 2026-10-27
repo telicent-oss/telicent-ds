@@ -1,7 +1,7 @@
-import React, { forwardRef } from "react";
-import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
 import MUIBox from "@mui/material/Box";
+import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
+import React, { forwardRef } from "react";
 
 type LinkButtonProps = Omit<MUIButtonProps, "variant" | "color">;
 

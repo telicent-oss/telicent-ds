@@ -1,8 +1,9 @@
-import React from "react";
 import { screen, waitFor } from "@testing-library/react";
-import SnackbarProvider from "../SnackbarProvider";
-import { snackbar } from "../Snackbar";
+import React from "react";
+
 import { setup } from "../../../../test-utils";
+import { snackbar } from "../Snackbar";
+import SnackbarProvider from "../SnackbarProvider";
 
 const Trigger: React.FC<{ onClick: () => void; label?: string }> = ({
   onClick,
@@ -110,10 +111,7 @@ describe("SnackbarProvider", () => {
 
     await user.click(screen.getByRole("button", { name: "ok" }));
     // Success still routed through DS Snackbar — it has the Dismiss X
-    await waitFor(
-      () => expect(screen.getByRole("button", { name: "Dismiss notification" })).toBeInTheDocument(),
-      { timeout: 3000 },
-    );
+    expect(await screen.findByRole("button", { name: "Dismiss notification" }, { timeout: 3000 })).toBeInTheDocument();
   });
 
   test("auto-hide fires uniformly for every type", async () => {

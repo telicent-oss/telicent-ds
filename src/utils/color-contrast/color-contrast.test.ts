@@ -1,9 +1,9 @@
 import {
-  parseRgb,
-  toHex,
-  relativeLuminance,
   contrastRatio,
   formatContrastRatio,
+  parseRgb,
+  relativeLuminance,
+  toHex,
 } from "./color-contrast";
 
 describe("parseRgb", () => {

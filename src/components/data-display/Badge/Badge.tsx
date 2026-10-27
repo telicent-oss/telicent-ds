@@ -1,5 +1,5 @@
-import React from "react";
 import MuiBadge, { type BadgeProps as MuiBadgeProps } from "@mui/material/Badge";
+import React from "react";
 
 export type BadgeProps = MuiBadgeProps;
 type BadgeSlot = NonNullable<MuiBadgeProps["slotProps"]>["badge"];

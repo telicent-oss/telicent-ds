@@ -1,8 +1,8 @@
-import React from "react";
 import { Avatar } from "@mui/material";
+import { FlattenedStyleType, FlattenedStyleTypeForFindIcon } from "@telicent-oss/ontologyservice";
+import React from "react";
 
 import { getDisabledStyles, getSizeProps, TeliTypeIconSizeProp } from "./type-icon-utils";
-import { FlattenedStyleType, FlattenedStyleTypeForFindIcon } from "@telicent-oss/ontologyservice";
 
 export type TypeIconProps = {
   icon: FlattenedStyleTypeForFindIcon | FlattenedStyleType;

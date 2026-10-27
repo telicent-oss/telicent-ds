@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+
 import { isAuthRedirect } from "./isAuthRedirectUri";
 
 const setLocation = (href: string) => {

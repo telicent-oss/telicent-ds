@@ -1,6 +1,7 @@
 import axios, { AxiosAdapter, AxiosHeaders } from "axios";
-import { withSessionHandling } from "../withSessionHandling";
+
 import { AuthEvent } from "../broadcastChannelService";
+import { withSessionHandling } from "../withSessionHandling";
 
 jest.mock("../broadcastChannelService", () => {
   const mockListeners = new Set<Function>();

@@ -1,15 +1,15 @@
-import MUIMenu from "@mui/material/Menu";
-import MUIMenuItem from "@mui/material/MenuItem";
-import MUIListItemIcon from "@mui/material/ListItemIcon";
-import MUITypography from "@mui/material/Typography";
-import MUIListItemText from "@mui/material/ListItemText";
-import { SvgIconProps } from "@mui/material/SvgIcon";
-
-import React, { useState } from "react";
-import { FlexBox, useExtendedTheme } from "../../../export";
-import IconButton from "../../buttons/Button/IconButton";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MUIListItemIcon from "@mui/material/ListItemIcon";
+import MUIListItemText from "@mui/material/ListItemText";
+import MUIMenu from "@mui/material/Menu";
+import MUIMenuItem from "@mui/material/MenuItem";
+import { SvgIconProps } from "@mui/material/SvgIcon";
+import MUITypography from "@mui/material/Typography";
+import React, { useState } from "react";
+
+import { FlexBox, useExtendedTheme } from "../../../export";
+import IconButton from "../../buttons/Button/IconButton";
 import DownArrow from "../FontAwesomeIcons/DownArrowIcon";
 
 export interface DropdownButtonProps {

@@ -1,9 +1,10 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import UserProfileContent from "./UserProfileContent";
+import React from "react";
+
+import Button from "../../../buttons/Button/Button";
 import FlexBox from "../../../layout/FlexBox";
 import { Text } from "../../Text/Text";
-import Button from "../../../buttons/Button/Button";
+import UserProfileContent from "./UserProfileContent";
 
 const meta = {
   title: "Data display/User profile/User profile content",

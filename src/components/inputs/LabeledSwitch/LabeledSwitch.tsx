@@ -1,9 +1,10 @@
-import React, { Ref } from "react";
 import { FormControl, FormHelperText } from "@mui/material";
 import type { SwitchProps as MuiSwitchProps } from "@mui/material/Switch";
-import Switch from "../Switch/Switch";
-import FlexBox from "../../layout/FlexBox";
+import React, { Ref } from "react";
+
 import Text from "../../data-display/Text/Text";
+import FlexBox from "../../layout/FlexBox";
+import Switch from "../Switch/Switch";
 
 export type LabeledSwitchProps = {
   text: string;

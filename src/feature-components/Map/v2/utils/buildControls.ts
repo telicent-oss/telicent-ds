@@ -1,8 +1,8 @@
 import {
   defaults as olDefaultControls,
-  Zoom,
-  Rotate,
   FullScreen,
+  Rotate,
+  Zoom,
 } from "ol/control";
 
 import { MapControlsConfig } from "../types";

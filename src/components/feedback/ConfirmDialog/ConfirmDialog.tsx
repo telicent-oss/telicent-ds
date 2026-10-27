@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
 import { alpha, Theme } from "@mui/material/styles";
+import React, { ReactNode } from "react";
 
 import Button from "../../buttons/Button/Button";
 import BinIcon from "../../data-display/Icons/BinIcon";

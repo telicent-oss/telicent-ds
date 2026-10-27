@@ -1,5 +1,6 @@
-import React from "react";
 import { Checkbox as MuiCheckbox, CheckboxProps, FormControlLabel } from "@mui/material";
+import React from "react";
+
 import { useExtendedTheme } from "../../../export";
 
 interface CustomCheckboxProps extends CheckboxProps {

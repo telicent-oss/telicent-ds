@@ -1,6 +1,7 @@
-import React from "react";
-import { render, screen, within, cleanup, fireEvent } from "@testing-library/react";
+import { cleanup, fireEvent,render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import React from "react";
+
 import EntityList, { EntityListColumn } from "../EntityList";
 
 type Row = { id: string; name: string; email: string; created: Date };

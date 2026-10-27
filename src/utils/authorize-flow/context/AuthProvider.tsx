@@ -1,14 +1,15 @@
+import { QueryClient } from "@tanstack/react-query";
 import AuthServerOAuth2Client, { AuthServerOAuth2ClientConfig } from "@telicent-oss/fe-auth-lib";
 import React, { useEffect, useMemo, useState } from "react";
-import { QueryClient } from "@tanstack/react-query";
 import { useStore } from "zustand";
-import { AuthContext, AuthContextValue } from "./AuthContext";
-import { createAuthStore } from "./authStore";
+
+import { AuthEvent, broadcastAuthEvent } from "../exports";
+import { createApi } from "../index";
 import { setupOAuthEventListeners } from "../services/setupOAuthEventListeners";
 import { registerAuthSync } from "../utils";
-import { createApi } from "../index";
-import { AuthEvent, broadcastAuthEvent } from "../exports";
 import { matchCurrentUri } from "../utils/matchCurrentUrl";
+import { AuthContext, AuthContextValue } from "./AuthContext";
+import { createAuthStore } from "./authStore";
 
 interface AuthProviderProps {
   apiUrl: string;

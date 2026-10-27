@@ -1,22 +1,22 @@
-import React, { forwardRef } from "react";
-import { styled } from "@mui/system";
-import useAutocomplete, { UseAutocompleteProps } from "@mui/material/useAutocomplete";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MUICircularProgress from "@mui/material/CircularProgress";
-import MUIPopper from "@mui/material/Popper";
-import MUIPaper from "@mui/material/Paper";
 import MUIList from "@mui/material/List";
 import MUIListItem from "@mui/material/ListItem";
-import MUIListItemText from "@mui/material/ListItemText";
 import MUIListItemButton from "@mui/material/ListItemButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import MUIListItemText from "@mui/material/ListItemText";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import MUIPaper from "@mui/material/Paper";
+import MUIPopper from "@mui/material/Popper";
 import { useTheme } from "@mui/material/styles";
+import useAutocomplete, { UseAutocompleteProps } from "@mui/material/useAutocomplete";
 import { useForkRef } from "@mui/material/utils";
+import { styled } from "@mui/system";
+import React, { forwardRef } from "react";
 
-import FlexBox from "../../layout/FlexBox";
 import IconButton from "../../buttons/Button/IconButton";
 import SearchIcon from "../../data-display/FontAwesomeIcons/SearchIcon";
+import FlexBox from "../../layout/FlexBox";
 import { ProgressProps } from "./MiniSearchBox";
 
 const StyledPopper = styled("div")({

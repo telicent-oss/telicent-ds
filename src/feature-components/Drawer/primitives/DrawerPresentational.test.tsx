@@ -1,6 +1,7 @@
 // DrawerPresentational.test.tsx
-import React from "react";
 import { render, waitFor } from "@testing-library/react";
+import React from "react";
+
 import {
   DrawerPresentational,
   DrawerPresentationalProps,
@@ -39,8 +40,8 @@ const renderDrawer = (props: RenderDrawerProps) =>
 
 describe("DrawerPresentational – prop placement", () => {
   it("forwards id to wrapper", async () => {
-    const { getByTestId } = renderDrawer({ open: false, children: "" });
-    await waitFor(() => expect(getByTestId("foo")).toBeInTheDocument());
+    const { getByTestId, findByTestId } = renderDrawer({ open: false, children: "" });
+    await findByTestId("foo");
   });
 
   it("renders MuiDrawer with its id", () => {
@@ -74,7 +75,7 @@ describe("DrawerPresentational – prop placement", () => {
       open: false,
       children: "",
     });
-    expect(queryByTestId(`${NAME}--toggle-stand-in`)).toBeNull();
+    expect(queryByTestId(`${NAME}--toggle-stand-in`)).not.toBeInTheDocument();
     expect(getByTestId(`${NAME}--toggle-animated-slide`)).toBeInTheDocument();
   });
 });

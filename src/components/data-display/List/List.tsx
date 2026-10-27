@@ -1,4 +1,3 @@
-import React from "react";
 import MUIList, { ListProps as MUIListProps } from "@mui/material/List";
 import MUIListItem, {
   ListItemProps as MUIListItemProps,
@@ -12,6 +11,7 @@ import MUIListItemIcon, {
 import MUIListItemText, {
   ListItemTextProps as MUIListItemTextProps,
 } from "@mui/material/ListItemText";
+import React from "react";
 
 export const List: React.FC<MUIListProps> = (listProps) => (
   <MUIList {...listProps} />

@@ -1,10 +1,10 @@
 import {
-  useState,
+  ForwardedRef,
   useCallback,
-  useRef,
   useEffect,
   useImperativeHandle,
-  ForwardedRef,
+  useRef,
+  useState,
 } from "react";
 
 /** @deprecated Part of the deprecated `InsetDrawer` (ADR-0005). */

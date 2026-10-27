@@ -1,5 +1,5 @@
-import React from "react";
 import MuiDrawer, { type DrawerProps as MuiDrawerProps } from "@mui/material/Drawer";
+import React from "react";
 
 export type DrawerProps = MuiDrawerProps & {
   /**

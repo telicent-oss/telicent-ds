@@ -1,6 +1,6 @@
-import React from "react";
 import { ToolbarProps, useTheme } from "@mui/material";
 import { Toolbar as MuiToolbar } from "@mui/material";
+import React from "react";
 
 const Toolbar: React.FC<ToolbarProps> = ({ children, sx, ...rest }) => {
   const theme = useTheme();

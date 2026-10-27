@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 
-import InfoIcon from "../Icons/InfoIcon";
 import IconPopover from "../_IconPopover/_IconPopover";
+import InfoIcon from "../Icons/InfoIcon";
 
 export type AppInfoProps = PropsWithChildren<{
   id?: string;

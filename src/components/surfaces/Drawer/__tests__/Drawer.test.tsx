@@ -1,8 +1,9 @@
 import { screen } from "@testing-library/react";
 import React from "react";
-import Drawer from "../Drawer";
+
 import { UIThemeProvider } from "../../../../export";
 import { setup } from "../../../../test-utils";
+import Drawer from "../Drawer";
 
 const paper = () => screen.getByText("Body").parentElement as HTMLElement;
 

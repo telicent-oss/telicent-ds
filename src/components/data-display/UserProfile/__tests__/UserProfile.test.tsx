@@ -1,5 +1,6 @@
-import React from "react";
 import { screen } from "@testing-library/dom";
+import React from "react";
+
 import { setup } from "../../../../test-utils";
 import UserProfile from "../UserProfile";
 

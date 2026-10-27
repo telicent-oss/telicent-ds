@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchOptions } from "./query-utils";
-import { ApiTypeAheadResponseSchema } from "../schema/ApiTypeAheadResponseSchema";
 import { z, ZodError } from "zod";
+
+import { ApiTypeAheadResponseSchema } from "../schema/ApiTypeAheadResponseSchema";
+import { fetchOptions } from "./query-utils";
 
 const fetchSearchResults = async (
   url: string,

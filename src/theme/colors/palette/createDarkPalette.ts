@@ -1,5 +1,6 @@
 import { ThemeOptions } from "@mui/material/styles";
 import merge from "lodash.merge";
+
 import THEME_COLORS, { UITheme } from "../theme-colors";
 import { baseDarkPalette } from "./basePalette";
 

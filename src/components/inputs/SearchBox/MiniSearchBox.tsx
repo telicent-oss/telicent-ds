@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import MUICircularProgress, { CircularProgressProps as MUICircularProgressProps } from "@mui/material/CircularProgress";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import React, { useState } from "react";
 
+import IconButton from "../../buttons/Button/IconButton";
 import { DownArrowIcon, SearchIcon } from "../../data-display";
 import { FlexBox } from "../../layout";
-import IconButton from "../../buttons/Button/IconButton";
 
 export interface ProgressProps
   extends Omit<MUICircularProgressProps, "classes" | "color" | "size" | "sx" | "thickness"> {}

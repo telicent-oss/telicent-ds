@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react";
+
 import { tabId, tabPanelId, type TabValue } from "./tabsContext";
 
 export type TabPanelProps = Omit<React.HTMLAttributes<HTMLDivElement>, "hidden"> & {

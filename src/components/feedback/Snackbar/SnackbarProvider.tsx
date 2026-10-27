@@ -1,8 +1,9 @@
-import React, { FC } from "react";
 import {
   SnackbarProvider as NotistackSnackbarProvider,
   type SnackbarProviderProps as NotistackSnackbarProviderProps,
 } from "notistack";
+import React, { FC } from "react";
+
 import Snackbar from "./Snackbar";
 
 const DEFAULT_ANCHOR_ORIGIN: NotistackSnackbarProviderProps["anchorOrigin"] = {

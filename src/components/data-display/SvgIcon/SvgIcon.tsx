@@ -1,5 +1,5 @@
-import React from "react";
 import MuiSvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
+import React from "react";
 
 export const SvgIcon: React.FC<SvgIconProps> = (props) => <MuiSvgIcon {...props} />;
 

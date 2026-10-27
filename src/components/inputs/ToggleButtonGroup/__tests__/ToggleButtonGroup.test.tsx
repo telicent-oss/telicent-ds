@@ -1,9 +1,10 @@
 import { screen } from "@testing-library/react";
 import React from "react";
-import ToggleButtonGroup from "../ToggleButtonGroup";
-import ToggleButton from "../../ToggleButton/ToggleButton";
-import { PILL_GROUP_CLASS } from "../../../../tokens";
+
 import { setup } from "../../../../test-utils";
+import { PILL_GROUP_CLASS } from "../../../../tokens";
+import ToggleButton from "../../ToggleButton/ToggleButton";
+import ToggleButtonGroup from "../ToggleButtonGroup";
 
 const Group = ({ pill, className }: { pill?: boolean; className?: string }) => (
   <ToggleButtonGroup

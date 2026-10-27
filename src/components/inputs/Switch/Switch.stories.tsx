@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import Switch from "./Switch";
 import { Box } from "@mui/material";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
+
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
+import Switch from "./Switch";
 
 const meta: Meta<typeof Switch> = {
   title: "Inputs/Switch",

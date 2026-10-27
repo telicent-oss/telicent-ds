@@ -1,16 +1,16 @@
-import React from "react";
-import zod from "zod";
-import MUIMenu from "@mui/material/Menu";
-import MUIMenuItem from "@mui/material/MenuItem";
-
-import { Text } from "../Text/Text";
-import IconButton from "../../buttons/Button/IconButton";
-import GridIcon from "../Icons/GridIcon";
-import FlexBox from "../../layout/FlexBox";
-import MUITypography from "@mui/material/Typography";
 import MUIListItemIcon from "@mui/material/ListItemIcon";
 import MUIListItemText from "@mui/material/ListItemText";
+import MUIMenu from "@mui/material/Menu";
+import MUIMenuItem from "@mui/material/MenuItem";
+import MUITypography from "@mui/material/Typography";
+import React from "react";
+import zod from "zod";
+
 import { useExtendedTheme } from "../../../export";
+import IconButton from "../../buttons/Button/IconButton";
+import FlexBox from "../../layout/FlexBox";
+import GridIcon from "../Icons/GridIcon";
+import { Text } from "../Text/Text";
 
 export const AppSwitchLibrarySchema = zod.object({
   id: zod.string(),

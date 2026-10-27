@@ -1,10 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import MUIBox from "@mui/material/Box";
-import Panel from "./FixedPanel";
-import { FloatingPanelContext } from "../FloatingPanel";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import { MapIcon } from "../../data-display";
 import { FlexBox } from "../../layout";
+import { FloatingPanelContext } from "../FloatingPanel";
 import { TEST_IMAGE } from "./constants";
+import Panel from "./FixedPanel";
 
 const meta: Meta<typeof Panel> = {
   title: "Surfaces/FixedPanel",

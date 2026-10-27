@@ -1,4 +1,5 @@
 import { AuthServerOAuth2ClientConfig } from "@telicent-oss/fe-auth-lib";
+
 import { matchCurrentUri } from "./matchCurrentUrl";
 
 export type IsAuthRedirectArgs = {

@@ -1,4 +1,5 @@
 import { alpha, ThemeOptions } from "@mui/material";
+
 import { UITheme } from "../../colors/theme-colors";
 
 const generateCardOverrides = (_uiTheme: UITheme) =>

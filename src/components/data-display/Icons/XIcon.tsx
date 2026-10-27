@@ -1,5 +1,5 @@
-import React from "react";
 import MUISvgIcon, { SvgIconProps as MUISvgIconProps } from "@mui/material/SvgIcon";
+import React from "react";
 
 export const XIcon: React.FC<MUISvgIconProps> = (iconProps) => (
   <MUISvgIcon {...iconProps} viewBox="0 0 640 640">

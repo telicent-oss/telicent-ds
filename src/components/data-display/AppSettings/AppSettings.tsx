@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 
-import CogIcon from "../Icons/CogIcon";
 import IconPopover from "../_IconPopover/_IconPopover";
+import CogIcon from "../Icons/CogIcon";
 
 export type AppSettingsProps = PropsWithChildren<{
   id?: string;

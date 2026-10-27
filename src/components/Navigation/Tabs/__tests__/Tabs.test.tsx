@@ -1,10 +1,11 @@
 import { screen } from "@testing-library/react";
 import React, { useState } from "react";
-import Tabs from "../Tabs";
+
+import { setup } from "../../../../test-utils";
+import { PILL_GROUP_CLASS } from "../../../../tokens";
 import Tab from "../Tab";
 import TabPanel from "../TabPanel";
-import { PILL_GROUP_CLASS } from "../../../../tokens";
-import { setup } from "../../../../test-utils";
+import Tabs from "../Tabs";
 
 const TabSet = ({ keepMounted = false, pill = false }: { keepMounted?: boolean; pill?: boolean }) => {
   const [tab, setTab] = useState<string>("one");

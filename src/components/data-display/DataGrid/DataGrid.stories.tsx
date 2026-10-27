@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import DataGrid from "./DataGrid";
-import type { GridColDef, GridRenderCellParams, GridRowParams } from "./DataGrid";
+
 import Chip from "../Chip/Chip";
 import { Text } from "../Text/Text";
+import type { GridColDef, GridRenderCellParams, GridRowParams } from "./DataGrid";
+import DataGrid from "./DataGrid";
 
 const meta: Meta<typeof DataGrid> = {
   title: "Data display/DataGrid",

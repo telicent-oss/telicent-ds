@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import DropdownButton from "./DropdownButton";
-import { Box } from '@mui/material';
-import { TestCatalogIcon, TestGraphIcon } from "./assets/TestIcons";
 import { faCircle, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { Box } from '@mui/material';
+import { Meta, StoryObj } from "@storybook/react-vite";
+
+import { TestCatalogIcon, TestGraphIcon } from "./assets/TestIcons";
+import DropdownButton from "./DropdownButton";
 
 const FA_ICON_LAYOUT_OPTIONS = [
   {

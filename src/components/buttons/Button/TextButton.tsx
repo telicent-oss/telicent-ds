@@ -1,5 +1,5 @@
-import React, { forwardRef } from "react";
 import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
+import React, { forwardRef } from "react";
 
 export type TextButtonProps = Omit<MUIButtonProps, "variant">;
 

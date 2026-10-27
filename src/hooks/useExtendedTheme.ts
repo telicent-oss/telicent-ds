@@ -1,5 +1,5 @@
-import React from "react";
 import { useTheme } from "@mui/material/styles";
+import React from "react";
 
 import { type ExtendedTheme } from "../theme/extended-theme";
 

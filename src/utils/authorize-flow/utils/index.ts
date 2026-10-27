@@ -1,4 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
+
 import { AuthEvent, onAuthEvent } from "../services/broadcastChannelService";
 
 export * from "./isAuthRedirectUri";

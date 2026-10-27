@@ -1,9 +1,10 @@
-import React from "react";
-import { Autocomplete, AutocompleteProps, FormControl, FormHelperText, TextField } from "@mui/material";
-
-import Spinner from "../feedback/Spinner/Spinner";
-import { SearchIcon, CloseIcon } from "../data-display";
 import "./TeliAutoComplete.css";
+
+import { Autocomplete, AutocompleteProps, FormControl, FormHelperText, TextField } from "@mui/material";
+import React from "react";
+
+import { CloseIcon,SearchIcon } from "../data-display";
+import Spinner from "../feedback/Spinner/Spinner";
 
 type DefaultOption = { label: string };
 type MUIAutocompleteProps<Option> = AutocompleteProps<Option, false, false, true>;

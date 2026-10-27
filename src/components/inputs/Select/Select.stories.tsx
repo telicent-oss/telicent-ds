@@ -1,9 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import Select, { Options } from "./Select";
 import { Box, SelectChangeEvent } from "@mui/material";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
+
 import Button from "../../buttons/Button/Button";
 import PlusCircleIcon from "../../data-display/Icons/PlusCircleIcon";
+import Select, { Options } from "./Select";
 
 const OPTIONS: Options[] = [
   { value: "option1", label: "Option 1" },

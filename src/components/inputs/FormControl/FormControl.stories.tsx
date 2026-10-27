@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FormControl } from "./FormControl";
+
 import { FormHelperText } from "../FormHelperText/FormHelperText";
+import { FormControl } from "./FormControl";
 
 const meta = {
   title: "Inputs/FormControl",

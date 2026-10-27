@@ -13,10 +13,12 @@
 //
 // Candidate filename convention: <taskId>.<condition>.tsx
 //   e.g. appbar.withdoc.tsx, appbar.nodoc.tsx
-import ts from "typescript";
-import { readdirSync, readFileSync, existsSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { existsSync,readdirSync, readFileSync } from "node:fs";
+import { dirname,resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import ts from "typescript";
+
 import { TASKS } from "./tasks.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));

@@ -1,10 +1,10 @@
-import React, { HTMLAttributes } from "react";
 import { useTheme } from "@mui/material/styles";
+import React, { HTMLAttributes } from "react";
 import { Rnd } from "react-rnd";
 
+import { DragHandleIcon } from "../../data-display";
 import Panel from "./Panel";
 import { useFloatingPanelContext } from "./useFloatingPanelContext";
-import { DragHandleIcon } from "../../data-display";
 
 interface DraggableFloatingPanelProps extends HTMLAttributes<HTMLDivElement> {
   /**

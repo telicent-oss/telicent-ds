@@ -1,10 +1,11 @@
+import type * as GeoJSON from "geojson";
+import { Map } from "ol";
 import { Coordinate } from "ol/coordinate";
 import BaseLayer from "ol/layer/Base";
-import type * as GeoJSON from "geojson";
-import { OverlayFeatureConfig } from "./overlays";
+
 import { LayerConfig } from "./layers";
 import { MarkerFeature } from "./markers";
-import { Map } from "ol";
+import { OverlayFeatureConfig } from "./overlays";
 import { PolygonFeature } from "./polygons";
 
 export type StyleConfig =

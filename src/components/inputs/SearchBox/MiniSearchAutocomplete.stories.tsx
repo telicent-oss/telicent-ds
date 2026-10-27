@@ -1,7 +1,8 @@
-import { useState } from "react";
+import ListItemText from "@mui/material/ListItemText/ListItemText";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 
-import MiniSearchAutocomplete, { MiniSearchAutocompleteProps } from "./MiniSearchAutocomplete";
+import IconButton from "../../buttons/Button/IconButton";
 import {
   Divider,
   DownArrowIcon,
@@ -11,12 +12,10 @@ import {
   PlusCircleIcon,
   Text,
 } from "../../data-display";
-
-import IconButton from "../../buttons/Button/IconButton";
-import ListItemText from "@mui/material/ListItemText/ListItemText";
+import IESType from "../../data-display/IESType/IESType";
 import { FlexBox } from "../../layout";
 import PopOver from "../../surfaces/PopOver/Popover";
-import IESType from "../../data-display/IESType/IESType";
+import MiniSearchAutocomplete, { MiniSearchAutocompleteProps } from "./MiniSearchAutocomplete";
 
 type LabelString = { id: string; label: string; isRecentSearch: boolean };
 

@@ -1,20 +1,21 @@
 import BaseLayer from "ol/layer/Base";
 import VectorLayer from "ol/layer/Vector";
-import {
-  convertMarkerToFeature,
-  findVectorLayerById,
-  toOlStyle,
-} from "../feature";
+import Circle from "ol/style/Circle";
+import Fill from "ol/style/Fill";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
+import Text from "ol/style/Text";
+
 import {
   DEFAULT_MARKER_ICON_URL,
   defaultVectorStyle,
 } from "../../styles/defaults";
 import { MarkerFeature } from "../../types/markers";
-import Style from "ol/style/Style";
-import Fill from "ol/style/Fill";
-import Stroke from "ol/style/Stroke";
-import Circle from "ol/style/Circle";
-import Text from "ol/style/Text";
+import {
+  convertMarkerToFeature,
+  findVectorLayerById,
+  toOlStyle,
+} from "../feature";
 
 jest.mock("ol/style/Style");
 jest.mock("ol/style/Fill");

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import Card from "./Card";
-import CardContent from "./CardContent";
-import Text, { H1 } from "../../data-display/Text/Text";
 import Button from "../../buttons/Button/Button";
+import Text, { H1 } from "../../data-display/Text/Text";
+import Card from "./Card";
 import CardActions from "./CardActions";
+import CardContent from "./CardContent";
 
 const meta: Meta<typeof Card> = {
   title: "Surfaces/Card",

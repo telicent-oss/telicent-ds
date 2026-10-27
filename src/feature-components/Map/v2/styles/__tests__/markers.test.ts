@@ -10,15 +10,15 @@ jest.mock("../../utils/faIconResolver", () => ({
 }));
 
 import {
-    getGeneratedOlIcon,
-    getPathBBox,
-    extractPathD,
-    makeCircleSvg,
-} from "../markers";
-import {
     ensureFaIconPath,
     resolveFaIconPath,
 } from "../../utils/faIconResolver";
+import {
+    extractPathD,
+    getGeneratedOlIcon,
+    getPathBBox,
+    makeCircleSvg,
+} from "../markers";
 const decodeSvg = (src: string) => decodeURIComponent(src.split(",")[1]);
 
 describe("marker icon generation (with __mocks__)", () => {

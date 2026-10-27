@@ -1,9 +1,9 @@
-import React from "react";
-import { DatePickerProps as MuiDatePickerProps, DatePicker as MuiDatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TextFieldProps } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker as MuiDatePicker,DatePickerProps as MuiDatePickerProps } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from "dayjs";
+import React from "react";
 
 /**
  * ⚠️ DIVERGENCE:
@@ -34,7 +34,7 @@ export type DatePickerProps = MuiDatePickerProps & {
   textFieldProps?: TextFieldProps;
   minDate?: Dayjs;
   maxDate?: Dayjs;
-  errorMsg?: String;
+  errorMsg?: string;
   fullWidth?: boolean;
 };
 

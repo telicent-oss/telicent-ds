@@ -1,12 +1,12 @@
-import React, { PropsWithChildren, useState } from "react";
-import MUIStack from "@mui/material/Stack";
-import MUIBox from "@mui/material/Box";
 import MUIAvatar from "@mui/material/Avatar";
+import MUIBox from "@mui/material/Box";
 import MUIMenu from "@mui/material/Menu";
+import MUIStack from "@mui/material/Stack";
+import React, { PropsWithChildren, useState } from "react";
 
-import Text from "../Text/Text";
-import UserIcon from "../Icons/UserIcon";
 import DownArrowIcon from "../FontAwesomeIcons/DownArrowIcon";
+import UserIcon from "../Icons/UserIcon";
+import Text from "../Text/Text";
 
 export type UserProfileProps = PropsWithChildren & {
   fullName?: string;

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
-import EntityList from "./EntityList";
+
 import type { EntityListColumn } from "./EntityList";
+import EntityList from "./EntityList";
 
 type User = {
   id: string;

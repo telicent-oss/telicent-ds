@@ -1,28 +1,28 @@
-import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
-import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
-import React, {
-  useRef,
-  useMemo,
-  useEffect,
-  useState,
-  useImperativeHandle,
-} from "react";
-
 import { Map } from "ol";
 import BaseLayer from "ol/layer/Base";
-import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
+import React, {
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
+import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
+import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
 import { LayerConfig } from "../../types/layers";
-import { markerToOLFeature } from "../../utils/markers";
+import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
 import { ensureLayers } from "../../utils/ensureLayers";
-import { MARKER_LAYER_ID, POLYGON_LAYER_ID } from "../../utils/layers";
 import { findVectorLayerById } from "../../utils/feature";
+import { MARKER_LAYER_ID, POLYGON_LAYER_ID } from "../../utils/layers";
+import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
+import { markerToOLFeature } from "../../utils/markers";
+import { polygonToOLFeature } from "../../utils/polygons";
 import {
-  getFeaturesById,
   fitToFeature,
   fitToFeatures,
+  getFeaturesById,
 } from "./interactions/addPanToFeature";
-import { polygonToOLFeature } from "../../utils/polygons";
-import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
 
 export const BasicMapV2 = React.forwardRef<
   BasicMapV2Handle,

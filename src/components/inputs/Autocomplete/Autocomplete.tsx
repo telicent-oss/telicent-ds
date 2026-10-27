@@ -1,8 +1,9 @@
 import { Autocomplete as MuiAutocomplete } from "@mui/material";
 import type { AutocompleteProps as MuiAutocompleteProps } from "@mui/material/Autocomplete";
 import { forwardRef } from "react";
-import TextField from "../TextField/TextField";
+
 import { Chip } from "../../data-display";
+import TextField from "../TextField/TextField";
 
 export type Option = {
   label: string;

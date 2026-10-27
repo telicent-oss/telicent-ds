@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { readFileSync, writeFileSync, existsSync } from "fs";
-import { resolve } from "path";
 import { execSync } from "child_process";
+import { existsSync,readFileSync, writeFileSync } from "fs";
+import { resolve } from "path";
 
 // 1. Read local package.json
 const cwd = process.cwd();

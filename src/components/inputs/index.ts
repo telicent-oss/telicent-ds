@@ -1,39 +1,33 @@
-export { default as ToggleButton } from "./ToggleButton/ToggleButton";
-export type { ToggleButtonProps } from "./ToggleButton/ToggleButton";
-export { default as ToggleButtonGroup } from "./ToggleButtonGroup/ToggleButtonGroup";
-export type { ToggleButtonGroupProps } from "./ToggleButtonGroup/ToggleButtonGroup";
-export { default as TooltipToggleButton } from "./TooltipToggleButton";
-
-export { default as EditableTextField } from "./EditableTextField/EditableTextField";
-export { default as TextField } from "./TextField/TextField";
-
-export { default as Select } from "./Select/Select";
+export { default as CopyToClipboard } from "../buttons/CopyToClipboard/CopyToClipboard";
 export { default as Autocomplete } from "./Autocomplete/Autocomplete";
+export { default as Checkbox } from "./Checkbox/Checkbox";
+export { default as EditableTextField } from "./EditableTextField/EditableTextField";
+export type { FormControlProps } from "./FormControl/FormControl";
+export { default as FormControl } from "./FormControl/FormControl";
+export type { FormControlLabelProps } from "./FormControlLabel/FormControlLabel";
+export { default as FormControlLabel } from "./FormControlLabel/FormControlLabel";
+export type { FormHelperTextProps } from "./FormHelperText/FormHelperText";
+export { default as FormHelperText } from "./FormHelperText/FormHelperText";
+export type { LabeledSwitchProps } from "./LabeledSwitch/LabeledSwitch";
+export { default as LabeledSwitch } from "./LabeledSwitch/LabeledSwitch";
+export type { RadioProps } from "./Radio/Radio";
+export { default as Radio } from "./Radio/Radio";
+export type { RadioGroupProps } from "./RadioGroup/RadioGroup";
+export { default as RadioGroup } from "./RadioGroup/RadioGroup";
+export * from "./SearchBox";
 export type { SelectProps } from "./Select/Select";
 export type { Options } from "./Select/Select";
 export type { SelectFooterArgs } from "./Select/Select";
 export type { SelectChangeEvent } from "./Select/Select";
+export { default as Select } from "./Select/Select";
 export { default as Switch } from "./Switch/Switch";
-export { default as LabeledSwitch } from "./LabeledSwitch/LabeledSwitch";
-export type { LabeledSwitchProps } from "./LabeledSwitch/LabeledSwitch";
-export { default as ThemeSwitch } from "./ThemeSwitch/ThemeSwitch";
+export { default as TextField } from "./TextField/TextField";
 export type { ThemeSwitchProps } from "./ThemeSwitch/ThemeSwitch";
-export { default as ThemeSwitchRow } from "./ThemeSwitch/ThemeSwitchRow";
+export { default as ThemeSwitch } from "./ThemeSwitch/ThemeSwitch";
 export type { ThemeSwitchRowProps } from "./ThemeSwitch/ThemeSwitchRow";
-
-export { default as Checkbox } from "./Checkbox/Checkbox";
-export { default as CopyToClipboard } from "../buttons/CopyToClipboard/CopyToClipboard";
-
-export { default as Radio } from "./Radio/Radio";
-export type { RadioProps } from "./Radio/Radio";
-export { default as RadioGroup } from "./RadioGroup/RadioGroup";
-export type { RadioGroupProps } from "./RadioGroup/RadioGroup";
-
-export { default as FormControl } from "./FormControl/FormControl";
-export type { FormControlProps } from "./FormControl/FormControl";
-export { default as FormControlLabel } from "./FormControlLabel/FormControlLabel";
-export type { FormControlLabelProps } from "./FormControlLabel/FormControlLabel";
-export { default as FormHelperText } from "./FormHelperText/FormHelperText";
-export type { FormHelperTextProps } from "./FormHelperText/FormHelperText";
-
-export * from "./SearchBox";
+export { default as ThemeSwitchRow } from "./ThemeSwitch/ThemeSwitchRow";
+export type { ToggleButtonProps } from "./ToggleButton/ToggleButton";
+export { default as ToggleButton } from "./ToggleButton/ToggleButton";
+export type { ToggleButtonGroupProps } from "./ToggleButtonGroup/ToggleButtonGroup";
+export { default as ToggleButtonGroup } from "./ToggleButtonGroup/ToggleButtonGroup";
+export { default as TooltipToggleButton } from "./TooltipToggleButton";

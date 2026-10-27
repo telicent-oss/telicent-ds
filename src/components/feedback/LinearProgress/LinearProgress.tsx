@@ -1,5 +1,5 @@
-import React from "react";
 import LinearProgressRaw, { LinearProgressProps } from "@mui/material/LinearProgress";
+import React from "react";
 
 type LinearProgressPropsNew = LinearProgressProps & {
   isActive: boolean;

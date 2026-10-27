@@ -1,10 +1,11 @@
-import React from "react";
 import { screen } from "@testing-library/dom";
+import React from "react";
+
 import { setup } from "../../../../test-utils";
 import UIThemeProvider from "../../../../theme/UIThemeProvider";
 import { Accordion } from "../Accordion";
-import { AccordionSummary } from "../AccordionSummary";
 import { AccordionDetails } from "../AccordionDetails";
+import { AccordionSummary } from "../AccordionSummary";
 
 const renderInTheme = (ui: React.ReactElement) =>
   setup(<UIThemeProvider theme="DocumentPink">{ui}</UIThemeProvider>);

@@ -3,7 +3,6 @@ export type { UITheme };
 export { UIThemeSchema };
 
 export { default as UIThemeProvider } from "./UIThemeProvider";
-
 export { alpha } from "@mui/material/styles";
 
 // MUI type re-exports so apps that compose their own `sx` blocks, or narrow

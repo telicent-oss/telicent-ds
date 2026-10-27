@@ -1,5 +1,5 @@
-import React, { forwardRef } from "react";
 import { Button, ButtonProps } from "@mui/material";
+import React, { forwardRef } from "react";
 
 type PrimaryButtonProps = Omit<ButtonProps, "variant" | "color">;
 

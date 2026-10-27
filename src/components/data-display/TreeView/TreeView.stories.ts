@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import TreeView, { TreeViewBaseItem } from "./TreeView";
 
 const items: TreeViewBaseItem[] = [

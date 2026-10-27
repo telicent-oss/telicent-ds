@@ -1,6 +1,7 @@
 import { ThemeOptions } from "@mui/material";
-import { UITheme } from "../../colors/theme-colors";
+
 import { PILL_GROUP_CLASS, PILL_HEIGHT } from "../../../tokens";
+import { UITheme } from "../../colors/theme-colors";
 
 // Rung 4, with the reason it cannot sit higher: the palette carries the
 // divider's *colour* (`palette.divider`) but not its *existence*. "MuiTabs'

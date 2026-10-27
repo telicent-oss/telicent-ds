@@ -1,10 +1,10 @@
-import React from "react";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { useTheme } from "@mui/material/styles";
+import React from "react";
 
 type ClockIconProps = Omit<FontAwesomeIconProps, "icon"> & {
   color?: "primary" | "inherit";

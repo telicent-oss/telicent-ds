@@ -1,7 +1,7 @@
+import CircleStyle from "ol/style/Circle";
 import Fill from "ol/style/Fill";
 import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
-import CircleStyle from "ol/style/Circle";
 
 const DEFAULT_PIN_SVG = `
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="36" viewBox="0 0 24 36">

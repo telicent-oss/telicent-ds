@@ -1,10 +1,10 @@
-import React, { HTMLAttributes } from "react";
-import MUIStack from "@mui/material/Stack";
 import MUIBox from "@mui/material/Box";
+import MUIStack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
+import React, { HTMLAttributes } from "react";
 
-import { Text, XIcon } from "../../data-display";
 import { IconButton } from "../../buttons";
+import { Text, XIcon } from "../../data-display";
 import { useFloatingPanelContext } from "../FloatingPanel/useFloatingPanelContext";
 
 interface PanelProps extends HTMLAttributes<HTMLDivElement> {

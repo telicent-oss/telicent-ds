@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useGlobals } from "storybook/preview-api";
 
-import AppSettings from "./AppSettings";
 import ThemeSwitchRow from "../../inputs/ThemeSwitch/ThemeSwitchRow";
+import AppSettings from "./AppSettings";
 
 const meta = {
   title: "Data display/AppSettings",

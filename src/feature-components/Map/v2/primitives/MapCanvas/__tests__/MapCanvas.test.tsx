@@ -1,14 +1,15 @@
 jest.mock("ol/control");
 
-import { render, cleanup } from "@testing-library/react";
-import { createMap } from "../../../utils/mapFactory";
-import { addSelectInteraction } from "../../../composites/BasicMap/interactions/addSelectInteraction";
-import { addHoverInteraction } from "../../../composites/BasicMap/interactions/addHoverInteraction";
-import { findVectorLayerById } from "../../../utils/feature";
-import { fitToFeature, fitToFeatures } from "../../../composites/BasicMap/interactions/addPanToFeature";
-import { MapCanvasV2 } from "../MapCanvas";
+import { cleanup,render } from "@testing-library/react";
 import BaseLayer from "ol/layer/Base";
+
+import { addHoverInteraction } from "../../../composites/BasicMap/interactions/addHoverInteraction";
+import { fitToFeature, fitToFeatures } from "../../../composites/BasicMap/interactions/addPanToFeature";
+import { addSelectInteraction } from "../../../composites/BasicMap/interactions/addSelectInteraction";
+import { findVectorLayerById } from "../../../utils/feature";
 import { MARKER_LAYER_ID } from "../../../utils/layers";
+import { createMap } from "../../../utils/mapFactory";
+import { MapCanvasV2 } from "../MapCanvas";
 
 jest.mock("../../../utils/mapFactory", () => ({
 	createMap: jest.fn(),

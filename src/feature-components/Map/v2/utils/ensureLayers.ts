@@ -1,4 +1,5 @@
 import BaseLayer from "ol/layer/Base";
+
 import { LayerConfig } from "../types/layers";
 import {
   getBaseRasterLayer,

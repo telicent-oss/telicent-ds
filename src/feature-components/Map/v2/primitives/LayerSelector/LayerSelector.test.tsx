@@ -1,9 +1,10 @@
 // LayerSelector.test.tsx
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { LayerSelectorV2 } from "./LayerSelector";
-import { getMeta } from "../../utils/layers";
+import { fireEvent,render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import React from "react";
+
+import { getMeta } from "../../utils/layers";
+import { LayerSelectorV2 } from "./LayerSelector";
 
 // --- Mock getMeta ---
 jest.mock("../../utils/layers", () => ({
@@ -67,6 +68,6 @@ describe("LayerSelector components", () => {
 
   it("returns null if only one layer is present", () => {
     render(<LayerSelectorV2 layers={[layersMock[0]] as any} />);
-    expect(screen.queryByRole("button")).toBeNull();
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 });

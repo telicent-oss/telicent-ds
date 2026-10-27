@@ -10,9 +10,9 @@
 //    api/authClient/login across provider re-renders, so auth no longer
 //    repaints (and re-triggers effects in) every consumer per provider render.
 
-import React from "react";
-import { act, render, renderHook, waitFor } from "@testing-library/react";
 import { QueryClient } from "@tanstack/react-query";
+import { act, render, renderHook, waitFor } from "@testing-library/react";
+import React from "react";
 
 import { AuthProvider } from "../context/AuthProvider";
 import { useAuth } from "../context/useAuth";
@@ -258,7 +258,7 @@ describe("branch completeness (TELFE-1669 changes)", () => {
         <div data-testid="never" />
       </AuthProvider>,
     );
-    expect(container.innerHTML).toBe("");
+    expect(container).toBeEmptyDOMElement();
     expect(mockAuthClient.isAuthenticated).not.toHaveBeenCalled();
   });
 

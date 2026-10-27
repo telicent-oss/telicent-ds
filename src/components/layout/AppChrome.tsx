@@ -1,8 +1,8 @@
-import React, { PropsWithChildren } from "react";
 import MUIContainer from "@mui/material/Container";
+import React, { PropsWithChildren } from "react";
 
-import AppBar, { AppBarProps } from "../surfaces/AppBar/AppBar";
 import useExtendedTheme from "../../hooks/useExtendedTheme";
+import AppBar, { AppBarProps } from "../surfaces/AppBar/AppBar";
 
 type AppChromeProps = AppBarProps & PropsWithChildren;
 

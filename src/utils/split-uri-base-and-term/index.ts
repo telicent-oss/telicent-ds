@@ -24,7 +24,6 @@ export const splitURIBaseAndTerm = (rawString: string) => {
     }
     return [base, term];
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(`URI '${rawString}' is not valid, ${e}`);
     return [rawString, ""];
   }

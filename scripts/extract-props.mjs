@@ -13,8 +13,9 @@
 //
 // loadProps(dtsPath) does all file IO and type-checker work, so importing this
 // module is side-effect free and unit tests can point it at a fixture .d.ts.
+import { basename,dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { dirname, resolve, basename } from "node:path";
+
 import ts from "typescript";
 
 const here = dirname(fileURLToPath(import.meta.url));

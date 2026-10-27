@@ -1,8 +1,9 @@
-import React from "react";
-import { screen, waitFor, fireEvent } from "@testing-library/react";
+import { fireEvent,screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MiniSearchAutocomplete, { MiniSearchAutocompleteProps } from "./MiniSearchAutocomplete";
+import React from "react";
+
 import { setup } from "../../../test-utils";
+import MiniSearchAutocomplete, { MiniSearchAutocompleteProps } from "./MiniSearchAutocomplete";
 
 const options = [
   { label: "Apple", isRecentSearch: false },

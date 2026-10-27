@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import Checkbox from "./Checkbox";
 import { Box } from "@mui/material";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
+
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
+import Checkbox from "./Checkbox";
 
 const meta: Meta<typeof Checkbox> = {
   title: "Inputs/Checkbox",

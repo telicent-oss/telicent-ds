@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import Radio from "./Radio";
-import RadioGroup from "../RadioGroup/RadioGroup";
 import { Box } from "@mui/material";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
+
+import RadioGroup from "../RadioGroup/RadioGroup";
+import Radio from "./Radio";
 
 const meta: Meta<typeof Radio> = {
   title: "Inputs/Radio",

@@ -1,11 +1,11 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 import { fn, userEvent, within } from "storybook/test";
 
-import MiniSearchBox from "./MiniSearchBox";
-import PopOver from "../../surfaces/PopOver/Popover";
 import IconButton from "../../buttons/Button/IconButton";
 import DownArrowIcon from "../../data-display/FontAwesomeIcons/DownArrowIcon";
+import PopOver from "../../surfaces/PopOver/Popover";
+import MiniSearchBox from "./MiniSearchBox";
 
 const meta = {
   title: "Inputs/Search/MiniSearchBox",

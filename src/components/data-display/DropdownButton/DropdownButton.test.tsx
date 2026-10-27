@@ -1,9 +1,10 @@
+import { faCircle,faMinusSquare } from "@fortawesome/free-regular-svg-icons";
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { faMinusSquare, faCircle } from "@fortawesome/free-regular-svg-icons";
-import DropdownButton from "./DropdownButton";
-import { TestCatalogIcon, TestGraphIcon } from "./assets/TestIcons";
+
 import { setup } from "../../../test-utils";
+import { TestCatalogIcon, TestGraphIcon } from "./assets/TestIcons";
+import DropdownButton from "./DropdownButton";
 
 describe("DropdownButton", () => {
   test("should render with font awesome icons", () => {
@@ -468,6 +469,6 @@ describe("DropdownButton", () => {
     await user.click(screen.getByTestId("GraphIcon"));
 
     expect(screen.queryByTestId("CatalogIcon")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("GraphIcon")).toBeInTheDocument();
+    expect(screen.getByTestId("GraphIcon")).toBeInTheDocument();
   });
 });

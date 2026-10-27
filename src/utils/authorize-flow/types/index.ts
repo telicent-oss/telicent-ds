@@ -1,5 +1,5 @@
-import { AxiosInstance } from "axios";
 import { QueryClient, QueryKey } from "@tanstack/react-query";
+import { AxiosInstance } from "axios";
 
 export interface SessionHandlingConfig {
   queryClient?: QueryClient;

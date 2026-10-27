@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import DatePicker from "./DatePicker";
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import dayjs, { Dayjs } from "dayjs";
+import { useState } from "react";
+
+import DatePicker from "./DatePicker";
 
 const meta: Meta<typeof DatePicker> = {
   title: "Inputs/DatePicker",

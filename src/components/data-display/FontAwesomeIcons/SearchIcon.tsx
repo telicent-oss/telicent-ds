@@ -1,10 +1,10 @@
-import React from "react";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@mui/material/styles";
+import React from "react";
 
 type SearchIconProps = Omit<FontAwesomeIconProps, "icon"> & {
   color?: "primary" | "inherit";

@@ -1,5 +1,6 @@
-import React, { forwardRef } from "react";
 import MuiTabs, { type TabsProps as MuiTabsProps } from "@mui/material/Tabs";
+import React, { forwardRef } from "react";
+
 import { PILL_GROUP_CLASS } from "../../../tokens";
 import { TabsIdContext } from "./tabsContext";
 

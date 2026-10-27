@@ -14,8 +14,9 @@
 // pure per-file core, so importing this module is side-effect free and unit
 // tests can feed story source straight in.
 import { readdirSync, statSync } from "node:fs";
+import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { dirname, resolve, join, relative, basename, sep } from "node:path";
+
 import ts from "typescript";
 
 const here = dirname(fileURLToPath(import.meta.url));

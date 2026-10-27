@@ -1,11 +1,11 @@
+import Box from "@mui/material/Box";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
-import Box from "@mui/material/Box";
 
-import Button, { ButtonProps } from "./Button";
-import DataSetIcon from "../../data-display/Icons/DataSetIcon";
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
+import DataSetIcon from "../../data-display/Icons/DataSetIcon";
 import { FlexBox } from "../../layout";
+import Button, { ButtonProps } from "./Button";
 
 const meta = {
   title: "Buttons/Button",

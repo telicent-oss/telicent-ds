@@ -1,7 +1,8 @@
-import React from "react";
 import { Box, BoxProps, IconButtonProps, SxProps, Theme } from "@mui/material";
-import { Paper } from "../../../export";
+import React from "react";
+
 import { IconButton } from "../../../components/buttons";
+import { Paper } from "../../../export";
 import { STYLES } from "./constants";
 // ignore story-coverage.test.ts
 

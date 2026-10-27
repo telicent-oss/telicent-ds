@@ -1,4 +1,5 @@
 import axios, { AxiosAdapter, AxiosHeaders } from "axios";
+
 import { withSessionHandling } from "../withSessionHandling";
 
 describe("withSessionHandling header normalization", () => {

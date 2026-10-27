@@ -1,5 +1,5 @@
-import { ensureFaIconPath } from "./faIconResolver";
 import { MarkerFeature } from "../types/markers";
+import { ensureFaIconPath } from "./faIconResolver";
 
 /**
  * Extract unique FontAwesome icons used by markers

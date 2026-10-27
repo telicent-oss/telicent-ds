@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import LocalizationProvider from "./LocalizationProvider";
-import DatePicker from "../DatePicker/DatePicker";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
+import { useState } from "react";
+
+import DatePicker from "../DatePicker/DatePicker";
+import LocalizationProvider from "./LocalizationProvider";
 
 const meta: Meta<typeof LocalizationProvider> = {
   title: "Inputs/LocalizationProvider",

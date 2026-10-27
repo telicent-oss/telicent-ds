@@ -1,8 +1,8 @@
+import { cleanup,render } from "@testing-library/react";
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
 
-import Button, { ButtonProps } from "./Button";
 import { cleanHtmlDiff, cleanSerializedDiff } from "../../../utils/clean-diff";
+import Button, { ButtonProps } from "./Button";
 
 describe("Button", () => {
   let props: ButtonProps;

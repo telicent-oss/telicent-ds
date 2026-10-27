@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { SxProps, useTheme } from "@mui/material";
 import { RichTreeView, TreeViewBaseItem } from "@mui/x-tree-view";
+import React, { useState } from "react";
 
 type TreeViewProps<Item extends object = TreeViewBaseItem> = { items: Item[] } & Partial<{
   /**
@@ -144,4 +144,4 @@ const TreeView: React.FC<TreeViewProps> = ({ alwaysExpandedIds = [], sx, ...tree
 };
 
 export default TreeView;
-export type { TreeViewProps, TreeViewBaseItem };
+export type { TreeViewBaseItem,TreeViewProps };

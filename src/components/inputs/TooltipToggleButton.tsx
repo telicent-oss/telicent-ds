@@ -1,9 +1,9 @@
-import React from "react";
+import { styled } from "@mui/material/styles";
 import MUIToggleButton, {
   ToggleButtonProps as MUIToggleButtonProps,
 } from "@mui/material/ToggleButton";
-import { styled } from "@mui/material/styles";
 import MUITooltip from "@mui/material/Tooltip";
+import React from "react";
 
 const StyledToggleButton = styled(MUIToggleButton)({
   border: 0,

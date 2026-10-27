@@ -1,11 +1,12 @@
+import { SxProps, Theme } from "@mui/material";
 import React, { forwardRef } from "react";
+
 import {
   DrawerPresentational,
   DrawerPresentationalProps,
 } from "../primitives/DrawerPresentational";
-import { useDrawer, DrawerController } from "../primitives/useDrawer";
-import { SxProps, Theme } from "@mui/material";
-export { useDrawer, type DrawerController } from "../primitives/useDrawer";
+import { DrawerController,useDrawer } from "../primitives/useDrawer";
+export { type DrawerController,useDrawer } from "../primitives/useDrawer";
 
 /** @deprecated Use the controlled `Drawer` from `@telicent-oss/ds` (ADR-0005). */
 export interface InsetDrawerProps

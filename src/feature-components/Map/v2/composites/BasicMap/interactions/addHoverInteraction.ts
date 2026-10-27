@@ -1,8 +1,9 @@
 import { Map as OlMap } from "ol";
+import type { EventsKey } from "ol/events";
 import BaseLayer from "ol/layer/Base";
 import VectorLayer from "ol/layer/Vector";
-import type { EventsKey } from "ol/events";
 import { unByKey } from "ol/Observable";
+
 import { FeatureEvent } from "../../../types/map-types";
 
 interface AddHoverInteractionOptions {

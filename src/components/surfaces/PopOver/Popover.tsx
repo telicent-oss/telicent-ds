@@ -1,10 +1,11 @@
-import React from "react";
 import MUIPopOver, {
-  PopoverProps as MUIPopOverProps,
   PopoverOrigin,
   PopoverPosition,
+  PopoverProps as MUIPopOverProps,
   PopoverReference,
 } from "@mui/material/Popover";
+import React from "react";
+
 import { ModalProps } from "../../utils";
 export interface PopOverProps extends Omit<ModalProps, "children"> {
   /**

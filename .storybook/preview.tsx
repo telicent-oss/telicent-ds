@@ -1,12 +1,14 @@
-import React from "react";
-import type { Preview } from "@storybook/react-vite";
-import { useTheme } from "@mui/material/styles";
-import UIThemeProvider from "../src/theme/UIThemeProvider";
-import { UIThemeSchema } from "../src/theme/colors/theme-colors";
 // Load the DS's own stylesheet so `:root` custom properties (e.g. `--teli-app-color`)
 // resolve inside the preview iframe. Without this, components that read the accent
 // via `rgb(var(--teli-app-color))` fall back to `currentColor` and render as black.
 import "../src/index.css";
+
+import { useTheme } from "@mui/material/styles";
+import type { Preview } from "@storybook/react-vite";
+import React from "react";
+
+import { UIThemeSchema } from "../src/theme/colors/theme-colors";
+import UIThemeProvider from "../src/theme/UIThemeProvider";
 
 // Reads `background.default` from the resolved theme so axe-core's color-contrast
 // rule measures against the real background each theme × mode combo renders —

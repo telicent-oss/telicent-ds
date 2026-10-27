@@ -1,10 +1,10 @@
-import React, { PropsWithChildren } from "react";
 import MUIAvatar from "@mui/material/Avatar";
-import MUIGrid from "@mui/material/Grid";
 import MUIBox from "@mui/material/Box";
+import MUIGrid from "@mui/material/Grid";
+import React, { PropsWithChildren } from "react";
 
-import Text, { H2 } from "../../Text/Text";
 import UserIcon from "../../Icons/UserIcon";
+import Text, { H2 } from "../../Text/Text";
 
 export type UserStatusProps = PropsWithChildren & {
   fullName: string;

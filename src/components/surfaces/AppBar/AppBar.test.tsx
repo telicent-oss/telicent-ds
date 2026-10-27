@@ -1,7 +1,8 @@
+import { screen, within } from "@testing-library/dom";
 import React from "react";
+
 import { setup } from "../../../test-utils";
 import AppBar from "./AppBar";
-import { screen, within } from "@testing-library/dom";
 
 describe("AppBar Component", () => {
   test("should render the appName", () => {

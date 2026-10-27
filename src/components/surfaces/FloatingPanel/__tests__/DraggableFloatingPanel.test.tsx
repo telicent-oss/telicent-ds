@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
 
 import { setup as renderWithUser } from "../../../../test-utils";
+import DraggableFloatingPanel from "../DraggableFloatingPanel";
 import { FloatingPanelProvider } from "../FloatingPanelProvider";
 import * as floatingPanelContext from "../useFloatingPanelContext";
-import DraggableFloatingPanel from "../DraggableFloatingPanel";
 
 const renderComponent = (count?: number) => {
   return renderWithUser(<DraggableFloatingPanel title="Geo locations" targetId="map" count={count} />, {

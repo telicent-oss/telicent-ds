@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useTheme } from "@mui/material/styles";
-import { Alert, AlertTitle } from "./Alert";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import UIThemeProvider from "../../../theme/UIThemeProvider";
+import { Alert, AlertTitle } from "./Alert";
 
 const meta = {
   title: "Feedback/Alert",

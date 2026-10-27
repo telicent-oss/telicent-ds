@@ -1,6 +1,7 @@
+import { act,render } from "@testing-library/react";
 import React from "react";
-import { render, act } from "@testing-library/react";
-import { InsetDrawer, DrawerController } from "./InsetDrawer";
+
+import { DrawerController,InsetDrawer } from "./InsetDrawer";
 
 jest.mock("../primitives/DrawerPresentational", () => {
   const React = require("react") as typeof import("react");

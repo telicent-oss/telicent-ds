@@ -1,17 +1,18 @@
+import BaseLayer from "ol/layer/Base";
+import VectorLayer from "ol/layer/Vector";
+import { Fill, Stroke } from "ol/style";
+import CircleStyle from "ol/style/Circle";
 import Style, { StyleLike } from "ol/style/Style";
+import Text from "ol/style/Text";
+
 import {
   DEFAULT_MARKER_ICON_URL,
   defaultVectorStyle,
 } from "../styles/defaults";
 import { StyleConfig } from "../types/map-types";
-import { Fill, Stroke } from "ol/style";
-import CircleStyle from "ol/style/Circle";
-import BaseLayer from "ol/layer/Base";
-import Text from "ol/style/Text";
-import VectorLayer from "ol/layer/Vector";
 import { MarkerFeature } from "../types/markers";
-import geohash from "./geohash/geohash";
 import { OverlayFeatureConfig } from "../types/overlays";
+import geohash from "./geohash/geohash";
 
 export const convertMarkerToFeature = (marker: MarkerFeature) => {
   const gh = marker.geohash.includes("http")

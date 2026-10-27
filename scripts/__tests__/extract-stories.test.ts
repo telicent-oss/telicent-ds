@@ -1,10 +1,10 @@
-import os from "node:os";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 
 import {
-  parseStoryFile,
   loadStories,
+  parseStoryFile,
   resolveLinkBases,
   slug,
 } from "../extract-stories.mjs";

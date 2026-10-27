@@ -1,10 +1,10 @@
 export {};
-export * from "./services/broadcastChannelService";
+export * from "./components/AuthModal";
+export * from "./context/AuthContext";
 export * from "./context/AuthProvider";
 export * from "./context/useAuth";
-export * from "./context/AuthContext";
+export * from "./index";
 export * from "./pages/AuthRedirectUri";
 export * from "./pages/Callback";
-export * from "./components/AuthModal";
+export * from "./services/broadcastChannelService";
 export * from "./utils/isAuthRedirectUri";
-export * from "./index";

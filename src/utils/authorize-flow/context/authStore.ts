@@ -1,5 +1,5 @@
-import { createStore } from "zustand/vanilla";
 import { UserInfo } from "@telicent-oss/fe-auth-lib";
+import { createStore } from "zustand/vanilla";
 
 // If a login attempt neither succeeds nor errors within this window (e.g. a
 // redirect that never navigated), the in-flight latch expires so the user

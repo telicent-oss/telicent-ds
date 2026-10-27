@@ -1,7 +1,8 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import ThemeViewer from "./ThemeViewer";
+import React from "react";
+
 import { useExtendedTheme } from "../export";
+import ThemeViewer from "./ThemeViewer";
 
 const meta: Meta<typeof ThemeViewer> = {
   title: "Theme/Design Tokens",

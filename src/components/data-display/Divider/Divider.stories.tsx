@@ -1,11 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import Divider from "./Divider";
-import Card from "../../surfaces/Card/Card";
-import { H4, H5, Text } from "../Text/Text";
-import FlexBox from "../../layout/FlexBox";
-import Chip from "../Chip/Chip";
 import { Box } from "@mui/material";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+
+import FlexBox from "../../layout/FlexBox";
+import Card from "../../surfaces/Card/Card";
+import Chip from "../Chip/Chip";
 import { BinIcon, FloppyDiskIcon } from "../Icons";
+import { H4, H5, Text } from "../Text/Text";
+import Divider from "./Divider";
 
 const meta = {
   title: "Data display/Divider",

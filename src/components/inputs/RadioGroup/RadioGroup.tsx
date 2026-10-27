@@ -1,5 +1,5 @@
-import React from "react";
 import MuiRadioGroup, { RadioGroupProps } from "@mui/material/RadioGroup";
+import React from "react";
 
 export const RadioGroup: React.FC<RadioGroupProps> = (props) => (
   <MuiRadioGroup {...props} />

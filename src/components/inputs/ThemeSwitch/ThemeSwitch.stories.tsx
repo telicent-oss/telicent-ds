@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
 import { useGlobals } from "storybook/preview-api";
+import { fn } from "storybook/test";
 
 import ThemeSwitch from "./ThemeSwitch";
 import ThemeSwitchRow, { ThemeSwitchRowProps } from "./ThemeSwitchRow";

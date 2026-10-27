@@ -1,12 +1,12 @@
-import React, { useMemo, type FC, type ComponentProps } from "react";
+import { ThemeProvider } from "@mui/material";
+import Box from "@mui/material/Box";
+import { createTheme, type Theme,useTheme } from "@mui/material/styles";
 import {
   DataGrid as MuiDataGrid,
   type GridSortModel,
 } from "@mui/x-data-grid";
 import type {} from "@mui/x-data-grid/themeAugmentation";
-import { ThemeProvider } from "@mui/material";
-import { createTheme, useTheme, type Theme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import React, { type ComponentProps,type FC, useMemo } from "react";
 
 /**
  * Component overrides applied on top of the outer DS theme so cells inside

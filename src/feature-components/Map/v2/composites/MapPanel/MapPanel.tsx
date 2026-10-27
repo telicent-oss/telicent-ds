@@ -1,14 +1,13 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import type BaseLayer from "ol/layer/Base";
+import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
-import { BasicMapV2 } from "../BasicMap/BasicMap";
+import { FloatingPanel } from "../../../../../components/surfaces/FloatingPanel";
 import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
 import type {
   BasicMapProperties,
   BasicMapV2Handle,
 } from "../../types/map-types";
-
-import { FloatingPanel } from "../../../../../components/surfaces/FloatingPanel";
+import { BasicMapV2 } from "../BasicMap/BasicMap";
 
 export interface MapPanelProps extends BasicMapProperties {
   /** Title shown in the panel's chrome. */

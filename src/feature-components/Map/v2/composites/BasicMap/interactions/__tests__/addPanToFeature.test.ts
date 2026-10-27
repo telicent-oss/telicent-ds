@@ -1,13 +1,13 @@
 import BaseLayer from "ol/layer/Base";
+
+// Use your geometry mocks (or real OL geometries if you prefer)
+import MockPoint from "../../../../../../../../__mocks__/ol/geom/Point";
+import MockPolygon from "../../../../../../../../__mocks__/ol/geom/Polygon";
 import {
   fitToFeature,
   fitToFeatures,
   getFeaturesById,
 } from "../addPanToFeature";
-
-// Use your geometry mocks (or real OL geometries if you prefer)
-import MockPoint from "../../../../../../../../__mocks__/ol/geom/Point";
-import MockPolygon from "../../../../../../../../__mocks__/ol/geom/Polygon";
 
 describe("getFeaturesById", () => {
   it("returns features matching ids across layers", () => {

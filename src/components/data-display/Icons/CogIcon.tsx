@@ -1,7 +1,7 @@
-import React from "react";
 import MUISvgIcon, {
   SvgIconProps as MUISvgIconProps,
 } from "@mui/material/SvgIcon";
+import React from "react";
 
 // Keeps the DS's original outlined-cog silhouette (the earlier FontAwesome
 // `faGear` swap looked too heavy next to InfoIcon in the AppBar). The path
