@@ -1,0 +1,1 @@
+import{r as e,a}from"./iframe-DZvJTdLH.js";import{S as s}from"./Stack-Tdm1puzf.js";const t=e.forwardRef((o,r)=>a(s,{ref:r,...o,children:o.children}));t.__docgenInfo={description:"",methods:[],displayName:"FlexBox"};export{t as F};
