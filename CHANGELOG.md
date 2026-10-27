@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.0.0](https://github.com/telicent-oss/telicent-ds/compare/v5.0.1...v6.0.0) (2026-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** exported zod schemas (AppSwitchLibrarySchema, UIThemeSchema, ENCODE_SEARCH_PARAMS_MODES_Schema) and parseOrThrowWithInput are now zod 4 types. Apps must use zod 4 to compose them; embedding them in a zod 3 schema throws "def.type._parseSync is not a function" at parse time. Validation messages change wording (e.g. "Required" -> "Invalid input: expected string, received undefined").
+
+### Miscellaneous Chores
+
+* **deps:** upgrade zod to v4 and vite-plugin-dts to v4 ([#590](https://github.com/telicent-oss/telicent-ds/issues/590)) ([5dab223](https://github.com/telicent-oss/telicent-ds/commit/5dab22301802cc7c7e5243d3afb94407c68269db))
+
 ## [5.0.1](https://github.com/telicent-oss/telicent-ds/compare/v5.0.0...v5.0.1) (2026-10-23)
 
 
