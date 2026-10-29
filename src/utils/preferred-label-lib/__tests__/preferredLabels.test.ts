@@ -36,4 +36,16 @@ describe("preferredLabels", () => {
     const got = PreferredLabelCache.get();
     expect(got).toBe("");
   });
+
+  it("looks up a cached label", () => {
+    expect(PreferredLabelCache.lookup("http://ies.data.gov.uk/ontology/ies4#Person")).toBe("Person");
+  });
+
+  it("looks up nothing on a miss, rather than deriving a name", () => {
+    expect(PreferredLabelCache.lookup("http://purl.org/dc/terms/ISO3166")).toBeUndefined();
+  });
+
+  it("looks up nothing for an empty value", () => {
+    expect(PreferredLabelCache.lookup("")).toBeUndefined();
+  });
 });

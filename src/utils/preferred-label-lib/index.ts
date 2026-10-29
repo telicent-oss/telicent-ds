@@ -1,6 +1,6 @@
 import { OntologyService } from "@telicent-oss/ontologyservice";
 import { splitURIBaseAndTerm } from "../split-uri-base-and-term";
-const addSpaces = (str: string) => str.replace(/(?!^)([A-Z])/g, " $1");
+import { addSpaces } from "./add-spaces";
 export const PreferredLabelCache = (function () {
   let cache: Record<string, string> | null = null;
   let initPromise: Promise<void> | null = null;
@@ -58,8 +58,24 @@ export const PreferredLabelCache = (function () {
     return !label || label === "" ? addSpaces(humanFriendlyType) : label;
   };
 
+  /**
+   * Retrieves a preferred label only if the cache holds one for the value.
+   *
+   * Unlike `get`, it never derives a name from the URI, so callers can fall
+   * back to a label of their own.
+   *
+   * @param {string} val - The value to retrieve the preferred label for.
+   * @returns {string | undefined} - The preferred label, or undefined on a miss
+   * or before the cache is populated.
+   */
+  const lookup = (val: string): string | undefined => {
+    if (!val || !cache) return undefined;
+    return cache[val] || undefined;
+  };
+
   return {
     init,
     get,
+    lookup,
   };
 })();
