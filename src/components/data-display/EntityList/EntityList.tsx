@@ -1,4 +1,4 @@
-import { ReactNode, useMemo, useState, useId } from "react";
+import { ReactNode, useEffect, useMemo, useRef, useState, useId } from "react";
 import Box from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
 import { visuallyHidden } from "@mui/utils";
@@ -62,14 +62,39 @@ type EntityListBaseProps<T> = {
   onItemClick?: (item: T, href: string) => void;
   initialSort?: { key: string; direction: SortDirection };
   isLoading?: boolean;
-  // Initial page size. The user then controls it via the dropdown; later
-  // changes to this prop are ignored by design.
-  defaultPageSize?: number;
-  pageSizeOptions?: number[];
   renderEmpty?: () => ReactNode;
 };
 
-export type EntityListProps<T> = EntityListBaseProps<T> & LabellingProps;
+export type EntityListLoadMore = {
+  // False once the source has no further pages; hides the button.
+  hasMore: boolean;
+  // Fetching the next page. Rows already rendered stay on screen — the
+  // top-level isLoading (skeleton rows) is for the first load only.
+  isLoading?: boolean;
+  onLoadMore: () => void;
+  // Total across all pages (e.g. a server's count). Drives "Showing X of Y".
+  totalCount?: number;
+};
+
+// Either client-side pages (default) or incremental loading, never both.
+// In incremental mode every item is rendered, the pager is replaced by a
+// "Load more" button, and columns are not sortable — sorting only the rows
+// loaded so far would misrepresent the full set.
+type PagingProps =
+  | {
+      loadMore?: undefined;
+      // Initial page size. The user then controls it via the dropdown; later
+      // changes to this prop are ignored by design.
+      defaultPageSize?: number;
+      pageSizeOptions?: number[];
+    }
+  | {
+      loadMore: EntityListLoadMore;
+      defaultPageSize?: never;
+      pageSizeOptions?: never;
+    };
+
+export type EntityListProps<T> = EntityListBaseProps<T> & LabellingProps & PagingProps;
 
 const DEFAULT_PAGE_SIZE = 10;
 const DEFAULT_PAGE_SIZE_OPTIONS = [10, 25, 50, 100];
@@ -100,6 +125,7 @@ export const EntityList = <T,>({
   defaultPageSize = DEFAULT_PAGE_SIZE,
   pageSizeOptions = DEFAULT_PAGE_SIZE_OPTIONS,
   renderEmpty,
+  loadMore,
 }: EntityListProps<T>) => {
   const pageSizeSelectId = useId();
   const pageSizeLabelId = useId();
@@ -128,7 +154,35 @@ export const EntityList = <T,>({
   const pageCount = Math.max(1, Math.ceil(sortedItems.length / currentPageSize));
   const safePage = Math.min(page, pageCount - 1);
   const pageStart = safePage * currentPageSize;
-  const pageItems = sortedItems.slice(pageStart, pageStart + currentPageSize);
+  const incremental = loadMore != null;
+  const pageItems = incremental
+    ? items
+    : sortedItems.slice(pageStart, pageStart + currentPageSize);
+
+  const loadMoreRef = useRef<HTMLButtonElement>(null);
+  // Latest callback in a ref so an inline onLoadMore (new function every
+  // render) doesn't re-create the observer and fire twice for one scroll.
+  const onLoadMoreRef = useRef(loadMore?.onLoadMore);
+  onLoadMoreRef.current = loadMore?.onLoadMore;
+  const hasMore = loadMore?.hasMore ?? false;
+  const isLoadingMore = loadMore?.isLoading ?? false;
+
+  // Auto-load when the button nears the viewport. The button itself stays
+  // the keyboard / assistive-tech path, so environments without
+  // IntersectionObserver (jsdom, SSR) lose nothing but the auto-trigger.
+  useEffect(() => {
+    const el = loadMoreRef.current;
+    if (!el || !hasMore || isLoadingMore) return;
+    if (typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) onLoadMoreRef.current?.();
+      },
+      { rootMargin: "200px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasMore, isLoadingMore, isLoading]);
 
   const handleSort = (key: string) => {
     setSort((current) => {
@@ -182,7 +236,7 @@ export const EntityList = <T,>({
         {columns.map((column) => {
           const active = sort?.key === column.key;
           const direction = active ? sort.direction : "asc";
-          const sortable = column.getSortValue != null;
+          const sortable = !incremental && column.getSortValue != null;
           const alignStyle = column.align === "right" ? { justifyContent: "flex-end", textAlign: "right" as const } : undefined;
           const sharedStyle = {
             flexGrow: columnFlexGrow(column),
@@ -384,7 +438,36 @@ export const EntityList = <T,>({
         </List>
       )}
 
-      {!isLoading && !showEmpty && (
+      {!isLoading && !showEmpty && incremental && (
+        <FlexBox
+          direction="column"
+          alignItems="center"
+          gap={1}
+          sx={{ px: 2, py: 2 }}
+        >
+          <Text role="status" aria-live="polite">
+            {loadMore.totalCount != null
+              ? `Showing ${items.length} of ${loadMore.totalCount}`
+              : `Showing ${items.length}`}
+          </Text>
+          {hasMore && (
+            <Button
+              ref={loadMoreRef}
+              variant="tertiary"
+              // aria-disabled, not disabled: a disabled button drops focus to
+              // <body>, stranding keyboard users at the top of the page.
+              aria-disabled={isLoadingMore || undefined}
+              onClick={() => {
+                if (!isLoadingMore) loadMore.onLoadMore();
+              }}
+            >
+              {isLoadingMore ? "Loading…" : "Load more"}
+            </Button>
+          )}
+        </FlexBox>
+      )}
+
+      {!isLoading && !showEmpty && !incremental && (
         <FlexBox
           direction="row"
           alignItems="center"

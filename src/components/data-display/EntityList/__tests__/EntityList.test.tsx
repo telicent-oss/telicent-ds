@@ -1,7 +1,11 @@
 import React from "react";
 import { render, screen, within, cleanup, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import EntityList, { EntityListColumn } from "../EntityList";
+import EntityList, {
+  EntityListColumn,
+  EntityListLoadMore,
+  EntityListProps,
+} from "../EntityList";
 
 type Row = { id: string; name: string; email: string; created: Date };
 
@@ -31,7 +35,17 @@ const COLUMNS: EntityListColumn<Row>[] = [
   },
 ];
 
-const renderList = (overrides: Partial<React.ComponentProps<typeof EntityList<Row>>> = {}) =>
+// Paging overrides mirror EntityList's PagingProps union, so a test can't
+// combine loadMore with page-size props any more than a caller can.
+type Overrides = Partial<
+  Pick<EntityListProps<Row>, "items" | "initialSort" | "isLoading" | "renderEmpty" | "onItemClick">
+> &
+  (
+    | { loadMore?: undefined; defaultPageSize?: number; pageSizeOptions?: number[] }
+    | { loadMore: EntityListLoadMore }
+  );
+
+const renderList = (overrides: Overrides = {}) =>
   render(
     <EntityList
       items={ROWS}
@@ -370,6 +384,105 @@ describe("EntityList", () => {
       const firstRow = within(screen.getAllByRole("listitem")[0]);
       expect(firstRow.getByText("Alice")).toBeInTheDocument();
       expect(firstRow.getByText("a@x")).toBeInTheDocument();
+    });
+  });
+
+  describe("incremental loading (loadMore)", () => {
+    const MANY: Row[] = Array.from({ length: 30 }, (_, i) => ({
+      id: `r${i}`,
+      name: `Row ${i}`,
+      email: `r${i}@x`,
+      created: new Date(2024, 0, i + 1),
+    }));
+
+    const loadMore = (overrides: Partial<EntityListLoadMore> = {}): EntityListLoadMore => ({
+      hasMore: true,
+      onLoadMore: jest.fn(),
+      ...overrides,
+    });
+
+    it("renders every item instead of slicing into pages", () => {
+      renderList({ items: MANY, loadMore: loadMore() });
+      expect(screen.getAllByRole("listitem")).toHaveLength(30);
+    });
+
+    it("replaces the pager with a load-more button", () => {
+      renderList({ items: MANY, loadMore: loadMore() });
+      expect(screen.queryByLabelText("Rows per page:")).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: "Next page" })).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Load more" })).toBeInTheDocument();
+    });
+
+    it("calls onLoadMore when the button is activated", async () => {
+      const lm = loadMore();
+      renderList({ items: MANY, loadMore: lm });
+      await userEvent.click(screen.getByRole("button", { name: "Load more" }));
+      expect(lm.onLoadMore).toHaveBeenCalledTimes(1);
+    });
+
+    it("keeps the button focusable but inert while the next page loads", async () => {
+      const lm = loadMore({ isLoading: true });
+      renderList({ items: MANY, loadMore: lm });
+      const button = screen.getByRole("button", { name: "Loading…" });
+      expect(button).toHaveAttribute("aria-disabled", "true");
+      expect(button).not.toBeDisabled();
+      await userEvent.click(button);
+      expect(lm.onLoadMore).not.toHaveBeenCalled();
+    });
+
+    it("keeps already-loaded rows on screen while the next page loads", () => {
+      renderList({ items: MANY, loadMore: loadMore({ isLoading: true }) });
+      expect(screen.getAllByRole("listitem")).toHaveLength(30);
+    });
+
+    it("hides the button once there is nothing more to load", () => {
+      renderList({ items: MANY, loadMore: loadMore({ hasMore: false }) });
+      expect(screen.queryByRole("button", { name: /load more/i })).not.toBeInTheDocument();
+    });
+
+    it("announces loaded and total counts in a live region", () => {
+      renderList({ items: MANY, loadMore: loadMore({ totalCount: 2340 }) });
+      expect(screen.getByRole("status")).toHaveTextContent("Showing 30 of 2340");
+    });
+
+    it("announces only the loaded count when no total is given", () => {
+      renderList({ items: MANY, loadMore: loadMore() });
+      expect(screen.getByRole("status")).toHaveTextContent("Showing 30");
+    });
+
+    it("renders headers as plain labels, not sort buttons", () => {
+      renderList({ items: MANY, loadMore: loadMore() });
+      expect(screen.queryByRole("button", { name: /^Name/ })).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /^Created/ })).not.toBeInTheDocument();
+    });
+
+    it("auto-loads when the button scrolls near the viewport", () => {
+      let trigger: (entries: Partial<IntersectionObserverEntry>[]) => void = () => {};
+      const observe = jest.fn();
+      const disconnect = jest.fn();
+      const original = window.IntersectionObserver;
+      window.IntersectionObserver = jest.fn((cb: IntersectionObserverCallback) => {
+        trigger = (entries) =>
+          cb(entries as IntersectionObserverEntry[], {} as IntersectionObserver);
+        return { observe, disconnect, unobserve: jest.fn(), takeRecords: jest.fn() };
+      }) as unknown as typeof IntersectionObserver;
+      try {
+        const lm = loadMore();
+        renderList({ items: MANY, loadMore: lm });
+        expect(observe).toHaveBeenCalledWith(screen.getByRole("button", { name: "Load more" }));
+        trigger([{ isIntersecting: false }]);
+        expect(lm.onLoadMore).not.toHaveBeenCalled();
+        trigger([{ isIntersecting: true }]);
+        expect(lm.onLoadMore).toHaveBeenCalledTimes(1);
+      } finally {
+        window.IntersectionObserver = original;
+      }
+    });
+
+    it("shows skeleton rows, not the load-more footer, on first load", () => {
+      renderList({ items: [], isLoading: true, loadMore: loadMore() });
+      expect(screen.getByRole("status")).toHaveTextContent("Loading");
+      expect(screen.queryByRole("button", { name: "Load more" })).not.toBeInTheDocument();
     });
   });
 });

@@ -58,6 +58,7 @@ export type { TableRowProps } from "./Table/TableRow";
 export { default as EntityList } from "./EntityList/EntityList";
 export type {
   EntityListColumn,
+  EntityListLoadMore,
   EntityListProps,
   SortDirection,
   SortValue,
