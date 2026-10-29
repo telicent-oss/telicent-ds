@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.1.0](https://github.com/telicent-oss/telicent-ds/compare/v6.0.0...v6.1.0) (2026-10-29)
+
+
+### Features
+
+* **data-display:** load more pages incrementally in EntityList ([#595](https://github.com/telicent-oss/telicent-ds/issues/595)) ([f99ddf9](https://github.com/telicent-oss/telicent-ds/commit/f99ddf93f37e4ee1864e894d76a759c8b10c540a))
+* **utils:** PreferredLabelCache.lookup and acronym-safe derived names ([#594](https://github.com/telicent-oss/telicent-ds/issues/594)) ([a6a1666](https://github.com/telicent-oss/telicent-ds/commit/a6a16664d649400678803ef4e6246fefa855be6f))
+
 ## [6.0.0](https://github.com/telicent-oss/telicent-ds/compare/v5.0.1...v6.0.0) (2026-10-27)
 
 
