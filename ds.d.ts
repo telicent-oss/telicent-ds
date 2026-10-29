@@ -949,7 +949,7 @@ export declare type ENCODE_SEARCH_PARAMS_MODES_Type = z.infer<typeof ENCODE_SEAR
  */
 export declare const ensureFaIconPath: (faIcon: string) => Promise<string | undefined>;
 
-export declare const EntityList: <T>({ items, columns, getItemKey, getItemHref, getItemLabel, onItemClick, ariaLabelledBy, ariaLabel, initialSort, isLoading, defaultPageSize, pageSizeOptions, renderEmpty, }: EntityListProps<T>) => JSX.Element;
+export declare const EntityList: <T>({ items, columns, getItemKey, getItemHref, getItemLabel, onItemClick, ariaLabelledBy, ariaLabel, initialSort, isLoading, defaultPageSize, pageSizeOptions, renderEmpty, loadMore, }: EntityListProps<T>) => JSX.Element;
 
 declare type EntityListBaseProps<T> = {
     items: T[];
@@ -963,8 +963,6 @@ declare type EntityListBaseProps<T> = {
         direction: SortDirection;
     };
     isLoading?: boolean;
-    defaultPageSize?: number;
-    pageSizeOptions?: number[];
     renderEmpty?: () => ReactNode;
 };
 
@@ -978,7 +976,14 @@ export declare type EntityListColumn<T> = {
     align?: "left" | "right";
 };
 
-export declare type EntityListProps<T> = EntityListBaseProps<T> & LabellingProps;
+export declare type EntityListLoadMore = {
+    hasMore: boolean;
+    isLoading?: boolean;
+    onLoadMore: () => void;
+    totalCount?: number;
+};
+
+export declare type EntityListProps<T> = EntityListBaseProps<T> & LabellingProps & PagingProps;
 
 export declare const ErrorFallback: default_2.FC<ErrorFallbackProps>;
 
@@ -3166,6 +3171,16 @@ export declare type OverlayVectorLayerConfig = {
     visible?: boolean;
     zIndex?: number;
     projection?: string;
+};
+
+declare type PagingProps = {
+    loadMore?: undefined;
+    defaultPageSize?: number;
+    pageSizeOptions?: number[];
+} | {
+    loadMore: EntityListLoadMore;
+    defaultPageSize?: never;
+    pageSizeOptions?: never;
 };
 
 declare interface PanelProps extends HTMLAttributes<HTMLDivElement> {
