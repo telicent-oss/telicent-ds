@@ -3313,6 +3313,7 @@ export declare type Position = "topLeft" | "top" | "topRight" | "right" | "botto
 export declare const PreferredLabelCache: {
     init: (ontologyService: OntologyService) => Promise<void>;
     get: (val: string) => string;
+    lookup: (val: string) => string | undefined;
 };
 
 declare interface ProgressProps extends Omit<CircularProgressProps, "classes" | "color" | "size" | "sx" | "thickness"> {
