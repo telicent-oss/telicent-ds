@@ -242,3 +242,48 @@ export const Empty: Story = {
     },
   },
 };
+
+const LOAD_MORE_PAGE_SIZE = 4;
+
+export const LoadMore: Story = {
+  // Props are passed explicitly rather than spread from args: Storybook types
+  // args as a union of every prop combination, which can't satisfy
+  // EntityList's either-pages-or-loadMore constraint.
+  render: () => {
+    // Simulates a paged server: each "request" resolves after a short delay
+    // with the next LOAD_MORE_PAGE_SIZE users.
+    const [loaded, setLoaded] = useState(() => USERS.slice(0, LOAD_MORE_PAGE_SIZE));
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
+    const onLoadMore = () => {
+      setIsLoadingMore(true);
+      setTimeout(() => {
+        setLoaded((prev) => USERS.slice(0, prev.length + LOAD_MORE_PAGE_SIZE));
+        setIsLoadingMore(false);
+      }, 600);
+    };
+    return (
+      <EntityList
+        items={loaded}
+        columns={COLUMNS}
+        getItemKey={(u) => u.id}
+        getItemHref={(u) => `/users/${u.id}`}
+        getItemLabel={(u) => `View user ${u.name}`}
+        ariaLabel="Users"
+        loadMore={{
+          hasMore: loaded.length < USERS.length,
+          isLoading: isLoadingMore,
+          onLoadMore,
+          totalCount: USERS.length,
+        }}
+      />
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Pass `loadMore` for server-paged data. Every loaded item renders, the pager is replaced by a tertiary \"Load more\" button that also fires automatically as it scrolls into view, and a live region announces \"Showing X of Y\". Columns are not sortable in this mode because only the loaded rows could be sorted. The button stays focusable (`aria-disabled`) while the next page loads.",
+      },
+    },
+  },
+};
