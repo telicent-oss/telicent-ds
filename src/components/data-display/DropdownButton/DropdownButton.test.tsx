@@ -175,29 +175,25 @@ describe("DropdownButton", () => {
               color="#1976d2"
               data-icon="circle"
               data-prefix="far"
-              focusable="false"
               font-size="medium"
               role="img"
               viewBox="0 0 512 512"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
+                d="M464 256a208 208 0 1 0 -416 0 208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0z"
                 fill="currentColor"
               />
             </svg>
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-angle-down fa-sm emotion-2"
+              class="svg-inline--fa fa-angle-down emotion-2 fa-sm"
               data-icon="angle-down"
               data-prefix="fas"
-              focusable="false"
               role="img"
-              viewBox="0 0 448 512"
-              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
             >
               <path
-                d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                d="M169.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 306.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                 fill="currentColor"
               />
             </svg>
@@ -406,16 +402,14 @@ describe("DropdownButton", () => {
             </svg>
             <svg
               aria-hidden="true"
-              class="svg-inline--fa fa-angle-down fa-sm emotion-3"
+              class="svg-inline--fa fa-angle-down emotion-3 fa-sm"
               data-icon="angle-down"
               data-prefix="fas"
-              focusable="false"
               role="img"
-              viewBox="0 0 448 512"
-              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
             >
               <path
-                d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                d="M169.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 306.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                 fill="currentColor"
               />
             </svg>

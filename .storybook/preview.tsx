@@ -7,6 +7,7 @@ import { UIThemeSchema } from "../src/theme/colors/theme-colors";
 // resolve inside the preview iframe. Without this, components that read the accent
 // via `rgb(var(--teli-app-color))` fall back to `currentColor` and render as black.
 import "../src/index.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // Reads `background.default` from the resolved theme so axe-core's color-contrast
 // rule measures against the real background each theme × mode combo renders —
