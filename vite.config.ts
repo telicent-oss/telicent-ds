@@ -76,7 +76,13 @@ export default defineConfig({
               dest: "dist/styles",
             },
             { src: "src/fontawesome.css", dest: "dist" },
-
+            {
+              src: [
+                "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+                "node_modules/@fortawesome/fontawesome-free/css/svg-with-js.min.css",
+              ],
+              dest: "dist/assets/fonts/fontawesome/css",
+            },
             {
               src: "node_modules/@fortawesome/fontawesome-free/webfonts/*",
               dest: "dist/assets/fonts/fontawesome/webfonts",
