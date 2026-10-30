@@ -1,0 +1,1 @@
+import{a as o}from"./iframe-B8Ndjgs7.js";import{C as a}from"./CircularProgress-B0d2h-_4.js";const e=r=>o(a,{"aria-label":"Loading",...r});e.__docgenInfo={description:"",methods:[],displayName:"Spinner"};export{e as S};
