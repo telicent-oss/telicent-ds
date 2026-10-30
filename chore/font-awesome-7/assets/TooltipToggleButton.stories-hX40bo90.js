@@ -1,0 +1,3 @@
+import{a as o,b as r}from"./iframe-B8Ndjgs7.js";import"./preload-helper-Dp1pzeXC.js";const c=()=>r("div",{style:{padding:16,fontFamily:"sans-serif"},children:[o("h3",{children:"Story moved"}),r("p",{children:["Use ",o("code",{children:"Surfaces/Toolbar → Example"}),"."]})]}),d={title:"Surfaces/Toolbar/TooltipToggleButton ⚠ Redirect",component:c,parameters:{docs:{description:{component:"This file only exists to point you to `Surfaces/Toolbar → Example`."}}}},e={render:()=>o(c,{})},l=["Redirect"];var s,t,a;e.parameters={...e.parameters,docs:{...(s=e.parameters)==null?void 0:s.docs,source:{originalSource:`{
+  render: () => <GoToToolbar />
+}`,...(a=(t=e.parameters)==null?void 0:t.docs)==null?void 0:a.source}}};export{e as Redirect,l as __namedExportsOrder,d as default};
