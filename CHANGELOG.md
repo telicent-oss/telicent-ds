@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.1](https://github.com/telicent-oss/telicent-ds/compare/v6.1.0...v6.1.1) (2026-10-30)
+
+
+### Bug Fixes
+
+* **deps:** move Font Awesome to v7 ([#597](https://github.com/telicent-oss/telicent-ds/issues/597)) ([a881922](https://github.com/telicent-oss/telicent-ds/commit/a88192200498c396f0c417f330834a435c97481e))
+
 ## [6.1.0](https://github.com/telicent-oss/telicent-ds/compare/v6.0.0...v6.1.0) (2026-10-29)
 
 
