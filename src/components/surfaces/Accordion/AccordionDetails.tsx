@@ -1,5 +1,5 @@
-import React from "react";
 import MuiAccordionDetails, { AccordionDetailsProps } from "@mui/material/AccordionDetails";
+import React from "react";
 
 export const AccordionDetails: React.FC<AccordionDetailsProps> = (props) => (
   <MuiAccordionDetails {...props} />

@@ -1,10 +1,10 @@
-import React from "react";
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import React from "react";
 
-import { MapPanel } from "./MapPanel";
 import { FloatingPanelContext } from "../../../../../components/surfaces/FloatingPanel";
 import type { LayerConfig } from "../../types/layers";
+import { MapPanel } from "./MapPanel";
 
 const baseLayers: LayerConfig[] = [
   {

@@ -3,9 +3,10 @@ jest.mock("@mui/material/styles", () => ({
   createTheme: jest.fn((options: any) => options),
 }));
 import { createTheme as mockCreateMuiTheme } from "@mui/material/styles";
-import createTheme from "./createTheme";
 import { createPatch } from "diff";
+
 import { UIThemeSchema } from "./colors/theme-colors";
+import createTheme from "./createTheme";
 
 const asMock = (val: unknown) => val as jest.Mock;
 

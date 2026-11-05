@@ -1,9 +1,10 @@
-import { addSelectInteraction } from "../addSelectInteraction";
-import Select from "ol/interaction/Select";
-import { click } from "ol/events/condition";
-import { Style } from "ol/style";
 import type { Feature, Map as OlMap } from "ol";
+import { click } from "ol/events/condition";
+import Select from "ol/interaction/Select";
 import type VectorLayer from "ol/layer/Vector";
+import { Style } from "ol/style";
+
+import { addSelectInteraction } from "../addSelectInteraction";
 
 jest.mock("ol/interaction/Select");
 jest.mock("ol/events/condition", () => ({

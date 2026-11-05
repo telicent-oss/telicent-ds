@@ -1,6 +1,6 @@
+import fs from "fs";
 import glob from "glob";
 import path from "path";
-import fs from "fs";
 
 /**
  * Test to help capture when we forget to add a storybook
@@ -10,7 +10,7 @@ import fs from "fs";
  * - you can add: `// ignore story-coverage.test.ts` to your file.
  */
 it("looks for components that appear to be missing a story - snapshots these components for examination", () => {
-  let missingStories: string[] = [];
+  const missingStories: string[] = [];
 
   // Gather all component files matching the given patterns
   const allComponentFiles = [

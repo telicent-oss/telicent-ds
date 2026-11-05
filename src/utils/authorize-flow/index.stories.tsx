@@ -1,17 +1,4 @@
 // OAuthFlowDemo.stories.tsx
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState, useEffect } from "react";
-import { QueryClient } from "@tanstack/react-query";
-import AuthServerOAuth2Client, { UserInfo } from "@telicent-oss/fe-auth-lib";
-
-import { AuthModal } from "./components/AuthModal";
-import { ForceNoIframe } from "./components/ForceNoIframe";
-import { createApi } from "./index";
-import { AuthEvent, broadcastAuthEvent } from "./services/broadcastChannelService";
-import { setupOAuthEventListeners } from "./services/setupOAuthEventListeners";
-import { AuthRedirectUri } from "./pages/AuthRedirectUri";
-import { RequestApi } from "./types";
-
 import {
   Alert,
   Breadcrumbs,
@@ -24,7 +11,19 @@ import {
   Typography,
   TypographyProps,
 } from "@mui/material";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { QueryClient } from "@tanstack/react-query";
+import AuthServerOAuth2Client, { UserInfo } from "@telicent-oss/fe-auth-lib";
+import { useEffect,useState } from "react";
+
+import { AuthModal } from "./components/AuthModal";
+import { ForceNoIframe } from "./components/ForceNoIframe";
 import { AuthProvider } from "./context/AuthProvider";
+import { createApi } from "./index";
+import { AuthRedirectUri } from "./pages/AuthRedirectUri";
+import { AuthEvent, broadcastAuthEvent } from "./services/broadcastChannelService";
+import { setupOAuthEventListeners } from "./services/setupOAuthEventListeners";
+import { RequestApi } from "./types";
 
 // Reusables
 const SpacedStack = (props: StackProps) => <Stack spacing={2} {...props} />;

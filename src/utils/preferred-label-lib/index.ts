@@ -1,4 +1,5 @@
 import { OntologyService } from "@telicent-oss/ontologyservice";
+
 import { splitURIBaseAndTerm } from "../split-uri-base-and-term";
 import { addSpaces } from "./add-spaces";
 export const PreferredLabelCache = (function () {

@@ -1,10 +1,11 @@
-import { resolveFaIconPath } from "../utils/faIconResolver";
-import { parseSVG, makeAbsolute } from "svg-path-parser";
-import { MarkerStyle, MarkerType } from "../types/markers";
-import Style from "ol/style/Style";
-import Icon from "ol/style/Icon";
 import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
+import Icon from "ol/style/Icon";
+import Style from "ol/style/Style";
+import { makeAbsolute,parseSVG } from "svg-path-parser";
+
+import { MarkerStyle, MarkerType } from "../types/markers";
+import { resolveFaIconPath } from "../utils/faIconResolver";
 
 const iconCache = new Map<string, string>();
 

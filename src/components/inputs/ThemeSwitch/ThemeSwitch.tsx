@@ -1,8 +1,8 @@
-import { forwardRef } from "react";
-import { styled } from "@mui/material/styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun } from "@fortawesome/free-solid-svg-icons/faSun";
 import { faMoon } from "@fortawesome/free-solid-svg-icons/faMoon";
+import { faSun } from "@fortawesome/free-solid-svg-icons/faSun";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { styled } from "@mui/material/styles";
+import { forwardRef } from "react";
 
 export type ThemeSwitchProps = {
   checked: boolean;

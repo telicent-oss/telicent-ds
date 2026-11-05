@@ -1,5 +1,6 @@
-import React, { forwardRef } from "react";
 import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
+import React, { forwardRef } from "react";
+
 import { useExtendedTheme } from "../../../export";
 
 type TertiaryButtonProps = Omit<MUIButtonProps, "variant" | "color">;

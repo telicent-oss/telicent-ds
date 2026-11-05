@@ -1,9 +1,9 @@
 import type { Map as OlMap } from "ol";
-import type Geometry from "ol/geom/Geometry";
 import { extend, Extent, getWidth } from "ol/extent";
 import type Feature from "ol/Feature";
-import BaseLayer from "ol/layer/Base";
+import type Geometry from "ol/geom/Geometry";
 import Point from "ol/geom/Point";
+import BaseLayer from "ol/layer/Base";
 
 export const getFeaturesById = (
   layers: BaseLayer[],

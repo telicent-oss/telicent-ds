@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box } from "@mui/material";
 import { createTheme, ThemeOptions, ThemeProvider } from "@mui/material/styles";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ErrorFallbackWrapper, ErrorFallbackWrapperProps } from "./ErrorFallbackWrapper";
 import { ErrorFallbackText, ErrorFallbackTextProps } from "./ErrorFallbackText";
+import { ErrorFallbackWrapper, ErrorFallbackWrapperProps } from "./ErrorFallbackWrapper";
 
 const meta = {
   title: "Utils/ErrorFallback/ErrorFallbackWrapper",

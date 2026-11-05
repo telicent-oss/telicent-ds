@@ -1,8 +1,8 @@
-import OlMap from "ol/Map";
-import View from "ol/View";
-import BaseLayer from "ol/layer/Base";
 import { Collection } from "ol";
 import { Control } from "ol/control";
+import BaseLayer from "ol/layer/Base";
+import OlMap from "ol/Map";
+import View from "ol/View";
 
 export const createMap = ({
   target,

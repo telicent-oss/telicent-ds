@@ -1,7 +1,8 @@
-import { addHoverInteraction } from "../addHoverInteraction";
-import { unByKey } from "ol/Observable";
 import type { Map as OlMap } from "ol";
 import type VectorLayer from "ol/layer/Vector";
+import { unByKey } from "ol/Observable";
+
+import { addHoverInteraction } from "../addHoverInteraction";
 
 jest.mock("ol/Observable", () => ({
   unByKey: jest.fn(),

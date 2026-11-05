@@ -1,4 +1,5 @@
 import { ThemeOptions } from "@mui/material";
+
 import { UITheme } from "../../colors/theme-colors";
 
 const generateButtonOverrides = (_uiTheme: UITheme) =>

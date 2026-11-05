@@ -1,4 +1,5 @@
 import { useContext } from "react";
+
 import { FloatingPanelContext } from "./FloatingPanelProvider";
 
 /**

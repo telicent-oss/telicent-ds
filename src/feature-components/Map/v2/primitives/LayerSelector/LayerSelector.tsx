@@ -1,14 +1,13 @@
-import React, { useMemo, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type BaseLayer from "ol/layer/Base";
-
-import { Button, Text, useExtendedTheme } from "../../../../../export";
-import { Image } from "./primitives/Image";
-import type { LayerSelectorProps } from "../../types/map-types";
-import { getMeta } from "../../utils/layers";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Menu, type MenuOption } from "../../../../../components/Navigation/Menu/Menu";
+import { Button, Text, useExtendedTheme } from "../../../../../export";
+import type { LayerSelectorProps } from "../../types/map-types";
+import { getMeta } from "../../utils/layers";
+import { Image } from "./primitives/Image";
 
 const resolveVisibleBaseLayerIndex = (layers: BaseLayer[]): number => {
   const storedLabel = localStorage.getItem("map.baselayer");

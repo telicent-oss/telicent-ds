@@ -1,5 +1,5 @@
-import React from "react";
 import MUIChip, { ChipProps as MUIChipProps } from "@mui/material/Chip";
+import React from "react";
 
 export type ChipProps = Omit<
   MUIChipProps,

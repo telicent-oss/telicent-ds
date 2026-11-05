@@ -1,9 +1,10 @@
-import React from "react";
+import { SxProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputBase, { InputBaseProps } from "@mui/material/InputBase";
+import React from "react";
+
 import PrimaryButton from "../../buttons/Button/PrimaryButton";
 import { SearchIcon } from "../../data-display";
-import { SxProps } from "@mui/material";
 
 export interface SearchBoxProps<Value = string> extends React.ComponentProps<typeof InputBase> {
   /**

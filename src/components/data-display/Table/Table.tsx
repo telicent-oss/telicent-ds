@@ -1,5 +1,5 @@
-import React from "react";
 import TableRaw, { TableProps } from "@mui/material/Table";
+import React from "react";
 
 export const Table: React.FC<TableProps> = (props) => <TableRaw {...props} />;
 

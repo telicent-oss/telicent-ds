@@ -1,5 +1,5 @@
-export { default as AVATAR_OVERRIDES } from "./avatar-overrides";
 export { default as generateAccordionOverrides } from "./accordion-overrides";
+export { default as AVATAR_OVERRIDES } from "./avatar-overrides";
 export { default as generateBadgeOverrides } from "./badge-overrides";
 export { default as generateButtonOverrides } from "./button-overrides";
 export { default as generateCardOverrides } from "./card-overrides";

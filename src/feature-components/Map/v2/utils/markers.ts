@@ -1,9 +1,10 @@
-import geohash from "./geohash/geohash";
 import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
 import { fromLonLat } from "ol/proj";
-import { MarkerFeature, MarkerStyle } from "../types/markers";
+
 import { getGeneratedOlIcon } from "../styles/markers";
+import { MarkerFeature, MarkerStyle } from "../types/markers";
+import geohash from "./geohash/geohash";
 
 export enum MarkerAnchor {
   BOTTOM_MIDDLE,

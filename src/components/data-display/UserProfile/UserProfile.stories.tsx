@@ -1,13 +1,13 @@
-import React from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import Box from "@mui/material/Box";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import React from "react";
 
-import UserProfile from "./UserProfile";
-import UserProfileContent from "./UserProfileContent/UserProfileContent";
-import TitleAndContent from "../Text/TitleAndContent/TitleAndContent";
-import Divider from "../Divider/Divider";
 import Button from "../../buttons/Button/Button";
 import FlexBox from "../../layout/FlexBox";
+import Divider from "../Divider/Divider";
+import TitleAndContent from "../Text/TitleAndContent/TitleAndContent";
+import UserProfile from "./UserProfile";
+import UserProfileContent from "./UserProfileContent/UserProfileContent";
 
 const meta = {
   title: "Data display/User profile",

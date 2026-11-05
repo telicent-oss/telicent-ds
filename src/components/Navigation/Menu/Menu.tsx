@@ -1,11 +1,11 @@
-import * as React from "react";
-import MUIMenu from "@mui/material/Menu";
-import MUIMenuItem from "@mui/material/MenuItem";
+import { Theme } from "@emotion/react";
+import { SxProps } from "@mui/material";
 import MUIDivider from "@mui/material/Divider";
 import MUIListItemIcon from "@mui/material/ListItemIcon";
 import MUIListItemText from "@mui/material/ListItemText";
-import { SxProps } from "@mui/material";
-import { Theme } from "@emotion/react";
+import MUIMenu from "@mui/material/Menu";
+import MUIMenuItem from "@mui/material/MenuItem";
+import * as React from "react";
 
 export type MenuOption = {
   id: string;

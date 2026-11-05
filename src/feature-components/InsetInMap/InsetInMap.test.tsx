@@ -1,5 +1,8 @@
-import React from "react";
+/* eslint-disable simple-import-sort/imports -- order matters: ./InsetInMap must load before
+   ./components/components, which reaches it again through src/export.ts (circular import). */
 import { render } from "@testing-library/react";
+import React from "react";
+
 import { InsetInMap } from "./InsetInMap";
 import { workspace } from "./components/components";
 

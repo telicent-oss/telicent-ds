@@ -1,6 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
-import { useFloatingPanelContext } from "../useFloatingPanelContext";
+
 import { FloatingPanelProvider } from "../FloatingPanelProvider";
+import { useFloatingPanelContext } from "../useFloatingPanelContext";
 
 const renderContext = () => {
   return renderHook(() => useFloatingPanelContext(), {

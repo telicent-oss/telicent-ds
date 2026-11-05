@@ -1,7 +1,8 @@
+import { screen, within } from "@testing-library/dom";
 import React from "react";
+
 import { setup } from "../../../test-utils";
 import AppSwitch from "./AppSwitch";
-import { screen, within } from "@testing-library/dom";
 
 describe("App switch component", () => {
   test("renders apps list", async () => {

@@ -1,5 +1,5 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import React from "react";
 
 import IconButton from "../../buttons/Button/IconButton";
 import FlexBox from "../../layout/FlexBox";

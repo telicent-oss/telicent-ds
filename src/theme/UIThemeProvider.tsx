@@ -1,6 +1,7 @@
-import React from "react";
 import { ThemeProvider as MUIThemeProvider } from "@mui/material";
 import MUICssBaseline from "@mui/material/CssBaseline";
+import React from "react";
+
 import { UITheme, UIThemeSchema } from "./colors/theme-colors";
 import createTheme from "./createTheme";
 

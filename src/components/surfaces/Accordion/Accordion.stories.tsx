@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Accordion } from "./Accordion";
-import { AccordionSummary } from "./AccordionSummary";
-import { AccordionDetails } from "./AccordionDetails";
+
 import { Text } from "../../data-display/Text/Text";
 import FlexBox from "../../layout/FlexBox";
+import { Accordion } from "./Accordion";
+import { AccordionDetails } from "./AccordionDetails";
+import { AccordionSummary } from "./AccordionSummary";
 
 const meta: Meta<typeof Accordion> = {
   title: "Surfaces/Accordion",

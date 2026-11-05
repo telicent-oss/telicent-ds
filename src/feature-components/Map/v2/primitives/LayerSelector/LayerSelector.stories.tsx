@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import React, { useMemo } from "react";
 
-import { LayerSelectorV2 } from "./LayerSelector";
-import { getBaseRasterLayer } from "../../utils/layers";
 import type { BaseRasterLayerConfig } from "../../types/layers";
+import { getBaseRasterLayer } from "../../utils/layers";
+import { LayerSelectorV2 } from "./LayerSelector";
 
 const baseLayerConfigs: BaseRasterLayerConfig[] = [
   {

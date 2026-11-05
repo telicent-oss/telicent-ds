@@ -1,7 +1,8 @@
 import { screen } from "@testing-library/react";
 import React from "react";
-import Badge from "../Badge";
+
 import { setup } from "../../../../test-utils";
+import Badge from "../Badge";
 
 const badge = () => screen.getByText("2");
 

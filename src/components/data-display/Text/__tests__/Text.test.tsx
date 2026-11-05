@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react";
+
 import Text, { H1, H2, H3, H4, H5, H6 } from "../Text";
 
 test("Text component renders without error", () => {

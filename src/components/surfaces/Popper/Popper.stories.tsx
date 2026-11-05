@@ -1,12 +1,13 @@
-import { useRef, useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Fade from "@mui/material/Fade";
-import { Popper } from "./Popper";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useRef, useState } from "react";
+
 import Button from "../../buttons/Button/Button";
-import Paper from "../Paper/Paper";
 import { Text } from "../../data-display/Text/Text";
 import FlexBox from "../../layout/FlexBox";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Paper from "../Paper/Paper";
+import { Popper } from "./Popper";
 
 const meta: Meta<typeof Popper> = {
   title: "Surfaces/Popper",

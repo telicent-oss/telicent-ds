@@ -1,10 +1,10 @@
-import React from "react";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@mui/material/styles";
+import React from "react";
 
 type DownArrowIconProps = Omit<FontAwesomeIconProps, "icon"> & {
   color?: "primary" | "inherit";

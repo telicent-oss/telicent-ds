@@ -1,7 +1,8 @@
 import { screen } from "@testing-library/react";
+
+import { setup } from "../../../../test-utils";
 import AppInfo from "../AppInfo";
 import AppInfoRow from "../AppInfoRow";
-import { setup } from "../../../../test-utils";
 
 describe("AppInfo", () => {
   test("renders the trigger with the default accessible name", () => {

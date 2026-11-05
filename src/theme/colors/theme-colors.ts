@@ -1,9 +1,10 @@
 import zod from "zod";
-import DocumentPink from "./DocumentPink";
-import GraphOrange from "./GraphOrange";
+
 import AdminBlue from "./AdminBlue";
-import GeoGreen from "./GeoGreen";
 import Blank from "./BlankTheme";
+import DocumentPink from "./DocumentPink";
+import GeoGreen from "./GeoGreen";
+import GraphOrange from "./GraphOrange";
 
 /** Curated set of DS themes. */
 export const UIThemeSchema = zod.enum(["DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]);

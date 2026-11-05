@@ -1,7 +1,8 @@
-import { ensureLayers } from "../ensureLayers";
 import TileLayer from "ol/layer/Tile";
 import VectorLayer from "ol/layer/Vector";
+
 import { LayerConfig } from "../../types/layers";
+import { ensureLayers } from "../ensureLayers";
 
 describe("ensureLayers (integration)", () => {
   it("creates real TileLayer with OSM source", async () => {

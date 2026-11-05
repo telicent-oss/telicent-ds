@@ -1,7 +1,8 @@
-import axios from "axios";
-import { RequestApi, SessionHandlingConfig } from "./types";
-import { withSessionHandling } from "./services/withSessionHandling";
 import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
+import axios from "axios";
+
+import { withSessionHandling } from "./services/withSessionHandling";
+import { RequestApi, SessionHandlingConfig } from "./types";
 export { setupOAuthEventListeners } from "./services/setupOAuthEventListeners";
 
 export const createRequestApi = (
