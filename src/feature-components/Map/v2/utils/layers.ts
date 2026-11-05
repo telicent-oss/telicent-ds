@@ -1,28 +1,29 @@
-import apply, { applyStyle } from "ol-mapbox-style";
-import VectorTileLayer from "ol/layer/VectorTile";
-import VectorTileSource from "ol/source/VectorTile";
+import { Collection } from "ol";
+import Feature from "ol/Feature";
+import MVT from "ol/format/MVT";
+import { Point, Polygon } from "ol/geom";
 import BaseLayer from "ol/layer/Base";
+import LayerGroup from "ol/layer/Group";
+import TileLayer from "ol/layer/Tile";
+import VectorLayer from "ol/layer/Vector";
+import VectorTileLayer from "ol/layer/VectorTile";
+import { fromLonLat, get as getProjection } from "ol/proj";
+import { XYZ } from "ol/source";
+import VectorSource from "ol/source/Vector";
+import VectorTileSource from "ol/source/VectorTile";
+import { Fill, Stroke, Style } from "ol/style";
+import CircleStyle from "ol/style/Circle";
+import { StyleLike } from "ol/style/Style";
+import { createXYZ } from "ol/tilegrid";
+import apply, { applyStyle } from "ol-mapbox-style";
+
 import {
   BaseRasterLayerConfig,
   BaseVectorTileLayerConfig,
   LayerMeta,
   OverlayVectorLayerConfig,
 } from "../types/layers";
-import VectorSource from "ol/source/Vector";
-import { Point, Polygon } from "ol/geom";
-import { fromLonLat, get as getProjection } from "ol/proj";
-import Feature from "ol/Feature";
-import VectorLayer from "ol/layer/Vector";
-import { StyleLike } from "ol/style/Style";
-import { Fill, Stroke, Style } from "ol/style";
-import CircleStyle from "ol/style/Circle";
-import LayerGroup from "ol/layer/Group";
-import MVT from "ol/format/MVT";
-import TileLayer from "ol/layer/Tile";
-import { XYZ } from "ol/source";
 import { OverlayFeatureConfig } from "../types/overlays";
-import { createXYZ } from "ol/tilegrid";
-import { Collection } from "ol";
 
 export const getDefaultOverlayStyle = (): StyleLike => (feature) => {
   const geomType = feature.getGeometry()?.getType();

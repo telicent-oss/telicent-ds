@@ -1,5 +1,6 @@
-import React, { ReactNode } from "react";
 import Typography, { TypographyProps } from "@mui/material/Typography";
+import React, { ReactNode } from "react";
+
 import { TypographyVariant } from "../../../tokens";
 
 export type BaseProps = Omit<TypographyProps, "variant" | "paragraph">;

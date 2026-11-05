@@ -1,6 +1,7 @@
-import React from "react";
-import { render, screen, within, cleanup, fireEvent } from "@testing-library/react";
+import { cleanup, fireEvent,render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import React from "react";
+
 import EntityList, {
   EntityListColumn,
   EntityListLoadMore,
@@ -425,7 +426,7 @@ describe("EntityList", () => {
       renderList({ items: MANY, loadMore: lm });
       const button = screen.getByRole("button", { name: "Loading…" });
       expect(button).toHaveAttribute("aria-disabled", "true");
-      expect(button).not.toBeDisabled();
+      expect(button).toBeEnabled();
       await userEvent.click(button);
       expect(lm.onLoadMore).not.toHaveBeenCalled();
     });

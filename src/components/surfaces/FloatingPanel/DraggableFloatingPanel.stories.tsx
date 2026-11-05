@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import MUIBox from "@mui/material/Box";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { FlexBox } from "../../layout";
 import { AppSwitch, MapIcon } from "../../data-display";
+import { FlexBox } from "../../layout";
 import { FloatingPanel, FloatingPanelContext } from "./index";
 
 const meta: Meta<typeof FloatingPanel.DraggablePanel> = {

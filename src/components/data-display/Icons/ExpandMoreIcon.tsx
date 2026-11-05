@@ -1,7 +1,7 @@
-import React from "react";
 import MUISvgIcon, {
   SvgIconProps as MUISvgIconProps,
 } from "@mui/material/SvgIcon";
+import React from "react";
 
 // Standard Material Design "expand_more" chevron-down glyph, centred in the
 // 24x24 viewBox. Chevron sits between y=8.59 and y=16, geometric centre ~y=12,

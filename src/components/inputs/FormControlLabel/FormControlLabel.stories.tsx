@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FormControlLabel } from "./FormControlLabel";
+
 import Checkbox from "../Checkbox/Checkbox";
+import { FormControlLabel } from "./FormControlLabel";
 
 const meta = {
   title: "Inputs/FormControlLabel",

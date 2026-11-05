@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
-import { TabButton } from "./TabButton";
+
 import { cleanDiff } from "../../../utils/clean-diff";
+import { TabButton } from "./TabButton";
 
 describe("renders", () => {
   let base: DocumentFragment;

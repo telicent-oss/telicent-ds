@@ -1,5 +1,6 @@
-import { forwardRef } from "react";
 import { styled } from "@mui/material/styles";
+import { forwardRef } from "react";
+
 import ThemeSwitch, { ThemeSwitchProps } from "./ThemeSwitch";
 
 export type ThemeSwitchRowProps = Omit<ThemeSwitchProps, "labelId"> & {

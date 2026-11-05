@@ -1,7 +1,7 @@
-import React from "react";
 import MUISvgIcon, {
   SvgIconProps as MUISvgIconProps,
 } from "@mui/material/SvgIcon";
+import React from "react";
 
 const TelicentHorizontalSVG: React.FC<MUISvgIconProps> = ({
   width = 124,

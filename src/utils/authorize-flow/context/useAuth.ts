@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useStore } from "zustand";
+
 import { AuthContext, AuthContextProps } from "./AuthContext";
 
 export const useAuth = (): AuthContextProps => {

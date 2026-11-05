@@ -1,9 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { ToggleButtonGroup } from "./ToggleButtonGroup";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import React, { useState } from "react";
+
 import { ToggleButton } from "../ToggleButton/ToggleButton";
+import { ToggleButtonGroup } from "./ToggleButtonGroup";
 
 const meta: Meta<typeof ToggleButtonGroup> = {
   title: "Inputs/ToggleButtonGroup",

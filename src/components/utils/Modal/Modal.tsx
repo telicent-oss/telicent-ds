@@ -1,6 +1,7 @@
-import React from "react";
-import MUIModal, { ModalProps as MUIModalProps } from "@mui/material/Modal";
 import { Box, Button } from "@mui/material";
+import MUIModal, { ModalProps as MUIModalProps } from "@mui/material/Modal";
+import React from "react";
+
 import CloseIcon from "../../data-display/Icons/CloseIcon";
 import { modalPropsSchema } from "./schema";
 

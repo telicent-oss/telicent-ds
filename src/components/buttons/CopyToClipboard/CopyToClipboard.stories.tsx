@@ -1,7 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import CopyToClipboard from "./CopyToClipboard";
 import { Box, Paper, Typography } from "@mui/material";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
+
+import CopyToClipboard from "./CopyToClipboard";
 
 const meta: Meta<typeof CopyToClipboard> = {
   title: "Buttons/CopyToClipboard",

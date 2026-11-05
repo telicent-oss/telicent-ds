@@ -1,7 +1,8 @@
-import React, { forwardRef } from "react";
 import MuiToggleButtonGroup, {
   type ToggleButtonGroupProps as MuiToggleButtonGroupProps,
 } from "@mui/material/ToggleButtonGroup";
+import React, { forwardRef } from "react";
+
 import { PILL_GROUP_CLASS } from "../../../tokens";
 
 // WCAG 2.2 AA (ADR-0001): a toggle group needs an accessible name, so a

@@ -1,12 +1,12 @@
 // src/components/Icons/Icons.stories.tsx
-import React, { useMemo, useState } from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
 import { Box, BoxProps, TextField, Typography } from "@mui/material";
 import { SvgIconProps } from "@mui/material/SvgIcon";
-import * as Icons from "./index";
-
+import { Meta, StoryObj } from "@storybook/react-vite";
 import * as muiIconsMaterial from "@telicent-oss/mui-icons-material";
+import React, { useMemo, useState } from "react";
+
 import { H6 } from "../Text/Text";
+import * as Icons from "./index";
 
 type IconArgs = {
   color: SvgIconProps["color"];

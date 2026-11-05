@@ -1,5 +1,6 @@
-import React, { FC } from "react";
 import AuthServerOAuth2Client, { AuthServerOAuth2ClientConfig } from "@telicent-oss/fe-auth-lib";
+import React, { FC } from "react";
+
 import { FlexBox, Text } from "../../../export";
 
 interface AuthRedirectUriProps {

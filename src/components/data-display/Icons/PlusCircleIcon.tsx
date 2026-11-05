@@ -1,7 +1,7 @@
-import React from "react";
 import MUISvgIcon, {
   SvgIconProps as MUISvgIconProps,
 } from "@mui/material/SvgIcon";
+import React from "react";
 
 const PlusCircleIcon: React.FC<MUISvgIconProps> = (iconProps) => (
   <MUISvgIcon {...iconProps}>

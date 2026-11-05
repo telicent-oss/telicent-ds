@@ -1,7 +1,8 @@
-import React, { forwardRef } from "react";
-import { renderHook, act } from "@testing-library/react";
+import { act,renderHook } from "@testing-library/react";
 import { render } from "@testing-library/react";
-import { useDrawer, DrawerController } from "./useDrawer";
+import React, { forwardRef } from "react";
+
+import { DrawerController,useDrawer } from "./useDrawer";
 
 describe("useDrawer state", () => {
   test("initialOpen + onVisibilityChange", () => {

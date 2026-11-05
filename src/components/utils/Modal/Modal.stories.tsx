@@ -1,8 +1,9 @@
+import { Box, Button } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
-import { Modal } from "./Modal";
+
 import { Divider, H4, H6, Text } from "../../data-display";
-import { Box, Button } from "@mui/material";
+import { Modal } from "./Modal";
 
 const MOCK_DATA_POLICY = `
 Effective Date: 25/10/20241. 

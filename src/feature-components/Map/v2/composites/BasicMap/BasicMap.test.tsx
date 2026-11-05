@@ -10,12 +10,13 @@ jest.mock("../../primitives/LayerSelector/LayerSelector", () => ({
 }));
 
 import { render } from "@testing-library/react";
-import { BasicMapV2 } from "./BasicMap";
-import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
+
 import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
-import { BasicMapProperties } from "../../types/map-types";
+import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
 import { LayerConfig } from "../../types/layers";
+import { BasicMapProperties } from "../../types/map-types";
 import { ensureLayers } from "../../utils/ensureLayers";
+import { BasicMapV2 } from "./BasicMap";
 
 
 const makeProps = (overrides?: Partial<BasicMapProperties>): BasicMapProperties => ({

@@ -1,6 +1,7 @@
-import React from "react";
 import MuiTab, { type TabProps as MuiTabProps } from "@mui/material/Tab";
-import { tabId, tabPanelId, useTabsIdPrefix, type TabValue } from "./tabsContext";
+import React from "react";
+
+import { tabId, tabPanelId, type TabValue,useTabsIdPrefix } from "./tabsContext";
 
 export type TabProps = Omit<MuiTabProps, "value"> & {
   /**

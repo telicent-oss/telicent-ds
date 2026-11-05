@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { BasicMapV2 } from "./BasicMap";
-import { BasicMapProperties } from "../../types/map-types";
+import React, { useRef, useState } from "react";
+
 import { LayerConfig } from "../../types/layers";
+import { BasicMapProperties } from "../../types/map-types";
 import { MarkerFeature } from "../../types/markers";
+import { BasicMapV2 } from "./BasicMap";
 
 
 export const allArgs: BasicMapProperties = {

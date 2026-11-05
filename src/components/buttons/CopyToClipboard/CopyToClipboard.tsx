@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
-import Button, { ButtonProps } from "../Button/Button";
-import { useExtendedTheme } from "../../../export";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, tooltipClasses } from "@mui/material";
+import React, { useState } from "react";
+
+import { useExtendedTheme } from "../../../export";
+import Button, { ButtonProps } from "../Button/Button";
 
 export type CopyToClipboardProps = ButtonProps & {
   text: string;
   successMsg?: string;
   ariaLabel?: string;
   testFailure?: boolean;
-  style?: String;
+  style?: string;
 };
 
 const CopyToClipboard: React.FC<CopyToClipboardProps> = ({

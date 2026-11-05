@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@mui/material/styles";
+import React, { FC } from "react";
 
 type DownloadIconProps = Omit<FontAwesomeIconProps, "icon"> & {
   color?: "primary" | "inherit";

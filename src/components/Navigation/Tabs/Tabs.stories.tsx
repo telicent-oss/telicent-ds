@@ -1,12 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Tabs } from "./Tabs";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import React, { useState } from "react";
+
+import { GridIcon, MapIcon } from "../../data-display";
 import { Tab } from "./Tab";
 import { TabPanel } from "./TabPanel";
+import { Tabs } from "./Tabs";
 import { type TabValue } from "./tabsContext";
-import { GridIcon, MapIcon } from "../../data-display";
 
 const meta: Meta<typeof Tabs> = {
   title: "Navigation/Tabs",

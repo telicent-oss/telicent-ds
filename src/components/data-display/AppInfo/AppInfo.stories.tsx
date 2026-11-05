@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import Box from "@mui/material/Box";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AppInfo from "./AppInfo";
 import AppInfoRow from "./AppInfoRow";

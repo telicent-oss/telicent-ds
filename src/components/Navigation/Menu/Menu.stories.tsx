@@ -1,12 +1,12 @@
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box, Typography } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
-import { Box, Typography } from "@mui/material";
 
-import { Menu } from "./Menu";
 import IconButton from "../../buttons/Button/IconButton";
 import { BinIcon, FloppyDiskIcon, GridIcon, MapIcon, UserIcon, XIcon } from "../../data-display";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { Menu } from "./Menu";
 
 const meta: Meta<typeof Menu> = {
   title: "Navigation/Menu",

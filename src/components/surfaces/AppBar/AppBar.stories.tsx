@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box } from "@mui/material";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import AppBar from "./AppBar";
-import { AppInfo, AppInfoRow, AppSettings, AppSwitch, Divider, TitleAndContent, UserProfile } from "../../data-display";
-import { Button } from "../../buttons";
-import FlexBox from "../../layout/FlexBox";
-import ThemeSwitchRow from "../../inputs/ThemeSwitch/ThemeSwitchRow";
-import { appList } from "../../data-display/AppSwitch/AppSwitch.stories";
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
+import { Button } from "../../buttons";
+import { AppInfo, AppInfoRow, AppSettings, AppSwitch, Divider, TitleAndContent, UserProfile } from "../../data-display";
+import { appList } from "../../data-display/AppSwitch/AppSwitch.stories";
+import ThemeSwitchRow from "../../inputs/ThemeSwitch/ThemeSwitchRow";
+import FlexBox from "../../layout/FlexBox";
+import AppBar from "./AppBar";
 
 const meta: Meta<typeof AppBar> = {
   title: "Surfaces/AppBar",

@@ -1,17 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import "ol/ol.css";
+
+import Collection from "ol/Collection";
 import Feature from "ol/Feature";
 import View from "ol/View";
-import { FeatureEvent, MapCanvasV2Props } from "../../types/map-types";
+import React, { useEffect, useRef, useState } from "react";
+
+import { addHoverInteraction } from "../../composites/BasicMap/interactions/addHoverInteraction";
 import { fitToFeature, fitToFeatures } from "../../composites/BasicMap/interactions/addPanToFeature";
 import { addSelectInteraction } from "../../composites/BasicMap/interactions/addSelectInteraction";
-import { addHoverInteraction } from "../../composites/BasicMap/interactions/addHoverInteraction";
+import { FeatureEvent, MapCanvasV2Props } from "../../types/map-types";
+import { buildControls } from "../../utils/buildControls";
+import { ensureView } from "../../utils/ensureView";
 import { findVectorLayerById } from "../../utils/feature";
 import { attachTileLoadErrorLogging, MARKER_LAYER_ID } from "../../utils/layers";
-import { ensureView } from "../../utils/ensureView";
-import "ol/ol.css";
-import { buildControls } from "../../utils/buildControls";
 import { createMap } from "../../utils/mapFactory";
-import Collection from "ol/Collection";
 
 export const MapCanvasV2: React.FC<MapCanvasV2Props> = ({
 	zoom,

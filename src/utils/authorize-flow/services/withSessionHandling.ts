@@ -1,11 +1,12 @@
-import { AxiosInstance, AxiosRequestHeaders, AxiosHeaders } from "axios";
+import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
+import { AxiosHeaders,AxiosInstance, AxiosRequestHeaders } from "axios";
+
 import { SessionHandlingConfig } from "../types";
 import {
   AuthEvent,
   broadcastAuthEvent,
   onAuthEvent,
 } from "./broadcastChannelService";
-import AuthServerOAuth2Client from "@telicent-oss/fe-auth-lib";
 
 const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
   const ct = new AxiosHeaders(headers).get("Content-Type")?.toString().toLowerCase();

@@ -1,16 +1,16 @@
 // src/components/Toolbar/Toolbar.stories.tsx
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import React from "react";
 import { fn } from "storybook/test";
 
-import Toolbar from "./Toolbar";
-import MiniSearchBox from "../../inputs/SearchBox/MiniSearchBox";
-import { FlexBox } from "../../layout";
 import Button from "../../buttons/Button/Button";
-import FloppyDiskIcon from "../../data-display/Icons/FloppyDiskIcon";
-import DownArrowIcon from "../../data-display/FontAwesomeIcons/DownArrowIcon";
-import TooltipToggleButton from "../../inputs/TooltipToggleButton";
 import { Divider } from "../../data-display";
+import DownArrowIcon from "../../data-display/FontAwesomeIcons/DownArrowIcon";
+import FloppyDiskIcon from "../../data-display/Icons/FloppyDiskIcon";
+import MiniSearchBox from "../../inputs/SearchBox/MiniSearchBox";
+import TooltipToggleButton from "../../inputs/TooltipToggleButton";
+import { FlexBox } from "../../layout";
+import Toolbar from "./Toolbar";
 
 const meta: Meta<typeof Toolbar> = {
   title: "Surfaces/Toolbar",

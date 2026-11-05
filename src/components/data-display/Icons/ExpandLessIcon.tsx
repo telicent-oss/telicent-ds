@@ -1,7 +1,7 @@
-import React from "react";
 import MUISvgIcon, {
   SvgIconProps as MUISvgIconProps,
 } from "@mui/material/SvgIcon";
+import React from "react";
 
 // Standard Material Design "expand_less" chevron-up glyph, centred in the
 // 24x24 viewBox. Companion to ExpandMoreIcon (same path mirrored on the

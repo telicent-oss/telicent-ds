@@ -1,11 +1,12 @@
-import React from "react";
 import MUIAppBar, { AppBarProps as MUIAppBarProps } from "@mui/material/AppBar";
 import MUIBox from "@mui/material/Box";
 import MUIStack from "@mui/material/Stack";
 import MUITypography from "@mui/material/Typography";
-import TelicentBrand from "./TelicentBrand";
-import TelicentMark from "../../data-display/Icons/TelicentMark";
+import React from "react";
+
 import useExtendedTheme from "../../../hooks/useExtendedTheme";
+import TelicentMark from "../../data-display/Icons/TelicentMark";
+import TelicentBrand from "./TelicentBrand";
 
 export type AppBarProps = Partial<{
   appName: string;

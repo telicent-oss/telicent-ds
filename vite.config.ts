@@ -1,8 +1,9 @@
 import react from "@vitejs/plugin-react";
 import path from "path";
 import copy from "rollup-plugin-copy";
-import dts from "vite-plugin-dts";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+
 import pkg from "./package.json";
 
 

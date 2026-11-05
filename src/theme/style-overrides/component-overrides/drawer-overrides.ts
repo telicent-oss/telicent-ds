@@ -1,4 +1,5 @@
 import { ThemeOptions } from "@mui/material";
+
 import { UITheme } from "../../colors/theme-colors";
 
 // Rung 4, with the reason it cannot sit higher: the palette carries no

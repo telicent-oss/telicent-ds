@@ -1,8 +1,9 @@
 import { screen } from "@testing-library/react";
-import FloatingPanelToggleButton from "../FloatingPanelToggleButton";
-import { FloatingPanelProvider } from "../FloatingPanelProvider";
-import * as floatingPanelContext from "../useFloatingPanelContext";
+
 import { setup as renderWithUser } from "../../../../test-utils";
+import { FloatingPanelProvider } from "../FloatingPanelProvider";
+import FloatingPanelToggleButton from "../FloatingPanelToggleButton";
+import * as floatingPanelContext from "../useFloatingPanelContext";
 
 describe("Floating Panel Toggle Button component", () => {
   test("toggleVisible gets called with value of the id prop", async () => {

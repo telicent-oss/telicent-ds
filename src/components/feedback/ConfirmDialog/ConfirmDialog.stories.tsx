@@ -1,5 +1,5 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 import { fn } from "storybook/test";
 
 import Button from "../../buttons/Button/Button";
