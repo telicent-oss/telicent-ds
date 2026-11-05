@@ -280,7 +280,7 @@ import { SvgIconProps } from '@mui/material/SvgIcon';
 import { SvgIconProps as SvgIconProps_2 } from '@mui/material';
 import { SwitchClasses } from '@mui/material';
 import { SwitchProps } from '@mui/material/Switch';
-import { SwitchProps as SwitchProps_3 } from '@mui/material';
+import { SwitchProps as SwitchProps_2 } from '@mui/material';
 import { SxProps } from '@mui/material';
 import { SxProps as SxProps_2 } from '@mui/material/styles';
 import { TableBodyProps } from '@mui/material/TableBody';
@@ -779,7 +779,7 @@ declare type CopyToClipboardProps = ButtonProps & {
     successMsg?: string;
     ariaLabel?: string;
     testFailure?: boolean;
-    style?: String;
+    style?: string;
 };
 
 export declare const createApi: (baseURL?: string, authClient?: default_4) => RequestApi;
@@ -1088,10 +1088,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiMenuItem: {
         styleOverrides: {
-            root: ({ theme }: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disableGutters" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "selected" | "dense" | "divider"> & {
+            root: ({ theme }: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "disableGutters" | "autoFocus" | "tabIndex" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "selected" | "dense" | "divider"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "autoFocus" | "tabIndex" | "disableGutters" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "selected" | "dense" | "divider"> & {
+                ownerState: MenuItemOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "disableGutters" | "autoFocus" | "tabIndex" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "selected" | "dense" | "divider"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1254,10 +1254,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiTabs: {
         styleOverrides: {
-            root: ({ theme }: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "value" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+            root: ({ theme }: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "onChange" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "action" | "value" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "onChange" | "action" | "value" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
+                ownerState: TabsOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "onChange" | "children" | "sx" | "variant" | "slots" | "slotProps" | "aria-label" | "aria-labelledby" | "action" | "value" | "centered" | "scrollButtons" | "allowScrollButtonsMobile" | "indicatorColor" | "orientation" | "ScrollButtonComponent" | "selectionFollowsFocus" | "TabIndicatorProps" | "TabScrollButtonProps" | "textColor" | "visibleScrollbar"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1344,10 +1344,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             };
         }[];
         styleOverrides: {
-            root: ({ theme }: CardOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "square" | "elevation" | "raised"> & {
+            root: ({ theme }: CardOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "children" | "elevation" | "square" | "sx" | "variant" | "raised"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: CardOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "children" | "sx" | "variant" | "square" | "elevation" | "raised"> & {
+                ownerState: CardOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "className" | "style" | "classes" | "children" | "elevation" | "square" | "sx" | "variant" | "raised"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1386,10 +1386,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiButton: {
         styleOverrides: {
-            root: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+            root: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "color" | "tabIndex" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "color" | "tabIndex" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1397,10 +1397,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
             }) => {
                 paddingInline: string;
             };
-            outlinedInherit: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+            outlinedInherit: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "color" | "tabIndex" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "color" | "tabIndex" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1409,10 +1409,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
                 border: string;
                 boxShadow: string;
             };
-            outlinedPrimary: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+            outlinedPrimary: ({ theme }: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "color" | "tabIndex" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "tabIndex" | "color" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
+                ownerState: ButtonOwnProps & Omit<ButtonBaseOwnProps, "classes"> & CommonProps & Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "disabled" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "color" | "tabIndex" | "disableElevation" | "fullWidth" | "startIcon" | "endIcon" | "action" | "centerRipple" | "disableRipple" | "disableTouchRipple" | "focusRipple" | "focusVisibleClassName" | "LinkComponent" | "onFocusVisible" | "TouchRippleProps" | "touchRippleRef" | "disableFocusRipple" | "href" | "size"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -1441,10 +1441,10 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
     };
     MuiBadge: {
         styleOverrides: {
-            badge: ({ theme }: BadgeOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "components" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "color" | "invisible" | "anchorOrigin" | "badgeContent" | "componentsProps" | "max" | "overlap" | "showZero"> & {
+            badge: ({ theme }: BadgeOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "components" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "color" | "slots" | "slotProps" | "invisible" | "anchorOrigin" | "badgeContent" | "componentsProps" | "max" | "overlap" | "showZero"> & {
                 component?: ElementType;
             } & Record<string, unknown> & {
-                ownerState: BadgeOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "components" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "slots" | "slotProps" | "color" | "invisible" | "anchorOrigin" | "badgeContent" | "componentsProps" | "max" | "overlap" | "showZero"> & {
+                ownerState: BadgeOwnProps & CommonProps & Omit<DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "components" | "className" | "style" | "classes" | "children" | "sx" | "variant" | "color" | "slots" | "slotProps" | "invisible" | "anchorOrigin" | "badgeContent" | "componentsProps" | "max" | "overlap" | "showZero"> & {
                     component?: ElementType;
                 } & Record<string, unknown>;
             } & {
@@ -2496,8 +2496,8 @@ declare const generateComponentOverrides: (uiTheme: UITheme) => {
         defaultProps?: ComponentsProps["MuiSwitch"];
         styleOverrides?: Partial<OverridesStyleRules<keyof SwitchClasses, "MuiSwitch", Omit<Theme, "components">>> | undefined;
         variants?: {
-            props: Partial<SwitchProps_3> | ((props: Partial<SwitchProps_3> & {
-                ownerState: Partial<SwitchProps_3>;
+            props: Partial<SwitchProps_2> | ((props: Partial<SwitchProps_2> & {
+                ownerState: Partial<SwitchProps_2>;
             }) => boolean);
             style: Interpolation<    {
                 theme: Omit<Theme, "components">;
@@ -3789,9 +3789,9 @@ export declare const SvgIcon: default_2.FC<SvgIconProps>;
 
 export { SvgIconProps }
 
-export declare const Switch: ForwardRefExoticComponent<Omit<SwitchProps_2, "ref"> & RefAttributes<HTMLButtonElement>>;
+export declare const Switch: ForwardRefExoticComponent<Omit<SwitchProps_3, "ref"> & RefAttributes<HTMLButtonElement>>;
 
-declare type SwitchProps_2 = Omit<SwitchProps, "color"> & {
+declare type SwitchProps_3 = Omit<SwitchProps, "color"> & {
     label?: string;
     labelPlacement?: "end" | "start" | "top" | "bottom";
 };
