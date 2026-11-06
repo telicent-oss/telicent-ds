@@ -57,7 +57,7 @@
     "start": "vite",
     "generate:llms": "node scripts/build-llms.mjs",
     "prebuild": "yarn clean",
-    "build": "vite build && yarn generate:llms",
+    "build": "vite build && vite build -c vite.app-loader.config.ts && yarn generate:llms",
     "preview": "vite preview",
     "test": "jest",
     "test:diff": "jest --watchAll=false --coverage=false --onlyChanged --bail",
@@ -232,6 +232,11 @@
       "types": "./dist/date-pickers.d.ts",
       "import": "./dist/date-pickers.js",
       "require": "./dist/date-pickers.cjs"
+    },
+    "./app-loader": {
+      "types": "./dist/app-loader-types/app-loader/index.d.ts",
+      "import": "./dist/app-loader.js",
+      "require": "./dist/app-loader.cjs"
     },
     "./dist/style.css": {
       "style": "./dist/style.css",
