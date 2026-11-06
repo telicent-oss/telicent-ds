@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.2.0](https://github.com/telicent-oss/telicent-ds/compare/v6.1.1...v6.2.0) (2026-11-06)
+
+
+### Features
+
+* add appLoader Vite plugin for the pre-React loading screen ([#600](https://github.com/telicent-oss/telicent-ds/issues/600)) ([fc7c14d](https://github.com/telicent-oss/telicent-ds/commit/fc7c14d3427280f6a2b874fdb87082880ecf621f))
+
 ## [6.1.1](https://github.com/telicent-oss/telicent-ds/compare/v6.1.0...v6.1.1) (2026-10-30)
 
 
