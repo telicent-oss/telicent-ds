@@ -856,6 +856,15 @@ Demonstrated states:
 - CustomMessage — name="DataWidget", message="Unable to load user data."
 - CustomNameAndStyle — name="ChartComponent", sx={…}
 - ExplicitHeight — name="ProfileCard", height=150
+* **`appLoader`** (`@telicent-oss/ds/app-loader`, Vite plugin): The loading screen shown before React mounts. Every app uses it instead of a hand-written overlay in `index.html`. Setup is under Recipes → "App loading screen".
+Live: https://telicent-oss.github.io/telicent-ds/?path=/docs/feedback-apploader--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/main/src/app-loader/AppLoader.stories.tsx
+Default args: theme="GraphOrange", mode="dark", message=DEFAULT_MESSAGE
+
+Demonstrated states:
+- Dark
+- Light — mode="light"
+- LoggingIn — message=CALLBACK_MESSAGE
 
 ## 6. Icons
 *The DS includes two icon sets. Import them directly from `@telicent-oss/ds`.*
@@ -972,6 +981,36 @@ import { Card, CardContent, CardActions, Text, Button } from "@telicent-oss/ds";
 4. Did I use `Button` with the right `variant` instead of styling a raw `<button>`?
 5. Are loading states handled by `Skeleton`, `Spinner`, or a `disabled` button?
 6. Did I set colours via the theme palette (`useExtendedTheme`) rather than Tailwind colour classes?
+
+**App loading screen** — the screen every app shows before React mounts. It is a Vite plugin, not a component, because it has to paint from the first byte of HTML.
+
+1. **Add the plugin.** Use the same `theme` as your `UIThemeProvider`. Leave out `modeStorageKey` if the app is dark-only.
+   ```ts
+   // vite.config.ts
+   import { appLoader } from "@telicent-oss/ds/app-loader";
+
+   export default defineConfig({
+     plugins: [react(), appLoader({ theme: "GraphOrange", modeStorageKey: "graph.themeMode" })],
+   });
+   ```
+2. **Dismiss it from the app root.** The loader stays up until `<body>` has the `app-ready` class. **Without this step the loader never goes away.** Add the class once the first real screen can render, meaning auth has resolved and required data has loaded. Stay not-ready on the OAuth callback route, so the loader covers the redirect.
+   ```tsx
+   const isReady = !onCallback && !isAuthLoading && Boolean(user) && !isLoading;
+   useEffect(() => {
+     document.body.classList.toggle("app-ready", isReady);
+   }, [isReady]);
+   ```
+3. **Light mode, for apps with a theme toggle.** Whenever the user switches, store `"light"` or `"dark"` under `modeStorageKey` and set `<html data-theme>`. The loader is dark unless that key holds `"light"`. It never follows the OS setting.
+   ```ts
+   localStorage.setItem("graph.themeMode", dark ? "dark" : "light");
+   document.documentElement.dataset.theme = dark ? "dark" : "light";
+   ```
+4. **Remove the old loader.** Delete any `#initial-overlay` markup, its `<style>` rules, and `html`/`body` background rules from `index.html`. Delete `public/loading-overlay-*.js` too. Also drop any app CSS that pins `body { background-color }`. The loader and `CssBaseline` both paint the palette's `background.default`, so a pin shows as a colour step when the loader fades.
+5. **Check the CSP.** The plugin needs `script-src 'self'`, because the scripts are emitted as same-origin files. It also needs `style-src 'unsafe-inline'`, because its CSS is inlined. Telicent nginx configs already allow both. `vite dev` doesn't send the CSP header, so verify on a deployed build or with docker-compose.
+
+Do not import `@telicent-oss/ds/app-loader` in browser code. It is a Node module for `vite.config` only. Do not render your own full-screen loader during boot. `Spinner` and `Skeleton` are for loading that happens after the app is ready.
+
+Stable selectors for E2E: `#initial-overlay`, `#initial-overlay-logo`, `#initial-overlay-message`.
 
 ---
 
