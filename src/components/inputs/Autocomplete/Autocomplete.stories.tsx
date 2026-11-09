@@ -96,6 +96,7 @@ This keeps the DS component simple while still supporting id-based form state.
   - \`multiple: true\`
   - \`value: Option[]\`
   - \`onChange: (value: Option[]) => void\`
+  - \`lockedValues?: string[]\` — values the user cannot remove: no delete on their chips, and put back on clear-all
 - \`placeholder?: string\`
 - \`disabled?: boolean\`
 - \`error?: boolean\`
@@ -250,6 +251,25 @@ export const MultiSelectWithLimit: Story = {
         <div style={{ fontSize: 12, opacity: 0.8 }}>
           Selected ({values.length}/{limit}): {values.length ? values.map((v) => v.label).join(", ") : "—"}
         </div>
+      </div>
+    );
+  },
+};
+
+export const MultiSelectWithLockedValues: Story = {
+  render: () => {
+    const [values, setValues] = useState<Option[]>(countryOptions.slice(0, 2));
+    return (
+      <div style={{ maxWidth: 520 }}>
+        <Autocomplete
+          multiple
+          label="Countries"
+          options={countryOptions}
+          value={values}
+          onChange={setValues}
+          lockedValues={["AF"]}
+          helperText="Must include Afghanistan"
+        />
       </div>
     );
   },
