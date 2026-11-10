@@ -1,9 +1,9 @@
 import { act, screen } from "@testing-library/react";
 import { useState } from "react";
 
-import { setup } from "../../../test-utils";
+import { setup } from "../test-utils";
 import { IdhLabel, IdhSchemaOptions } from "./idhLabel";
-import SecurityLabelEditor from "./SecurityLabelEditor";
+import SecurityLabelFields from "./SecurityLabelFields";
 
 const OPTIONS: IdhSchemaOptions = {
   classifications: ["LOW", "HIGH"],
@@ -24,7 +24,7 @@ const LABEL: IdhLabel & { scheme: "idh" } = {
 const Harness = (props: { options?: IdhSchemaOptions; onChange: (label: typeof LABEL) => void }) => {
   const [label, setLabel] = useState(LABEL);
   return (
-    <SecurityLabelEditor
+    <SecurityLabelFields
       value={label}
       options={props.options ?? OPTIONS}
       onChange={(next) => {
@@ -35,7 +35,7 @@ const Harness = (props: { options?: IdhSchemaOptions; onChange: (label: typeof L
   );
 };
 
-describe("SecurityLabelEditor", () => {
+describe("SecurityLabelFields", () => {
   it("keeps the user's own nationality, and lets them remove another", async () => {
     const onChange = jest.fn();
     const { user } = setup(<Harness onChange={onChange} />);

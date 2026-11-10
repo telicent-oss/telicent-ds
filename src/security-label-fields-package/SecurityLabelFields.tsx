@@ -1,7 +1,7 @@
-import FlexBox from "../../layout/FlexBox";
-import Autocomplete, { Option } from "../Autocomplete/Autocomplete";
-import Checkbox from "../Checkbox/Checkbox";
-import Select from "../Select/Select";
+import Autocomplete, { Option } from "../components/inputs/Autocomplete/Autocomplete";
+import Checkbox from "../components/inputs/Checkbox/Checkbox";
+import Select from "../components/inputs/Select/Select";
+import FlexBox from "../components/layout/FlexBox";
 import { IdhLabel, IdhSchemaOptions } from "./idhLabel";
 
 const asIs = (v: string): Option => ({ value: v, label: v });
@@ -17,7 +17,7 @@ const hint = (selected: string[], required: string[], what: string) =>
       ? `Must include ${required.join(", ")}`
       : undefined;
 
-export type SecurityLabelEditorProps<T extends IdhLabel> = {
+export type SecurityLabelFieldsProps<T extends IdhLabel> = {
   /** Fields the editor does not edit, such as `scheme`, are kept on change. */
   value: T;
   onChange: (value: T) => void;
@@ -27,7 +27,7 @@ export type SecurityLabelEditorProps<T extends IdhLabel> = {
 };
 
 /** Edits an IDH security label within what the user's own label schema allows. */
-const SecurityLabelEditor = <T extends IdhLabel>({ value, onChange, options, disabled }: SecurityLabelEditorProps<T>) => (
+const SecurityLabelFields = <T extends IdhLabel>({ value, onChange, options, disabled }: SecurityLabelFieldsProps<T>) => (
   <FlexBox spacing={2}>
     <Select
       label="Classification"
@@ -79,4 +79,4 @@ const SecurityLabelEditor = <T extends IdhLabel>({ value, onChange, options, dis
   </FlexBox>
 );
 
-export default SecurityLabelEditor;
+export default SecurityLabelFields;

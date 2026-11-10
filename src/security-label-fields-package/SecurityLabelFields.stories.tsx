@@ -2,17 +2,17 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
 import { defaultIdhLabel, IdhLabel, IdhSchemaOptions } from "./idhLabel";
-import SecurityLabelEditor from "./SecurityLabelEditor";
+import SecurityLabelFields from "./SecurityLabelFields";
 
-const meta: Meta<typeof SecurityLabelEditor> = {
-  title: "Inputs/SecurityLabelEditor",
-  component: SecurityLabelEditor,
+const meta: Meta<typeof SecurityLabelFields> = {
+  title: "candidate-packages/security-label-fields",
+  component: SecurityLabelFields,
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
         component:
-          "Edits an IDH security label. Pass `extractIdhOptions(schemas.idh)` from the-management's `GET /v1/labels/schemas` as `options`.",
+          "The fields of an IDH security label, for an app's own form. Pass `extractIdhOptions(schemas.idh)` from the-management's `GET /v1/labels/schemas` as `options`.",
       },
     },
   },
@@ -20,7 +20,7 @@ const meta: Meta<typeof SecurityLabelEditor> = {
 
 export default meta;
 
-type Story = StoryObj<typeof SecurityLabelEditor>;
+type Story = StoryObj<typeof SecurityLabelFields>;
 
 // What extractIdhOptions reads from one user's schema.
 const OPTIONS: IdhSchemaOptions = {
@@ -43,7 +43,7 @@ const Editor = (props: { start?: Partial<IdhLabel>; options?: IdhSchemaOptions; 
   const [label, setLabel] = useState<IdhLabel>(() => ({ ...defaultIdhLabel(options), ...props.start }));
   return (
     <div style={{ maxWidth: props.width ?? 480 }}>
-      <SecurityLabelEditor value={label} options={options} onChange={setLabel} disabled={props.disabled} />
+      <SecurityLabelFields value={label} options={options} onChange={setLabel} disabled={props.disabled} />
     </div>
   );
 };
