@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import { defaultIdhLabel, extractIdhOptions, IdhLabel } from "./idhLabel";
+import { defaultIdhLabel, extractIdhOptions, IdhLabel, IdhSchemaOptions } from "./idhLabel";
 import SecurityLabelEditor from "./SecurityLabelEditor";
 
 // One user's IDH label schema, as the-management's GET /v1/labels/schemas returns it under "idh".
@@ -73,12 +73,33 @@ export default meta;
 
 type Story = StoryObj<typeof SecurityLabelEditor>;
 
-const Editor = (props: { start?: Partial<IdhLabel>; disabled?: boolean }) => {
-  const [label, setLabel] = useState<IdhLabel>(() => ({ ...defaultIdhLabel(OPTIONS), ...props.start }));
+// A schema that names no values the user must keep, so every value can be removed.
+const NONE_REQUIRED: IdhSchemaOptions = {
+  ...OPTIONS,
+  nats: { ...OPTIONS.nats, mustInclude: [] },
+  orgs: { ...OPTIONS.orgs, mustInclude: [] },
+};
+
+const EVERYTHING: Partial<IdhLabel> = {
+  classification: "HIGH",
+  allowedNats: OPTIONS.nats.options,
+  allowedOrgs: OPTIONS.orgs.options,
+  groups: OPTIONS.groups.options,
+  containsPii: true,
+};
+
+const Editor = (props: {
+  start?: Partial<IdhLabel>;
+  options?: IdhSchemaOptions;
+  disabled?: boolean;
+  width?: number;
+}) => {
+  const options = props.options ?? OPTIONS;
+  const [label, setLabel] = useState<IdhLabel>(() => ({ ...defaultIdhLabel(options), ...props.start }));
   return (
-    <div style={{ display: "grid", gap: 12, maxWidth: 480 }}>
-      <SecurityLabelEditor value={label} options={OPTIONS} onChange={setLabel} disabled={props.disabled} />
-      <pre style={{ fontSize: 12 }}>{JSON.stringify(label, null, 2)}</pre>
+    <div style={{ display: "grid", gap: 12, maxWidth: props.width ?? 480 }}>
+      <SecurityLabelEditor value={label} options={options} onChange={setLabel} disabled={props.disabled} />
+      <pre style={{ fontSize: 12, whiteSpace: "pre-wrap" }}>{JSON.stringify(label, null, 2)}</pre>
     </div>
   );
 };
@@ -99,6 +120,21 @@ export const Filled: Story = {
       }}
     />
   ),
+};
+
+/** Every option the schema allows is chosen. */
+export const Full: Story = {
+  render: () => <Editor start={EVERYTHING} />,
+};
+
+/** No nationality or organisation: no one could read the data. */
+export const Invalid: Story = {
+  render: () => <Editor options={NONE_REQUIRED} start={{ allowedNats: [], allowedOrgs: [] }} />,
+};
+
+/** Every option chosen, at 320px wide. */
+export const Narrow: Story = {
+  render: () => <Editor start={EVERYTHING} width={320} />,
 };
 
 export const Disabled: Story = {

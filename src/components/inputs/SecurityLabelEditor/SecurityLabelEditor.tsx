@@ -22,9 +22,14 @@ export type SecurityLabelEditorProps<T extends IdhLabel> = {
 
 const mustInclude = (values: string[]) => (values.length > 0 ? `Must include ${values.join(", ")}` : undefined);
 
+// A reader needs a listed nationality and a listed organisation, so an empty list locks everyone out.
+const NO_NATIONALITY = "Choose at least one nationality, or no one can read the data";
+const NO_ORGANISATION = "Choose at least one organisation, or no one can read the data";
+
 /**
  * Edits an IDH security label, offering only what the user's own label schema allows. Their own
- * nationality and organisation cannot be removed, so they can always read what they label.
+ * nationality and organisation cannot be removed, so they can always read what they label. An
+ * empty nationality or organisation list shows an error; `isIdhLabelComplete` gives the same answer.
  */
 const SecurityLabelEditor = <T extends IdhLabel>({
   value,
@@ -38,6 +43,8 @@ const SecurityLabelEditor = <T extends IdhLabel>({
   const asIs = toOption((v) => v);
   const asGroup = toOption(groupName);
   const values = (selected: Option[]) => selected.map((option) => option.value);
+  const noNationality = value.allowedNats.length === 0;
+  const noOrganisation = value.allowedOrgs.length === 0;
   return (
     <FlexBox spacing={2}>
       <Select
@@ -58,7 +65,8 @@ const SecurityLabelEditor = <T extends IdhLabel>({
         options={options.nats.options.map(asIs)}
         value={value.allowedNats.map(asIs)}
         lockedValues={options.nats.mustInclude}
-        helperText={hints.nationalities ?? mustInclude(options.nats.mustInclude)}
+        error={noNationality}
+        helperText={noNationality ? NO_NATIONALITY : (hints.nationalities ?? mustInclude(options.nats.mustInclude))}
         filterSelectedOptions
         onChange={(selected) => onChange({ ...value, allowedNats: values(selected) })}
       />
@@ -70,7 +78,8 @@ const SecurityLabelEditor = <T extends IdhLabel>({
         options={options.orgs.options.map(asIs)}
         value={value.allowedOrgs.map(asIs)}
         lockedValues={options.orgs.mustInclude}
-        helperText={hints.organisations ?? mustInclude(options.orgs.mustInclude)}
+        error={noOrganisation}
+        helperText={noOrganisation ? NO_ORGANISATION : (hints.organisations ?? mustInclude(options.orgs.mustInclude))}
         filterSelectedOptions
         onChange={(selected) => onChange({ ...value, allowedOrgs: values(selected) })}
       />

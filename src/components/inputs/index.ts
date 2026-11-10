@@ -16,7 +16,7 @@ export type { RadioGroupProps } from "./RadioGroup/RadioGroup";
 export { default as RadioGroup } from "./RadioGroup/RadioGroup";
 export * from "./SearchBox";
 export type { IdhLabel, IdhSchemaOptions } from "./SecurityLabelEditor/idhLabel";
-export { defaultIdhLabel, extractIdhOptions } from "./SecurityLabelEditor/idhLabel";
+export { defaultIdhLabel, extractIdhOptions, isIdhLabelComplete } from "./SecurityLabelEditor/idhLabel";
 export type { SecurityLabelEditorProps } from "./SecurityLabelEditor/SecurityLabelEditor";
 export { default as SecurityLabelEditor } from "./SecurityLabelEditor/SecurityLabelEditor";
 export type { SelectProps } from "./Select/Select";

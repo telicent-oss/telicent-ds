@@ -112,4 +112,25 @@ describe("SecurityLabelEditor", () => {
     expect(screen.getByText("Only groups the parent needs")).toBeInTheDocument();
     expect(screen.queryByText("Must include XAA")).not.toBeInTheDocument();
   });
+
+  it("shows an error when the user removes every nationality and organisation", async () => {
+    const onChange = jest.fn();
+    const noOwn: IdhSchemaOptions = {
+      ...OPTIONS,
+      nats: { ...OPTIONS.nats, mustInclude: [] },
+      orgs: { ...OPTIONS.orgs, mustInclude: [] },
+    };
+    const label = { ...LABEL, allowedNats: ["XBB"], allowedOrgs: ["Org B"] };
+    const { user, rerender } = setup(<SecurityLabelEditor value={label} options={noOwn} onChange={onChange} />);
+    expect(screen.queryByText(/Choose at least one/)).not.toBeInTheDocument();
+
+    await removeChip(user, "XBB");
+    expect(onChange).toHaveBeenLastCalledWith({ ...label, allowedNats: [] });
+
+    rerender(
+      <SecurityLabelEditor value={{ ...label, allowedNats: [], allowedOrgs: [] }} options={noOwn} onChange={onChange} />,
+    );
+    expect(screen.getByText("Choose at least one nationality, or no one can read the data")).toBeInTheDocument();
+    expect(screen.getByText("Choose at least one organisation, or no one can read the data")).toBeInTheDocument();
+  });
 });

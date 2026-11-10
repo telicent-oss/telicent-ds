@@ -80,3 +80,10 @@ export const defaultIdhLabel = (options: IdhSchemaOptions): IdhLabel => ({
   allowedOrgs: options.orgs.mustInclude.length > 0 ? options.orgs.mustInclude : options.orgs.options.slice(0, 1),
   groups: [],
 });
+
+/**
+ * True when someone can read data under the label: it has a classification, and at least one
+ * nationality and one organisation.
+ */
+export const isIdhLabelComplete = (label: IdhLabel): boolean =>
+  label.classification !== "" && label.allowedNats.length > 0 && label.allowedOrgs.length > 0;

@@ -1,4 +1,4 @@
-import { defaultIdhLabel, extractIdhOptions } from "./idhLabel";
+import { defaultIdhLabel, extractIdhOptions, isIdhLabelComplete } from "./idhLabel";
 
 const ACCESS = {
   type: "object",
@@ -85,5 +85,19 @@ describe("defaultIdhLabel", () => {
       orgs: { options: ["Org B"], mustInclude: [] },
     };
     expect(defaultIdhLabel(options)).toMatchObject({ allowedNats: ["XBB"], allowedOrgs: ["Org B"] });
+  });
+});
+
+describe("isIdhLabelComplete", () => {
+  const label = { classification: "LOW", allowedNats: ["XAA"], allowedOrgs: ["Org A"], groups: [] };
+
+  it("accepts a label with a classification, a nationality and an organisation", () => {
+    expect(isIdhLabelComplete(label)).toBe(true);
+  });
+
+  it("rejects a label no one could read", () => {
+    expect(isIdhLabelComplete({ ...label, allowedNats: [] })).toBe(false);
+    expect(isIdhLabelComplete({ ...label, allowedOrgs: [] })).toBe(false);
+    expect(isIdhLabelComplete({ ...label, classification: "" })).toBe(false);
   });
 });
