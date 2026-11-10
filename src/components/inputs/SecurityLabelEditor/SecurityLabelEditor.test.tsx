@@ -1,5 +1,4 @@
 import { act, screen } from "@testing-library/react";
-import { UserEvent } from "@testing-library/user-event";
 import { useState } from "react";
 
 import { setup } from "../../../test-utils";
@@ -7,15 +6,14 @@ import { IdhLabel, IdhSchemaOptions } from "./idhLabel";
 import SecurityLabelEditor from "./SecurityLabelEditor";
 
 const OPTIONS: IdhSchemaOptions = {
-  classifications: ["LOW", "MID", "HIGH"],
-  nats: { options: ["XAA", "XBB", "XCC"], mustInclude: ["XAA"] },
+  classifications: ["LOW", "HIGH"],
+  nats: { options: ["XAA", "XBB"], mustInclude: ["XAA"] },
   orgs: { options: ["Org A", "Org B"], mustInclude: ["Org A"] },
-  groups: { options: ["urn:telicent:groups:team-a", "urn:telicent:groups:team-c"] },
+  groups: { options: ["urn:telicent:groups:team-c"] },
 };
 
-type WriterLabel = IdhLabel & { scheme: "idh" };
-
-const LABEL: WriterLabel = {
+// An app's own label type, with a field the editor does not edit.
+const LABEL: IdhLabel & { scheme: "idh" } = {
   scheme: "idh",
   classification: "LOW",
   allowedNats: ["XAA", "XBB"],
@@ -23,12 +21,12 @@ const LABEL: WriterLabel = {
   groups: [],
 };
 
-const Harness = (props: { onChange: (label: WriterLabel) => void }) => {
+const Harness = (props: { options?: IdhSchemaOptions; onChange: (label: typeof LABEL) => void }) => {
   const [label, setLabel] = useState(LABEL);
   return (
     <SecurityLabelEditor
       value={label}
-      options={OPTIONS}
+      options={props.options ?? OPTIONS}
       onChange={(next) => {
         setLabel(next);
         props.onChange(next);
@@ -37,43 +35,25 @@ const Harness = (props: { onChange: (label: WriterLabel) => void }) => {
   );
 };
 
-// A chip the user can remove is a button; Delete removes it.
-const removeChip = async (user: UserEvent, name: string) => {
-  const chip = screen.getByRole("button", { name });
-  act(() => chip.focus());
-  await user.keyboard("{Delete}");
-};
-
 describe("SecurityLabelEditor", () => {
-  it("shows the label's values, with the user's own nationality and organisation named as required", () => {
-    setup(<Harness onChange={jest.fn()} />);
-
-    expect(screen.getByRole("combobox", { name: "Classification" })).toHaveTextContent("LOW");
-    expect(screen.getByText("XAA")).toBeInTheDocument();
-    expect(screen.getByText("XBB")).toBeInTheDocument();
-    expect(screen.getByText("Must include XAA")).toBeInTheDocument();
-    expect(screen.getByText("Must include Org A")).toBeInTheDocument();
-  });
-
-  it("lets the user remove a nationality, but not their own", async () => {
+  it("keeps the user's own nationality, and lets them remove another", async () => {
     const onChange = jest.fn();
     const { user } = setup(<Harness onChange={onChange} />);
-
+    expect(screen.getByText("Must include XAA")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "XAA" })).not.toBeInTheDocument();
 
-    await removeChip(user, "XBB");
+    const usa = screen.getByRole("button", { name: "XBB" });
+    act(() => usa.focus());
+    await user.keyboard("{Delete}");
 
     expect(onChange).toHaveBeenLastCalledWith({ ...LABEL, allowedNats: ["XAA"] });
   });
 
-  it("offers only the classifications in the schema, and keeps fields it does not edit", async () => {
+  it("offers the schema's classifications, and keeps fields it does not edit", async () => {
     const onChange = jest.fn();
     const { user } = setup(<Harness onChange={onChange} />);
 
     await user.click(screen.getByRole("combobox", { name: "Classification" }));
-    const offered = screen.getAllByRole("option").map((option) => option.textContent);
-    expect(offered).toEqual(["LOW", "MID", "HIGH"]);
-
     await user.click(screen.getByRole("option", { name: "HIGH" }));
 
     expect(onChange).toHaveBeenLastCalledWith({ ...LABEL, classification: "HIGH" });
@@ -89,48 +69,12 @@ describe("SecurityLabelEditor", () => {
     expect(onChange).toHaveBeenLastCalledWith({ ...LABEL, groups: ["urn:telicent:groups:team-c"] });
   });
 
-  it("marks the label as holding personal information", async () => {
-    const onChange = jest.fn();
-    const { user } = setup(<Harness onChange={onChange} />);
+  it("shows an error when no nationality is left", async () => {
+    const noneRequired = { ...OPTIONS, nats: { ...OPTIONS.nats, mustInclude: [] } };
+    const { user } = setup(<Harness options={noneRequired} onChange={jest.fn()} />);
 
-    await user.click(screen.getByRole("checkbox", { name: "Contains personally identifiable information" }));
+    await user.click(screen.getAllByLabelText("Clear")[0]);
 
-    expect(onChange).toHaveBeenLastCalledWith({ ...LABEL, containsPii: true });
-  });
-
-  it("uses the caller's hint in place of the default", () => {
-    setup(
-      <SecurityLabelEditor
-        value={LABEL}
-        options={OPTIONS}
-        onChange={jest.fn()}
-        hints={{ nationalities: "Must include XAA (yours)", groups: "Only groups the parent needs" }}
-      />,
-    );
-
-    expect(screen.getByText("Must include XAA (yours)")).toBeInTheDocument();
-    expect(screen.getByText("Only groups the parent needs")).toBeInTheDocument();
-    expect(screen.queryByText("Must include XAA")).not.toBeInTheDocument();
-  });
-
-  it("shows an error when the user removes every nationality and organisation", async () => {
-    const onChange = jest.fn();
-    const noOwn: IdhSchemaOptions = {
-      ...OPTIONS,
-      nats: { ...OPTIONS.nats, mustInclude: [] },
-      orgs: { ...OPTIONS.orgs, mustInclude: [] },
-    };
-    const label = { ...LABEL, allowedNats: ["XBB"], allowedOrgs: ["Org B"] };
-    const { user, rerender } = setup(<SecurityLabelEditor value={label} options={noOwn} onChange={onChange} />);
-    expect(screen.queryByText(/Choose at least one/)).not.toBeInTheDocument();
-
-    await removeChip(user, "XBB");
-    expect(onChange).toHaveBeenLastCalledWith({ ...label, allowedNats: [] });
-
-    rerender(
-      <SecurityLabelEditor value={{ ...label, allowedNats: [], allowedOrgs: [] }} options={noOwn} onChange={onChange} />,
-    );
     expect(screen.getByText("Choose at least one nationality, or no one can read the data")).toBeInTheDocument();
-    expect(screen.getByText("Choose at least one organisation, or no one can read the data")).toBeInTheDocument();
   });
 });

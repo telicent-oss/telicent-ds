@@ -1,61 +1,39 @@
-/**
- * The access part of an IDH security label: who may read the data it is on.
- * See https://docs.telicent.io/core/access/.
- */
+/** Who may read data under an IDH security label. */
 export type IdhLabel = {
   classification: string;
   allowedNats: string[];
   allowedOrgs: string[];
-  /** A reader needs every one of these groups. */
+  /** A reader needs all of them. */
   groups: string[];
   containsPii?: boolean;
 };
 
 /**
- * What the signed-in user may put in an IDH label, read from their own label schema
- * (the-management's `GET /v1/labels/schemas`, the `idh` entry).
+ * What the signed-in user may put in a label, from their own label schema (the-management
+ * `GET /v1/labels/schemas`). `mustInclude` holds their own nationality and organisation.
  */
 export type IdhSchemaOptions = {
-  /** Lowest first, capped at the user's clearance. */
   classifications: string[];
-  /** `mustInclude`: the user's own nationality, kept so they can read what they label. */
   nats: { options: string[]; mustInclude: string[] };
-  /** `mustInclude`: the user's own organisation, kept so they can read what they label. */
   orgs: { options: string[]; mustInclude: string[] };
-  /** Only the groups the user holds. */
   groups: { options: string[] };
 };
 
-type Loose = Record<string, unknown>;
-
 const at = (node: unknown, ...path: string[]): unknown =>
-  path.reduce((acc: unknown, key) => (acc as Loose | undefined)?.[key], node);
+  path.reduce((acc: unknown, key) => (acc as Record<string, unknown> | undefined)?.[key], node);
 
 const strings = (value: unknown): string[] =>
   Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
 
-/**
- * Follows a local `$ref` into the schema's `$defs`. Pydantic's model_json_schema() nests
- * sub-models that way, as a bare `{$ref}` or wrapped in `allOf`.
- */
+// Pydantic puts sub-models behind a local $ref, bare or wrapped in allOf.
 const resolveRef = (node: unknown, root: unknown): unknown => {
   const ref = at(node, "$ref") ?? at(node, "allOf", "0", "$ref");
-  if (typeof ref !== "string" || !ref.startsWith("#/")) {
-    return node;
-  }
-  return at(root, ...ref.slice(2).split("/"));
+  return typeof ref === "string" && ref.startsWith("#/") ? at(root, ...ref.slice(2).split("/")) : node;
 };
 
-/**
- * Reads the option lists out of the user's IDH label schema. Returns null when the schema has
- * no access block, or no classifications, nationalities or organisations: the user can then
- * build no valid label, so the caller should not offer labelling.
- */
+/** Reads the options from the user's `idh` schema. Null when it allows no valid label. */
 export const extractIdhOptions = (idhSchema: unknown): IdhSchemaOptions | null => {
   const access = at(resolveRef(at(idhSchema, "properties", "access"), idhSchema), "properties");
-  if (!access || typeof access !== "object") {
-    return null;
-  }
   const classifications = strings(at(access, "classification", "enum"));
   const nats = strings(at(access, "allowedNats", "items", "enum"));
   const orgs = strings(at(access, "allowedOrgs", "items", "enum"));
@@ -70,10 +48,7 @@ export const extractIdhOptions = (idhSchema: unknown): IdhSchemaOptions | null =
   };
 };
 
-/**
- * The label a form starts from: the lowest classification, the user's own nationality and
- * organisation (or the first of each), and no groups.
- */
+/** The lowest classification, the user's own nationality and organisation (or the first), no groups. */
 export const defaultIdhLabel = (options: IdhSchemaOptions): IdhLabel => ({
   classification: options.classifications[0],
   allowedNats: options.nats.mustInclude.length > 0 ? options.nats.mustInclude : options.nats.options.slice(0, 1),
@@ -81,9 +56,6 @@ export const defaultIdhLabel = (options: IdhSchemaOptions): IdhLabel => ({
   groups: [],
 });
 
-/**
- * True when someone can read data under the label: it has a classification, and at least one
- * nationality and one organisation.
- */
+/** True when someone can read data under the label. */
 export const isIdhLabelComplete = (label: IdhLabel): boolean =>
   label.classification !== "" && label.allowedNats.length > 0 && label.allowedOrgs.length > 0;

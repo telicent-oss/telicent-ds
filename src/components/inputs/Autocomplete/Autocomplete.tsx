@@ -34,10 +34,7 @@ type MultipleProps = BaseProps & {
   multiple: true;
   value: Option[];
   onChange: (value: Option[]) => void;
-  /**
-   * Values the user cannot remove. Their chips have no delete button, and they are put back
-   * whatever the change, including clear-all.
-   */
+  /** Values the user cannot remove: no delete button, and kept on clear-all. */
   lockedValues?: string[];
 };
 
@@ -103,7 +100,6 @@ const SingleAutocomplete = forwardRef<HTMLDivElement, SingleAutoCompleteProps>(
     );
   },
 );
-SingleAutocomplete.displayName = "SingleAutocomplete";
 
 const MultipleAutocomplete = forwardRef<HTMLDivElement, MultipleAutoCompleteProps>(
   (
@@ -126,10 +122,6 @@ const MultipleAutocomplete = forwardRef<HTMLDivElement, MultipleAutoCompleteProp
     ref,
   ) => {
     const isLocked = (option: Option) => lockedValues.includes(option.value);
-    const locked = lockedValues.flatMap((lockedValue) => {
-      const option = value.find((o) => o.value === lockedValue) ?? options.find((o) => o.value === lockedValue);
-      return option ? [option] : [];
-    });
     return (
       <MuiAutocomplete
         {...rest}
@@ -138,14 +130,13 @@ const MultipleAutocomplete = forwardRef<HTMLDivElement, MultipleAutoCompleteProp
         options={options}
         multiple
         value={value}
-        onChange={(_, next) => onChange([...locked, ...(next ?? []).filter((option) => !isLocked(option))])}
+        onChange={(_, next) => onChange([...value.filter(isLocked), ...(next ?? []).filter((o) => !isLocked(o))])}
         fullWidth={fullWidth}
         size={size}
         disabled={disabled}
         isOptionEqualToValue={(option, val) => option.value === val.value}
         renderTags={(selectedOptions, getTagProps) =>
           selectedOptions.map((option, index) => {
-            // React warns when a props object holding `key` is spread into JSX.
             const { key, onDelete, ...tagProps } = getTagProps({ index });
             return (
               <Chip
@@ -155,8 +146,7 @@ const MultipleAutocomplete = forwardRef<HTMLDivElement, MultipleAutoCompleteProp
                 size="small"
                 label={option.label}
                 {...tagProps}
-                // A removable chip is a button, which marks itself disabled; a locked one is not.
-                aria-disabled={tagProps.disabled || undefined}
+                aria-disabled={tagProps.disabled || undefined} // a locked chip is not a button, so says so itself
                 onDelete={isLocked(option) ? undefined : onDelete}
                 sx={{ pl: 1 }}
               />
@@ -178,11 +168,9 @@ const MultipleAutocomplete = forwardRef<HTMLDivElement, MultipleAutoCompleteProp
     );
   },
 );
-MultipleAutocomplete.displayName = "MultipleAutocomplete";
 
 const Autocomplete = forwardRef<HTMLDivElement, AutoCompleteProps>((props, ref) => {
   return props.multiple ? <MultipleAutocomplete {...props} ref={ref} /> : <SingleAutocomplete {...props} ref={ref} />;
 });
-Autocomplete.displayName = "Autocomplete";
 
 export default Autocomplete;
