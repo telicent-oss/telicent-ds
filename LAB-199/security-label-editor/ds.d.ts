@@ -3650,9 +3650,9 @@ declare type SearchResultsProps = Partial<{
 declare type SecondaryButtonProps = Omit<ButtonProps_2, "variant" | "color">;
 
 /** Edits an IDH security label within what the user's own label schema allows. */
-export declare const SecurityLabelEditor: <T extends IdhLabel>({ value, onChange, options, disabled }: SecurityLabelEditorProps<T>) => JSX.Element;
+export declare const SecurityLabelFields: <T extends IdhLabel>({ value, onChange, options, disabled }: SecurityLabelFieldsProps<T>) => JSX.Element;
 
-export declare type SecurityLabelEditorProps<T extends IdhLabel> = {
+export declare type SecurityLabelFieldsProps<T extends IdhLabel> = {
     /** Fields the editor does not edit, such as `scheme`, are kept on change. */
     value: T;
     onChange: (value: T) => void;
