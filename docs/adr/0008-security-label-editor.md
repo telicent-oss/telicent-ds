@@ -18,7 +18,8 @@ and its own form, and search is adding the same fetch. `SecurityLabelEditor`,
    label, so an app without a schema offers no labelling.
 2. **Closed lists.** Nothing outside the schema can be entered. The user's own
    nationality and organisation (the schema's `contains`) cannot be removed, so
-   they can read what they label.
+   they can read what they label. An empty nationality or organisation list shows
+   an error, because no one could read the data.
 3. **Locked values live on `Autocomplete`.** `lockedValues` removes the delete
    button from a chip and puts the value back on clear-all. Other forms can use it.
 4. **The parser ships, the fetch does not.** Apps fetch with their own auth

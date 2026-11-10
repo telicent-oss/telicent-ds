@@ -157,7 +157,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 * **`Checkbox`**: Boolean or multi-select input (wraps MUI Checkbox). `label` renders the caption; `checked`/`onChange` control state.
 <!-- props:Checkbox=CustomCheckbox -->
 <!-- stories:Inputs/Checkbox -->
-* **`SecurityLabelEditor`**: Edits an IDH security label, offering only what the signed-in user's own label schema allows (the-management `GET /v1/labels/schemas`). Read the options with `extractIdhOptions(schemas.idh)`: null means the user can build no valid label, so do not offer labelling. Start from `defaultIdhLabel(options)`. The user's own nationality and organisation cannot be removed. Fields it does not edit, such as `scheme`, are kept on change. `hints` replaces a field's hint.
+* **`SecurityLabelEditor`**: Edits an IDH security label, offering only what the signed-in user's own label schema allows (the-management `GET /v1/labels/schemas`). Read the options with `extractIdhOptions(schemas.idh)`: null means the user can build no valid label, so do not offer labelling. Start from `defaultIdhLabel(options)`. The user's own nationality and organisation cannot be removed. An empty nationality or organisation list shows an error, and `isIdhLabelComplete(label)` gives the same answer for a Save button. Fields it does not edit, such as `scheme`, are kept on change. `hints` replaces a field's hint.
 <!-- props:SecurityLabelEditor -->
 <!-- stories:Inputs/SecurityLabelEditor -->
 * **`Switch`**: On/Off toggle (wraps MUI Switch). `label`, `labelPlacement="end" | "start" | "top" | "bottom"` (default `end`), `checked`/`onChange`.
