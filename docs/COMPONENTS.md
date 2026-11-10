@@ -48,6 +48,8 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 
 > Auth (`useAuth`, `AuthProvider`, `AuthContext`, `AuthRedirectUri`, `Callback`, and the `authorize-flow` utilities) is exported from `@telicent-oss/ds` and used by most Telicent apps, but it is out of scope for this UI component reference. See `src/utils/authorize-flow` in the source.
 
+> Security label fields (`SecurityLabelFields`, with `extractIdhOptions`, `defaultIdhLabel` and `isIdhLabelComplete`) are a candidate package exported from `@telicent-oss/ds`: the fields of an IDH security label, for an app's own form, with options read from the-management `GET /v1/labels/schemas`. They are out of scope for this general UI component reference. See `src/security-label-fields-package` in the source.
+
 > Geospatial map components (`BasicMapV2`, `MapCanvasV2`, `LayerSelectorV2`, and the zoom and toggle controls) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map/v2` in the source. The v1 components were removed in 4.0.0.
 
 ---
@@ -157,9 +159,6 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 * **`Checkbox`**: Boolean or multi-select input (wraps MUI Checkbox). `label` renders the caption; `checked`/`onChange` control state.
 <!-- props:Checkbox=CustomCheckbox -->
 <!-- stories:Inputs/Checkbox -->
-* **`SecurityLabelEditor`**: Edits an IDH security label. Pass `extractIdhOptions(schemas.idh)` (from the-management `GET /v1/labels/schemas`) as `options`; null means the user can build no valid label. Start from `defaultIdhLabel(options)`; `isIdhLabelComplete(label)` guards a Save button.
-<!-- props:SecurityLabelEditor -->
-<!-- stories:Inputs/SecurityLabelEditor -->
 * **`Switch`**: On/Off toggle (wraps MUI Switch). `label`, `labelPlacement="end" | "start" | "top" | "bottom"` (default `end`), `checked`/`onChange`.
 <!-- stories:Inputs/Switch -->
 * **`Radio` / `RadioGroup`**: Mutually-exclusive choice between several options (wraps MUI Radio / RadioGroup). `label` on `Radio` collapses the `FormControlLabel` wrap; `color="primary"` is baked (not overridable). Use `RadioGroup` with `value`/`onChange` to own the selection; use standalone `Radio` only when a `Switch` would be semantically wrong.
