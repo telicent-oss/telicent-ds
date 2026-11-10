@@ -2,7 +2,7 @@ import { defaultIdhLabel, extractIdhOptions, isIdhLabelComplete } from "./idhLab
 
 const ACCESS = {
   properties: {
-    classification: { enum: ["LOW", "HIGH"] },
+    classification: { enum: ["O", "S"] },
     allowedNats: { items: { enum: ["XAA", "XBB"] }, contains: { enum: ["XAA"] } },
     allowedOrgs: { items: { enum: ["Org A", "Org B"] }, contains: { enum: ["Org A"] } },
     groups: { items: { enum: ["urn:telicent:groups:team-c"] } },
@@ -10,7 +10,7 @@ const ACCESS = {
 };
 
 const OPTIONS = {
-  classifications: ["LOW", "HIGH"],
+  classifications: ["O", "S"],
   nats: { options: ["XAA", "XBB"], mustInclude: ["XAA"] },
   orgs: { options: ["Org A", "Org B"], mustInclude: ["Org A"] },
   groups: { options: ["urn:telicent:groups:team-c"] },
@@ -34,7 +34,7 @@ describe("extractIdhOptions", () => {
 describe("defaultIdhLabel", () => {
   it("starts from the lowest classification and the user's own nationality and organisation", () => {
     expect(defaultIdhLabel(OPTIONS)).toEqual({
-      classification: "LOW",
+      classification: "O",
       allowedNats: ["XAA"],
       allowedOrgs: ["Org A"],
       groups: [],

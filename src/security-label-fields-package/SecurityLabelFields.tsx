@@ -4,6 +4,13 @@ import Select from "../components/inputs/Select/Select";
 import FlexBox from "../components/layout/FlexBox";
 import { IdhLabel, IdhSchemaOptions } from "./idhLabel";
 
+const CLASSIFICATION_NAMES: Record<string, string> = {
+  O: "O: Official",
+  OS: "OS: Official-Sensitive",
+  S: "S: Secret",
+  TS: "TS: Top Secret",
+};
+
 const asIs = (v: string): Option => ({ value: v, label: v });
 // "urn:telicent:groups:team-a" shows as "team-a".
 const asGroup = (v: string): Option => ({ value: v, label: v.split(":").pop() ?? v });
@@ -34,7 +41,7 @@ const SecurityLabelFields = <T extends IdhLabel>({ value, onChange, options, dis
       fullWidth
       value={value.classification}
       disabled={disabled}
-      options={options.classifications.map((c) => ({ value: c, label: c }))}
+      options={options.classifications.map((c) => ({ value: c, label: CLASSIFICATION_NAMES[c] ?? c }))}
       onChange={(event) => onChange({ ...value, classification: String(event.target.value) })}
     />
     <Autocomplete

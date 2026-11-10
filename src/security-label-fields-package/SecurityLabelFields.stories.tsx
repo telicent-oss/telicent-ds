@@ -24,14 +24,14 @@ type Story = StoryObj<typeof SecurityLabelFields>;
 
 // What extractIdhOptions reads from one user's schema.
 const OPTIONS: IdhSchemaOptions = {
-  classifications: ["LOW", "MID", "HIGH"],
+  classifications: ["O", "OS", "S"],
   nats: { options: ["XAA", "XBB", "XCC", "XDD", "XEE"], mustInclude: ["XAA"] },
   orgs: { options: ["Org A", "Org B", "Org C"], mustInclude: ["Org A"] },
   groups: { options: ["urn:telicent:groups:team-a", "urn:telicent:groups:team-c"] },
 };
 
 const EVERYTHING: Partial<IdhLabel> = {
-  classification: "HIGH",
+  classification: "S",
   allowedNats: OPTIONS.nats.options,
   allowedOrgs: OPTIONS.orgs.options,
   groups: OPTIONS.groups.options,
@@ -51,7 +51,7 @@ const Editor = (props: { start?: Partial<IdhLabel>; options?: IdhSchemaOptions; 
 export const Default: Story = { render: () => <Editor /> };
 
 export const Filled: Story = {
-  render: () => <Editor start={{ classification: "HIGH", allowedNats: ["XAA", "XBB"], allowedOrgs: ["Org A", "Org B"] }} />,
+  render: () => <Editor start={{ classification: "S", allowedNats: ["XAA", "XBB"], allowedOrgs: ["Org A", "Org B"] }} />,
 };
 
 export const Full: Story = { render: () => <Editor start={EVERYTHING} /> };

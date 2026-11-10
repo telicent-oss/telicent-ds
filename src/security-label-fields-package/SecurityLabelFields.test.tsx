@@ -6,7 +6,7 @@ import { IdhLabel, IdhSchemaOptions } from "./idhLabel";
 import SecurityLabelFields from "./SecurityLabelFields";
 
 const OPTIONS: IdhSchemaOptions = {
-  classifications: ["LOW", "HIGH"],
+  classifications: ["O", "S"],
   nats: { options: ["XAA", "XBB"], mustInclude: ["XAA"] },
   orgs: { options: ["Org A", "Org B"], mustInclude: ["Org A"] },
   groups: { options: ["urn:telicent:groups:team-c"] },
@@ -15,7 +15,7 @@ const OPTIONS: IdhSchemaOptions = {
 // An app's own label type, with a field the editor does not edit.
 const LABEL: IdhLabel & { scheme: "idh" } = {
   scheme: "idh",
-  classification: "LOW",
+  classification: "O",
   allowedNats: ["XAA", "XBB"],
   allowedOrgs: ["Org A"],
   groups: [],
@@ -54,9 +54,9 @@ describe("SecurityLabelFields", () => {
     const { user } = setup(<Harness onChange={onChange} />);
 
     await user.click(screen.getByRole("combobox", { name: "Classification" }));
-    await user.click(screen.getByRole("option", { name: "HIGH" }));
+    await user.click(screen.getByRole("option", { name: "S: Secret" }));
 
-    expect(onChange).toHaveBeenLastCalledWith({ ...LABEL, classification: "HIGH" });
+    expect(onChange).toHaveBeenLastCalledWith({ ...LABEL, classification: "S" });
   });
 
   it("shows groups by name and stores them as URNs", async () => {
