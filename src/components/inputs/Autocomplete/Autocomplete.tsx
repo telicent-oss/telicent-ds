@@ -34,6 +34,8 @@ type MultipleProps = BaseProps & {
   multiple: true;
   value: Option[];
   onChange: (value: Option[]) => void;
+  /** Values the user cannot remove: no delete button, and kept on clear-all. */
+  lockedValues?: string[];
 };
 
 type MuiSinglePassthrough = Omit<
@@ -114,10 +116,12 @@ const MultipleAutocomplete = forwardRef<HTMLDivElement, MultipleAutoCompleteProp
       size = "small",
       required = false,
       id,
+      lockedValues = [],
       ...rest
     },
     ref,
   ) => {
+    const isLocked = (option: Option) => lockedValues.includes(option.value);
     return (
       <MuiAutocomplete
         {...rest}
@@ -126,22 +130,28 @@ const MultipleAutocomplete = forwardRef<HTMLDivElement, MultipleAutoCompleteProp
         options={options}
         multiple
         value={value}
-        onChange={(_, next) => onChange(next ?? [])}
+        onChange={(_, next) => onChange([...value.filter(isLocked), ...(next ?? []).filter((o) => !isLocked(o))])}
         fullWidth={fullWidth}
         size={size}
         disabled={disabled}
         isOptionEqualToValue={(option, val) => option.value === val.value}
         renderTags={(selectedOptions, getTagProps) =>
-          selectedOptions.map((option, index) => (
-            <Chip
-              variant="filled"
-              color="default"
-              size="small"
-              label={option.label}
-              {...getTagProps({ index })}
-              sx={{ pl: 1 }}
-            />
-          ))
+          selectedOptions.map((option, index) => {
+            const { key, onDelete, ...tagProps } = getTagProps({ index });
+            return (
+              <Chip
+                key={key}
+                variant="filled"
+                color="default"
+                size="small"
+                label={option.label}
+                {...tagProps}
+                aria-disabled={tagProps.disabled || undefined} // a locked chip is not a button, so says so itself
+                onDelete={isLocked(option) ? undefined : onDelete}
+                sx={{ pl: 1 }}
+              />
+            );
+          })
         }
         renderInput={(params) => (
           <TextField

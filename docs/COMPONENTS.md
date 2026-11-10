@@ -48,6 +48,8 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 
 > Auth (`useAuth`, `AuthProvider`, `AuthContext`, `AuthRedirectUri`, `Callback`, and the `authorize-flow` utilities) is exported from `@telicent-oss/ds` and used by most Telicent apps, but it is out of scope for this UI component reference. See `src/utils/authorize-flow` in the source.
 
+> Security label fields (`SecurityLabelFields`, with `extractIdhOptions`, `defaultIdhLabel` and `isIdhLabelComplete`) are a candidate package exported from `@telicent-oss/ds`: the fields of an IDH security label, for an app's own form, with options read from the-management `GET /v1/labels/schemas`. They are out of scope for this general UI component reference. See `src/security-label-fields-package` in the source.
+
 > Geospatial map components (`BasicMapV2`, `MapCanvasV2`, `LayerSelectorV2`, and the zoom and toggle controls) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map/v2` in the source. The v1 components were removed in 4.0.0.
 
 ---
@@ -145,7 +147,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:SearchBox -->
 <!-- props:MiniSearchBox -->
 <!-- stories:Inputs/Search/MiniSearchBox -->
-* **`Autocomplete` / `MiniSearchAutocomplete`**: Use when search requires type-ahead dropdown suggestions.
+* **`Autocomplete` / `MiniSearchAutocomplete`**: Use when search requires type-ahead dropdown suggestions. With `multiple`, `lockedValues` names values the user cannot remove.
 <!-- props:MiniSearchAutocomplete -->
 <!-- stories:Inputs/Autocomplete -->
 <!-- stories:Inputs/Search/MiniSearchAutocomplete -->

@@ -96,6 +96,7 @@ This keeps the DS component simple while still supporting id-based form state.
   - \`multiple: true\`
   - \`value: Option[]\`
   - \`onChange: (value: Option[]) => void\`
+  - \`lockedValues?: string[]\` — values the user cannot remove
 - \`placeholder?: string\`
 - \`disabled?: boolean\`
 - \`error?: boolean\`
