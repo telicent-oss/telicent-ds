@@ -1,31 +1,14 @@
+import type * as GeoJSON from "geojson";
+import { Map } from "ol";
 import { Coordinate } from "ol/coordinate";
 import BaseLayer from "ol/layer/Base";
-import type * as GeoJSON from "geojson";
-import { OverlayFeatureConfig } from "./overlays";
-import { LayerConfig } from "./layers";
-import { MarkerFeature } from "./markers";
-import { Map } from "ol";
-import { PathFeature } from "./paths";
-import { PolygonFeature } from "./polygons";
 import { StyleLike } from "ol/style/Style";
 
-export type LegacyTileSet = {
-  label: string;
-  uri: string;
-  image: string;
-  attribution?: string;
-};
-
-export type LegacyVectorStyle = {
-  label: string;
-  uri: string;
-  image: string;
-};
-
-export type LegacyMapConfig = {
-  vectorStyles?: LegacyVectorStyle;
-  tileSets?: LegacyTileSet[];
-};
+import { LayerConfig } from "./layers";
+import { MarkerFeature } from "./markers";
+import { OverlayFeatureConfig } from "./overlays";
+import { PathFeature } from "./paths";
+import { PolygonFeature } from "./polygons";
 
 export type StyleConfig =
   | Partial<{
@@ -91,16 +74,11 @@ export interface BasicMapProperties {
   center: number[];
   /**
    * Base layers, drawn under markers, polygons and paths.
-   * A non-empty array replaces `mapStyleOptions`. An empty array is treated as omitted.
-   * Omit both to draw no basemap.
+   * Omit to draw no basemap.
    * A layer `opacity` must be 0 to 1; anything else throws.
    */
   layers?: LayerConfig[];
   controls?: Partial<MapControlsConfig>;
-  /**
-   * @deprecated Use `layers` instead. This prop will be removed in a future release.
-   */
-  mapStyleOptions?: LegacyMapConfig;
   /**
    * Keep ids unique across `markers`, `polygons` and `paths`.
    * `panToFeature` and `onFeatureClick` cannot tell a reused id apart.

@@ -1,10 +1,11 @@
 import { ThemeOptions } from "@mui/material";
-import { TYPOGRAPHY_TOKENS } from "../../tokens";
-import SpaceGroteskRegularWoff2 from "../../assets/fonts/space-grotesk/space-grotesk-regular.woff2";
-import SpaceGroteskMediumWoff2 from "../../assets/fonts/space-grotesk/space-grotesk-medium.woff2";
-import FigtreeRegularWoff2 from "../../assets/fonts/figtree/figtree-regular.woff2";
-import FigtreeMediumWoff2 from "../../assets/fonts/figtree/figtree-medium.woff2";
+
 import FigtreeBoldWoff2 from "../../assets/fonts/figtree/figtree-bold.woff2";
+import FigtreeMediumWoff2 from "../../assets/fonts/figtree/figtree-medium.woff2";
+import FigtreeRegularWoff2 from "../../assets/fonts/figtree/figtree-regular.woff2";
+import SpaceGroteskMediumWoff2 from "../../assets/fonts/space-grotesk/space-grotesk-medium.woff2";
+import SpaceGroteskRegularWoff2 from "../../assets/fonts/space-grotesk/space-grotesk-regular.woff2";
+import { TYPOGRAPHY_TOKENS } from "../../tokens";
 
 const fonts = {
   heading: "Space Grotesk, Helvetica, Arial, sans-serif",

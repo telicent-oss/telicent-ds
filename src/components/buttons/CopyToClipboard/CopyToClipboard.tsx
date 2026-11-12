@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
-import Button, { ButtonProps } from "../Button/Button";
-import { useExtendedTheme } from "../../../export";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, tooltipClasses } from "@mui/material";
+import React, { useState } from "react";
+
+import { useExtendedTheme } from "../../../export";
+import Button, { ButtonProps } from "../Button/Button";
 
 export type CopyToClipboardProps = ButtonProps & {
   text: string;
   successMsg?: string;
   ariaLabel?: string;
   testFailure?: boolean;
-  style?: String;
+  style?: string;
 };
 
 const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
@@ -63,9 +64,14 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
       componentsProps={{
         tooltip: {
           sx: {
-            bgcolor: message !== successMsg ? theme.palette.error.main : undefined,
+            // Read `error.dark` (not `.main`): MUI Tooltip's text is
+            // hardcoded white, and `.dark` is pinned in both palettes to
+            // the deep red that passes AA white-on-red (7.78:1 dark,
+            // ~8:1 light). `error.main` is tuned for FormLabel text
+            // contrast on page bg and would fail here in dark mode.
+            bgcolor: message !== successMsg ? theme.palette.error.dark : undefined,
             [`& .${tooltipClasses.arrow}`]: {
-              color: message !== successMsg ? theme.palette.error.main : undefined,
+              color: message !== successMsg ? theme.palette.error.dark : undefined,
             },
             fontSize: "0.75rem",
           },

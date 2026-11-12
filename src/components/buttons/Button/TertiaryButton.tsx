@@ -1,5 +1,6 @@
-import React, { forwardRef } from "react";
 import MUIButton, { ButtonProps as MUIButtonProps } from "@mui/material/Button";
+import React, { forwardRef } from "react";
+
 import { useExtendedTheme } from "../../../export";
 
 type TertiaryButtonProps = Omit<MUIButtonProps, "variant" | "color">;
@@ -14,7 +15,7 @@ export const TertiaryButton = forwardRef<HTMLButtonElement, TertiaryButtonProps>
       {...buttonProps}
       sx={{
         border: `1px solid ${theme.palette.tertiary?.main}`,
-        color: theme.palette.tertiary?.contrastText,
+        color: theme.palette.tertiary?.main,
         backgroundColor: theme.palette.mode === "dark" ? "#080808" : "#FFFFFF",
         "&:hover": {
           backgroundColor: `${theme.palette.tertiary?.main}14`,

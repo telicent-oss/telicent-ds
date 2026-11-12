@@ -2,8 +2,9 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 
-if grep -q 'localhost:4873' yarn.lock; then
+if [ "$ALLOW_VERDACCIO" != "1" ] && grep -q 'localhost:4873' yarn.lock; then
   echo 'ERROR: localhost:4873 (local Verdaccio) found in yarn.lock' >&2
+  echo 'Set ALLOW_VERDACCIO=1 to push anyway (CI cannot install from it).' >&2
   exit 1
 fi
 

@@ -1,6 +1,7 @@
 import { screen } from "@testing-library/react";
-import ConfirmDialog from "../ConfirmDialog";
+
 import { setup } from "../../../../test-utils";
+import ConfirmDialog from "../ConfirmDialog";
 
 const baseProps = {
   open: true,

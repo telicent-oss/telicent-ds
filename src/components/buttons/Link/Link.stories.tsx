@@ -1,7 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import Link from "./LinkButton";
 import { Box } from "@mui/material";
+import { Meta, StoryObj } from "@storybook/react-vite";
+
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
+import Link from "./LinkButton";
 
 const meta: Meta<typeof Link> = {
   title: "Buttons/Link",

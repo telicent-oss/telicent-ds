@@ -1,7 +1,66 @@
-import React from "react";
+// Load the DS's own stylesheet so `:root` custom properties (e.g. `--teli-app-color`)
+// resolve inside the preview iframe. Without this, components that read the accent
+// via `rgb(var(--teli-app-color))` fall back to `currentColor` and render as black.
+import "../src/index.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+import { useTheme } from "@mui/material/styles";
 import type { Preview } from "@storybook/react-vite";
-import UIThemeProvider from "../src/theme/UIThemeProvider";
+import React from "react";
+
 import { UIThemeSchema } from "../src/theme/colors/theme-colors";
+import UIThemeProvider from "../src/theme/UIThemeProvider";
+
+// Reads `background.default` from the resolved theme so axe-core's color-contrast
+// rule measures against the real background each theme × mode combo renders —
+// not a hardcoded hex. Previous hardcode (`#F5F5F5` / `#1D1D1D`) matched only 4
+// of 10 theme × mode combos and silently passed stories that would fail contrast
+// on GeoGreen dark (`#080808`) or GraphOrange light (`#F0F2F5`). Must sit inside
+// `UIThemeProvider` so `useTheme()` resolves. See docs/accessibility.md § Known gaps.
+const ThemedCanvas: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const theme = useTheme();
+  // Inject a stylesheet into the preview iframe so <html> and <body> share
+  // the themed background. Needed because Storybook's own `.sb-show-main`
+  // / preview-body styles paint the outer area white at a specificity that
+  // beats a plain inline style on `document.body`. `!important` makes the
+  // override reliable across Storybook versions. The canvas div still
+  // paints its own background so a11y color-contrast measurement is
+  // unchanged.
+  React.useEffect(() => {
+    const styleId = "ds-themed-canvas-body-bg";
+    let style = document.getElementById(styleId) as HTMLStyleElement | null;
+    if (!style) {
+      style = document.createElement("style");
+      style.id = styleId;
+      document.head.appendChild(style);
+    }
+    // Covers both views:
+    //  - standalone canvas: html / body / .sb-show-main
+    //  - autodocs preview boxes: .sbdocs-preview / .docs-story / .innerZoomElementWrapper
+    // (Leaves the surrounding docs-page chrome — titles, prop tables, prose —
+    // untouched so only the actual story preview area picks up the theme.)
+    style.textContent = `
+      html, body, .sb-show-main,
+      .sbdocs-preview, .docs-story, .innerZoomElementWrapper {
+        background-color: ${theme.palette.background.default} !important;
+      }
+    `;
+    return () => {
+      style?.remove();
+    };
+  }, [theme.palette.background.default]);
+  return (
+    <div
+      style={{
+        backgroundColor: theme.palette.background.default,
+        padding: 16,
+        minHeight: "100vh",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 const preview: Preview = {
   decorators: [
@@ -12,17 +71,9 @@ const preview: Preview = {
 
       return (
         <UIThemeProvider dark={isDark} theme={selectedTheme}>
-          {/* Explicit background so axe-core's color-contrast rule can determine
-              the background reliably (see docs/accessibility.md § Known gaps). */}
-          <div
-            style={{
-              backgroundColor: isDark ? "#1D1D1D" : "#F5F5F5",
-              padding: 16,
-              minHeight: "100vh",
-            }}
-          >
+          <ThemedCanvas>
             <Story />
-          </div>
+          </ThemedCanvas>
         </UIThemeProvider>
       );
     },
@@ -64,6 +115,13 @@ const preview: Preview = {
     // toolbar is disabled to avoid a redundant dark/light control.
     backgrounds: { disable: true },
     a11y: {
+      // `error` surfaces axe violations as full Jest test failures, which
+      // the HTML reporter captures with per-story detail (yarn test:a11y →
+      // a11y-report/index.html). `todo` would log violations as warnings
+      // only and leave the HTML showing all tests passing. Trade-off:
+      // non-zero exit code locally and in CI until the baseline is clean —
+      // revisit before wiring into a CI gate.
+      test: "error",
       // Target WCAG 2.2 AA — see docs/accessibility.md and docs/adr/0001-wcag-2.2-aa.md
       options: {
         runOnly: {

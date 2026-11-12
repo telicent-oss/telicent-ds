@@ -1,4 +1,4 @@
-import { Switch as MuiSwitch, FormControlLabel } from "@mui/material";
+import { FormControlLabel,Switch as MuiSwitch } from "@mui/material";
 import type { SwitchProps as MuiSwitchProps } from "@mui/material/Switch";
 import { forwardRef } from "react";
 

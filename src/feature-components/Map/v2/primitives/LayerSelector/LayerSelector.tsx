@@ -1,14 +1,13 @@
-import React, { useMemo, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type BaseLayer from "ol/layer/Base";
-
-import { Button, Text, useExtendedTheme } from "../../../../../export";
-import { Image } from "./primitives/Image";
-import type { LayerSelectorProps } from "../../types/map-types";
-import { getMeta } from "../../utils/layers";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Menu, type MenuOption } from "../../../../../components/Navigation/Menu/Menu";
+import { Button, Text, useExtendedTheme } from "../../../../../export";
+import type { LayerSelectorProps } from "../../types/map-types";
+import { getMeta } from "../../utils/layers";
+import { Image } from "./primitives/Image";
 
 const resolveVisibleBaseLayerIndex = (layers: BaseLayer[]): number => {
   const storedLabel = localStorage.getItem("map.baselayer");
@@ -33,7 +32,10 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
 
   const baseLayers = useMemo(() => layers.filter((l) => l.get("kind")?.startsWith("base")), [layers]);
 
-  const selectedMeta = useMemo(() => baseLayers[selectedIndex] ? getMeta(baseLayers[selectedIndex]) : undefined, [baseLayers, selectedIndex]);
+  const selectedMeta = useMemo(() => {
+    const layer = baseLayers[selectedIndex];
+    return layer ? getMeta(layer) : undefined;
+  }, [baseLayers, selectedIndex]);
 
   const handleSelect = (label: string) => {
     localStorage.setItem("map.baselayer", label);
@@ -104,9 +106,12 @@ export const LayerSelectorV2: React.FC<LayerSelectorProps> = ({ layers, style = 
               display: "flex",
               alignItems: "center",
               gap: "6px",
-              backgroundColor: "#1D1D1D",
-              color: "white",
-              "&:hover": { color: theme.palette.primary.main, backgroundColor: "#1D1D1D" },
+              backgroundColor: theme.palette.background.default,
+              color: theme.palette.text.primary,
+              "&:hover": {
+                color: theme.palette.primary.main,
+                backgroundColor: theme.palette.background.default,
+              },
             }}
           >
             {selectedMeta?.image ? (

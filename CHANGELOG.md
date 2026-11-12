@@ -1,5 +1,105 @@
 # Changelog
 
+## [6.2.0](https://github.com/telicent-oss/telicent-ds/compare/v6.1.1...v6.2.0) (2026-11-06)
+
+
+### Features
+
+* add appLoader Vite plugin for the pre-React loading screen ([#600](https://github.com/telicent-oss/telicent-ds/issues/600)) ([fc7c14d](https://github.com/telicent-oss/telicent-ds/commit/fc7c14d3427280f6a2b874fdb87082880ecf621f))
+
+## [6.1.1](https://github.com/telicent-oss/telicent-ds/compare/v6.1.0...v6.1.1) (2026-10-30)
+
+
+### Bug Fixes
+
+* **deps:** move Font Awesome to v7 ([#597](https://github.com/telicent-oss/telicent-ds/issues/597)) ([a881922](https://github.com/telicent-oss/telicent-ds/commit/a88192200498c396f0c417f330834a435c97481e))
+
+## [6.1.0](https://github.com/telicent-oss/telicent-ds/compare/v6.0.0...v6.1.0) (2026-10-29)
+
+
+### Features
+
+* **data-display:** load more pages incrementally in EntityList ([#595](https://github.com/telicent-oss/telicent-ds/issues/595)) ([f99ddf9](https://github.com/telicent-oss/telicent-ds/commit/f99ddf93f37e4ee1864e894d76a759c8b10c540a))
+* **utils:** PreferredLabelCache.lookup and acronym-safe derived names ([#594](https://github.com/telicent-oss/telicent-ds/issues/594)) ([a6a1666](https://github.com/telicent-oss/telicent-ds/commit/a6a16664d649400678803ef4e6246fefa855be6f))
+
+## [6.0.0](https://github.com/telicent-oss/telicent-ds/compare/v5.0.1...v6.0.0) (2026-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** exported zod schemas (AppSwitchLibrarySchema, UIThemeSchema, ENCODE_SEARCH_PARAMS_MODES_Schema) and parseOrThrowWithInput are now zod 4 types. Apps must use zod 4 to compose them; embedding them in a zod 3 schema throws "def.type._parseSync is not a function" at parse time. Validation messages change wording (e.g. "Required" -> "Invalid input: expected string, received undefined").
+
+### Miscellaneous Chores
+
+* **deps:** upgrade zod to v4 and vite-plugin-dts to v4 ([#590](https://github.com/telicent-oss/telicent-ds/issues/590)) ([5dab223](https://github.com/telicent-oss/telicent-ds/commit/5dab22301802cc7c7e5243d3afb94407c68269db))
+
+## [5.0.1](https://github.com/telicent-oss/telicent-ds/compare/v5.0.0...v5.0.1) (2026-10-23)
+
+
+### Bug Fixes
+
+* **theme, map:** Map panel light theme + MapPanel composite ([#582](https://github.com/telicent-oss/telicent-ds/issues/582)) ([697821a](https://github.com/telicent-oss/telicent-ds/commit/697821a4de5c8e4c4b7fb8535866b7d7f02a42cd))
+
+## [5.0.0](https://github.com/telicent-oss/telicent-ds/compare/v4.4.2...v5.0.0) (2026-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Drawer and DrawerProps now name the controlled side sheet. Import InsetDrawer and InsetDrawerProps for the map inset panel.
+
+### Features
+
+* **data-display:** add EntityList — navigational list of entities ([#580](https://github.com/telicent-oss/telicent-ds/issues/580)) ([32a1cc1](https://github.com/telicent-oss/telicent-ds/commit/32a1cc1e1ec10bfac0409707efa966fb62f396c3))
+* port MUI Drawer and Badge, remove deprecated APIs ([#578](https://github.com/telicent-oss/telicent-ds/issues/578)) ([239e172](https://github.com/telicent-oss/telicent-ds/commit/239e172cde83b11c2770752674cb561eb43c45ac))
+
+## [4.4.2](https://github.com/telicent-oss/telicent-ds/compare/v4.4.1...v4.4.2) (2026-10-14)
+
+
+### Bug Fixes
+
+* **packaging:** split MUI X deps into opt-in sub-path exports ([#575](https://github.com/telicent-oss/telicent-ds/issues/575)) ([54600b7](https://github.com/telicent-oss/telicent-ds/commit/54600b708ece48216668d4328b72348233eb02f8))
+* **theme:** drop hardcoded dark Paper overrides that broke light theme ([#577](https://github.com/telicent-oss/telicent-ds/issues/577)) ([723ef20](https://github.com/telicent-oss/telicent-ds/commit/723ef206305e5ebf2188f7eeec0dfbab1d302843))
+
+## [4.4.1](https://github.com/telicent-oss/telicent-ds/compare/v4.4.0...v4.4.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* **data-grid:** tolerate missing outer ThemeProvider ([#573](https://github.com/telicent-oss/telicent-ds/issues/573)) ([17726ee](https://github.com/telicent-oss/telicent-ds/commit/17726eee827e783d48996ad6674bca0dc8da3134))
+
+## [4.4.0](https://github.com/telicent-oss/telicent-ds/compare/v4.3.0...v4.4.0) (2026-10-12)
+
+
+### Features
+
+* close MUI direct-import gap (part 3) ([#571](https://github.com/telicent-oss/telicent-ds/issues/571)) ([812d975](https://github.com/telicent-oss/telicent-ds/commit/812d975f2bac1b59b28106d8e7faa73bf640c841))
+* **theme, inputs:** port the pill-group treatment ([#569](https://github.com/telicent-oss/telicent-ds/issues/569)) ([49d2b6d](https://github.com/telicent-oss/telicent-ds/commit/49d2b6d930f33ac6c88a5d77a7dd400e3865329a))
+
+## [4.3.0](https://github.com/telicent-oss/telicent-ds/compare/v4.2.0...v4.3.0) (2026-10-07)
+
+
+### Features
+
+* **a11y, palette, stories:** dark-mode contrast fixes, hex ramps, App Shell showcase ([#563](https://github.com/telicent-oss/telicent-ds/issues/563)) ([d4b97e0](https://github.com/telicent-oss/telicent-ds/commit/d4b97e0904926abb696e0faf958810a7503583a3))
+* **a11y:** headless test-runner + jest-html-reporters + baseline doc ([#565](https://github.com/telicent-oss/telicent-ds/issues/565)) ([ec00c38](https://github.com/telicent-oss/telicent-ds/commit/ec00c38f48a2e6d7cfebcc6dc3f564b5e3c010a7))
+* close MUI direct-import gap (part 2) + port Accordion trio ([#562](https://github.com/telicent-oss/telicent-ds/issues/562)) ([21eed67](https://github.com/telicent-oss/telicent-ds/commit/21eed676c5493829900623760ddd9a43530eeb95))
+* **skill:** opt-in telicent-ds Claude skill + packaged llms.txt manifest ([#507](https://github.com/telicent-oss/telicent-ds/issues/507)) ([1f70656](https://github.com/telicent-oss/telicent-ds/commit/1f7065618372600f4c3d39af5c5fb64941233392))
+
+## [4.2.0](https://github.com/telicent-oss/telicent-ds/compare/v4.1.0...v4.2.0) (2026-09-25)
+
+
+### Features
+
+* **AppSwitch:** support optional theme-aware icons ([#559](https://github.com/telicent-oss/telicent-ds/issues/559)) ([fcfe0dd](https://github.com/telicent-oss/telicent-ds/commit/fcfe0dd079e9cd840d5403283f9afb9976d236a3))
+
+## [4.1.0](https://github.com/telicent-oss/telicent-ds/compare/v4.0.0...v4.1.0) (2026-09-24)
+
+
+### Features
+
+* close MUI direct-import gap (part 1) ([#558](https://github.com/telicent-oss/telicent-ds/issues/558)) ([ccb7458](https://github.com/telicent-oss/telicent-ds/commit/ccb7458f857eb855bd5dbf867e6cefb668848763))
+* port MUI Tabs with derived accessibility ids ([#552](https://github.com/telicent-oss/telicent-ds/issues/552)) ([4228212](https://github.com/telicent-oss/telicent-ds/commit/42282128327f8d02304dae146d80f595daabfbc4))
+
 ## [4.0.0](https://github.com/telicent-oss/telicent-ds/compare/v3.7.0...v4.0.0) (2026-09-09)
 
 

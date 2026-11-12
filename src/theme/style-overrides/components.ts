@@ -1,13 +1,18 @@
 import { alpha, ThemeOptions } from "@mui/material";
+
 import { UITheme } from "../colors/theme-colors";
 import * as componentOverrides from "./component-overrides";
 import { FONT_FACES_CSS } from "./typography";
 const generateComponentOverrides = (uiTheme: UITheme) =>
   ({
     ...componentOverrides.AVATAR_OVERRIDES,
+    ...componentOverrides.generateAccordionOverrides(uiTheme),
+    ...componentOverrides.generateBadgeOverrides(uiTheme),
     ...componentOverrides.generateButtonOverrides(uiTheme),
     ...componentOverrides.generateCardOverrides(uiTheme),
+    ...componentOverrides.generateDrawerOverrides(uiTheme),
     ...componentOverrides.generateTabsOverrides(uiTheme),
+    ...componentOverrides.generateToggleButtonOverrides(uiTheme),
     MuiPaper: {
       styleOverrides: {
         root: {

@@ -45,4 +45,4 @@ export const FloatingPanelProvider: React.FC<FloatingPanelProviderProps> = ({ ch
   );
 };
 
-export type { FloatingPanelContextType, FloatingPanelProviderProps, PanelsType, PanelState, ToggleFn };
+export type { FloatingPanelContextType, FloatingPanelProviderProps, PanelState, PanelsType, ToggleFn };

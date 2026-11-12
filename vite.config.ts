@@ -1,8 +1,9 @@
 import react from "@vitejs/plugin-react";
 import path from "path";
 import copy from "rollup-plugin-copy";
-import dts from "vite-plugin-dts";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+
 import pkg from "./package.json";
 
 
@@ -15,9 +16,14 @@ export default defineConfig({
     minify: false,
     sourcemap: true,
     lib: {
-      entry: path.resolve(__dirname, "src/export.ts"),
+      entry: {
+        ds: path.resolve(__dirname, "src/export.ts"),
+        "data-grid": path.resolve(__dirname, "src/data-grid.ts"),
+        "date-pickers": path.resolve(__dirname, "src/date-pickers.ts"),
+      },
       name: "@telicent-oss/ds",
-      fileName: "ds",
+      formats: ["es", "cjs"],
+      cssFileName: "style",
     },
     rollupOptions: {
       // Externalise MUI + Emotion so consumers share a single instance (fixes
@@ -34,6 +40,8 @@ export default defineConfig({
         /^@mui\/lab\/.*/,
         "@mui/x-date-pickers",
         /^@mui\/x-date-pickers\/.*/,
+        "@mui/x-data-grid",
+        /^@mui\/x-data-grid\/.*/,
         "@mui/private-theming",
         "@mui/styled-engine",
         "@emotion/react",
@@ -69,7 +77,13 @@ export default defineConfig({
               dest: "dist/styles",
             },
             { src: "src/fontawesome.css", dest: "dist" },
-
+            {
+              src: [
+                "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+                "node_modules/@fortawesome/fontawesome-free/css/svg-with-js.min.css",
+              ],
+              dest: "dist/assets/fonts/fontawesome/css",
+            },
             {
               src: "node_modules/@fortawesome/fontawesome-free/webfonts/*",
               dest: "dist/assets/fonts/fontawesome/webfonts",

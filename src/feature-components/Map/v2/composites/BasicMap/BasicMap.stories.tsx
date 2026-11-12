@@ -1,19 +1,20 @@
-import { useRef, useState, useCallback } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { BasicMapV2 } from "./BasicMap";
-import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
-import { LayerConfig } from "../../types/layers";
-import { MarkerFeature } from "../../types/markers";
-import { PathFeature } from "../../types/paths";
-import { Stroke, Style } from "ol/style";
 import { FeatureLike } from "ol/Feature";
-import { MalformedFeatureError } from "../../utils/errors";
+import { Stroke, Style } from "ol/style";
+import { useCallback, useRef, useState } from "react";
+
 import {
 	ErrorFallback,
 	ErrorFallbackText,
 	ErrorFallbackWrapper,
 } from "../../../../../components/utils/ErrorFallback";
+import { LayerConfig } from "../../types/layers";
+import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
+import { MarkerFeature } from "../../types/markers";
+import { PathFeature } from "../../types/paths";
+import { MalformedFeatureError } from "../../utils/errors";
+import { BasicMapV2 } from "./BasicMap";
 
 
 const baseLayers: LayerConfig[] = [
@@ -32,7 +33,6 @@ export const allArgs: BasicMapProperties = {
 	zoom: 5,
 	center: [0, 0],
 	layers: baseLayers,
-	mapStyleOptions: undefined,
 	markers: [],
 	polygons: [],
 	paths: []

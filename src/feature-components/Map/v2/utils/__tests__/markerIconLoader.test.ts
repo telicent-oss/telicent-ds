@@ -1,7 +1,7 @@
 // src/component-library/Map/v2/utils/__tests__/markerIconLoader.test.ts
 
-import { ensureMarkerIconsLoaded } from "../markerIconLoader";
 import { ensureFaIconPath } from "../faIconResolver"; // Adjust this path if needed!
+import { ensureMarkerIconsLoaded } from "../markerIconLoader";
 
 // 1. ADD THIS LINE!
 // The path string here must exactly match the path string in the import above.

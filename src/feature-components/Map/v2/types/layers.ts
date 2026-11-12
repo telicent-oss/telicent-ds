@@ -1,7 +1,8 @@
-import { StyleLike } from "ol/style/Style";
-import { OverlayFeatureConfig } from "./overlays";
 import BaseLayer from "ol/layer/Base";
+import { StyleLike } from "ol/style/Style";
+
 import { Opacity } from "./opacity";
+import { OverlayFeatureConfig } from "./overlays";
 
 export type BaseVectorTileLayerConfig = {
   id: string;

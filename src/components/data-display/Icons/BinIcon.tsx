@@ -1,7 +1,7 @@
-import React from "react";
 import MUISvgIcon, {
   SvgIconProps as MUISvgIconProps,
 } from "@mui/material/SvgIcon";
+import React from "react";
 
 const BinIcon: React.FC<MUISvgIconProps> = (iconProps) => (
   <MUISvgIcon {...iconProps} viewBox="6 5 12 14">

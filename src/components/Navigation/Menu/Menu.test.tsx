@@ -1,8 +1,8 @@
-import React from "react";
 import { cleanup, screen } from "@testing-library/react";
+import React from "react";
 
-import { Menu } from "./Menu";
 import { setup } from "../../../test-utils";
+import { Menu } from "./Menu";
 
 describe("Menu", () => {
   afterEach(cleanup);

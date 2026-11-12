@@ -1,9 +1,9 @@
 // __tests__/auth-library.test.tsx
-import React from "react";
+import { QueryClient } from "@tanstack/react-query";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react";
-import { MemoryRouter, Routes, Route } from "react-router-dom";
-import { QueryClient } from "@tanstack/react-query";
+import React from "react";
+import { MemoryRouter, Route,Routes } from "react-router-dom";
 
 import { AuthProvider } from "../context/AuthProvider";
 import { useAuth } from "../context/useAuth";

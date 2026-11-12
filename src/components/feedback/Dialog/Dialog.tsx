@@ -1,18 +1,17 @@
-import React, { FC, ReactNode } from "react";
 import {
   Dialog as MuiDialog,
   DialogProps as MuiDialogProps,
 } from "@mui/material";
-export {
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
-
+import React, { FC, ReactNode } from "react";
 export type {
-  DialogTitleProps,
-  DialogContentProps,
   DialogActionsProps,
+  DialogContentProps,
+  DialogTitleProps,
+} from "@mui/material";
+export {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
 
 
@@ -24,17 +23,7 @@ export interface DialogProps extends MuiDialogProps {
 
 const Dialog: FC<DialogProps> = ({ open, onClose, children, ...otherProps }) => {
   return (
-    <MuiDialog
-      open={open}
-      onClose={onClose}
-      sx={{
-        "& .MuiPaper-root": {
-          backgroundColor: "#1e1e1e",
-          color: "#fff",
-        },
-      }}
-      {...otherProps}
-    >
+    <MuiDialog open={open} onClose={onClose} {...otherProps}>
       {children}
     </MuiDialog>
   );

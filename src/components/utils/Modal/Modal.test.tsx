@@ -1,4 +1,5 @@
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+
 import { Modal, ModalProps } from "./Modal";
 
 describe("Modal Component", () => {

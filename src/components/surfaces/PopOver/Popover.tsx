@@ -1,11 +1,11 @@
-import React from "react";
-import { useTheme } from "@mui/material";
 import MUIPopOver, {
-  PopoverProps as MUIPopOverProps,
   PopoverOrigin,
   PopoverPosition,
+  PopoverProps as MUIPopOverProps,
   PopoverReference,
 } from "@mui/material/Popover";
+import React from "react";
+
 import { ModalProps } from "../../utils";
 export interface PopOverProps extends Omit<ModalProps, "children"> {
   /**
@@ -59,6 +59,9 @@ export interface PopOverProps extends Omit<ModalProps, "children"> {
    * }
    */
   transformOrigin?: PopoverOrigin;
+  /**
+   * Fixed width for the popover paper, in pixels.
+   */
   width?: number;
 }
 
@@ -68,25 +71,12 @@ export interface PopOverProps extends Omit<ModalProps, "children"> {
  * Things to know when using the PopOver component:
  * - The component is built on top of the Modal component.
  */
-const PopOver = (props: PopOverProps) => {
-  const theme = useTheme();
-
-  return (
-    <MUIPopOver
-      elevation={3}
-      slotProps={{
-        paper: {
-          sx: {
-            backgroundColor: theme.palette.mode === "dark" ? "#2A2A2A" : "#eee",
-            backgroundImage: "none",
-            width: props.width,
-            padding: 2,
-          },
-        },
-      }}
-      {...props}
-    />
-  );
-};
+const PopOver = ({ width, ...props }: PopOverProps) => (
+  <MUIPopOver
+    elevation={3}
+    slotProps={width ? { paper: { sx: { width } } } : undefined}
+    {...props}
+  />
+);
 
 export default PopOver;

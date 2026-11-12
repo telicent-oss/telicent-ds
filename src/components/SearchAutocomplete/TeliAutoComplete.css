@@ -8,8 +8,7 @@
 }
 
 .MuiAutocomplete-popper .MuiPaper-root {
-  @apply bg-black-200 text-whiteSmoke bg-none rounded-md;
-  box-shadow: 4px 4px 10px 0px rgba(20, 20, 20, 0.75), -4px -4px 10px 0px rgba(20, 20, 20, 0.75);
+  @apply bg-none rounded-md;
 
   * {
     @apply p-2;

@@ -1,15 +1,16 @@
-import React, { forwardRef, useCallback } from "react";
 import {
-  useSnackbar as useNotistackSnackbar,
-  enqueueSnackbar as notistackEnqueue,
   type CustomContentProps,
-  type SnackbarKey,
-  type SnackbarAction,
+  enqueueSnackbar as notistackEnqueue,
   type OptionsObject,
+  type SnackbarAction,
+  type SnackbarKey,
+  useSnackbar as useNotistackSnackbar,
 } from "notistack";
-import { Alert } from "../Alert/Alert";
+import React, { forwardRef, useCallback } from "react";
+
 import IconButton from "../../buttons/Button/IconButton";
 import CloseIcon from "../../data-display/Icons/CloseIcon";
+import { Alert } from "../Alert/Alert";
 
 // The four severities the DS supports. Notistack's own union additionally
 // includes "default"; the DS deliberately excludes it — every snackbar must

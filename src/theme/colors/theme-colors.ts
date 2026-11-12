@@ -1,12 +1,13 @@
 import zod from "zod";
-import DataNavy from "./DataNavy";
-import DocumentPink from "./DocumentPink";
-import GraphOrange from "./GraphOrange";
-import AdminBlue from "./AdminBlue";
-import GeoGreen from "./GeoGreen";
-import Blank from "./BlankTheme";
 
-export const UIThemeSchema = zod.enum(["DataNavy", "DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]);
+import AdminBlue from "./AdminBlue";
+import Blank from "./BlankTheme";
+import DocumentPink from "./DocumentPink";
+import GeoGreen from "./GeoGreen";
+import GraphOrange from "./GraphOrange";
+
+/** Curated set of DS themes. */
+export const UIThemeSchema = zod.enum(["DocumentPink", "GraphOrange", "AdminBlue", "GeoGreen", "Blank"]);
 export type UITheme = zod.infer<typeof UIThemeSchema>;
 
 export type PaletteColor = {
@@ -44,7 +45,6 @@ export type ThemeColor = {
 };
 
 const THEME_COLORS: Record<UITheme, ThemeColor> = {
-  DataNavy,
   DocumentPink,
   GraphOrange,
   AdminBlue,

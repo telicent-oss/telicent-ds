@@ -1,8 +1,8 @@
 // pages/Search/MapToggleButton.tsx
-import React from "react";
 import { Box, FormControlLabel, IconButton, Paper } from "@mui/material";
-
 import { List as ListIcon } from "@telicent-oss/mui-icons-material";
+import React from "react";
+
 import SecondaryButton, { SecondaryButtonProps } from "../../../../../components/buttons/Button/SecondaryButton";
 
 export const MapToggleButtonPresentational: React.FC<SecondaryButtonProps> = (props) => {

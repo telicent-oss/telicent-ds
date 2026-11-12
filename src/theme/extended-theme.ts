@@ -4,6 +4,7 @@
 // the TypeScript program emits. Move these into `theme-type.d.ts` and
 // `dist/export.d.ts` gets an import resolving outside `dist`.
 import type { Palette, Theme } from "@mui/material/styles";
+
 import type { ComponentOverrides } from "./createTheme";
 
 export interface ExtendedPalette extends Palette {

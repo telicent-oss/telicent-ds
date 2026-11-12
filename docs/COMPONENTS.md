@@ -3,7 +3,7 @@
 > `@telicent-oss/ds` is Telicent's MUI-based React component library. This file is the complete, self-contained reference: setup, theming, every exported component, and copy-paste recipes. An agent that fetches it has what it needs to build a Telicent app UI without reading the source.
 
 **AGENT INSTRUCTION:** This is your source of truth for UI components. Before writing any custom JSX or Tailwind classes for a visual element, you MUST find the closest match in this document.
-- All components are imported directly from `@telicent-oss/ds`. (e.g., `import { Button, Card } from "@telicent-oss/ds";`)
+- Most components are imported directly from `@telicent-oss/ds` (e.g., `import { Button, Card } from "@telicent-oss/ds";`). Two heavy MUI X integrations are exposed as opt-in sub-paths so apps that don't use them pay nothing: `@telicent-oss/ds/data-grid` for `DataGrid`, `@telicent-oss/ds/date-pickers` for `DatePicker` / `DateTimePicker` / `LocalizationProvider` / `AdapterDayjs`.
 - **Do not** write raw HTML (`<button>`, `<div>` for cards, `<input>`) if a component exists here.
 - **Do not** use Tailwind for colors, borders, or shadows on these components; the theme controls them. Set colour through the theme palette (see Setup & Theming). Use Tailwind primarily for spacing (`gap-X`, `mt-X`) and sizing.
 
@@ -30,11 +30,11 @@ Wrap the app in `UIThemeProvider`. It supplies the MUI theme and `CssBaseline` i
 ```tsx
 import { UIThemeProvider } from "@telicent-oss/ds";
 
-<UIThemeProvider theme="DataNavy" dark={false}>
+<UIThemeProvider theme="DocumentPink" dark={false}>
   <App />
 </UIThemeProvider>
 ```
-- `theme` (required): one of `"DataNavy"`, `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"Blank"`.
+- `theme` (required): one of `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"GeoGreen"`, `"Blank"`.
 - `dark` (optional, default `false`): set it for the dark palette. Dark mode is this prop only — there is no runtime toggle or CSS class.
 
 Read theme colours and tokens in app code with the `useExtendedTheme` hook. This is the sanctioned way to set a colour — use it instead of a Tailwind colour class:
@@ -48,7 +48,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 
 > Auth (`useAuth`, `AuthProvider`, `AuthContext`, `AuthRedirectUri`, `Callback`, and the `authorize-flow` utilities) is exported from `@telicent-oss/ds` and used by most Telicent apps, but it is out of scope for this UI component reference. See `src/utils/authorize-flow` in the source.
 
-> Geospatial map components (`BasicMap`, `BasicMapV2`, `FeatureMap`, `MapCanvas`, `MapCanvasV2`, `LayerSelector`, `MapCanvasProvider`, and the `useMap` hook) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map` in the source.
+> Geospatial map components (`BasicMapV2`, `MapCanvasV2`, `LayerSelectorV2`, and the zoom and toggle controls) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map/v2` in the source. The v1 components were removed in 4.0.0.
 
 ---
 
@@ -94,6 +94,8 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Surfaces/Card -->
 * **`Paper`**: A basic elevated surface background without the strict structure of a Card.
 <!-- stories:Surfaces/Paper -->
+* **`Accordion` / `AccordionSummary` / `AccordionDetails`**: Collapsible surface. DS bakes `elevation={0}`, `disableGutters`, transparent background, hidden top divider, and a default `expandIcon` on `AccordionSummary` — a plain `<Accordion><AccordionSummary>label</AccordionSummary><AccordionDetails>body</AccordionDetails></Accordion>` renders the DS shape with no `sx`. Padding on Summary/Details is deliberately left per-callsite. Prefer `Card` when the group is a distinct data entity with actions.
+<!-- stories:Surfaces/Accordion -->
 * **`PopOver`**: Use for tooltip-style overlays and contextual pop-up content.
 <!-- props:PopOver -->
 <!-- stories:Surfaces/PopOver -->
@@ -103,9 +105,12 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:DraggableFloatingPanel -->
 <!-- stories:Surfaces/FixedPanel -->
 <!-- stories:Surfaces/FloatingPanel/FloatingPanel.DraggablePanel -->
-* **`Drawer`**: Collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+* **`Drawer`**: Controlled side sheet for a task beside the page (filters, details). Pass `open`/`onClose` and `width`; header, scrolling body and footer are children.
 <!-- props:Drawer -->
-<!-- stories:Component Library/Drawer -->
+<!-- stories:Surfaces/Drawer -->
+* **`InsetDrawer`** *(deprecated, use `Drawer`)*: The map inset's collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+<!-- props:InsetDrawer -->
+<!-- stories:Component Library/InsetDrawer -->
 * **`AppBar` / `Toolbar` / `AppChrome`**: Use strictly for top-level application navigation and headers. `AppChrome` is the app shell; pair it with `AppSwitch` for cross-app navigation.
 
   Application header — blessed method. Render the top-level chrome of a standalone app with `AppBar` and fill every chrome slot; do not ship the title-only form. Canonical composition:
@@ -124,7 +129,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Surfaces/AppBar -->
 <!-- stories:Surfaces/Toolbar -->
 
-* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set.
+* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set. Pass `pill` for the Telicent pill treatment (same shape as `ToggleButtonGroup`'s pill); the tablist role, roving tabindex and derived ids are unchanged.
 <!-- props:Tabs -->
 <!-- props:Tab -->
 <!-- props:TabPanel -->
@@ -154,11 +159,21 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- stories:Inputs/Checkbox -->
 * **`Switch`**: On/Off toggle (wraps MUI Switch). `label`, `labelPlacement="end" | "start" | "top" | "bottom"` (default `end`), `checked`/`onChange`.
 <!-- stories:Inputs/Switch -->
-* **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs.
+* **`Radio` / `RadioGroup`**: Mutually-exclusive choice between several options (wraps MUI Radio / RadioGroup). `label` on `Radio` collapses the `FormControlLabel` wrap; `color="primary"` is baked (not overridable). Use `RadioGroup` with `value`/`onChange` to own the selection; use standalone `Radio` only when a `Switch` would be semantically wrong.
+<!-- props:Radio -->
+<!-- stories:Inputs/Radio -->
+<!-- stories:Inputs/RadioGroup -->
+* **`ToggleButtonGroup`**: Use for a small set of mutually exclusive views or modes where both options should stay visible. Pass `pill` for the Telicent pill treatment. Reach for `Tabs` instead when the buttons select a panel.
+<!-- props:ToggleButtonGroup -->
+<!-- stories:Inputs/ToggleButtonGroup -->
+* **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs. Import from the `@telicent-oss/ds/date-pickers` sub-path, which carries the `@mui/x-date-pickers` dependency so apps that don't use date inputs pay nothing for it.
 <!-- props:DatePicker -->
 <!-- props:DateTimePicker -->
 <!-- stories:Inputs/DatePicker -->
 <!-- stories:Inputs/DateTimePicker -->
+* **`LocalizationProvider` / `AdapterDayjs`**: Root-level provider for `DatePicker` / `DateTimePicker`. Mount once at the app root — the dayjs adapter is pre-wired, so a bare `<LocalizationProvider>` is enough. `AdapterDayjs` is re-exported for apps that want to pass it explicitly or use it outside the provider. Imported from `@telicent-oss/ds/date-pickers` alongside the pickers.
+<!-- props:LocalizationProvider -->
+<!-- stories:Inputs/LocalizationProvider -->
 
 ## 4. Data Display & Typography
 *Use these to render text and structured data.*
@@ -173,6 +188,17 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:TreeView -->
 * **`Chip`**: Use for tags, statuses, or small attributes.
 <!-- stories:Data display/Chip -->
+* **`Badge`**: A count or dot on another element. Put the count in the host's accessible name; the badge is hidden from screen readers.
+<!-- props:Badge -->
+<!-- stories:Data display/Badge -->
+* **`EntityList`**: Navigational list of entities where each row opens a detail page — users, groups, clients, service accounts. Uses the ARIA list pattern (`<section>` → `<ul>` → `<a href>`) so screen readers announce "link, View Alice", not the grid-pattern "row 3 of 24, cell 1 of 5" that `DataGrid` would. Required props: `items`, `columns`, `getItemKey`, and one of `ariaLabel` or `ariaLabelledBy` (XOR-required at the type level so the landmark is never unnamed). Set `getItemHref` + `getItemLabel` to make rows navigate; omit `getItemHref` for display-only (permission-gated) views — rows render as inert with no chevron, hover tint, or focus outline. Pass `onItemClick(item, href)` to intercept plain left-clicks for SPA routing — modifier-click (cmd/ctrl/shift/alt) and non-primary mouse buttons always fall through to native anchor behaviour, so cmd-click opens a new tab even in SPAs with zero extra code. Columns are sortable iff `getSortValue` is provided; sort state is encoded in the sort button's accessible name via `visuallyHidden`, no `aria-sort` on a non-grid element. `defaultPageSize` seeds initial state and the user then controls the dropdown — the prop is not reactive. Loading state renders skeleton rows that mirror the column layout; empty state is customisable via `renderEmpty`. For server-paged data pass `loadMore={{ hasMore, isLoading, onLoadMore, totalCount }}` instead of the page-size props (the types forbid both): every loaded item renders, the pager is replaced by a tertiary "Load more" button that also fires automatically as it nears the viewport, a live region announces "Showing X of Y", and columns are not sortable because only the loaded rows could be sorted. Top-level `isLoading` stays the first-load skeleton; `loadMore.isLoading` covers later pages without clearing rows. Reach for `DataGrid` instead when the data is genuinely tabular/analytical — filterable columns, cell editing, column reordering, server-side sort.
+<!-- props:EntityList -->
+<!-- stories:Data display/EntityList -->
+* **`Table` / `TableHead` / `TableBody` / `TableRow` / `TableCell`**: Semantic HTML table family — thin passthroughs to MUI's `Table` primitives; the theme carries the visuals. Use for read-only or lightly-interactive structural data: audit logs, activity streams, resource summaries, user lists inside a card. Row-click patterns via `TableRow` `onClick` + `hover`; otherwise no behaviour baked in. Props: `Table` takes `size="small" | "medium"` (default `medium`), `stickyHeader`, `padding`; `TableRow` takes `hover`, `selected`, `onClick`; `TableCell` takes `align`, `padding`, `variant`, `component` (override the rendered tag when semantics differ from visual position). Reach for `EntityList` instead when each row navigates to a detail page — the ARIA list pattern announces each row as a link, which a table can't. Reach for `DataGrid` when the data is interactive/analytical — filterable columns, cell editing, column reordering, virtualisation, server-side sort.
+<!-- stories:Data display/Table -->
+* **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). Import from the `@telicent-oss/ds/data-grid` sub-path, which carries the `@mui/x-data-grid` dependency so apps that don't use grids pay nothing for it. DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
+<!-- props:DataGrid -->
+<!-- stories:Data display/DataGrid -->
 * **`Divider`**: Use to separate content sections instead of `<hr>`.
 <!-- stories:Data display/Divider -->
 * **`UserProfile` / `UserProfileContent` / `UserStatus`**: Components for rendering user avatars, profile details, and active states. `UserProfileContent` renders the expanded profile detail; `UserStatus` renders the online/status indicator.
@@ -203,6 +229,8 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 <!-- props:ErrorFallbackWrapper -->
 <!-- props:ErrorFallbackText -->
 <!-- stories:Utils/ErrorFallback -->
+* **`appLoader`** (`@telicent-oss/ds/app-loader`, Vite plugin): The loading screen shown before React mounts. Every app uses it instead of a hand-written overlay in `index.html`. Setup is under Recipes → "App loading screen".
+<!-- stories:Feedback/AppLoader -->
 
 ## 6. Icons
 *The DS includes two icon sets. Import them directly from `@telicent-oss/ds`.*
@@ -225,7 +253,7 @@ import { UIThemeProvider } from "@telicent-oss/ds";
 
 export function Root() {
   return (
-    <UIThemeProvider theme="DataNavy" dark={false}>
+    <UIThemeProvider theme="DocumentPink" dark={false}>
       <App />
     </UIThemeProvider>
   );
@@ -311,3 +339,33 @@ import { Card, CardContent, CardActions, Text, Button } from "@telicent-oss/ds";
 4. Did I use `Button` with the right `variant` instead of styling a raw `<button>`?
 5. Are loading states handled by `Skeleton`, `Spinner`, or a `disabled` button?
 6. Did I set colours via the theme palette (`useExtendedTheme`) rather than Tailwind colour classes?
+
+**App loading screen** — the screen every app shows before React mounts. It is a Vite plugin, not a component, because it has to paint from the first byte of HTML.
+
+1. **Add the plugin.** Use the same `theme` as your `UIThemeProvider`. Leave out `modeStorageKey` if the app is dark-only.
+   ```ts
+   // vite.config.ts
+   import { appLoader } from "@telicent-oss/ds/app-loader";
+
+   export default defineConfig({
+     plugins: [react(), appLoader({ theme: "GraphOrange", modeStorageKey: "graph.themeMode" })],
+   });
+   ```
+2. **Dismiss it from the app root.** The loader stays up until `<body>` has the `app-ready` class. **Without this step the loader never goes away.** Add the class once the first real screen can render, meaning auth has resolved and required data has loaded. Stay not-ready on the OAuth callback route, so the loader covers the redirect.
+   ```tsx
+   const isReady = !onCallback && !isAuthLoading && Boolean(user) && !isLoading;
+   useEffect(() => {
+     document.body.classList.toggle("app-ready", isReady);
+   }, [isReady]);
+   ```
+3. **Light mode, for apps with a theme toggle.** Whenever the user switches, store `"light"` or `"dark"` under `modeStorageKey` and set `<html data-theme>`. The loader is dark unless that key holds `"light"`. It never follows the OS setting.
+   ```ts
+   localStorage.setItem("graph.themeMode", dark ? "dark" : "light");
+   document.documentElement.dataset.theme = dark ? "dark" : "light";
+   ```
+4. **Remove the old loader.** Delete any `#initial-overlay` markup, its `<style>` rules, and `html`/`body` background rules from `index.html`. Delete `public/loading-overlay-*.js` too. Also drop any app CSS that pins `body { background-color }`. The loader and `CssBaseline` both paint the palette's `background.default`, so a pin shows as a colour step when the loader fades.
+5. **Check the CSP.** The plugin needs `script-src 'self'`, because the scripts are emitted as same-origin files. It also needs `style-src 'unsafe-inline'`, because its CSS is inlined. Telicent nginx configs already allow both. `vite dev` doesn't send the CSP header, so verify on a deployed build or with docker-compose.
+
+Do not import `@telicent-oss/ds/app-loader` in browser code. It is a Node module for `vite.config` only. Do not render your own full-screen loader during boot. `Spinner` and `Skeleton` are for loading that happens after the app is ready.
+
+Stable selectors for E2E: `#initial-overlay`, `#initial-overlay-logo`, `#initial-overlay-message`.

@@ -1,7 +1,8 @@
 import Feature from "ol/Feature";
-import Polygon from "ol/geom/Polygon";
-import { PolygonFeature } from "../types/polygons";
 import { MultiPolygon } from "ol/geom";
+import Polygon from "ol/geom/Polygon";
+
+import { PolygonFeature } from "../types/polygons";
 import { is3D, is4D } from "./coordinate-guards";
 import { MalformedFeatureError } from "./errors";
 

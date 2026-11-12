@@ -1,8 +1,9 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import React from "react";
+
 import Button from "../../buttons/Button/Button";
+import { type SnackbarType,useSnackbar } from "./Snackbar";
 import SnackbarProvider from "./SnackbarProvider";
-import { useSnackbar, type SnackbarType } from "./Snackbar";
 
 const meta = {
   title: "Feedback/Snackbar",

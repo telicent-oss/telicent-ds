@@ -1,8 +1,9 @@
 import "snapshot-diff";
-import snapshotDiff from "snapshot-diff";
+
 import { createSerializer } from "@emotion/jest";
-import prettyFormat from "pretty-format";
 import { prettyDOM } from "@testing-library/dom";
+import prettyFormat from "pretty-format";
+import snapshotDiff from "snapshot-diff";
 
 export function cleanDiff<T>(before: T, after: T): string {
   const raw = snapshotDiff(before, after, {

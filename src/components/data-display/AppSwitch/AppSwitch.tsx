@@ -1,22 +1,23 @@
-import React from "react";
-import zod from "zod";
-import MUIMenu from "@mui/material/Menu";
-import MUIMenuItem from "@mui/material/MenuItem";
-
-import { Text } from "../Text/Text";
-import IconButton from "../../buttons/Button/IconButton";
-import GridIcon from "../Icons/GridIcon";
-import FlexBox from "../../layout/FlexBox";
-import MUITypography from "@mui/material/Typography";
 import MUIListItemIcon from "@mui/material/ListItemIcon";
 import MUIListItemText from "@mui/material/ListItemText";
+import MUIMenu from "@mui/material/Menu";
+import MUIMenuItem from "@mui/material/MenuItem";
+import MUITypography from "@mui/material/Typography";
+import React from "react";
+import zod from "zod";
+
 import { useExtendedTheme } from "../../../export";
+import IconButton from "../../buttons/Button/IconButton";
+import FlexBox from "../../layout/FlexBox";
+import GridIcon from "../Icons/GridIcon";
+import { Text } from "../Text/Text";
 
 export const AppSwitchLibrarySchema = zod.object({
   id: zod.string(),
   name: zod.string(),
   url: zod.string(),
-  icon: zod.string(),
+  iconDark: zod.string().optional(),
+  iconLight: zod.string().optional(),
 });
 
 export type AppSwitchLibraryType = zod.infer<typeof AppSwitchLibrarySchema>[];
@@ -78,6 +79,8 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
             );
           }
 
+          const iconSrc = theme.palette.mode === "dark" ? app.iconDark : app.iconLight;
+
           return (
             <MUIMenuItem
               key={app.id}
@@ -98,9 +101,11 @@ const AppSwitch: React.FC<{ apps: AppSwitchLibraryType }> = ({ apps }) => {
                 },
               }}
             >
-              <MUIListItemIcon>
-                <img src={app.icon} alt={`${app.name} icon`} css={{ width: 25, height: 25 }} />
-              </MUIListItemIcon>
+              {iconSrc && (
+                <MUIListItemIcon>
+                  <img src={iconSrc} alt={`${app.name} icon`} css={{ width: 25, height: 25 }} />
+                </MUIListItemIcon>
+              )}
               <MUIListItemText>
                 <MUITypography
                   variant="h1"

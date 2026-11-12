@@ -1,10 +1,10 @@
-import React, { HTMLAttributes } from "react";
-import MUIStack from "@mui/material/Stack";
 import MUIBox from "@mui/material/Box";
+import MUIStack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
+import React, { HTMLAttributes } from "react";
 
-import { Text, XIcon } from "../../data-display";
 import { IconButton } from "../../buttons";
+import { Text, XIcon } from "../../data-display";
 import { useFloatingPanelContext } from "../FloatingPanel/useFloatingPanelContext";
 
 interface PanelProps extends HTMLAttributes<HTMLDivElement> {
@@ -57,7 +57,7 @@ const Panel: React.FC<PanelProps> = ({
 
   const visible = !context.panels[targetId]?.minimised && context.panels[targetId]?.visible;
 
-  const backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : theme.palette.grey[300];
+  const backgroundColor = theme.palette.mode === "dark" ? theme.palette.grey[900] : theme.palette.background.paper;
 
   return (
     <MUIBox

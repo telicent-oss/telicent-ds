@@ -1,10 +1,11 @@
 import { createTheme as createMUITheme, ThemeOptions } from "@mui/material/styles";
+
+import { MUI_BREAKPOINTS } from "../tokens";
+import createDarkPalette from "./colors/palette/createDarkPalette";
+import createLightPalette from "./colors/palette/createLightPalette";
 import { UITheme, UIThemeSchema } from "./colors/theme-colors";
 import generateComponentOverrides from "./style-overrides/components";
 import TYPOGRAPHY_STYLE_OVERRIDES from "./style-overrides/typography";
-import createLightPalette from "./colors/palette/createLightPalette";
-import createDarkPalette from "./colors/palette/createDarkPalette";
-import { MUI_BREAKPOINTS } from "../tokens";
 
 export type ComponentOverrides = ReturnType<typeof generateComponentOverrides>;
 

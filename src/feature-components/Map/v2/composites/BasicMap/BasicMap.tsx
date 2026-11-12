@@ -1,40 +1,39 @@
-import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
-import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
-import React, {
-  useRef,
-  useMemo,
-  useEffect,
-  useState,
-  useImperativeHandle,
-  useCallback,
-} from "react";
-
 import { Map } from "ol";
 import Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
-import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
-import { LayerConfig } from "../../types/layers";
-import { markerToOLFeature } from "../../utils/markers";
-import { ensureLayers } from "../../utils/ensureLayers";
-import { partitionFeatures } from "../../utils/partitionFeatures";
-import { OpacitySchema } from "../../types/opacity";
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
 import { parseOrThrowWithInput } from "../../../../../utils/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
-import {
-  MARKER_LAYER_ID,
-  POLYGON_LAYER_ID,
-  PATH_LAYER_ID,
-  pathLayerStyle,
-} from "../../utils/layers";
+import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
+import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
+import { LayerConfig } from "../../types/layers";
+import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
+import { OpacitySchema } from "../../types/opacity";
+import { ensureLayers } from "../../utils/ensureLayers";
 import { findVectorLayerById } from "../../utils/feature";
 import {
-  getFeaturesById,
+  MARKER_LAYER_ID,
+  PATH_LAYER_ID,
+  pathLayerStyle,
+  POLYGON_LAYER_ID,
+} from "../../utils/layers";
+import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
+import { markerToOLFeature } from "../../utils/markers";
+import { partitionFeatures } from "../../utils/partitionFeatures";
+import { pathToOLFeature } from "../../utils/paths";
+import { polygonToOLFeature } from "../../utils/polygons";
+import {
   fitToFeature,
   fitToFeatures,
+  getFeaturesById,
 } from "./interactions/addPanToFeature";
-import { polygonToOLFeature } from "../../utils/polygons";
-import { pathToOLFeature } from "../../utils/paths";
-import { mapLegacyConfigToLayers } from "../../utils/legacy";
-import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
 
 export const BasicMapV2 = React.forwardRef<
   BasicMapV2Handle,
@@ -80,12 +79,7 @@ export const BasicMapV2 = React.forwardRef<
   const showLayerSelector = props.controls?.showLayerSelector ?? true;
 
   const effectiveLayers = useMemo(() => {
-    const baseLayers =
-      Array.isArray(props.layers) && props.layers.length > 0
-        ? props.layers
-        : props.mapStyleOptions && Object.keys(props.mapStyleOptions).length > 0
-        ? mapLegacyConfigToLayers(props.mapStyleOptions)
-        : [];
+    const baseLayers = Array.isArray(props.layers) ? props.layers : [];
 
     const overlayVectorLayers: LayerConfig[] = [
       // Marker layer

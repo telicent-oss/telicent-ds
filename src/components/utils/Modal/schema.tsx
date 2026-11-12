@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { reactElementSchema } from "../../../schema/reactElementsSchema";
 
 const allModalPropsSchema = z.object({

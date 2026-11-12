@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import MUIBox from "@mui/material/Box";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { FlexBox } from "../../layout";
 import { AppSwitch, MapIcon } from "../../data-display";
+import { FlexBox } from "../../layout";
 import { FloatingPanel, FloatingPanelContext } from "./index";
 
 const meta: Meta<typeof FloatingPanel.DraggablePanel> = {
@@ -48,13 +48,15 @@ export const ResizeBaseline: Story = {
       <AppSwitch
         apps={[
           {
-            icon: "./src/assets/icons/graph.svg",
+            iconDark: "./src/assets/icons/graph.svg",
+            iconLight: "./src/assets/icons/graph.svg",
             id: "telicent-graph",
             name: "graph",
             url: "https://graph.io",
           },
           {
-            icon: "./src/assets/icons/search.svg",
+            iconDark: "./src/assets/icons/search.svg",
+            iconLight: "./src/assets/icons/search.svg",
             id: "telicent-search",
             name: "search",
             url: "https://search.io",

@@ -19,27 +19,27 @@ jest.mock("./interactions/addPanToFeature", () => ({
 	fitToFeatures: jest.fn(),
 }));
 
+import { act, render, waitFor } from "@testing-library/react";
 import React from "react";
-import { render, act, waitFor } from "@testing-library/react";
-import { BasicMapV2 } from "./BasicMap";
-import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
+
 import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
-import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
+import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
 import { LayerConfig, OverlayVectorLayerConfig } from "../../types/layers";
+import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
+import { PathFeature } from "../../types/paths";
 import { ensureLayers } from "../../utils/ensureLayers";
-import {
-	getFeaturesById,
-	fitToFeature,
-	fitToFeatures,
-} from "./interactions/addPanToFeature";
-import { mapLegacyConfigToLayers } from "../../utils/legacy";
+import { MalformedFeatureError } from "../../utils/errors";
 import {
 	MARKER_LAYER_ID,
 	PATH_LAYER_ID,
 	pathLayerStyle,
 } from "../../utils/layers";
-import { PathFeature } from "../../types/paths";
-import { MalformedFeatureError } from "../../utils/errors";
+import { BasicMapV2 } from "./BasicMap";
+import {
+	fitToFeature,
+	fitToFeatures,
+	getFeaturesById,
+} from "./interactions/addPanToFeature";
 
 
 const makeProps = (overrides?: Partial<BasicMapProperties>): BasicMapProperties => ({
@@ -79,20 +79,6 @@ describe.skip("BasicMapV2", () => {
 		const props = makeProps({ layers: [darkModeLayer] })
 		render(<BasicMapV2 {...props} />);
 		expect(ensureLayers).toHaveBeenCalled();
-	});
-
-	it("calls mapLegacyConfigToLayers when mapStyleOptions are provided", () => {
-		const mapStyleOption = {
-			vectorStyles: {
-				label: 'default',
-				uri: "http://gohere.com",
-				image: "imagehash",
-			},
-		}
-
-		const props = makeProps({ mapStyleOptions: mapStyleOption })
-		render(<BasicMapV2 {...props} />);
-		expect(mapLegacyConfigToLayers).toHaveBeenCalled();
 	});
 });
 

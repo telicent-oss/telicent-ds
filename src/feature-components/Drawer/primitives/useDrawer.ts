@@ -1,12 +1,13 @@
 import {
-  useState,
+  ForwardedRef,
   useCallback,
-  useRef,
   useEffect,
   useImperativeHandle,
-  ForwardedRef,
+  useRef,
+  useState,
 } from "react";
 
+/** @deprecated Part of the deprecated `InsetDrawer` (ADR-0005). */
 export interface DrawerController {
   openDrawer(): void;
   closeDrawer(): void;
@@ -20,6 +21,7 @@ export interface DrawerController {
  * @param onVisibilityChange
  * @returns
  */
+/** @deprecated Part of the deprecated `InsetDrawer` (ADR-0005). */
 export function useDrawer(args: {
   ref: ForwardedRef<DrawerController>;
   initialOpen: boolean;

@@ -1,7 +1,8 @@
-import Select from "ol/interaction/Select";
-import { click } from "ol/events/condition";
 import { Feature, Map as OlMap } from "ol";
+import { click } from "ol/events/condition";
+import Select from "ol/interaction/Select";
 import type VectorLayer from "ol/layer/Vector";
+
 import { FeatureEvent } from "../../../types/map-types";
 
 interface AddSelectInteractionOptions {

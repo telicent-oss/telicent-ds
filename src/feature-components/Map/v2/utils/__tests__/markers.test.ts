@@ -1,8 +1,9 @@
-import { markerToOLFeature, getAnchorFraction, MarkerAnchor } from "../markers";
 import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
+
 import { getGeneratedOlIcon } from "../../styles/markers";
 import { MarkerFeature } from "../../types/markers";
+import { getAnchorFraction, MarkerAnchor,markerToOLFeature } from "../markers";
 
 jest.mock("../../styles/markers", () => ({
   getGeneratedOlIcon: jest.fn(() => ({ icon: true })),

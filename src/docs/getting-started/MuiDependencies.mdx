@@ -1,0 +1,65 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import versions from "../generated/mui-versions.json";
+
+<Meta title="Docs/Getting started/MUI dependencies" />
+
+# MUI dependencies
+
+The DS is built on top of MUI. This page pins down which MUI (and emotion) versions the current DS release was built and tested against, so you can align your app's install and diagnose any drift.
+
+The table below is generated at build time from `package.json`, so it always matches the current release — no manual updates.
+
+## Versions the DS is built against
+
+<table style={{ width: "100%", borderCollapse: "collapse" }}>
+  <thead>
+    <tr style={{ borderBottom: "1px solid rgba(128,128,128,0.4)", textAlign: "left" }}>
+      <th style={{ padding: "8px 12px" }}>Package</th>
+      <th style={{ padding: "8px 12px" }}>DS range</th>
+      <th style={{ padding: "8px 12px" }}>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    {versions.map(({ pkg, range, purpose }) => (
+      <tr key={pkg} style={{ borderBottom: "1px solid rgba(128,128,128,0.15)" }}>
+        <td style={{ padding: "8px 12px" }}><code>{pkg}</code></td>
+        <td style={{ padding: "8px 12px" }}><code>{range}</code></td>
+        <td style={{ padding: "8px 12px" }}>{purpose}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+## Do I need these in my `package.json`?
+
+**Usually not.** The MUI and emotion packages sit in the DS's own `dependencies` and are also declared as *optional* peer dependencies. That means:
+
+- **Your app doesn't declare MUI** → the package manager installs the version DS depends on. Single instance in the tree.
+- **Your app does declare MUI** (because it uses `@mui/x-data-grid`, `@mui/x-tree-view`, or any lib that has MUI as a peer dep) → the peer semantics kick in, and your app's copy is used by both DS and the transitive consumer. Still a single instance.
+
+The "single instance" guarantee is the whole point. Two MUI copies at different versions in the same tree causes `useTheme()` to return the wrong palette (or nothing), Portals to render in the wrong place, and emotion to duplicate its style cache. Matching the DS's declared range prevents that.
+
+## When do I declare MUI myself?
+
+Add it to your `package.json` whenever your app:
+
+- Imports directly from `@mui/x-data-grid`, `@mui/x-tree-view`, `@mui/x-date-pickers` (beyond what DS wraps), or any other MUI-X package.
+- Uses a third-party library (a MUI-based charting kit, a react-hook-form adapter, an admin scaffold) that lists MUI as a peer dep.
+- Needs to pin MUI at a specific version — for a security patch, a bug fix, or coordination with another package.
+
+In those cases, match the DS's version range. Deviating produces two MUI copies in the tree and re-opens the theme-context and emotion-cache duplication issues.
+
+## Diagnosing drift
+
+When something themes-related breaks in an app and DS components look off, check first:
+
+1. Look at your app's resolved `@mui/material` version — `yarn why @mui/material` or `npm ls @mui/material`.
+2. Compare against the DS range in the table above.
+3. If the versions are compatible but you still see two copies in the tree, add a `resolutions` entry pinning to a single version.
+
+A future `verifyDependencies()` helper (planned) will surface this at boot time in dev mode, so you don't have to remember to check.
+
+## What's next
+
+- **Using MUI directly** — for when the DS doesn't have the component you need yet.
+- **Theming** — light/dark and custom themes *(coming soon)*.

@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Box } from "@mui/material";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import Brand from "./Brand";
 
 const meta: Meta<typeof Brand> = {

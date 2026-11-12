@@ -1,14 +1,13 @@
-import VectorLayer from "ol/layer/Vector";
-import TileLayer from "ol/layer/Tile";
-import LayerGroup from "ol/layer/Group";
+import { FeatureLike } from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
+import LayerGroup from "ol/layer/Group";
+import TileLayer from "ol/layer/Tile";
+import VectorLayer from "ol/layer/Vector";
+import VectorTileLayer from "ol/layer/VectorTile";
+import { XYZ } from "ol/source";
+import VectorTileSource from "ol/source/VectorTile";
 import CircleStyle from "ol/style/Circle";
 import Style from "ol/style/Style";
-import { FeatureLike } from "ol/Feature";
-import { XYZ } from "ol/source";
-import VectorTileLayer from "ol/layer/VectorTile";
-import VectorTileSource from "ol/source/VectorTile";
-
 // Mock ol-mapbox-style apply function
 import apply from "ol-mapbox-style";
 
@@ -17,15 +16,15 @@ import {
   BaseVectorTileLayerConfig,
 } from "../../types/layers";
 import {
-  getOverlayVectorLayer,
+  attachMeta,
+  attachTileLoadErrorLogging,
+  getBaseRasterLayer,
   getBaseVectorTileLayer,
   getDefaultOverlayStyle,
-  pathLayerStyle,
-  getBaseRasterLayer,
-  attachMeta,
   getMeta,
+  getOverlayVectorLayer,
   MARKER_LAYER_ID,
-  attachTileLoadErrorLogging,
+  pathLayerStyle,
 } from "../layers";
 
 describe("layers util", () => {

@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import Autocomplete, { Option } from "./Autocomplete";
+
 import { figmaDesign } from "../../../../.storybook/figmaDesign";
+import Autocomplete, { Option } from "./Autocomplete";
 
 const meta: Meta<typeof Autocomplete> = {
   title: "Inputs/Autocomplete",

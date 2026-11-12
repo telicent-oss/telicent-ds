@@ -24,8 +24,6 @@
  *
  */
 
-/* eslint-disable func-style */
-
 const BASE32_CODES = "0123456789bcdefghjkmnpqrstuvwxyz";
 const BASE32_CODES_DICT: any = {};
 for (let i = 0; i < BASE32_CODES.length; i++) {

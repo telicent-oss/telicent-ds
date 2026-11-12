@@ -1,6 +1,8 @@
 import "@testing-library/jest-dom";
-import React from "react";
+
 import { render, screen } from "@testing-library/react";
+import React from "react";
+
 import MiniSearchBox from "./MiniSearchBox";
 
 it("disables input and search button when disabled is true", () => {
