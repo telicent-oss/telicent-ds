@@ -1,9 +1,10 @@
 jest.mock("@storybook/react-vite", () => ({}));
 
 import { render, screen, waitFor } from "@testing-library/react";
+
 import {
-  MalformedFeatureReportedToOnError,
   LayerSetupFailureReportsToOnError,
+  MalformedFeatureReportedToOnError,
 } from "./BasicMap.stories";
 
 type Renderable = { render?: (...args: never[]) => React.ReactElement };

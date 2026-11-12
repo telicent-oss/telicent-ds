@@ -1,9 +1,10 @@
-import { pathToOLFeature } from "../paths";
 import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
 import { MultiLineString } from "ol/geom";
+import LineString from "ol/geom/LineString";
 import { Style } from "ol/style";
+
 import { PathFeature } from "../../types/paths";
+import { pathToOLFeature } from "../paths";
 
 // The style mocks expose constructor options as `.props`; RegularShape uses `.options`.
 type MockStyle = Style & {

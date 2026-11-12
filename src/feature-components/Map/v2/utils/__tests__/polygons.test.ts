@@ -1,8 +1,9 @@
-import { polygonToOLFeature } from "../polygons";
 import Feature from "ol/Feature";
-import Polygon from "ol/geom/Polygon";
 import { MultiPolygon } from "ol/geom";
+import Polygon from "ol/geom/Polygon";
+
 import { PolygonFeature } from "../../types/polygons";
+import { polygonToOLFeature } from "../polygons";
 
 describe("polygonToOLFeature", () => {
   it("creates a Feature with Polygon geometry", () => {

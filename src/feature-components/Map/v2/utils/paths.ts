@@ -1,8 +1,9 @@
 import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
 import { MultiLineString, Point } from "ol/geom";
+import LineString from "ol/geom/LineString";
 import { Fill, Icon, Stroke, Style } from "ol/style";
 import RegularShape from "ol/style/RegularShape";
+
 import { DirectionMarker, PathFeature, PathStyle } from "../types/paths";
 import { is2D, is3D } from "./coordinate-guards";
 import { MalformedFeatureError } from "./errors";

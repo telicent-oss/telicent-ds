@@ -1,4 +1,5 @@
 import Feature from "ol/Feature";
+
 import { MalformedFeatureError } from "./errors";
 
 export interface PartitionedFeatures {

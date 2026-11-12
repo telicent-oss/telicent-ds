@@ -1,6 +1,7 @@
 import Feature from "ol/Feature";
-import { partitionFeatures } from "../partitionFeatures";
+
 import { MalformedFeatureError } from "../errors";
+import { partitionFeatures } from "../partitionFeatures";
 
 const toFeature = (item: { id: string; bad?: boolean }) => {
   if (item.bad) throw new MalformedFeatureError(item.id, "bad coordinates");
