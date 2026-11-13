@@ -1,4 +1,5 @@
 import "ol/ol.css";
+import "./MapCanvas.css";
 
 import Collection from "ol/Collection";
 import Feature from "ol/Feature";
