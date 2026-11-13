@@ -1,6 +1,7 @@
 import BaseLayer from "ol/layer/Base";
 import { StyleLike } from "ol/style/Style";
 
+import { Opacity } from "./opacity";
 import { OverlayFeatureConfig } from "./overlays";
 
 export type BaseVectorTileLayerConfig = {
@@ -14,6 +15,7 @@ export type BaseVectorTileLayerConfig = {
   previewImage: string;
   projection?: string;
   label: string;
+  opacity?: Opacity;
 };
 
 export type BaseRasterLayerConfig = {
@@ -25,6 +27,7 @@ export type BaseRasterLayerConfig = {
   visible?: boolean;
   previewImage: string;
   label: string;
+  opacity?: Opacity;
 };
 
 export type OverlayVectorLayerConfig = {

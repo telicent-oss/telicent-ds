@@ -2,10 +2,12 @@ import type * as GeoJSON from "geojson";
 import { Map } from "ol";
 import { Coordinate } from "ol/coordinate";
 import BaseLayer from "ol/layer/Base";
+import { StyleLike } from "ol/style/Style";
 
 import { LayerConfig } from "./layers";
 import { MarkerFeature } from "./markers";
 import { OverlayFeatureConfig } from "./overlays";
+import { PathFeature } from "./paths";
 import { PolygonFeature } from "./polygons";
 
 export type StyleConfig =
@@ -47,6 +49,13 @@ export type BasicMapV2Handle = {
   zoomOut: () => void;
   panToFeature: (id: string) => void;
   panToFeatures: (ids: string[]) => void;
+  /**
+   * Sets one layer's opacity. `opacity` must be 0 to 1; anything else throws.
+   * Overlay layer ids are `MARKER_LAYER_ID`, `POLYGON_LAYER_ID` and `PATH_LAYER_ID`.
+   * An unknown id, or a call before `onLayersReady(true)`, is reported to `onError`.
+   * A layer rebuild resets the opacity. Set `opacity` in `layers` to keep it.
+   */
+  setLayerOpacity: (layerId: string, opacity: number) => void;
   layers: BaseLayer[];
   // zoomInAsync: () => Promise<void>;
   // zoomOutAsync: () => Promise<void>;
@@ -63,13 +72,61 @@ export interface MapControlsConfig {
 export interface BasicMapProperties {
   zoom: number;
   center: number[];
+  /**
+   * Base layers, drawn under markers, polygons and paths.
+   * Omit to draw no basemap.
+   * A layer `opacity` must be 0 to 1; anything else throws.
+   */
   layers?: LayerConfig[];
   controls?: Partial<MapControlsConfig>;
+  /**
+   * Keep ids unique across `markers`, `polygons` and `paths`.
+   * `panToFeature` and `onFeatureClick` cannot tell a reused id apart.
+   */
   markers: MarkerFeature[];
   polygons: PolygonFeature[];
+  /**
+   * Route lines. Each `id` becomes the OpenLayers feature id.
+   */
+  paths?: PathFeature[];
+  /**
+   * Style for every path. Overrides each path's own `style`, direction arrows included.
+   * Omit it to draw each path with its own `style`, or the default style.
+   * Changing it does not rebuild layers or move the viewport.
+   * A function is called for each path in view each time the layer redraws its paths.
+   * Create `Style` objects outside it.
+   * A path's own `style` is available as `feature.get("originalStyle")`, `undefined` when not set:
+   *
+   * ```tsx
+   * const pathStyle = (feature: FeatureLike) =>
+   *   feature.getId() === selected
+   *     ? SELECTED
+   *     : (feature.get("originalStyle") as Style | Style[] | undefined) ??
+   *       UNSELECTED;
+   * ```
+   */
+  pathStyle?: StyleLike;
   onFeatureClick?: OnFeatureClick;
   onFeatureHover?: OnFeatureHover;
+  /**
+   * `true` when the layers exist. Called again after each rebuild.
+   * `false` on unmount, and when layer setup fails (`onError` also fires).
+   * Markers, polygons and paths are added after this call.
+   */
   onLayersReady?: (isReady: boolean) => void;
+  /**
+   * Called on an error the map survives. Content already drawn stays.
+   * Without a handler the error goes to `console.error`. Reported cases:
+   *
+   * - layer setup failed
+   * - marker icons failed to load, or a marker could not be converted; that update is skipped
+   * - `setLayerOpacity` called with an unknown id, or before `onLayersReady(true)`
+   * - a polygon or path could not be converted: a `MalformedFeatureError` with `featureId`;
+   *   that feature is skipped and the rest draw
+   *
+   * A malformed feature is reported once per mount for each distinct message.
+   */
+  onError?: (error: Error) => void;
 }
 
 export interface LayerSelectorProps {

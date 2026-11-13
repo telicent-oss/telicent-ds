@@ -1,6 +1,8 @@
 import { Map } from "ol";
+import Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
 import React, {
+  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -8,15 +10,24 @@ import React, {
   useState,
 } from "react";
 
+import { parseOrThrowWithInput } from "../../../../../utils/utils-lib/src/parseOrThrowWithInput/parseOrThrowWithInput";
 import { LayerSelectorV2 } from "../../primitives/LayerSelector/LayerSelector";
 import { MapCanvasV2 } from "../../primitives/MapCanvas/MapCanvas";
 import { LayerConfig } from "../../types/layers";
 import { BasicMapProperties, BasicMapV2Handle } from "../../types/map-types";
+import { OpacitySchema } from "../../types/opacity";
 import { ensureLayers } from "../../utils/ensureLayers";
 import { findVectorLayerById } from "../../utils/feature";
-import { MARKER_LAYER_ID, POLYGON_LAYER_ID } from "../../utils/layers";
+import {
+  MARKER_LAYER_ID,
+  PATH_LAYER_ID,
+  pathLayerStyle,
+  POLYGON_LAYER_ID,
+} from "../../utils/layers";
 import { ensureMarkerIconsLoaded } from "../../utils/markerIconLoader";
 import { markerToOLFeature } from "../../utils/markers";
+import { partitionFeatures } from "../../utils/partitionFeatures";
+import { pathToOLFeature } from "../../utils/paths";
 import { polygonToOLFeature } from "../../utils/polygons";
 import {
   fitToFeature,
@@ -30,6 +41,40 @@ export const BasicMapV2 = React.forwardRef<
 >((props, ref) => {
   const [layers, setLayers] = useState<BaseLayer[]>([]);
   const mapInstance = useRef<Map | null>(null);
+
+  const onErrorRef = useRef(props.onError);
+  onErrorRef.current = props.onError;
+  const onLayersReadyRef = useRef(props.onLayersReady);
+  onLayersReadyRef.current = props.onLayersReady;
+
+  const reportError = useCallback((context: string, cause: unknown) => {
+    const error = cause instanceof Error ? cause : new Error(String(cause));
+    if (onErrorRef.current) {
+      onErrorRef.current(error);
+      return;
+    }
+    console.error(`BasicMapV2: ${context}`, error);
+  }, []);
+
+  const { features: polygonFeatures, malformed: malformedPolygons } = useMemo(
+    () => partitionFeatures(props.polygons, polygonToOLFeature),
+    [props.polygons]
+  );
+
+  const { features: pathFeatures, malformed: malformedPaths } = useMemo(
+    () => partitionFeatures(props.paths ?? [], pathToOLFeature),
+    [props.paths]
+  );
+
+  const reportedMalformed = useRef(new Set<string>());
+  useEffect(() => {
+    for (const error of [...malformedPolygons, ...malformedPaths]) {
+      const key = `${error.featureId}\u0000${error.message}`;
+      if (reportedMalformed.current.has(key)) continue;
+      reportedMalformed.current.add(key);
+      reportError(`malformed feature "${error.featureId}"`, error);
+    }
+  }, [malformedPolygons, malformedPaths, reportError]);
 
   const showLayerSelector = props.controls?.showLayerSelector ?? true;
 
@@ -51,8 +96,22 @@ export const BasicMapV2 = React.forwardRef<
         data: [],
         visible: true,
       },
+      {
+        kind: "overlay-vector",
+        id: PATH_LAYER_ID,
+        data: [],
+        visible: true,
+        style: pathLayerStyle,
+      },
     ];
-    return [...baseLayers, ...overlayVectorLayers];
+    const allLayers = [...baseLayers, ...overlayVectorLayers];
+    // A bad opacity is a coding mistake, so it throws instead of clamping.
+    allLayers.forEach((layer) => {
+      if ("opacity" in layer && layer.opacity !== undefined) {
+        parseOrThrowWithInput(OpacitySchema, layer.opacity);
+      }
+    });
+    return allLayers;
   }, [props.layers]);
 
   useEffect(() => {
@@ -65,7 +124,8 @@ export const BasicMapV2 = React.forwardRef<
           setLayers(layers);
         }
       } catch (e) {
-        console.error("ensureLayers failed", e);
+        reportError("could not set up layers", e);
+        if (!cancelled) onLayersReadyRef.current?.(false);
         return;
       }
     })();
@@ -73,52 +133,72 @@ export const BasicMapV2 = React.forwardRef<
     return () => {
       cancelled = true;
     };
-  }, [effectiveLayers]);
+  }, [effectiveLayers, reportError]);
 
   useEffect(() => {
     if (layers.length < 1) return;
-    props?.onLayersReady?.(true);
+    onLayersReadyRef.current?.(true);
   }, [layers]);
 
   useEffect(() => {
+    const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
+    if (!pathLayer) return;
+    pathLayer.setStyle(props.pathStyle ?? pathLayerStyle);
+  }, [layers, props.pathStyle]);
+
+  useEffect(() => {
     return () => {
-      props.onLayersReady?.(false);
+      onLayersReadyRef.current?.(false);
     };
   }, []);
 
   useEffect(() => {
     if (!mapInstance.current) return;
     const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
+    const polygonLayer = findVectorLayerById(layers, POLYGON_LAYER_ID);
+    const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
+
     if (!markerLayer) {
       console.debug("No marker layer found");
       return;
     }
 
-    const source = markerLayer.getSource();
-    if (!source) {
-      console.debug("Could not find layer source");
+    const markerSource = markerLayer.getSource();
+    const polygonSource = polygonLayer?.getSource();
+    const pathSource = pathLayer?.getSource();
+
+    if (!markerSource) {
+      console.debug("Could not find marker layer source");
       return;
     }
 
-    /* source.clear(); */
-    /* const markerFeatures = props.markers.map(markerToOLFeature); */
-    /* source.addFeatures(markerFeatures); */
     let cancelled = false;
 
     (async () => {
-      await ensureMarkerIconsLoaded(props.markers);
+      let markerFeatures: Feature[];
+      try {
+        // On failure, the features already drawn stay.
+        await ensureMarkerIconsLoaded(props.markers);
+        if (cancelled) return;
+        markerFeatures = props.markers.map(markerToOLFeature);
+      } catch (error) {
+        reportError("could not load marker icons", error);
+        return;
+      }
 
-      if (cancelled) return;
+      markerSource.clear();
+      polygonSource?.clear();
+      pathSource?.clear();
 
-      source.clear();
+      markerSource.addFeatures(markerFeatures);
+      polygonSource?.addFeatures(polygonFeatures);
+      pathSource?.addFeatures(pathFeatures);
 
-      const markerFeatures = props.markers.map(markerToOLFeature);
-      source.addFeatures(markerFeatures);
-
-      const polygonFeatures = props.polygons.map(polygonToOLFeature);
-      source.addFeatures(polygonFeatures);
-
-      const features = [...markerFeatures, ...polygonFeatures];
+      const features = [
+        ...markerFeatures,
+        ...polygonFeatures,
+        ...pathFeatures,
+      ];
 
       if (features.length === 1) {
         fitToFeature(mapInstance.current!, features[0]);
@@ -130,7 +210,7 @@ export const BasicMapV2 = React.forwardRef<
     return () => {
       cancelled = true;
     };
-  }, [props.markers, props.polygons, layers]);
+  }, [props.markers, polygonFeatures, pathFeatures, layers, reportError]);
 
   useEffect(() => {
     const map = mapInstance.current;
@@ -138,11 +218,13 @@ export const BasicMapV2 = React.forwardRef<
 
     const markerLayer = findVectorLayerById(layers, MARKER_LAYER_ID);
     const polygonLayer = findVectorLayerById(layers, POLYGON_LAYER_ID);
+    const pathLayer = findVectorLayerById(layers, PATH_LAYER_ID);
 
     const markerFeatures = markerLayer?.getSource()?.getFeatures() ?? [];
     const polygonFeatures = polygonLayer?.getSource()?.getFeatures() ?? [];
+    const pathFeatures = pathLayer?.getSource()?.getFeatures() ?? [];
 
-    const features = [...markerFeatures, ...polygonFeatures];
+    const features = [...markerFeatures, ...polygonFeatures, ...pathFeatures];
     if (!features.length) return;
 
     if (features.length === 1) {
@@ -150,7 +232,7 @@ export const BasicMapV2 = React.forwardRef<
     } else {
       fitToFeatures(map, features);
     }
-  }, [props.markers, props.polygons, layers]);
+  }, [props.markers, polygonFeatures, pathFeatures, layers]);
 
   useImperativeHandle(
     ref,
@@ -193,7 +275,31 @@ export const BasicMapV2 = React.forwardRef<
 
         const features = getFeaturesById(layers, ids);
         if (features.length === 0) return;
-        fitToFeature(mapInstance.current, features[0]);
+        fitToFeatures(mapInstance.current, features);
+      },
+      setLayerOpacity: (layerId: string, opacity: number) => {
+        const validated = parseOrThrowWithInput(OpacitySchema, opacity);
+        if (layers.length < 1) {
+          reportError(
+            "setLayerOpacity called before the layers resolved",
+            new Error(
+              `BasicMapV2: setLayerOpacity("${layerId}") called while layers is empty. ` +
+                `Wait for onLayersReady(true).`
+            )
+          );
+          return;
+        }
+        const layer = layers.find((l) => l.get("id") === layerId);
+        if (!layer) {
+          reportError(
+            `no layer with id "${layerId}"`,
+            new Error(
+              `BasicMapV2: setLayerOpacity called with unknown layer id "${layerId}".`
+            )
+          );
+          return;
+        }
+        layer.setOpacity(validated);
       },
       layers,
     }),
