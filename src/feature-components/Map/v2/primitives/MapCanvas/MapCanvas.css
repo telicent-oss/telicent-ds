@@ -1,0 +1,5 @@
+/* ol.css floats the credit 0.5em off the bottom; sit it on the edge. */
+.map-container .ol-attribution {
+  bottom: 0;
+  border-radius: 4px 4px 0 0;
+}
