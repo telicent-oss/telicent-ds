@@ -1,9 +1,11 @@
 # Telicent DS Component Manifest
 
+**VERSION:** This file documents @telicent-oss/ds unreleased, after v6.2.0. If that is not the version installed in the project you are working on, do not build against it: read `node_modules/@telicent-oss/ds/dist/llms.txt` instead, which ships with the package and always matches what is installed.
+
 > `@telicent-oss/ds` is Telicent's MUI-based React component library. This file is the complete, self-contained reference: setup, theming, every exported component, and copy-paste recipes. An agent that fetches it has what it needs to build a Telicent app UI without reading the source.
 
 **AGENT INSTRUCTION:** This is your source of truth for UI components. Before writing any custom JSX or Tailwind classes for a visual element, you MUST find the closest match in this document.
-- All components are imported directly from `@telicent-oss/ds`. (e.g., `import { Button, Card } from "@telicent-oss/ds";`)
+- Most components are imported directly from `@telicent-oss/ds` (e.g., `import { Button, Card } from "@telicent-oss/ds";`). Two heavy MUI X integrations are exposed as opt-in sub-paths so apps that don't use them pay nothing: `@telicent-oss/ds/data-grid` for `DataGrid`, `@telicent-oss/ds/date-pickers` for `DatePicker` / `DateTimePicker` / `LocalizationProvider` / `AdapterDayjs`.
 - **Do not** write raw HTML (`<button>`, `<div>` for cards, `<input>`) if a component exists here.
 - **Do not** use Tailwind for colors, borders, or shadows on these components; the theme controls them. Set colour through the theme palette (see Setup & Theming). Use Tailwind primarily for spacing (`gap-X`, `mt-X`) and sizing.
 
@@ -30,11 +32,11 @@ Wrap the app in `UIThemeProvider`. It supplies the MUI theme and `CssBaseline` i
 ```tsx
 import { UIThemeProvider } from "@telicent-oss/ds";
 
-<UIThemeProvider theme="DataNavy" dark={false}>
+<UIThemeProvider theme="DocumentPink" dark={false}>
   <App />
 </UIThemeProvider>
 ```
-- `theme` (required): one of `"DataNavy"`, `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"Blank"`.
+- `theme` (required): one of `"DocumentPink"`, `"GraphOrange"`, `"AdminBlue"`, `"GeoGreen"`, `"Blank"`.
 - `dark` (optional, default `false`): set it for the dark palette. Dark mode is this prop only — there is no runtime toggle or CSS class.
 
 Read theme colours and tokens in app code with the `useExtendedTheme` hook. This is the sanctioned way to set a colour — use it instead of a Tailwind colour class:
@@ -48,7 +50,7 @@ Palette keys include `primary`, `tertiary`, `text`, and `background`.
 
 > Auth (`useAuth`, `AuthProvider`, `AuthContext`, `AuthRedirectUri`, `Callback`, and the `authorize-flow` utilities) is exported from `@telicent-oss/ds` and used by most Telicent apps, but it is out of scope for this UI component reference. See `src/utils/authorize-flow` in the source.
 
-> Geospatial map components (`BasicMap`, `BasicMapV2`, `FeatureMap`, `MapCanvas`, `MapCanvasV2`, `LayerSelector`, `MapCanvasProvider`, and the `useMap` hook) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map` in the source.
+> Geospatial map components (`BasicMapV2`, `MapCanvasV2`, `LayerSelectorV2`, and the zoom and toggle controls) are exported from `@telicent-oss/ds` and used by telicent-search and telicent-graph, but they are out of scope for this general UI component reference. See `src/feature-components/Map/v2` in the source. The v1 components were removed in 4.0.0.
 
 ---
 
@@ -107,7 +109,7 @@ TooltipToggleButton:
 ```yaml
 CopyToClipboard:
   ariaLabel: {type: 'string', required: false}
-  style: {type: 'React.CSSProperties & String', required: false}
+  style: {type: 'React.CSSProperties & string', required: false}
   successMsg: {type: 'string', required: false}
   testFailure: {type: 'boolean', required: false}
   text: {type: 'string', required: true}
@@ -186,6 +188,19 @@ Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/com
 
 Demonstrated states:
 - Demo
+* **`Accordion` / `AccordionSummary` / `AccordionDetails`**: Collapsible surface. DS bakes `elevation={0}`, `disableGutters`, transparent background, hidden top divider, and a default `expandIcon` on `AccordionSummary` — a plain `<Accordion><AccordionSummary>label</AccordionSummary><AccordionDetails>body</AccordionDetails></Accordion>` renders the DS shape with no `sx`. Padding on Summary/Details is deliberately left per-callsite. Prefer `Card` when the group is a distinct data entity with actions.
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/surfaces-accordion--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/surfaces/Accordion/Accordion.stories.tsx
+
+Demonstrated states:
+- Default
+- StartsExpanded
+- CustomExpandIcon
+- FlushLeftPadding
+- AdjacentAccordions
+- WithGutter
+- OverriddenStyles
+- Disabled
 * **`PopOver`**: Use for tooltip-style overlays and contextual pop-up content.
 ```yaml
 PopOver:
@@ -204,7 +219,10 @@ Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/su
 Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/surfaces/PopOver/PopOver.stories.tsx
 
 Demonstrated states:
-- Demo — open=false
+- Default — open=false
+- WithWidth — open=false, width=320
+- AsUserMenu — open=false
+- AnchorPosition — open=false
 * **`FixedPanel` / `FloatingPanel`**: Use for sidebars, property panels, or tool windows.
   * `FloatingPanel` exposes three sub-components: `FloatingPanel.DraggablePanel`, `FloatingPanel.Provider`, and `FloatingPanel.ToggleButton`.
   * `DraggableFloatingPanel` is the same component as `FloatingPanel.DraggablePanel`, exported directly. Use the named export for a standalone draggable panel; use the `FloatingPanel.*` namespace when you also need `.Provider` / `.ToggleButton` (also exported flat as `FloatingPanelProvider` and `FloatingPanelToggleButton`).
@@ -230,9 +248,22 @@ Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/com
 
 Demonstrated states:
 - ResizeBaseline — bounds="parent", title="Resize baseline", targetId="map", iconBeforeTitle=<jsx>
-* **`Drawer`**: Collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+* **`Drawer`**: Controlled side sheet for a task beside the page (filters, details). Pass `open`/`onClose` and `width`; header, scrolling body and footer are children.
 ```yaml
 Drawer:
+  width: {type: 'string | number', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/surfaces-drawer--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/surfaces/Drawer/Drawer.stories.tsx
+
+Demonstrated states:
+- Default — open=false
+- Width — open=false, width=420
+- CappedAtViewport — open=false, width=1600
+- HeaderBodyFooter — open=false, width=420
+* **`InsetDrawer`** *(deprecated, use `Drawer`)*: The map inset's collapsible side panel with a built-in toggle tab. `children` is the panel content; `drawerWidth` sets its open width; `initialOpen` sets the starting state; `onVisibilityChange(open)` and `onToggle` report toggles. Style the surface with `PaperProps` / `PaperSx`.
+```yaml
+InsetDrawer:
   children: {type: 'React.ReactNode', required: true}
   drawerWidth: {type: 'number', required: false}
   id: {type: 'string', required: false}
@@ -242,8 +273,8 @@ Drawer:
   PaperProps: {type: 'Partial<PaperProps<React.ElementType<any, keyof React.JSX.IntrinsicElements>>>', required: false}
   PaperSx: {type: 'SxProps<Theme>', required: false}
 ```
-Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/component-library-drawer--docs
-Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/feature-components/Drawer/composites/Drawer.stories.tsx
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/component-library-insetdrawer--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/feature-components/Drawer/composites/InsetDrawer.stories.tsx
 
 Demonstrated states:
 - Default — children=<jsx>
@@ -292,12 +323,13 @@ Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/com
 Demonstrated states:
 - Example
 
-* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set.
+* **`Tabs` / `Tab` / `TabPanel`**: Switch between views of the same region. Give `Tabs` an `idPrefix` and an accessible name (the type requires one of `aria-label` / `aria-labelledby`), give each `Tab` an explicit `value`, and repeat the same `idPrefix` on each `TabPanel` — the DS derives every `id`, `aria-controls`, and `aria-labelledby` from those two things, so there is no `a11yProps` helper to write. Panels unmount their children when hidden; pass `keepMounted` to preserve form state across switches. The divider under the tab bar comes from the theme — do not wrap `Tabs` in a bordered `Box`. Padding inside a panel is yours to set. Pass `pill` for the Telicent pill treatment (same shape as `ToggleButtonGroup`'s pill); the tablist role, roving tabindex and derived ids are unchanged.
 ```yaml
 Tabs:
   'aria-label': {type: 'string', required: false}
   'aria-labelledby': {type: 'string', required: false}
   idPrefix: {type: 'string', required: true}
+  pill: {type: 'boolean', required: false}
 ```
 ```yaml
 Tab:
@@ -320,6 +352,7 @@ Demonstrated states:
 - Scrollable
 - WithIcons
 - KeepMounted
+- Pill
 
 ## 3. Inputs & Forms
 *Use these instead of standard `<input>`, `<select>`, or `<textarea>` tags. Ensure accessibility labels are passed.*
@@ -496,18 +529,53 @@ Demonstrated states:
 - Required — checked=false, id="switch-required", label="Required setting", required=true
 - NoLabel — checked=true, id="switch-no-label"
 - ExampleWithOnChange — disabled=false
-* **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs.
+* **`Radio` / `RadioGroup`**: Mutually-exclusive choice between several options (wraps MUI Radio / RadioGroup). `label` on `Radio` collapses the `FormControlLabel` wrap; `color="primary"` is baked (not overridable). Use `RadioGroup` with `value`/`onChange` to own the selection; use standalone `Radio` only when a `Switch` would be semantically wrong.
+```yaml
+Radio:
+  label: {type: 'React.ReactNode', required: false}
+  labelPlacement: {type: '"bottom" | "top" | "end" | "start"', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/inputs-radio--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/inputs/Radio/Radio.stories.tsx
+
+Demonstrated states:
+- Default — id="radio-default", value="option-a"
+- WithLabel — id="radio-with-label", value="option-a", label="Full backup", defaultChecked=true
+- Disabled — id="radio-disabled", value="option-a", label="Not available", disabled=true
+- InsideRadioGroup
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/inputs-radiogroup--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/inputs/RadioGroup/RadioGroup.stories.tsx
+
+Demonstrated states:
+- Column
+- Row
+* **`ToggleButtonGroup`**: Use for a small set of mutually exclusive views or modes where both options should stay visible. Pass `pill` for the Telicent pill treatment. Reach for `Tabs` instead when the buttons select a panel.
+```yaml
+ToggleButtonGroup:
+  'aria-label': {type: 'string', required: false}
+  'aria-labelledby': {type: 'string', required: false}
+  pill: {type: 'boolean', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/inputs-togglebuttongroup--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/inputs/ToggleButtonGroup/ToggleButtonGroup.stories.tsx
+
+Demonstrated states:
+- Pill
+- Default
+- WithLabelledBy
+- DeselectHazard
+* **`DatePicker` / `DateTimePicker`**: Use for any temporal inputs. Import from the `@telicent-oss/ds/date-pickers` sub-path, which carries the `@mui/x-date-pickers` dependency so apps that don't use date inputs pay nothing for it.
 ```yaml
 DatePicker:
   error: {type: 'boolean', required: false}
-  errorMsg: {type: 'String', required: false}
+  errorMsg: {type: 'string', required: false}
   fullWidth: {type: 'boolean', required: false}
   helperText: {type: 'string', required: false}
   label: {type: 'ReactNode & string', required: false}
-  maxDate: {type: 'PickerValidDate', required: false}
-  minDate: {type: 'PickerValidDate', required: false}
+  maxDate: {type: 'Dayjs', required: false}
+  minDate: {type: 'Dayjs', required: false}
   textFieldProps: {type: 'TextFieldProps', required: false}
-  value: {type: 'Dayjs | null', required: true}
+  value: {type: 'Dayjs', required: true}
 ```
 ```yaml
 DateTimePicker:
@@ -515,8 +583,8 @@ DateTimePicker:
   errorMsg: {type: 'string', required: false}
   fullWidth: {type: 'boolean', required: false}
   helperText: {type: 'string', required: false}
-  maxDateTime: {type: 'PickerValidDate', required: false}
-  minDateTime: {type: 'PickerValidDate', required: false}
+  maxDateTime: {type: 'Dayjs', required: false}
+  minDateTime: {type: 'Dayjs', required: false}
   textFieldProps: {type: 'TextFieldProps', required: false}
 ```
 Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/inputs-datepicker--docs
@@ -533,6 +601,16 @@ Demonstrated states:
 - Default — label="Pick date & time"
 - ErrorState — label="Required field", error=true, errorMsg="Something went wrong", helperText="Date and time are required"
 - WithDateRestrictions — label="Restricted time range", helperText="Only available within the next 48 hours"
+* **`LocalizationProvider` / `AdapterDayjs`**: Root-level provider for `DatePicker` / `DateTimePicker`. Mount once at the app root — the dayjs adapter is pre-wired, so a bare `<LocalizationProvider>` is enough. `AdapterDayjs` is re-exported for apps that want to pass it explicitly or use it outside the provider. Imported from `@telicent-oss/ds/date-pickers` alongside the pickers.
+```yaml
+LocalizationProvider:
+  dateAdapter: {type: 'new (...args: any) => MuiPickersAdapter<unknown>', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/inputs-localizationprovider--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/inputs/LocalizationProvider/LocalizationProvider.stories.tsx
+
+Demonstrated states:
+- WrappingADatePicker
 
 ## 4. Data Display & Typography
 *Use these to render text and structured data.*
@@ -592,6 +670,72 @@ Demonstrated states:
 - Outlined — variant="outlined"
 - ClickableChips
 - DeletableChips
+* **`Badge`**: A count or dot on another element. Put the count in the host's accessible name; the badge is hidden from screen readers.
+```yaml
+Badge: {} # no own props; all inherited from the underlying MUI/DOM element
+```
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/data-display-badge--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/data-display/Badge/Badge.stories.tsx
+
+Demonstrated states:
+- OnIconButton — badgeContent=2
+- ZeroHidden — badgeContent=0
+- Max — badgeContent=120, max=99
+- Dot — variant="dot", badgeContent=1
+- AnnouncedBadge — badgeContent=3, slotProps={…}
+* **`EntityList`**: Navigational list of entities where each row opens a detail page — users, groups, clients, service accounts. Uses the ARIA list pattern (`<section>` → `<ul>` → `<a href>`) so screen readers announce "link, View Alice", not the grid-pattern "row 3 of 24, cell 1 of 5" that `DataGrid` would. Required props: `items`, `columns`, `getItemKey`, and one of `ariaLabel` or `ariaLabelledBy` (XOR-required at the type level so the landmark is never unnamed). Set `getItemHref` + `getItemLabel` to make rows navigate; omit `getItemHref` for display-only (permission-gated) views — rows render as inert with no chevron, hover tint, or focus outline. Pass `onItemClick(item, href)` to intercept plain left-clicks for SPA routing — modifier-click (cmd/ctrl/shift/alt) and non-primary mouse buttons always fall through to native anchor behaviour, so cmd-click opens a new tab even in SPAs with zero extra code. Columns are sortable iff `getSortValue` is provided; sort state is encoded in the sort button's accessible name via `visuallyHidden`, no `aria-sort` on a non-grid element. `defaultPageSize` seeds initial state and the user then controls the dropdown — the prop is not reactive. Loading state renders skeleton rows that mirror the column layout; empty state is customisable via `renderEmpty`. For server-paged data pass `loadMore={{ hasMore, isLoading, onLoadMore, totalCount }}` instead of the page-size props (the types forbid both): every loaded item renders, the pager is replaced by a tertiary "Load more" button that also fires automatically as it nears the viewport, a live region announces "Showing X of Y", and columns are not sortable because only the loaded rows could be sorted. Top-level `isLoading` stays the first-load skeleton; `loadMore.isLoading` covers later pages without clearing rows. Reach for `DataGrid` instead when the data is genuinely tabular/analytical — filterable columns, cell editing, column reordering, server-side sort.
+```yaml
+EntityList:
+  ariaLabel: {type: 'string', required: false}
+  ariaLabelledBy: {type: 'string', required: false}
+  columns: {type: 'EntityListColumn<T>[]', required: true}
+  defaultPageSize: {type: 'number', required: false}
+  getItemHref: {type: '(item: T) => string', required: false}
+  getItemKey: {type: '(item: T) => string | number', required: true}
+  getItemLabel: {type: '(item: T) => string', required: false}
+  initialSort: {type: '{ key: string; direction: SortDirection; }', required: false}
+  isLoading: {type: 'boolean', required: false}
+  items: {type: 'T[]', required: true}
+  loadMore: {type: 'EntityListLoadMore', required: false}
+  onItemClick: {type: '(item: T, href: string) => void', required: false}
+  pageSizeOptions: {type: 'number[]', required: false}
+  renderEmpty: {type: '() => ReactNode', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/data-display-entitylist--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/data-display/EntityList/EntityList.stories.tsx
+
+Demonstrated states:
+- Interactive — items=USERS, columns=COLUMNS, ariaLabel="Users", initialSort={…}
+- DisplayOnly — items=USERS, columns=COLUMNS, ariaLabel="Users (read-only)", initialSort={…}
+- WithSPAInterception — items=USERS, columns=COLUMNS, ariaLabel="Users", initialSort={…}
+- Loading — items=[…], columns=COLUMNS, ariaLabel="Users", isLoading=true
+- Empty — items=[…], columns=COLUMNS, ariaLabel="Users"
+- LoadMore
+* **`Table` / `TableHead` / `TableBody` / `TableRow` / `TableCell`**: Semantic HTML table family — thin passthroughs to MUI's `Table` primitives; the theme carries the visuals. Use for read-only or lightly-interactive structural data: audit logs, activity streams, resource summaries, user lists inside a card. Row-click patterns via `TableRow` `onClick` + `hover`; otherwise no behaviour baked in. Props: `Table` takes `size="small" | "medium"` (default `medium`), `stickyHeader`, `padding`; `TableRow` takes `hover`, `selected`, `onClick`; `TableCell` takes `align`, `padding`, `variant`, `component` (override the rendered tag when semantics differ from visual position). Reach for `EntityList` instead when each row navigates to a detail page — the ARIA list pattern announces each row as a link, which a table can't. Reach for `DataGrid` when the data is interactive/analytical — filterable columns, cell editing, column reordering, virtualisation, server-side sort.
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/data-display-table--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/data-display/Table/Table.stories.tsx
+
+Demonstrated states:
+- Basic
+- SmallSize — size="small"
+- StickyHeader — stickyHeader=true
+- EmptyState
+- LongContent
+* **`DataGrid`**: Tabular data with pagination, sorting, and themed styling (wraps MUI X `DataGrid`). Import from the `@telicent-oss/ds/data-grid` sub-path, which carries the `@mui/x-data-grid` dependency so apps that don't use grids pay nothing for it. DS bakes `autoHeight`, `disableColumnResize`, `disableRowSelectionOnClick`, `disableColumnMenu`, `pagination`, `pageSizeOptions=[10, 25, 50]`, and initial `pageSize=10`. Row hover is suppressed by default; when `onRowClick` is set, the DS auto-opts `cursor: "pointer"` + `palette.action.hover` back in so interactive grids read as interactive with zero `sx` at the callsite. A nested `ThemeProvider` scopes the palette-driven grid overrides so Paper / MenuItem / IconButton / TablePagination styling inside the grid doesn't leak globally. DS re-exports `GridColDef`, `GridRenderCellParams`, `GridRowParams`, `GridSortModel`. `initialSort` is a DS convenience prop that maps to `initialState.sorting.sortModel`.
+```yaml
+DataGrid:
+  initialSort: {type: 'GridSortModel', required: false}
+```
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/data-display-datagrid--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/data-display/DataGrid/DataGrid.stories.tsx
+
+Demonstrated states:
+- Default — columns=basicColumns
+- WithInitialSort — columns=basicColumns, initialSort=[…]
+- WithCustomCellRenderer
+- ClickableRows
+- Loading — columns=basicColumns, loading=true
+- Empty — rows=[…], columns=basicColumns
 * **`Divider`**: Use to separate content sections instead of `<hr>`.
 Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/data-display-divider--docs
 Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/data-display/Divider/Divider.stories.tsx
@@ -603,7 +747,9 @@ Demonstrated states:
 * **`UserProfile` / `UserProfileContent` / `UserStatus`**: Components for rendering user avatars, profile details, and active states. `UserProfileContent` renders the expanded profile detail; `UserStatus` renders the online/status indicator.
 ```yaml
 UserProfile:
+  ariaLabel: {type: 'string', required: false}
   fullName: {type: 'string', required: false}
+  id: {type: 'string', required: false}
 ```
 ```yaml
 UserStatus:
@@ -613,7 +759,10 @@ Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/da
 Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/data-display/UserProfile/UserProfile.stories.tsx
 
 Demonstrated states:
-- Basic — fullName="Satoru Gojo"
+- Default — fullName="Satoru Gojo", children=DropdownChildren
+- IconOnly — children=DropdownChildren
+- WithId — id="user-profile", fullName="Satoru Gojo", children=DropdownChildren
+- LongName — fullName="Alexander Montgomery-Fitzpatrick III, Senior Principal Engineer", children=DropdownChildren
 * **`AppSwitch`**: Specific component for switching between different applications.
 Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/data-display-app-switch--docs
 Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/components/data-display/AppSwitch/AppSwitch.stories.tsx
@@ -707,6 +856,15 @@ Demonstrated states:
 - CustomMessage — name="DataWidget", message="Unable to load user data."
 - CustomNameAndStyle — name="ChartComponent", sx={…}
 - ExplicitHeight — name="ProfileCard", height=150
+* **`appLoader`** (`@telicent-oss/ds/app-loader`, Vite plugin): The loading screen shown before React mounts. Every app uses it instead of a hand-written overlay in `index.html`. Setup is under Recipes → "App loading screen".
+Live: https://telicent-oss.github.io/telicent-ds/lab-10/map-paths/?path=/docs/feedback-apploader--docs
+Usage: https://github.com/telicent-oss/telicent-ds/blob/lab-10/map-paths/src/app-loader/AppLoader.stories.tsx
+Default args: theme="GraphOrange", mode="dark", message=DEFAULT_MESSAGE
+
+Demonstrated states:
+- Dark
+- Light — mode="light"
+- LoggingIn — message=CALLBACK_MESSAGE
 
 ## 6. Icons
 *The DS includes two icon sets. Import them directly from `@telicent-oss/ds`.*
@@ -737,7 +895,7 @@ import { UIThemeProvider } from "@telicent-oss/ds";
 
 export function Root() {
   return (
-    <UIThemeProvider theme="DataNavy" dark={false}>
+    <UIThemeProvider theme="DocumentPink" dark={false}>
       <App />
     </UIThemeProvider>
   );
@@ -824,6 +982,36 @@ import { Card, CardContent, CardActions, Text, Button } from "@telicent-oss/ds";
 5. Are loading states handled by `Skeleton`, `Spinner`, or a `disabled` button?
 6. Did I set colours via the theme palette (`useExtendedTheme`) rather than Tailwind colour classes?
 
+**App loading screen** — the screen every app shows before React mounts. It is a Vite plugin, not a component, because it has to paint from the first byte of HTML.
+
+1. **Add the plugin.** Use the same `theme` as your `UIThemeProvider`. Leave out `modeStorageKey` if the app is dark-only.
+   ```ts
+   // vite.config.ts
+   import { appLoader } from "@telicent-oss/ds/app-loader";
+
+   export default defineConfig({
+     plugins: [react(), appLoader({ theme: "GraphOrange", modeStorageKey: "graph.themeMode" })],
+   });
+   ```
+2. **Dismiss it from the app root.** The loader stays up until `<body>` has the `app-ready` class. **Without this step the loader never goes away.** Add the class once the first real screen can render, meaning auth has resolved and required data has loaded. Stay not-ready on the OAuth callback route, so the loader covers the redirect.
+   ```tsx
+   const isReady = !onCallback && !isAuthLoading && Boolean(user) && !isLoading;
+   useEffect(() => {
+     document.body.classList.toggle("app-ready", isReady);
+   }, [isReady]);
+   ```
+3. **Light mode, for apps with a theme toggle.** Whenever the user switches, store `"light"` or `"dark"` under `modeStorageKey` and set `<html data-theme>`. The loader is dark unless that key holds `"light"`. It never follows the OS setting.
+   ```ts
+   localStorage.setItem("graph.themeMode", dark ? "dark" : "light");
+   document.documentElement.dataset.theme = dark ? "dark" : "light";
+   ```
+4. **Remove the old loader.** Delete any `#initial-overlay` markup, its `<style>` rules, and `html`/`body` background rules from `index.html`. Delete `public/loading-overlay-*.js` too. Also drop any app CSS that pins `body { background-color }`. The loader and `CssBaseline` both paint the palette's `background.default`, so a pin shows as a colour step when the loader fades.
+5. **Check the CSP.** The plugin needs `script-src 'self'`, because the scripts are emitted as same-origin files. It also needs `style-src 'unsafe-inline'`, because its CSS is inlined. Telicent nginx configs already allow both. `vite dev` doesn't send the CSP header, so verify on a deployed build or with docker-compose.
+
+Do not import `@telicent-oss/ds/app-loader` in browser code. It is a Node module for `vite.config` only. Do not render your own full-screen loader during boot. `Spinner` and `Skeleton` are for loading that happens after the app is ready.
+
+Stable selectors for E2E: `#initial-overlay`, `#initial-overlay-logo`, `#initial-overlay-message`.
+
 ---
 
 ## Other exports
@@ -845,6 +1033,13 @@ AppInfoRow:
   value: {type: 'React.ReactNode', required: true}
 ```
 
+* `AppSettings`:
+```yaml
+AppSettings:
+  ariaLabel: {type: 'string', required: false}
+  id: {type: 'string', required: false}
+```
+
 * `ConfirmDialog`:
 ```yaml
 ConfirmDialog:
@@ -864,9 +1059,45 @@ ConfirmDialog:
   variant: {type: 'ConfirmDialogVariant', required: false}
 ```
 
+* `LabeledSwitch`:
+```yaml
+LabeledSwitch:
+  checked: {type: 'boolean', required: false}
+  disabled: {type: 'boolean', required: false}
+  error: {type: 'boolean', required: false}
+  helperText: {type: 'string', required: false}
+  inputProps: {type: 'React.InputHTMLAttributes<HTMLInputElement>', required: false}
+  onChange: {type: '(checked: boolean) => void', required: true}
+  ref: {type: 'React.Ref<HTMLButtonElement>', required: false}
+  subtext: {type: 'string', required: false}
+  text: {type: 'string', required: true}
+```
+
 * `SnackbarProvider`:
 ```yaml
 SnackbarProvider: {} # no own props; all inherited from the underlying MUI/DOM element
+```
+
+* `ThemeSwitch`:
+```yaml
+ThemeSwitch:
+  checked: {type: 'boolean', required: true}
+  className: {type: 'string', required: false}
+  disabled: {type: 'boolean', required: false}
+  label: {type: 'string', required: false}
+  labelId: {type: 'string', required: false}
+  onChange: {type: '(checked: boolean) => void', required: true}
+```
+
+* `ThemeSwitchRow`:
+```yaml
+ThemeSwitchRow:
+  checked: {type: 'boolean', required: true}
+  className: {type: 'string', required: false}
+  disabled: {type: 'boolean', required: false}
+  hint: {type: 'string', required: false}
+  label: {type: 'string', required: false}
+  onChange: {type: '(checked: boolean) => void', required: true}
 ```
 
 ---
@@ -878,4 +1109,4 @@ SnackbarProvider: {} # no own props; all inherited from the underlying MUI/DOM e
 - Live examples (Storybook): https://telicent-oss.github.io/telicent-ds/
 - Source and issues: https://github.com/telicent-oss/telicent-ds
 
-This reference documents @telicent-oss/ds v4.0.0.
+This reference documents @telicent-oss/ds unreleased, after v6.2.0.
