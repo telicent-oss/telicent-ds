@@ -95,7 +95,7 @@ describe("layers util", () => {
       });
     });
 
-    it("passes the attribution to the XYZ source and keeps it expanded", () => {
+    it("passes the attribution to the XYZ source", () => {
       const layer = getBaseRasterLayer({
         id: "osm",
         kind: "base-raster",
@@ -107,20 +107,7 @@ describe("layers util", () => {
 
       expect(layer.getSource()).toMatchObject({
         attributions: "© OpenStreetMap contributors",
-        attributionsCollapsible: false,
       });
-    });
-
-    it("leaves the attribution collapsible when none is configured", () => {
-      const layer = getBaseRasterLayer({
-        id: "osm",
-        kind: "base-raster",
-        url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-        label: "OpenStreetMap",
-        previewImage: "osm.png",
-      }) as TileLayer<XYZ>;
-
-      expect(layer.getSource()).toMatchObject({ attributionsCollapsible: true });
     });
 
     it("creates a mapbox/maptiler vector tile layer via apply", async () => {

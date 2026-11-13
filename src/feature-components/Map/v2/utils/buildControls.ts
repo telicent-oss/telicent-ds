@@ -12,6 +12,8 @@ const createDefaultControls = () =>
     zoom: false,
     rotate: false,
     attribution: true,
+    // Credits start open (OSM licence); users can still collapse them.
+    attributionOptions: { collapsed: false },
   });
 
 export const buildControls = (

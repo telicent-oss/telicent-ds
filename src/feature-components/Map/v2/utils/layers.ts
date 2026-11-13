@@ -179,8 +179,6 @@ export const getBaseRasterLayer = (layerConfig: BaseRasterLayerConfig) => {
     source: new XYZ({
       url: layerConfig.url,
       attributions: layerConfig.attribution,
-      // As OL's own OSM source does: a configured credit stays expanded.
-      attributionsCollapsible: !layerConfig.attribution,
     }),
   });
 
