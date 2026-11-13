@@ -20,7 +20,7 @@ export type BaseRasterLayerConfig = {
   id: string;
   kind: "base-raster";
   provider?: "osm" | "xyz" | "wmts";
-  attribution?: string; // TODO: Possibly overwritten?
+  attribution?: string;
   url?: string;
   visible?: boolean;
   previewImage: string;
