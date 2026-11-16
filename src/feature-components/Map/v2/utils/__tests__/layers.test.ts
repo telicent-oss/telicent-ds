@@ -95,6 +95,21 @@ describe("layers util", () => {
       });
     });
 
+    it("passes the attribution to the XYZ source", () => {
+      const layer = getBaseRasterLayer({
+        id: "osm",
+        kind: "base-raster",
+        url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        label: "OpenStreetMap",
+        previewImage: "osm.png",
+        attribution: "© OpenStreetMap contributors",
+      }) as TileLayer<XYZ>;
+
+      expect(layer.getSource()).toMatchObject({
+        attributions: "© OpenStreetMap contributors",
+      });
+    });
+
     it("creates a mapbox/maptiler vector tile layer via apply", async () => {
       const config = {
         id: "vector-1",
