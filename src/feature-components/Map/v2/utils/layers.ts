@@ -196,6 +196,7 @@ export const getBaseRasterLayer = (layerConfig: BaseRasterLayerConfig) => {
     visible: layerConfig.visible ?? true,
     source: new XYZ({
       url: layerConfig.url,
+      attributions: layerConfig.attribution,
     }),
   });
 

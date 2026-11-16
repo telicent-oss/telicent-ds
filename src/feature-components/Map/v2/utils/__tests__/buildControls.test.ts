@@ -1,5 +1,7 @@
 // jest.mock("ol/control");
 
+import { defaults } from "ol/control";
+
 import { buildControls } from "../buildControls";
 
 describe("buildControls", () => {
@@ -21,5 +23,13 @@ describe("buildControls", () => {
     expect(push).toHaveBeenCalledTimes(2);
     expect(push).toHaveBeenCalledWith({ element: null });
     expect(push).toHaveBeenLastCalledWith({ element: null });
+  });
+
+  test("starts the attribution control expanded", () => {
+    buildControls();
+
+    expect(defaults).toHaveBeenCalledWith(
+      expect.objectContaining({ attributionOptions: { collapsed: false } })
+    );
   });
 });
