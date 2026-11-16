@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.2.1](https://github.com/telicent-oss/telicent-ds/compare/v6.2.0...v6.2.1) (2026-11-16)
+
+
+### Bug Fixes
+
+* **map:** show raster layer attribution and start map credits expanded ([#603](https://github.com/telicent-oss/telicent-ds/issues/603)) ([9010aa9](https://github.com/telicent-oss/telicent-ds/commit/9010aa9f7bae27b36c05dedfe698ead83a1c0df3))
+
 ## [6.2.0](https://github.com/telicent-oss/telicent-ds/compare/v6.1.1...v6.2.0) (2026-11-06)
 
 
