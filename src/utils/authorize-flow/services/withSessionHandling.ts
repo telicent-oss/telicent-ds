@@ -46,6 +46,16 @@ const formatPayload = (headers: AxiosRequestHeaders, data: unknown) => {
 
 export { formatPayload };
 
+// Error bodies are often plain text (e.g. SPARQL parse errors). Fall
+// back to the raw text so the real status survives instead of a 500.
+const parseBody = (text: string): unknown => {
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+};
 
 export function withSessionHandling(
   instance: AxiosInstance,
@@ -84,9 +94,8 @@ export function withSessionHandling(
               sendOnce()
                 .then((retryResponse: Response) => {
                   return retryResponse.text().then((retryText: string) => {
-                    const retryData = retryText ? JSON.parse(retryText) : null;
                     resolve({
-                      data: retryData,
+                      data: parseBody(retryText),
                       status: retryResponse.status,
                       statusText: retryResponse.statusText,
                       headers: Object.fromEntries(
@@ -110,7 +119,7 @@ export function withSessionHandling(
         }
 
         const responseText = await response.text();
-        const data = responseText ? JSON.parse(responseText) : null;
+        const data = parseBody(responseText);
 
         if (response.status >= 400 && response.status !== 401) {
           return Promise.reject({
