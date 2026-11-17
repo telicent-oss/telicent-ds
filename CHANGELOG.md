@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.2.2](https://github.com/telicent-oss/telicent-ds/compare/v6.2.1...v6.2.2) (2026-11-17)
+
+
+### Bug Fixes
+
+* keep status and text body for non-JSON responses in withSessionHandling ([#605](https://github.com/telicent-oss/telicent-ds/issues/605)) ([3f6d9c1](https://github.com/telicent-oss/telicent-ds/commit/3f6d9c1815acc639ab940983f132b543ae18aaa4))
+
 ## [6.2.1](https://github.com/telicent-oss/telicent-ds/compare/v6.2.0...v6.2.1) (2026-11-16)
 
 
