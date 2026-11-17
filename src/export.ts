@@ -31,6 +31,7 @@ export * from "./feature-components/Map/v2/types";
 export * from "./feature-components/Map/v2/utils";
 
 // Candidate Packages
+export * from "./security-label-fields-package";
 export * from "./utils/authorize-flow/exports";
 export * from "./utils/preferred-label-lib";
 
