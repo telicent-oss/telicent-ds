@@ -151,12 +151,14 @@ export function withSessionHandling(
           typeof error.message === "string"
             ? error.message
             : `Unknown error ${error}`;
-        // No response means the request never completed (offline, CORS,
-        // DNS). Match axios and omit `response` rather than inventing a 500.
         return Promise.reject({
           message,
           config,
           request: {},
+          response: {
+            status: 500,
+            data: { error: message },
+          },
         });
       }
     };
