@@ -5,6 +5,7 @@ export default class MockBaseLayer {
   private meta: any;
   private visible: boolean = true;
   private zIndex: number = 0;
+  private opacity: number = 1;
   private source: any;
 
   constructor(options?: any) {
@@ -31,6 +32,12 @@ export default class MockBaseLayer {
   }
   getVisible() {
     return this.visible;
+  }
+  setOpacity(opacity: number) {
+    this.opacity = opacity;
+  }
+  getOpacity() {
+    return this.opacity;
   }
   setDeclutter() {}
   getSource() {

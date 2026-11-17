@@ -36,6 +36,10 @@ class MockFeature {
     this.id = id;
   }
 
+  getId() {
+    return this.id;
+  }
+
   // noop event API to satisfy Feature typing
   on() {}
   once() {}
