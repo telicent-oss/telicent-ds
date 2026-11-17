@@ -26,9 +26,13 @@ const { __fire } = jest.requireMock("../broadcastChannelService") as {
 
 const flushMicrotasks = () => new Promise((resolve) => setTimeout(resolve, 0));
 
-const adapterFor = (...responses: Response[]) => {
+const adapterFor = (...responses: (Response | Error)[]) => {
   const authClient = {
-    makeAuthenticatedRequest: jest.fn(async () => responses.shift()),
+    makeAuthenticatedRequest: jest.fn(async () => {
+      const next = responses.shift();
+      if (next instanceof Error) throw next;
+      return next;
+    }),
   };
   const instance = axios.create();
   withSessionHandling(
@@ -85,6 +89,13 @@ describe("withSessionHandling response bodies", () => {
   it("returns null for an empty body", async () => {
     const send = adapterFor(new Response(null, { status: 204 }));
     await expect(send()).resolves.toMatchObject({ status: 204, data: null });
+  });
+
+  it("rejects network failures without a made-up response", async () => {
+    const send = adapterFor(new TypeError("Failed to fetch"));
+    const error = await send().catch((e: unknown) => e);
+    expect(error).toMatchObject({ message: "Failed to fetch" });
+    expect(error).not.toHaveProperty("response");
   });
 
   it("keeps a text body on the retry after re-auth", async () => {
