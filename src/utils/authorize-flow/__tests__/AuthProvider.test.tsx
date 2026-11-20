@@ -90,6 +90,33 @@ describe("Auth Library Tests", () => {
     })
   });
 
+  test("keeps the app hidden while redirecting to login, so it can't send requests without a login", async () => {
+    mockAuthClient.isAuthenticated.mockResolvedValueOnce(false);
+    render(
+      <AuthProvider apiUrl="http://changeme.com" config={mockConfig} queryClient={new QueryClient()}>
+        <div>App content</div>
+      </AuthProvider>
+    );
+
+    await waitFor(() => expect(mockAuthClient.login).toHaveBeenCalledTimes(1));
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 50));
+    });
+
+    expect(screen.queryByText("App content")).toBeNull();
+  });
+
+  test("shows the app once the login check passes", async () => {
+    mockAuthClient.isAuthenticated.mockResolvedValueOnce(true);
+    render(
+      <AuthProvider apiUrl="http://changeme.com" config={mockConfig} queryClient={new QueryClient()}>
+        <div>App content</div>
+      </AuthProvider>
+    );
+
+    expect(await screen.findByText("App content")).toBeInTheDocument();
+  });
+
   test("useAuth hook returns context values", () => {
     const { result } = renderHook(() => useAuth(), { wrapper });
 
