@@ -18,6 +18,19 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
+// The access token lives only in memory, so a full page load after login would
+// drop it and send the user straight back to the auth server. Change the URL in
+// place and let the router pick it up from popstate instead.
+const navigateWithoutReload = (url: URL) => {
+  if (url.origin !== window.location.origin) {
+    window.location.replace(url);
+    return;
+  }
+  // Keep the router's own history state (index keys) so it treats this as the same entry
+  window.history.replaceState(window.history.state, "", url);
+  window.dispatchEvent(new PopStateEvent("popstate", { state: window.history.state }));
+};
+
 const runAsync = (asyncFn: () => Promise<void>, setLoading: (b: boolean) => void) => {
   let mounted = true;
 
@@ -66,9 +79,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
       setUser(profile);
       setError(null);
       endLogin();
+      // The app may still be hidden from a redirect that never left the page
+      setInitialised();
       broadcastAuthEvent(AuthEvent.AUTHENTICATED);
       const isPopupFlow = !!window.opener;
-      if (!isPopupFlow && redirect) window.location.replace(redirect);
+      if (!isPopupFlow && redirect) navigateWithoutReload(new URL(redirect));
     };
 
     const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError, {
@@ -79,6 +94,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
     const cleanupSync = registerAuthSync(queryClient);
 
     const cleanupCheck = runAsync(async () => {
+      // Set once the page is on its way to the login page. The app must stay
+      // hidden: anything it renders would fire requests with no login, and
+      // each 401 broadcasts "unauthorized" to every open tab.
+      let leavingForLogin = false;
       try {
         const isStandardCallback = matchCurrentUri(client.config.redirectUri);
         const isPopupCallback = matchCurrentUri(client.config.popupRedirectUri);
@@ -105,6 +124,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
                 throw err; // outer catch surfaces the error via setError
               }
             }
+            // Either this run started the redirect, or another run already has
+            leavingForLogin = true;
             return;
           }
           setUser(client.getUserInfo());
@@ -114,7 +135,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
         console.error("[AuthProvider] Auth check failed", err);
         setError(err instanceof Error ? err : new Error(String(err)));
       } finally {
-        setInitialised();
+        if (!leavingForLogin) setInitialised();
       }
     }, setLoading);
 
