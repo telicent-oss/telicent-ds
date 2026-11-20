@@ -59,10 +59,10 @@ export const setupOAuthEventListeners = (
 
       const { redirect, url } = extractRedirectFromState(new URL(callbackUrl));
 
-      const callbackResult = await OAuth2Client.handleCallback(
+      await OAuth2Client.handleCallback(
         new URL(url).search
       );
-      console.log("Callback processed successfully:", callbackResult);
+      console.log("Callback processed successfully");
       onAuthSuccess?.(redirect);
     } catch (error) {
       console.error("Callback processing failed:", error);
