@@ -18,6 +18,19 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
+// The access token lives only in memory, so a full page load after login would
+// drop it and send the user straight back to the auth server. Change the URL in
+// place and let the router pick it up from popstate instead.
+const navigateWithoutReload = (url: URL) => {
+  if (url.origin !== window.location.origin) {
+    window.location.replace(url);
+    return;
+  }
+  // Keep the router's own history state (index keys) so it treats this as the same entry
+  window.history.replaceState(window.history.state, "", url);
+  window.dispatchEvent(new PopStateEvent("popstate", { state: window.history.state }));
+};
+
 const runAsync = (asyncFn: () => Promise<void>, setLoading: (b: boolean) => void) => {
   let mounted = true;
 
@@ -68,7 +81,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ apiUrl, config, quer
       endLogin();
       broadcastAuthEvent(AuthEvent.AUTHENTICATED);
       const isPopupFlow = !!window.opener;
-      if (!isPopupFlow && redirect) window.location.replace(redirect);
+      if (!isPopupFlow && redirect) navigateWithoutReload(new URL(redirect));
     };
 
     const cleanupAuth = setupOAuthEventListeners(client, onSuccess, onError, {
